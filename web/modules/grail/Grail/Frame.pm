@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,13 +27,6 @@ sub register_tags {
   $pxt->register_tag("grail-early-canvas" => \&canvas_handler, -101);
   $pxt->register_tag("grail-canvas-template" => \&canvas_template_handler, 100);
   $pxt->register_tag("grail-canvas-replacement" => \&canvas_replacement_handler, 50);
-}
-
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-
-  $pxt->register_callback('grail:canvas_trap_handler' => \&canvas_trap_handler);
 }
 
 sub canvas_handler {
@@ -82,15 +75,6 @@ sub canvas_template_handler {
   }
 
   return $pxt->include($file);
-}
-
-sub canvas_trap_handler {
-  my $pxt = shift;
-
-  $pxt->pnotes($_, $pxt->param($_))
-    foreach qw/grail_canvas_handler grail_canvas_formvars/;
-
-  $pxt->form_builder_variables(qw/grail_canvas_handler grail_canvas_formvars/);
 }
 
 1;

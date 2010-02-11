@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,7 @@ import select
 import signal
 import tempfile
 import base64
-from popen2 import MAXFD
+from subprocess import MAXFD
 
 
 # this is ugly, hopefully it will be natively supported in up2date

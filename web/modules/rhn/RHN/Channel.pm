@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,36 +34,6 @@ sub lookup {
     warn "deprecated use of unparameterized $class->lookup from (" . join(', ', caller) . ")\n";
     return $class->SUPER::lookup(-id => $first_arg);
   }
-}
-
-sub lookup_channel {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
-}
-
-sub user_subscribable_bases_for_system {
-  my $class = shift;
-  my $system = shift;
-  my $user = shift;
-
-  my $ds = new RHN::DataSource::Channel(-mode => 'base_channels_owned_by_org');
-  my $channels = $ds->execute_query(-org_id => $user->org_id);
-  my @ret = @$channels;
-
-  my $default_base = $system->default_base_channel;
-  if (defined $default_base) {
-    my $channel = RHN::Channel->lookup(-id => $default_base);
-    unshift @ret, { map { uc $_ => $channel->$_() } qw/id name label/ };
-  }
-
-  # filter out the channels a user doesn't have access to...
-  @ret = grep { $user->verify_channel_subscribe($_->{ID}) } @ret;
-  @ret = grep { $system->verify_channel_arch_compat($_->{ID}) } @ret;
-
-  return @ret;
 }
 
 1;

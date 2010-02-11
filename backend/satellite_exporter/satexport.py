@@ -1,5 +1,6 @@
 #!/usr/bin/python
-# Copyright (C) 2008 Red Hat, Inc.
+#
+# Copyright (c) 2008-2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,14 +17,14 @@
 
 import time
 import xmlrpclib
-from mod_python import apache
+from server import apache
 
 from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags
 from common.rhnTranslate import _
 from server import rhnSQL, rhnImport
-from satellite_exporter.exporter.dumper import ClosedConnectionError
-from satellite_exporter import constants
+from satellite_tools.disk_dumper.dumper import ClosedConnectionError
+from satellite_tools import constants
 
 class BaseApacheServer:
     def __init__(self):

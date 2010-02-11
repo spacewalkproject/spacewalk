@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,11 +40,6 @@ my %monitoring_features = map { $_ => 1 }
 my %nonlinux_features = map { $_ => 1 }
   qw/ftr_nonlinux_support/;
 
-# all features are the unique features in other FOO_features arrays
-my %feature_universe = (%updates_features, %management_features,
-			%provisioning_features, %nonlinux_features,
-			%monitoring_features);
-
 my %entitlement_feature_map =
   ( none => { },
     sw_mgr_entitled => { map { $_ => 1 } (keys %updates_features) },
@@ -61,89 +56,6 @@ my %entitlement_feature_map =
 					    keys %provisioning_features,
 					    keys %nonlinux_features) },
   );
-
-my %excluded_features = (nonlinux_entitled => { map { $_ => 1 }
-						qw/ftr_errata_updates ftr_proxy_capable ftr_sat_capable ftr_reboot
-						   ftr_kickstart ftr_delta_action/ });
-
-my %grant_map =
-  ( none => [  ],
-    sw_mgr_entitled => [ 'updates' ],
-    enterprise_entitled => [ 'updates', 'management', 'monitoring' ],
-    provisioning_entitled => [ 'updates', 'management', 'provisioning', 'monitoring' ],
-    monitoring_entitled => [ 'monitoring' ],
-    nonlinux_entitled => [ 'updates', 'management', 'provisioning', 'nonlinux' ]
-  );
-my %valid_services = map { $_ => 1 } qw/updates management provisioning monitoring nonlinux/;
-
-sub entitlement_grants_service { # Need to refactor Tokens to remove this entirely
-  my $class = shift;
-  my $entitlement = shift;
-  my $desired_service = shift;
-
-  return 0 unless defined $desired_service and defined $entitlement;
-
-  croak "Invalid entitlement type '$entitlement'" unless exists $grant_map{$entitlement};
-  croak "Invalid service level '$desired_service'" unless exists $valid_services{$desired_service};
-
-  return 1 if grep { $_ eq $desired_service } @{$grant_map{$entitlement}};
-
-  return 0;
-}
-
-# given an org and a default entitlement, return the
-# selectbox-suitable choice array
-sub org_entitlement_choices {
-  my $class = shift;
-  my $org = shift;
-  my $current_ent = shift;
-
-  my @ret;
-  if ($org->has_entitlement('sw_mgr_enterprise')) {
-    push @ret, [ 'None', 'none' ];
-    push @ret, [ $org->basic_slot_name, 'sw_mgr_entitled' ]
-      if not PXT::Config->get("satellite");
-    push @ret, [ $org->enterprise_slot_name, 'enterprise_entitled' ];
-    push @ret, [ $org->provisioning_slot_name, 'provisioning_entitled' ]
-      if $org->has_entitlement('rhn_provisioning');
-    push @ret, [ $org->virtualization_slot_name, 'virtualization_host' ]
-      if $org->has_entitlement('virtualization_host');
-    push @ret, [ $org->virtualization_platform_slot_name, 'virtualization_host_platform' ]
-      if $org->has_entitlement('virtualization_host_platform');
-    push @ret, [ $org->nonlinux_slot_name, 'monitoring_entitled' ]
-      if $org->has_entitlement('rhn_monitor');
-    push @ret, [ $org->nonlinux_slot_name, 'nonlinux_entitled' ]
-      if $org->has_entitlement('rhn_nonlinux');
-  }
-  else {
-    @ret =
-      ([ 'None', 'none' ],
-       [ $org->basic_slot_name, 'sw_mgr_entitled' ]);
-  }
-
-  for my $ret (@ret) {
-    $ret->[2] = 0;
-    $ret->[2] = 1 if $ret->[1] eq $current_ent;
-  }
-
-  return @ret;
-}
-
-my %transitions =
-  (none => [ qw/sw_mgr_entitled enterprise_entitled provisioning_entitled nonlinux_entitled/ ],
-   sw_mgr_entitled => [ qw/enterprise_entitled provisioning_entitled/ ],
-   enterprise_entitled => [ qw/provisioning_entitled/ ],
-   provisioning_entitled => [ ]);
-
-sub allowed_entitlement_transition {
-  my $class = shift;
-  my $from = shift;
-  my $to = shift;
-
-  return 1 if $from eq $to;
-
-  return scalar grep { $to eq $_ } @{$transitions{$from}};
-}
 
 # What type of feature is this?  Management, provisioning, monitoring, etc.
 sub feature_type {

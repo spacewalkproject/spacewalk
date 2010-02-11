@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,22 +40,17 @@ public class CompressingDigestOutputWriter extends OutputStream implements
     /**
      * 
      * @param stream The stream to compress
-     * @param checksumtype checksum type
+     * @param checksumAlgo checksum algorithm
+     * @throws NoSuchAlgorithmException nosuchalgorithmexception 
+     * @throws IOException ioexception
      */
-    public CompressingDigestOutputWriter(OutputStream stream, String checksumtype) {
-        try {
+    public CompressingDigestOutputWriter(OutputStream stream, String checksumAlgo)
+                                        throws NoSuchAlgorithmException, IOException {
             compressedDigestStream = new DigestOutputStream(stream,
-                    MessageDigest.getInstance(checksumtype));
+                    MessageDigest.getInstance(checksumAlgo));
             compressedStream = new GZIPOutputStream(compressedDigestStream);
             uncompressedDigestStream = new DigestOutputStream(compressedStream,
-                    MessageDigest.getInstance(checksumtype));
-        }
-        catch (NoSuchAlgorithmException nsae) {
-            // XXX fatal runtime exception
-        }
-        catch (IOException ioe) {
-            // XXX fatal runtime exception
-        }
+                    MessageDigest.getInstance(checksumAlgo));
     }
 
     /**

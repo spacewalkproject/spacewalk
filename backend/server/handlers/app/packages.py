@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,7 @@ from server.importlib.backendOracle import OracleBackend
 from server.importlib.packageUpload import uploadPackages, listChannels, listChannelsSource
 from server.importlib.userAuth import UserAuth
 from server.importlib.errataCache import schedule_errata_cache_update
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 #12/22/05 wregglej 173287
 #I made a decent number of changes to this file to implement session authentication.
@@ -289,10 +289,10 @@ class Packages(RPC_Base):
         relative_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=org_id)
 
-        checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=package_stream))
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(header.checksum_type(), file=package_stream)
         package_dict, diff_level = rhnPackageUpload.push_package(
-            header, payload_stream, checksum, org_id=org_id, force=force,
+            header, payload_stream, checksum_type, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,
             relative_path=relative_path)
 
@@ -352,7 +352,8 @@ class Packages(RPC_Base):
                 _checksum_sql_filter = ""
                 checksum_exists = 0
                 if 'md5sum' in package: # for old rhnpush compatibility
-                    package['checksum'] = ('md5', package['md5sum'])
+                    package['checksum_type'] = 'md5'
+                    package['checksum'] = package['md5sum']
 
                 if package.has_key('checksum') and CFG.ENABLE_NVREA:
                     checksum_exists = 1
@@ -371,8 +372,8 @@ class Packages(RPC_Base):
                     pkg_version=package['version'], \
                     pkg_rel=package['release'],pkg_arch=package['arch'], \
                     orgid = org_id, \
-                    checksum_type = package['checksum'][0], \
-                    checksum = package['checksum'][1])
+                    checksum_type = package['checksum_type'], \
+                    checksum = package['checksum'])
                 else:
                     h.execute(pkg_name=package['name'], \
                     pkg_epoch=pkg_epoch, \
@@ -382,7 +383,8 @@ class Packages(RPC_Base):
 
                 row = h.fetchone_dict()
 
-                package['checksum'] = (row['checksum_type'], row['checksum'])
+                package['checksum_type'] = row['checksum_type']
+                package['checksum'] = row['checksum']
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -535,8 +537,8 @@ class Packages(RPC_Base):
                           pkg_rel=pkg_info['release'],
                           pkg_arch=pkg_info['arch'],
                           orgid = org_id,
-                          checksum_type = pkg_info['checksum'][0],
-                          checksum = pkg_info['checksum'][1])
+                          checksum_type = pkg_info['checksum_type'],
+                          checksum = pkg_info['checksum'])
             else:
                 h.execute(pkg_name=pkg_info['name'],
                           pkg_epoch=pkg_epoch,
@@ -572,7 +574,9 @@ class Packages(RPC_Base):
         pkg_infos = info.get('packages')
         for pkg in pkg_infos.keys():
             if pkg_infos[pkg].has_key('md5sum'):
-                pkg_infos[pkg]['checksum'] = ('md5', pkg_infos[pkg]['md5sum'])
+                pkg_infos[pkg]['checksum_type'] = 'md5'
+                pkg_infos[pkg]['checksum'] = pkg_infos[pkg]['md5sum']
+                del(pkg_infos[pkg]['md5sum'])
 
     def _Checksum2MD5sum_list(self, checksum_list):
         log_debug(5)
@@ -693,41 +697,6 @@ class Packages(RPC_Base):
                     
         return row_list
         
-    # XXX Are these still used anywhere?
-    # XXX To be moved
-    
-    # Helper functions
-    def _getSourcePackageInfo(self, source_rpm_id):
-        """ Get dictionary containing source package information. """
-        log_debug(4, source_rpm_id)
-        statement = """
-            select
-                ps.id,
-                sr.name,
-                ps.rpm_version version,
-                ps.path,
-                ps.package_size,
-                c.checksum md5sum
-                
-            from
-                rhnSourceRpm sr,
-                rhnPackageSource ps,
-                rhnChecksum c
-            where
-                    ps.source_rpm_id = :sri
-                and ps.source_rpm_id = sr.id
-                and ps.checksum_id = c.id
-        """
-        h = rhnSQL.prepare(statement)
-        h.execute(sri=int(source_rpm_id))
-        row = h.fetchone_dict()
-        # Fix the darn nulls
-        if row:
-            for k in row.keys():
-                if row[k] is None:
-                    row[k] = ''
-        return row
- 
 def auth(login, password):
     """ Authorize this user. """
     authobj = UserAuth()

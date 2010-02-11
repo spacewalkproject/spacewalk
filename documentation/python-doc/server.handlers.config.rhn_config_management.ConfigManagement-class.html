@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        config ::
-        rhn_config_management ::
-        ConfigManagement ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.config-module.html">Package&nbsp;config</a> ::
+        <a href="server.handlers.config.rhn_config_management-module.html" onclick="show_private();">Module&nbsp;rhn_config_management</a> ::
         Class&nbsp;ConfigManagement
       </span>
     </td>
@@ -58,7 +57,30 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ConfigManagement</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.config.rhn_config_management-pysrc.html#ConfigManagement">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_6" name="uml_class_diagram_for_server_h_6">
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="112,72,251,104"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#get_function" title="server.configFilesHandler.ConfigFilesHandler.get_function" alt="" coords="67,159,296,177"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#max_upload_file_size" title="server.configFilesHandler.ConfigFilesHandler.max_upload_file_size" alt="" coords="67,177,296,196"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#login" title="server.configFilesHandler.ConfigFilesHandler.login" alt="" coords="67,196,296,215"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#test_session" title="server.configFilesHandler.ConfigFilesHandler.test_session" alt="" coords="67,215,296,233"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#push_file" title="server.configFilesHandler.ConfigFilesHandler.push_file" alt="" coords="67,233,296,252"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html#new_config_channel_id" title="server.configFilesHandler.ConfigFilesHandler.new_config_channel_id" alt="" coords="67,252,296,271"/>
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler-class.html" title="server.configFilesHandler.ConfigFilesHandler" alt="" coords="65,133,297,272"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__" title="server.handlers.config.rhn_config_management.ConfigManagement.__init__" alt="" coords="17,327,345,345"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#auth_system" title="server.handlers.config.rhn_config_management.ConfigManagement.auth_system" alt="" coords="17,345,345,364"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_maximum_file_size" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_maximum_file_size" alt="" coords="17,364,345,383"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_delimiters" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_delimiters" alt="" coords="17,383,345,401"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_channels" title="server.handlers.config.rhn_config_management.ConfigManagement.client_list_channels" alt="" coords="17,401,345,420"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_set_namespaces" title="server.handlers.config.rhn_config_management.ConfigManagement.client_set_namespaces" alt="" coords="17,420,345,439"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_list_files" title="server.handlers.config.rhn_config_management.ConfigManagement.client_list_files" alt="" coords="17,439,345,457"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_get_file" title="server.handlers.config.rhn_config_management.ConfigManagement.client_get_file" alt="" coords="17,457,345,476"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_file" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_file" alt="" coords="17,476,345,495"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#client_upload_to_server_import" title="server.handlers.config.rhn_config_management.ConfigManagement.client_upload_to_server_import" alt="" coords="17,495,345,513"/>
+<area shape="rect" href="server.handlers.config.rhn_config_management.ConfigManagement-class.html" title="server.handlers.config.rhn_config_management.ConfigManagement" alt="" coords="16,301,347,515"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="83,11,280,43"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_6.png" alt='' usemap="#uml_class_diagram_for_server_h_6" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -354,7 +376,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_list_files" class="summary-name" onclick="show_private();">_query_client_list_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_list_files" class="summary-name" onclick="show_private();">_query_client_list_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151468812; statement=
         select cfn.path, cr.config_file_type_id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
@@ -362,29 +384,29 @@
                rhnConfigFileName cfn,
                rhnConfigRevision cr,
                rhnConfigFile cf
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_get_file" class="summary-name" onclick="show_private();">_query_client_get_file</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_get_file" class="summary-name" onclick="show_private();">_query_client_get_file</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151468940; statement=
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
-               ccont.md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
-               cr.revision,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_config_channels" class="summary-name" onclick="show_private();">_query_client_config_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_config_channels" class="summary-name" onclick="show_private();">_query_client_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151469004; statement=
         select cc.label,
                cc.name
           from rhnConfigChannelType cct,
@@ -392,14 +414,14 @@
                rhnServerConfigChannel scc
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_upload_files" class="summary-name" onclick="show_private();">_query_client_upload_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_client_upload_files" class="summary-name" onclick="show_private();">_query_client_upload_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151468972; statement=
         select acc.config_channel_id, ast.name action_status
           from rhnServerAction sa,
                rhnActionStatus ast,
@@ -407,14 +429,14 @@
          where acc.server_id = :server_id
            and acc.action_id = :action_id
            and sa.server_id = :server_id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_lookup_import_channel" class="summary-name" onclick="show_private();">_query_lookup_import_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_lookup_import_channel" class="summary-name" onclick="show_private();">_query_lookup_import_channel</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151469068; statement=
         select cc.id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
@@ -422,18 +444,18 @@
          where scc.server_id = :server_id
            and scc.config_channel_id = cc.id
            and cc.confchan_type_id = cct.id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_create_server_import_channel" class="summary-name" onclick="show_private();">_query_create_server_import_channel</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.config.rhn_config_management.ConfigManagement-class.html#_query_create_server_import_channel" class="summary-name" onclick="show_private();">_query_create_server_import_channel</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 151469036; statement=
         insert into rhnServerConfigChannel
                (server_id, config_channel_id, position)
         values (:server_id, :config_channel_id, :position)
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
   <tr>
@@ -489,7 +511,7 @@
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.rhnHandler.rhnHandler-class.html#__init__">rhnHandler.rhnHandler.__init__</a>
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -512,7 +534,7 @@
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="server.rhnHandler.rhnHandler-class.html#auth_system">rhnHandler.rhnHandler.auth_system</a>
+        <a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">rhnHandler'.rhnHandler.auth_system</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -548,7 +570,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151468812; statement=
         select cfn.path, cr.config_file_type_id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
@@ -574,14 +596,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151468940; statement=
         select :path path,
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
-               ccont.md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
-               cr.revision,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -600,7 +622,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151469004; statement=
         select cc.label,
                cc.name
           from rhnConfigChannelType cct,
@@ -626,7 +648,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151468972; statement=
         select acc.config_channel_id, ast.name action_status
           from rhnServerAction sa,
                rhnActionStatus ast,
@@ -652,7 +674,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151469068; statement=
         select cc.id
           from rhnConfigChannelType cct,
                rhnConfigChannel cc,
@@ -678,11 +700,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 151469036; statement=
         insert into rhnServerConfigChannel
                (server_id, config_channel_id, position)
         values (:server_id, :config_channel_id, :position)
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -712,7 +734,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

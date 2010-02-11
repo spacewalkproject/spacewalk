@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,10 @@ use strict;
 use RHN::Exception qw/throw/;
 use RHN::Package;
 use RHN::DataSource::System;
+use RHN::DataSource::Action ();
 use RHN::Entitlements;
+use RHN::Kickstart::Session ();
+use RHN::Server ();
 
 use PXT::ACL;
 
@@ -28,7 +31,6 @@ sub register_acl_handlers {
   my $acl = shift;
 
   $acl->register_handler(child_channel_candidate => \&child_channel_candidate);
-  $acl->register_handler(satellite_possible => \&satellite_possible);
   $acl->register_handler(client_capable => \&client_capable);
   $acl->register_handler(system_kickstart_in_progress => \&kickstart_in_progress);
   $acl->register_handler(system_kickstart_session_exists => \&kickstart_session_exists);
@@ -58,20 +60,6 @@ sub child_channel_candidate {
   return 1;
 }
 
-
-sub satellite_possible {
-  my $pxt = shift;
-
-  my @accessible_sat_fams = $pxt->user->org->entitled_satellite_families();
-
-  return 0 unless @accessible_sat_fams;  # no access to any satellite channels
-
-  foreach my $sat_fam (@accessible_sat_fams) {
-    return 1 if child_channel_candidate($pxt, $sat_fam);
-  }
-
-  return 0;
-}
 
 sub client_capable {
   my $pxt = shift;

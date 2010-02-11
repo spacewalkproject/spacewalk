@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ package RHN::DB::Server::StorageDevice;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnHwDevice table...
 # basically, some hardwarea attached to a server?
@@ -43,35 +42,6 @@ sub _blank_storage_device {
    return $self;
 }
 
-# returns one storage device object from it's key
-sub lookup_storage_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $s->select_query("S.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_storage_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $s->method_names;
-  }
-  else {
-    local $" = ", ";
-    croak "Error loading storage device $id; no ID? (@columns)";
-  }
-
-  return $ret;
-}
 
 # returns an array of storage device objects given a server id
 sub lookup_storage_devices_by_server {

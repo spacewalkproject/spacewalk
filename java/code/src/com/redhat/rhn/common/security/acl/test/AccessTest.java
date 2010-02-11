@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,7 +32,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl;
+import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -323,7 +323,7 @@ public class AccessTest extends RhnBaseTestCase {
     /**
     * Override the methods in User that talk to the database
     */
-    class MockUser extends LegacyRhnUserImpl {
+    class MockUser extends UserImpl {
         private Set mockRoles;
 
         public MockUser() {

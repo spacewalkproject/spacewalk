@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.2
+Version:        0.9.0
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
+- call update_family_counts() only once in prune_family()
+
+* Wed Feb 03 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- fixed upgrades 0.7 -> 0.8
+
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.6-1
+- 559447 - added upgrade scripts
+
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.5-1
+- 559447 - speed up rhn-satelite-activate (michael.mraka@redhat.com)
+- 559447 - removed update_family_counts() from clear_subscriptions() (michael.mraka@redhat.com)
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
+- added upgrade script for rhnChannel.checksum_type_id
+
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- dropped dead tables
+
 * Mon Dec 07 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - fixed sha256 related data upgrade scripts
 

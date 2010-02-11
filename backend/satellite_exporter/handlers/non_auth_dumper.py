@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Copyright (C) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,7 +27,7 @@ from server.importlib.backendLib import localtime
 from common.rhnTranslate import _
 
 from satellite_tools.exporter import exportLib
-from satellite_exporter.exporter import dumper
+from satellite_tools.disk_dumper import dumper
 
 class InvalidPackageError(Exception):
     pass
@@ -38,10 +38,10 @@ class NullPathPackageError(Exception):
 class MissingPackageError(Exception):
     pass
 
-class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
+class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     def __init__(self, req):
         rhnHandler.__init__(self)
-        dumper.XML_Dumper.__init__(self, req)
+        dumper.XML_DumperEx.__init__(self, req)
         # Don't check for abuse
         self.check_for_abuse = 0
 
@@ -448,7 +448,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def get_package_path_by_filename(self, fileName, channel):
         log_debug(3, fileName, channel)
         fileName = str(fileName)
-        n, v, r, e, a = rhnLib.parseRPMFilename(fileName)
+        n, e, v, r, a = rhnLib.parseRPMFilename(fileName)
 
         h = rhnSQL.prepare(self._query_get_package_path_by_nvra)
         h.execute(name=n, version=v, release=r, epoch=e, arch=a, channel=channel)

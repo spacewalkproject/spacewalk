@@ -21,9 +21,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="value" column="value" type="string" length="4000"/>
 
         <many-to-one name="creator" column="created_by"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
         <many-to-one name="lastModifier" column="last_modified_by"
-            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"/>
 
         <property name="created" column="created" type="timestamp"
                   insert="false" update="false"/>

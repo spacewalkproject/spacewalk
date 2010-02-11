@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -161,7 +161,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary is_binary,
-               c.checksum md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -175,7 +176,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigInfo ci,
                rhnConfigRevision cr,
                rhnConfigContent ccont,
-               rhnChecksum c,
+               rhnChecksumView c,
                rhnServerConfigChannel scc,
                rhnConfigFile cf,
 	       rhnConfigFileType cft,

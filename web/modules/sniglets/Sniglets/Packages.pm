@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,11 +18,9 @@ use strict;
 package Sniglets::Packages;
 
 use Carp;
-use Data::Dumper;
 
 use PXT::HTML;
 use RHN::Package;
-use RHN::Utils;
 use RHN::Form;
 use Sniglets::ListView::PackageList;
 
@@ -42,9 +40,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-unknown-package-nvre' => \&unknown_package_nvre);
 
-  $pxt->register_tag('rhn-download-package-list' => \&download_package_list);
-  $pxt->register_tag('rhn-download', \&download, 2);
-  $pxt->register_tag('rhn-must-select-archs', \&must_select_archs, 2);
   $pxt->register_tag('rhn-upload-answerfile-form' => \&upload_answerfile_form);
 
   $pxt->register_tag('rhn-package-raw-pkgmap' => \&raw_pkgmap);
@@ -55,15 +50,9 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:download_packages_cb' => \&download_packages_cb);
-
-  $pxt->register_callback('rhn:sscd_confirm_package_upgrades' => \&sscd_confirm_package_upgrades_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_installations' => \&sscd_confirm_package_installations_cb);
   $pxt->register_callback('rhn:sscd_confirm_patchset_installations' => \&sscd_confirm_package_installations_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_removals' => \&sscd_confirm_package_removals_cb);
   $pxt->register_callback('rhn:sscd_confirm_patch_removals' => \&sscd_confirm_package_removals_cb);
-  $pxt->register_callback('rhn:sscd_confirm_package_verification' => \&sscd_confirm_package_verification_cb);
 
   $pxt->register_callback('rhn:upload-answerfile-cb' => \&upload_answerfile_cb);
 }
@@ -93,122 +82,6 @@ sub lookup_package_nvre {
   die 'no nvre for given name id and evr id!' unless $nvre;
 
   return $nvre;
-}
-
-sub must_select_archs {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $hidden_vals = $pxt->pnotes('hidden_vals');
-
-  return $hidden_vals unless $pxt->pnotes('must_select_archs');
-
-  return $params{__block__} . $hidden_vals;
-}
-
-sub download {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my $url = PXT::Config->get("download_url") || "/cgi-bin/download.pl/rhn-packages.tar";
-
-  my $redirect = $pxt->derelative_url("/network/software/packages/download_complete.pxt");
-
-  $redirect .= "?pxt_trap=rhn%3aclear_set_cb&selection=package_installable_list";
-
-  my $hidden_package_vars = '';
-  my $download_packages = $pxt->pnotes('download_packages');
-  my $optional_packages = $pxt->pnotes('optional_packages');
-
-  $download_packages = [ ] unless (ref $download_packages eq 'ARRAY');
-  $optional_packages = [ ] unless (ref $optional_packages eq 'ARRAY');
-
-  foreach my $file (@{$download_packages}) {
-    $hidden_package_vars .= PXT::HTML->hidden(-name => 'filename', -value => $file);
-  }
-
-  foreach my $file (@{$optional_packages}, @{$download_packages}) {
-    $hidden_package_vars .= PXT::HTML->hidden(-name => 'filename_full', -value => $file);
-  }
-
-  $block =~ s/\{token\}/RHN::SessionSwap->encode_data(time, $pxt->pnotes('computed_md5'))/egi;
-  $block =~ s/\{redirect\}/$redirect/egi;
-  $block =~ s/\{download_url\}/$url/gi;
-  $block =~ s/\{hidden_package_vars\}/$hidden_package_vars/gi;
-
-  return $block;
-}
-
-
-sub download_package_list {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $package_set = RHN::Set->lookup(-label => 'package_downloadable_list', -uid => $pxt->user->id);
-  my $cid = $pxt->param('cid');
-
-  my @available_pkg_arches = RHN::Package->available_package_arches($pxt->user->org_id, $package_set, $cid);
-
-  my $hidden_vals = '';
-  my $block = $params{__block__};
-  my $ret = '';
-
-  my $counter = 0;
-  my $prefix = "/pub/";
-
-  my @files;
-  foreach my $package_info (@available_pkg_arches) {
-    my $num_arches = @{$package_info->[1]};
-    my $current = '';
-
-    if ($num_arches > 1) {
-      $current = $block;
-
-      if ($counter % 2) {
-	$current =~ s/{color}/#eeeeee/gism;
-      } else {
-	$current =~ s/{color}/white/gism;
-      }
-
-      $current =~ s/\{package_nvre\}/$package_info->[0]/ism;
-      my $checkboxes = '';
-      my @checkboxes;
-      foreach my $arch_pkg (@{$package_info->[1]}) {
-	next unless $arch_pkg->[2];
-	push @files, "$prefix$arch_pkg->[2]";
-	push @checkboxes, "<input type=\"checkbox\" name=\"filename\" value=\"$prefix$arch_pkg->[2]\" />&#160;$arch_pkg->[1]";
-	$checkboxes[-1] .= PXT::HTML->hidden(-name => "filename_full", -value => $prefix . $arch_pkg->[2]);
-      }
-      $checkboxes = join (" &#160;&#160; ", @checkboxes);
-      $current =~ s/\{package_checkboxes\}/$checkboxes/ism;
-
-      $counter++;
-    }
-    else {
-      if ($package_info->[1]->[0]->[2]) {
-	push @files, "$prefix$package_info->[1]->[0]->[2]";
-	$hidden_vals .= "<input type=\"hidden\" name=\"filename\" value=\"$prefix$package_info->[1]->[0]->[2]\" />\n";
-	$hidden_vals .= PXT::HTML->hidden(-name => "filename_full", -value => $prefix . $package_info->[1]->[0]->[2]);
-      }
-    }
-    $ret .= $current;
-  }
-
-  my $computed_md5 = Digest::MD5::md5_hex(join(":", sort @files));
-  $pxt->pnotes('computed_md5' => $computed_md5);
-
-#  return "<pre>Available packages:\n".Data::Dumper->Dump([(@available_pkg_arches)])."</pre>";
-  $pxt->pnotes(must_select_archs => 1) if ($counter > 0);
-  $pxt->pnotes(hidden_vals => $hidden_vals);
-  return $ret;
-}
-
-sub download_packages_cb {
-  my $pxt = shift;
-
-#  $pxt->redirect('/network/packagelist/download_packages.pxt');
 }
 
 sub package_dependencies {
@@ -266,12 +139,14 @@ sub package_change_log {
   my @changelog;
   @changelog = $package->change_log;
 
-  #return "<pre>".Data::Dumper->Dump([(@changelog)])."</pre>";
   my $block = $params{__block__};
   my $ret;
   foreach my $change (@changelog) {
     my $current = $block;
     $current =~ s({time})(PXT::HTML->htmlify_text($change->{TIME}))egims;
+    for (qw(NAME TEXT)) {
+      utf8::encode($change->{$_}); utf8::decode($change->{$_});
+    }
     $current =~ s({modifier})(PXT::HTML->htmlify_text($change->{NAME}))egism;
     $current =~ s({entry})(PXT::HTML->htmlify_text($change->{TEXT}))egims;
     $ret .= $current;
@@ -326,76 +201,6 @@ sub package_details {
   $subst{"package_$_"} = PXT::Utils->escapeHTML($package->$_() || '') || $no_data
     foreach qw/id arch_name arch_label arch_type_label arch_type_name
     package_group_name rpm_version build_host build_time vendor copyright/;
-
-  my ($relative_path, $size) = $package->source_rpm_path;
-
-  my $pkg_type = $package->download_link_type();
-
-  if ($relative_path and $size) {
-    my $srpm = "/pub/" . $relative_path;
-    my $basename = (split m(/), $srpm)[-1];
-
-    $size = PXT::Utils->commafy($size);
-    my $str = "$basename ($size bytes)";
-
-    my $href = qq{<rhn-ftp-download path="$relative_path">Download Source $pkg_type</rhn-ftp-download>};
-
-    $subst{srpm_download_link} = $href;
-    $subst{srpm_download_str} = $str;
-  }
-  else {
-    $subst{srpm_download_str} = "(Source $pkg_type not available)";
-    $subst{srpm_download_link} = '&#160;';
-  }
-
-  $subst{package_s_rpm_name} = PXT::Utils->escapeHTML($package->s_rpm_name || '');
-
-  ($relative_path, $size) = ($package->path, $package->package_size);
-  if ($relative_path and $size) {
-    my $srpm = "/pub/" . $relative_path;
-    my $basename = (split m(/), $srpm)[-1];
-
-    $size = PXT::Utils->commafy($size);
-    my $str = "$basename ($size bytes)";
-
-    my $href = qq{<rhn-ftp-download path="$relative_path">Download $pkg_type</rhn-ftp-download>};
-
-    $subst{rpm_download_link} = $href;
-    $subst{rpm_download_str} = $str;
-    
-    # Compute debuginfo rpm path.  Will look something like this:
-    # ftp://ftp.redhat.com/pub/redhat/linux/enterprise/3/en/os/i386/Debuginfo/ggv-debuginfo-2.0.1-4.i386.rpm
-    my $debugname = $package->package_name_name . "-debuginfo-" . 
-    	$package->package_evr_version . "-" . 
-	$package->package_evr_release . "." .
-	$package->arch_label . "." .
-	$package->arch_type_label;
-    #warn(" debugname : " . $debugname);
-
-    my $channelrev;
-    foreach my $carray (@package_channels) {
-      my @namearr = split("v. ", $carray -> [1]);
-      @namearr = split(" ", $namearr[1]);
-      $channelrev = $namearr[0];
-    }
-    
-    if (!$channelrev) {
-      $subst{debug_rpm_download_link} = "(debug info package not available)";
-      $subst{debug_rpm_download_str} = "";
-    }   
-    else {
-      my $debugpath = "ftp://ftp.redhat.com/pub/redhat/linux/enterprise/" . 
-    	$channelrev . "/en/os/" . $package->arch_label . "/Debuginfo/" . $debugname;
-
-      $subst{debug_rpm_download_link} = "<a href=\"" . $debugpath . "\">Download Debug Info Package</a>";
-      $subst{debug_rpm_download_str} = $debugname;
-    }    
-    
-  }
-  else {
-    $subst{rpm_download_str} = "($pkg_type not available)";
-    $subst{rpm_download_link} = '&#160;';
-  }
 
   $subst{package_nvre} = $package->nvre_epochless;
 
@@ -455,12 +260,6 @@ sub package_details {
   }
 
   return PXT::Utils->perform_substitutions($ret, \%subst);
-}
-
-sub search_arch_list {
-  my $class = shift;
-
-  return ['ia32', 'IA-32'], ['ia64', 'IA-64'], ['x86_64', 'AMD64']
 }
 
 sub raw_pkgmap {
@@ -602,22 +401,6 @@ sub sscd_confirm_package_removals_cb {
   }
   else {
     die "crap!";
-  }
-}
-
-sub sscd_confirm_package_verification_cb {
-  my $pxt = shift;
-
-  if ($pxt->dirty_param('sscd_confirm_package_verification')) {
-    my $earliest = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-    my $actions = RHN::Scheduler->sscd_schedule_package_verify(-org_id => $pxt->user->org_id, -user_id => $pxt->user->id, -earliest => $earliest);
-    my $package_set = RHN::Set->lookup(-label => 'sscd_verify_package_list', -uid => $pxt->user->id);
-    $package_set->empty;
-    $package_set->commit;
-
-    $pxt->push_message(site_info => "Package verifications scheduled.");
-    $pxt->redirect("/network/systems/ssm/packages/index.pxt");
   }
 }
 

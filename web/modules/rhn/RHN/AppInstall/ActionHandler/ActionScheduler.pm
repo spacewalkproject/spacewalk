@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,8 +21,6 @@ use RHN::AppInstall::ActionHandler;
 
 our @ISA = qw/RHN::AppInstall::ActionHandler/;
 
-use RHN::Server;
-use RHN::User;
 use RHN::Scheduler;
 
 use RHN::Exception;

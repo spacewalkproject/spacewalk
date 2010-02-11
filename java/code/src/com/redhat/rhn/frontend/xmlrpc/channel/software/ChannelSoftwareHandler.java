@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -727,7 +727,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Get the channel. 
         Channel channel = lookupChannelByLabel(user.getOrg(), label);
         
-        DataResult dr = SystemManager.systemsSubscribedToChannel(channel, user);
+        DataResult<Map> dr = SystemManager.systemsSubscribedToChannel(channel, user);
+        for (Map sys : dr) {
+            sys.remove("selectable");
+        }
         return dr.toArray();
     }
     
@@ -1031,7 +1034,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // Try to add the list of packages to the channel. Catch any exceptions and 
         // convert to FaultExceptions
         try {
-            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);    
+            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();
@@ -1051,7 +1054,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         /* Bugzilla # 177673 */
         scheduleErrataCacheUpdate(loggedInUser.getOrg(), channel, 3600000);
-        
         
         //if we made it this far, the operation was a success!
         return 1;
@@ -1869,4 +1871,27 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Regenerate the yum cache for a specific channel.
+     * @param sessionKey the session key
+     * @param channelLabel the channel label
+     * @return int - 1 on success!
+     *
+     * @xmlrpc.doc Regenerate yum cache for the specified channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the
+     *          channel")
+     * @xmlrpc.returntype  #return_int_success()
+     *
+     */
+    public int regenerateYumCache(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        ChannelManager.queueChannelChange(channelLabel,
+                "api: regenerateYumCache", "api called");
+        return 1;
+
+    }
+
 }

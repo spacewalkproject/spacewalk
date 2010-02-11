@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -159,23 +159,6 @@ EOQ
   $sth->finish;
 
   $self->crypto_key_type_id($row->{ID});
-}
-
-sub org_key_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "General_queries");
-  $ds->mode("crypto_keys_for_org");
-  return $ds->execute_query(-org_id => $org_id);
-}
-
-sub key_type_list {
-  my $class = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "General_queries");
-  $ds->mode("crypto_key_types");
-  return @{$ds->execute_query};
 }
 
 sub delete {

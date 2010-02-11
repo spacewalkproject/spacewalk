@@ -55,6 +55,11 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Procedure</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure">source&nbsp;code</a></span></p>
+<p>Class for calling out to stored procedures.</p>
+  <p>Written to behave very much like a Python function in that these 
+  Procedure objects are &quot;callable&quot;.</p>
+  <p>See database specific implementations for more details.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -80,26 +85,9 @@
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">proc</span>)</span></td>
+        <span class="summary-sig-arg">cursor</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure.__init__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="__call__"></a><span class="summary-sig-name">__call__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">*args</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure.__call__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -116,77 +104,6 @@
           <td><span class="summary-sig"><a name="__del__"></a><span class="summary-sig-name">__del__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure.__del__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_call_proc"></a><span class="summary-sig-name">_call_proc</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">args</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure._call_proc">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_call_proc_ret"></a><span class="summary-sig-name">_call_proc_ret</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">args</span>,
-        <span class="summary-sig-arg">ret_type</span>=<span class="summary-sig-default">None</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure._call_proc_ret">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_munge_args"></a><span class="summary-sig-name">_munge_args</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">args</span>)</span><br />
-      Converts database specific argument types to those defined in 
-      sql_base.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure._munge_args">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_munge_arg"></a><span class="summary-sig-name">_munge_arg</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">val</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.rhnSQL.sql_base-pysrc.html#Procedure._munge_arg">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -218,7 +135,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

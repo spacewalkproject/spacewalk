@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -131,22 +131,6 @@ order by filename
 EOS
   $sth->execute_h(ts => $ts);
   return $sth->fullfetch_hashref;
-}
-
-sub tablespace_begin_backup {
-  my $self = shift;
-  my $ts = shift;
-
-  my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts BEGIN BACKUP");
-}
-
-sub tablespace_end_backup {
-  my $self = shift;
-  my $ts = shift;
-
-  my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts END BACKUP");
 }
 
 sub tablespace_extend {

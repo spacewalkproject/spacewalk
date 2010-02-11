@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,7 +30,7 @@ my %valid_fields = (id => 0,
 		    app_instance => { isa => 'RHN::AppInstall::Instance',
 				      optional => 1 },
 		    instance_id => 0,
-		    md5sum => 0,
+		    checksum_id => 0,
 		    process_name => { type => SCALAR },
 		    step_number => { type => SCALAR | UNDEF,
 				     default => -1 },
@@ -69,7 +69,7 @@ sub sequence { return 'rhn_appinst_session_id_seq' }
 
 my %db_fields = (id => 1,
 		 instance_id => 1,
-		 md5sum => 1,
+		 checksum_id => 1,
 		 process_name => 1,
 		 step_number => 1,
 		 user_id => 1,
@@ -468,60 +468,6 @@ foreach my $field (keys %valid_fields) {
   if ($@) {
     die $@;
   }
-}
-
-sub get_instance_id {
-  my $self = shift;
-
-  return $self->get_app_instance->get_id()
-}
-
-sub set_instance_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $app = RHN::AppInstall::Instance->lookup(-id => $id);
-
-  $self->set_app_instance($app);
-  $self->{":modified:"}->{instance_id} = 1;
-
-  return;
-}
-
-sub get_user_id {
-  my $self = shift;
-
-  return $self->get_user->id()
-}
-
-sub set_user_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $user = RHN::User->lookup(-id => $id);
-
-  $self->set_user($user);
-  $self->{":modified:"}->{user_id} = 1;
-
-  return;
-}
-
-sub get_server_id {
-  my $self = shift;
-
-  return $self->get_server->id()
-}
-
-sub set_server_id {
-  my $self = shift;
-  my $id = shift;
-
-  my $server = RHN::Server->lookup(-id => $id);
-
-  $self->set_server($server);
-  $self->{":modified:"}->{server_id} = 1;
-
-  return;
 }
 
 1;

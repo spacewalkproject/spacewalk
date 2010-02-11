@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
 
         <many-to-one name="creator"
-                     class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+                     class="com.redhat.rhn.domain.user.legacy.UserImpl"
                      column="creator"/>
 
         <many-to-one name="server"

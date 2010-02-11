@@ -1,6 +1,0 @@
-<postal-letter>The Red Hat login <login /> has been deactivated in response to your request.
-
-Thank you for contacting Red Hat.
-<postal-template-replace label="email_footer"/>
-<postal-template-replace label="email_account_info"/>
-</postal-letter>

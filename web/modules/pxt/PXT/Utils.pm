@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -67,59 +67,6 @@ sub olson_from_offset {
   return $timezone_conversions{$offset};
 }
 
-# return a list of the selectable timezones for user prefs
-sub get_timezones {
-  my $class = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "User_queries",
-                                       -mode => "available_timezones");
-
-  my $result = $ds->execute_query();
-
-  return @$result;
-}
-
-# take 2 timestamps, return relative difference between them
-sub relative_time_diff {
-  my $class = shift;
-  my $time1 = shift; # timestamp
-  my $time2 = shift; # timestamp
-
-  # might want to suck in Date::Calc, but for now do this...
-
-  my $delta = abs($time2 - $time1);
-
-  my %diff;
-  $diff{seconds} = $delta % 60;
-  $diff{minutes} = int($delta / 60) % 60;
-  $diff{hours} = int($delta / 3600) % 24;
-  $diff{days} = int($delta / 86400);
-  $diff{direction} = $time2 > $time1 ? 1 : -1;
-
-  return \%diff;
-}
-
-# given the output of relative_time_diff, show a prettier string
-# (also must give the fields you want, ie. 'day', 'minute', 'second', etc...)
-sub pretty_relative_time {
-  my $class = shift;
-  my $diff_ref = shift;
-  my @fields = @_;
-
-  my @ret;
-  foreach my $singular (@fields) {
-    my $plural = $singular . 's';
-    my $value = $diff_ref->{$plural};
-    push @ret, $value eq 1 ? $value . " $singular" : $value . " $plural";
-  }
-
-  if (scalar(@ret) > 1) {
-    $ret[-1] = 'and ' . $ret[-1];
-  }
-
-  return join(", ", @ret);
-}
-
 sub split_attributes {
   my $blob = shift;
 
@@ -135,50 +82,6 @@ sub split_attributes {
   }
 
   return @ret;
-}
-
-sub country_selectbox {
-  my ($class, $formvar, $lang, $default, $current, $allow_empty) = @_;
-
-  $lang ||= 'en';
-  $current ||= $default || '';
-
-  my $dbh = RHN::DB->connect;
-
-  my $sql = "SELECT vc.code, nvl(short_name_tl, short_name)
-               FROM valid_countries vc, valid_countries_tl tl
-               where tl.lang (+) = ? and tl.code (+)= vc.code
-               ORDER BY vc.short_name";
-
-  my $sth = $dbh->prepare($sql);
-  $sth->execute($lang);
-
-  my @codes;
-
-  while (my @r = $sth->fetchrow) {
-
-    next if (grep { $_ eq uc $r[0] } qw/US CA MX/);
-
-    push @codes, \@r;
-  }
-  $sth->finish();
-
-  unshift @codes, ( ["US", "United States"], ["MX", "Mexico"], ["CA", "Canada"]);
-
-  if ($allow_empty) {
-    unshift @codes, [ "", "None" ];
-  }
-
-  my @opts;
-  foreach my $country (@codes) {
-    push @opts, [ $country->[1], $country->[0], (lc($country->[0]) eq lc($current)) ? 1 : 0 ];
-  }
-
-  my $ret = PXT::HTML->select(-name => $formvar,
-			      -size => 1,
-			      -options => \@opts);
-
-  return $ret;
 }
 
 sub paginate_variables {
@@ -346,26 +249,6 @@ sub random_password {
   return $ret;
 }
 
-sub prefix_selectbox {
-  my ($class, $formvar, $default) = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sql = "SELECT text FROM web_user_prefix WHERE text <> '.' AND text <> ' ' ORDER BY text";
-
-  my $sth = $dbh->prepare($sql);
-  $sth->execute;
-
-  my @codes;
-  while (my ($prefix) = $sth->fetchrow) {
-    push @codes, [ $prefix, $prefix, $default ne '.' ? $default eq $prefix : $prefix eq 'Mr.' ];
-  }
-  $sth->finish();
-
-  return PXT::HTML->select(-name => $formvar,
-			   -options => \@codes);
-}
-
 # take a positive integer, return a pretty version with commas
 sub commafy {
   my $class = shift;
@@ -374,42 +257,6 @@ sub commafy {
   $n =~ s/(\d\d\d)(?!$)/$1,/g;
 
   return scalar reverse $n;
-}
-
-sub humanify {
-  my $class = shift;
-  my $n = shift;
-  my $suffix = shift || '';
-  my $dec = shift;
-
-  my $unit = '';
-  my $form;
-  if ($dec) {
-    $form = "%.${dec}f";
-  }
-  else {
-    $form = "%d";
-  }
-
-  if ($n > 1 * 1024 * 1024 * 1024) {
-    $n = sprintf $form, $n/1024/1024/1024;
-    $unit = 'G';
-  }
-  elsif ($n > 1 * 1024 * 1024) {
-    $n = sprintf $form, $n/1024/1024;
-    $unit = 'M';
-  }
-  elsif ($n > 1 * 1024) {
-    $n = sprintf $form, $n/1024;
-    $unit = 'K';
-  }
-
-  if ($unit) {
-    return "$n$unit$suffix";
-  }
-  else {
-    return "$n$suffix";
-  }
 }
 
 sub untaint {
@@ -438,28 +285,5 @@ sub random_bits {
   return $rand_data;
 }
 
-
-sub get_subtag_body {
-  my $class = shift;
-  my $tagname = shift;
-  my $source = shift;
-
-  if ($source =~ m{<$tagname>(.*?)</$tagname>}ism) {
-    return $1;
-  }
-
-  return undef;
-}
-
-sub replace_subtag {
-  my $class = shift;
-  my $tagname = shift;
-  my $target = shift;
-  my $replacement = shift;
-
-  $target =~ s{<$tagname>.*?</$tagname>}{$replacement}ism;
-
-  return $target;
-}
 
 1;

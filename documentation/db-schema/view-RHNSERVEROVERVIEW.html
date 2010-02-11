@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - View-RHNSERVEROVERVIEW </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#v-descr">Description</a> <a href="#v-cols">Columns</a> <a href="#v-query">Query</a> <a href="#v-cc">Constraints</a> <a href="#v-trgs">Triggers</a> </div><h2>RHNSERVEROVERVIEW</h2>
+<a href="sql_sources/view/rhnserveroverview.sql">DDL script</a><h3>Columns<a name="v-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Insertable</th><th>Updatable</th><th>Deletable</th><th>Comment</th></tr><tr><td>ORG_ID<a name="col-ORG_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_ID<a name="col-SERVER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_NAME<a name="col-SERVER_NAME"></a></td><td>VARCHAR2(128)</td><td>Y</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>NOTE_COUNT<a name="col-NOTE_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_ADMINS<a name="col-SERVER_ADMINS"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>GROUP_COUNT<a name="col-GROUP_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>CHANNEL_ID<a name="col-CHANNEL_ID"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>CHANNEL_LABELS<a name="col-CHANNEL_LABELS"></a></td><td>VARCHAR2(256)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>HISTORY_COUNT<a name="col-HISTORY_COUNT"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>SECURITY_ERRATA<a name="col-SECURITY_ERRATA"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>BUG_ERRATA<a name="col-BUG_ERRATA"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>ENHANCEMENT_ERRATA<a name="col-ENHANCEMENT_ERRATA"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>OUTDATED_PACKAGES<a name="col-OUTDATED_PACKAGES"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>CONFIG_FILES_WITH_DIFFERENCES<a name="col-CONFIG_FILES_WITH_DIFFERENCES"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>LAST_CHECKIN_DAYS_AGO<a name="col-LAST_CHECKIN_DAYS_AGO"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>LAST_CHECKIN<a name="col-LAST_CHECKIN"></a></td><td>VARCHAR2(19)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>PENDING_UPDATES<a name="col-PENDING_UPDATES"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>OS<a name="col-OS"></a></td><td>VARCHAR2(64)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>RELEASE<a name="col-RELEASE"></a></td><td>VARCHAR2(64)</td><td>N</td><td>YES</td><td>YES</td><td>YES</td><td>&nbsp;</td></tr>
+<tr><td>SERVER_ARCH_NAME<a name="col-SERVER_ARCH_NAME"></a></td><td>VARCHAR2(64)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+<tr><td>LOCKED<a name="col-LOCKED"></a></td><td>NUMBER(38)</td><td>Y</td><td>NO</td><td>NO</td><td>NO</td><td>&nbsp;</td></tr>
+</table><h3>Query:</h3>
+<a name="v-query"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">select</span>
+    s<span class="operator">.</span>org_id<span class="operator">,</span> s<span class="operator">.</span>id<span class="operator">,</span> s<span class="operator">.</span><span class="keyword">name</span><span class="operator">,</span> 0<span class="operator">,</span> s<span class="operator">.</span>modified<span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>user_id<span class="operator">)</span> <span class="reserved">from</span> rhnUserServerPerms ap
+      <span class="reserved">where</span> server_id <span class="operator">=</span> s<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>server_group_id<span class="operator">)</span> <span class="reserved">from</span> rhnVisibleServerGroupMembers
+      <span class="reserved">where</span> server_id <span class="operator">=</span> s<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">C</span><span class="operator">.</span>id
+        <span class="reserved">from</span> rhnChannel <span class="keyword">C</span><span class="operator">,</span>
+	     rhnServerChannel SC
+       <span class="reserved">where</span> SC<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
+         <span class="reserved">and</span> SC<span class="operator">.</span>channel_id <span class="operator">=</span> <span class="keyword">C</span><span class="operator">.</span>id
+	 <span class="reserved">and</span> <span class="keyword">C</span><span class="operator">.</span>parent_channel <span class="reserved">IS</span> <span class="reserved">NULL</span><span class="operator">)</span><span class="operator">,</span>
+    NVL<span class="operator">(</span><span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">C</span><span class="operator">.</span><span class="keyword">name</span>
+        <span class="reserved">from</span> rhnChannel <span class="keyword">C</span><span class="operator">,</span>
+	     rhnServerChannel SC
+       <span class="reserved">where</span> SC<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
+         <span class="reserved">and</span> SC<span class="operator">.</span>channel_id <span class="operator">=</span> <span class="keyword">C</span><span class="operator">.</span>id
+	 <span class="reserved">and</span> <span class="keyword">C</span><span class="operator">.</span>parent_channel <span class="reserved">IS</span> <span class="reserved">NULL</span><span class="operator">)</span><span class="operator">,</span> <span class="string">'(none)'</span><span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>id<span class="operator">)</span> <span class="reserved">from</span> rhnServerHistory
+      <span class="reserved">where</span>
+            server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span> <span class="reserved">from</span> rhnServerErrataTypeView setv
+      <span class="reserved">where</span>
+            setv<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+        <span class="reserved">and</span> setv<span class="operator">.</span>errata_type <span class="operator">=</span> <span class="string">'Security Advisory'</span><span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span> <span class="reserved">from</span> rhnServerErrataTypeView setv
+      <span class="reserved">where</span>
+            setv<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+        <span class="reserved">and</span> setv<span class="operator">.</span>errata_type <span class="operator">=</span> <span class="string">'Bug Fix Advisory'</span><span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span> <span class="reserved">from</span> rhnServerErrataTypeView setv
+      <span class="reserved">where</span>
+            setv<span class="operator">.</span>server_id <span class="operator">=</span> s<span class="operator">.</span>id
+        <span class="reserved">and</span> setv<span class="operator">.</span>errata_type <span class="operator">=</span> <span class="string">'Product Enhancement Advisory'</span><span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span><span class="reserved">distinct</span> p<span class="operator">.</span>name_id<span class="operator">)</span> <span class="reserved">from</span> rhnPackage p<span class="operator">,</span> rhnServerNeededPackageCache snpc
+      <span class="reserved">where</span>
+             snpc<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
+	 <span class="reserved">and</span> p<span class="operator">.</span>id <span class="operator">=</span> snpc<span class="operator">.</span>package_id
+	 <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span><span class="operator">*</span><span class="operator">)</span>
+        <span class="reserved">from</span> rhnActionConfigRevision ACR
+             INNER JOIN rhnActionConfigRevisionResult ACRR <span class="reserved">on</span> ACR<span class="operator">.</span>id <span class="operator">=</span> ACRR<span class="operator">.</span>action_config_revision_id
+       <span class="reserved">where</span> ACR<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
+         <span class="reserved">and</span> ACR<span class="operator">.</span>action_id <span class="operator">=</span> <span class="operator">(</span>
+              <span class="reserved">select</span> <span class="keyword">MAX</span><span class="operator">(</span>rA<span class="operator">.</span>id<span class="operator">)</span>
+                <span class="reserved">from</span> rhnAction rA
+                     INNER JOIN rhnServerAction rSA <span class="reserved">on</span> rSA<span class="operator">.</span>action_id <span class="operator">=</span> rA<span class="operator">.</span>id
+                     INNER JOIN rhnActionStatus rAS <span class="reserved">on</span> rAS<span class="operator">.</span>id <span class="operator">=</span> rSA<span class="operator">.</span>status
+                     INNER JOIN rhnActionType rAT <span class="reserved">on</span> rAT<span class="operator">.</span>id <span class="operator">=</span> rA<span class="operator">.</span>action_type
+               <span class="reserved">where</span> rSA<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id
+                 <span class="reserved">and</span> rAS<span class="operator">.</span><span class="keyword">name</span> <span class="reserved">in</span> <span class="operator">(</span><span class="string">'Completed'</span><span class="operator">,</span> <span class="string">'Failed'</span><span class="operator">)</span>
+                 <span class="reserved">and</span> rAT<span class="operator">.</span>label <span class="operator">=</span> <span class="string">'configfiles.diff'</span>
+         <span class="operator">)</span>
+         <span class="reserved">and</span> ACR<span class="operator">.</span>failure_id <span class="reserved">is</span> <span class="reserved">null</span>
+         <span class="reserved">and</span> ACRR<span class="operator">.</span><span class="keyword">result</span> <span class="reserved">is</span> <span class="reserved">not</span> <span class="reserved">null</span>
+        <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> sysdate <span class="operator">-</span> checkin <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> TO_CHAR<span class="operator">(</span>checkin<span class="operator">,</span> <span class="string">'YYYY-MM-DD HH24:MI:SS'</span><span class="operator">)</span> <span class="reserved">from</span> rhnServerInfo <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id <span class="operator">)</span><span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">count</span><span class="operator">(</span>1<span class="operator">)</span>
+        <span class="reserved">from</span> rhnServerAction
+       <span class="reserved">where</span> server_id <span class="operator">=</span> S<span class="operator">.</span>id
+         <span class="reserved">and</span> status <span class="reserved">in</span> <span class="operator">(</span>0<span class="operator">,</span> 1<span class="operator">)</span><span class="operator">)</span><span class="operator">,</span>
+    os<span class="operator">,</span>
+    release<span class="operator">,</span>
+    <span class="operator">(</span> <span class="reserved">select</span> <span class="keyword">name</span> <span class="reserved">from</span> rhnServerArch <span class="reserved">where</span> id <span class="operator">=</span> s<span class="operator">.</span>server_arch_id<span class="operator">)</span><span class="operator">,</span>
+    NVL<span class="operator">(</span><span class="operator">(</span><span class="reserved">select</span> 1 <span class="reserved">from</span> rhnServerLock SL <span class="reserved">WHERE</span> SL<span class="operator">.</span>server_id <span class="operator">=</span> S<span class="operator">.</span>id<span class="operator">)</span><span class="operator">,</span> 0<span class="operator">)</span>
+<span class="reserved">from</span>
+    rhnServer S
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+</body></html>

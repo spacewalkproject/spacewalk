@@ -11,3 +11,4 @@ PXT/Parser.pm
 PXT.pm
 PXT/Request.pm
 PXT/Utils.pm
+PXT/Debug.pm

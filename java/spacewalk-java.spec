@@ -4,15 +4,22 @@
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define realcobsnippetsdir  %{_localstatedir}/lib/cobbler/snippets
+
+%if  0%{?rhel} && 0%{?rhel} < 6
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
+%else
+%define appdir          %{_localstatedir}/lib/tomcat6/webapps
+%define jardir          %{_localstatedir}/lib/tomcat6/webapps/rhn/WEB-INF/lib
+%endif
+
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-io commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections postgresql-jdbc
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.2
+Version: 0.9.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -43,7 +50,11 @@ Requires: redstone-xmlrpc
 Requires: oscache
 Requires: servletapi5
 Requires: struts >= 0:1.2.9
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: tomcat5
+%else
+Requires: tomcat6
+%endif
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
@@ -196,8 +207,15 @@ This package contains the Java version of taskomatic.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-ant -Dprefix=$RPM_BUILD_ROOT install
+%if  0%{?rhel} && 0%{?rhel} < 6
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat5
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%else
+ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
+install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
+install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
@@ -212,7 +230,6 @@ install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
 install -d -m 755 $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_taskomatic.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic.conf
@@ -252,7 +269,11 @@ fi
 %dir %{cobprofdirwiz}
 %dir %{cobdirsnippets}
 %{appdir}/*
+%if  0%{?rhel} && 0%{?rhel} < 6
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
+%else
+%config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+%endif
 %{realcobsnippetsdir}/spacewalk
 %attr(755, apache, root) %{_var}/satellite/systemlogs
 %ghost %attr(644, tomcat, root) %{_var}/satellite/systemlogs/audit-review.log
@@ -283,6 +304,130 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.3-1
+- adding snippet api unit tests (jsherril@redhat.com)
+
+* Wed Feb 10 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
+- initial tomcat6 stuff (jsherril@redhat.com)
+- change checkstyle Header to RegexpHeader (tlestach@redhat.com)
+- change copyright preferencies for newly created java files
+  (tlestach@redhat.com)
+- updated copyrights in all java files to make hudson happy
+  (michael.mraka@redhat.com)
+- adding createOrUpdate and delete to snippet handler as well as tests
+  (jsherril@redhat.com)
+- 558628 - fixing issue with configure-proxy script as well as making /cblr
+  rewrites work over SSL too (jsherril@redhat.com)
+- commiting missing files from previous commit that converted target systems
+  page to java (jsherril@redhat.com)
+- adding kickstart.snippet.list* (jsherril@redhat.com)
+- fixing issue where select all and update set would clear the set before
+  redisplaying the page (jsherril@redhat.com)
+- fixing issue where probe suite probe list was not generating probe links
+  correctly resulting in an error when trying to edit or view the probe
+  (jsherril@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
+* Sat Feb 06 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.11-1
+- Fix a NPE in CompareConfigFilesTask
+
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
+- updated copyrights
+- 556956 - fixed listSubscribedSystems api call would error
+- 559015 - fixed target systems page
+- removed handler org_has_scouts
+- 531454 - provide architecture even for downgrade/upgrade
+- removed config values web.public_errata_*
+- 561068 - fixed api breakage with new cobbler version
+
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.9-1
+- 539159 - offering only ssm systems with appropriate permissions for config channel unsubscription (tlestach@redhat.com)
+- 539159 - offering only ssm systems with appropriate permissions for config channel subscription (tlestach@redhat.com)
+- 538435 - fixing issue where cloning a channel wouldnt properly clone the activation keys, and wouldnt update the default session key properly (jsherril@redhat.com)
+- 506950 - fixing issue where RedHat channels tab would show up for spacewalk users (jsherril@redhat.com)
+fixing issue that kept spacewalk from working with the newest cobbler (jsherril@redhat.com)
+- 559284 - fixing issue where _ & - characters were being removed from cobbler names (jsherril@redhat.com)
+
+* Wed Jan 27 2010 Justin Sherrill <jsherril@redhat.com> 0.8.8-1
+- fixing api doc (jsherril@redhat.com)
+
+* Wed Jan 27 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- 529460 - fixing detection of disconnected satellite
+- 530177 - moving cobbler snippet usage before user %post scripts
+- 543879 - support for downloading kickstart profiles through a proxy
+- 493176 - introducing kickstart.tree.getDetails API call
+- 382561 - fixing daily status message to be formatted correctly
+- 543184 - ability to change logging on a kickstart file from the api
+- 513716 - prefix check simplification
+- 506279 - speeding up channel.software.addPackages
+- 518127 - adding a configchannel.deployAllSystems api call
+
+* Fri Jan 15 2010 Tomas Lestach <tlestach@redhat.com> 0.8.6-1
+- removing logic for channel checksum type completion (tlestach@redhat.com)
+- 549752 - fix for check "channel in set" in UpdateChildChannelsCommand
+  (tlestach@redhat.com)
+- 555212 - changing the path we use for downloading package updates in
+  kickstarts from $http_server to $redhat_management_server so that distros can
+  be located externally without breaking this functionality
+  (jsherril@redhat.com)
+- 549752 - throwing exception, if subscribing system to a wrong child via api
+  (tlestach@redhat.com)
+- 537147 - removign unused row in column on user details page
+  (jsherril@redhat.com)
+- 514759 - stripping space chars from activation keys (jsherril@redhat.com)
+- 554516 - adding better formatting for config file diffs (jsherril@redhat.com)
+- 513716 - prefix validation added when creating a user (tlestach@redhat.com)
+- 554767 - fixing issue where file preservation list details wouldnt always
+  show up under the correct tab (jsherril@redhat.com)
+- 543461 - fixing issue where csv downloader for systems errata list was not
+  showing up (jsherril@redhat.com)
+- 549553 - speeding up package removal from channel (jsherril@redhat.com)
+- 553262 - fixing issue where kickstart label wasnt printed on software profile
+  page (jsherril@redhat.com)
+
+* Fri Jan 08 2010 Justin Sherrill <jsherril@redhat.com> 0.8.5-1
+- 553265 - fixing issue where stored profile list wasnt sorted by name
+  (jsherril@redhat.com)
+- 552900 - fixing issue where variables would have a newline on the end
+  (jsherril@redhat.com)
+- Update copyright years to end with 2010. (jpazdziora@redhat.com)
+- adding "Yum Repository Checksum Type" info to the channels/ChannelDetail.do
+  page (tlestach@redhat.com)
+- 526823 - improving speed of scheduling package installs for 1000s of systems
+  (jsherril@redhat.com)
+- 549391 - ISE when audit searching without any machine information
+  (tlestach@redhat.com)
+
+* Fri Dec 18 2009 Tomas Lestach <tlestach@redhat.com> 0.8.4-1
+- fixed exception handling (tlestach@redhat.com)
+- modifying Checksum.toString() for easier debugging (tlestach@redhat.com)
+- sha256 changes for taskomatic (tlestach@redhat.com)
+- adding checksum type for rhn/errata/details/Packages.do page
+  (tlestach@redhat.com)
+- displaying checkum type on rhn/software/packages/Details.do page
+  (tlestach@redhat.com)
+- download_packages.pxt was in the second rhn-tab-url in both
+  channel_detail.xmls, and not referenced from anywhere else, removing.
+  (jpazdziora@redhat.com)
+- The webapp.conf is not used anywhere. (jpazdziora@redhat.com)
+- adding channel.software.regenerateYumCache() api call (jsherril@redhat.com)
+- making selinux not required for server.config.createOrUpdate() api call, also
+  adding selinux_ctx to the documentation (jsherril@redhat.com)
+- changing mock request to default to a POST request (jsherril@redhat.com)
+
+* Wed Dec 16 2009 Tomas Lestach <tlestach@redhat.com> 0.8.3-1
+- modifying spacewalk-java build propetries to enable f12 builds
+  (tlestach@redhat.com)
+- Remove the spacewalk-moon (sub)package as it is not used anywhere.
+  (jpazdziora@redhat.com)
+- correcting the action that the POST check was done for errata add package
+  (jsherril@redhat.com)
+- adding post checking to a couple of pages (jsherril@redhat.com)
+- 545995 - adding package signing key to the package details page
+  (jsherril@redhat.com)
+- The email.verify.body trans-unit is not used anywhere, removing as dead text.
+  (jpazdziora@redhat.com)
+
 * Thu Dec 10 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - fixed support for SHA256 rpms
 

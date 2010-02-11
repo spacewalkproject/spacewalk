@@ -15,7 +15,6 @@
   </rhn-tab>
   <rhn-tab name="Packages">
     <rhn-tab-url>/rhn/channels/ChannelPackages.do</rhn-tab-url>
-    <rhn-tab-url>/network/software/channels/download_packages.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Patches" acl="channel_packaging_type(sysv-solaris)">
     <rhn-tab-url>/network/software/channels/patches.pxt</rhn-tab-url>

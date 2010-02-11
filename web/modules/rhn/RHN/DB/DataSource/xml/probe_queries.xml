@@ -43,18 +43,6 @@ ORDER BY UPPER(GROUP_NAME)
 </mode>
 
 
-<mode name="enabled_commands_for_group">
-  <query params="command_group_label">
-SELECT recid AS ID,
-       description AS COMMAND_NAME,
-       name AS COMMAND_LABEL
-  FROM rhn_command
- WHERE group_name = :command_group_label
-   AND enabled = 1
-ORDER BY UPPER(description)
-  </query>
-</mode>
-
 <mode name="parameters_for_command">
   <query params="command_id">
 SELECT command_id,

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,7 @@ import string
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 
-from common.rhnLib import maketemp
+from spacewalk.common.fileutils import maketemp
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,8 +16,8 @@
 package RHN::Access::User;
 
 use strict;
-use RHN::Exception qw/throw/;
 use PXT::ACL;
+use RHN::User ();
 
 sub register_acl_handlers {
   my $self = shift;

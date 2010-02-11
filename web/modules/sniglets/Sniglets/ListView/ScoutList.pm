@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,15 +19,11 @@ package Sniglets::ListView::ScoutList;
 
 use PXT::HTML;
 
-use RHN::Exception qw/throw/;
-use RHN::Token;
 use RHN::DataSource::Scout;
 use RHN::SatCluster;
 use RHN::Set;
 
 use Sniglets::ListView::List;
-
-use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;
 

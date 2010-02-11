@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,8 @@ import os
 import tempfile
 
 from common import CFG, log_debug, rhnFault, UserDictCase
-from spacewalk.common import rhn_mpm, checksum
+from spacewalk.common import rhn_mpm
+from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
 from server import rhnSQL
@@ -88,7 +89,7 @@ def _authenticate(authobj, channels, null_org, force):
 
     return org_id, force
 
-def relative_path_from_header(header, org_id, checksum=(None,None)):
+def relative_path_from_header(header, org_id, checksum_type=None, checksum=None):
     nevra = importLib.get_nevra(header)
     if header.is_source:
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
@@ -105,13 +106,13 @@ def relative_path_from_header(header, org_id, checksum=(None,None)):
        header["package_name"]:
 
         rel_path = relative_path_from_nevra_without_package_name(nevra, org_id,
-                                                            checksum)
+                                                            checksum_type, checksum)
         return os.path.join(rel_path, header["package_name"])
 
     return relative_path_from_nevra(nevra,
-        org_id, header.packaging, checksum)
+        org_id, header.packaging, checksum_type, checksum)
 
-def relative_path_from_nevra(nevra, org_id, package_type=None, checksum=None):
+def relative_path_from_nevra(nevra, org_id, package_type=None, checksum_type=None, checksum=None):
     #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
     if nevra[4] == 'src' or nevra[4] == 'nosrc':
         is_source = 1
@@ -120,15 +121,15 @@ def relative_path_from_nevra(nevra, org_id, package_type=None, checksum=None):
     log_debug(4, nevra, is_source)
     return get_package_path(nevra, org_id=org_id, source=is_source, 
         prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type,
-        checksum=checksum)
+        checksum_type=checksum_type, checksum=checksum)
 
 # bug #161989 - get the relative path from the nevra, but omit the package name
-def relative_path_from_nevra_without_package_name(nevra, org_id, checksum):
+def relative_path_from_nevra_without_package_name(nevra, org_id, checksum_type, checksum):
     log_debug(4, nevra, "no package name")
     return get_package_path_without_package_name(nevra, org_id,
-                                     prepend=CFG.PREPENDED_DIR, checksum=checksum)
+                                     CFG.PREPENDED_DIR, checksum_type, checksum)
 
-def push_package(header, payload_stream, checksum, org_id=None, force=None,
+def push_package(header, payload_stream, checksum_type, checksum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):
     """Uploads an RPM package
     """
@@ -142,13 +143,14 @@ def push_package(header, payload_stream, checksum, org_id=None, force=None,
     # First write the package to the filesystem to final location
     try:
         importLib.copy_package(payload_stream.fileno(), basedir=CFG.MOUNT_POINT,
-            relpath=relative_path, checksum=checksum, force=1)
+            relpath=relative_path, checksum_type=checksum_type, checksum=checksum, force=1)
     except OSError, e:
         raise rhnFault(50, "Package upload failed: %s" % e)
     except importLib.FileConflictError:
         raise rhnFault(50, "File already exists")
 
-    pkg = mpmSource.create_package(header, size=payload_size, checksum=checksum,
+    pkg = mpmSource.create_package(header, size=payload_size,
+        checksum_type=checksum_type, checksum=checksum,
         relpath=relative_path, org_id=org_id, header_start=header_start,
         header_end=header_end, channels=channels)
 
@@ -233,7 +235,7 @@ def push_package(header, payload_stream, checksum, org_id=None, force=None,
         else:
             h_package_table = 'rhnPackage'
         h_path = rhnSQL.prepare(h_path_sql % h_package_table)
-        h_path.execute(ctype=checksum[0], csum=checksum[1], org_id = org_id)
+        h_path.execute(ctype=checksum_type, csum=checksum, org_id = org_id)
 
         rs_path = h_path.fetchall_dict()
         path_dict = {}
@@ -251,13 +253,13 @@ def push_package(header, payload_stream, checksum, org_id=None, force=None,
                                  where c.checksum = :csum
                                    and c.checksum_type = :ctype)
             """)
-            h_upd.execute(path=relative_path, ctype=checksum[0], csum=checksum[1])
+            h_upd.execute(path=relative_path, ctype=checksum_type, csum=checksum)
 
     # commit the transactions
     rhnSQL.commit()
     if not header.is_source:
         # Process Package Key information
-        server_packages.processPackageKeyAssociations(header, checksum)
+        server_packages.processPackageKeyAssociations(header, checksum_type, checksum)
 
     if not header.is_source:
         errataCache.schedule_errata_cache_update(importer.affected_channels)
@@ -309,15 +311,14 @@ class AlreadyUploadedError(Exception):
 class PackageConflictError(Exception):
     pass
 
-def check_package_exists(package_path, package_checksum, force=0):
+def check_package_exists(package_path, package_checksum_type, package_checksum, force=0):
     if not os.path.exists(package_path):
         return
     # File exists, same checksum?
-    checksum = (package_checksum[0],
-                checksum.getFileChecksum(package_checksum[0], package_path))
+    checksum = getFileChecksum(package_checksum_type, package_path)
     if package_checksum == checksum and not force:
         raise AlreadyUploadedError(package_path)
     if force:
         return
-    raise PackageConflictError(package_path, checksum)
+    raise PackageConflictError(package_path, package_checksum_type, checksum)
 

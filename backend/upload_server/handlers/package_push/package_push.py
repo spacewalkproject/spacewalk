@@ -3,7 +3,7 @@
 # Code that drops files on the filesystem (/PKG-UPLOAD)
 #
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,12 +22,12 @@
 import os
 import base64
 import string
-from mod_python import apache
+from server import apache
 from rhn import rpclib
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from server import rhnPackageUpload, rhnSQL, basePackageUpload
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class PackagePush(basePackageUpload.BasePackageUpload):
     def __init__(self, req):
@@ -115,21 +115,23 @@ class PackagePush(basePackageUpload.BasePackageUpload):
 
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
-        checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=temp_stream))
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(checksum_type, file=temp_stream)
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
-            header, org_id=self.org_id, checksum=checksum)
+            header, org_id=self.org_id, checksum_type=checksum_type, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
             self.rel_package_path)
         # Verify the checksum of the bytes we downloaded against the checksum
         # presented by rhnpush in the HTTP headers
-        if checksum != self.file_checksum:
-            log_debug(1, "Mismatching checksums: expected", self.file_checksum,
-                "; got:", checksum)
+        if not (checksum_type == self.file_checksum_type
+                 and checksum == self.file_checksum):
+            log_debug(1, "Mismatching checksums: expected",
+                         self.file_checksum_type, self.file_checksum,
+                        "; got:", checksum_type, checksum)
             raise rhnFault(104, "Mismatching information")
         
         package_dict, diff_level = rhnPackageUpload.push_package(header,
-            payload_stream, checksum, force=self.force,
+            payload_stream, checksum_type, checksum, force=self.force,
             header_start=header_start, header_end=header_end,
             relative_path=self.rel_package_path, org_id=self.org_id)
 

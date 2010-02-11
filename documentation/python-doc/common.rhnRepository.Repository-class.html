@@ -55,9 +55,28 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Repository</h1><p class="nomargin-top"><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_common_r_14" name="uml_class_diagram_for_common_r_14">
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="83,36,245,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="81,11,247,56"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#__del__" title="common.rhnRepository.Repository.__del__" alt="" coords="17,111,311,129"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#__init__" title="common.rhnRepository.Repository.__init__" alt="" coords="17,129,311,148"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackage" title="Get rpm package." alt="" coords="17,148,311,167"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackageHeader" title="Get rpm header." alt="" coords="17,167,311,185"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackagePath" title="Returns the path to a package." alt="" coords="17,185,311,204"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackagePathNVRA" title="OVERLOAD this in server and proxy rhnRepository." alt="" coords="17,204,311,223"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackageSource" title="Get srpm packrge." alt="" coords="17,223,311,241"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getSourcePackagePath" title="Returns the path to a package." alt="" coords="17,241,311,260"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#set_compress_headers" title="common.rhnRepository.Repository.set_compress_headers" alt="" coords="17,260,311,279"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html" title="Shared repository class, inherited by both the proxy and server specific Repository classes." alt="" coords="16,85,312,280"/>
+<area shape="rect" href="server.rhnRepository.Repository-class.html" title="Cache class to perform RHN server file system and DB actions." alt="" coords="61,309,267,336"/>
+</map>
+  <img src="uml_class_diagram_for_common_r_14.png" alt='' usemap="#uml_class_diagram_for_common_r_14" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
+<p>Shared repository class, inherited by both the proxy and server 
+  specific Repository classes.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -81,10 +100,209 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="__del__"></a><span class="summary-sig-name">__del__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.__del__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelName</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_fileFeatures"></a><span class="summary-sig-name">_fileFeatures</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filePath</span>)</span><br />
+      From a filepath, construct a dictionary of file features.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._fileFeatures">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#_getFile" class="summary-sig-name" onclick="show_private();">_getFile</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filePath</span>)</span><br />
+      Returns xmlrpclib file object to any file given a path to it.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getFile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#_getHeaderFromFile" class="summary-sig-name" onclick="show_private();">_getHeaderFromFile</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filePath</span>,
+        <span class="summary-sig-arg">stat_info</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Utility function to extract a header from an rpm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getHeaderFromFile">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_set_last_modified"></a><span class="summary-sig-name">_set_last_modified</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">last_modified</span>,
+        <span class="summary-sig-arg">extra_headers</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._set_last_modified">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getPackage"></a><span class="summary-sig-name">getPackage</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pkgFilename</span>,
+        <span class="summary-sig-arg">*args</span>)</span><br />
+      Get rpm package.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#getPackageHeader" class="summary-sig-name">getPackageHeader</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pkgFilename</span>)</span><br />
+      Get rpm header.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackageHeader">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#getPackagePath" class="summary-sig-name">getPackagePath</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pkgFilename</span>,
+        <span class="summary-sig-arg">redirect</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Returns the path to a package.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePath">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#getPackagePathNVRA" class="summary-sig-name">getPackagePathNVRA</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nvra</span>)</span><br />
+      OVERLOAD this in server and proxy rhnRepository.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePathNVRA">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getPackageSource"></a><span class="summary-sig-name">getPackageSource</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pkgFilename</span>)</span><br />
+      Get srpm packrge.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackageSource">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="common.rhnRepository.Repository-class.html#getSourcePackagePath" class="summary-sig-name">getSourcePackagePath</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">pkgFilename</span>)</span><br />
+      Returns the path to a package.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getSourcePackagePath">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -109,200 +327,10 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="__del__"></a><span class="summary-sig-name">__del__</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.__del__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getPackagePath"></a><span class="summary-sig-name">getPackagePath</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>,
-        <span class="summary-sig-arg">redirect</span>=<span class="summary-sig-default">0</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getPackagePathNVRA"></a><span class="summary-sig-name">getPackagePathNVRA</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">nvra</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePathNVRA">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getSourcePackagePath"></a><span class="summary-sig-name">getSourcePackagePath</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getSourcePackagePath">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getPackage"></a><span class="summary-sig-name">getPackage</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>,
-        <span class="summary-sig-arg">*args</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackage">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getPackageSource"></a><span class="summary-sig-name">getPackageSource</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackageSource">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="getPackageHeader"></a><span class="summary-sig-name">getPackageHeader</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">pkgFilename</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackageHeader">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_getFile"></a><span class="summary-sig-name">_getFile</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">filePath</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getFile">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_getHeaderFromFile"></a><span class="summary-sig-name">_getHeaderFromFile</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">filePath</span>,
-        <span class="summary-sig-arg">stat_info</span>=<span class="summary-sig-default">None</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getHeaderFromFile">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_set_last_modified"></a><span class="summary-sig-name">_set_last_modified</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">last_modified</span>,
-        <span class="summary-sig-arg">extra_headers</span>=<span class="summary-sig-default">{}</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._set_last_modified">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_fileFeatures"></a><span class="summary-sig-name">_fileFeatures</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">filePath</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._fileFeatures">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base.RPC_Base-class.html">RPC_Base.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base.RPC_Base-class.html#get_function">get_function</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
       </p>
     </td>
   </tr>
@@ -344,8 +372,137 @@
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.RPC_Base.RPC_Base-class.html#__init__">RPC_Base.RPC_Base.__init__</a>
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">RPC_Base'.RPC_Base.__init__</a>
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_getFile"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_getFile</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filePath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getFile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns xmlrpclib file object to any file given a path to it. IN:  
+  filePath: path to any file. OUT: XMLed rpm or source rpm, or an xmlrpc 
+  file object.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_getHeaderFromFile"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_getHeaderFromFile</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filePath</span>,
+        <span class="sig-arg">stat_info</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository._getHeaderFromFile">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Utility function to extract a header from an rpm. If stat_info was 
+  already passed, don't re-stat the file</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getPackageHeader"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getPackageHeader</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">pkgFilename</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackageHeader">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get rpm header. XXX: stock 8.0 clients could not compress headers, we 
+  need to either change the function name, or version the protocol</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getPackagePath"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getPackagePath</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">pkgFilename</span>,
+        <span class="sig-arg">redirect</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePath">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the path to a package. OVERLOAD this in server and proxy 
+  rhnRepository. I.e.: they construct the path differently.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getPackagePathNVRA"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getPackagePathNVRA</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">nvra</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getPackagePathNVRA">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>OVERLOAD this in server and proxy rhnRepository. I.e.: they construct 
+  the path differently.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getSourcePackagePath"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getSourcePackagePath</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">pkgFilename</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="common.rhnRepository-pysrc.html#Repository.getSourcePackagePath">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the path to a package. OVERLOAD this in server and proxy 
+  rhnRepository. I.e.: they construct the path differently.</p>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -373,7 +530,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:19 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

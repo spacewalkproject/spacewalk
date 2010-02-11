@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.progress_bar</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        Module&nbsp;progress_bar
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.progress_bar-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.progress_bar-module.html">Module satellite_tools.progress_bar</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar"></a><div id="ProgressBar-def"><a name="L18"></a><tt class="py-lineno"> 18</tt> <a class="py-toggle" href="#" id="ProgressBar-toggle" onclick="return toggle('ProgressBar');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html">ProgressBar</a><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ProgressBar-expanded"><a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">    <tt class="py-docstring">"""A simplete progress bar class. See example in main below."""</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.__init__"></a><div id="ProgressBar.__init__-def"><a name="L22"></a><tt class="py-lineno"> 22</tt> <a class="py-toggle" href="#" id="ProgressBar.__init__-toggle" onclick="return toggle('ProgressBar.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">prompt</tt><tt class="py-op">=</tt><tt class="py-string">'working: '</tt><tt class="py-op">,</tt> <tt class="py-param">endTag</tt><tt class="py-op">=</tt><tt class="py-string">' - done'</tt><tt class="py-op">,</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">                 <tt class="py-param">finalSize</tt><tt class="py-op">=</tt><tt class="py-number">100.0</tt><tt class="py-op">,</tt> <tt class="py-param">finalBarLength</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">                 <tt class="py-param">bar</tt><tt class="py-op">=</tt><tt class="py-string">'#'</tt><tt class="py-op">,</tt> <tt class="py-param">stream</tt><tt class="py-op">=</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">,</tt> <tt class="py-param">redrawYN</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.__init__-expanded"><a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt class="py-comment"># disabling redrawing of the hash marks. Too many people are</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">        <tt class="py-comment"># complaining.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-name">redrawYN</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">size</tt> <tt class="py-op">=</tt> <tt class="py-number">0.0</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLengthPrinted</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">prompt</tt> <tt class="py-op">=</tt> <tt class="py-name">prompt</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">endTag</tt> <tt class="py-op">=</tt> <tt class="py-name">endTag</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">finalSize</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">finalBarLength</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">bar</tt> <tt class="py-op">=</tt> <tt class="py-name">bar</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt> <tt class="py-op">=</tt> <tt class="py-name">stream</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">redrawYN</tt> <tt class="py-op">=</tt> <tt class="py-name">redrawYN</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">,</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">redrawYN</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.reinit"></a><div id="ProgressBar.reinit-def"><a name="L43"></a><tt class="py-lineno"> 43</tt> <a class="py-toggle" href="#" id="ProgressBar.reinit-toggle" onclick="return toggle('ProgressBar.reinit');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#reinit">reinit</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.reinit-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.reinit-expanded"><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">size</tt> <tt class="py-op">=</tt> <tt class="py-number">0.0</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLengthPrinted</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">         </tt>
+<a name="ProgressBar.printAll"></a><div id="ProgressBar.printAll-def"><a name="L48"></a><tt class="py-lineno"> 48</tt> <a class="py-toggle" href="#" id="ProgressBar.printAll-toggle" onclick="return toggle('ProgressBar.printAll');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#printAll">printAll</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">contextYN</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.printAll-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.printAll-expanded"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-docstring">""" Prints/reprints the prompt and current level of hashmarks.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        Eg:             ____________________</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">            Processing: ###########</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">        NOTE: The underscores only occur if you turn on contextYN.</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">contextYN</tt><tt class="py-op">:</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-0', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'%s%s\n'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-string">' '</tt><tt class="py-op">*</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">prompt</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'_'</tt><tt class="py-op">*</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-name">toPrint</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">prompt</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">bar</tt><tt class="py-op">*</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">redrawYN</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">            <tt class="py-comment">#self.stream.write('\b'*len(toPrint))</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">            <tt class="py-comment"># backup</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-1', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'\b'</tt><tt class="py-op">*</tt><tt class="py-number">80</tt><tt class="py-op">)</tt> <tt class="py-comment"># nuke whole line (80 good 'nuf?)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-name">completeBar</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">prompt</tt><tt class="py-op">+</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">endTag</tt><tt class="py-op">)</tt><tt class="py-op">+</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">            <tt class="py-comment"># erase</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-2', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">completeBar</tt><tt class="py-op">*</tt><tt class="py-string">' '</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-comment"># backup again</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-3', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">completeBar</tt><tt class="py-op">*</tt><tt class="py-string">'\b'</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-4', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">toPrint</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method satellite_tools.disk_dumper.string_buffer.StringBuffer.flush()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#flush,Method satellite_tools.exporter.xmlWriter.XMLWriter.flush()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#flush,Method server.rhnSQL.sql_table.Table.flush()=server.rhnSQL.sql_table.Table-class.html#flush"><a title="satellite_tools.disk_dumper.string_buffer.StringBuffer.flush
+satellite_tools.exporter.xmlWriter.XMLWriter.flush
+server.rhnSQL.sql_table.Table.flush" class="py-name" href="#" onclick="return doclink('link-5', 'flush', 'link-5');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLengthPrinted</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> </tt>
+</div><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.printIncrement"></a><div id="ProgressBar.printIncrement-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="ProgressBar.printIncrement-toggle" onclick="return toggle('ProgressBar.printIncrement');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#printIncrement">printIncrement</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.printIncrement-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.printIncrement-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-docstring">"visually updates the bar."</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">redrawYN</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method satellite_tools.progress_bar.ProgressBar.printAll()=satellite_tools.progress_bar.ProgressBar-class.html#printAll"><a title="satellite_tools.progress_bar.ProgressBar.printAll" class="py-name" href="#" onclick="return doclink('link-6', 'printAll', 'link-6');">printAll</a></tt><tt class="py-op">(</tt><tt class="py-name">contextYN</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-7', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">bar</tt> <tt class="py-op">*</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">-</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLengthPrinted</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="satellite_tools.disk_dumper.string_buffer.StringBuffer.flush
+satellite_tools.exporter.xmlWriter.XMLWriter.flush
+server.rhnSQL.sql_table.Table.flush" class="py-name" href="#" onclick="return doclink('link-8', 'flush', 'link-5');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLengthPrinted</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.printComplete"></a><div id="ProgressBar.printComplete-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="ProgressBar.printComplete-toggle" onclick="return toggle('ProgressBar.printComplete');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#printComplete">printComplete</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.printComplete-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.printComplete-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-docstring">"""Completes the bar reguardless of current object status (and then</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">           updates the object's status to complete)."""</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method satellite_tools.progress_bar.ProgressBar.complete()=satellite_tools.progress_bar.ProgressBar-class.html#complete"><a title="satellite_tools.progress_bar.ProgressBar.complete" class="py-name" href="#" onclick="return doclink('link-9', 'complete', 'link-9');">complete</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method satellite_tools.progress_bar.ProgressBar.printIncrement()=satellite_tools.progress_bar.ProgressBar-class.html#printIncrement"><a title="satellite_tools.progress_bar.ProgressBar.printIncrement" class="py-name" href="#" onclick="return doclink('link-10', 'printIncrement', 'link-10');">printIncrement</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-11', 'write', 'link-0');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">endTag</tt><tt class="py-op">+</tt><tt class="py-string">'\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">stream</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.disk_dumper.string_buffer.StringBuffer.flush
+satellite_tools.exporter.xmlWriter.XMLWriter.flush
+server.rhnSQL.sql_table.Table.flush" class="py-name" href="#" onclick="return doclink('link-12', 'flush', 'link-5');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.update"></a><div id="ProgressBar.update-def"><a name="L87"></a><tt class="py-lineno"> 87</tt> <a class="py-toggle" href="#" id="ProgressBar.update-toggle" onclick="return toggle('ProgressBar.update');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#update">update</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">newSize</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.update-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.update-expanded"><a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-docstring">"Update the status of the class to the newSize of the bar."</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">newSize</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">newSize</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">newSize</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt><tt class="py-op">:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">            <tt class="py-name">newSize</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">size</tt> <tt class="py-op">=</tt> <tt class="py-name">newSize</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">size</tt><tt class="py-op">*</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt><tt class="py-op">)</tt><tt class="py-op">/</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">barLength</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalBarLength</tt> </tt>
+</div><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.addTo"></a><div id="ProgressBar.addTo-def"><a name="L100"></a><tt class="py-lineno">100</tt> <a class="py-toggle" href="#" id="ProgressBar.addTo-toggle" onclick="return toggle('ProgressBar.addTo');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#addTo">addTo</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">additionalSize</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.addTo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.addTo-expanded"><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-docstring">"Update the object's status to an additional bar size."</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method common.UserDictCase'.UserDictCase.update()=common.UserDictCase%27.UserDictCase-class.html#update,Method rhn.UserDictCase.UserDictCase.update()=rhn.UserDictCase.UserDictCase-class.html#update,Method satellite_tools.progress_bar.ProgressBar.update()=satellite_tools.progress_bar.ProgressBar-class.html#update,Function server.action.errata.update()=server.action.errata-module.html#update,Function server.action.packages.update()=server.action.packages-module.html#update,Function server.action_extra_data.errata.update()=server.action_extra_data.errata-module.html#update,Function server.action_extra_data.packages.update()=server.action_extra_data.packages-module.html#update,Function server.action_extra_data.up2date_config.update()=server.action_extra_data.up2date_config-module.html#update"><a title="common.UserDictCase'.UserDictCase.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-13', 'update', 'link-13');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">size</tt> <tt class="py-op">+</tt> <tt class="py-name">additionalSize</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.addToAndPrint"></a><div id="ProgressBar.addToAndPrint-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="ProgressBar.addToAndPrint-toggle" onclick="return toggle('ProgressBar.addToAndPrint');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#addToAndPrint">addToAndPrint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">additionalSize</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.addToAndPrint-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.addToAndPrint-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-docstring">"shorthand for addTo() and printIncrement()"</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method satellite_tools.progress_bar.ProgressBar.addTo()=satellite_tools.progress_bar.ProgressBar-class.html#addTo"><a title="satellite_tools.progress_bar.ProgressBar.addTo" class="py-name" href="#" onclick="return doclink('link-14', 'addTo', 'link-14');">addTo</a></tt><tt class="py-op">(</tt><tt class="py-name">additionalSize</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="satellite_tools.progress_bar.ProgressBar.printIncrement" class="py-name" href="#" onclick="return doclink('link-15', 'printIncrement', 'link-10');">printIncrement</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.updateAndPrint"></a><div id="ProgressBar.updateAndPrint-def"><a name="L109"></a><tt class="py-lineno">109</tt> <a class="py-toggle" href="#" id="ProgressBar.updateAndPrint-toggle" onclick="return toggle('ProgressBar.updateAndPrint');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#updateAndPrint">updateAndPrint</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">newSize</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.updateAndPrint-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.updateAndPrint-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-docstring">"shorthand for update() and printIncrement()"</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="common.UserDictCase'.UserDictCase.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-16', 'update', 'link-13');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">newSize</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="satellite_tools.progress_bar.ProgressBar.printIncrement" class="py-name" href="#" onclick="return doclink('link-17', 'printIncrement', 'link-10');">printIncrement</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="ProgressBar.complete"></a><div id="ProgressBar.complete-def"><a name="L114"></a><tt class="py-lineno">114</tt> <a class="py-toggle" href="#" id="ProgressBar.complete-toggle" onclick="return toggle('ProgressBar.complete');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.progress_bar.ProgressBar-class.html#complete">complete</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ProgressBar.complete-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ProgressBar.complete-expanded"><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="common.UserDictCase'.UserDictCase.update
+rhn.UserDictCase.UserDictCase.update
+satellite_tools.progress_bar.ProgressBar.update
+server.action.errata.update
+server.action.packages.update
+server.action_extra_data.errata.update
+server.action_extra_data.packages.update
+server.action_extra_data.up2date_config.update" class="py-name" href="#" onclick="return doclink('link-18', 'update', 'link-13');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">finalSize</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-comment">#------------------------------------------------------------------------------</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"An example:"</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-name">bar_length</tt> <tt class="py-op">=</tt> <tt class="py-number">40</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-19', 'items', 'link-19');">items</a></tt> <tt class="py-op">=</tt> <tt class="py-number">200</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-name">pb</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name" targets="Class satellite_tools.progress_bar.ProgressBar=satellite_tools.progress_bar.ProgressBar-class.html"><a title="satellite_tools.progress_bar.ProgressBar" class="py-name" href="#" onclick="return doclink('link-20', 'ProgressBar', 'link-20');">ProgressBar</a></tt><tt class="py-op">(</tt><tt class="py-string">'standby: '</tt><tt class="py-op">,</tt> <tt class="py-string">' - all done!'</tt><tt class="py-op">,</tt> <tt id="link-21" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-21', 'items', 'link-19');">items</a></tt><tt class="py-op">,</tt> <tt class="py-name">bar_length</tt><tt class="py-op">,</tt> <tt class="py-string">'o'</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-name">pb</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="satellite_tools.progress_bar.ProgressBar.printAll" class="py-name" href="#" onclick="return doclink('link-22', 'printAll', 'link-6');">printAll</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-23', 'items', 'link-19');">items</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-comment">#pb.update(i)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-name">pb</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="satellite_tools.progress_bar.ProgressBar.addTo" class="py-name" href="#" onclick="return doclink('link-24', 'addTo', 'link-14');">addTo</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-number">0.005</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-name">pb</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="satellite_tools.progress_bar.ProgressBar.printIncrement" class="py-name" href="#" onclick="return doclink('link-25', 'printIncrement', 'link-10');">printIncrement</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">    <tt class="py-name">pb</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method satellite_tools.progress_bar.ProgressBar.printComplete()=satellite_tools.progress_bar.ProgressBar-class.html#printComplete"><a title="satellite_tools.progress_bar.ProgressBar.printComplete" class="py-name" href="#" onclick="return doclink('link-26', 'printComplete', 'link-26');">printComplete</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">             </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-comment">#------------------------------------------------------------------------------</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:29 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

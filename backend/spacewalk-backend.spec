@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.11
+Version: 0.9.0
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -49,10 +49,16 @@ backend modules.
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
-Requires: mod_python
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = %{version}-%{release}
+
+%if  0%{?rhel} && 0%{?rhel} < 6
+Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
+
 
 %description server
 This package contains the basic code that provides server/backend
@@ -213,6 +219,7 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 1.4.3
+Requires: rhnlib  >= 2.5.20
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
@@ -224,9 +231,6 @@ Various utilities for the Red Hat Network Satellite Server.
 Summary: Red Hat Network XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-%if "%{pythongen}" == "1.5"
-Requires: python-iconv
-%endif
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = %{version}-%{release}
 
@@ -251,6 +255,14 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 export PYTHON_MODULE_NAME=%{name}
 export PYTHON_MODULE_VERSION=%{version}
 %{__python} setup.py install -O1 --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+
+%if 0%{?rhel} && 0%{?rhel} < 6
+rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
+rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/server/wsgi
+%else
+rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
+%endif
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -289,7 +301,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
-%{rhnroot}/common/rhn_fcntl.py*
 %{rhnroot}/common/rhn_posix.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
@@ -298,7 +309,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/rhnException.py*
 %{rhnroot}/common/rhnFlags.py*
 %{rhnroot}/common/rhnLib.py*
-%{rhnroot}/common/rhnLockfile.py*
 %{rhnroot}/common/rhnLog.py*
 %{rhnroot}/common/rhnMail.py*
 %{rhnroot}/common/rhnTB.py*
@@ -324,6 +334,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files server
 %defattr(-,root,root)
 # modules
+%{rhnroot}/server/apache.py*
 %{rhnroot}/server/apacheAuth.py*
 %{rhnroot}/server/apacheHandler.py*
 %{rhnroot}/server/apacheRequest.py*
@@ -385,6 +396,28 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
+
+%if 0%{?rhel} && 0%{?rhel} < 6
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-python.conf
+%else
+# wsgi stuff
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
+%dir %{rhnroot}/server/wsgi
+%{rhnroot}/server/wsgi/__init__.py*
+%{rhnroot}/server/wsgi/app.py*
+%{rhnroot}/server/wsgi/applet.py*
+%{rhnroot}/server/wsgi/config.py*
+%{rhnroot}/server/wsgi/config_tool.py*
+%{rhnroot}/server/wsgi/package_push.py*
+%{rhnroot}/server/wsgi/package_upload.py*
+%{rhnroot}/server/wsgi/sat.py*
+%{rhnroot}/server/wsgi/sat_dump.py*
+%{rhnroot}/server/wsgi/wsgiHandler.py*
+%{rhnroot}/server/wsgi/wsgiRequest.py*
+%{rhnroot}/server/wsgi/xmlrpc.py*
+%{rhnroot}/server/wsgi/xp.py*
+%endif
+
 # logs and other stuff
 %config %{_sysconfdir}/logrotate.d/rhn_server
 # translations
@@ -400,7 +433,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/action_extra_data/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/xmlrpc.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xmlrpc.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xmlrpc
 
 %files applet
@@ -409,7 +442,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/applet/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_applet.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/applet.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-applet.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_applet
 
 %files app
@@ -418,7 +451,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/app/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_app.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/app.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-app.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_app
 
 %files xp
@@ -427,7 +460,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/xp/*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xp.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/xp.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xp.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xp
 
 %files iss
@@ -435,7 +468,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
-%attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat.conf
 
 %files iss-export
 %defattr(-,root,root)
@@ -443,18 +476,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/satellite_exporter
 %{rhnroot}/satellite_exporter/__init__.py*
 %{rhnroot}/satellite_exporter/satexport.py*
-%{rhnroot}/satellite_exporter/constants.py*
-
-%dir %{rhnroot}/satellite_exporter/exporter
-%{rhnroot}/satellite_exporter/exporter/__init__.py*
-%{rhnroot}/satellite_exporter/exporter/dumper.py*
-%{rhnroot}/satellite_exporter/exporter/string_buffer.py*
 
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
-%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-internal.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-export-internal.conf
 %config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
@@ -475,7 +502,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/config-management.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management.conf
 %config %{_sysconfdir}/logrotate.d/rhn_config_management
 
 %files config-files-tool
@@ -483,7 +510,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/config-management-tool.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management-tool.conf
 %config %{_sysconfdir}/logrotate.d/rhn_config_management_tool
 
 %files upload-server
@@ -497,7 +524,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
 %config %{_sysconfdir}/logrotate.d/rhn_package_upload
-%attr(640,root,apache) %config %{httpdconf}/rhn/pkg-upload.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
 
 %files package-push-server
 %defattr(-,root,root)
@@ -510,7 +537,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package-push.conf
 %config %{_sysconfdir}/logrotate.d/rhn_package_push
-%attr(640,root,apache) %config %{httpdconf}/rhn/package-push.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-package-push.conf
 
 %files tools
 %defattr(-,root,root)
@@ -545,6 +572,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
 %{rhnroot}/satellite_tools/reposync.py*
+%{rhnroot}/satellite_tools/constants.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -593,6 +621,106 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.43-1
+- updated copyrights
+- 479911 - removing duplicate rewrites and consolidating to a single location
+- added utility to update package checksums
+
+* Wed Feb 03 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.42-1
+- implemented satellite-sync --dump-version
+- 556761 - existing packages result in not importing gpg signature
+- fixed config files not be deployed if system is subscribed to config channel
+
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.41-1
+- removed unreferenced functions
+- let use rhnLockfile from rhnlib
+- removed old python 1.5 code
+- Revert "543509 - do not fail if machine has not uuid set (like qemu)"
+
+* Fri Jan 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.40-1
+- fixed the sha module is deprecated
+- fixed maximum recursion depth exceeded
+
+* Fri Jan 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.39-1
+- fixed ISE on F12 mod_wsgi
+- 545389 - initial satellite-sync performance issue -- force use of index.
+
+* Wed Jan 27 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.38-1
+- fixed packaging of wsgi handler files
+
+* Tue Jan 26 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.37-1
+- fixed HTTP 404 on package download
+- execute commands through shell
+
+* Fri Jan 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.36-1
+- fixed handling subprocess.poll() return codes
+- 557581 - fixed config deployment would fail when multiple activation keys present
+
+* Thu Jan 21 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.35-1
+- fixed bug from popen2 -> subprocess migration
+- check parent_channel label only if exists
+- 526696 - checking whether server already uses a token
+- 528214 - Encode DBstrings as utf-8 bytes before truncating
+
+* Wed Jan 20 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.33-1
+- fixed payload_size always = 0 error
+- removed dead code in rhn_rpm.py
+
+* Tue Jan 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.32-1
+- 556460 - time values are <long> on Fedora 12
+- fixed DeprecationWarnings on Fedora 12
+- 524722 - add /etc/httpd/conf.d to the spacewalk-debug
+
+* Mon Jan 18 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.31-1
+- fixed import errors
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.30-1
+- added import of rhn-channel-checksum-type
+
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.28-1
+- SHA256 code cleanup
+
+* Wed Jan 13 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.25-1
+- ISS should work again
+
+* Wed Jan 13 2010 Tomas Lestach <tlestach@redhat.com> 0.8.23-1
+- preparations for srpm sync (tlestach@redhat.com)
+
+* Tue Jan 12 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.22-1
+- fixed more ISS SHA256 errors
+- Force correct UTF-8 for changelog name and text.
+
+* Mon Jan 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.21-1
+- fixed satsync -l over ISS 
+- fixed failure of httpd to (re)start
+* Sat Jan 09 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.20-1
+- fixed SHA256 packages import
+
+* Fri Jan 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.19-1
+- fixed rhnpush and satellite-sync sha256 errors
+- adding wsgi support adapter and removing code dependence on mod_python
+- 528833 - having username printed instead of user object
+
+* Thu Jan 07 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.18-1
+- made satelite-sync understand both 3.4 and 3.5 dumps
+- 175155 - bump up protocol version to 3.5
+
+* Tue Jan 05 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.16-1
+- made rhn-satellite-exporter SHA256 ready
+
+* Tue Jan 05 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.15-1
+- merged satellite_exporter/exporter into satellite_tools/disk_dumper
+
+* Mon Jan 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.14-1
+- more fixes in SHA256 implementation
+
+* Thu Dec 17 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.13-1
+- fixed kickastart import for sha256 exports
+- 528833 - fixed using an activation key of a disabled user
+
+* Wed Dec 16 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.12-1
+- fixed satellite-sync of pre-sha256 exports
+
 * Mon Dec 14 2009 Jan Pazdziora 0.8.10-1
 - reporting: add column total to the entitlements report
 

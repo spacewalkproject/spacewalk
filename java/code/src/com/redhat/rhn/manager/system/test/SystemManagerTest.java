@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1331,6 +1331,26 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals(list.get(0).get("name_id"), p.getName().getId());
         assertEquals(list.get(0).get("evr_id"), p.getEvr().getId());
 
+    }
+
+    public void testInSet() throws Exception {
+        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
+        RhnSet newrs = RhnSetManager.createSet(usr.getId(), "test_systems_list",
+                SetCleanup.NOOP);
+
+        for (int i = 0; i < 5; i++) {
+            Server mySystem = ServerFactoryTest.createTestServer(usr);
+            newrs.addElement(mySystem.getId());
+        }
+
+        RhnSetManager.store(newrs);
+
+        List<SystemOverview> dr = SystemManager.inSet(usr, newrs.getLabel());
+        assertEquals(dr.size(), 5);
+        assertTrue(dr.iterator().hasNext());
+
+        SystemOverview m = (dr.iterator().next());
+        assertNotNull(m.getName());
     }
 
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -148,7 +148,6 @@ def all_channels():
 
 
 class Dumper:
-    xml_dump_version = "2.0"
     buffer_size = 65536
 
     def __init__(self, server_url, actions, compression=9, options=None):

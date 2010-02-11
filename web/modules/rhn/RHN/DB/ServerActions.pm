@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,9 +15,9 @@
 
 use strict;
 
-use RHN::Set;
-
 package RHN::DB::ServerActions;
+
+use RHN::DB ();
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -92,46 +92,6 @@ sub remove_set_from_group {
 }
 
 
-sub system_set_change_base_channels {
-  my $class = shift;
-  my $user_id = shift;
-  my $to_defaults_ref = shift;  # array of base id's to go to default RH base channel
-  my $from_to_ref = shift;  # array of [ from_id, to_id ]'s...
-  my $transaction;
-
-
-  my $dbh = $transaction || RHN::DB->connect();
-
-  my $query = <<EOQ;
-BEGIN
-    rhn_channel.bulk_guess_server_base_from(?, ?, ?);
-END;
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  foreach my $from (@{$to_defaults_ref}) {
-    $sth->execute('system_list', $user_id, $from);
-  }
-
-  $query = <<EOQ;
-BEGIN
-    rhn_channel.bulk_server_basechange_from(?, ?, ?, ?);
-END;
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $from_to (@{$from_to_ref}) {
-    $sth->execute('system_list', $user_id, $from_to->[0], $from_to->[1]);
-  }
-
-  $dbh->commit unless $transaction;
-
-  return $dbh;
-}
-
-
 sub subscribe_set_to_channel {
   my $class = shift;
   my $set = shift;
@@ -172,24 +132,6 @@ EOQ
   $dbh->commit unless $transaction;
 
   return $dbh;
-}
-
-sub change_set_base_channel {
-  my $class = shift;
-  my $set = shift;
-  my $channel_id = shift;
-
-  my $query = <<EOQ;
-BEGIN
-  rhn_channel.bulk_server_base_change(?, ?, ?);
-END;
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute($channel_id, $set->label, $set->uid);
-
-  $dbh->commit;
 }
 
 1;

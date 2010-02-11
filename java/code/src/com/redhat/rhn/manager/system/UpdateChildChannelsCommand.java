@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,8 +19,10 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -28,6 +30,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.List;
 
 
@@ -63,7 +66,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
     public ValidatorError store() {
         List<Long> remove = new ArrayList<Long>();
         /*
-         * Loop through the servers channels and take any channels the server is already
+         * Loop through the server channels and take any channels the server is already
          * subscribed to out of the cids list. Also, keep track of any we will have to 
          * unsubscribe from in the remove list.
          */
@@ -79,6 +82,23 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             }
         }
         
+        // Check whether channelsIds are childs of the current base if the system has a base
+        if (server.getBaseChannel() != null) {
+            Set subscribableChannelIds = SystemManager.subscribableChannelIds(
+                            server.getId(), user.getId(), server.getBaseChannel().getId());
+            for (Long channelId : cids) {
+                if (!subscribableChannelIds.contains(channelId)) {
+                    Channel channel = ChannelFactory.lookupById(channelId);
+                    if (channel == null) {
+                        throw new InvalidChannelException();
+                    }
+                    else {
+                        throw new ChannelSubscriptionException(channel.getLabel());
+                    }
+                }
+            }
+        }
+
         //Subscribe to new channels
         log.debug("subscribing to new channels");
         boolean failedChannels = subscribeToNewChannels(user, cids, server);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.user.StateChange"
+        table="rhnWebContactChangeLog">
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">RHN_WCON_DISABLED_SEQ</param>
+            </generator>
+        </id>
+        <!-- Let the db take care of setting this column -->
+        <property name="date" type="date" column="date_completed"
+            insert="false" update="false"/>
+
+        <many-to-one name="user" class="com.redhat.rhn.domain.user.legacy.UserImpl"
+            column="web_contact_id" not-null="true" />
+
+        <many-to-one name="changedBy"
+            class="com.redhat.rhn.domain.user.legacy.UserImpl"
+            column="web_contact_from_id" not-null="true" />
+
+        <many-to-one name="state" class="com.redhat.rhn.domain.user.State"
+            column="change_state_id" not-null="true" />
+    </class>
+     <query name="StateChanges.lookupByUserId">
+        <![CDATA[from com.redhat.rhn.domain.user.StateChange as s where s.user = :user order by s.id desc]]>
+    </query>
+</hibernate-mapping>

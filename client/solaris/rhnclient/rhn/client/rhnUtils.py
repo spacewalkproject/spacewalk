@@ -1,9 +1,20 @@
 #/usr/bin/python
-# Client code for Update Agent
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
 #
-# Author: Preston Brown <pbrown@redhat.com>
-#         Adrian Likins <alikins@redhat.com>
+# Client code for Update Agent
+#
+# Copyright (c) 1999--2010 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 #
 """utility functions for rhn clients"""
 
@@ -13,7 +24,7 @@ import sys
 import time
 import string
 import md5
-import popen2
+import subprocess
 import select
 import tempfile
 import urlparse
@@ -207,35 +218,30 @@ def pprint_pkglist(pkglist):
 
 
 def my_popen(cmd):
-    c = popen2.Popen3(cmd, capturestderr=1, bufsize=0)
+    c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                 stderr=subprocess.PIPE, close_fds=True, bufsize=0)
 
     # We don't write to the child process 
-    c.tochild.close()
+    c.stdin.close()
 
     child_out = tempfile.TemporaryFile()
     child_err = tempfile.TemporaryFile()
 
     # Map the input file descriptor with the temporary (output) one
-    fd_mappings = [(c.fromchild, child_out), (c.childerr, child_err)]
+    fd_mappings = [(c.stdout, child_out), (c.stderr, child_err)]
 
     buffer_size = 16384
 
     exitcode = None
     while 1:
         status = c.poll()
-        if status != -1:
-            if os.WIFEXITED(status):
+        if status is not None:
+            if status >= 0:
                 # Save the exit code, we still have to read from the pipes
-                exitcode = os.WEXITSTATUS(status)
-            elif os.WIFSIGNALED(status):
-                # Some signal terminated this process
-                sig = os.WTERMSIG(status)
-                exitcode = -sig
-                break
-            elif os.WIFSTOPPED(status):
-                # Some signal stopped this process
-                sig = os.WSTOPSIG(status)
-                exitcode = -sig
+                exitcode = status
+            else:
+                # Some signal sent to this process
+                exitcode = status
                 break
 
         fd_set = map(lambda x: x[0], fd_mappings)

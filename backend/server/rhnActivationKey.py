@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@
 # $Id$
 
 import os
-import sha
+import hashlib
 import time
 import types
 
@@ -184,7 +184,7 @@ class ActivationKey:
         
 
     def generate_token(self):
-        s = sha.new()
+        s = hashlib.new('sha1')
         s.update(str(os.getpid()))
         for field in ['org_id', 'user_id', 'server_id']:
             if self._row_reg_token.has_key(field):

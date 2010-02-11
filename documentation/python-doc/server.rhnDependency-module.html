@@ -138,7 +138,8 @@
         <tr>
           <td><span class="summary-sig"><a name="__single_query"></a><span class="summary-sig-name">__single_query</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>,
-        <span class="summary-sig-arg">query</span>)</span></td>
+        <span class="summary-sig-arg">query</span>)</span><br />
+      Now run one of those queries and return the results.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#__single_query">source&nbsp;code</a></span>
             
@@ -156,7 +157,8 @@
         <tr>
           <td><span class="summary-sig"><a name="__single_query_with_arch_and_id"></a><span class="summary-sig-name">__single_query_with_arch_and_id</span>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>,
-        <span class="summary-sig-arg">query</span>)</span></td>
+        <span class="summary-sig-arg">query</span>)</span><br />
+      Run one of the queries and return the results along with the arch.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#__single_query_with_arch_and_id">source&nbsp;code</a></span>
             
@@ -172,7 +174,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="make_evr"></a><span class="summary-sig-name">make_evr</span>(<span class="summary-sig-arg">nvre</span>)</span></td>
+          <td><span class="summary-sig"><a name="make_evr"></a><span class="summary-sig-name">make_evr</span>(<span class="summary-sig-arg">nvre</span>)</span><br />
+      IN: 'e:name-version-release' or 'name-version-release:e' OUT: 
+      {'name':name, 'version':version, 'release':release, 'epoch':epoch }</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#make_evr">source&nbsp;code</a></span>
             
@@ -307,12 +311,16 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solve_dependencies_with_limits"></a><span class="summary-sig-name">solve_dependencies_with_limits</span>(<span class="summary-sig-arg">server_id</span>,
+          <td><span class="summary-sig"><a href="server.rhnDependency-module.html#solve_dependencies_with_limits" class="summary-sig-name">solve_dependencies_with_limits</a>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>,
         <span class="summary-sig-arg">version</span>,
         <span class="summary-sig-arg">all</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">limit_operator</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span><br />
+      This version of solve_dependencies allows the caller to get all of 
+      the packages that solve a dependency and limit the packages that are 
+      returned to those that match the criteria defined by limit_operator 
+      and limit.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies_with_limits">source&nbsp;code</a></span>
             
@@ -328,9 +336,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solve_dependencies_arch"></a><span class="summary-sig-name">solve_dependencies_arch</span>(<span class="summary-sig-arg">server_id</span>,
+          <td><span class="summary-sig"><a href="server.rhnDependency-module.html#solve_dependencies_arch" class="summary-sig-name">solve_dependencies_arch</a>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>,
-        <span class="summary-sig-arg">version</span>)</span></td>
+        <span class="summary-sig-arg">version</span>)</span><br />
+      Does the same thing as solve_dependencies, but also returns the architecture label with the package info.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies_arch">source&nbsp;code</a></span>
             
@@ -346,9 +355,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solve_dependencies"></a><span class="summary-sig-name">solve_dependencies</span>(<span class="summary-sig-arg">server_id</span>,
+          <td><span class="summary-sig"><a href="server.rhnDependency-module.html#solve_dependencies" class="summary-sig-name">solve_dependencies</a>(<span class="summary-sig-arg">server_id</span>,
         <span class="summary-sig-arg">deps</span>,
-        <span class="summary-sig-arg">version</span>)</span></td>
+        <span class="summary-sig-arg">version</span>)</span><br />
+      The unchanged version of solve_dependencies.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies">source&nbsp;code</a></span>
             
@@ -364,8 +374,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="cmp_evr"></a><span class="summary-sig-name">cmp_evr</span>(<span class="summary-sig-arg">pkg1</span>,
-        <span class="summary-sig-arg">pkg2</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.rhnDependency-module.html#cmp_evr" class="summary-sig-name">cmp_evr</a>(<span class="summary-sig-arg">pkg1</span>,
+        <span class="summary-sig-arg">pkg2</span>)</span><br />
+      Intended to be passed to a list object's sort().</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#cmp_evr">source&nbsp;code</a></span>
             
@@ -381,9 +392,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="test_evr"></a><span class="summary-sig-name">test_evr</span>(<span class="summary-sig-arg">evr</span>,
+          <td><span class="summary-sig"><a href="server.rhnDependency-module.html#test_evr" class="summary-sig-name">test_evr</a>(<span class="summary-sig-arg">evr</span>,
         <span class="summary-sig-arg">operator</span>,
-        <span class="summary-sig-arg">limit</span>)</span></td>
+        <span class="summary-sig-arg">limit</span>)</span><br />
+      Check to see if evr is within the limit.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnDependency-pysrc.html#test_evr">source&nbsp;code</a></span>
             
@@ -432,7 +444,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_with_arch_and_id_sql" class="summary-name" onclick="show_private();">__packages_with_arch_and_id_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__packages_with_arch_and_id_sql" class="summary-name" onclick="show_private();">__packages_with_arch_and_id_sql</a> = <code title="'''
 select distinct
     p.id id,
     pn.name name,
@@ -440,14 +452,14 @@ select distinct
     pe.evr.release release,
     pe.evr.epoch epoch,
     pa.label arch,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    p.id</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_sql" class="summary-name" onclick="show_private();">__packages_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__packages_sql" class="summary-name" onclick="show_private();">__packages_sql</a> = <code title="'''
 select distinct
     pn.name name,
     pe.evr.version version,
@@ -455,14 +467,14 @@ select distinct
     pe.evr.epoch epoch,
     pa.label arch,
     1 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name name,\n    pe</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__packages_all_sql" class="summary-name" onclick="show_private();">__packages_all_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__packages_all_sql" class="summary-name" onclick="show_private();">__packages_all_sql</a> = <code title="'''
 select distinct
     pn.name name,
     pe.evr.version version,
@@ -470,14 +482,14 @@ select distinct
     pe.evr.epoch epoch,
     pa.label arch,
     1 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name name,\n  </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__provides_sql" class="summary-name" onclick="show_private();">__provides_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__provides_sql" class="summary-name" onclick="show_private();">__provides_sql</a> = <code title="'''
 select  distinct
     pn.name,
     pe.evr.version version,
@@ -485,14 +497,14 @@ select  distinct
     pe.evr.epoch epoch,
     pa.label arch,
     2 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect  distinct\n    pn.name,\n    pe.evr</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__provides_all_sql" class="summary-name" onclick="show_private();">__provides_all_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__provides_all_sql" class="summary-name" onclick="show_private();">__provides_all_sql</a> = <code title="'''
 select  distinct
     pn.name,
     pe.evr.version version,
@@ -500,14 +512,14 @@ select  distinct
     pe.evr.epoch epoch,
     pa.label arch,
     2 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect  distinct\n    pn.name,\n    pe</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__files_sql" class="summary-name" onclick="show_private();">__files_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__files_sql" class="summary-name" onclick="show_private();">__files_sql</a> = <code title="'''
 select distinct
     pn.name,
     pe.evr.version version,
@@ -515,14 +527,14 @@ select distinct
     pe.evr.epoch epoch,
     pa.label arch,
     3 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name,\n    pe.evr.ver</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnDependency-module.html#__files_all_sql" class="summary-name" onclick="show_private();">__files_all_sql</a> = <code title="&quot;&quot;&quot;
+        <a href="server.rhnDependency-module.html#__files_all_sql" class="summary-name" onclick="show_private();">__files_all_sql</a> = <code title="'''
 select distinct
     pn.name,
     pe.evr.version version,
@@ -530,10 +542,198 @@ select distinct
     pe.evr.epoch epoch,
     pa.label arch,
     3 preference
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\nselect distinct\n    pn.name,\n    pe.evr</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="solve_dependencies_with_limits"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solve_dependencies_with_limits</span>(<span class="sig-arg">server_id</span>,
+        <span class="sig-arg">deps</span>,
+        <span class="sig-arg">version</span>,
+        <span class="sig-arg">all</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">limit_operator</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">limit</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies_with_limits">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This version of solve_dependencies allows the caller to get all of the
+  packages that solve a dependency and limit the packages that are returned
+  to those that match the criteria defined by limit_operator and limit. 
+  This version of the function also returns the architecture label of the 
+  package[s] that get returned.</p>
+  <p>limit_operator can be any of: '&lt;', '&lt;=', '==', '&gt;=', or 
+  '&gt;'. limit is a a string of the format [epoch:]name-version-release 
+  deps is a list of filenames that the packages that are returned must 
+  provide. version is the version of the client that is calling the 
+  function.</p>
+  <p>Indexes for the tuple entry_index = 0 preference_index = 1</p>
+  <p>Indexes for the list of package fields. name_index = 0 version_index =
+  1 release_index = 2 epoch_index = 3</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solve_dependencies_arch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solve_dependencies_arch</span>(<span class="sig-arg">server_id</span>,
+        <span class="sig-arg">deps</span>,
+        <span class="sig-arg">version</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies_arch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Does the same thing as solve_dependencies, but also returns the architecture label with the package info.
+IN:
+   server_id := id info of the server
+   deps := list of filenames that are needed by the caller
+   version := version of the client
+
+OUT:
+   Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
+   Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch', 'architecture'],
+                                    ['name2', 'version2', 'release2', 'epoch2', 'architecture2']]}
+
+Indexes for the tuple stored as the value in dict
+entry_index = 0
+preference_index = 1
+
+indexes for the list nvre
+name_index = 0
+version_index = 1
+release_index = 2
+epoch_index = 3
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solve_dependencies"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solve_dependencies</span>(<span class="sig-arg">server_id</span>,
+        <span class="sig-arg">deps</span>,
+        <span class="sig-arg">version</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnDependency-pysrc.html#solve_dependencies">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+The unchanged version of solve_dependencies. 
+IN: 
+   server_id := id info of the server
+   deps := list of filenames that are needed by the caller
+   version := version of the client
+
+OUT:
+   Dictionary with key values being the filnames in deps and the values being a list of lists of package info.
+   Example :=  {'filename1'    :   [['name', 'version', 'release', 'epoch'], 
+                                    ['name2', 'version2', 'release2', 'epoch2']]}    
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="cmp_evr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cmp_evr</span>(<span class="sig-arg">pkg1</span>,
+        <span class="sig-arg">pkg2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnDependency-pysrc.html#cmp_evr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Intended to be passed to a list object's sort(). In: {'epoch': 
+  'value', 'version':'value', 'release':'value'}</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_evr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_evr</span>(<span class="sig-arg">evr</span>,
+        <span class="sig-arg">operator</span>,
+        <span class="sig-arg">limit</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnDependency-pysrc.html#test_evr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Check to see if evr is within the limit.
+IN: evr = { 'epoch' : value, 'version':value, 'release':value }
+    operator can be any of: '&lt;', '&lt;=', '==', '&gt;=', '&gt;'
+    limit = { 'epoch' : value, 'version':value, 'release':value }
+OUT: 
+   1 or 0
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== VARIABLES DETAILS ==================== -->
 <a name="section-VariablesDetails"></a>
 <table class="details" border="1" cellpadding="3"
@@ -564,14 +764,14 @@ select distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select distinct
-    p.id id,
-    pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select distinct</code>
+<code class="variable-string">    p.id id,</code>
+<code class="variable-string">    pn.name name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -590,14 +790,14 @@ select distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select distinct
-    pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select distinct</code>
+<code class="variable-string">    pn.name name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    1 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -616,14 +816,14 @@ select distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select distinct
-    pn.name name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    1 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select distinct</code>
+<code class="variable-string">    pn.name name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    1 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -642,14 +842,14 @@ select distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select  distinct
-    pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    2 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select  distinct</code>
+<code class="variable-string">    pn.name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    2 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -668,14 +868,14 @@ select  distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select  distinct
-    pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    2 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select  distinct</code>
+<code class="variable-string">    pn.name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    2 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -694,14 +894,14 @@ select  distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select distinct
-    pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    3 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select distinct</code>
+<code class="variable-string">    pn.name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    3 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -720,14 +920,14 @@ select distinct
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-select distinct
-    pn.name,
-    pe.evr.version version,
-    pe.evr.release release,
-    pe.evr.epoch epoch,
-    pa.label arch,
-    3 preference
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">select distinct</code>
+<code class="variable-string">    pn.name,</code>
+<code class="variable-string">    pe.evr.version version,</code>
+<code class="variable-string">    pe.evr.release release,</code>
+<code class="variable-string">    pe.evr.epoch epoch,</code>
+<code class="variable-string">    pa.label arch,</code>
+<code class="variable-string">    3 preference</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -758,7 +958,7 @@ select distinct
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -339,40 +339,6 @@ sub empty_list_wrapper {
 
   my $ret =<<EOQ;
     <strong>{empty_list_message}</strong>
-EOQ
-
-  return $ret;
-}
-
-package Sniglets::ListView::Style::package_download;
-
-use base qw/Sniglets::ListView::Style::standard/;
-
-sub empty_list_wrapper {
-
-  return <<EOQ;
-  <div align="right">
-    <hr />
-
-    <form method="post" action="/cgi-bin/download.pl/rhn-packages.tar">
-      <input type="submit" name="download_system_packages" value="Download Selected Packages Now!" />
-      <input type="hidden" name="token" value="{token}" />
-      <input type="hidden" name="pxt:trap" value="rhn:download_packages_cb" />
-{hidden_package_vars}
-    </form>
-  </div>
-EOQ
-}
-
-#      <input type="hidden" name="pxt:trap" value="rhn:download_packages_cb" />
-
-
-sub footer {
-  my $self = shift;
-
-  my $ret =<<EOQ;
-</table>
-{hidden_package_vars}
 EOQ
 
   return $ret;

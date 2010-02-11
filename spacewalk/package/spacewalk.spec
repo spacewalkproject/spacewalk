@@ -1,7 +1,7 @@
 %define release_name Bowling
 
 Name:           spacewalk
-Version:        0.8.0
+Version:        0.9.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -33,11 +33,9 @@ Requires:       spacewalk-search
 # Perl
 Requires:       spacewalk-html
 Requires:       spacewalk-base
-Requires:       spacewalk-cypress
 Requires:       spacewalk-grail
 Requires:       spacewalk-pxt
 Requires:       spacewalk-sniglets
-Requires:       spacewalk-moon
 
 # Python
 Requires:       spacewalk-certs-tools
@@ -163,6 +161,10 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- droped spacewalk-cypress from Requires
+- removed spacewalk-moon (sub)package as it is not used anywhere
+
 * Fri Nov 27 2009 Jan Pazdziora 0.7.4-1
 - Disable jabberd-selinux for Fedora 11+, enable spacewalk-selinux
 

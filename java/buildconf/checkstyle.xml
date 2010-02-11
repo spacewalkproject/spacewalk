@@ -102,17 +102,15 @@
 
 
         <!-- Checks for Headers                              -->
-        <!-- See http://checkstyle.sf.net/config_header.html -->
-        <module name="Header">
+        <!-- See http://checkstyle.sourceforge.net/config_header.html#RegexpHeader -->
+        <!-- Following interprets the header file as regular expressions. -->
+        <module name="RegexpHeader">
             <!-- The follow property value demonstrates the ability     -->
             <!-- to have access to ANT properties. In this case it uses -->
             <!-- the ${basedir} property to allow Checkstyle to be run  -->
             <!-- from any directory within a project.                   -->
             <property name="headerFile" value="${checkstyle.header.file}"/>
         </module>
-
-        <!-- Following interprets the header file as regular expressions. -->
-        <!-- <module name="RegexpHeader"/> -->
 
 
 

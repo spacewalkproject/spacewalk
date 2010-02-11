@@ -6,7 +6,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk 
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.8.0
+Version: 0.9.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rebuild for spacewalk 0.8
+
 * Wed Nov 18 2009 Miroslav Suchy <msuchy@redhat.com> 0.7.2-1
 - 494292 - use %%global instead of %%define
 

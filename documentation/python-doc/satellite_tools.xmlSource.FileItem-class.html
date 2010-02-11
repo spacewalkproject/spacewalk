@@ -55,7 +55,19 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class FileItem</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#FileItem">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_214" name="uml_class_diagram_for_satellit_214">
+<area shape="rect" href="satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate" title="satellite_tools.xmlSource.BaseChecksummedItem.populate" alt="" coords="48,129,264,148"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseChecksummedItem-class.html" title="satellite_tools.xmlSource.BaseChecksummedItem" alt="" coords="47,104,265,149"/>
+<area shape="rect" href="satellite_tools.xmlSource.FileItem-class.html#item_name" title="hash(x)" alt="" coords="120,196,192,215"/>
+<area shape="rect" href="server.importlib.importLib.File-class.html" title="hash(x)" alt="" coords="120,215,192,233"/>
+<area shape="rect" href="satellite_tools.xmlSource.FileItem-class.html#tagMap" title="satellite_tools.xmlSource.FileItem.tagMap" alt="" coords="120,233,192,252"/>
+<area shape="rect" href="satellite_tools.xmlSource.FileItem-class.html" title="satellite_tools.xmlSource.FileItem" alt="" coords="119,179,193,261"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,36,295,55"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements" title="satellite_tools.xmlSource.BaseItem.populateFromElements" alt="" coords="17,55,295,73"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="16,11,296,75"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_214.png" alt='' usemap="#uml_class_diagram_for_satellit_214" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
@@ -79,7 +91,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.importLib.File-class.html" class="summary-name">item_class</a>
+        <a href="server.importlib.importLib.File-class.html" class="summary-name">item_class</a><br />
+      hash(x)
     </td>
   </tr>
 </table>
@@ -102,8 +115,10 @@
 </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.xmlSource.BaseChecksummedItem-class.html">BaseChecksummedItem</a></code></b>:
+      <code><a href="satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate">populate</a></code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.xmlSource.BaseItem-class.html">BaseItem</a></code></b>:
-      <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populate">populate</a></code>,
       <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes">populateFromAttributes</a></code>,
       <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements">populateFromElements</a></code>
       </p>
@@ -131,68 +146,18 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-package-file'">'rhn-package-file'</code>
+        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-package-file'"><code class="variable-quote">'</code><code class="variable-string">rhn-package-file</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.xmlSource.FileItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'rhn-package-file-device': 'device', 'rhn-package-file-inode': 'inode\
-', 'rhn-package-file-file_mode': 'file_mode', 'rhn-package-file-userna\
-me': 'username', 'rhn-package-file-groupname': 'groupname', 'rhn-packa\
-ge-file-rdev': 'rdev', 'rhn-package-file-file_size': 'file_size', 'rhn\
--package-file-mtime': 'mtime', 'rhn-package-file-md5': 'md5', 'rhn-pac\
-kage-file-linkto': 'linkto', 'rhn-package-file-flags': 'flags', 'rhn-p\
-ackage-file-verifyflags': 'verifyflags', 'rhn-package-file-lang': 'lan\
-g',}">{'rhn-package-file-device': 'device', 'rhn-package-fi<code class="variable-ellipsis">...</code></code>
+        <a name="tagMap"></a><span class="summary-name">tagMap</span> = <code title="{'md5': 'md5sum'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">md5</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md5sum</code><code class="variable-quote">'</code><code class="variable-group">}</code></code>
     </td>
   </tr>
 </table>
-<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
-<a name="section-ClassVariableDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Class Variable Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-ClassVariableDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="tagMap"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">tagMap</h3>
-  
-  <dl class="fields">
-  </dl>
-  <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-{'rhn-package-file-device': 'device', 'rhn-package-file-inode': 'inode<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-', 'rhn-package-file-file_mode': 'file_mode', 'rhn-package-file-userna<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-me': 'username', 'rhn-package-file-groupname': 'groupname', 'rhn-packa<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ge-file-rdev': 'rdev', 'rhn-package-file-file_size': 'file_size', 'rhn<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
--package-file-mtime': 'mtime', 'rhn-package-file-md5': 'md5', 'rhn-pac<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-kage-file-linkto': 'linkto', 'rhn-package-file-flags': 'flags', 'rhn-p<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ackage-file-verifyflags': 'verifyflags', 'rhn-package-file-lang': 'lan<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-g',}
-</pre></td></tr></table>
-</dd>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -216,7 +181,7 @@ g',}
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:13 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:40 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

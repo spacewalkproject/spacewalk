@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,12 +37,6 @@ sub register_tags {
   my $pxt = shift;
 
   # use -150 for priority since we need to set a {foo} that is consumed by a the navi tag
-}
-
-sub register_callbacks {
-  my $class = shift;
-  my $pxt = shift;
-  $pxt->register_callback('rhn:configfile_copy_files_cb' => \&configfile_copy_files_cb);
 }
 
 sub configfile_copy_files_cb {

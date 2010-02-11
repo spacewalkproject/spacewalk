@@ -10,14 +10,6 @@
   <pxt-include-late file="/templates/header.pxt" />
 
   <body><div class="wrap" id="top-wrap">
-  <rhn-browser-css-compliance at_most="0">
-    <div id="broken-browser-warning">
-      <h1>
-        You are using an unsupported browser.
-      </h1>
-      <a href="/help/browser-info.pxt">More Info</a>
-    </div>
-  </rhn-browser-css-compliance>
     <rhn-navi-nav depth="0" style="topnav"/>
     <pxt-include-late file="/network/components/status_bar/main.pxi" />
     </div>
@@ -29,10 +21,8 @@
 	<grail-canvas mode="left_menu_canvas">
           <rhn-navi-nav depth="1" style="sidenav"/>
 	</grail-canvas>
-<rhn-browser-css-compliance at_least="1">
 	<grail-canvas mode="legend_canvas">
 	</grail-canvas>
-</rhn-browser-css-compliance>
 
      <rhn-require acl="global_config(chat_enabled)">
        <br/>

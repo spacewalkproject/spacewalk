@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.disk_dumper-module.html">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
         <a href="satellite_tools.disk_dumper.dumper-module.html">Module&nbsp;dumper</a> ::
         Class&nbsp;_ChannelsDumper
       </span>
@@ -56,7 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class _ChannelsDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#_ChannelsDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_45" name="uml_class_diagram_for_satellit_45">
+<area shape="rect" href="satellite_tools.exporter.exportLib._ChannelDumper-class.html" title="satellite_tools.exporter.exportLib._ChannelDumper" alt="" coords="89,235,311,267"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#tag_name" title="satellite_tools.disk_dumper.dumper._ChannelsDumper.tag_name" alt="" coords="140,313,260,332"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#set_attributes" title="satellite_tools.disk_dumper.dumper._ChannelsDumper.set_attributes" alt="" coords="140,335,260,353"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#set_iterator" title="satellite_tools.disk_dumper.dumper._ChannelsDumper.set_iterator" alt="" coords="140,353,260,372"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html" title="satellite_tools.disk_dumper.dumper._ChannelsDumper" alt="" coords="139,296,261,373"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.BaseRowDumper.__init__" alt="" coords="89,185,311,204"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html" title="satellite_tools.exporter.exportLib.BaseRowDumper" alt="" coords="88,160,312,205"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="17,36,383,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="17,55,383,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.BaseDumper.dump_subelement" alt="" coords="17,73,383,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="17,92,383,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="17,111,383,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="16,11,384,131"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_45.png" alt='' usemap="#uml_class_diagram_for_satellit_45" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -174,6 +190,9 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html" onclick="show_private();">exporter.exportLib._ChannelDumper</a></code></b> (private):
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_get_channel_product_details" onclick="show_private();">_get_channel_product_details</a></code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html">exporter.exportLib.BaseRowDumper</a></code></b>:
       <code><a href="satellite_tools.exporter.exportLib.BaseRowDumper-class.html#__init__">__init__</a></code>
       </p>
@@ -215,42 +234,42 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_channel_families" class="summary-name" onclick="show_private();">_query_channel_families</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_channel_families" class="summary-name" onclick="show_private();">_query_channel_families</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403308; statement=
         select cf.id, cf.label
           from rhnChannelFamily cf, rhnChannelFamilyMembers cfm
          where cfm.channel_family_id = cf.id
            and cfm.channel_id = :channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement in<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_dist_channel_map" class="summary-name" onclick="show_private();">_query_dist_channel_map</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_dist_channel_map" class="summary-name" onclick="show_private();">_query_dist_channel_map</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403340; statement=
         select dcm.os, dcm.release, ca.label channel_arch
           from rhnDistChannelMap dcm, rhnChannelArch ca
          where dcm.channel_id = :channel_id
            and dcm.channel_arch_id = ca.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement in<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_package_ids" class="summary-name" onclick="show_private();">_query_get_package_ids</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_package_ids" class="summary-name" onclick="show_private();">_query_get_package_ids</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403372; statement=
         select package_id
           from rhnChannelPackage
          where channel_id = :channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_package_ids_by_date_limits" class="summary-name" onclick="show_private();">_query_get_package_ids_by_date_limits</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_package_ids_by_date_limits" class="summary-name" onclick="show_private();">_query_get_package_ids_by_date_limits</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403404; statement=
         select package_id
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
@@ -258,14 +277,14 @@
          and rp.last_modified &gt;= TO_Date(:lower_limit, 'YYYYMMDDHH24MI\
 SS')
          and rp.last_modified &lt;= TO_Date(:upper_limit, 'YYYYMMDDHH24MI\
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_bas<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_source_package_ids" class="summary-name" onclick="show_private();">_query_get_source_package_ids</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_source_package_ids" class="summary-name" onclick="show_private();">_query_get_source_package_ids</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403436; statement=
         select distinct ps.id, sr.name source_rpm,
                TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modi\
 fied
@@ -273,28 +292,28 @@ fied
 ,
                rhnSourceRPM sr
          where cp.channel_id = :channel_id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statem<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query__get_errata_ids" class="summary-name" onclick="show_private();">_query__get_errata_ids</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query__get_errata_ids" class="summary-name" onclick="show_private();">_query__get_errata_ids</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403468; statement=
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modif\
 ied
           from rhnChannelErrata ce, rhnErrata e
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query__get_errata_ids_by_limits" class="summary-name" onclick="show_private();">_query__get_errata_ids_by_limits</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query__get_errata_ids_by_limits" class="summary-name" onclick="show_private();">_query__get_errata_ids_by_limits</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403500; statement=
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modif\
 ied
@@ -302,26 +321,26 @@ ied
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
            and e.last_modified &gt;= TO_Date(:lower_limit, 'YYYYMMDDHH24M\
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Sta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_kickstartable_trees" class="summary-name" onclick="show_private();">_query_get_kickstartable_trees</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_kickstartable_trees" class="summary-name" onclick="show_private();">_query_get_kickstartable_trees</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403532; statement=
         select kt.label
           from rhnKickstartableTree kt
          where  kt.channel_id = :channel_id
            and  kt.org_id is null
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_kickstartable_trees_by_limits" class="summary-name" onclick="show_private();">_query_get_kickstartable_trees_by_limits</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html#_query_get_kickstartable_trees_by_limits" class="summary-name" onclick="show_private();">_query_get_kickstartable_trees_by_limits</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147403564; statement=
         select kt.label
           from rhnKickstartableTree kt
          where  kt.channel_id = :channel_id
@@ -329,7 +348,14 @@ ied
 4MISS')
            and  kt.last_modified &lt;= TO_DATE(:upper_limit, 'YYYYMMDDHH2\
 4MISS')
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html" onclick="show_private();">exporter.exportLib._ChannelDumper</a></code></b> (private):
+      <code><a href="satellite_tools.exporter.exportLib._ChannelDumper-class.html#_query_get_channel_product_details" onclick="show_private();">_query_get_channel_product_details</a></code>
+      </p></div>
     </td>
   </tr>
 </table>
@@ -514,12 +540,12 @@ ied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403308; statement=
         select cf.id, cf.label
           from rhnChannelFamily cf, rhnChannelFamilyMembers cfm
          where cfm.channel_family_id = cf.id
            and cfm.channel_id = :channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -537,12 +563,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403340; statement=
         select dcm.os, dcm.release, ca.label channel_arch
           from rhnDistChannelMap dcm, rhnChannelArch ca
          where dcm.channel_id = :channel_id
            and dcm.channel_arch_id = ca.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -560,11 +586,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403372; statement=
         select package_id
           from rhnChannelPackage
          where channel_id = :channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -582,7 +608,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403404; statement=
         select package_id
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
@@ -608,7 +634,7 @@ SS')
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403436; statement=
         select distinct ps.id, sr.name source_rpm,
                TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 fied
@@ -634,14 +660,14 @@ fied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403468; statement=
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modif<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ied
           from rhnChannelErrata ce, rhnErrata e
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -659,7 +685,7 @@ ied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403500; statement=
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modif<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ied
@@ -685,12 +711,12 @@ ied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403532; statement=
         select kt.label
           from rhnKickstartableTree kt
          where  kt.channel_id = :channel_id
            and  kt.org_id is null
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -708,7 +734,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147403564; statement=
         select kt.label
           from rhnKickstartableTree kt
          where  kt.channel_id = :channel_id
@@ -746,7 +772,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:26 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,15 +31,6 @@ sub find_type {
   return $ret;
 }
 
-sub register_type {
-  my $class = shift;
-  my $label = shift;
-  my $type = shift;
-  die "invalid search type $type" unless $type->isa("RHN::SearchType");
-
-  $search_types{$label} = $type;
-}
-
 package RHN::SearchType;
 
 use Params::Validate qw/validate/;
@@ -52,20 +43,6 @@ sub new {
   my $self = bless { search_modes => [], min_search_length => 0 }, $class;
 
   return $self;
-}
-
-sub acl_test {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1, acl_string => 1, acl_mixins => 0});
-
-  my $acl_parser = new PXT::ACL (mixins => $params{acl_mixins});
-
-  return $acl_parser->eval_acl($params{pxt}, $params{acl_string});
-}
-
-sub set_min_search_length {
-  my $self = shift;
-  $self->{min_search_length} = shift;
 }
 
 sub set_name {
@@ -92,23 +69,6 @@ sub add_mode {
     };
 }
 
-sub render_search_selectbox {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1});
-
-  my @options;
-  my $current_search_type = $params{pxt}->dirty_param('view_mode') || '';
-
-  foreach my $search (@{$self->{search_modes}}) {
-    my $row = [ $search->{mode_choice_name},
-		$search->{mode_label},
-		$current_search_type eq $search->{mode_label} ? 1 : 0];
-    push @options, $row;
-  }
-
-  return PXT::HTML->select(-name => 'view_mode', -options => \@options);
-}
-
 sub label_to_column_name {
   my $self = shift;
   my $view_mode = shift;
@@ -119,12 +79,6 @@ sub label_to_column_name {
   return $matches[0]->{mode_column_name};
 }
 
-sub valid_search_string {
-  my $self = shift;
-  my $search_str = shift;
-
-  return;
-}
 
 package RHN::SearchType::System;
 
@@ -138,78 +92,6 @@ sub new {
   my $self = bless { categories => [], min_search_length => 0 }, $class;
 
   return $self;
-}
-
-sub add_category {
-  my $self = shift;
-  my %params = @_;
-
-  throw "No category label" unless $params{-label};
-  my $modes = $params{-modes} || [];
-
-  throw "modes param should be array ref"
-    unless (ref $modes eq 'ARRAY');
-
-  push @{$self->{categories}},
-    {
-     label => $params{-label},
-     modes => [ map { $self->parse_mode(%{$_}) } @{$modes} ],
-     acl => $params{-acl},
-     acl_mixins => $params{-acl_mixins},
-    };
-}
-
-sub parse_mode {
-  my $self = shift;
-  my %params = @_;
-
-  throw "No mode name" unless $params{-name};
-  throw "No mode label" unless $params{-label};
-
-  return {
-     mode_choice_name => $params{-name},
-     mode_label => $params{-label},
-     mode_column_name => $params{-column_name} || $params{-label},
-     acl => $params{-acl},
-     acl_mixins => $params{-acl_mixins},
-    };
-}
-
-sub render_search_selectbox {
-  my $self = shift;
-  my %params = validate(@_, {pxt => 1, search_type => 0});
-  my $current_search_type = $params{search_type} || '';
-
-  my @options;
-
-  foreach my $cat (@{$self->{categories}}) {
-
-    if (defined $cat->{acl}) {
-      next unless $self->acl_test(pxt => $params{pxt},
-				  acl_string => $cat->{acl},
-				  acl_mixins => defined $cat->{acl_mixins} ? $cat->{acl_mixins} : undef,
-				 );
-    }
-
-    push @options, [ $cat->{label}, '', 0, 'optgroup' ];
-
-    foreach my $search (@{$cat->{modes}}) {
-
-      if (defined $search->{acl}) {
-	next unless $self->acl_test(pxt => $params{pxt},
-				    acl_string => $search->{acl},
-				    acl_mixins => defined $search->{acl_mixins} ? $search->{acl_mixins} : undef,
-				   );
-      }
-
-      my $row = [ $search->{mode_label},
-		  $search->{mode_choice_name},
-		  $current_search_type eq $search->{mode_choice_name} ? 1 : 0];
-      push @options, $row;
-    }
-  }
-
-  return PXT::HTML->select(-name => 'view_mode', -options => \@options);
 }
 
 sub label_to_column_name {

@@ -1,11 +1,19 @@
 #
 # This module contains all the RPC-related functions the RHN code uses
 #
-# Copyright (c) 2002-2005 Red Hat, Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 #
-# Author: Mihai Ibanescu <misa@redhat.com>
-
-# $Id$
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 __version__ = "$Revision$"
 
@@ -283,7 +291,12 @@ class Server:
         # call a method on the remote server
         # the loop is used to handle redirections
         redirect_response = 0
-        retry = 0        
+        retry = 0
+
+        rpc_version = __version__
+        if len(__version__.split()) > 1:
+            rpc_version = __version__.split()[1]
+
         while 1:
             if retry >= MAX_REDIRECTIONS:
                 raise InvalidRedirectionError(
@@ -294,10 +307,6 @@ class Server:
             for k, v in self._headers.items():
                 self._transport.set_header(k, v)
 
-            rpc_version = __version__
-            if len(__version__.split()) > 1:
-                rpc_version = __version__.split()[1]
- 
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
                 rpc_version)
@@ -318,15 +327,7 @@ class Server:
             request = self._req_body(params, methodname)
 
             try:
-                if self._redirected: 
-                    type, uri = urllib.splittype(self._redirected)
-                    self._redirected = None
- 
-                    host, handler = urllib.splithost(uri) 
-                    response = self._transport.request(host, handler, 
-                        request, verbose=self._verbose) 
-                else:    
-                    response = self._transport.request(self._host, \
+                response = self._transport.request(self._host, \
                                 self._handler, request, verbose=self._verbose)
                 save_response = self._transport.response_status
             except xmlrpclib.ProtocolError, pe:
@@ -335,9 +336,8 @@ class Server:
                 else:
                      save_response = pe.errcode
 
-            if not self._allow_redirect:
-                raise InvalidRedirectionError("Redirects not allowed")
-           
+            self._redirected = None
+            retry += 1
             if save_response == 200:
                 break
             elif save_response in (301, 302):
@@ -346,9 +346,11 @@ class Server:
                 redirect_response = 1
             else:
                 # Retry pkg fetch
-                 retry = retry + 1
                  self.use_handler_path = 1
                  continue
+
+            if not self._allow_redirect:
+                raise InvalidRedirectionError("Redirects not allowed")
                                 
             if self._verbose:
                 print "%s redirected to %s" % (self._uri, self._redirected)
@@ -375,32 +377,28 @@ class Server:
                 self._handler = "/RPC2"
 
             if save_response == 302:
-                if not self._allow_redirect:
-                    raise InvalidRedirectionError("Redirects not allowed")
-                else:
-                    redirect_response = 1
+                redirect_response = 1
 
-                    # 
-                    # Create a new transport for the redirected service and 
-                    # set up the parameters on the new transport
-                    #
-                    del self._transport
-                    self._transport = self.default_transport(typ, self._proxy,
-                                             self._username, self._password)
-                    self.set_progress_callback(self._progressCallback)
-                    self.set_refresh_callback(self._refreshCallback)
-                    self.set_buffer_size(self._bufferSize)
-                    self.setlang(self._lang)
+                #
+                # Create a new transport for the redirected service and
+                # set up the parameters on the new transport
+                #
+                del self._transport
+                self._transport = self.default_transport(typ, self._proxy,
+                                         self._username, self._password)
+                self.set_progress_callback(self._progressCallback)
+                self.set_refresh_callback(self._refreshCallback)
+                self.set_buffer_size(self._bufferSize)
+                self.setlang(self._lang)
 
-                    if self._trusted_cert_files != [] and \
-                        hasattr(self._transport, "add_trusted_cert"):
-                        for certfile in self._trusted_cert_files:
-                            self._transport.add_trusted_cert(certfile)
-                    #
-                    # Then restart the loop to try the new entry point.
-                    #
-                    continue
-
+                if self._trusted_cert_files != [] and \
+                    hasattr(self._transport, "add_trusted_cert"):
+                    for certfile in self._trusted_cert_files:
+                        self._transport.add_trusted_cert(certfile)
+                #
+                # Then restart the loop to try the new entry point.
+                #
+                continue
 
         if isinstance(response, transports.File):
             # Just return the file

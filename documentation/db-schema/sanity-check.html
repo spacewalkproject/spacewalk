@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Sanity Check </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#fk-ix">FK indexes</a> <a href="#inv">Invalid objects</a> </div><h1>Sanity Check</h1>
+<a name="fk-ix"></a><h2>No indexes on columns involved in foreign key constraints</h2>
+<p>You should almost always index foreign keys. The only exception is when
+                        the matching unique or primary key is never updated or deleted. For
+                        more information take a look on
+                        <a href="http://oradoc.photo.net/ora817/DOC/server.817/a76965/c24integ.htm#2299">
+                        Concurrency Control, Indexes, and Foreign Keys</a>.</p>
+                        <p>The sql file which will
+                        generate these indexes is <a href="fk-indexes.sql">created for you</a></p><h3>"Unindexed" foreign keys</h3>
+<table>
+<tr><th>Table Name</th><th>Constraint name</th><th>Columns</th></tr><tr><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td><a href="table-RHNACTION.html#cs-RHN_ACTION_AT_FK">RHN_ACTION_AT_FK </a>
+</td><td>ACTION_TYPE</td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGFILENAME.html"> RHNACTIONCONFIGFILENAME </a></td><td><a href="table-RHNACTIONCONFIGFILENAME.html#cs-RHN_ACTIONCF_FAILURE_ID_FK">RHN_ACTIONCF_FAILURE_ID_FK </a>
+</td><td>FAILURE_ID</td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGFILENAME.html"> RHNACTIONCONFIGFILENAME </a></td><td><a href="table-RHNACTIONCONFIGFILENAME.html#cs-RHN_ACTIONCF_NAME_CFNID_FK">RHN_ACTIONCF_NAME_CFNID_FK </a>
+</td><td>CONFIG_FILE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNACTIONCONFIGREVISION.html"> RHNACTIONCONFIGREVISION </a></td><td><a href="table-RHNACTIONCONFIGREVISION.html#cs-RHN_ACTIONCR_FAILID_FK">RHN_ACTIONCR_FAILID_FK </a>
+</td><td>FAILURE_ID</td></tr>
+<tr><td><a href="table-RHNACTIONKICKSTARTGUEST.html"> RHNACTIONKICKSTARTGUEST </a></td><td><a href="table-RHNACTIONKICKSTARTGUEST.html#cs-RHN_ACTIONKS_XENGUEST_KSID_FK">RHN_ACTIONKS_XENGUEST_KSID_FK </a>
+</td><td>KS_SESSION_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGE.html"> RHNACTIONPACKAGE </a></td><td><a href="table-RHNACTIONPACKAGE.html#cs-RHN_ACT_P_EVR_FK">RHN_ACT_P_EVR_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGE.html"> RHNACTIONPACKAGE </a></td><td><a href="table-RHNACTIONPACKAGE.html#cs-RHN_ACT_P_NAME_FK">RHN_ACT_P_NAME_FK </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGE.html"> RHNACTIONPACKAGE </a></td><td><a href="table-RHNACTIONPACKAGE.html#cs-RHN_ACT_P_PAID_FK">RHN_ACT_P_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEDELTA.html"> RHNACTIONPACKAGEDELTA </a></td><td><a href="table-RHNACTIONPACKAGEDELTA.html#cs-RHN_ACT_PD_PDID_FK">RHN_ACT_PD_PDID_FK </a>
+</td><td>PACKAGE_DELTA_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html#cs-RHN_APR_FAILURE_CAPID_FK">RHN_APR_FAILURE_CAPID_FK </a>
+</td><td>CAPABILITY_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html#cs-RHN_APR_FAILURE_EID_FK">RHN_APR_FAILURE_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html#cs-RHN_APR_FAILURE_NID_FK">RHN_APR_FAILURE_NID_FK </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html"> RHNACTIONPACKAGEREMOVALFAILURE </a></td><td><a href="table-RHNACTIONPACKAGEREMOVALFAILURE.html#cs-RHN_APR_FAILURE_SUGGESTED_FK">RHN_APR_FAILURE_SUGGESTED_FK </a>
+</td><td>SUGGESTED</td></tr>
+<tr><td><a href="table-RHNALLOWTRUST.html"> RHNALLOWTRUST </a></td><td><a href="table-RHNALLOWTRUST.html#cs-RHN_ALLOW_TRUST_OID_FK">RHN_ALLOW_TRUST_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNAPPINSTALLSESSION.html"> RHNAPPINSTALLSESSION </a></td><td><a href="table-RHNAPPINSTALLSESSION.html#cs-RHN_APPINST_SESSION_CHSUM_FK">RHN_APPINST_SESSION_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNARCHTYPEACTIONS.html"> RHNARCHTYPEACTIONS </a></td><td><a href="table-RHNARCHTYPEACTIONS.html#cs-RHN_ARCHTYPEACTS_ACTID_FK">RHN_ARCHTYPEACTS_ACTID_FK </a>
+</td><td>ACTION_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_EID_FK">RHN_BL_OBS_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_INID_FK">RHN_BL_OBS_INID_FK </a>
+</td><td>IGNORE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNBLACKLISTOBSOLETES.html"> RHNBLACKLISTOBSOLETES </a></td><td><a href="table-RHNBLACKLISTOBSOLETES.html#cs-RHN_BL_OBS_PAID_FK">RHN_BL_OBS_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CAID_FK">RHN_CHANNEL_CAID_FK </a>
+</td><td>CHANNEL_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CHECKSUM_FK">RHN_CHANNEL_CHECKSUM_FK </a>
+</td><td>CHECKSUM_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_CPID_FK">RHN_CHANNEL_CPID_FK </a>
+</td><td>CHANNEL_PRODUCT_ID</td></tr>
+<tr><td><a href="table-RHNCHANNEL.html"> RHNCHANNEL </a></td><td><a href="table-RHNCHANNEL.html#cs-RHN_CHANNEL_PRODUCT_NAME_CH_FK">RHN_CHANNEL_PRODUCT_NAME_CH_FK </a>
+</td><td>PRODUCT_NAME_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELARCH.html"> RHNCHANNELARCH </a></td><td><a href="table-RHNCHANNELARCH.html#cs-RHN_CARCH_ATID_FK">RHN_CARCH_ATID_FK </a>
+</td><td>ARCH_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELCOMPS.html"> RHNCHANNELCOMPS </a></td><td><a href="table-RHNCHANNELCOMPS.html#cs-RHN_CHANNELCOMPS_CID_FK">RHN_CHANNELCOMPS_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELCONTENTSOURCE.html"> RHNCHANNELCONTENTSOURCE </a></td><td><a href="table-RHNCHANNELCONTENTSOURCE.html#cs-RHN_CCS_TYPE_FK">RHN_CCS_TYPE_FK </a>
+</td><td>TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELFAMILY.html"> RHNCHANNELFAMILY </a></td><td><a href="table-RHNCHANNELFAMILY.html#cs-RHN_CHANNEL_FAMILY_ORG_FK">RHN_CHANNEL_FAMILY_ORG_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELNEWESTPACKAGE.html"> RHNCHANNELNEWESTPACKAGE </a></td><td><a href="table-RHNCHANNELNEWESTPACKAGE.html#cs-RHN_CNP_EID_FK">RHN_CNP_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELNEWESTPACKAGE.html"> RHNCHANNELNEWESTPACKAGE </a></td><td><a href="table-RHNCHANNELNEWESTPACKAGE.html#cs-RHN_CNP_PAID_FK">RHN_CNP_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELPARENT.html"> RHNCHANNELPARENT </a></td><td><a href="table-RHNCHANNELPARENT.html#cs-RHN_CP_PARENT_CH_FK">RHN_CP_PARENT_CH_FK </a>
+</td><td>PARENT_CHANNEL</td></tr>
+<tr><td><a href="table-RHNCHANNELPERMISSION.html"> RHNCHANNELPERMISSION </a></td><td><a href="table-RHNCHANNELPERMISSION.html#cs-RHN_CPERM_RID_FK">RHN_CPERM_RID_FK </a>
+</td><td>ROLE_ID</td></tr>
+<tr><td><a href="table-RHNCHANNELPERMISSION.html"> RHNCHANNELPERMISSION </a></td><td><a href="table-RHNCHANNELPERMISSION.html#cs-RHN_CPERM_UID_FK">RHN_CPERM_UID_FK </a>
+</td><td>USER_ID</td></tr>
+<tr><td><a href="table-RHNCHECKSUM.html"> RHNCHECKSUM </a></td><td><a href="table-RHNCHECKSUM.html#cs-RHNCHECKSUM_TYPEID_FK">RHNCHECKSUM_TYPEID_FK </a>
+</td><td>CHECKSUM_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCLIENTCAPABILITY.html"> RHNCLIENTCAPABILITY </a></td><td><a href="table-RHNCLIENTCAPABILITY.html#cs-RHN_CLIENTCAP_CAP_NID_FK">RHN_CLIENTCAP_CAP_NID_FK </a>
+</td><td>CAPABILITY_NAME_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGCHANNEL.html"> RHNCONFIGCHANNEL </a></td><td><a href="table-RHNCONFIGCHANNEL.html#cs-RHN_CONFCHAN_CTID_FK">RHN_CONFCHAN_CTID_FK </a>
+</td><td>CONFCHAN_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGCONTENT.html"> RHNCONFIGCONTENT </a></td><td><a href="table-RHNCONFIGCONTENT.html#cs-RHN_CONFCONTENT_CHSUM_FK">RHN_CONFCONTENT_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGFILE.html"> RHNCONFIGFILE </a></td><td><a href="table-RHNCONFIGFILE.html#cs-RHN_CONFFILE_CFNID_FK">RHN_CONFFILE_CFNID_FK </a>
+</td><td>CONFIG_FILE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGFILE.html"> RHNCONFIGFILE </a></td><td><a href="table-RHNCONFIGFILE.html#cs-RHN_CONFFILE_SID_FK">RHN_CONFFILE_SID_FK </a>
+</td><td>STATE_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGREVISION.html"> RHNCONFIGREVISION </a></td><td><a href="table-RHNCONFIGREVISION.html#cs-RHN_CONFREVISION_CCID_FK">RHN_CONFREVISION_CCID_FK </a>
+</td><td>CONFIG_CONTENT_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGREVISION.html"> RHNCONFIGREVISION </a></td><td><a href="table-RHNCONFIGREVISION.html#cs-RHN_CONFREVISION_CID_FK">RHN_CONFREVISION_CID_FK </a>
+</td><td>CHANGED_BY_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGREVISION.html"> RHNCONFIGREVISION </a></td><td><a href="table-RHNCONFIGREVISION.html#cs-RHN_CONFREVISION_CIID_FK">RHN_CONFREVISION_CIID_FK </a>
+</td><td>CONFIG_INFO_ID</td></tr>
+<tr><td><a href="table-RHNCONFIGREVISION.html"> RHNCONFIGREVISION </a></td><td><a href="table-RHNCONFIGREVISION.html#cs-RHN_CONF_REV_CFTI_FK">RHN_CONF_REV_CFTI_FK </a>
+</td><td>CONFIG_FILE_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCPU.html"> RHNCPU </a></td><td><a href="table-RHNCPU.html#cs-RHN_CPU_CAID_FK">RHN_CPU_CAID_FK </a>
+</td><td>CPU_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNCRYPTOKEY.html"> RHNCRYPTOKEY </a></td><td><a href="table-RHNCRYPTOKEY.html#cs-RHN_CRYPTOKEY_CKTID_FK">RHN_CRYPTOKEY_CKTID_FK </a>
+</td><td>CRYPTO_KEY_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNCUSTOMDATAKEY.html"> RHNCUSTOMDATAKEY </a></td><td><a href="table-RHNCUSTOMDATAKEY.html#cs-RHN_CDATAKEY_CB_FK">RHN_CDATAKEY_CB_FK </a>
+</td><td>CREATED_BY</td></tr>
+<tr><td><a href="table-RHNCUSTOMDATAKEY.html"> RHNCUSTOMDATAKEY </a></td><td><a href="table-RHNCUSTOMDATAKEY.html#cs-RHN_CDATAKEY_LMB_FK">RHN_CDATAKEY_LMB_FK </a>
+</td><td>LAST_MODIFIED_BY</td></tr>
+<tr><td><a href="table-RHNDISTCHANNELMAP.html"> RHNDISTCHANNELMAP </a></td><td><a href="table-RHNDISTCHANNELMAP.html#cs-RHN_DCM_CAID_FK">RHN_DCM_CAID_FK </a>
+</td><td>CHANNEL_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNDISTCHANNELMAP.html"> RHNDISTCHANNELMAP </a></td><td><a href="table-RHNDISTCHANNELMAP.html#cs-RHN_DCM_CID_FK">RHN_DCM_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNDOWNLOADS.html"> RHNDOWNLOADS </a></td><td><a href="table-RHNDOWNLOADS.html#cs-RHN_DL_CFID_FK">RHN_DL_CFID_FK </a>
+</td><td>CHANNEL_FAMILY_ID</td></tr>
+<tr><td><a href="table-RHNDOWNLOADS.html"> RHNDOWNLOADS </a></td><td><a href="table-RHNDOWNLOADS.html#cs-RHN_DL_DLTYPE_FK">RHN_DL_DLTYPE_FK </a>
+</td><td>DOWNLOAD_TYPE</td></tr>
+<tr><td><a href="table-RHNDOWNLOADS.html"> RHNDOWNLOADS </a></td><td><a href="table-RHNDOWNLOADS.html#cs-RHN_DL_FID_FK">RHN_DL_FID_FK </a>
+</td><td>FILE_ID</td></tr>
+<tr><td><a href="table-RHNEMAILADDRESS.html"> RHNEMAILADDRESS </a></td><td><a href="table-RHNEMAILADDRESS.html#cs-RHN_EADDRESS_SID_FK">RHN_EADDRESS_SID_FK </a>
+</td><td>STATE_ID</td></tr>
+<tr><td><a href="table-RHNERRATA.html"> RHNERRATA </a></td><td><a href="table-RHNERRATA.html#cs-RHN_ERRATA_OID_FK">RHN_ERRATA_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNERRATA.html"> RHNERRATA </a></td><td><a href="table-RHNERRATA.html#cs-RHN_ERRATA_SEVID_FK">RHN_ERRATA_SEVID_FK </a>
+</td><td>SEVERITY_ID</td></tr>
+<tr><td><a href="table-RHNERRATAFILE.html"> RHNERRATAFILE </a></td><td><a href="table-RHNERRATAFILE.html#cs-RHN_ERRATAFILE_CHSUM_FK">RHN_ERRATAFILE_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNERRATAFILE.html"> RHNERRATAFILE </a></td><td><a href="table-RHNERRATAFILE.html#cs-RHN_ERRATAFILE_TYPE_FK">RHN_ERRATAFILE_TYPE_FK </a>
+</td><td>TYPE</td></tr>
+<tr><td><a href="table-RHNERRATAFILEPACKAGESOURCE.html"> RHNERRATAFILEPACKAGESOURCE </a></td><td><a href="table-RHNERRATAFILEPACKAGESOURCE.html#cs-RHN_EFILEPS_PID_FK">RHN_EFILEPS_PID_FK </a>
+</td><td>PACKAGE_ID</td></tr>
+<tr><td><a href="table-RHNERRATAFILETMP.html"> RHNERRATAFILETMP </a></td><td><a href="table-RHNERRATAFILETMP.html#cs-RHN_ERRATAFILETMP_CHSUM_FK">RHN_ERRATAFILETMP_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNERRATAFILETMP.html"> RHNERRATAFILETMP </a></td><td><a href="table-RHNERRATAFILETMP.html#cs-RHN_ERRATAFILETMP_TYPE_FK">RHN_ERRATAFILETMP_TYPE_FK </a>
+</td><td>TYPE</td></tr>
+<tr><td><a href="table-RHNERRATANOTIFICATIONQUEUE.html"> RHNERRATANOTIFICATIONQUEUE </a></td><td><a href="table-RHNERRATANOTIFICATIONQUEUE.html#cs-RHN_ENQUEUE_CID_FK">RHN_ENQUEUE_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNERRATANOTIFICATIONQUEUE.html"> RHNERRATANOTIFICATIONQUEUE </a></td><td><a href="table-RHNERRATANOTIFICATIONQUEUE.html#cs-RHN_ENQUEUE_OID_FK">RHN_ENQUEUE_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNERRATAQUEUE.html"> RHNERRATAQUEUE </a></td><td><a href="table-RHNERRATAQUEUE.html#cs-RHN_EQUEUE_CID_FK">RHN_EQUEUE_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNERRATATMP.html"> RHNERRATATMP </a></td><td><a href="table-RHNERRATATMP.html#cs-RHN_ERRATATMP_OID_FK">RHN_ERRATATMP_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNFILE.html"> RHNFILE </a></td><td><a href="table-RHNFILE.html#cs-RHN_FILE_CHSUM_FK">RHN_FILE_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNFILE.html"> RHNFILE </a></td><td><a href="table-RHNFILE.html#cs-RHN_FILE_OID_FK">RHN_FILE_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNFILEDOWNLOAD.html"> RHNFILEDOWNLOAD </a></td><td><a href="table-RHNFILEDOWNLOAD.html#cs-RHN_FILEDL_FID_FK">RHN_FILEDL_FID_FK </a>
+</td><td>FILE_ID</td></tr>
+<tr><td><a href="table-RHNFILELISTMEMBERS.html"> RHNFILELISTMEMBERS </a></td><td><a href="table-RHNFILELISTMEMBERS.html#cs-RHN_FLMEMBERS_CFNID_FK">RHN_FLMEMBERS_CFNID_FK </a>
+</td><td>CONFIG_FILE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNGRAILCOMPONENTS.html"> RHNGRAILCOMPONENTS </a></td><td><a href="table-RHNGRAILCOMPONENTS.html#cs-RHN_GRAIL_COMP_ROLE_TYPE_FK">RHN_GRAIL_COMP_ROLE_TYPE_FK </a>
+</td><td>ROLE_REQUIRED</td></tr>
+<tr><td><a href="table-RHNKICKSTARTABLETREE.html"> RHNKICKSTARTABLETREE </a></td><td><a href="table-RHNKICKSTARTABLETREE.html#cs-RHN_KSTREE_CID_FK">RHN_KSTREE_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTABLETREE.html"> RHNKICKSTARTABLETREE </a></td><td><a href="table-RHNKICKSTARTABLETREE.html#cs-RHN_KSTREE_IT_FK">RHN_KSTREE_IT_FK </a>
+</td><td>INSTALL_TYPE</td></tr>
+<tr><td><a href="table-RHNKICKSTARTABLETREE.html"> RHNKICKSTARTABLETREE </a></td><td><a href="table-RHNKICKSTARTABLETREE.html#cs-RHN_KSTREE_KSTREETYPE_FK">RHN_KSTREE_KSTREETYPE_FK </a>
+</td><td>KSTREE_TYPE</td></tr>
+<tr><td><a href="table-RHNKICKSTARTCHILDCHANNEL.html"> RHNKICKSTARTCHILDCHANNEL </a></td><td><a href="table-RHNKICKSTARTCHILDCHANNEL.html#cs-RHN_KS_CC_KSD_FK">RHN_KS_CC_KSD_FK </a>
+</td><td>KSDATA_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTCOMMAND.html"> RHNKICKSTARTCOMMAND </a></td><td><a href="table-RHNKICKSTARTCOMMAND.html#cs-RHN_KSCOMMAND_KCNID_FK">RHN_KSCOMMAND_KCNID_FK </a>
+</td><td>KS_COMMAND_NAME_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTDEFAULTS.html"> RHNKICKSTARTDEFAULTS </a></td><td><a href="table-RHNKICKSTARTDEFAULTS.html#cs-RHN_KSD_KVT_FK">RHN_KSD_KVT_FK </a>
+</td><td>VIRTUALIZATION_TYPE</td></tr>
+<tr><td><a href="table-RHNKICKSTARTDEFAULTS.html"> RHNKICKSTARTDEFAULTS </a></td><td><a href="table-RHNKICKSTARTDEFAULTS.html#cs-RHN_KSD_SPID_FK">RHN_KSD_SPID_FK </a>
+</td><td>SERVER_PROFILE_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTPACKAGE.html"> RHNKICKSTARTPACKAGE </a></td><td><a href="table-RHNKICKSTARTPACKAGE.html#cs-RHN_KSPACKAGE_PNID_FK">RHN_KSPACKAGE_PNID_FK </a>
+</td><td>PACKAGE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KSS_KVT_FK">RHN_KSS_KVT_FK </a>
+</td><td>VIRTUALIZATION_TYPE</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_AID_FK">RHN_KS_SESSION_AID_FK </a>
+</td><td>ACTION_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_KSID_FK">RHN_KS_SESSION_KSID_FK </a>
+</td><td>KICKSTART_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_KSSSID_FK">RHN_KS_SESSION_KSSSID_FK </a>
+</td><td>STATE_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_KSTID_FK">RHN_KS_SESSION_KSTID_FK </a>
+</td><td>KSTREE_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_SCHED_FK">RHN_KS_SESSION_SCHED_FK </a>
+</td><td>SCHEDULER</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSION.html"> RHNKICKSTARTSESSION </a></td><td><a href="table-RHNKICKSTARTSESSION.html#cs-RHN_KS_SESSION_SPID_FK">RHN_KS_SESSION_SPID_FK </a>
+</td><td>SERVER_PROFILE_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html"> RHNKICKSTARTSESSIONHISTORY </a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#cs-RHN_KS_SESSIONHIST_AID_FK">RHN_KS_SESSIONHIST_AID_FK </a>
+</td><td>ACTION_ID</td></tr>
+<tr><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html"> RHNKICKSTARTSESSIONHISTORY </a></td><td><a href="table-RHNKICKSTARTSESSIONHISTORY.html#cs-RHN_KS_SESSIONHIST_STAT_FK">RHN_KS_SESSIONHIST_STAT_FK </a>
+</td><td>STATE_ID</td></tr>
+<tr><td><a href="table-RHNKSTREEFILE.html"> RHNKSTREEFILE </a></td><td><a href="table-RHNKSTREEFILE.html#cs-RHN_KSTREEFILE_CHSUM_FK">RHN_KSTREEFILE_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNMESSAGE.html"> RHNMESSAGE </a></td><td><a href="table-RHNMESSAGE.html#cs-RHN_M_MT_FK">RHN_M_MT_FK </a>
+</td><td>MESSAGE_TYPE</td></tr>
+<tr><td><a href="table-RHNMESSAGE.html"> RHNMESSAGE </a></td><td><a href="table-RHNMESSAGE.html#cs-RHN_M_PRIORITY_FK">RHN_M_PRIORITY_FK </a>
+</td><td>PRIORITY</td></tr>
+<tr><td><a href="table-RHNMONITOR.html"> RHNMONITOR </a></td><td><a href="table-RHNMONITOR.html#cs-RHN_MONITOR_GRANULARITY_FK">RHN_MONITOR_GRANULARITY_FK </a>
+</td><td>GRANULARITY</td></tr>
+<tr><td><a href="table-RHNORGCHANNELSETTINGS.html"> RHNORGCHANNELSETTINGS </a></td><td><a href="table-RHNORGCHANNELSETTINGS.html#cs-RHN_ORGCSETTINGS_CID_FK">RHN_ORGCSETTINGS_CID_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNORGCHANNELSETTINGS.html"> RHNORGCHANNELSETTINGS </a></td><td><a href="table-RHNORGCHANNELSETTINGS.html#cs-RHN_ORGCSETTINGS_SID_FK">RHN_ORGCSETTINGS_SID_FK </a>
+</td><td>SETTING_ID</td></tr>
+<tr><td><a href="table-RHNORGENTITLEMENTS.html"> RHNORGENTITLEMENTS </a></td><td><a href="table-RHNORGENTITLEMENTS.html#cs-RHN_ORG_ENT_EID_FK">RHN_ORG_ENT_EID_FK </a>
+</td><td>ENTITLEMENT_ID</td></tr>
+<tr><td><a href="table-RHNORGINFO.html"> RHNORGINFO </a></td><td><a href="table-RHNORGINFO.html#cs-RHN_ORGINFO_DGT_FK">RHN_ORGINFO_DGT_FK </a>
+</td><td>DEFAULT_GROUP_TYPE</td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td><a href="table-RHNPACKAGE.html#cs-RHN_PACKAGE_CHSUM_FK">RHN_PACKAGE_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td><a href="table-RHNPACKAGE.html#cs-RHN_PACKAGE_EID_FK">RHN_PACKAGE_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td><a href="table-RHNPACKAGE.html#cs-RHN_PACKAGE_GROUP_FK">RHN_PACKAGE_GROUP_FK </a>
+</td><td>PACKAGE_GROUP</td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td><a href="table-RHNPACKAGE.html#cs-RHN_PACKAGE_PAID_FK">RHN_PACKAGE_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGE.html"> RHNPACKAGE </a></td><td><a href="table-RHNPACKAGE.html#cs-RHN_PACKAGE_SRCRPMID_FK">RHN_PACKAGE_SRCRPMID_FK </a>
+</td><td>SOURCE_RPM_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEARCH.html"> RHNPACKAGEARCH </a></td><td><a href="table-RHNPACKAGEARCH.html#cs-RHN_PARCH_ATID_FK">RHN_PARCH_ATID_FK </a>
+</td><td>ARCH_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEDELTAELEMENT.html"> RHNPACKAGEDELTAELEMENT </a></td><td><a href="table-RHNPACKAGEDELTAELEMENT.html#cs-RHN_PDELEMENT_TPID_FK">RHN_PDELEMENT_TPID_FK </a>
+</td><td>TRANSACTION_PACKAGE_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEFILE.html"> RHNPACKAGEFILE </a></td><td><a href="table-RHNPACKAGEFILE.html#cs-RHN_PACKAGE_FILE_CHSUM_FK">RHN_PACKAGE_FILE_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEKEY.html"> RHNPACKAGEKEY </a></td><td><a href="table-RHNPACKAGEKEY.html#cs-RHN_PKEY_PRID_FK">RHN_PKEY_PRID_FK </a>
+</td><td>PROVIDER_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEKEY.html"> RHNPACKAGEKEY </a></td><td><a href="table-RHNPACKAGEKEY.html#cs-RHN_PKEY_TYPE_ID_PRID_FK">RHN_PKEY_TYPE_ID_PRID_FK </a>
+</td><td>KEY_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGEKEYASSOCIATION.html"> RHNPACKAGEKEYASSOCIATION </a></td><td><a href="table-RHNPACKAGEKEYASSOCIATION.html#cs-RHN_PKEYA_KID_FK">RHN_PKEYA_KID_FK </a>
+</td><td>KEY_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGENEVRA.html"> RHNPACKAGENEVRA </a></td><td><a href="table-RHNPACKAGENEVRA.html#cs-RHN_PKGNEVRA_EID_FK">RHN_PKGNEVRA_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGENEVRA.html"> RHNPACKAGENEVRA </a></td><td><a href="table-RHNPACKAGENEVRA.html#cs-RHN_PKGNEVRA_PAID_FK">RHN_PKGNEVRA_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGESENSEMAP.html"> RHNPACKAGESENSEMAP </a></td><td><a href="table-RHNPACKAGESENSEMAP.html#cs-RHN_PKG_SENSEMAP_SID_FK">RHN_PKG_SENSEMAP_SID_FK </a>
+</td><td>SENSE_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGESOURCE.html"> RHNPACKAGESOURCE </a></td><td><a href="table-RHNPACKAGESOURCE.html#cs-RHN_PKGSRC_CHSUM_FK">RHN_PKGSRC_CHSUM_FK </a>
+</td><td>CHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGESOURCE.html"> RHNPACKAGESOURCE </a></td><td><a href="table-RHNPACKAGESOURCE.html#cs-RHN_PKGSRC_GROUP_FK">RHN_PKGSRC_GROUP_FK </a>
+</td><td>PACKAGE_GROUP</td></tr>
+<tr><td><a href="table-RHNPACKAGESOURCE.html"> RHNPACKAGESOURCE </a></td><td><a href="table-RHNPACKAGESOURCE.html#cs-RHN_PKGSRC_OID_FK">RHN_PKGSRC_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-RHNPACKAGESOURCE.html"> RHNPACKAGESOURCE </a></td><td><a href="table-RHNPACKAGESOURCE.html#cs-RHN_PKGSRC_SIGCHSUM_FK">RHN_PKGSRC_SIGCHSUM_FK </a>
+</td><td>SIGCHECKSUM_ID</td></tr>
+<tr><td><a href="table-RHNPRODUCT.html"> RHNPRODUCT </a></td><td><a href="table-RHNPRODUCT.html#cs-RHN_PRODUCT_CAT_FK">RHN_PRODUCT_CAT_FK </a>
+</td><td>PRODUCT_LINE_ID</td></tr>
+<tr><td><a href="table-RHNPROXYINFO.html"> RHNPROXYINFO </a></td><td><a href="table-RHNPROXYINFO.html#cs-RHN_PROXY_INFO_PEID_FK">RHN_PROXY_INFO_PEID_FK </a>
+</td><td>PROXY_EVR_ID</td></tr>
+<tr><td><a href="table-RHNPUSHCLIENT.html"> RHNPUSHCLIENT </a></td><td><a href="table-RHNPUSHCLIENT.html#cs-SYS_C0058769">SYS_C0058769 </a>
+</td><td>STATE_ID</td></tr>
+<tr><td><a href="table-RHNREGTOKENCHANNELS.html"> RHNREGTOKENCHANNELS </a></td><td><a href="table-RHNREGTOKENCHANNELS.html#cs-RHN_REG_TOK_CHN_SGS_FK">RHN_REG_TOK_CHN_SGS_FK </a>
+</td><td>CHANNEL_ID</td></tr>
+<tr><td><a href="table-RHNREGTOKENENTITLEMENT.html"> RHNREGTOKENENTITLEMENT </a></td><td><a href="table-RHNREGTOKENENTITLEMENT.html#cs-RHN_REG_TOK_ENT_SGTID_FK">RHN_REG_TOK_ENT_SGTID_FK </a>
+</td><td>SERVER_GROUP_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNREGTOKENGROUPS.html"> RHNREGTOKENGROUPS </a></td><td><a href="table-RHNREGTOKENGROUPS.html#cs-RHN_REG_TOK_GRP_SGS_FK">RHN_REG_TOK_GRP_SGS_FK </a>
+</td><td>SERVER_GROUP_ID</td></tr>
+<tr><td><a href="table-RHNREGTOKENPACKAGES.html"> RHNREGTOKENPACKAGES </a></td><td><a href="table-RHNREGTOKENPACKAGES.html#cs-RHN_REG_TOK_PKG_AID_FK">RHN_REG_TOK_PKG_AID_FK </a>
+</td><td>ARCH_ID</td></tr>
+<tr><td><a href="table-RHNREGTOKENPACKAGES.html"> RHNREGTOKENPACKAGES </a></td><td><a href="table-RHNREGTOKENPACKAGES.html#cs-RHN_REG_TOK_PKG_ID_FK">RHN_REG_TOK_PKG_ID_FK </a>
+</td><td>TOKEN_ID</td></tr>
+<tr><td><a href="table-RHNSATELLITEINFO.html"> RHNSATELLITEINFO </a></td><td><a href="table-RHNSATELLITEINFO.html#cs-RHN_SATELLITE_INFO_EID_FK">RHN_SATELLITE_INFO_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNSATELLITESERVERGROUP.html"> RHNSATELLITESERVERGROUP </a></td><td><a href="table-RHNSATELLITESERVERGROUP.html#cs-RHN_SATSG_SGTYPE_FK">RHN_SATSG_SGTYPE_FK </a>
+</td><td>SERVER_GROUP_TYPE</td></tr>
+<tr><td><a href="table-RHNSAVEDSEARCH.html"> RHNSAVEDSEARCH </a></td><td><a href="table-RHNSAVEDSEARCH.html#cs-RHN_SAVEDSEARCH_TYPE_FK">RHN_SAVEDSEARCH_TYPE_FK </a>
+</td><td>TYPE</td></tr>
+<tr><td><a href="table-RHNSERVER.html"> RHNSERVER </a></td><td><a href="table-RHNSERVER.html#cs-RHN_SERVER_PSID_FK">RHN_SERVER_PSID_FK </a>
+</td><td>PROVISION_STATE_ID</td></tr>
+<tr><td><a href="table-RHNSERVER.html"> RHNSERVER </a></td><td><a href="table-RHNSERVER.html#cs-RHN_SERVER_SAID_FK">RHN_SERVER_SAID_FK </a>
+</td><td>SERVER_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTION.html"> RHNSERVERACTION </a></td><td><a href="table-RHNSERVERACTION.html#cs-RHN_SERVER_ACTION_STATUS_FK">RHN_SERVER_ACTION_STATUS_FK </a>
+</td><td>STATUS</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html"> RHNSERVERACTIONPACKAGERESULT </a></td><td><a href="table-RHNSERVERACTIONPACKAGERESULT.html#cs-RHN_SAP_RESULT_APID_FK">RHN_SAP_RESULT_APID_FK </a>
+</td><td>ACTION_PACKAGE_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#cs-RHN_SACTIONVM_AID_FK">RHN_SACTIONVM_AID_FK </a>
+</td><td>ACTION_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#cs-RHN_SACTIONVM_PAID_FK">RHN_SACTIONVM_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#cs-RHN_SACTIONVM_PCID_FK">RHN_SACTIONVM_PCID_FK </a>
+</td><td>PACKAGE_CAPABILITY_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#cs-RHN_SACTIONVM_PEID_FK">RHN_SACTIONVM_PEID_FK </a>
+</td><td>PACKAGE_EVR_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html"> RHNSERVERACTIONVERIFYMISSING </a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#cs-RHN_SACTIONVM_PNID_FK">RHN_SACTIONVM_PNID_FK </a>
+</td><td>PACKAGE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html#cs-RHN_SACTIONVR_AID_FK">RHN_SACTIONVR_AID_FK </a>
+</td><td>ACTION_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html#cs-RHN_SACTIONVR_PAID_FK">RHN_SACTIONVR_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html#cs-RHN_SACTIONVR_PCID_FK">RHN_SACTIONVR_PCID_FK </a>
+</td><td>PACKAGE_CAPABILITY_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html#cs-RHN_SACTIONVR_PEID_FK">RHN_SACTIONVR_PEID_FK </a>
+</td><td>PACKAGE_EVR_ID</td></tr>
+<tr><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html"> RHNSERVERACTIONVERIFYRESULT </a></td><td><a href="table-RHNSERVERACTIONVERIFYRESULT.html#cs-RHN_SACTIONVR_PNID_FK">RHN_SACTIONVR_PNID_FK </a>
+</td><td>PACKAGE_NAME_ID</td></tr>
+<tr><td><a href="table-RHNSERVERARCH.html"> RHNSERVERARCH </a></td><td><a href="table-RHNSERVERARCH.html#cs-RHN_SARCH_ATID_FK">RHN_SARCH_ATID_FK </a>
+</td><td>ARCH_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNSERVERCUSTOMDATAVALUE.html"> RHNSERVERCUSTOMDATAVALUE </a></td><td><a href="table-RHNSERVERCUSTOMDATAVALUE.html#cs-RHN_SCDV_CB_FK">RHN_SCDV_CB_FK </a>
+</td><td>CREATED_BY</td></tr>
+<tr><td><a href="table-RHNSERVERCUSTOMDATAVALUE.html"> RHNSERVERCUSTOMDATAVALUE </a></td><td><a href="table-RHNSERVERCUSTOMDATAVALUE.html#cs-RHN_SCDV_LMB_FK">RHN_SCDV_LMB_FK </a>
+</td><td>LAST_MODIFIED_BY</td></tr>
+<tr><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html"> RHNSERVERGROUPTYPEFEATURE </a></td><td><a href="table-RHNSERVERGROUPTYPEFEATURE.html#cs-RHN_SGT_FID_FK">RHN_SGT_FID_FK </a>
+</td><td>FEATURE_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C0059359">SYS_C0059359 </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C0059360">SYS_C0059360 </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPACKAGE.html"> RHNSERVERPACKAGE </a></td><td><a href="table-RHNSERVERPACKAGE.html#cs-SYS_C0059361">SYS_C0059361 </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPROFILE.html"> RHNSERVERPROFILE </a></td><td><a href="table-RHNSERVERPROFILE.html#cs-RHN_SERVER_PROFILE_PTYPE_FK">RHN_SERVER_PROFILE_PTYPE_FK </a>
+</td><td>PROFILE_TYPE_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPROFILEPACKAGE.html"> RHNSERVERPROFILEPACKAGE </a></td><td><a href="table-RHNSERVERPROFILEPACKAGE.html#cs-RHN_SPROFILE_EVRID_FK">RHN_SPROFILE_EVRID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPROFILEPACKAGE.html"> RHNSERVERPROFILEPACKAGE </a></td><td><a href="table-RHNSERVERPROFILEPACKAGE.html#cs-RHN_SPROFILE_NID_FK">RHN_SPROFILE_NID_FK </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNSERVERPROFILEPACKAGE.html"> RHNSERVERPROFILEPACKAGE </a></td><td><a href="table-RHNSERVERPROFILEPACKAGE.html#cs-RHN_SPROFILE_PACKAGE_FK">RHN_SPROFILE_PACKAGE_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNSGTYPEBASEADDONCOMPAT.html"> RHNSGTYPEBASEADDONCOMPAT </a></td><td><a href="table-RHNSGTYPEBASEADDONCOMPAT.html#cs-RHN_SGT_BAC_AID_FK">RHN_SGT_BAC_AID_FK </a>
+</td><td>ADDON_ID</td></tr>
+<tr><td><a href="table-RHNSGTYPEBASEADDONCOMPAT.html"> RHNSGTYPEBASEADDONCOMPAT </a></td><td><a href="table-RHNSGTYPEBASEADDONCOMPAT.html#cs-RHN_SGT_BAC_BID_FK">RHN_SGT_BAC_BID_FK </a>
+</td><td>BASE_ID</td></tr>
+<tr><td><a href="table-RHNSNAPSHOT.html"> RHNSNAPSHOT </a></td><td><a href="table-RHNSNAPSHOT.html#cs-RHN_SNAPSHOT_INVALID_FK">RHN_SNAPSHOT_INVALID_FK </a>
+</td><td>INVALID</td></tr>
+<tr><td><a href="table-RHNSNAPSHOTPACKAGE.html"> RHNSNAPSHOTPACKAGE </a></td><td><a href="table-RHNSNAPSHOTPACKAGE.html#cs-RHN_SNAPSHOTPKG_NID_FK">RHN_SNAPSHOTPKG_NID_FK </a>
+</td><td>NEVRA_ID</td></tr>
+<tr><td><a href="table-RHNSOLARISPATCH.html"> RHNSOLARISPATCH </a></td><td><a href="table-RHNSOLARISPATCH.html#cs-RHN_SOLARIS_P_PT_FK">RHN_SOLARIS_P_PT_FK </a>
+</td><td>PATCH_TYPE</td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHEDPACKAGE.html"> RHNSOLARISPATCHEDPACKAGE </a></td><td><a href="table-RHNSOLARISPATCHEDPACKAGE.html#cs-RHN_SOLARIS_PATCHEDP_PID_FK">RHN_SOLARIS_PATCHEDP_PID_FK </a>
+</td><td>PATCH_ID</td></tr>
+<tr><td><a href="table-RHNSOLARISPATCHEDPACKAGE.html"> RHNSOLARISPATCHEDPACKAGE </a></td><td><a href="table-RHNSOLARISPATCHEDPACKAGE.html#cs-RHN_SOLARIS_PATCHEDP_PNID_FK">RHN_SOLARIS_PATCHEDP_PNID_FK </a>
+</td><td>PACKAGE_NEVRA_ID</td></tr>
+<tr><td><a href="table-RHNSSMOPERATION.html"> RHNSSMOPERATION </a></td><td><a href="table-RHNSSMOPERATION.html#cs-RHN_SSMOP_USER_FK">RHN_SSMOP_USER_FK </a>
+</td><td>USER_ID</td></tr>
+<tr><td><a href="table-RHNSSMOPERATIONSERVER.html"> RHNSSMOPERATIONSERVER </a></td><td><a href="table-RHNSSMOPERATIONSERVER.html#cs-RHN_SSMOPS_SER_FK">RHN_SSMOPS_SER_FK </a>
+</td><td>SERVER_ID</td></tr>
+<tr><td><a href="table-RHNSSMOPERATIONSERVER.html"> RHNSSMOPERATIONSERVER </a></td><td><a href="table-RHNSSMOPERATIONSERVER.html#cs-RHN_SSMOPS_SSMOP_FK">RHN_SSMOPS_SSMOP_FK </a>
+</td><td>OPERATION_ID</td></tr>
+<tr><td><a href="table-RHNSYSTEMMIGRATIONS.html"> RHNSYSTEMMIGRATIONS </a></td><td><a href="table-RHNSYSTEMMIGRATIONS.html#cs-RHN_SYS_MIG_SID_FK">RHN_SYS_MIG_SID_FK </a>
+</td><td>SERVER_ID</td></tr>
+<tr><td><a href="table-RHNTAG.html"> RHNTAG </a></td><td><a href="table-RHNTAG.html#cs-RHN_TAG_NID_FK">RHN_TAG_NID_FK </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNTEXTMESSAGE.html"> RHNTEXTMESSAGE </a></td><td><a href="table-RHNTEXTMESSAGE.html#cs-RHN_TM_MESSAGE_ID_FK">RHN_TM_MESSAGE_ID_FK </a>
+</td><td>MESSAGE_ID</td></tr>
+<tr><td><a href="table-RHNTRANSACTIONELEMENT.html"> RHNTRANSACTIONELEMENT </a></td><td><a href="table-RHNTRANSACTIONELEMENT.html#cs-RHN_TRANSELEM_TPID_FK">RHN_TRANSELEM_TPID_FK </a>
+</td><td>TRANSACTION_PACKAGE_ID</td></tr>
+<tr><td><a href="table-RHNTRANSACTIONPACKAGE.html"> RHNTRANSACTIONPACKAGE </a></td><td><a href="table-RHNTRANSACTIONPACKAGE.html#cs-RHN_TRANSPACK_EID_FK">RHN_TRANSPACK_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNTRANSACTIONPACKAGE.html"> RHNTRANSACTIONPACKAGE </a></td><td><a href="table-RHNTRANSACTIONPACKAGE.html#cs-RHN_TRANSPACK_NID_FK">RHN_TRANSPACK_NID_FK </a>
+</td><td>NAME_ID</td></tr>
+<tr><td><a href="table-RHNTRANSACTIONPACKAGE.html"> RHNTRANSACTIONPACKAGE </a></td><td><a href="table-RHNTRANSACTIONPACKAGE.html#cs-RHN_TRANSPACK_PAID_FK">RHN_TRANSPACK_PAID_FK </a>
+</td><td>PACKAGE_ARCH_ID</td></tr>
+<tr><td><a href="table-RHNTRUSTEDORGS.html"> RHNTRUSTEDORGS </a></td><td><a href="table-RHNTRUSTEDORGS.html#cs-RHN_TRUSTED_ORGS_OTID_FK">RHN_TRUSTED_ORGS_OTID_FK </a>
+</td><td>ORG_TRUST_ID</td></tr>
+<tr><td><a href="table-RHNUSERINFO.html"> RHNUSERINFO </a></td><td><a href="table-RHNUSERINFO.html#cs-RHN_USER_INFO_TZID_FK">RHN_USER_INFO_TZID_FK </a>
+</td><td>TIMEZONE_ID</td></tr>
+<tr><td><a href="table-RHNUSERINFOPANE.html"> RHNUSERINFOPANE </a></td><td><a href="table-RHNUSERINFOPANE.html#cs-RHN_USR_INFO_PANE_PID_FK">RHN_USR_INFO_PANE_PID_FK </a>
+</td><td>PANE_ID</td></tr>
+<tr><td><a href="table-RHNUSERMESSAGE.html"> RHNUSERMESSAGE </a></td><td><a href="table-RHNUSERMESSAGE.html#cs-RHN_UM_MESSAGE_ID_FK">RHN_UM_MESSAGE_ID_FK </a>
+</td><td>MESSAGE_ID</td></tr>
+<tr><td><a href="table-RHNUSERMESSAGE.html"> RHNUSERMESSAGE </a></td><td><a href="table-RHNUSERMESSAGE.html#cs-RHN_UM_STATUS_FK">RHN_UM_STATUS_FK </a>
+</td><td>STATUS</td></tr>
+<tr><td><a href="table-RHNVERSIONINFO.html"> RHNVERSIONINFO </a></td><td><a href="table-RHNVERSIONINFO.html#cs-RHN_VERSIONINFO_EID_FK">RHN_VERSIONINFO_EID_FK </a>
+</td><td>EVR_ID</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html"> RHNVIRTUALINSTANCEEVENTLOG </a></td><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html#cs-RHN_VIEL_ET_FK">RHN_VIEL_ET_FK </a>
+</td><td>EVENT_TYPE</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html"> RHNVIRTUALINSTANCEEVENTLOG </a></td><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html#cs-RHN_VIEL_NEW_STATE_FK">RHN_VIEL_NEW_STATE_FK </a>
+</td><td>NEW_STATE</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html"> RHNVIRTUALINSTANCEEVENTLOG </a></td><td><a href="table-RHNVIRTUALINSTANCEEVENTLOG.html#cs-RHN_VIEL_OLD_STATE_FK">RHN_VIEL_OLD_STATE_FK </a>
+</td><td>OLD_STATE</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEINFO.html"> RHNVIRTUALINSTANCEINFO </a></td><td><a href="table-RHNVIRTUALINSTANCEINFO.html#cs-RHN_VII_IT_FK">RHN_VII_IT_FK </a>
+</td><td>INSTANCE_TYPE</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEINFO.html"> RHNVIRTUALINSTANCEINFO </a></td><td><a href="table-RHNVIRTUALINSTANCEINFO.html#cs-RHN_VII_STATE_FK">RHN_VII_STATE_FK </a>
+</td><td>STATE</td></tr>
+<tr><td><a href="table-RHNVIRTUALINSTANCEINSTALLLOG.html"> RHNVIRTUALINSTANCEINSTALLLOG </a></td><td><a href="table-RHNVIRTUALINSTANCEINSTALLLOG.html#cs-RHN_VIIL_KS_SID_FK">RHN_VIIL_KS_SID_FK </a>
+</td><td>KS_SESSION_ID</td></tr>
+<tr><td><a href="table-RHNWEBCONTACTCHANGELOG.html"> RHNWEBCONTACTCHANGELOG </a></td><td><a href="table-RHNWEBCONTACTCHANGELOG.html#cs-RHN_WCON_CL_CSID_FK">RHN_WCON_CL_CSID_FK </a>
+</td><td>CHANGE_STATE_ID</td></tr>
+<tr><td><a href="table-RHNWEBCONTACTCHANGELOG.html"> RHNWEBCONTACTCHANGELOG </a></td><td><a href="table-RHNWEBCONTACTCHANGELOG.html#cs-RHN_WCON_CL_WCON_FROM_ID_FK">RHN_WCON_CL_WCON_FROM_ID_FK </a>
+</td><td>WEB_CONTACT_FROM_ID</td></tr>
+<tr><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td><a href="table-RHN_COMMAND.html#cs-RHN_CMMND_CMDGR_GROUP_NAME_FK">RHN_CMMND_CMDGR_GROUP_NAME_FK </a>
+</td><td>GROUP_NAME</td></tr>
+<tr><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td><a href="table-RHN_COMMAND.html#cs-RHN_CMMND_COMCL_CLASS_NAME_FK">RHN_CMMND_COMCL_CLASS_NAME_FK </a>
+</td><td>COMMAND_CLASS</td></tr>
+<tr><td><a href="table-RHN_COMMAND.html"> RHN_COMMAND </a></td><td><a href="table-RHN_COMMAND.html#cs-RHN_CMMND_SYS_REQS_FK">RHN_CMMND_SYS_REQS_FK </a>
+</td><td>SYSTEM_REQUIREMENTS</td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAMETER.html"> RHN_COMMAND_PARAMETER </a></td><td><a href="table-RHN_COMMAND_PARAMETER.html#cs-RHN_CPARM_SDTYP_NAME_FK">RHN_CPARM_SDTYP_NAME_FK </a>
+</td><td>DATA_TYPE_NAME</td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAMETER.html"> RHN_COMMAND_PARAMETER </a></td><td><a href="table-RHN_COMMAND_PARAMETER.html#cs-RHN_CPARM_WDGT_FLD_WDGT_N_FK">RHN_CPARM_WDGT_FLD_WDGT_N_FK </a>
+</td><td>FIELD_WIDGET_NAME</td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html"> RHN_COMMAND_PARAM_THRESHOLD </a></td><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html#cs-RHN_COPTR_CMD_ID_CMD_CL_FK">RHN_COPTR_CMD_ID_CMD_CL_FK </a>
+</td><td>COMMAND_ID, COMMAND_CLASS</td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html"> RHN_COMMAND_PARAM_THRESHOLD </a></td><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html#cs-RHN_COPTR_M_THR_M_CMD_CL_FK">RHN_COPTR_M_THR_M_CMD_CL_FK </a>
+</td><td>COMMAND_CLASS, THRESHOLD_METRIC_ID</td></tr>
+<tr><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html"> RHN_COMMAND_PARAM_THRESHOLD </a></td><td><a href="table-RHN_COMMAND_PARAM_THRESHOLD.html#cs-RHN_COPTR_THRTP_THRES_TYPE_FK">RHN_COPTR_THRTP_THRES_TYPE_FK </a>
+</td><td>THRESHOLD_TYPE_NAME</td></tr>
+<tr><td><a href="table-RHN_COMMAND_QUEUE_EXECS.html"> RHN_COMMAND_QUEUE_EXECS </a></td><td><a href="table-RHN_COMMAND_QUEUE_EXECS.html#cs-RHN_CQEXE_SATCL_NSAINT_ID_FK">RHN_CQEXE_SATCL_NSAINT_ID_FK </a>
+</td><td>NETSAINT_ID, TARGET_TYPE</td></tr>
+<tr><td><a href="table-RHN_CONFIG_PARAMETER.html"> RHN_CONFIG_PARAMETER </a></td><td><a href="table-RHN_CONFIG_PARAMETER.html#cs-RHN_CONFP_SCRTY_SEC_TYPE_FK">RHN_CONFP_SCRTY_SEC_TYPE_FK </a>
+</td><td>SECURITY_TYPE</td></tr>
+<tr><td><a href="table-RHN_CONTACT_GROUPS.html"> RHN_CONTACT_GROUPS </a></td><td><a href="table-RHN_CONTACT_GROUPS.html#cs-RHN_NTFMT_CNTGP_ID_FK">RHN_NTFMT_CNTGP_ID_FK </a>
+</td><td>NOTIFICATION_FORMAT_ID</td></tr>
+<tr><td><a href="table-RHN_CONTACT_METHODS.html"> RHN_CONTACT_METHODS </a></td><td><a href="table-RHN_CONTACT_METHODS.html#cs-RHN_CMETH_NTFMT_ID_FK">RHN_CMETH_NTFMT_ID_FK </a>
+</td><td>NOTIFICATION_FORMAT_ID</td></tr>
+<tr><td><a href="table-RHN_CONTACT_METHODS.html"> RHN_CONTACT_METHODS </a></td><td><a href="table-RHN_CONTACT_METHODS.html#cs-RHN_CMETH_PAGER_TYPE_ID_FK">RHN_CMETH_PAGER_TYPE_ID_FK </a>
+</td><td>PAGER_TYPE_ID</td></tr>
+<tr><td><a href="table-RHN_HOST_CHECK_SUITES.html"> RHN_HOST_CHECK_SUITES </a></td><td><a href="table-RHN_HOST_CHECK_SUITES.html#cs-RHN_HSTCK_CKSUT_SUITE_ID_FK">RHN_HSTCK_CKSUT_SUITE_ID_FK </a>
+</td><td>SUITE_ID</td></tr>
+<tr><td><a href="table-RHN_OS_COMMANDS_XREF.html"> RHN_OS_COMMANDS_XREF </a></td><td><a href="table-RHN_OS_COMMANDS_XREF.html#cs-RHN_OSCXR_CMMND_COMMANDS_ID_FK">RHN_OSCXR_CMMND_COMMANDS_ID_FK </a>
+</td><td>COMMANDS_ID</td></tr>
+<tr><td><a href="table-RHN_PROBE_PARAM_VALUE.html"> RHN_PROBE_PARAM_VALUE </a></td><td><a href="table-RHN_PROBE_PARAM_VALUE.html#cs-RHN_PPVAL_CMD_ID_PARM_NM_FK">RHN_PPVAL_CMD_ID_PARM_NM_FK </a>
+</td><td>COMMAND_ID, PARAM_NAME</td></tr>
+<tr><td><a href="table-RHN_REDIRECT_CRITERIA.html"> RHN_REDIRECT_CRITERIA </a></td><td><a href="table-RHN_REDIRECT_CRITERIA.html#cs-RHN_RDRCR_RDRMT_MATCH_NM_FK">RHN_RDRCR_RDRMT_MATCH_NM_FK </a>
+</td><td>MATCH_PARAM</td></tr>
+<tr><td><a href="table-RHN_SAT_CLUSTER.html"> RHN_SAT_CLUSTER </a></td><td><a href="table-RHN_SAT_CLUSTER.html#cs-RHN_SATCL_CMDTG_RECID_TAR_FK">RHN_SATCL_CMDTG_RECID_TAR_FK </a>
+</td><td>RECID, TARGET_TYPE</td></tr>
+<tr><td><a href="table-RHN_SAT_CLUSTER.html"> RHN_SAT_CLUSTER </a></td><td><a href="table-RHN_SAT_CLUSTER.html#cs-RHN_SATCL_PHSLC_PHYS_LOC_FK">RHN_SATCL_PHSLC_PHYS_LOC_FK </a>
+</td><td>PHYSICAL_LOCATION_ID</td></tr>
+<tr><td><a href="table-RHN_SAT_NODE.html"> RHN_SAT_NODE </a></td><td><a href="table-RHN_SAT_NODE.html#cs-RHN_SATND_CMDTG_RID_TAR_TY_FK">RHN_SATND_CMDTG_RID_TAR_TY_FK </a>
+</td><td>RECID, TARGET_TYPE</td></tr>
+<tr><td><a href="table-RHN_SERVER_MONITORING_INFO.html"> RHN_SERVER_MONITORING_INFO </a></td><td><a href="table-RHN_SERVER_MONITORING_INFO.html#cs-RHN_HOST_SERVER_NAME_FK">RHN_HOST_SERVER_NAME_FK </a>
+</td><td>OS_ID</td></tr>
+<tr><td><a href="table-VALID_COUNTRIES_TL.html"> VALID_COUNTRIES_TL </a></td><td><a href="table-VALID_COUNTRIES_TL.html#cs-VALID_COUNTRIES_TL_CODE">VALID_COUNTRIES_TL_CODE </a>
+</td><td>CODE</td></tr>
+<tr><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html"> WEB_CUSTOMER_NOTIFICATION </a></td><td><a href="table-WEB_CUSTOMER_NOTIFICATION.html#cs-WEB_CUST_NOT_OID_FK">WEB_CUST_NOT_OID_FK </a>
+</td><td>ORG_ID</td></tr>
+<tr><td><a href="table-WEB_USER_CONTACT_PERMISSION.html"> WEB_USER_CONTACT_PERMISSION </a></td><td><a href="table-WEB_USER_CONTACT_PERMISSION.html#cs-CONTPERM_WBUSERID_FK">CONTPERM_WBUSERID_FK </a>
+</td><td>WEB_USER_ID</td></tr>
+<tr><td><a href="table-WEB_USER_PERSONAL_INFO.html"> WEB_USER_PERSONAL_INFO </a></td><td><a href="table-WEB_USER_PERSONAL_INFO.html#cs-PERSONAL_INFO_WEB_USER_ID_FK">PERSONAL_INFO_WEB_USER_ID_FK </a>
+</td><td>WEB_USER_ID</td></tr>
+<tr><td><a href="table-WEB_USER_PERSONAL_INFO.html"> WEB_USER_PERSONAL_INFO </a></td><td><a href="table-WEB_USER_PERSONAL_INFO.html#cs-WUPI_PREFIX_FK">WUPI_PREFIX_FK </a>
+</td><td>PREFIX</td></tr>
+<tr><td><a href="table-WEB_USER_SITE_INFO.html"> WEB_USER_SITE_INFO </a></td><td><a href="table-WEB_USER_SITE_INFO.html#cs-WUSI_TYPE_FK">WUSI_TYPE_FK </a>
+</td><td>TYPE</td></tr>
+</table><div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:13 2010</div>
+</body></html>

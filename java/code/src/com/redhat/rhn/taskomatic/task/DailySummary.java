@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,8 +38,10 @@ import org.quartz.JobExecutionException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * DailySummary task.
@@ -55,6 +57,11 @@ public class DailySummary extends SingleThreadedTestableTask {
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "daily_summary";
+    private static final int HEADER_SPACER = 10;
+    private static final int ERRATA_SPACER = 4;
+    private static final String ERRATA_UPDATE = "Errata Update";
+    private static final String ERRATA_INDENTION = StringUtils.repeat(" ", ERRATA_SPACER);
+
 
     private Mail mail;
     private static Logger log = Logger.getLogger(DailySummary.class);
@@ -295,64 +302,119 @@ public class DailySummary extends SingleThreadedTestableTask {
      * @param actions list of recent actions
      * @return the actions email message
      */
-    public String renderActionsMessage(List actions) {
-        // 25 spaces
-        StringBuffer hdr = new StringBuffer(StringUtils.repeat(" ", 25));
+    public String renderActionsMessage(List<ActionMessage> actions) {
+
+        int longestActionLength = HEADER_SPACER;
+        int longestStatusLength = 0;
+        StringBuffer hdr = new StringBuffer();
         StringBuffer body = new StringBuffer();
         StringBuffer legend = new StringBuffer();
+        StringBuffer msg = new StringBuffer();
+        LinkedHashSet<String> statusSet = new LinkedHashSet();
+        TreeMap<String, HashMap<String, Integer>> nonErrataActions = new TreeMap();
+        TreeMap<String, HashMap<String, Integer>> errataActions = new TreeMap();
+        TreeMap<String, String> errataSynopsis = new TreeMap();
+
         legend.append(LocalizationService
                 .getInstance().getMessage("taskomatic.daily.errata"));
         legend.append("\n\n");
-        StringBuffer msg = new StringBuffer();
-        
-        String lastHdr = "";
-        boolean seenErrata = false;
-        for (Iterator itr = actions.iterator(); itr.hasNext();) {
 
-            ActionMessage am = (ActionMessage) itr.next();
-            
-            if (!am.getStatus().equals(lastHdr)) {
-                lastHdr = am.getStatus();
-                hdr.append(lastHdr);
-                hdr.append("\t");
+        for (ActionMessage am : actions) {
+
+            if (!statusSet.contains(am.getStatus())) {
+                statusSet.add(am.getStatus());
+                if (am.getStatus().length() > longestStatusLength) {
+                    longestStatusLength = am.getStatus().length();
+                }
             }
-            
-            if (am.getType().startsWith("Errata")) {
-                if (!seenErrata) {
-                    body.append(am.getType());
-                    body.append(":\n");
-                    seenErrata = true;
+
+            if (am.getType().equals(ERRATA_UPDATE)) {
+                String advisoryKey = ERRATA_INDENTION + am.getAdvisory();
+
+                if (!errataActions.containsKey(advisoryKey)) {
+                    errataActions.put(advisoryKey, new HashMap());
+                    if (advisoryKey.length() + HEADER_SPACER > longestActionLength) {
+                        longestActionLength = advisoryKey.length() + HEADER_SPACER;
+                    }
                 }
-                else {
-                    body.append("\t");
-                    body.append(am.getAdvisory());
-                    body.append("            ");
-                    body.append(am.getCount());
-                    body.append("\n");
+                HashMap<String, Integer> counts = errataActions.get(advisoryKey);
+                counts.put(am.getStatus(), am.getCount());
+
+                if (!errataSynopsis.containsKey(am.getAdvisory())) {
+                    errataSynopsis.put(am.getAdvisory(), am.getSynopsis());
                 }
-                legend.append("\t");
-                legend.append(am.getAdvisory());
-                legend.append("\t");
-                legend.append(am.getSynopsis());
-                legend.append("\n");
             }
             else {
-                body.append(am.getType());
-                body.append("\t");
-                body.append(am.getCount());
+                if (!nonErrataActions.containsKey(am.getType())) {
+                    nonErrataActions.put(am.getType(), new HashMap());
+                    if (am.getType().length() + HEADER_SPACER > longestActionLength) {
+                        longestActionLength = am.getType().length() + HEADER_SPACER;
+                    }
+                }
+                HashMap<String, Integer> counts = nonErrataActions.get(am.getType());
+                counts.put(am.getStatus(), am.getCount());
             }
+
         }
         
+        hdr.append(StringUtils.repeat(" ", longestActionLength));
+        for (String status : statusSet) {
+            hdr.append(status + StringUtils.repeat(" ", (longestStatusLength +
+                    ERRATA_SPACER) - status.length()));
+        }
+
+        if (!errataActions.isEmpty()) {
+            body.append(ERRATA_UPDATE + ":" + "\n");
+        }
+        StringBuffer formattedErrataActions = renderActionTree(longestActionLength,
+                longestStatusLength, statusSet, errataActions);
+        body.append(formattedErrataActions);
+
+        for (String advisory : errataSynopsis.keySet()) {
+            legend.append(ERRATA_INDENTION + advisory + ERRATA_INDENTION +
+                    errataSynopsis.get(advisory) + "\n");
+        }
+
+        StringBuffer formattedNonErrataActions = renderActionTree(longestActionLength,
+                longestStatusLength, statusSet, nonErrataActions);
+        body.append(formattedNonErrataActions);
+
         // finally put all this together
         msg.append(hdr.toString());
         msg.append("\n");
         msg.append(body.toString());
         msg.append("\n\n");
-        msg.append(legend.toString());
-
+        if (!errataSynopsis.isEmpty()) {
+            msg.append(legend.toString());
+        }
         return msg.toString();
     }
     
+    private StringBuffer renderActionTree(int longestActionLength,
+            int longestStatusLength, LinkedHashSet<String> statusSet,
+            TreeMap<String, HashMap<String, Integer>> actionTree) {
+        StringBuffer formattedActions = new StringBuffer();
+        for (String actionName : actionTree.keySet()) {
+            formattedActions.append(actionName +
+                   StringUtils.repeat(" ", (longestActionLength - (actionName.length()))));
+            for (String status : statusSet) {
+                HashMap<String, Integer> counts = actionTree.get(actionName);
+                Integer theCount = counts.get(status);
+                if (counts.containsKey(status)) {
+                    theCount = counts.get(status);
+                }
+                else {
+                    theCount = 0;
+                }
+                formattedActions.append(theCount);
+                formattedActions.append(StringUtils.repeat(" ", longestStatusLength +
+                        ERRATA_SPACER - theCount.toString().length()));
+            }
+            formattedActions.append("\n");
+        }
+        return formattedActions;
+    }
+
     /**
      * DO NOT CALL FROM OUTSIDE THIS CLASS. Prepares the email message string
      * @param login users login

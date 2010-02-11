@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnImport</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;rhnImport
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnImport-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnImport-module.html">Module server.rhnImport</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-2', 'log_error', 'link-2');">log_error</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="Loader"></a><div id="Loader-def"><a name="L22"></a><tt class="py-lineno"> 22</tt> <a class="py-toggle" href="#" id="Loader-toggle" onclick="return toggle('Loader');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnImport.Loader-class.html">Loader</a><tt class="py-op">:</tt> </tt>
+</div><div id="Loader-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Loader-expanded"><a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt class="py-comment"># Class that saves the state of imported objects</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable server.rhnImport.Loader._imports=server.rhnImport.Loader-class.html#_imports"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-3', '_imports', 'link-3');">_imports</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="Loader.load"></a><div id="Loader.load-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="Loader.load-toggle" onclick="return toggle('Loader.load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnImport.Loader-class.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">dir</tt><tt class="py-op">,</tt> <tt class="py-param">root_dir</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">interface_signature</tt><tt class="py-op">=</tt><tt class="py-string">'rpcClasses'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Loader.load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Loader.load-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">        <tt class="py-comment"># The key we use for caching</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-name">root_dir</tt><tt class="py-op">,</tt> <tt class="py-name">interface_signature</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-4', '_imports', 'link-3');">_imports</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-5', 'has_key', 'link-5');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-6', '_imports', 'link-3');">_imports</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">root_dir</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">            <tt class="py-name">dirname</tt> <tt class="py-op">=</tt> <tt class="py-name">dir</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">            <tt class="py-name">dirname</tt> <tt class="py-op">=</tt> <tt class="py-string">"%s/%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">root_dir</tt><tt class="py-op">,</tt> <tt class="py-name">dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-comment"># We need to import things</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">root_dir</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">root_dir</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">            <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-7', 'append', 'link-7');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">root_dir</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">fromcomps</tt> <tt class="py-op">=</tt> <tt class="py-name">dir</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt id="link-8" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-8', '_imports', 'link-3');">_imports</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">         </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-comment"># Keep track of the modules we've already tried to load, to avoid loading</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-comment"># them twice</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-name">modules</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-comment"># Load each module (that is not internal - i.e. doesn't start with _)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">module</tt> <tt class="py-keyword">in</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">listdir</tt><tt class="py-op">(</tt><tt class="py-name">dirname</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt id="link-9" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-9', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"Attempting to load module %s from %s %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">                <tt class="py-name">module</tt><tt class="py-op">,</tt> <tt class="py-string">'.'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">fromcomps</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">dirname</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">module</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-keyword">in</tt> <tt class="py-op">(</tt><tt class="py-string">'_'</tt><tt class="py-op">,</tt> <tt class="py-string">'.'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">                <tt class="py-comment"># We consider it 'internal' and we don't load it</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">                <tt id="link-10" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-10', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">6</tt><tt class="py-op">,</tt> <tt class="py-string">"Ignoring module %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">module</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">            <tt class="py-comment"># Importing files or directories with . in them is broken, so keep</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">            <tt class="py-comment"># only the first part</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">            <tt class="py-name">module</tt> <tt class="py-op">=</tt> <tt class="py-name">module</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'.'</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">module</tt> <tt class="py-keyword">in</tt> <tt class="py-name">modules</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">                <tt id="link-11" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-11', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">6</tt><tt class="py-op">,</tt> <tt class="py-string">"Already tried to load Module %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">module</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">            <tt class="py-comment"># Add it to the list, so we don't load it again</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-name">modules</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-12', 'append', 'link-7');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">module</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-comment"># We use fromclause to build the full module path</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-name">fromclause</tt> <tt class="py-op">=</tt> <tt class="py-string">'.'</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">fromcomps</tt> <tt class="py-op">+</tt> <tt class="py-op">[</tt><tt class="py-name">module</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-comment"># Try to import the module</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                <tt class="py-name">m</tt> <tt class="py-op">=</tt> <tt class="py-name">__import__</tt><tt class="py-op">(</tt><tt class="py-name">fromclause</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-name">module</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                <tt id="link-13" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-13', 'log_error', 'link-2');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Error importing %s: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">module</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt id="link-14" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-14', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">6</tt><tt class="py-op">,</tt> <tt class="py-string">"Details: sys.path: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">,</tt> <tt class="py-name">interface_signature</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">                <tt class="py-comment"># The module does not support our API</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">                <tt id="link-15" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-15', 'log_error', 'link-2');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Module %s doesn't support our API"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">module</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt id="link-16" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-16', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"Module %s loaded"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">module</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">             </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">            <tt id="link-17" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-17', '_imports', 'link-3');">_imports</a></tt><tt class="py-op">[</tt><tt class="py-name">module</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">,</tt> <tt class="py-name">interface_signature</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">         </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-18', '_imports', 'link-3');">_imports</a></tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-19', '_imports', 'link-3');">_imports</a></tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-20" class="py-name"><a title="server.rhnImport.Loader._imports" class="py-name" href="#" onclick="return doclink('link-20', '_imports', 'link-3');">_imports</a></tt> </tt>
+</div></div><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"> </tt>
+<a name="load"></a><div id="load-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="load-toggle" onclick="return toggle('load');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnImport-module.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">dir</tt><tt class="py-op">,</tt> <tt class="py-param">root_dir</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">interface_signature</tt><tt class="py-op">=</tt><tt class="py-string">'rpcClasses'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="load-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="load-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">    Load modules (handlers) beneath the handlers/ tree.</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">    root_dir: which directory to use as a top-level directory</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name" targets="Class server.rhnImport.Loader=server.rhnImport.Loader-class.html"><a title="server.rhnImport.Loader" class="py-name" href="#" onclick="return doclink('link-21', 'Loader', 'link-21');">Loader</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method satellite_tools.xmlDiskSource.DiskSource.load()=satellite_tools.xmlDiskSource.DiskSource-class.html#load,Method server.handlers.app.rhn_mpm.MPM_Package.load()=server.handlers.app.rhn_mpm.MPM_Package-class.html#load,Function server.handlers.app.rhn_mpm.load()=server.handlers.app.rhn_mpm-module.html#load,Method server.rhnActivationKey.ActivationKey.load()=server.rhnActivationKey.ActivationKey-class.html#load,Method server.rhnImport.Loader.load()=server.rhnImport.Loader-class.html#load,Function server.rhnImport.load()=server.rhnImport-module.html#load,Method server.rhnSQL.sql_row.Row.load()=server.rhnSQL.sql_row.Row-class.html#load,Method server.rhnServer.satellite_cert.SatelliteCert.load()=server.rhnServer.satellite_cert.SatelliteCert-class.html#load,Method server.rhnServerGroup.ServerGroup.load()=server.rhnServerGroup.ServerGroup-class.html#load,Method server.rhnSession.Session.load()=server.rhnSession.Session-class.html#load,Function server.rhnSession.load()=server.rhnSession-module.html#load,Method spacewalk.common.rhn_mpm.MPM_Package.load()=spacewalk.common.rhn_mpm.MPM_Package-class.html#load,Function spacewalk.common.rhn_mpm.load()=spacewalk.common.rhn_mpm-module.html#load"><a title="satellite_tools.xmlDiskSource.DiskSource.load
+server.handlers.app.rhn_mpm.MPM_Package.load
+server.handlers.app.rhn_mpm.load
+server.rhnActivationKey.ActivationKey.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnServerGroup.ServerGroup.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load" class="py-name" href="#" onclick="return doclink('link-22', 'load', 'link-22');">load</a></tt><tt class="py-op">(</tt><tt class="py-name">dir</tt><tt class="py-op">,</tt> <tt class="py-name">root_dir</tt><tt class="py-op">=</tt><tt class="py-name">root_dir</tt><tt class="py-op">,</tt> <tt class="py-name">interface_signature</tt><tt class="py-op">=</tt><tt class="py-name">interface_signature</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:19 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

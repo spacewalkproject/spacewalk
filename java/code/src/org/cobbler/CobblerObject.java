@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -118,8 +118,11 @@ public abstract class CobblerObject {
      */
     protected static Map <String, Object> lookupDataMapByName(CobblerConnection client, 
                                     String name, String lookupMethod) {
-        Map <String, Object> map = (Map<String, Object>)client.
-                                        invokeMethod(lookupMethod, name);
+        Object obj = client.invokeMethod(lookupMethod, name);
+        if ("~".equals(obj)) {
+            return null;
+        }
+        Map <String, Object> map = (Map<String, Object>) obj;
         if (map == null || map.isEmpty()) {
             return null;
         }

@@ -1,18 +1,21 @@
-%define np_name nocpulse
-%define identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
+%global np_name nocpulse
+%global identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
+%if 0%{!?_initddir:1}
+%global _initddir %{_sysconfdir}/rc.d/init.d
+%endif
 
-Summary:   Red Hat Network Monitoring Daemon
-Name:      rhnmd
-URL:       https://fedorahosted.org/spacewalk
-Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.3.3
-Release:   1%{?dist}
-License:   GPLv2
-BuildArch: noarch
-Group:     System Environment/Daemons
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:  openssh-server openssh
-BuildRequires: pam-devel
+Summary:        Red Hat Network Monitoring Daemon
+Name:           rhnmd
+URL:            https://fedorahosted.org/spacewalk
+Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version:        5.3.5
+Release:        1%{?dist}
+License:        GPLv2
+BuildArch:      noarch
+Group:          System Environment/Daemons
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires:       openssh-server openssh
+BuildRequires:  pam-devel
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
@@ -29,16 +32,16 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
+mkdir -p $RPM_BUILD_ROOT%{_initddir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
 ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
-install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_initrddir}/rhnmd
-install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}/rhnmd_config
-install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh/authorized_keys
-install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
+install -pm 0755 rhnmd-init $RPM_BUILD_ROOT%{_initddir}/rhnmd
+install -pm 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}/rhnmd_config
+install -pm 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh/authorized_keys
+install -pm 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
 
 %pre
 if [ $1 -eq 1 ] ; then
@@ -63,6 +66,12 @@ then
 fi
 /sbin/chkconfig --add rhnmd
 
+%preun
+if [ $1 = 0 ]; then
+    /sbin/service rhnmd stop > /dev/null 2>&1
+    /sbin/chkconfig --del rhnmd
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -72,23 +81,26 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
 %dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
-%{_usr}/sbin/*
-%config(noreplace) %{_sysconfdir}/%{np_name}/*
-%{_initrddir}/rhnmd
+%{_usr}/sbin/rhnmd
+%config(noreplace) %{_sysconfdir}/%{np_name}/rhnmd_config
+%{_initddir}/rhnmd
 %doc LICENSE
 
-%preun
-if [ $1 = 0 ]; then
-    /sbin/service rhnmd stop > /dev/null 2>&1
-    /sbin/chkconfig --del rhnmd
-fi
-
 %changelog
+* Wed Dec 16 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.5-1
+- 538057 - fix typo
+- 538057 - use proper text indention. The content of tags like Name, Version, ... usually starts at 17 characters
+- 538057 - move %%preun before %%clean and %%files
+- 538057 - do not use wildcards
+- 538057 - preserve timestamp of the source files
+- 538057 - %%{_initrddir} is considered deprecated on Fedora, but still needed on RHEL
+- 538057 - Use %%global instead of %%define
+
 * Mon Nov  2 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.3-1
 - make rhnmd package noarch
 
 * Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.2-1
-- 494538 - remove the dependecy of rhnmd on nocpulse-common
+- 494538 - remove the dependency of rhnmd on nocpulse-common
 
 * Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.1-1
 - authorized_keys should be owned by nocpulse

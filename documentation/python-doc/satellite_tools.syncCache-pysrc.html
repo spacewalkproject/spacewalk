@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.syncCache</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        Module&nbsp;syncCache
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.syncCache-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.syncCache-module.html">Module satellite_tools.syncCache</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#Mechanism to persistently cache sync info (mostly post-parsed(XML)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#    package objects). </tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># system imports:</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># rhn imports:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG,Variable server.rhnHandler'.CFG=server.rhnHandler%27-module.html#CFG"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-1', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Module common.rhnCache=common.rhnCache-module.html"><a title="common.rhnCache" class="py-name" href="#" onclick="return doclink('link-2', 'rhnCache', 'link-2');">rhnCache</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># NOTE: this is a python 2.2-ism</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="BaseCache"></a><div id="BaseCache-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="BaseCache-toggle" onclick="return toggle('BaseCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html">BaseCache</a><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="BaseCache-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable satellite_tools.syncCache.BaseCache._compressed=satellite_tools.syncCache.BaseCache-class.html#_compressed,Variable satellite_tools.syncCache.ShortPackageCache._compressed=satellite_tools.syncCache.ShortPackageCache-class.html#_compressed"><a title="satellite_tools.syncCache.BaseCache._compressed
+satellite_tools.syncCache.ShortPackageCache._compressed" class="py-name" href="#" onclick="return doclink('link-3', '_compressed', 'link-3');">_compressed</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="BaseCache.__init__"></a><div id="BaseCache.__init__-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="BaseCache.__init__-toggle" onclick="return toggle('BaseCache.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache.__init__-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-comment"># Kind of kludgy - this may have weird side-effects if called from</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-comment"># within the server code</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt id="link-4" class="py-name"><a title="common.rhnCache" class="py-name" href="#" onclick="return doclink('link-4', 'rhnCache', 'link-2');">rhnCache</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Variable common.rhnCache.CACHEDIR=common.rhnCache-module.html#CACHEDIR"><a title="common.rhnCache.CACHEDIR" class="py-name" href="#" onclick="return doclink('link-5', 'CACHEDIR', 'link-5');">CACHEDIR</a></tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-6', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">SYNC_CACHE_DIR</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">     </tt>
+<a name="BaseCache.cache_get"></a><div id="BaseCache.cache_get-def"><a name="L37"></a><tt class="py-lineno"> 37</tt> <a class="py-toggle" href="#" id="BaseCache.cache_get-toggle" onclick="return toggle('BaseCache.cache_get');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#cache_get">cache_get</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">,</tt> <tt class="py-param">timestamp</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache.cache_get-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache.cache_get-expanded"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-comment"># Get the key</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedDumper._get_key()=satellite_tools.disk_dumper.dumper.CachedDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.ChannelsDumper._get_key()=satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.ChannelsDumperEx._get_key()=satellite_tools.disk_dumper.dumper.ChannelsDumperEx-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.ErrataDumper._get_key()=satellite_tools.disk_dumper.dumper.ErrataDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.ErrataDumperEx._get_key()=satellite_tools.disk_dumper.dumper.ErrataDumperEx-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.KickstartableTreesDumper._get_key()=satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.PackagesDumper._get_key()=satellite_tools.disk_dumper.dumper.PackagesDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.ShortPackagesDumper._get_key()=satellite_tools.disk_dumper.dumper.ShortPackagesDumper-class.html#_get_key,Method satellite_tools.disk_dumper.dumper.SourcePackagesDumper._get_key()=satellite_tools.disk_dumper.dumper.SourcePackagesDumper-class.html#_get_key,Method satellite_tools.syncCache.BaseCache._get_key()=satellite_tools.syncCache.BaseCache-class.html#_get_key,Method satellite_tools.syncCache.BasePackageCache._get_key()=satellite_tools.syncCache.BasePackageCache-class.html#_get_key,Method satellite_tools.syncCache.ChannelCache._get_key()=satellite_tools.syncCache.ChannelCache-class.html#_get_key,Method satellite_tools.syncCache.ErratumCache._get_key()=satellite_tools.syncCache.ErratumCache-class.html#_get_key,Method satellite_tools.syncCache.KickstartableTreesCache._get_key()=satellite_tools.syncCache.KickstartableTreesCache-class.html#_get_key"><a title="satellite_tools.disk_dumper.dumper.CachedDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumper._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumperEx._get_key
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper._get_key
+satellite_tools.disk_dumper.dumper.PackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper._get_key
+satellite_tools.syncCache.BaseCache._get_key
+satellite_tools.syncCache.BasePackageCache._get_key
+satellite_tools.syncCache.ChannelCache._get_key
+satellite_tools.syncCache.ErratumCache._get_key
+satellite_tools.syncCache.KickstartableTreesCache._get_key" class="py-name" href="#" onclick="return doclink('link-7', '_get_key', 'link-7');">_get_key</a></tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-8" class="py-name"><a title="common.rhnCache" class="py-name" href="#" onclick="return doclink('link-8', 'rhnCache', 'link-2');">rhnCache</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-9', 'get', 'link-9');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">modified</tt><tt class="py-op">=</tt><tt id="link-10" class="py-name" targets="Function common.rhnLib.timestamp()=common.rhnLib-module.html#timestamp"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-10', 'timestamp', 'link-10');">timestamp</a></tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-name">compressed</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="satellite_tools.syncCache.BaseCache._compressed
+satellite_tools.syncCache.ShortPackageCache._compressed" class="py-name" href="#" onclick="return doclink('link-11', '_compressed', 'link-3');">_compressed</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="BaseCache.cache_set"></a><div id="BaseCache.cache_set-def"><a name="L43"></a><tt class="py-lineno"> 43</tt> <a class="py-toggle" href="#" id="BaseCache.cache_set-toggle" onclick="return toggle('BaseCache.cache_set');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#cache_set">cache_set</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">timestamp</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache.cache_set-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache.cache_set-expanded"><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-comment"># Get the key</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumper._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumperEx._get_key
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper._get_key
+satellite_tools.disk_dumper.dumper.PackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper._get_key
+satellite_tools.syncCache.BaseCache._get_key
+satellite_tools.syncCache.BasePackageCache._get_key
+satellite_tools.syncCache.ChannelCache._get_key
+satellite_tools.syncCache.ErratumCache._get_key
+satellite_tools.syncCache.KickstartableTreesCache._get_key" class="py-name" href="#" onclick="return doclink('link-12', '_get_key', 'link-7');">_get_key</a></tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-13" class="py-name"><a title="common.rhnCache" class="py-name" href="#" onclick="return doclink('link-13', 'rhnCache', 'link-2');">rhnCache</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method common.rhnCache.Cache.set()=common.rhnCache.Cache-class.html#set,Method common.rhnCache.CompressedCache.set()=common.rhnCache.CompressedCache-class.html#set,Method common.rhnCache.NullCache.set()=common.rhnCache.NullCache-class.html#set,Method common.rhnCache.ObjectCache.set()=common.rhnCache.ObjectCache-class.html#set,Function common.rhnCache.set()=common.rhnCache-module.html#set,Method common.rhnConfig.RHNOptions.set()=common.rhnConfig.RHNOptions-class.html#set,Function common.rhnFlags.set()=common.rhnFlags-module.html#set,Method common.rhnTranslate.i18n.set()=common.rhnTranslate.i18n-class.html#set,Function server.rhnDatabaseCache.set()=server.rhnDatabaseCache-module.html#set"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-14', 'set', 'link-14');">set</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">modified</tt><tt class="py-op">=</tt><tt id="link-15" class="py-name"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-15', 'timestamp', 'link-10');">timestamp</a></tt><tt class="py-op">,</tt> <tt class="py-name">raw</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">            <tt class="py-name">compressed</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="satellite_tools.syncCache.BaseCache._compressed
+satellite_tools.syncCache.ShortPackageCache._compressed" class="py-name" href="#" onclick="return doclink('link-16', '_compressed', 'link-3');">_compressed</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="BaseCache.cache_has_key"></a><div id="BaseCache.cache_has_key-def"><a name="L49"></a><tt class="py-lineno"> 49</tt> <a class="py-toggle" href="#" id="BaseCache.cache_has_key-toggle" onclick="return toggle('BaseCache.cache_has_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#cache_has_key">cache_has_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">,</tt> <tt class="py-param">timestamp</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache.cache_has_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache.cache_has_key-expanded"><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-comment"># Get the key</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumper._get_key
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumper._get_key
+satellite_tools.disk_dumper.dumper.ErrataDumperEx._get_key
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper._get_key
+satellite_tools.disk_dumper.dumper.PackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper._get_key
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper._get_key
+satellite_tools.syncCache.BaseCache._get_key
+satellite_tools.syncCache.BasePackageCache._get_key
+satellite_tools.syncCache.ChannelCache._get_key
+satellite_tools.syncCache.ErratumCache._get_key
+satellite_tools.syncCache.KickstartableTreesCache._get_key" class="py-name" href="#" onclick="return doclink('link-17', '_get_key', 'link-7');">_get_key</a></tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-18" class="py-name"><a title="common.rhnCache" class="py-name" href="#" onclick="return doclink('link-18', 'rhnCache', 'link-2');">rhnCache</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-19', 'has_key', 'link-19');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">modified</tt><tt class="py-op">=</tt><tt id="link-20" class="py-name"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-20', 'timestamp', 'link-10');">timestamp</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="BaseCache._get_key"></a><div id="BaseCache._get_key-def"><a name="L54"></a><tt class="py-lineno"> 54</tt> <a class="py-toggle" href="#" id="BaseCache._get_key-toggle" onclick="return toggle('BaseCache._get_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#_get_key">_get_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache._get_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache._get_key-expanded"><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="BaseCache._hash_object_id"></a><div id="BaseCache._hash_object_id-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="BaseCache._hash_object_id-toggle" onclick="return toggle('BaseCache._hash_object_id');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BaseCache-class.html#_hash_object_id">_hash_object_id</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">,</tt> <tt class="py-param">factor</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BaseCache._hash_object_id-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BaseCache._hash_object_id-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-docstring">"""Given an object id (assumed to be &lt;label&gt;-&lt;number&gt;), returns the</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        last few digits for the number. For instance, (812345, 1000) should</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">        return 345"""</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-name">object_id</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-comment"># Compute the number of digits we need from the hash</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt id="link-21" class="py-name" targets="Method common.rhn_timer.Timer.format()=common.rhn_timer.Timer-class.html#format"><a title="common.rhn_timer.Timer.format" class="py-name" href="#" onclick="return doclink('link-21', 'format', 'link-21');">format</a></tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">ceil</tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">log10</tt><tt class="py-op">(</tt><tt class="py-name">factor</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-comment"># Format the template</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt id="link-22" class="py-name"><a title="common.rhn_timer.Timer.format" class="py-name" href="#" onclick="return doclink('link-22', 'format', 'link-21');">format</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'%0'</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="common.rhn_timer.Timer.format" class="py-name" href="#" onclick="return doclink('link-23', 'format', 'link-21');">format</a></tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'d'</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-comment"># Grab the digits after -</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-name">num_id</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">,</tt> <tt class="py-string">'-'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">num_id</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">num_id</tt><tt class="py-op">)</tt> <tt class="py-op">%</tt> <tt class="py-name">factor</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-24" class="py-name"><a title="common.rhn_timer.Timer.format" class="py-name" href="#" onclick="return doclink('link-24', 'format', 'link-21');">format</a></tt> <tt class="py-op">%</tt> <tt class="py-name">num_id</tt> </tt>
+</div></div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="ChannelCache"></a><div id="ChannelCache-def"><a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="ChannelCache-toggle" onclick="return toggle('ChannelCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.ChannelCache-class.html">ChannelCache</a><tt class="py-op">(</tt><tt class="py-base-class">BaseCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ChannelCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ChannelCache-expanded"><a name="ChannelCache._get_key"></a><div id="ChannelCache._get_key-def"><a name="L72"></a><tt class="py-lineno"> 72</tt> <a class="py-toggle" href="#" id="ChannelCache._get_key-toggle" onclick="return toggle('ChannelCache._get_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.ChannelCache-class.html#_get_key">_get_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ChannelCache._get_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ChannelCache._get_key-expanded"><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-string">"satsync"</tt><tt class="py-op">,</tt> <tt class="py-string">"channels"</tt><tt class="py-op">,</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="BasePackageCache"></a><div id="BasePackageCache-def"><a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="BasePackageCache-toggle" onclick="return toggle('BasePackageCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.BasePackageCache-class.html">BasePackageCache</a><tt class="py-op">(</tt><tt class="py-base-class">BaseCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BasePackageCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="BasePackageCache-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt id="link-25" class="py-name" targets="Variable satellite_tools.syncCache.BasePackageCache._subdir=satellite_tools.syncCache.BasePackageCache-class.html#_subdir,Variable satellite_tools.syncCache.ErratumCache._subdir=satellite_tools.syncCache.ErratumCache-class.html#_subdir,Variable satellite_tools.syncCache.KickstartableTreesCache._subdir=satellite_tools.syncCache.KickstartableTreesCache-class.html#_subdir,Variable satellite_tools.syncCache.PackageCache._subdir=satellite_tools.syncCache.PackageCache-class.html#_subdir,Variable satellite_tools.syncCache.ShortPackageCache._subdir=satellite_tools.syncCache.ShortPackageCache-class.html#_subdir,Variable satellite_tools.syncCache.SourcePackageCache._subdir=satellite_tools.syncCache.SourcePackageCache-class.html#_subdir"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-25', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"__unknown__"</tt> </tt>
+<a name="BasePackageCache._get_key"></a><div id="BasePackageCache._get_key-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="BasePackageCache._get_key-toggle" onclick="return toggle('BasePackageCache._get_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.BasePackageCache-class.html#_get_key">_get_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BasePackageCache._get_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="BasePackageCache._get_key-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">hash_val</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method satellite_tools.syncCache.BaseCache._hash_object_id()=satellite_tools.syncCache.BaseCache-class.html#_hash_object_id"><a title="satellite_tools.syncCache.BaseCache._hash_object_id" class="py-name" href="#" onclick="return doclink('link-26', '_hash_object_id', 'link-26');">_hash_object_id</a></tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">,</tt> <tt class="py-number">100</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-string">"satsync"</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-27', '_subdir', 'link-25');">_subdir</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash_val</tt><tt class="py-op">,</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="ShortPackageCache"></a><div id="ShortPackageCache-def"><a name="L81"></a><tt class="py-lineno"> 81</tt> <a class="py-toggle" href="#" id="ShortPackageCache-toggle" onclick="return toggle('ShortPackageCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.ShortPackageCache-class.html">ShortPackageCache</a><tt class="py-op">(</tt><tt class="py-base-class">BasePackageCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ShortPackageCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ShortPackageCache-expanded"><a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt id="link-28" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-28', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"short-packages"</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt id="link-29" class="py-name"><a title="satellite_tools.syncCache.BaseCache._compressed
+satellite_tools.syncCache.ShortPackageCache._compressed" class="py-name" href="#" onclick="return doclink('link-29', '_compressed', 'link-3');">_compressed</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="PackageCache"></a><div id="PackageCache-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="PackageCache-toggle" onclick="return toggle('PackageCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.PackageCache-class.html">PackageCache</a><tt class="py-op">(</tt><tt class="py-base-class">BasePackageCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PackageCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PackageCache-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt id="link-30" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-30', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"packages"</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="SourcePackageCache"></a><div id="SourcePackageCache-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="SourcePackageCache-toggle" onclick="return toggle('SourcePackageCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.SourcePackageCache-class.html">SourcePackageCache</a><tt class="py-op">(</tt><tt class="py-base-class">BasePackageCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SourcePackageCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SourcePackageCache-expanded"><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt id="link-31" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-31', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"source-packages"</tt> </tt>
+</div><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"> </tt>
+<a name="ErratumCache"></a><div id="ErratumCache-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="ErratumCache-toggle" onclick="return toggle('ErratumCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.ErratumCache-class.html">ErratumCache</a><tt class="py-op">(</tt><tt class="py-base-class">BaseCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ErratumCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ErratumCache-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt id="link-32" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-32', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"errata"</tt> </tt>
+<a name="ErratumCache._get_key"></a><div id="ErratumCache._get_key-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="ErratumCache._get_key-toggle" onclick="return toggle('ErratumCache._get_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.ErratumCache-class.html#_get_key">_get_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ErratumCache._get_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ErratumCache._get_key-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">hash_val</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="satellite_tools.syncCache.BaseCache._hash_object_id" class="py-name" href="#" onclick="return doclink('link-33', '_hash_object_id', 'link-26');">_hash_object_id</a></tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">,</tt> <tt class="py-number">10</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-string">"satsync"</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-34', '_subdir', 'link-25');">_subdir</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash_val</tt><tt class="py-op">,</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">object_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="KickstartableTreesCache"></a><div id="KickstartableTreesCache-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="KickstartableTreesCache-toggle" onclick="return toggle('KickstartableTreesCache');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.syncCache.KickstartableTreesCache-class.html">KickstartableTreesCache</a><tt class="py-op">(</tt><tt class="py-base-class">BaseCache</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="KickstartableTreesCache-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="KickstartableTreesCache-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt id="link-35" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-35', '_subdir', 'link-25');">_subdir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"kickstartable-trees"</tt> </tt>
+<a name="KickstartableTreesCache._get_key"></a><div id="KickstartableTreesCache._get_key-def"><a name="L99"></a><tt class="py-lineno"> 99</tt> <a class="py-toggle" href="#" id="KickstartableTreesCache._get_key-toggle" onclick="return toggle('KickstartableTreesCache._get_key');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.syncCache.KickstartableTreesCache-class.html#_get_key">_get_key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">object_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="KickstartableTreesCache._get_key-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="KickstartableTreesCache._get_key-expanded"><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">normpath</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-string">"satsync"</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="satellite_tools.syncCache.BasePackageCache._subdir
+satellite_tools.syncCache.ErratumCache._subdir
+satellite_tools.syncCache.KickstartableTreesCache._subdir
+satellite_tools.syncCache.PackageCache._subdir
+satellite_tools.syncCache.ShortPackageCache._subdir
+satellite_tools.syncCache.SourcePackageCache._subdir" class="py-name" href="#" onclick="return doclink('link-36', '_subdir', 'link-25');">_subdir</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-name">object_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-keyword">from</tt> <tt id="link-37" class="py-name"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-37', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-38" class="py-name" targets="Function common.rhnConfig.initCFG()=common.rhnConfig-module.html#initCFG"><a title="common.rhnConfig.initCFG" class="py-name" href="#" onclick="return doclink('link-38', 'initCFG', 'link-38');">initCFG</a></tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt id="link-39" class="py-name"><a title="common.rhnConfig.initCFG" class="py-name" href="#" onclick="return doclink('link-39', 'initCFG', 'link-38');">initCFG</a></tt><tt class="py-op">(</tt><tt class="py-string">"server.satellite"</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-name">c</tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name" targets="Class satellite_tools.syncCache.PackageCache=satellite_tools.syncCache.PackageCache-class.html"><a title="satellite_tools.syncCache.PackageCache" class="py-name" href="#" onclick="return doclink('link-40', 'PackageCache', 'link-40');">PackageCache</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-name">pid</tt> <tt class="py-op">=</tt> <tt class="py-string">'package-12345'</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedDumper.cache_set()=satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_set,Method satellite_tools.syncCache.BaseCache.cache_set()=satellite_tools.syncCache.BaseCache-class.html#cache_set"><a title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_set
+satellite_tools.syncCache.BaseCache.cache_set" class="py-name" href="#" onclick="return doclink('link-41', 'cache_set', 'link-41');">cache_set</a></tt><tt class="py-op">(</tt><tt class="py-name">pid</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">'a'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'b'</tt> <tt class="py-op">:</tt> <tt class="py-number">2</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-name">c</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedDumper.cache_get()=satellite_tools.disk_dumper.dumper.CachedDumper-class.html#cache_get,Method satellite_tools.syncCache.BaseCache.cache_get()=satellite_tools.syncCache.BaseCache-class.html#cache_get"><a title="satellite_tools.disk_dumper.dumper.CachedDumper.cache_get
+satellite_tools.syncCache.BaseCache.cache_get" class="py-name" href="#" onclick="return doclink('link-42', 'cache_get', 'link-42');">cache_get</a></tt><tt class="py-op">(</tt><tt class="py-name">pid</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:25 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,6 +21,9 @@ use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;
 use RHN::DataSource;
+
+use RHN::DataSource::Simple ();
+use RHN::SatCluster ();
 
 use Digest::MD5 qw/md5_hex/;
 
@@ -310,19 +313,6 @@ sub lookup {
 }
 
 
-########################
-sub list_scouts_by_org {
-########################
-  my $self = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'scout_queries',
-				       -mode => 'scouts_for_org');
-
-  return $ds->execute_query(-org_id => $org_id);
-
-}
-
 #################
 sub push_config {
 #################
@@ -434,7 +424,7 @@ Method to simply grab the scout_shared_key for a given sat_cluster_id
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004-2005, Red Hat, Inc.  All rights reserved
+Copyright (c) 2004-2010, Red Hat, Inc.  All rights reserved
 
 =cut
 

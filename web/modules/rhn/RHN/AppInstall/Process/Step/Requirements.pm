@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,25 +32,6 @@ my %valid_fields = (requirements => { type => ARRAYREF,
 sub valid_fields {
   my $class = shift;
   return ($class->SUPER::valid_fields(), %valid_fields);
-}
-
-sub get_requirements {
-  my $self = shift;
-
-  return @{$self->{requirements} || []};
-}
-
-sub set_requirements {
-  my $self = shift;
-  my @requirements = @_;
-
-  if (ref $requirements[0] eq 'ARRAY') {
-    @requirements = @{$requirements[0]};
-  }
-
-  $self->push_requirement(@requirements);
-
-  return;
 }
 
 sub push_requirement {

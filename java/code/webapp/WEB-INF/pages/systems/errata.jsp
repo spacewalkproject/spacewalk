@@ -150,7 +150,7 @@
 
 	
 	<c:if test="${requestScope.showApplyErrata == 'true'}">
-		<rl:csv dataset="pageList"
+		<rl:csv 
 			name="errataList" 
 			exportColumns="associatedSystem,errataAdvisoryType,advisoryName,advisorySynopsis,errataStatus,updateDate"
 			header="${system.name}"/>

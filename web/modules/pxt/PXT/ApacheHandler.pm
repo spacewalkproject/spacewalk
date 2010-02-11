@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,7 +29,6 @@ use Apache2::RequestIO ();
 use BSD::Resource;
 use Carp;
 use Compress::Zlib;
-use Data::Dumper;
 use Sys::Hostname;
 use Scalar::Util;
 use File::Spec;
@@ -39,14 +38,13 @@ use PXT::Handlers;
 use PXT::Utils;
 use PXT::Config;
 use PXT::Request;
-use PXT::SoapRequest;
-use PXT::XmlrpcRequest;
 use RHN::Session;
 use RHN::Exception;
-use RHN::API::Exception;
-use RHN::API::Parser;
 use RHN::I18N;
 use RHN::Mail;
+
+use PXT::Debug ();
+use RHN::DB ();
 
 our $make_vile;
 
@@ -84,26 +82,10 @@ sub handler {
       }
   }
 
-  # Load API exceptions
-  my $exception_box = RHN::API::Exception->exception_box;
-
-  if ($exception_box->is_empty) {
-    my $path = File::Spec->catfile($request->document_root, "/rpc/api-exceptions/*.xml");
-
-    foreach my $file (glob $path) {
-      RHN::API::Parser->parse_exceptions($file);
-    }
-  }
-
   my $filename = $r->filename;
   my ($file_contents, $file_classes);
 
-  if ($request->xml_request) {
-    $request->content_type("text/xml");
-  }
-  else {
-    $request->content_type("text/html; charset=UTF-8");
-  }
+  $request->content_type("text/html; charset=UTF-8");
 
   my $E;
 
@@ -184,7 +166,7 @@ sub handler {
     }
 
     if (not $r->header_only) {
-      if (PXT::Config->get("enable_i18n") and not $request->xml_request) {
+      if (PXT::Config->get("enable_i18n")) {
 	$file_contents = RHN::I18N->translate($file_contents);
       }
 
@@ -376,46 +358,21 @@ sub initialize_pxt {
   my $xml_req;
   my $status;  # status from call to $apr->parse
 
-  if ($r->headers_in->{"Content-type"} and $r->headers_in->{"Content-type"} =~ m(^text/xml)) {
-    $xml_req = 1;
-    $apr = undef;
+  $apr = Apache2::Request->new($r, POST_MAX => PXT::Config->get("post_max"));
 
-    if ($r->headers_in->{'SOAPAction'}) {
-      $request->xml_request(new PXT::SoapRequest);
-    }
-    else {
-      $request->xml_request(new PXT::XmlrpcRequest);
-    }
-  }
-  else {
-    $apr = Apache2::Request->new($r, POST_MAX => PXT::Config->get("post_max"));
-
-    $status = OK;
-    eval {
+  $status = OK;
+  eval {
       $apr->parse;
-    };
-    if ($@ and ref $@ eq 'APR::Request::Error') {
+  };
+  if ($@ and ref $@ eq 'APR::Request::Error') {
       APR::Request::Error::strerror($@);
       $status = SERVER_ERROR;
-    }
   }
 
   $r->pnotes('pxt_apr', $apr);
   $request->apr($apr);
 
   my $session_id;
-
-  if ($request->xml_request) {
-    my @a = $request->rpc_params;
-
-    PXT::Debug->log(2, @a);
-
-    if (@a == 2 and ref $a[1] eq 'HASH') {
-      my ($func, $params) = @a;
-
-      $session_id = $params->{session} || $params->{-session};
-    }
-  }
 
   $r->pnotes('pxt_request', $request);
   $r->pnotes('pxt_cookies', $cookies);
@@ -440,7 +397,7 @@ sub initialize_pxt {
     elsif (my $pxt_session_cookie = $cookies->{$request->session_cookie_name}) {
       $session = RHN::Session->load($cookies->{$request->session_cookie_name}->value);
     }
-    elsif (not $request->xml_request and $request->dirty_param('pxt_session_id')) {
+    elsif ($request->dirty_param('pxt_session_id')) {
       $session = RHN::Session->load($request->dirty_param('pxt_session_id'));
     }
     else {
@@ -459,17 +416,15 @@ sub initialize_pxt {
 
   $r->pnotes('pxt_session', $session);
 
-  if (not $request->xml_request) {
-    my @formvars = $apr->param;
+  my @formvars = $apr->param;
 
 
-    eval { $request->cleanse_params(); };
-    my $E = $@;
+  eval { $request->cleanse_params(); };
+  my $E = $@;
 
-    if ($E) {
+  if ($E) {
       mail_traceback($request, $r, $E);
       throw $E;
-    }
   }
 
   return $status;
@@ -546,81 +501,6 @@ sub pxt_parse_data {
     $class->register_callbacks($p2) if $class->can("register_callbacks");
   }
 
-  if ($pxt->xml_request) {
-    my %xml = $p2->rpc_handlers;
-    my ($func, @params) = $pxt->rpc_params;
-    my $result;
-
-    PXT::Debug->log(2, "func: $func, params: @params");
-
-    my $handler;
-    if (exists $xml{$func}) {
-      $handler = $xml{$func};
-    }
-    elsif (exists $xml{__default__}) {
-      $handler = $xml{__default__};
-    }
-    else {
-      $$dataref = $pxt->encode_rpc_fault('604', 'Method not found');
-      return;
-    }
-
-    my @result;
-    eval {
-      @result = $handler->($pxt, @params);
-    };
-
-    # exception handling logic.  If the exception object
-    # can("serialize_xmlrpc_fault"), then it was an application
-    # level exception meant for the client.  so we pass it through
-    # like a normal, happy result.  if it wasn't such an exception,
-    # though, we let the traceback handler handle it since it wasn't
-    # expected and should generate a traceback email.  in that case,
-    # the client receives a generic 'unhandled exception' fault.
-
-    my $E = $@;
-    if ($E) {
-      if (ref $E and ref $E eq 'ARRAY') {
-	$$dataref = $pxt->encode_rpc_fault($E->[0], $E->[1]);
-	Carp::cluck "Nonfatal(?) fault handling rpc: $E";
-	return;
-      }
-      elsif (ref $E and $E->isa('PXT::RPCFault')) {
-	PXT::Debug->log(2, "RPC fault:", $E->{fault_text});
-	$$dataref = $pxt->encode_rpc_fault($E->{fault_code}, $E->{fault_text});
-	return;
-      }
-      elsif (ref $E and $E->can("serialize_xmlrpc_fault")) {
-	$$dataref = $pxt->encode_rpc_fault($E->fault_code, $E->fault_text);
-	return;
-      }
-
-      die $E;
-    }
-
-    if (@result > 1) {
-      die "rpc handler for $func attempted to return more than one result, but not as array";
-    }
-    else {
-      $result = $result[0];
-    }
-
-    if ($pxt->xml_return_raw) {
-      $$dataref = $result;
-    }
-    elsif ($pxt->gzip_output) {
-      warn "gzipping output";
-      $pxt->header_out('Content-Encoding', 'x-gzip');
-      $pxt->header_out('Content-Transfer-Encoding', 'binary');
-      $$dataref = Compress::Zlib::memGzip($pxt->encode_rpc_result($pxt, $result));
-    }
-    else {
-      $$dataref = $pxt->encode_rpc_result($pxt, $result);
-    }
-
-    return;
-  }
-
   my %callbacks = $p2->callbacks;
 
   my $cb = $pxt->dirty_param("pxt:trap") || $pxt->dirty_param("pxt_trap");
@@ -651,14 +531,6 @@ sub handle_traceback {
 
   $pxt->trace_request(-result => SERVER_ERROR, -extra => $E);
 
-  if ($pxt->xml_request) {
-    my $result = $pxt->encode_rpc_fault(-1, "Unhandled exception");
-
-    $apache->headers_out->{'Content-Length'} = length $result;
-    $apache->print($result);
-
-    return OK;
-  }
   return SERVER_ERROR;
 }
 
@@ -675,10 +547,6 @@ sub mail_traceback {
     my $severity;
     $severity = "unhandled";
 
-    if (defined $apache->headers_in->{'User-Agent'} && $apache->headers_in->{'User-Agent'} =~ /Konqueror/) {
-      $subject .= " (Konqueror)";
-    }
-
     my $raw_uri = $apache->the_request;
     my $uri = $apache->uri;
     my $user = '(not logged in)';
@@ -692,22 +560,11 @@ sub mail_traceback {
     }
 
     my $formvars;
-    if ($pxt->xml_request) {
-      my ($func, @params) = $pxt->rpc_params();
-
-      my $call = "  $func(" . join(", ", @params) . ")";
-      $formvars = <<EOS
-RPC Request:
-$call
-EOS
-    }
-    else {
-      my $pairs = join("\n", map { "  $_ => " . $pxt->passthrough_param($_) } sort $pxt->param);
-      $formvars = <<EOS
+    my $pairs = join("\n", map { "  $_ => " . $pxt->passthrough_param($_) } sort $pxt->param);
+    $formvars = <<EOS;
 Form variables:
 $pairs
 EOS
-    }
 
     my $body = <<EOB;
 The following exception occurred while executing this request:
@@ -745,46 +602,6 @@ EOB
 my $last_profile_pt;
 sub clear_profile_timer {
   $last_profile_pt = 0;
-}
-
-sub profiling_markpoint {
-  my $now = Time::HiRes::time;
-
-  my $where = join(": ", (caller)[1], (caller)[2]);
-  my $delta = $last_profile_pt ? sprintf("%.03f", $now - $last_profile_pt) : "begin";
-
-  warn "profile pt: $now ($delta) at $where\n";
-
-  $last_profile_pt = $now;
-}
-
-package PXT::ApacheHandler::TransHandler;
-use Apache2::Const qw/:common REDIRECT M_GET/;
-
-sub handler {
-  my $r = shift;
-
-  if ($r->uri =~ m(^/download/)) {
-    my $path_info = $r->uri;
-
-    # is this one of those bizarre user agents that mishandles
-    # redirects and keeps growing the request string?  typically seen
-    # from LeechGet (which also sometimes apparently masquerades
-    # itself).  so, check to see if http: or https: occurs three times
-    # in the request and truncate to 512 bytes.
-
-    if ($path_info =~ /https?:.*https?:.*https?/) {
-      Apache->log_error("Detected long download request line; altering logging");
-      $r->the_request(substr($path_info, 0, 256));
-    }
-
-    $path_info =~ s(^/download)();
-    $r->filename($r->document_root . "/download");
-    $r->pnotes(download_path_info => $path_info);
-    return OK;
-  }
-
-  return DECLINED;
 }
 
 1;

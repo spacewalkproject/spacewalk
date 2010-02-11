@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,8 +30,6 @@ sub register_acl_handlers {
   $acl->register_handler(channel_exists => \&channel_exists);
   $acl->register_handler(channel_accessible => \&channel_accessible);
   $acl->register_handler(base_channel => \&channel_is_base);
-  $acl->register_handler(proxy_channel => \&channel_is_proxy);
-  $acl->register_handler(satellite_channel => \&channel_is_satellite);
   $acl->register_handler(channel_licensed => \&channel_is_licensed);
   $acl->register_handler(channel_eoled => \&channel_eoled);
   $acl->register_handler(org_owns_cloned_channels => \&org_owns_cloned_channels);
@@ -114,22 +112,6 @@ sub channel_is_protected {
 
   my $channel = RHN::Channel->lookup(-id => $cid);
   return $channel->is_protected;
-}
-
-sub channel_is_proxy {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-  throw 'no cid param' unless $cid;
-
-}
-
-sub channel_is_proxy {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-  throw 'no cid param' unless $cid;
-
 }
 
 sub channel_accessible {

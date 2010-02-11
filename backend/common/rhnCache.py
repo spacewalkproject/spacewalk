@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -8,11 +8,12 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
+
 # This module implements a simple object caching system using shelves
 # stored in files on the file system
 #
@@ -26,18 +27,20 @@ from struct import pack
 from stat import ST_MTIME
 from errno import EEXIST
 
-from rhnLib import timestamp, makedirs, setPermsPath
+from rhnLib import timestamp
 import rhn_posix
-import rhn_fcntl
+import fcntl
+
+from spacewalk.common.fileutils import makedirs, setPermsPath
 
 # this is a constant I'm not too happy about but one way or another we have
 # to reserve our own shared memory space.
 CACHEDIR = "/var/cache/rhn"
 
 # easy structures for locking stuff
-WRLOCK = pack("hhiiii", rhn_fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
-RDLOCK = pack("hhiiii", rhn_fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
-UNLOCK = pack("hhiiii", rhn_fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+WRLOCK = pack("hhiiii", fcntl.F_WRLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+RDLOCK = pack("hhiiii", fcntl.F_RDLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
+UNLOCK = pack("hhiiii", fcntl.F_UNLCK, rhn_posix.SEEK_SET, 0, 0, 0, 0)
 
 def cleanupPath(path):
     """take ~taw/../some/path/$MOUNT_POINT/blah and make it sensible."""
@@ -52,13 +55,13 @@ def cleanupPath(path):
 def _fname(name):
     fname = "%s/%s" % (CACHEDIR, name)
     return cleanupPath(fname)
-# Lock it, using default mode rhn_fcntl.F_WRLCK.
+# Lock it, using default mode fcntl.F_WRLCK.
 def _lock(fd, lock = WRLOCK):
-    fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, lock)
+    fcntl.fcntl(fd, fcntl.F_SETLKW, lock)
 
 def _unlock(fd):
     try:
-        fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, UNLOCK)
+        fcntl.fcntl(fd, fcntl.F_SETLKW, UNLOCK)
     except IOError:
         # If LOCK is not relinquished try flock, 
         # its usually more forgiving.
@@ -106,11 +109,13 @@ class UnreadableFileError(Exception):
     pass
 
 
-# This function returns a file descriptor for the open file fname
-# If the file is already there, it is truncated
-# otherwise, all the directories up to it are created and the file is created
-# as well
 def _safe_create(fname, user, group, mode):
+    """ This function returns a file descriptor for the open file fname
+        If the file is already there, it is truncated
+        otherwise, all the directories up to it are created and the file is created
+        as well.
+    """
+
     # There can be race conditions between the moment we check for the file
     # existence and when we actually create it, so retry if something fails
     tries = 5
@@ -189,10 +194,6 @@ class LockedFile(object):
             _unlock(self.fd.fileno())
             self.fd.close()
             self.closed = True
-
-#    def __del__(self):
-#        if not self.closed:
-#            self.close()
 
     def __getattr__(self, x):
         return getattr(self.fd, x)

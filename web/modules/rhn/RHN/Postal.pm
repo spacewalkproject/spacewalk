@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,6 +21,7 @@ use PXT::Config;
 use RHN::Mail;
 use RHN::TemplateString;
 use Text::Wrap qw/wrap/;
+use PXT::Utils ();
 
 my @allowed_params = qw/wrap_body allow_all_domains/;
 
@@ -68,33 +69,12 @@ sub template {
   $self->{original_body} = $body;
 }
 
-sub inline_template {
-  my $self = shift;
-  my $text = shift;
-
-  $self->{original_body} = $text;
-}
-
 sub set_tag {
   my $self = shift;
   my $tag = shift;
   my $val = shift;
 
   $self->{tags}->{$tag} = $val;
-}
-
-sub hide_tag {
-  my $self = shift;
-  my $tag = shift;
-
-  $self->{hidden_tags}->{$tag} = 1;
-}
-
-sub unhide_tag {
-  my $self = shift;
-  my $tag = shift;
-
-  $self->{passthrough_tags}->{$tag} = 1;
 }
 
 sub subject {
@@ -164,7 +144,12 @@ sub render {
   $p->register_tag("postal-letter" =>
 		   sub {
 		     my %params = @_;
-		     $self->subject($params{subject}) if exists $params{subject};
+		     if (exists $params{subject}) {
+		       my $subject = $params{subject};
+		       my $product_name = PXT::Config->get('product_name');
+		       $subject =~ s!&product_name;!$product_name!g;
+		       $self->subject($subject);
+                     }
 		     return $params{__block__};
 		   }
 		  );
@@ -263,7 +248,7 @@ sub template_replace {
   my $default = $params{default};
   die "No label." unless $label;
 
-  if ($params{__block__} and PXT::Config->get('satellite')) {
+  if ($params{__block__}) {
     return $params{__block__};
   }
 
@@ -280,10 +265,6 @@ sub template_replace {
 
 sub template_block {
   my %params = @_;
-
-  unless (PXT::Config->get('satellite')) {
-    return '';
-  }
 
   my %subst = RHN::TemplateString->load_all;
 

@@ -504,9 +504,6 @@
         <trans-unit id="permission.jsp.summary.acl.header">
           <source>You do not have the appropriate permission set to access the requested page. You may have reached this error page in one of several ways:</source>
         </trans-unit>
-        <trans-unit id="permission.jsp.summary.acl.reason1">
-          <source>You are using Konqueror 3.0, which does not handle form variables properly in all cases. Continuing to use Konqueror 3.0 will have unexpected results. If you are using Konqueror 3.0, please use another browser.</source>
-        </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason2">
           <source>Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
           <context-group name="ctx">
@@ -1422,7 +1419,7 @@
       </trans-unit>
       <!-- footer.jsp -->
       <trans-unit id="footer.jsp.copyright">
-<source>Copyright &amp;#169; 2002-09 Red Hat, Inc. All rights reserved.</source>
+<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
@@ -13182,6 +13179,30 @@ a file or files, or copy the latest version into a set of local overrides or int
           <context context-type="sourcefile">/rhn/configuration/ChannelSystems.do</context>
         </context-group>
      </trans-unit>
+	<trans-unit id="channeltarget.jsp.header1">
+<source>Target Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.jsp.header2">
+<source>The following systems can be subscribed to this channel:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.confirm.jsp.header1">
+<source>Confirm channel subscription</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
+	<trans-unit id="channeltarget.confirm.jsp.header2">
+<source>The following systems will be subscribed to this channel:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/TargetSystems.do</context>
+        </context-group>
+     </trans-unit>
 	<trans-unit id="channelsystems.jsp.descr">
 <source>The following systems are subscribed to {0}. You may deploy any files from {0} to these systems except for those files that the systems override or that are outranked by files in other channels.</source>
         <context-group name="ctx">
@@ -15515,7 +15536,7 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>You can unsubscribe systems from the configuration channels below. The channels shown below are all of the global configuration channels to which at least one system in your system set is subscribed.</source>
          </trans-unit>
          <trans-unit id="unsubscribe.jsp.noChannels">
-           <source>No configuration channels.</source>
+           <source>No configuration channels with subscribed systems in the current System Set!</source>
          </trans-unit>
          <trans-unit id="unsubscribe.jsp.systems">
            <source>Systems</source>
@@ -17108,7 +17129,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
       </trans-unit>
 
      <trans-unit id="tree-form.jspf.location">
-<source>Tree Path:</source>
+<source>Tree Path</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
         </context-group>

@@ -1555,7 +1555,7 @@
 				<target>{0}-টি সিস্টেম নির্বাচন করা হয়েছে</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.copyright">
-				<source>Copyright &amp;#169; 2002-09 Red Hat, Inc. All rights reserved.</source>
+				<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
 				<target>স্বত্বাধিকার &amp;#169; ২০০২-০৮ Red Hat, Inc। সর্ব স্বত্ব সংরক্ষিত।</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.legalStatement">

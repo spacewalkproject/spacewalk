@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        xmlrpc ::
-        up2date ::
-        Up2date ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
+        <a href="server.handlers.xmlrpc.up2date-module.html" onclick="show_private();">Module&nbsp;up2date</a> ::
         Class&nbsp;Up2date
       </span>
     </td>
@@ -58,9 +57,34 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Up2date</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_19" name="uml_class_diagram_for_server_h_19">
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="153,111,335,129"/>
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="152,85,336,131"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#__init__" title="Up2date Class Constructor" alt="" coords="17,185,471,204"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#login" title="Clients v2+ Log in routine." alt="" coords="17,204,471,223"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listChannels" title="Clients v2+" alt="" coords="17,223,471,241"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#subscribeChannels" title="Clients v2+" alt="" coords="17,241,471,260"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#unsubscribeChannels" title="Clients v2+" alt="" coords="17,260,471,279"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall" title="Clients v1&#45; Package listing in [[n,v,r,e],...] format." alt="" coords="17,279,471,297"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall_size" title="Clients v1&#45; Package listing in [[n,v,r,e,s],...] format." alt="" coords="17,297,471,316"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#header" title="Clients v1&#45;" alt="" coords="17,316,471,335"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#package" title="Clients v1&#45; Get rpm package." alt="" coords="17,335,471,353"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#source_package" title="Clients v1&#45; Get a source rpm package." alt="" coords="17,353,471,372"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#source_package_by_name" title="Clients v1&#45; Get a source rpm package by its human readable filename." alt="" coords="17,372,471,391"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#solvedep" title="Clients v1&#45; Solve dependencies for a given dependency problem list." alt="" coords="17,391,471,409"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#solveDependencies" title="Clients v2+ Solve dependencies for a given dependency problem list (newer &#160;version) IN: &#160;a dependency problem list: [name, name, name, ...] RET: a &#160;hash {name: [[n, v, r, e], [n, v, r, e], ...], ..." alt="" coords="17,409,471,428"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html#history" title="Clients v2+ Add a history log for a performed action" alt="" coords="17,447,471,465"/>
+<area shape="rect" href="server.handlers.xmlrpc.up2date.Up2date-class.html" title="xml&#45;rpc Server Functions that we will provide for the outside world." alt="" coords="16,160,472,467"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="147,36,341,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="145,11,343,56"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_19.png" alt='' usemap="#uml_class_diagram_for_server_h_19" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
+<p>xml-rpc Server Functions that we will provide for the outside 
+  world.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -84,7 +108,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Up2date Class Constructor</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.__init__">source&nbsp;code</a></span>
             
@@ -100,9 +125,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="login"></a><span class="summary-sig-name">login</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#login" class="summary-sig-name">login</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default">{}</span>)</span></td>
+        <span class="summary-sig-arg">extra_data</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
+      Clients v2+ Log in routine.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.login">source&nbsp;code</a></span>
             
@@ -119,7 +145,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="listChannels"></a><span class="summary-sig-name">listChannels</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Clients v2+</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.listChannels">source&nbsp;code</a></span>
             
@@ -139,7 +166,8 @@
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">channelNames</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">passwd</span>)</span></td>
+        <span class="summary-sig-arg">passwd</span>)</span><br />
+      Clients v2+</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.subscribeChannels">source&nbsp;code</a></span>
             
@@ -159,7 +187,8 @@
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">channelNames</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">passwd</span>)</span></td>
+        <span class="summary-sig-arg">passwd</span>)</span><br />
+      Clients v2+</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.unsubscribeChannels">source&nbsp;code</a></span>
             
@@ -175,8 +204,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="listall"></a><span class="summary-sig-name">listall</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall" class="summary-sig-name">listall</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Clients v1- Package listing in [[n,v,r,e],...] format.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.listall">source&nbsp;code</a></span>
             
@@ -192,8 +222,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="listall_size"></a><span class="summary-sig-name">listall_size</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">system_id</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#listall_size" class="summary-sig-name">listall_size</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">system_id</span>)</span><br />
+      Clients v1-
+Package listing in [[n,v,r,e,s],...] format.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.listall_size">source&nbsp;code</a></span>
             
@@ -209,9 +241,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="header"></a><span class="summary-sig-name">header</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#header" class="summary-sig-name">header</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">pkgList</span>)</span></td>
+        <span class="summary-sig-arg">pkgList</span>)</span><br />
+      Clients v1-</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.header">source&nbsp;code</a></span>
             
@@ -229,7 +262,8 @@
         <tr>
           <td><span class="summary-sig"><a name="package"></a><span class="summary-sig-name">package</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">package</span>)</span></td>
+        <span class="summary-sig-arg">package</span>)</span><br />
+      Clients v1- Get rpm package.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.package">source&nbsp;code</a></span>
             
@@ -247,7 +281,8 @@
         <tr>
           <td><span class="summary-sig"><a name="source_package"></a><span class="summary-sig-name">source_package</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">package</span>)</span></td>
+        <span class="summary-sig-arg">package</span>)</span><br />
+      Clients v1- Get a source rpm package.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.source_package">source&nbsp;code</a></span>
             
@@ -263,9 +298,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="source_package_by_name"></a><span class="summary-sig-name">source_package_by_name</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#source_package_by_name" class="summary-sig-name">source_package_by_name</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">filename</span>)</span></td>
+        <span class="summary-sig-arg">filename</span>)</span><br />
+      Clients v1- Get a source rpm package by its human readable filename.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.source_package_by_name">source&nbsp;code</a></span>
             
@@ -281,9 +317,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solvedep"></a><span class="summary-sig-name">solvedep</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#solvedep" class="summary-sig-name">solvedep</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">deps</span>)</span></td>
+        <span class="summary-sig-arg">deps</span>)</span><br />
+      Clients v1-
+Solve dependencies for a given dependency problem list.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solvedep">source&nbsp;code</a></span>
             
@@ -299,9 +337,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solveDependencies"></a><span class="summary-sig-name">solveDependencies</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#solveDependencies" class="summary-sig-name">solveDependencies</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">deps</span>)</span></td>
+        <span class="summary-sig-arg">deps</span>)</span><br />
+      Clients v2+ Solve dependencies for a given dependency problem list 
+      (newer version) IN:  a dependency problem list: [name, name, name, 
+      ...] RET: a hash {name: [[n, v, r, e], [n, v, r, e], ...], ...</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies">source&nbsp;code</a></span>
             
@@ -317,9 +358,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solveDependencies_arch"></a><span class="summary-sig-name">solveDependencies_arch</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#solveDependencies_arch" class="summary-sig-name">solveDependencies_arch</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">deps</span>)</span></td>
+        <span class="summary-sig-arg">deps</span>)</span><br />
+      Does the same thing as solve_dependencies, but also returns the 
+      architecture label with the package info.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies_arch">source&nbsp;code</a></span>
             
@@ -335,12 +378,16 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="solveDependencies_with_limits"></a><span class="summary-sig-name">solveDependencies_with_limits</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.up2date.Up2date-class.html#solveDependencies_with_limits" class="summary-sig-name">solveDependencies_with_limits</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">deps</span>,
         <span class="summary-sig-arg">all</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">limit_operator</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span><br />
+      This version of solve_dependencies allows the caller to get all of 
+      the packages that solve a dependency and limit the packages that are 
+      returned to those that match the criteria defined by limit_operator 
+      and limit.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies_with_limits">source&nbsp;code</a></span>
             
@@ -359,7 +406,8 @@
           <td><span class="summary-sig"><a name="history"></a><span class="summary-sig-name">history</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">summary</span>,
-        <span class="summary-sig-arg">body</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span></td>
+        <span class="summary-sig-arg">body</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+      Clients v2+ Add a history log for a performed action</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.history">source&nbsp;code</a></span>
             
@@ -379,7 +427,8 @@
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">deps</span>,
         <span class="summary-sig-arg">action</span>,
-        <span class="summary-sig-arg">clientVersion</span>)</span></td>
+        <span class="summary-sig-arg">clientVersion</span>)</span><br />
+      Response for clients: version 1: list version 2: hash</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.__solveDep">source&nbsp;code</a></span>
             
@@ -399,7 +448,8 @@
         <span class="summary-sig-arg">system_id</span>,
         <span class="summary-sig-arg">deps</span>,
         <span class="summary-sig-arg">action</span>,
-        <span class="summary-sig-arg">clientVersion</span>)</span></td>
+        <span class="summary-sig-arg">clientVersion</span>)</span><br />
+      Response for clients: version 1: list version 2: hash</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.__solveDep_arch">source&nbsp;code</a></span>
             
@@ -422,7 +472,8 @@
         <span class="summary-sig-arg">clientVersion</span>,
         <span class="summary-sig-arg">all</span>=<span class="summary-sig-default">0</span>,
         <span class="summary-sig-arg">limit_operator</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">limit</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Response for clients: version 1: list version 2: hash</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.__solveDep_with_limits">source&nbsp;code</a></span>
             
@@ -432,7 +483,297 @@
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
+      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
+    </td>
+  </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Up2date Class Constructor
+
+o Initializes inherited class.
+o Appends the functions available to the outside world in the
+  rhnHandler list.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="login"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">login</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">extra_data</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.login">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clients v2+ Log in routine. Return a dictionary of session 
+  token/channel information. Also sets this information in the headers.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="listall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">listall</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.listall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clients v1- Package listing in [[n,v,r,e],...] format.</p>
+  <p>NOTE: format weirdness: epoch returned is either an integer or ''.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="listall_size"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">listall_size</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.listall_size">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Clients v1-
+Package listing in [[n,v,r,e,s],...] format.
+
+NOTE: format weirdness: epoch returned is either an integer or ''.
+                     size is an integer.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="header"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">header</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">pkgList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.header">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Clients v1-
+
+IN:  system_id: ....
+      a package identifier (or a list of them)
+        [n,v,r,e] or
+        [[n,v,r,e],...]
+OUT: If Proxy:
+    If Client:
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="source_package_by_name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">source_package_by_name</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">filename</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.source_package_by_name">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clients v1- Get a source rpm package by its human readable filename. 
+  Just like source_package, but we get a package by filename.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solvedep"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solvedep</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">deps</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solvedep">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Clients v1-
+Solve dependencies for a given dependency problem list.
+IN:  a dependency problem list: [name, name, name, ...]
+RET: a package list: [[n,v,r,e],[n,v,r,e],...] That solves the
+     dependencies.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solveDependencies"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solveDependencies</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">deps</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clients v2+ Solve dependencies for a given dependency problem list 
+  (newer version) IN:  a dependency problem list: [name, name, name, ...] 
+  RET: a hash {name: [[n, v, r, e], [n, v, r, e], ...], ...}</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solveDependencies_arch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solveDependencies_arch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">deps</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies_arch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Does the same thing as solve_dependencies, but also returns the 
+  architecture label with the package info. IN:  a dependency problem list:
+  [name, name, name, ...] RET: a hash {name: [[n, v, r, e, a], [n, v, r, e,
+  a], ...], ...}</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="solveDependencies_with_limits"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">solveDependencies_with_limits</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">deps</span>,
+        <span class="sig-arg">all</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">limit_operator</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">limit</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.up2date-pysrc.html#Up2date.solveDependencies_with_limits">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This version of solve_dependencies allows the caller to get all of the
+  packages that solve a dependency and limit the packages that are returned
+  to those that match the criteria defined by limit_operator and limit. 
+  This version of the function also returns the architecture label of the 
+  package[s] that get returned.</p>
+  <p>limit_operator can be any of: '&lt;', '&lt;=', '==', '&gt;=', or 
+  '&gt;'. limit is a a string of the format [epoch:]name-version-release 
+  deps is a list of filenames that the packages that are returned must 
+  provide. version is the version of the client that is calling the 
+  function.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -456,7 +797,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

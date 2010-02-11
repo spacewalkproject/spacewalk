@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 #
 # Written by Joel Martin <jmartin@redhat.com>
 #
@@ -22,7 +22,6 @@
 
 import commands
 import os
-import popen2
 import shutil
 import tempfile
 import zipfile

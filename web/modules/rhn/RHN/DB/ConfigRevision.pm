@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,8 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB;
 use RHN::SimpleStruct;
-use RHN::Exception;
+use RHN::ConfigChannel ();
+use RHN::ConfigRevision ();
 
 our @ISA = qw/RHN::SimpleStruct/;
 
@@ -266,40 +267,6 @@ EOQ
   return $ret;
 }
 
-sub diff_config_revisions {
-  my $class = shift;
-  my %params = validate(@_, {user => 1, file_1 => 1, file_2 => 1, style => { default => 'Unified' }});
-
-  my $user = $params{user}; # needed for time conversion
-
-  my ($file_1, $file_2) = @params{qw/file_1 file_2/};
-
-  my $contents_1 = $file_1->contents || '';
-  my $contents_2 = $file_2->contents || '';
-  $contents_1 .= "\n" if $contents_1 !~ /\n\Z/;
-  $contents_2 .= "\n" if $contents_2 !~ /\n\Z/;
-
-  my %diff_options = ( STYLE => $params{style},
-		       FILENAME_A => $file_1->path,
-		       FILENAME_B => $file_2->path,
-		       MTIME_A => str2time($file_1->modified),
-		       MTIME_B => str2time($file_2->modified)
-		     );
-  my $diff = diff(\$contents_1, \$contents_2, \%diff_options);
-
-  return $diff;
-}
-
-# give other revisions of same file in same namespace
-sub sibling_revisions {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "config_queries", -mode => 'revisions_of_configfile');
-  my $data = $ds->execute_query(-crid => $self->id);
-
-  return $data;
-}
-
 sub next_revision {
   my $self = shift;
 
@@ -318,42 +285,5 @@ EOS
   return ($ret || 0) + 1;
 }
 
-
-sub lookup_action_data {
-  my $class = shift;
-  my %params = validate(@_, {acrid => 1} );
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT ACR.id,
-       ACR.action_id,
-       ACR.server_id,
-       ACR.config_revision_id,
-       CF.config_channel_id,
-       CR.revision,
-       ACRR.result AS RESULT,
-       CC.name as config_channel_name,
-       CR.config_file_id,
-       CFN.path
-  FROM rhnActionConfigRevision ACR,
-       rhnActionConfigRevisionResult ACRR,
-       rhnConfigRevision CR,
-       rhnConfigChannel CC,
-       rhnConfigFile CF,
-       rhnConfigFileName CFN
- WHERE ACR.id = :acrid
-   AND ACR.id = ACRR.action_config_revision_id (+)
-   AND ACR.config_revision_id = CR.id
-   AND CR.config_file_id = CF.id
-   AND CF.config_channel_id = CC.id
-   AND CF.config_file_name_id = CFN.id
-EOQ
-
-  $sth->execute_h(acrid => $params{acrid});
-  my ($data) = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $data;
-}
 
 1;

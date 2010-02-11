@@ -56,7 +56,28 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Database</h1><p class="nomargin-top"><span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Database">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_52" name="uml_class_diagram_for_server_r_52">
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#TimestampFromTicks" title="hash(x)" alt="" coords="199,28,380,47"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#function" title="Return a pointer to a callable instance for a given stored function." alt="" coords="199,49,380,68"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#transaction" title="set a transaction point to which we can rollback to" alt="" coords="199,68,380,87"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#check" title="check the connection" alt="" coords="199,87,380,105"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#close" title="Close the connection" alt="" coords="199,105,380,124"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#Date" title="Returns a Date object" alt="" coords="199,124,380,143"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html#DateFromTicks" title="Returns a Date object" alt="" coords="199,143,380,161"/>
+<area shape="rect" href="server.rhnSQL.sql_base.Database-class.html" title="Base class for handling database operations." alt="" coords="197,11,381,163"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#__init__" title="server.rhnSQL.driver_postgresql.Database.__init__" alt="" coords="17,217,561,236"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#connect" title="Opens a connection to the database." alt="" coords="17,236,561,255"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#is_connected_to" title="Check if this database matches the given connection parameters." alt="" coords="17,255,561,273"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#check_connection" title="Check that this connection is still valid." alt="" coords="17,273,561,292"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#prepare" title="Prepare an SQL statement." alt="" coords="17,292,561,311"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#commit" title="Commit changes" alt="" coords="17,311,561,329"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#rollback" title="rollback changes, optionally to a previously set transaction point" alt="" coords="17,329,561,348"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#procedure" title="Return a pointer to a callable instance for a given stored procedure." alt="" coords="17,348,561,367"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html#cursor" title="return an empty Cursor object" alt="" coords="17,367,561,385"/>
+<area shape="rect" href="server.rhnSQL.driver_postgresql.Database-class.html" title="Class for PostgreSQL database operations." alt="" coords="16,192,563,387"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_52.png" alt='' usemap="#uml_class_diagram_for_server_r_52" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Class for PostgreSQL database operations.</p>
@@ -236,6 +257,41 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.driver_postgresql.Database-class.html#procedure" class="summary-sig-name">procedure</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      Return a pointer to a callable instance for a given stored procedure.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Database.procedure">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="server.rhnSQL.driver_postgresql.Database-class.html#cursor" class="summary-sig-name">cursor</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      return an empty Cursor object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Database.cursor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Database-class.html">sql_base.Database</a></code></b>:
@@ -243,13 +299,12 @@
       <code><a href="server.rhnSQL.sql_base.Database-class.html#DateFromTicks">DateFromTicks</a></code>,
       <code><a href="server.rhnSQL.sql_base.Database-class.html#check">check</a></code>,
       <code><a href="server.rhnSQL.sql_base.Database-class.html#close">close</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Database-class.html#cursor">cursor</a></code>,
       <code><a href="server.rhnSQL.sql_base.Database-class.html#function">function</a></code>,
-      <code><a href="server.rhnSQL.sql_base.Database-class.html#procedure">procedure</a></code>,
       <code><a href="server.rhnSQL.sql_base.Database-class.html#transaction">transaction</a></code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Database-class.html">sql_base.Database</a></code></b> (private):
       <code><a href="server.rhnSQL.sql_base.Database-class.html#_fix_environment_vars" onclick="show_private();">_fix_environment_vars</a></code>,
+      <code><a href="server.rhnSQL.sql_base.Database-class.html#_function" onclick="show_private();">_function</a></code>,
       <code><a href="server.rhnSQL.sql_base.Database-class.html#_read_lob" onclick="show_private();">_read_lob</a></code>
       </p></div>
     </td>
@@ -474,6 +529,55 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="procedure"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">procedure</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Database.procedure">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return a pointer to a callable instance for a given stored procedure. 
+  The return value is a (possibly modified) copy of the arguments passed 
+  in. see cx_Oracle's Cursor.callproc for more details</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnSQL.sql_base.Database-class.html#procedure">sql_base.Database.procedure</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cursor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cursor</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.rhnSQL.driver_postgresql-pysrc.html#Database.cursor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>return an empty Cursor object</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="server.rhnSQL.sql_base.Database-class.html#cursor">sql_base.Database.cursor</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -498,7 +602,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:13 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

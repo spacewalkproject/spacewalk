@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,72 +23,11 @@ Params::Validate::validation_options(strip_leading => "-");
 use RHN::DB;
 use RHN::DB::TableClass;
 
-use RHN::Utils;
-
 use Carp;
 
 my @filelist_fields = qw/ID LABEL ORG_ID CREATED MODIFIED/;
 
 my $fl = new RHN::DB::TableClass("rhnFileList", "FL", "", @filelist_fields);
-
-sub get_file_list {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-SELECT CFN.path
-  FROM rhnConfigFileName CFN,
-       rhnFileListMembers FLM
- WHERE CFN.id = FLM.config_file_name_id
-   AND FLM.file_list_id = :id
-EOQ
-  my $sth;
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(id => $self->id);
-
-  my @flist;
-  while (my @row = $sth->fetchrow) {
-      push @flist, $row[0];
-  }
-
-  return \@flist;
-}
-
-sub set_file_list {
-  my $self = shift;
-  my %params = validate(@_, { file_list => { type => ARRAYREF }});
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-  my @file_list = grep {$_} @{$params{file_list}};
-
-  $query = <<EOQ;
-DELETE FROM rhnFileListMembers FLM
-      WHERE FLM.FILE_LIST_ID = :flid
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(flid => $self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnFileListMembers
-            (file_list_id, config_file_name_id)
-     VALUES (:flid, :cfnid)
-EOQ
-  $sth = $dbh->prepare($query);
-
-  foreach my $path (@file_list) {
-    my $cfnid = RHN::ConfigFile->path_to_id($path);
-    $sth->execute_h(flid => $self->id, cfnid =>$cfnid);
-  }
-
-  $sth->finish;
-  $dbh->commit;
-
-  return;
-}
 
 # build some accessors
 foreach my $field ($fl->method_names) {
@@ -194,17 +133,6 @@ sub commit {
   $dbh->commit;
 
   delete $self->{":modified:"};
-}
-
-sub delete_list {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare("DELETE FROM rhnFileList WHERE id = :flid");    
-  $sth->execute_h(flid => $self->id);
-  $sth->finish;
-  $dbh->commit;
 }
 
 1;

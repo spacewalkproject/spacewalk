@@ -195,61 +195,68 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['upload', 'deploy', 'verify', 'diff', 'mtime_upload']">['upload', 'deploy', 'verify', 'diff', 'mtime_<code class="variable-ellipsis">...</code></code>
+        <a href="server.action.configfiles-module.html#__rhnexport__" class="summary-name">__rhnexport__</a> = <code title="['upload', 'deploy', 'verify', 'diff', 'mtime_upload']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">upload</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">deploy</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">verify</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">diff</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">mtime_</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_upload_files" class="summary-name" onclick="show_private();">_query_upload_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.configfiles-module.html#_query_upload_files" class="summary-name" onclick="show_private();">_query_upload_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441356; statement=
     select cfn.path
       from rhnActionConfigFileName acfn, rhnConfigFileName cfn
      where acfn.server_id = :server_id
        and acfn.action_id = :action_id
        and acfn.config_file_name_id = cfn.id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_mtime_upload_info" class="summary-name" onclick="show_private();">_query_mtime_upload_info</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.configfiles-module.html#_query_mtime_upload_info" class="summary-name" onclick="show_private();">_query_mtime_upload_info</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441516; statement=
     select TO_CHAR(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,
            TO_CHAR(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date,
            TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now,
            import_contents
       from rhnActionConfigDate
      where action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_mtime_upload_paths" class="summary-name" onclick="show_private();">_query_mtime_upload_paths</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.configfiles-module.html#_query_mtime_upload_paths" class="summary-name" onclick="show_private();">_query_mtime_upload_paths</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441484; statement=
     select file_name,
            file_type
       from rhnActionConfigDateFile
      where action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.Statement <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.configfiles-module.html#_query_get_files" class="summary-name" onclick="show_private();">_query_get_files</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.configfiles-module.html#_query_get_files" class="summary-name" onclick="show_private();">_query_get_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159441548; statement=
     select cfn.path,
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
-           ccont.md5sum,
+           c.checksum_type,
+           c.checksum,
            cr.delim_start,
-           cr.delim_end,
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement instance <code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.action'"><code class="variable-quote">'</code><code class="variable-string">server.action</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -283,7 +290,7 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-['upload', 'deploy', 'verify', 'diff', 'mtime_upload']
+<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">upload</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">deploy</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">verify</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">diff</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">mtime_upload</code><code class="variable-quote">'</code><code class="variable-group">]</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -301,13 +308,13 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159441356; statement=
     select cfn.path
       from rhnActionConfigFileName acfn, rhnConfigFileName cfn
      where acfn.server_id = :server_id
        and acfn.action_id = :action_id
        and acfn.config_file_name_id = cfn.id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -325,14 +332,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159441516; statement=
     select TO_CHAR(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,
            TO_CHAR(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date,
            TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now,
            import_contents
       from rhnActionConfigDate
      where action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -350,12 +357,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159441484; statement=
     select file_name,
            file_type
       from rhnActionConfigDateFile
      where action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -373,14 +380,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159441548; statement=
     select cfn.path,
            cc.label config_channel,
            ccont.contents file_contents,
            ccont.is_binary is_binary,
-           ccont.md5sum,
+           c.checksum_type,
+           c.checksum,
            cr.delim_start,
-           cr.delim_end,
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -411,7 +418,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

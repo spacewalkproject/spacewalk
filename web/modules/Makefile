@@ -4,7 +4,7 @@
 
 TOP = ..
 
-SUBDIRS = cypress grail pxt rhn sniglets moon dobby
+SUBDIRS = grail pxt rhn sniglets dobby
 
 include $(TOP)/Makefile.defs
 # whitespace change to test checkin

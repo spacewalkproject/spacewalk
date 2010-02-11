@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,6 +38,30 @@ import java.util.List;
  * @version $Rev$
  */
 public class KickstartTreeHandler extends BaseHandler {
+
+    /**
+     * Returns details of kickstartable tree specified by the label
+     * @param sessionKey User's session key.
+     * @param treeLabel Label of kickstartable tree to search.
+     * @return found KickstartableTreeObject
+     *
+     * @xmlrpc.doc The detailed information about a kickstartable tree given the tree name.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "treeLabel", "Label of kickstartable tree to
+     * search.")
+     * @xmlrpc.returntype $KickstartTreeSerializer
+     */
+    public KickstartableTree getDetails(String sessionKey, String treeLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(treeLabel);
+        if (tree == null) {
+            throw new InvalidChannelLabelException();
+        }
+
+        return tree;
+    }
 
     /**
      * List the available kickstartable trees for the given channel.

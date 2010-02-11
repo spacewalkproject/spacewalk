@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,14 +27,9 @@ use RHN::Kickstart;
 use RHN::TinyURL;
 use RHN::Kickstart::Session;
 use RHN::SessionSwap;
-use RHN::Package;
 
 use RHN::DataSource::Package;
 use RHN::DataSource::General;
-
-use RHN::DB;
-
-use RHN::Exception;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");

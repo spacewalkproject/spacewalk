@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.8.0
+Version:        0.9.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -144,6 +144,15 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Feb 01 2010 Jan Pazdziora 0.8.3-1
+- 529570 - allow monitoring to use winbind
+
+* Mon Feb 01 2010 Jan Pazdziora 0.8.2-1
+- 558448 - define context for /etc/nocpulse/SatCluster.ini
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- rebuild for spacewalk 0.8
+
 * Mon Nov 30 2009 Jan Pazdziora 0.7.1-1
 - allow dequeue to utime the log file, to achieve heartbeating
 - bumping Version to 0.7.0 (jmatthew@redhat.com)

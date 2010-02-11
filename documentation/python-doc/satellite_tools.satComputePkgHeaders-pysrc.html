@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.satComputePkgHeaders</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        Module&nbsp;satComputePkgHeaders
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.satComputePkgHeaders-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.satComputePkgHeaders-module.html" onclick="show_private();">Module satellite_tools.satComputePkgHeaders</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># From the _apache.py</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># this is a dummy module that makes pychecker happy and provides</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># the _apache module, whcih is normally provided by mod_python</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># when a script runs under it</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">optparse</tt> <tt class="py-keyword">import</tt> <tt class="py-name">OptionParser</tt><tt class="py-op">,</tt> <tt class="py-name">Option</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders._path=satellite_tools.satComputePkgHeaders-module.html#_path"><a title="satellite_tools.satComputePkgHeaders._path" class="py-name" href="#" onclick="return doclink('link-0', '_path', 'link-0');">_path</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"/usr/share/rhn"</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-1" class="py-name"><a title="satellite_tools.satComputePkgHeaders._path" class="py-name" href="#" onclick="return doclink('link-1', '_path', 'link-0');">_path</a></tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">:</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-2', 'append', 'link-2');">append</a></tt><tt class="py-op">(</tt><tt id="link-3" class="py-name"><a title="satellite_tools.satComputePkgHeaders._path" class="py-name" href="#" onclick="return doclink('link-3', '_path', 'link-0');">_path</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable _apache.SERVER_RETURN=_apache-module.html#SERVER_RETURN,Variable satellite_tools.satComputePkgHeaders.SERVER_RETURN=satellite_tools.satComputePkgHeaders-module.html#SERVER_RETURN"><a title="_apache.SERVER_RETURN
+satellite_tools.satComputePkgHeaders.SERVER_RETURN" class="py-name" href="#" onclick="return doclink('link-4', 'SERVER_RETURN', 'link-4');">SERVER_RETURN</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="log_error"></a><div id="log_error-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="log_error-toggle" onclick="return toggle('log_error');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders-module.html#log_error">log_error</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="log_error-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="log_error-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="make_table"></a><div id="make_table-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="make_table-toggle" onclick="return toggle('make_table');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders-module.html#make_table">make_table</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="make_table-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="make_table-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="parse_qs"></a><div id="parse_qs-def"><a name="L37"></a><tt class="py-lineno"> 37</tt> <a class="py-toggle" href="#" id="parse_qs-toggle" onclick="return toggle('parse_qs');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders-module.html#parse_qs">parse_qs</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="parse_qs-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parse_qs-expanded"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">     </tt>
+<a name="parse_qsl"></a><div id="parse_qsl-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="parse_qsl-toggle" onclick="return toggle('parse_qsl');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders-module.html#parse_qsl">parse_qsl</a><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="parse_qsl-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="parse_qsl-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-5', 'status', 'link-5');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable _apache.table=_apache-module.html#table,Variable satellite_tools.satComputePkgHeaders.table=satellite_tools.satComputePkgHeaders-module.html#table"><a title="_apache.table
+satellite_tools.satComputePkgHeaders.table" class="py-name" href="#" onclick="return doclink('link-6', 'table', 'link-6');">table</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable _apache.config_tree=_apache-module.html#config_tree,Variable satellite_tools.satComputePkgHeaders.config_tree=satellite_tools.satComputePkgHeaders-module.html#config_tree"><a title="_apache.config_tree
+satellite_tools.satComputePkgHeaders.config_tree" class="py-name" href="#" onclick="return doclink('link-7', 'config_tree', 'link-7');">config_tree</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable _apache.server_root=_apache-module.html#server_root,Variable satellite_tools.satComputePkgHeaders.server_root=satellite_tools.satComputePkgHeaders-module.html#server_root"><a title="_apache.server_root
+satellite_tools.satComputePkgHeaders.server_root" class="py-name" href="#" onclick="return doclink('link-8', 'server_root', 'link-8');">server_root</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable _apache.mpm_query=_apache-module.html#mpm_query,Variable satellite_tools.satComputePkgHeaders.mpm_query=satellite_tools.satComputePkgHeaders-module.html#mpm_query"><a title="_apache.mpm_query
+satellite_tools.satComputePkgHeaders.mpm_query" class="py-name" href="#" onclick="return doclink('link-9', 'mpm_query', 'link-9');">mpm_query</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt id="link-10" class="py-name" targets="Variable _apache.exists_config_define=_apache-module.html#exists_config_define,Variable satellite_tools.satComputePkgHeaders.exists_config_define=satellite_tools.satComputePkgHeaders-module.html#exists_config_define"><a title="_apache.exists_config_define
+satellite_tools.satComputePkgHeaders.exists_config_define" class="py-name" href="#" onclick="return doclink('link-10', 'exists_config_define', 'link-10');">exists_config_define</a></tt><tt class="py-op">=</tt><tt class="py-name">None</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.OK=satellite_tools.satComputePkgHeaders-module.html#OK,Variable server.apache.OK=server.apache-module.html#OK"><a title="satellite_tools.satComputePkgHeaders.OK
+server.apache.OK" class="py-name" href="#" onclick="return doclink('link-11', 'OK', 'link-11');">OK</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-comment"># End of _apache.py</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">modules</tt><tt class="py-op">[</tt><tt class="py-string">"_apache"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">modules</tt><tt class="py-op">[</tt><tt class="py-string">"__main__"</tt><tt class="py-op">]</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-12" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-12', 'server', 'link-12');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-13" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-13', 'rhnSQL', 'link-13');">rhnSQL</a></tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-14" class="py-name" targets="Package spacewalk=spacewalk-module.html"><a title="spacewalk" class="py-name" href="#" onclick="return doclink('link-14', 'spacewalk', 'link-14');">spacewalk</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-15', 'common', 'link-15');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-16" class="py-name" targets="Module spacewalk.common.rhn_rpm=spacewalk.common.rhn_rpm-module.html"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-16', 'rhn_rpm', 'link-16');">rhn_rpm</a></tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt id="link-17" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.options_table=satellite_tools.satComputePkgHeaders-module.html#options_table,Variable satellite_tools.satrm.options_table=satellite_tools.satrm-module.html#options_table,Variable satellite_tools.updatePackages.options_table=satellite_tools.updatePackages-module.html#options_table"><a title="satellite_tools.satComputePkgHeaders.options_table
+satellite_tools.satrm.options_table
+satellite_tools.updatePackages.options_table" class="py-name" href="#" onclick="return doclink('link-17', 'options_table', 'link-17');">options_table</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-name">Option</tt><tt class="py-op">(</tt><tt class="py-string">"-v"</tt><tt class="py-op">,</tt> <tt class="py-string">"--verbose"</tt><tt class="py-op">,</tt>       <tt id="link-18" class="py-name" targets="Package server.action=server.action-module.html"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-18', 'action', 'link-18');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"count"</tt><tt class="py-op">,</tt>  </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Increase verbosity"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-name">Option</tt><tt class="py-op">(</tt><tt class="py-string">"-d"</tt><tt class="py-op">,</tt> <tt class="py-string">"--db"</tt><tt class="py-op">,</tt>            <tt id="link-19" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-19', 'action', 'link-18');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt>  </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"DB string to connect to"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-name">Option</tt><tt class="py-op">(</tt><tt class="py-string">"--commit"</tt><tt class="py-op">,</tt>              <tt id="link-20" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-20', 'action', 'link-18');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store_true"</tt><tt class="py-op">,</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Commit work"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-name">Option</tt><tt class="py-op">(</tt><tt class="py-string">"--backup-file"</tt><tt class="py-op">,</tt>         <tt id="link-21" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-21', 'action', 'link-18');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Backup packages into this file"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-name">Option</tt><tt class="py-op">(</tt><tt class="py-string">"--prefix"</tt><tt class="py-op">,</tt>              <tt id="link-22" class="py-name"><a title="server.action" class="py-name" href="#" onclick="return doclink('link-22', 'action', 'link-18');">action</a></tt><tt class="py-op">=</tt><tt class="py-string">"store"</tt><tt class="py-op">,</tt>     <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'/pub'</tt><tt class="py-op">,</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">help</tt><tt class="py-op">=</tt><tt class="py-string">"Prefix to find files in"</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-op">]</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="Runner"></a><div id="Runner-def"><a name="L73"></a><tt class="py-lineno"> 73</tt> <a class="py-toggle" href="#" id="Runner-toggle" onclick="return toggle('Runner');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html">Runner</a><tt class="py-op">:</tt> </tt>
+</div><div id="Runner-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Runner-expanded"><a name="Runner.__init__"></a><div id="Runner.__init__-def"><a name="L74"></a><tt class="py-lineno"> 74</tt> <a class="py-toggle" href="#" id="Runner.__init__-toggle" onclick="return toggle('Runner.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner.__init__-expanded"><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channels_hash</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">         </tt>
+<a name="Runner.main"></a><div id="Runner.main-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="Runner.main-toggle" onclick="return toggle('Runner.main');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#main">main</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner.main-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner.main-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt id="link-23" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.parser=satellite_tools.reposync.RepoSync-class.html#parser"><a title="satellite_tools.reposync.RepoSync.parser" class="py-name" href="#" onclick="return doclink('link-23', 'parser', 'link-23');">parser</a></tt> <tt class="py-op">=</tt> <tt class="py-name">OptionParser</tt><tt class="py-op">(</tt><tt class="py-name">option_list</tt><tt class="py-op">=</tt><tt id="link-24" class="py-name"><a title="satellite_tools.satComputePkgHeaders.options_table
+satellite_tools.satrm.options_table
+satellite_tools.updatePackages.options_table" class="py-name" href="#" onclick="return doclink('link-24', 'options_table', 'link-17');">options_table</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">,</tt> <tt class="py-name">args</tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="satellite_tools.reposync.RepoSync.parser" class="py-name" href="#" onclick="return doclink('link-25', 'parser', 'link-23');">parser</a></tt><tt class="py-op">.</tt><tt class="py-name">parse_args</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">:</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"--db not specified"</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt id="link-26" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-26', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Function server.rhnSQL.initDB()=server.rhnSQL-module.html#initDB"><a title="server.rhnSQL.initDB" class="py-name" href="#" onclick="return doclink('link-27', 'initDB', 'link-27');">initDB</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channels_hash</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method satellite_tools.satComputePkgHeaders.Runner._get_channels()=satellite_tools.satComputePkgHeaders.Runner-class.html#_get_channels"><a title="satellite_tools.satComputePkgHeaders.Runner._get_channels" class="py-name" href="#" onclick="return doclink('link-28', '_get_channels', 'link-28');">_get_channels</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">package_ids</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Method satellite_tools.satComputePkgHeaders.Runner._get_packages()=satellite_tools.satComputePkgHeaders.Runner-class.html#_get_packages,Method server.repomd.view.UpdateinfoView._get_packages()=server.repomd.view.UpdateinfoView-class.html#_get_packages"><a title="satellite_tools.satComputePkgHeaders.Runner._get_packages
+server.repomd.view.UpdateinfoView._get_packages" class="py-name" href="#" onclick="return doclink('link-29', '_get_packages', 'link-29');">_get_packages</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">package_ids</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">backup_file</tt><tt class="py-op">:</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method satellite_tools.satComputePkgHeaders.Runner._backup_packages()=satellite_tools.satComputePkgHeaders.Runner-class.html#_backup_packages"><a title="satellite_tools.satComputePkgHeaders.Runner._backup_packages" class="py-name" href="#" onclick="return doclink('link-30', '_backup_packages', 'link-30');">_backup_packages</a></tt><tt class="py-op">(</tt><tt class="py-name">package_ids</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">backup_file</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method satellite_tools.satComputePkgHeaders.Runner._add_package_header_values()=satellite_tools.satComputePkgHeaders.Runner-class.html#_add_package_header_values"><a title="satellite_tools.satComputePkgHeaders.Runner._add_package_header_values" class="py-name" href="#" onclick="return doclink('link-31', '_add_package_header_values', 'link-31');">_add_package_header_values</a></tt><tt class="py-op">(</tt><tt class="py-name">package_ids</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt id="link-32" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-32', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Module server.action.rollback=server.action.rollback-module.html,Function server.action.rollback.rollback()=server.action.rollback-module.html#rollback,Module server.action_extra_data.rollback=server.action_extra_data.rollback-module.html,Function server.action_extra_data.rollback.rollback()=server.action_extra_data.rollback-module.html#rollback,Method server.importlib.backend.Backend.rollback()=server.importlib.backend.Backend-class.html#rollback,Method server.rhnSQL.driver_cx_Oracle.Database.rollback()=server.rhnSQL.driver_cx_Oracle.Database-class.html#rollback,Method server.rhnSQL.driver_postgresql.Database.rollback()=server.rhnSQL.driver_postgresql.Database-class.html#rollback,Function server.rhnSQL.rollback()=server.rhnSQL-module.html#rollback,Method server.rhnSQL.sql_base.Database.rollback()=server.rhnSQL.sql_base.Database-class.html#rollback,Method server.rhnSQL.sql_table.Table.rollback()=server.rhnSQL.sql_table.Table-class.html#rollback"><a title="server.action.rollback
+server.action.rollback.rollback
+server.action_extra_data.rollback
+server.action_extra_data.rollback.rollback
+server.importlib.backend.Backend.rollback
+server.rhnSQL.driver_cx_Oracle.Database.rollback
+server.rhnSQL.driver_postgresql.Database.rollback
+server.rhnSQL.rollback
+server.rhnSQL.sql_base.Database.rollback
+server.rhnSQL.sql_table.Table.rollback" class="py-name" href="#" onclick="return doclink('link-33', 'rollback', 'link-33');">rollback</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method server.importlib.backend.Backend.commit()=server.importlib.backend.Backend-class.html#commit,Method server.rhnKickstart.Kickstart.commit()=server.rhnKickstart.Kickstart-class.html#commit,Function server.rhnSQL.commit()=server.rhnSQL-module.html#commit,Method server.rhnSQL.driver_cx_Oracle.Database.commit()=server.rhnSQL.driver_cx_Oracle.Database-class.html#commit,Method server.rhnSQL.driver_postgresql.Database.commit()=server.rhnSQL.driver_postgresql.Database-class.html#commit,Method server.rhnSQL.sql_base.Database.commit()=server.rhnSQL.sql_base.Database-class.html#commit,Method server.rhnSQL.sql_table.Table.commit()=server.rhnSQL.sql_table.Table-class.html#commit"><a title="server.importlib.backend.Backend.commit
+server.rhnKickstart.Kickstart.commit
+server.rhnSQL.commit
+server.rhnSQL.driver_cx_Oracle.Database.commit
+server.rhnSQL.driver_postgresql.Database.commit
+server.rhnSQL.sql_base.Database.commit
+server.rhnSQL.sql_table.Table.commit" class="py-name" href="#" onclick="return doclink('link-34', 'commit', 'link-34');">commit</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"Commiting work"</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">            <tt id="link-35" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-35', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="server.importlib.backend.Backend.commit
+server.rhnKickstart.Kickstart.commit
+server.rhnSQL.commit
+server.rhnSQL.driver_cx_Oracle.Database.commit
+server.rhnSQL.driver_postgresql.Database.commit
+server.rhnSQL.sql_base.Database.commit
+server.rhnSQL.sql_table.Table.commit" class="py-name" href="#" onclick="return doclink('link-36', 'commit', 'link-34');">commit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"Rolling back"</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">            <tt id="link-37" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-37', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="server.action.rollback
+server.action.rollback.rollback
+server.action_extra_data.rollback
+server.action_extra_data.rollback.rollback
+server.importlib.backend.Backend.rollback
+server.rhnSQL.driver_cx_Oracle.Database.rollback
+server.rhnSQL.driver_postgresql.Database.rollback
+server.rhnSQL.rollback
+server.rhnSQL.sql_base.Database.rollback
+server.rhnSQL.sql_table.Table.rollback" class="py-name" href="#" onclick="return doclink('link-38', 'rollback', 'link-33');">rollback</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="Runner._get_packages"></a><div id="Runner._get_packages-def"><a name="L113"></a><tt class="py-lineno">113</tt> <a class="py-toggle" href="#" id="Runner._get_packages-toggle" onclick="return toggle('Runner._get_packages');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#_get_packages">_get_packages</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner._get_packages-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner._get_packages-expanded"><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">package_ids</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-39" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-39', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-40', 'prepare', 'link-40');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.Runner._query_get_packages=satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_packages"><a title="satellite_tools.satComputePkgHeaders.Runner._query_get_packages" class="py-name" href="#" onclick="return doclink('link-41', '_query_get_packages', 'link-41');">_query_get_packages</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">channel_id</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channels_hash</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method common.rhnConfig.RHNOptions.values()=common.rhnConfig.RHNOptions-class.html#values"><a title="common.rhnConfig.RHNOptions.values" class="py-name" href="#" onclick="return doclink('link-42', 'values', 'link-42');">values</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-43', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">channel_id</tt><tt class="py-op">=</tt><tt class="py-name">channel_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-44', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                <tt class="py-name">package_id</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'package_id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-name">package_ids</tt><tt class="py-op">[</tt><tt class="py-name">package_id</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'path'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'header_start'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'header_end'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">orphaned_packages</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-comment"># Now, for each package, get the channels it's part of</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-45" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-45', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-46', 'prepare', 'link-40');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Variable satellite_tools.disk_dumper.dumper.XML_Dumper._query_get_channel_packages=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_get_channel_packages,Variable satellite_tools.satComputePkgHeaders.Runner._query_get_channel_packages=satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channel_packages"><a title="satellite_tools.disk_dumper.dumper.XML_Dumper._query_get_channel_packages
+satellite_tools.satComputePkgHeaders.Runner._query_get_channel_packages" class="py-name" href="#" onclick="return doclink('link-47', '_query_get_channel_packages', 'link-47');">_query_get_channel_packages</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">package_id</tt> <tt class="py-keyword">in</tt> <tt class="py-name">package_ids</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-48', 'keys', 'link-48');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-49', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">package_id</tt><tt class="py-op">=</tt><tt class="py-name">package_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-50', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">                <tt id="link-51" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.channel_label=satellite_tools.reposync.RepoSync-class.html#channel_label"><a title="satellite_tools.reposync.RepoSync.channel_label" class="py-name" href="#" onclick="return doclink('link-51', 'channel_label', 'link-51');">channel_label</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'label'</tt><tt class="py-op">]</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-52', 'has_key', 'link-52');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-name">package_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">                    <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt><tt class="py-op">[</tt><tt class="py-name">package_id</tt><tt class="py-op">]</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                    <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt><tt class="py-op">[</tt><tt class="py-name">package_id</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">                <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-53', 'append', 'link-2');">append</a></tt><tt class="py-op">(</tt><tt id="link-54" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel_label" class="py-name" href="#" onclick="return doclink('link-54', 'channel_label', 'link-51');">channel_label</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channels_hash</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-55', 'has_key', 'link-52');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-56" class="py-name"><a title="satellite_tools.reposync.RepoSync.channel_label" class="py-name" href="#" onclick="return doclink('link-56', 'channel_label', 'link-51');">channel_label</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">                    <tt class="py-name">orphaned_packages</tt><tt class="py-op">[</tt><tt class="py-name">package_id</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">orphaned_packages</tt><tt class="py-op">:</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"Bailing out because of packages shared with other channels"</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">package_id</tt> <tt class="py-keyword">in</tt> <tt class="py-name">orphaned_packages</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-57', 'keys', 'link-48');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">                <tt id="link-58" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#channels"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-58', 'channels', 'link-58');">channels</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_channel_packages</tt><tt class="py-op">[</tt><tt class="py-name">package_id</tt><tt class="py-op">]</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-name">package_id</tt><tt class="py-op">,</tt> <tt id="link-59" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-59', 'channels', 'link-58');">channels</a></tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">package_ids</tt> </tt>
+</div><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">             </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt id="link-60" class="py-name"><a title="satellite_tools.disk_dumper.dumper.XML_Dumper._query_get_channel_packages
+satellite_tools.satComputePkgHeaders.Runner._query_get_channel_packages" class="py-name" href="#" onclick="return doclink('link-60', '_query_get_channel_packages', 'link-47');">_query_get_channel_packages</a></tt> <tt class="py-op">=</tt> <tt id="link-61" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-61', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-62" class="py-name" targets="Class server.rhnSQL.sql_base.Statement=server.rhnSQL.sql_base.Statement-class.html"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-62', 'Statement', 'link-62');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-string">        select c.id, c.label</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-string">          from rhnChannel c,</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-string">               rhnChannelPackage cp</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-string">         where cp.package_id = :package_id</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"><tt class="py-string">           and cp.channel_id = c.id</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt id="link-63" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.Runner._query_get_channels=satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channels"><a title="satellite_tools.satComputePkgHeaders.Runner._query_get_channels" class="py-name" href="#" onclick="return doclink('link-63', '_query_get_channels', 'link-63');">_query_get_channels</a></tt> <tt class="py-op">=</tt> <tt id="link-64" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-64', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-65', 'Statement', 'link-62');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-string">        select id, label from rhnChannel </tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="Runner._get_channels"></a><div id="Runner._get_channels-def"><a name="L167"></a><tt class="py-lineno">167</tt> <a class="py-toggle" href="#" id="Runner._get_channels-toggle" onclick="return toggle('Runner._get_channels');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#_get_channels">_get_channels</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner._get_channels-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner._get_channels-expanded"><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-66" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-66', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-67', 'prepare', 'link-40');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="satellite_tools.satComputePkgHeaders.Runner._query_get_channels" class="py-name" href="#" onclick="return doclink('link-68', '_query_get_channels', 'link-63');">_query_get_channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-69', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-70', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">                <tt class="py-keyword">break</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-name">ret</tt><tt class="py-op">[</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'label'</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt id="link-71" class="py-name"><a title="satellite_tools.satComputePkgHeaders.Runner._query_get_packages" class="py-name" href="#" onclick="return doclink('link-71', '_query_get_packages', 'link-41');">_query_get_packages</a></tt> <tt class="py-op">=</tt> <tt id="link-72" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-72', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-73', 'Statement', 'link-62');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-string">        select cp.package_id, p.path, p.header_start, p.header_end</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-string">          from rhnChannelPackage cp,</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-string">               rhnPackage p</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-string">         where cp.channel_id = :channel_id</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-string">           and cp.package_id = p.id</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-string">           and p.path is not null</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-string">           and p.header_start = -1</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">    <tt id="link-74" class="py-name" targets="Variable satellite_tools.satComputePkgHeaders.Runner._query_add_package_header_values=satellite_tools.satComputePkgHeaders.Runner-class.html#_query_add_package_header_values"><a title="satellite_tools.satComputePkgHeaders.Runner._query_add_package_header_values" class="py-name" href="#" onclick="return doclink('link-74', '_query_add_package_header_values', 'link-74');">_query_add_package_header_values</a></tt> <tt class="py-op">=</tt> <tt id="link-75" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-75', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-76', 'Statement', 'link-62');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-string">        update rhnPackage </tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-string">           set header_start = :header_start,</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-string">               header_end = :header_end</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-string">         where id = :package_id</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"> </tt>
+<a name="Runner._add_package_header_values"></a><div id="Runner._add_package_header_values-def"><a name="L196"></a><tt class="py-lineno">196</tt> <a class="py-toggle" href="#" id="Runner._add_package_header_values-toggle" onclick="return toggle('Runner._add_package_header_values');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#_add_package_header_values">_add_package_header_values</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">package_ids</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner._add_package_header_values-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner._add_package_header_values-expanded"><a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">package_ids</tt><tt class="py-op">:</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-77" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-77', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-78', 'prepare', 'link-40');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="satellite_tools.satComputePkgHeaders.Runner._query_add_package_header_values" class="py-name" href="#" onclick="return doclink('link-79', '_query_add_package_header_values', 'link-74');">_query_add_package_header_values</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">package_id</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">package_ids</tt><tt class="py-op">.</tt><tt id="link-80" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-80', 'items', 'link-80');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">                <tt class="py-name">p_file</tt> <tt class="py-op">=</tt> <tt class="py-name">file</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">.</tt><tt class="py-name">prefix</tt> <tt class="py-op">+</tt> <tt class="py-string">"/"</tt> <tt class="py-op">+</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-string">'r'</tt><tt class="py-op">)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"Error opening file %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">path</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">                <tt class="py-op">(</tt><tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt id="link-81" class="py-name"><a title="spacewalk.common.rhn_rpm" class="py-name" href="#" onclick="return doclink('link-81', 'rhn_rpm', 'link-16');">rhn_rpm</a></tt><tt class="py-op">.</tt><tt id="link-82" class="py-name" targets="Function spacewalk.common.rhn_rpm.get_header_byte_range()=spacewalk.common.rhn_rpm-module.html#get_header_byte_range"><a title="spacewalk.common.rhn_rpm.get_header_byte_range" class="py-name" href="#" onclick="return doclink('link-82', 'get_header_byte_range', 'link-82');">get_header_byte_range</a></tt><tt class="py-op">(</tt><tt class="py-name">p_file</tt><tt class="py-op">)</tt><tt class="py-op">;</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"Error reading header size from file %s: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">                <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-83" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-83', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">package_id</tt><tt class="py-op">=</tt><tt class="py-name">package_id</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">=</tt><tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">=</tt><tt class="py-name">header_end</tt><tt class="py-op">)</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt id="link-84" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-84', 'rhnSQL', 'link-13');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-85" class="py-name" targets="Class server.rhnSQL.sql_base.SQLError=server.rhnSQL.sql_base.SQLError-class.html"><a title="server.rhnSQL.sql_base.SQLError" class="py-name" href="#" onclick="return doclink('link-85', 'SQLError', 'link-85');">SQLError</a></tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">                <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt>
+<a name="Runner._backup_packages"></a><div id="Runner._backup_packages-def"><a name="L217"></a><tt class="py-lineno">217</tt> <a class="py-toggle" href="#" id="Runner._backup_packages-toggle" onclick="return toggle('Runner._backup_packages');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.satComputePkgHeaders.Runner-class.html#_backup_packages">_backup_packages</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">package_ids</tt><tt class="py-op">,</tt> <tt class="py-param">backup_file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Runner._backup_packages-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Runner._backup_packages-expanded"><a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">backup_file</tt><tt class="py-op">,</tt> <tt class="py-string">"w+"</tt><tt class="py-op">)</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">         </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">package_ids</tt><tt class="py-op">:</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">         </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">        <tt class="py-name">template</tt> <tt class="py-op">=</tt> <tt class="py-string">"update rhnPackage set header_start=%s and header_end=%s where id = %s;\n"</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">package_id</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">package_ids</tt><tt class="py-op">.</tt><tt id="link-86" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-86', 'items', 'link-80');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">            <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt class="py-name">template</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">header_start</tt><tt class="py-op">,</tt> <tt class="py-name">header_end</tt><tt class="py-op">,</tt> <tt class="py-name">package_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-87" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-87', 'write', 'link-87');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-88" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-88', 'write', 'link-87');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">"commit;\n"</tt><tt class="py-op">)</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-89" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-89', 'close', 'link-89');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line"> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt id="link-90" class="py-name" targets="Class satellite_tools.satComputePkgHeaders.Runner=satellite_tools.satComputePkgHeaders.Runner-class.html,Class satellite_tools.satsync.Runner=satellite_tools.satsync.Runner-class.html"><a title="satellite_tools.satComputePkgHeaders.Runner
+satellite_tools.satsync.Runner" class="py-name" href="#" onclick="return doclink('link-90', 'Runner', 'link-90');">Runner</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-91" class="py-name" targets="Function common.rhnLockfile.main()=common.rhnLockfile-module.html#main,Function proxy.pm.rhn_package_manager.main()=proxy.pm.rhn_package_manager-module.html#main,Function pygettext.main()=pygettext-module.html#main,Method satellite_tools.disk_dumper.iss.ExporterMain.main()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#main,Function satellite_tools.exporter.exporter.main()=satellite_tools.exporter.exporter-module.html#main,Function satellite_tools.geniso.main()=satellite_tools.geniso-module.html#main,Function satellite_tools.gentree.main()=satellite_tools.gentree-module.html#main,Method satellite_tools.reposync.RepoSync.main()=satellite_tools.reposync.RepoSync-class.html#main,Function satellite_tools.rhn_satellite_activate.main()=satellite_tools.rhn_satellite_activate-module.html#main,Function satellite_tools.rhn_ssl_dbstore.main()=satellite_tools.rhn_ssl_dbstore-module.html#main,Method satellite_tools.satComputePkgHeaders.Runner.main()=satellite_tools.satComputePkgHeaders.Runner-class.html#main,Function satellite_tools.satrm.main()=satellite_tools.satrm-module.html#main,Method satellite_tools.satsync.Runner.main()=satellite_tools.satsync.Runner-class.html#main,Function satellite_tools.updatePackages.main()=satellite_tools.updatePackages-module.html#main,Function script-db_checker_py.main()=script-db_checker_py-module.html#main,Function script-rhn_entitlement_report_py.main()=script-rhn_entitlement_report_py-module.html#main"><a title="common.rhnLockfile.main
+proxy.pm.rhn_package_manager.main
+pygettext.main
+satellite_tools.disk_dumper.iss.ExporterMain.main
+satellite_tools.exporter.exporter.main
+satellite_tools.geniso.main
+satellite_tools.gentree.main
+satellite_tools.reposync.RepoSync.main
+satellite_tools.rhn_satellite_activate.main
+satellite_tools.rhn_ssl_dbstore.main
+satellite_tools.satComputePkgHeaders.Runner.main
+satellite_tools.satrm.main
+satellite_tools.satsync.Runner.main
+satellite_tools.updatePackages.main
+script-db_checker_py.main
+script-rhn_entitlement_report_py.main" class="py-name" href="#" onclick="return doclink('link-91', 'main', 'link-91');">main</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:37 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

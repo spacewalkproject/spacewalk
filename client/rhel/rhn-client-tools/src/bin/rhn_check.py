@@ -3,12 +3,19 @@
 # Python client for checking periodically for posted actions
 # on the Red Hat Network servers.
 #
-# Copyright (C) 2000-2002, Red Hat, Inc. Distributed under GPL.
-# Authors: Cristian Gafton <gafton@redhat.com>,
-#          Preston Brown <pbrown@redhat.com>
-#          Adrian Likins <alikins@redhat.com>
+# Copyright (c) 2000--2010 Red Hat, Inc.
 #
-# $Id$
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 import os
 import sys
@@ -26,8 +33,8 @@ from up2date_client import config
 from up2date_client import clientCaps
 from up2date_client import capabilities
 from up2date_client import rhncli
-from up2date_client import rhnLockfile
 
+from rhn import rhnLockfile
 from rhn import rpclib
 
 cfg = config.initUp2dateConfig()

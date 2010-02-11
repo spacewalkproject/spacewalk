@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>proxy.apacheServer</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="proxy-module.html">Package&nbsp;proxy</a> ::
+        Module&nbsp;apacheServer
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="proxy.apacheServer-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="proxy.apacheServer-module.html">Module proxy.apacheServer</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># apacheServer.py      - Apache XML-RPC server for mod_python (Red Hat Network).</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#-------------------------------------------------------------------------------</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-comment"># $Id: apacheServer.py,v 1.81 2005/07/05 17:39:03 wregglej Exp $</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"># system module imports</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-comment"># global module imports</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">mod_python</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module server.apache=server.apache-module.html"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-0', 'apache', 'link-0');">apache</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"># common module imports</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-1', 'common', 'link-1');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG,Variable server.rhnHandler'.CFG=server.rhnHandler%27-module.html#CFG"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-2', 'CFG', 'link-2');">CFG</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function common.rhnConfig.initCFG()=common.rhnConfig-module.html#initCFG"><a title="common.rhnConfig.initCFG" class="py-name" href="#" onclick="return doclink('link-3', 'initCFG', 'link-3');">initCFG</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Function common.rhnLog.initLOG()=common.rhnLog-module.html#initLOG"><a title="common.rhnLog.initLOG" class="py-name" href="#" onclick="return doclink('link-4', 'initLOG', 'link-4');">initLOG</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Function common.rhnLog.log_setreq()=common.rhnLog-module.html#log_setreq"><a title="common.rhnLog.log_setreq" class="py-name" href="#" onclick="return doclink('link-5', 'log_setreq', 'link-5');">log_setreq</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Function common.rhnTB.Traceback()=common.rhnTB-module.html#Traceback"><a title="common.rhnTB.Traceback" class="py-name" href="#" onclick="return doclink('link-6', 'Traceback', 'link-6');">Traceback</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-7', 'log_debug', 'link-7');">log_debug</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="HandlerWrap"></a><div id="HandlerWrap-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="HandlerWrap-toggle" onclick="return toggle('HandlerWrap');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="proxy.apacheServer.HandlerWrap-class.html">HandlerWrap</a><tt class="py-op">:</tt> </tt>
+</div><div id="HandlerWrap-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="HandlerWrap-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-docstring">""" Wrapper handlers to catch unwanted exceptions """</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Variable proxy.apacheServer.HandlerWrap.svrHandlers=proxy.apacheServer.HandlerWrap-class.html#svrHandlers,Variable server.apacheServer.HandlerWrap.svrHandlers=server.apacheServer.HandlerWrap-class.html#svrHandlers"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-8', 'svrHandlers', 'link-8');">svrHandlers</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="HandlerWrap.__init__"></a><div id="HandlerWrap.__init__-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="HandlerWrap.__init__-toggle" onclick="return toggle('HandlerWrap.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.apacheServer.HandlerWrap-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">init</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HandlerWrap.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HandlerWrap.__init__-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-9', 'name', 'link-9');">name</a></tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-comment"># Flag: should we initialize the config and logging components?</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__init</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper._ChannelDumper.init()=satellite_exporter.handlers.non_auth_dumper._ChannelDumper-class.html#init,Method satellite_tools.exporter.exporter.Dumper.init()=satellite_tools.exporter.exporter.Dumper-class.html#init,Method server.importlib.backend.Backend.init()=server.importlib.backend.Backend-class.html#init,Method server.importlib.backendOracle.OracleBackend.init()=server.importlib.backendOracle.OracleBackend-class.html#init,Method server.importlib.backendOracle.PostgresqlBackend.init()=server.importlib.backendOracle.PostgresqlBackend-class.html#init"><a title="satellite_exporter.handlers.non_auth_dumper._ChannelDumper.init
+satellite_tools.exporter.exporter.Dumper.init
+server.importlib.backend.Backend.init
+server.importlib.backendOracle.OracleBackend.init
+server.importlib.backendOracle.PostgresqlBackend.init" class="py-name" href="#" onclick="return doclink('link-10', 'init', 'link-10');">init</a></tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt>
+<a name="HandlerWrap.__call__"></a><div id="HandlerWrap.__call__-def"><a name="L38"></a><tt class="py-lineno">38</tt> <a class="py-toggle" href="#" id="HandlerWrap.__call__-toggle" onclick="return toggle('HandlerWrap.__call__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.apacheServer.HandlerWrap-class.html#__call__">__call__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HandlerWrap.__call__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HandlerWrap.__call__-expanded"><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-comment"># NOTE: all imports done here due to required initialization of</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-comment">#       of the configuration module before all others.</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-comment">#       Initialization is dependent on RHNComponentType in the</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-comment">#       req object.</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__init</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">            <tt class="py-keyword">from</tt> <tt id="link-11" class="py-name" targets="Module proxy.apacheHandler=proxy.apacheHandler-module.html,Class proxy.apacheHandler.apacheHandler=proxy.apacheHandler.apacheHandler-class.html,Module server.apacheHandler=server.apacheHandler-module.html,Class server.apacheHandler.apacheHandler=server.apacheHandler.apacheHandler-class.html"><a title="proxy.apacheHandler
+proxy.apacheHandler.apacheHandler
+server.apacheHandler
+server.apacheHandler.apacheHandler" class="py-name" href="#" onclick="return doclink('link-11', 'apacheHandler', 'link-11');">apacheHandler</a></tt> <tt class="py-keyword">import</tt> <tt id="link-12" class="py-name" targets="Function proxy.apacheHandler.getComponentType()=proxy.apacheHandler-module.html#getComponentType"><a title="proxy.apacheHandler.getComponentType" class="py-name" href="#" onclick="return doclink('link-12', 'getComponentType', 'link-12');">getComponentType</a></tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">            <tt class="py-comment"># We cannot trust the config files to tell us if we are in the</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">            <tt class="py-comment"># broker or in the redirect because we try to always pass</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">            <tt class="py-comment"># upstream all requests</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">            <tt class="py-name">componentType</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="proxy.apacheHandler.getComponentType" class="py-name" href="#" onclick="return doclink('link-13', 'getComponentType', 'link-12');">getComponentType</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">            <tt id="link-14" class="py-name"><a title="common.rhnConfig.initCFG" class="py-name" href="#" onclick="return doclink('link-14', 'initCFG', 'link-3');">initCFG</a></tt><tt class="py-op">(</tt><tt class="py-name">componentType</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">            <tt id="link-15" class="py-name"><a title="common.rhnLog.initLOG" class="py-name" href="#" onclick="return doclink('link-15', 'initLOG', 'link-4');">initLOG</a></tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-16', 'CFG', 'link-2');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">LOG_FILE</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-17', 'CFG', 'link-2');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">DEBUG</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt id="link-18" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-18', 'log_debug', 'link-7');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'New request, component %s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">componentType</tt><tt class="py-op">,</tt> <tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-comment"># Instantiate the handlers</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-19" class="py-name" targets="Class proxy.apacheServer.HandlerWrap=proxy.apacheServer.HandlerWrap-class.html,Class server.apacheServer.HandlerWrap=server.apacheServer.HandlerWrap-class.html"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-19', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-20', 'svrHandlers', 'link-8');">svrHandlers</a></tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">            <tt id="link-21" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-21', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-22', 'svrHandlers', 'link-8');">svrHandlers</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method proxy.apacheServer.HandlerWrap.get_handler_factory()=proxy.apacheServer.HandlerWrap-class.html#get_handler_factory,Method server.apacheServer.HandlerWrap.get_handler_factory()=server.apacheServer.HandlerWrap-class.html#get_handler_factory,Method server.apacheUploadServer.UploadHandlerWrap.get_handler_factory()=server.apacheUploadServer.UploadHandlerWrap-class.html#get_handler_factory"><a title="proxy.apacheServer.HandlerWrap.get_handler_factory
+server.apacheServer.HandlerWrap.get_handler_factory
+server.apacheUploadServer.UploadHandlerWrap.get_handler_factory" class="py-name" href="#" onclick="return doclink('link-23', 'get_handler_factory', 'link-23');">get_handler_factory</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__init</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">            <tt class="py-comment"># Set the component type</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">            <tt id="link-24" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-24', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-25', 'svrHandlers', 'link-8');">svrHandlers</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method proxy.apacheHandler.apacheHandler.set_component()=proxy.apacheHandler.apacheHandler-class.html#set_component"><a title="proxy.apacheHandler.apacheHandler.set_component" class="py-name" href="#" onclick="return doclink('link-26', 'set_component', 'link-26');">set_component</a></tt><tt class="py-op">(</tt><tt class="py-name">componentType</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">            <tt id="link-27" class="py-name"><a title="common.rhnLog.log_setreq" class="py-name" href="#" onclick="return doclink('link-27', 'log_setreq', 'link-5');">log_setreq</a></tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-28', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-29', 'svrHandlers', 'link-8');">svrHandlers</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">                <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt id="link-30" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-30', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="proxy.apacheServer.HandlerWrap.svrHandlers
+server.apacheServer.HandlerWrap.svrHandlers" class="py-name" href="#" onclick="return doclink('link-31', 'svrHandlers', 'link-8');">svrHandlers</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">                <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt><tt class="py-op">(</tt><tt class="py-name">req</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">(</tt><tt class="py-string">"Class has no attribute %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">            <tt id="link-32" class="py-name"><a title="common.rhnTB.Traceback" class="py-name" href="#" onclick="return doclink('link-32', 'Traceback', 'link-6');">Traceback</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name</tt><tt class="py-op">,</tt> <tt class="py-name">req</tt><tt class="py-op">,</tt> <tt class="py-name">extra</tt> <tt class="py-op">=</tt> <tt class="py-string">"Unhandled exception type"</tt><tt class="py-op">,</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">                      <tt class="py-name">severity</tt><tt class="py-op">=</tt><tt class="py-string">"unhandled"</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-33" class="py-name"><a title="server.apache" class="py-name" href="#" onclick="return doclink('link-33', 'apache', 'link-0');">apache</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Variable server.apache.HTTP_INTERNAL_SERVER_ERROR=server.apache-module.html#HTTP_INTERNAL_SERVER_ERROR"><a title="server.apache.HTTP_INTERNAL_SERVER_ERROR" class="py-name" href="#" onclick="return doclink('link-34', 'HTTP_INTERNAL_SERVER_ERROR', 'link-34');">HTTP_INTERNAL_SERVER_ERROR</a></tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"> </tt>
+<a name="HandlerWrap.get_handler_factory"></a><div id="HandlerWrap.get_handler_factory-def"><a name="L76"></a><tt class="py-lineno">76</tt> <a class="py-toggle" href="#" id="HandlerWrap.get_handler_factory-toggle" onclick="return toggle('HandlerWrap.get_handler_factory');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.apacheServer.HandlerWrap-class.html#get_handler_factory">get_handler_factory</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">req</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HandlerWrap.get_handler_factory-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HandlerWrap.get_handler_factory-expanded"><a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">        <tt class="py-docstring">""" Handler factory. Redefine in your subclasses if so choose """</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt id="link-35" class="py-name"><a title="proxy.apacheHandler
+proxy.apacheHandler.apacheHandler
+server.apacheHandler
+server.apacheHandler.apacheHandler" class="py-name" href="#" onclick="return doclink('link-35', 'apacheHandler', 'link-11');">apacheHandler</a></tt> <tt class="py-keyword">import</tt> <tt id="link-36" class="py-name"><a title="proxy.apacheHandler
+proxy.apacheHandler.apacheHandler
+server.apacheHandler
+server.apacheHandler.apacheHandler" class="py-name" href="#" onclick="return doclink('link-36', 'apacheHandler', 'link-11');">apacheHandler</a></tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-37" class="py-name"><a title="proxy.apacheHandler
+proxy.apacheHandler.apacheHandler
+server.apacheHandler
+server.apacheHandler.apacheHandler" class="py-name" href="#" onclick="return doclink('link-37', 'apacheHandler', 'link-11');">apacheHandler</a></tt> </tt>
+</div></div><a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line"><tt class="py-comment">### Instantiate external entry points:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line"><tt id="link-38" class="py-name" targets="Variable proxy.apacheServer.HeaderParserHandler=proxy.apacheServer-module.html#HeaderParserHandler,Variable server.apacheServer.HeaderParserHandler=server.apacheServer-module.html#HeaderParserHandler,Variable server.apacheUploadServer.HeaderParserHandler=server.apacheUploadServer-module.html#HeaderParserHandler"><a title="proxy.apacheServer.HeaderParserHandler
+server.apacheServer.HeaderParserHandler
+server.apacheUploadServer.HeaderParserHandler" class="py-name" href="#" onclick="return doclink('link-38', 'HeaderParserHandler', 'link-38');">HeaderParserHandler</a></tt> <tt class="py-op">=</tt> <tt id="link-39" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-39', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">(</tt><tt class="py-string">"headerParserHandler"</tt><tt class="py-op">,</tt> <tt id="link-40" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper._ChannelDumper.init
+satellite_tools.exporter.exporter.Dumper.init
+server.importlib.backend.Backend.init
+server.importlib.backendOracle.OracleBackend.init
+server.importlib.backendOracle.PostgresqlBackend.init" class="py-name" href="#" onclick="return doclink('link-40', 'init', 'link-10');">init</a></tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"><tt id="link-41" class="py-name" targets="Variable proxy.apacheServer.Handler=proxy.apacheServer-module.html#Handler,Variable server.apacheServer.Handler=server.apacheServer-module.html#Handler,Variable server.apacheUploadServer.Handler=server.apacheUploadServer-module.html#Handler"><a title="proxy.apacheServer.Handler
+server.apacheServer.Handler
+server.apacheUploadServer.Handler" class="py-name" href="#" onclick="return doclink('link-41', 'Handler', 'link-41');">Handler</a></tt>             <tt class="py-op">=</tt> <tt id="link-42" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-42', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">(</tt><tt class="py-string">"handler"</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"><tt id="link-43" class="py-name" targets="Variable proxy.apacheServer.CleanupHandler=proxy.apacheServer-module.html#CleanupHandler,Variable server.apacheServer.CleanupHandler=server.apacheServer-module.html#CleanupHandler,Variable server.apacheUploadServer.CleanupHandler=server.apacheUploadServer-module.html#CleanupHandler"><a title="proxy.apacheServer.CleanupHandler
+server.apacheServer.CleanupHandler
+server.apacheUploadServer.CleanupHandler" class="py-name" href="#" onclick="return doclink('link-43', 'CleanupHandler', 'link-43');">CleanupHandler</a></tt>      <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-44', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">(</tt><tt class="py-string">"cleanupHandler"</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"><tt id="link-45" class="py-name" targets="Variable proxy.apacheServer.LogHandler=proxy.apacheServer-module.html#LogHandler,Variable server.apacheServer.LogHandler=server.apacheServer-module.html#LogHandler,Variable server.apacheUploadServer.LogHandler=server.apacheUploadServer-module.html#LogHandler"><a title="proxy.apacheServer.LogHandler
+server.apacheServer.LogHandler
+server.apacheUploadServer.LogHandler" class="py-name" href="#" onclick="return doclink('link-45', 'LogHandler', 'link-45');">LogHandler</a></tt>          <tt class="py-op">=</tt> <tt id="link-46" class="py-name"><a title="proxy.apacheServer.HandlerWrap
+server.apacheServer.HandlerWrap" class="py-name" href="#" onclick="return doclink('link-46', 'HandlerWrap', 'link-19');">HandlerWrap</a></tt><tt class="py-op">(</tt><tt class="py-string">"logHandler"</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line"><tt class="py-comment">#-------------------------------------------------------------------------------</tt> </tt>
+<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:31 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

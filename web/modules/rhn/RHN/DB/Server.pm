@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,7 +35,6 @@ use RHN::Entitlements;
 use RHN::Manifest;
 use RHN::Channel;
 use Data::Dumper;
-use Frontier::RPC2;
 use Digest::MD5;
 use Date::Parse;
 
@@ -43,16 +42,21 @@ use Scalar::Util;
 
 use PXT::Config;
 use PXT::Utils;
+use PXT::Debug ();
+use RHN::Action ();
+use RHN::DataSource::Channel ();
+use RHN::DataSource::Simple ();
+use RHN::DataSource::System ();
+use RHN::DB::Package ();
+use RHN::Server ();
+use RHN::SystemSnapshot ();
 
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
 
 use Carp;
 
-use RHN::Utils;
 use RHN::Exception qw/throw/;
-use RHN::API::Exception;
-use RHN::SatCluster;
 
 
 # fields in the rhnServer table
@@ -137,58 +141,6 @@ my $j = $s_table->create_join(
 # Server object methods
 ############################
 
-sub osa_ping {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-UPDATE rhnPushClient
-   SET last_ping_time = sysdate,
-       next_action_time = NULL
- WHERE server_id = :server_id
-EOQ
-  $sth->execute_h(server_id => $self->id);
-  $dbh->commit;
-}
-
-sub osa_status {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT PCS.name
-  FROM rhnPushClientState PCS,
-       rhnPushClient PC
- WHERE PC.server_id = :server_id
-   AND PC.state_id = PCS.id
-EOQ
-
-  $sth->execute_h(server_id => $self->id);
-  my ($state) = $sth->fetchrow;
-  $sth->finish;
-
-  return $state;
-}
-
-sub osa_timestamps {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT TO_CHAR(PC.last_message_time, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MESSAGE_TIME,
-       TO_CHAR(PC.last_ping_time, 'YYYY-MM-DD HH24:MI:SS') AS LAST_PING_TIME,
-       TO_CHAR(PC.modified, 'YYYY-MM-DD HH24:MI:SS') AS MODIFIED
-  FROM rhnPushClient PC
- WHERE PC.server_id = :server_id
-EOQ
-
-  $sth->execute_h(server_id => $self->id);
-  my ($timestamps) = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $timestamps;
-}
-
 sub applet_activated {
   my $self = shift;
 
@@ -230,67 +182,6 @@ sub get_resolved_files {
   }
 
   return @ret;
-}
-
-# given an actiontype label and status, get the latest action
-# that matches for this system
-sub get_latest_action {
-  my $self = shift;
-  my %params = validate(@_, {action_type => 1, status => 0});
-
-  my $status_str = "";
-
-  my @valid_statuses;
-  my @params;
-
-  my @status_values;
-
-  if ($params{status}) {
-    @valid_statuses = @{$params{status}};
-
-    my $last_index = scalar @valid_statuses - 1;
-    @params = map {"a$_"} (0..$last_index);
-
-    for my $index (0..$last_index) {
-      push @status_values, ($params[$index] => $valid_statuses[$index]);
-    }
-
-    $status_str = sprintf(<<EOQ, join(", ",  map {":$_"} @params));
-AND AStat.name IN (%s)
-EOQ
-
-  }
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT SA.action_id
-  FROM rhnActionStatus AStat,
-       rhnActionType AType,
-       rhnAction A,
-       rhnServerAction SA
- WHERE SA.server_id = :server_id
-   AND SA.status = AStat.id
-   AND SA.action_id = A.id
-   AND AType.label = :action_type
-   AND A.action_type = AType.id
-   $status_str
-ORDER BY SA.action_id DESC
-EOQ
-
-  $sth->execute_h(server_id => $self->id,
-		  action_type => $params{action_type},
-		  @status_values,
-		 );
-
-  my ($action_id) = $sth->fetchrow;
-  $sth->finish;
-
-  return unless $action_id;
-
-  my $action = RHN::Action->lookup(-id => $action_id);
-  die "no action object for action_id $action_id" unless $action;
-
-  return $action;
 }
 
 sub get_cpu_arch_name {
@@ -667,7 +558,7 @@ EOQ
   my $proxy_channel_info = $sth->fetchrow_hashref;
   $sth->finish;
 
-  RHN::API::Exception->throw_named("proxy_no_proxy_child_channel") unless $proxy_channel_info;
+  throw ("proxy_no_proxy_child_channel") unless $proxy_channel_info;
   return $proxy_channel_info;
 }
 
@@ -684,7 +575,7 @@ sub activate_proxy {
   my $sth;
 
   if ($self->is_satellite()) {
-    RHN::API::Exception->throw_named("proxy_system_is_satellite");
+    throw("proxy_system_is_satellite");
   }
 
   $query = <<EOQ;
@@ -842,61 +733,6 @@ EOQ
   return $dbh;
 }
 
-sub deactivate_satellite {
-  my $self = shift;
-  my $transaction = shift;
-  my $dbh = $transaction || RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM  rhnSatelliteInfo
-      WHERE  server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-DELETE FROM rhnSatelliteChannelFamily
-      WHERE server_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  # actually unsubscribe from any satellite channels...
-  $query = <<EOQ;
-DECLARE
-
-  cursor subscribed_sat_channels(server_id_in in number) is
-    SELECT DISTINCT SC.channel_id AS ID
-  FROM rhnServerChannel SC, rhnChannelFamilyMembers CFM, rhnChannelFamily CF
-     WHERE SC.server_id = server_id_in
-   AND CF.label = 'rhn-satellite'
-   AND CF.id = CFM.channel_family_id
-   AND CFM.channel_id = SC.channel_id;
-
-BEGIN
-
-  for subscribed_chan in subscribed_sat_channels(:server_id) loop
-   rhn_channel.unsubscribe_server(:server_id, subscribed_chan.id);
-  end loop;
-END;
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(server_id => $self->id);
-
-
-  $dbh->commit unless $transaction;
-
-  delete $self->{__satellite_server_id__};
-  delete $self->{__satellite_cert__};
-
-  return $dbh;
-}
-
 
 sub base_channel_id {
   my $self = shift;
@@ -972,55 +808,6 @@ EOQ
   $sth->finish;
 
   return $columns[0];
-}
-
-#returns the default base channel, from rhnServer.arch, .os, and .release
-sub default_base_channel {
-  my $self = shift;
-  my $sid = (ref $self) ? $self->id : shift;
-
-  my $dbh = RHN::DB->connect;
-  my $default_base_id;
-
-  eval {
-    $default_base_id = $dbh->call_function('rhn_channel.guess_server_base', $sid);
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    # if it's anything other not function not returning a value, toss
-    # the exception further up the chain...
-    unless ($E =~ m/ORA-06503/) {
-      throw $E;
-    }
-  }
-
-  return $default_base_id;
-}
-
-sub verify_channel_arch_compat {
-  my $self = shift;
-  my $cid = shift;
-
-  throw "No cid" unless $cid;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnChannel C, rhnServerChannelArchCompat SCAC, rhnServer S
- WHERE S.id = :sid
-   AND SCAC.server_arch_id = S.server_arch_id
-   AND C.id = :cid
-   AND SCAC.channel_arch_id = C.channel_arch_id
-EOQ
-
-  $sth->execute_h(sid => $self->id, cid => $cid);
-  my ($compat) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return ($compat ? 1 : 0);
 }
 
 # given a channel family label and server_id, return the child channels
@@ -1530,43 +1317,6 @@ sub server_channels {
   return @{$data};
 }
 
-sub server_channel_names {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT C.name FROM rhnChannel C, rhnServerChannel SC WHERE C.id = SC.channel_id AND SC.server_id = ?');
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my ($name) = $sth->fetchrow) {
-    push @ret, $name;
-  }
-
-  return @ret;
-}
-
-sub server_channel_ids {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-SELECT  C.id
-  FROM  rhnChannel C, rhnServerChannel SC
- WHERE  C.id = SC.channel_id
-   AND  SC.server_id = ?
-ORDER BY C.parent_channel NULLS LAST
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my ($id) = $sth->fetchrow) {
-    push @ret, $id;
-  }
-
-  return @ret;
-}
-
 sub channel_list {
   my $self = shift;
 
@@ -1654,40 +1404,6 @@ EOH
   else {
     return $dbh;
   }
-}
-
-sub change_base_channel {
-  my $self = shift;
-  my $cid = shift;
-
-  my @old_channels = $self->server_channel_ids;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  foreach my $cid (@old_channels) {
-    $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_channel.unsubscribe_server(?, ?);
-END;
-EOH
-    $sth->execute($self->id, $cid);
-  }
-
-  $sth = $dbh->prepare(<<EOH);
-BEGIN
-  rhn_channel.subscribe_server(?, ?);
-END;
-EOH
-  $sth->execute($self->id, $cid)
-    if $cid;
-
-  my ($add, $remove, $unc) = RHN::DB::Server->update_cache_for_server($dbh, $self->id);
-  warn sprintf "EC update: %d added, %d removed, $unc unchanged", scalar @$add, scalar @$remove;
-
-  $dbh->commit;
-
-  return $cid;
 }
 
 # returns an array of all the cd devices connected to a server
@@ -1853,52 +1569,6 @@ sub commit {
   # flush out the thing that allows all attributes to be settable until first commit
   $self->{__newly_created__} = undef;
   delete $self->{":modified:"};
-}
-
-sub group_list_for_server {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-  SELECT MAX(DECODE(server_id, ?, 1, 0)), GROUP_ID, GROUP_NAME, GROUP_TYPE, CURRENT_MEMBERS, MAX_MEMBERS
-    FROM rhnServerGroupMembership
-   WHERE ORG_ID = ?
-GROUP BY group_id, group_name, group_type, current_members, max_members
-ORDER BY UPPER(group_name), group_id
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->org_id);
-
-  my @ret;
-  while (my ($server_member, $id, $name, $label, $current, $max) = $sth->fetchrow) {
-    push @ret, [ $server_member, $id, $name, $label, $current, $max ];
-  }
-
-  return @ret;
-}
-
-sub visible_group_list_for_server {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-  SELECT MAX(DECODE(server_id, ?, 1, 0)), GROUP_ID, GROUP_NAME, GROUP_TYPE, CURRENT_MEMBERS, MAX_MEMBERS
-    FROM rhnVisServerGroupMembership
-   WHERE ORG_ID = ?
-GROUP BY group_id, group_name, group_type, current_members, max_members
-ORDER BY UPPER(group_name), group_id
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->org_id);
-
-  my @ret;
-  while (my ($server_member, $id, $name, $label, $current, $max) = $sth->fetchrow) {
-    push @ret, [ $server_member, $id, $name, $label, $current, $max ];
-  }
-
-  return @ret;
 }
 
 
@@ -2121,113 +1791,6 @@ sub can_entitle_server {
   return $can ? 1 : 0;
 }
 
-sub can_switch_base_entitlement {
-  my $self_or_class = shift;
-  my $entitlement = shift;
-
-  my $sid;
-  if (ref $self_or_class) {
-    $sid = $self_or_class->id;
-  }
-  else {
-    $sid = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $can = 0;
-
-  eval {
-    $can = $dbh->call_function('rhn_entitlements.can_switch_base', $sid, $entitlement);
-  };
-
-  if ($@) {
-    my $E = $@;
-
-    # if it's anything other not function not returning a value, toss
-    # the exception further up the chain...
-    unless ($E =~ m/ORA-06503/) {
-      throw $E;
-    }
-  }
-
-  return $can ? 1 : 0;
-}
-
-# returns name-evr info about the RHN-related packages installed on the system...
-# used for support tool...
-sub rhn_packages {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-SELECT  PN.name || '-' || PE.evr.as_vre_simple()
-  FROM  rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
- WHERE  SP.server_id = ?
-   AND  SP.name_id = PN.id
-   AND  SP.evr_id = PE.id
-   AND  PN.name IN ('rhn_register', 'up2date', 'python', 'python-xmlrpc', 'python-popt', 'rpm')
-ORDER BY UPPER(PN.name)
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-# returns all possible channels this server could be subscribed to,
-# as well as whether it's subscribed to each channel
-sub server_channel_tree {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-SELECT C.id, C.name
-  FROM rhnChannel C, rhnServerChannel SC
- WHERE C.id = SC.channel_id
-   AND SC.server_id = ?
-   AND C.parent_channel IS NULL
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my ($cid, $cname) = $sth->fetchrow;
-  $sth->finish;
-  if ($cid) {
-    my $query = <<EOS;
-SELECT C.id,
-       C.name,
-       (SELECT COUNT(1) FROM rhnServerChannel WHERE server_id = ? AND channel_id = C.id),
-       AC.current_members,
-       AC.available_members,
-       C.label
-  FROM rhnAvailableChannels AC, rhnChannel C
- WHERE C.parent_channel = ?
-   AND AC.org_id = ?
-   AND AC.channel_id = C.id
-EOS
-
-    my $sth = $dbh->prepare($query);
-    $sth->execute($self->id, $cid, $self->org_id);
-
-    my @ret;
-    while (my ($cid, $cname, $subscribed, $current, $max, $clabel) = $sth->fetchrow) {
-      push @ret, [ $cid, $cname, $subscribed, $current, $max , $clabel];
-    }
-
-    return ($cid, $cname, \@ret);
-  }
-
-  return;
-}
-
 sub set_channels {
   my $self = shift;
   my %params = validate(@_, {user_id => 1, channels => 1});
@@ -2287,30 +1850,6 @@ EOS
   return { added => [ @add ],
 	   removed => [ @remove ],
 	   };
-}
-
-sub canonical_package_list {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT SP.name_id, PN.name, SP.evr_id, SPE.evr.as_vre_simple(), SPE.epoch, SPE.version, SPE.release
-  FROM rhnPackageName PN,
-       rhnPackageEVR SPE,
-       rhnServerPackage SP
- WHERE PN.id = SP.name_id
-   AND SPE.id = SP.evr_id
-   AND SP.server_id = ?
-ORDER BY upper(PN.name), SPE.evr
-EOS
-  $sth->execute($self->id);
-
-  my @packages;
-  while (my @row = $sth->fetchrow) {
-    push @packages, \@row;
-  }
-
-  return @packages;
 }
 
 sub entitle_server {
@@ -2463,118 +2002,6 @@ sub _blank_server {
 }
 
 
-sub system_set_base_channels {
-  my $class = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.id, C.name, COUNT(C.id)
-  FROM  rhnChannel C,
-        rhnServerChannel SC,
-        rhnSet ST
- WHERE  ST.user_id = ?
-   AND  ST.label = 'system_list'
-   AND  ST.element = SC.server_id
-   AND  SC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-GROUP BY C.id, C.name
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($user_id);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-
-
-# this is ugly.  do a cert lookup based on the rhnserver
-my @checksum_fields = qw/username os_release operating_system architecture system_id type/;
-my %checksum_fields = map { $_ => 1 } @checksum_fields;
-sub lookup_by_cert {
-  my $class = shift;
-  my $cert_xml = shift;
-
-  # massage the messy thing
-  $cert_xml =~ s/<\?.*\?>//g;
-  $cert_xml = "<methodResponse>$cert_xml</methodResponse>";
-
-  my $decoder = new Frontier::RPC2;
-  my $call = $decoder->decode($cert_xml);
-  my @params = @{$call->{value}};
-  my %cert = %{$call->{value}->[0]};
-
-  my @provided_fields = @{$cert{fields}};
-  my $id = $cert{system_id};
-
-  for my $field (@provided_fields) {
-    die "Invalid field '$field' provided while validating certificate"
-      unless exists $checksum_fields{$field};
-  }
-
-  my $sid = (split /-/, $cert{system_id})[-1];
-  my $s = $class->lookup(-id => $sid);
-
-  my $md5 = new Digest::MD5;
-
-  $md5->add($s->secret);
-  for my $field (@provided_fields) {
-    $md5->add($cert{$field});
-  }
-
-  for my $field (@provided_fields) {
-    $md5->add($field);
-  }
-
-  my $signature = $md5->hexdigest;
-
-  if ($signature eq $cert{checksum}) {
-    return $s;
-  }
-  else {
-    die "Signature mismatch: computerd sig($signature) != given cert($cert{checksum})";
-  }
-}
-
-sub generate_server_certificate {
-  my $self = shift;
-
-  my %cert;
-  $cert{username} = $self->org->find_responsible_user->login;
-  $cert{os_release} = new Frontier::RPC2::String($self->release);
-  $cert{operating_system} = $self->os;
-  $cert{architecture} = $self->cpu_arch_name . "-redhat-linux";
-  $cert{system_id} = "ID-" . $self->id;
-  $cert{type} = 'REAL';
-
-  my $md5 = new Digest::MD5;
-  $md5->add($self->secret);
-  for my $field (keys %cert) {
-    $md5->add(ref $cert{$field} ? $cert{$field}->value : $cert{$field});
-  }
-
-  for my $field (keys %cert) {
-    $md5->add($field);
-  }
-
-  $cert{fields} = [ keys %cert ];
-  $cert{checksum} = $md5->hexdigest;
-
-  my $encoder = new Frontier::RPC2;
-  my $ret = $encoder->encode_call("foo", \%cert);
-
-  $ret =~ s(^\s*</?method.*)()gm;
-  return $ret;
-}
 
 # retrieve a server given its unique id.
 sub lookup {
@@ -2631,25 +2058,6 @@ sub org {
 
   $self->{__orgobj__} = RHN::Org->lookup(-id => $self->org_id);
   return $self->{__orgobj__};
-}
-
-# creates a blank server object, sets its id to -1, and returns it.
-# used together with setter's and a commit call for creation of a new
-# object in the database.
-#
-# Note:  between this call and the inital commit on the new server object,
-# ALL the attributes of the db object are settable.
-#
-# TODO:  Figure wtf the rules for creating servers are.
-sub create_server {
-
-  my $class = shift;
-
-  my $server = $class->_blank_server();
-  $server->{__id__} = -1;
-  $server->{__newly_created__} = 1;
-
-  return $server;
 }
 
 
@@ -2812,30 +2220,6 @@ EOS
   $sth->execute($new_val ? 'Y' : 'N', $set->uid, $set->label);
 
   $dbh->commit;
-}
-
-sub unentitled_set_count {
-  my $class = shift;
-  my $set = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-SELECT element
-  FROM rhnSet
- WHERE label = ?
-   AND user_id = ?
-   AND NOT EXISTS (SELECT 1 FROM rhnEntitledServers ES WHERE ES.id = element)
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($set->label, $set->uid);
-
-  my $ret;
-  while (my ($id) = $sth->fetchrow) {
-    $ret++;
-  }
-
-  return $ret;
 }
 
 sub compatible_with_server { #returns the id and name of all servers which this server can be profiled against.
@@ -3019,50 +2403,6 @@ EOS
   return (\@p_added_rows, \@p_deleted_rows, $p_unchanged);
 }
 
-sub schedule_errata_cache_update {
-  my $class = shift;
-
-  my $org_id = shift;
-  my $sid = shift;
-  my $delay = shift || 0;
-
-  die "Org id and Server id required"
-    unless ($org_id && $sid);
-
-  my $now = RHN::Date->now->long_date;
-  $delay = $delay / (24*60*60);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnTaskQueue
-       (org_id, task_name, task_data, priority, earliest)
-VALUES (?, 'update_server_errata_cache', ?, 0, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') + ?)
-EOQ
-
-    $sth->execute($org_id, $sid, $now, $delay);
-
-  $dbh->commit;
-}
-
-sub random_server_id {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT id FROM rhnServer');
-  $sth->execute;
-
-  my $sid;
-  my $i = 0;
-  while (my ($id) = $sth->fetchrow) {
-    if (rand $i++ < 1) {
-      $sid = $id;
-    }
-    last if $i == 10000;
-  }
-
-  return $sid;
-}
-
 # eids of applicable errata for which the server does not have a
 # pending update action
 #
@@ -3158,27 +2498,6 @@ EOQ
   $sth->finish;
 
   return $first_row;
-}
-
-sub client_capabilities {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT cn.name, cc.version
-  FROM rhnClientCapability CC,
-       rhnClientCapabilityName CN
- WHERE server_id = :sid
-   AND CN.id = CC.capability_name_id
-EOS
-  $sth->execute_h(sid => $self->id);
-
-  my %ret;
-  while (my ($cap, $ver) = $sth->fetchrow) {
-    $ret{$cap} = $ver;
-  }
-
-  return \%ret;
 }
 
 sub client_capable {
@@ -3285,77 +2604,6 @@ EOS
   return @ret;
 }
 
-sub latest_managed_config_revisions {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'system_managed_config_latest_revisions');
-
-  return @{$ds->execute_query(-sid => $self->id)};
-}
-
-sub get_rhn_kickstart_package {
-  my $self = shift;
-  my $user_id = shift;
-  my $boot_image = shift;
-  my $kstree = shift;
-  my @server_channels = $self->server_channels;
-  my @subscribable_channels = RHN::Channel->subscribable_channels(server_id => $self->id,
-								  user_id => $user_id,
-								  base_channel_id => $self->base_channel_id);
-
-  my $cid;
-  my $pid;
-  my $ks_rpm = 'auto-kickstart-'. $boot_image;
-  
-  if ("rhel_5" eq $kstree->install_type_label) {
-  	$ks_rpm = 'rhn-kickstart';
-  }
-  foreach my $c_data (@server_channels, @subscribable_channels) {
-    my @pids = RHN::Channel->latest_package_equal($c_data->{ID}, $ks_rpm);
-
-    if (@pids) {
-      $cid = $c_data->{ID};
-      $pid = $pids[0];
-      last;
-    }
-  }
-
-  return unless ($cid and $pid);
-
-  $self->subscribe_to_channel($cid) unless (grep { $cid == $_->{ID} } @server_channels);
-
-  return $pid;
-}
-
-sub get_latest_actions {
-  my $class = shift;
-  my %params = validate(@_, {server_id => 1, type => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT A.id, AST.name AS status,
-       TO_CHAR(SA.modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnServerAction SA, rhnActionType AT, rhnAction A, rhnActionStatus AST
- WHERE SA.server_id = :sid
-   AND A.id = SA.action_id
-   AND AT.id = A.action_type
-   AND AT.label = :action_type
-   AND AST.id = SA.status
-ORDER BY SA.modified DESC
-EOQ
-
-  $sth->execute_h(sid => $params{server_id}, action_type => $params{type});
-
-  my @data;
-
-  while (my $row = $sth->fetchrow_hashref) {
-    push @data, $row;
-  }
-
-  return @data;
-}
-
 sub unlock_server_set {
   my $class = shift;
   my $set = shift;
@@ -3394,27 +2642,6 @@ EOQ
   $dbh->commit;
 }
 
-sub lock_server {
-  my $self = shift;
-  my $locker = shift;
-  my $reason = shift;
-
-  $self->unlock_server;
-
-  my $dbh = RHN::DB->connect;
-  $dbh->do_h("INSERT INTO rhnServerLock (server_id, locker_id, reason) VALUES (:sid, :lid, :reason)",
-	     sid => $self->id, lid => ($locker ? $locker->id : undef), reason => $reason);
-  $dbh->commit;
-}
-
-sub unlock_server {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  $dbh->do_h("DELETE FROM rhnServerLock WHERE server_id = :server_id", server_id => $self->id);
-  $dbh->commit;
-}
-
 sub check_lock {
   my $self = shift;
 
@@ -3436,36 +2663,6 @@ sub load_package_manifest {
   						 -ds_mode => 'system_canonical_package_list',
   						 -sid => $self->id,-org_id => $self->org_id);
 
-}
-
-# The id of a version of up2date which can be installed on this system greater than 'version'.
-sub installable_up2date_version_at_least {
-  my $self = shift;
-  my %ver_info = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT P.id, PE.epoch, PE.version, PE.release
-  FROM rhnPackageEVR PE, rhnPackageName PN, rhnPackage P, rhnServerNeededPackageCache SNPC
- WHERE SNPC.server_id = :sid
-   AND P.id = SNPC.package_id
-   AND PN.id = P.name_id
-   AND PN.name = 'up2date'
-   AND PE.id = P.evr_id
-EOQ
-
-  $sth->execute_h(sid => $self->id);
-
-  while (my ($id, $epoch, $version, $release) = $sth->fetchrow) {
-    my $cmp = RHN::DB::Package->vercmp($epoch || 0, $version || 0, $release || 0,
-				       $ver_info{epoch} || 0, $ver_info{version} || 0, $ver_info{release} || 0);
-
-    if ($cmp eq 0 or $cmp eq 1) {
-      return $id;
-    }
-  }
-
-  return;
 }
 
 sub systems_subscribed_to_channel {
@@ -3521,20 +2718,6 @@ sub proxy_hostname {
 
   if ($data and ref $data eq 'ARRAY') {
     return $data->[0]->{HOSTNAME};
-  }
-
-  return;
-}
-
-# The server_id of the proxy this system thinks it's connecting to
-sub proxy_sid {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::System(-mode => 'proxy_path_for_server');
-  my $data = $ds->execute_query(-sid => $self->id);
-
-  if ($data and ref $data eq 'ARRAY') {
-    return $data->[0]->{ID};
   }
 
   return;
@@ -3652,32 +2835,6 @@ EOQ
   return $row;
 }
 
-sub server_group_type_details_from_set {
-  my $class = shift;
-  my $uid = shift;
-  my $set_label = shift;
-
-  die "No uid" unless defined $uid;
-  die "No set label" unless defined $set_label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  SGT.id, SGT.label, RS.element_two
-  FROM  rhnServerGroupType SGT,
-        rhnSet RS
-WHERE  SGT.id=RS.element and RS.user_id = :user_id AND RS.label=:label
-EOQ
-
-  $sth->execute_h(user_id=> $uid, label => $set_label);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
-
 # Make a guess at this system's hostname
 sub guess_hostname {
   my $self = shift;
@@ -3764,20 +2921,6 @@ sub sat_clusters_for_system {
   return @{$data};
 }
 
-sub schedule_sat_cluster_push {
-  my $self = shift;
-  my $uid = shift;
-  my @clusters = @_;
-
-  my $org_id = $self->org_id();
-
-  foreach my $row (@clusters) {
-    RHN::SatCluster->push_config($org_id, $row->{SAT_CLUSTER_ID}, $uid);
-  }
-
-  return;
-}
-
 sub virtual_guest_details {
   my $self = shift;
 
@@ -3832,13 +2975,5 @@ EOQ
   return $results;
 }
 
-
-sub satellite_cert {
-  my $self = shift;
-  if (@_) {
-    $self->{__cert__} = shift;
-  }
-  return $self->{__cert__};
-}
 
 1;

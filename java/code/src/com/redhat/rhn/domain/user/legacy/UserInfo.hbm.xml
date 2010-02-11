@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.user.legacy.UserInfo"
+           table="RHNUSERINFO"
+           lazy="false">
+        <id name="webUserId" type="long" column="user_id">
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <property name="pageSize" column="page_size" type="int" />
+        <property name="usePamAuthentication" column="use_pam_authentication" type="yes_no" />
+        <property name="emailNotify" column="email_notify" type="int" />
+        <property name="showSystemGroupList" column="show_system_group_list" type="string" />
+        <property name="lastLoggedIn" column="last_logged_in" type="timestamp" />
+        <property name="created" type="timestamp" insert="false" update="false" />
+        <property name="modified" type="timestamp" insert="false" update="false" />
+        <property name="preferredLocale" column="preferred_locale" type="string" />
+
+        <many-to-one name="timeZone" column="timezone_id"
+			class="com.redhat.rhn.domain.user.RhnTimeZone" cascade="none" />
+
+		<one-to-one name="user"
+                    class="com.redhat.rhn.domain.user.legacy.UserImpl"
+                    constrained="true" />
+    </class>
+</hibernate-mapping>

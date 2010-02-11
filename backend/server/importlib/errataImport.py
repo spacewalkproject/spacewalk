@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -76,10 +76,9 @@ class ErrataImport(GenericPackageImport):
 
     def _preprocessErratumFiles(self, erratum):
         for f in (erratum['files'] or []):
-            checksum = ('md5', f['md5sum'])     # FIXME sha256
-            f['checksum'] = checksum
-            if not self.checksums.has_key(checksum):
-                self.checksums[checksum] = None
+            checksumTuple = (f['checksum_type'], f['checksum'])
+            if not self.checksums.has_key(checksumTuple):
+                self.checksums[checksumTuple] = None
 
             if f['file_type'] == 'RPM':
                 package = f.get('pkgobj')
@@ -250,7 +249,7 @@ class ErrataImport(GenericPackageImport):
 
     def _fix_erratum_file_packages(self, erratum):
         for ef in erratum['files']:
-            ef['checksum_id'] = self.checksums[ef['checksum']]
+            ef['checksum_id'] = self.checksums[(ef['checksum_type'], ef['checksum'])]
             if ef['file_type'] == 'RPM':
                 package = ef.get('pkgobj')
                 if not package:
@@ -260,14 +259,19 @@ class ErrataImport(GenericPackageImport):
 
 
     def _fix_erratum_packages(self, erratum):
-        pkgs = {}
-        for nevrao, package in erratum['packages'].items():
+        pkgs = []
+        # This is a workaround; It would be much straightforward to use
+        # 'package in erratum['packages'].values()' here. But for (to me) unknown
+        # reason it sometimes has package.id == None which makes whole import fail.
+        # And self.packages[nevrao].id contains always right value.
+        for nevrao in erratum['packages'].keys():
+            package = self.packages[nevrao]
             if package.ignored:
                 # Ignore this package
                 continue
-            pkgs[package.id] = None
+            pkgs.append({'package_id' : package.id})
         
-        erratum['packages'] = map(lambda x: {'package_id' : x}, pkgs.keys())
+        erratum['packages'] = pkgs
 
         for ef in (erratum['files'] or []):
             if ef['file_type'] == 'RPM':

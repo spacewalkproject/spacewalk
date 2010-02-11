@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,10 @@ use strict;
 
 package RHN::Server;
 
+use PXT::HTML ();
+use PXT::Utils ();
+use RHN::Action ();
+
 use RHN::DB::Server;
 our @ISA = qw/RHN::DB::Server/;
 
@@ -35,14 +39,6 @@ sub lookup {
     warn "deprecated use of unparameterized $class->lookup from (" . join(', ', caller) . ")\n";
     return $class->SUPER::lookup(-id => $first_arg);
   }
-}
-
-sub lookup_server {
-  my $class = shift;
-
-  warn "deprecated use of $class->lookup_foo from (" . join(', ', caller) . ").  Using $class->lookup instead\n";
-
-  return $class->lookup(@_);
 }
 
 sub lookup_server_event {

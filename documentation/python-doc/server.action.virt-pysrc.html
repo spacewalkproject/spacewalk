@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.action.virt</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.action-module.html">Package&nbsp;action</a> ::
+        Module&nbsp;virt
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.action.virt-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.action.virt-module.html">Module server.action.virt</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-2', 'server', 'link-2');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-3', 'rhnSQL', 'link-3');">rhnSQL</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-4', 'server', 'link-2');">server</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module common.rhnLib=common.rhnLib-module.html,Module server.rhnLib=server.rhnLib-module.html"><a title="common.rhnLib
+server.rhnLib" class="py-name" href="#" onclick="return doclink('link-5', 'rhnLib', 'link-5');">rhnLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Class server.rhnLib.InvalidAction=server.rhnLib.InvalidAction-class.html"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-6', 'InvalidAction', 'link-6');">InvalidAction</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable server.action.activation.__rhnexport__=server.action.activation-module.html#__rhnexport__,Variable server.action.configfiles.__rhnexport__=server.action.configfiles-module.html#__rhnexport__,Variable server.action.errata.__rhnexport__=server.action.errata-module.html#__rhnexport__,Variable server.action.hardware.__rhnexport__=server.action.hardware-module.html#__rhnexport__,Variable server.action.kickstart.__rhnexport__=server.action.kickstart-module.html#__rhnexport__,Variable server.action.kickstart_guest.__rhnexport__=server.action.kickstart_guest-module.html#__rhnexport__,Variable server.action.kickstart_host.__rhnexport__=server.action.kickstart_host-module.html#__rhnexport__,Variable server.action.packages.__rhnexport__=server.action.packages-module.html#__rhnexport__,Variable server.action.reboot.__rhnexport__=server.action.reboot-module.html#__rhnexport__,Variable server.action.rhn_applet.__rhnexport__=server.action.rhn_applet-module.html#__rhnexport__,Variable server.action.rhnsd.__rhnexport__=server.action.rhnsd-module.html#__rhnexport__,Variable server.action.rollback.__rhnexport__=server.action.rollback-module.html#__rhnexport__,Variable server.action.script.__rhnexport__=server.action.script-module.html#__rhnexport__,Variable server.action.solarispkgs.__rhnexport__=server.action.solarispkgs-module.html#__rhnexport__,Variable server.action.virt.__rhnexport__=server.action.virt-module.html#__rhnexport__,Variable server.action_extra_data.configfiles.__rhnexport__=server.action_extra_data.configfiles-module.html#__rhnexport__,Variable server.action_extra_data.errata.__rhnexport__=server.action_extra_data.errata-module.html#__rhnexport__,Variable server.action_extra_data.hardware.__rhnexport__=server.action_extra_data.hardware-module.html#__rhnexport__,Variable server.action_extra_data.kickstart.__rhnexport__=server.action_extra_data.kickstart-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_guest.__rhnexport__=server.action_extra_data.kickstart_guest-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_host.__rhnexport__=server.action_extra_data.kickstart_host-module.html#__rhnexport__,Variable server.action_extra_data.packages.__rhnexport__=server.action_extra_data.packages-module.html#__rhnexport__,Variable server.action_extra_data.reboot.__rhnexport__=server.action_extra_data.reboot-module.html#__rhnexport__,Variable server.action_extra_data.rhn_applet.__rhnexport__=server.action_extra_data.rhn_applet-module.html#__rhnexport__,Variable server.action_extra_data.rhnsd.__rhnexport__=server.action_extra_data.rhnsd-module.html#__rhnexport__,Variable server.action_extra_data.rollback.__rhnexport__=server.action_extra_data.rollback-module.html#__rhnexport__,Variable server.action_extra_data.script.__rhnexport__=server.action_extra_data.script-module.html#__rhnexport__,Variable server.action_extra_data.solarispkgs.__rhnexport__=server.action_extra_data.solarispkgs-module.html#__rhnexport__,Variable server.action_extra_data.up2date_config.__rhnexport__=server.action_extra_data.up2date_config-module.html#__rhnexport__,Variable server.action_extra_data.virt.__rhnexport__=server.action_extra_data.virt-module.html#__rhnexport__"><a title="server.action.activation.__rhnexport__
+server.action.configfiles.__rhnexport__
+server.action.errata.__rhnexport__
+server.action.hardware.__rhnexport__
+server.action.kickstart.__rhnexport__
+server.action.kickstart_guest.__rhnexport__
+server.action.kickstart_host.__rhnexport__
+server.action.packages.__rhnexport__
+server.action.reboot.__rhnexport__
+server.action.rhn_applet.__rhnexport__
+server.action.rhnsd.__rhnexport__
+server.action.rollback.__rhnexport__
+server.action.script.__rhnexport__
+server.action.solarispkgs.__rhnexport__
+server.action.virt.__rhnexport__
+server.action_extra_data.configfiles.__rhnexport__
+server.action_extra_data.errata.__rhnexport__
+server.action_extra_data.hardware.__rhnexport__
+server.action_extra_data.kickstart.__rhnexport__
+server.action_extra_data.kickstart_guest.__rhnexport__
+server.action_extra_data.kickstart_host.__rhnexport__
+server.action_extra_data.packages.__rhnexport__
+server.action_extra_data.reboot.__rhnexport__
+server.action_extra_data.rhn_applet.__rhnexport__
+server.action_extra_data.rhnsd.__rhnexport__
+server.action_extra_data.rollback.__rhnexport__
+server.action_extra_data.script.__rhnexport__
+server.action_extra_data.solarispkgs.__rhnexport__
+server.action_extra_data.up2date_config.__rhnexport__
+server.action_extra_data.virt.__rhnexport__" class="py-name" href="#" onclick="return doclink('link-7', '__rhnexport__', 'link-7');">__rhnexport__</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt>   <tt class="py-string">'refresh'</tt><tt class="py-op">,</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">                    <tt class="py-string">'shutdown'</tt><tt class="py-op">,</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">                    <tt class="py-string">'reboot'</tt><tt class="py-op">,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">                    <tt class="py-string">'resume'</tt><tt class="py-op">,</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">                    <tt class="py-string">'start'</tt><tt class="py-op">,</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">                    <tt class="py-string">'schedulePoller'</tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                    <tt class="py-string">'suspend'</tt><tt class="py-op">,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">                    <tt class="py-string">'destroy'</tt><tt class="py-op">,</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">                    <tt class="py-string">'setMemory'</tt><tt class="py-op">,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">                    <tt class="py-string">'setVCPUs'</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">                <tt class="py-op">]</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-comment">###########################################################################</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-comment"># SQL Queries for each virtualization action type.</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment">###########################################################################</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable server.action.virt._query_refresh=server.action.virt-module.html#_query_refresh"><a title="server.action.virt._query_refresh" class="py-name" href="#" onclick="return doclink('link-8', '_query_refresh', 'link-8');">_query_refresh</a></tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-9', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Class server.rhnSQL.sql_base.Statement=server.rhnSQL.sql_base.Statement-class.html"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-10', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-string">    select  avf.action_id,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtRefresh</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-string">    where   avf.action_id = :action_id</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt id="link-11" class="py-name" targets="Variable server.action.virt._query_shutdown=server.action.virt-module.html#_query_shutdown"><a title="server.action.virt._query_shutdown" class="py-name" href="#" onclick="return doclink('link-11', '_query_shutdown', 'link-11');">_query_shutdown</a></tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-12', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-13', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-string">    select  avs.action_id, </tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-string">            avs.uuid</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtShutdown avs</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-string">    where   avs.action_id = :action_id</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt id="link-14" class="py-name" targets="Variable server.action.virt._query_suspend=server.action.virt-module.html#_query_suspend"><a title="server.action.virt._query_suspend" class="py-name" href="#" onclick="return doclink('link-14', '_query_suspend', 'link-14');">_query_suspend</a></tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-15', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-16', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-string">    select  avs.action_id,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-string">            avs.uuid</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtSuspend avs    </tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-string">    where   avs.action_id = :action_id</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt id="link-17" class="py-name" targets="Variable server.action.virt._query_resume=server.action.virt-module.html#_query_resume"><a title="server.action.virt._query_resume" class="py-name" href="#" onclick="return doclink('link-17', '_query_resume', 'link-17');">_query_resume</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-18', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-19', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-string">    select  avr.action_id,</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-string">            avr.uuid</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtResume avr</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-string">    where   avr.action_id = :action_id</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt id="link-20" class="py-name" targets="Variable server.action.virt._query_reboot=server.action.virt-module.html#_query_reboot"><a title="server.action.virt._query_reboot" class="py-name" href="#" onclick="return doclink('link-20', '_query_reboot', 'link-20');">_query_reboot</a></tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-21', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-22', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-string">    select  avr.action_id,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-string">            avr.uuid</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtReboot avr</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-string">    where   avr.action_id = :action_id</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt id="link-23" class="py-name" targets="Variable server.action.virt._query_destroy=server.action.virt-module.html#_query_destroy"><a title="server.action.virt._query_destroy" class="py-name" href="#" onclick="return doclink('link-23', '_query_destroy', 'link-23');">_query_destroy</a></tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-24', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-25', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-string">    select  avd.action_id,</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-string">            avd.uuid</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtDestroy avd</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-string">    where   avd.action_id = :action_id</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt id="link-26" class="py-name" targets="Variable server.action.virt._query_start=server.action.virt-module.html#_query_start"><a title="server.action.virt._query_start" class="py-name" href="#" onclick="return doclink('link-26', '_query_start', 'link-26');">_query_start</a></tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-27', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-28', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-string">    select  avs.action_id,</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-string">            avs.uuid</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtStart avs</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-string">    where   avs.action_id = :action_id</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt id="link-29" class="py-name" targets="Variable server.action.virt._query_setMemory=server.action.virt-module.html#_query_setMemory"><a title="server.action.virt._query_setMemory" class="py-name" href="#" onclick="return doclink('link-29', '_query_setMemory', 'link-29');">_query_setMemory</a></tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-30', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-31', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-string">    select  asm.action_id,</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">            asm.uuid,</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">            asm.memory</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtSetMemory asm</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-string">    where   asm.action_id = :action_id</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt id="link-32" class="py-name" targets="Variable server.action.virt._query_getVCPUs=server.action.virt-module.html#_query_getVCPUs"><a title="server.action.virt._query_getVCPUs" class="py-name" href="#" onclick="return doclink('link-32', '_query_getVCPUs', 'link-32');">_query_getVCPUs</a></tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-33', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-34', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-string">    select  av.action_id,</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-string">            av.uuid,</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-string">            av.vcpu</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtVCPU av</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-string">    where   av.action_id = :action_id</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt id="link-35" class="py-name" targets="Variable server.action.virt._query_schedulePoller=server.action.virt-module.html#_query_schedulePoller"><a title="server.action.virt._query_schedulePoller" class="py-name" href="#" onclick="return doclink('link-35', '_query_schedulePoller', 'link-35');">_query_schedulePoller</a></tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-36', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-37', 'Statement', 'link-10');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-string">    select  asp.action_id,</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-string">            asp.minute,</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-string">            asp.hour,</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-string">            asp.dom,</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-string">            asp.month,</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-string">            asp.dow</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-string">    from    rhnActionVirtSchedulePoller asp</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-string">    where   asp.action_id = :action_id</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-comment">##########################################################################</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-comment"># Functions that return the correct parameters that the actions are</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-comment"># called with. They all take in the server_id and action_id as params.</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-comment">##########################################################################</tt> </tt>
+<a name="NoUUIDException"></a><div id="NoUUIDException-def"><a name="L116"></a><tt class="py-lineno">116</tt> <a class="py-toggle" href="#" id="NoUUIDException-toggle" onclick="return toggle('NoUUIDException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.action.virt.NoUUIDException-class.html">NoUUIDException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="NoUUIDException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="NoUUIDException-expanded"><a name="NoUUIDException.__init__"></a><div id="NoUUIDException.__init__-def"><a name="L117"></a><tt class="py-lineno">117</tt> <a class="py-toggle" href="#" id="NoUUIDException.__init__-toggle" onclick="return toggle('NoUUIDException.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt.NoUUIDException-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="NoUUIDException.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="NoUUIDException.__init__-expanded"><a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-name">Exception</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method common.RPC_Base'.RPC_Base.__init__()=common.RPC_Base%27.RPC_Base-class.html#__init__,Method common.UserDictCase'.UserDictCase.__init__()=common.UserDictCase%27.UserDictCase-class.html#__init__,Method common.rhnApache'.rhnApache.__init__()=common.rhnApache%27.rhnApache-class.html#__init__,Method common.rhnCache.ClosingZipFile.__init__()=common.rhnCache.ClosingZipFile-class.html#__init__,Method common.rhnCache.CompressedCache.__init__()=common.rhnCache.CompressedCache-class.html#__init__,Method common.rhnCache.LockedFile.__init__()=common.rhnCache.LockedFile-class.html#__init__,Method common.rhnCache.NullCache.__init__()=common.rhnCache.NullCache-class.html#__init__,Method common.rhnCache.ObjectCache.__init__()=common.rhnCache.ObjectCache-class.html#__init__,Method common.rhnConfig.RHNOptions.__init__()=common.rhnConfig.RHNOptions-class.html#__init__,Method common.rhnException'.redirectException.__init__()=common.rhnException%27.redirectException-class.html#__init__,Method common.rhnException'.rhnException.__init__()=common.rhnException%27.rhnException-class.html#__init__,Method common.rhnException'.rhnFault.__init__()=common.rhnException%27.rhnFault-class.html#__init__,Method common.rhnLockfile.Lockfile.__init__()=common.rhnLockfile.Lockfile-class.html#__init__,Method common.rhnLog.rhnLog.__init__()=common.rhnLog.rhnLog-class.html#__init__,Method common.rhnRepository.Repository.__init__()=common.rhnRepository.Repository-class.html#__init__,Method common.rhnTB.SecurityList.__init__()=common.rhnTB.SecurityList-class.html#__init__,Method common.rhnTranslate.i18n.__init__()=common.rhnTranslate.i18n-class.html#__init__,Method common.rhn_timer.Timer.__init__()=common.rhn_timer.Timer-class.html#__init__,Method proxy.apacheHandler.apacheHandler.__init__()=proxy.apacheHandler.apacheHandler-class.html#__init__,Method proxy.apacheServer.HandlerWrap.__init__()=proxy.apacheServer.HandlerWrap-class.html#__init__,Method proxy.broker.rhnBroker.BrokerHandler.__init__()=proxy.broker.rhnBroker.BrokerHandler-class.html#__init__,Method proxy.broker.rhnRepository.Repository.__init__()=proxy.broker.rhnRepository.Repository-class.html#__init__,Method proxy.redirect.rhnRedirect.RedirectHandler.__init__()=proxy.redirect.rhnRedirect.RedirectHandler-class.html#__init__,Method proxy.responseContext.ResponseContext.__init__()=proxy.responseContext.ResponseContext-class.html#__init__,Method proxy.rhnAuthCacheClient.Shelf.__init__()=proxy.rhnAuthCacheClient.Shelf-class.html#__init__,Method proxy.rhnAuthCacheClient._Method.__init__()=proxy.rhnAuthCacheClient._Method-class.html#__init__,Method proxy.rhnAuthProtocol.CommunicationError.__init__()=proxy.rhnAuthProtocol.CommunicationError-class.html#__init__,Method proxy.rhnProxyAuth.ProxyAuth.__init__()=proxy.rhnProxyAuth.ProxyAuth-class.html#__init__,Method proxy.rhnShared.SharedHandler.__init__()=proxy.rhnShared.SharedHandler-class.html#__init__,Method pygettext.TokenEater.__init__()=pygettext.TokenEater-class.html#__init__,Method rhn.SSL.SSLSocket.__init__()=rhn.SSL.SSLSocket-class.html#__init__,Method rhn.SSL.TimeoutException.__init__()=rhn.SSL.TimeoutException-class.html#__init__,Method rhn.SmartIO.SmartIO.__init__()=rhn.SmartIO.SmartIO-class.html#__init__,Method rhn.UserDictCase.UserDictCase.__init__()=rhn.UserDictCase.UserDictCase-class.html#__init__,Method rhn.connections.HTTPConnection.__init__()=rhn.connections.HTTPConnection-class.html#__init__,Method rhn.connections.HTTPProxyConnection.__init__()=rhn.connections.HTTPProxyConnection-class.html#__init__,Method rhn.connections.HTTPSConnection.__init__()=rhn.connections.HTTPSConnection-class.html#__init__,Method rhn.connections.HTTPSProxyConnection.__init__()=rhn.connections.HTTPSProxyConnection-class.html#__init__,Method rhn.nonblocking.NonBlockingFile.__init__()=rhn.nonblocking.NonBlockingFile-class.html#__init__,Method rhn.rpclib.GETServer.__init__()=rhn.rpclib.GETServer-class.html#__init__,Method rhn.rpclib.Server.__init__()=rhn.rpclib.Server-class.html#__init__,Method rhn.rpclib.Server.__init__()=rhn.rpclib.Server-class.html#__init__,Method rhn.rpclib.SlicingMethod.__init__()=rhn.rpclib.SlicingMethod-class.html#__init__,Method rhn.rpclib._Method.__init__()=rhn.rpclib._Method-class.html#__init__,Method rhn.transports.BaseOutput.__init__()=rhn.transports.BaseOutput-class.html#__init__,Method rhn.transports.File.__init__()=rhn.transports.File-class.html#__init__,Method rhn.transports.Input.__init__()=rhn.transports.Input-class.html#__init__,Method rhn.transports.InputStream.__init__()=rhn.transports.InputStream-class.html#__init__,Method rhn.transports.ProxyTransport.__init__()=rhn.transports.ProxyTransport-class.html#__init__,Method rhn.transports.SafeProxyTransport.__init__()=rhn.transports.SafeProxyTransport-class.html#__init__,Method rhn.transports.SafeTransport.__init__()=rhn.transports.SafeTransport-class.html#__init__,Method rhn.transports.Transport.__init__()=rhn.transports.Transport-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.ChannelsDumper.__init__()=satellite_exporter.handlers.non_auth_dumper.ChannelsDumper-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.__init__()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.__init__()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#__init__,Method satellite_exporter.handlers.non_auth_dumper._ChannelDumper.__init__()=satellite_exporter.handlers.non_auth_dumper._ChannelDumper-class.html#__init__,Method satellite_exporter.satexport.ApacheServer.__init__()=satellite_exporter.satexport.ApacheServer-class.html#__init__,Method satellite_exporter.satexport.BaseApacheServer.__init__()=satellite_exporter.satexport.BaseApacheServer-class.html#__init__,Method satellite_tools.SequenceServer.SequenceServer.__init__()=satellite_tools.SequenceServer.SequenceServer-class.html#__init__,Method satellite_tools.connection.CompressedStream.__init__()=satellite_tools.connection.CompressedStream-class.html#__init__,Method satellite_tools.connection.StreamConnection.__init__()=satellite_tools.connection.StreamConnection-class.html#__init__,Method satellite_tools.connection.Transport.__init__()=satellite_tools.connection.Transport-class.html#__init__,Method satellite_tools.disk_dumper.dumper.CachedDumper.__init__()=satellite_tools.disk_dumper.dumper.CachedDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.__init__()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__()=satellite_tools.disk_dumper.dumper.ChannelsDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ChannelsDumperEx.__init__()=satellite_tools.disk_dumper.dumper.ChannelsDumperEx-class.html#__init__,Method satellite_tools.disk_dumper.dumper.DatabaseStatement.__init__()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ErrataDumper.__init__()=satellite_tools.disk_dumper.dumper.ErrataDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ErrataDumperEx.__init__()=satellite_tools.disk_dumper.dumper.ErrataDumperEx-class.html#__init__,Method satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__()=satellite_tools.disk_dumper.dumper.KickstartableTreesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.PackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.PackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.QueryIterator.__init__()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#__init__,Method satellite_tools.disk_dumper.dumper.ShortPackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.ShortPackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.SourcePackagesDumper.__init__()=satellite_tools.disk_dumper.dumper.SourcePackagesDumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.TeeStream.__init__()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#__init__,Method satellite_tools.disk_dumper.dumper.XML_Dumper.__init__()=satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#__init__,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#__init__,Method satellite_tools.disk_dumper.iss.Dumper.__init__()=satellite_tools.disk_dumper.iss.Dumper-class.html#__init__,Method satellite_tools.disk_dumper.iss.ExporterMain.__init__()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#__init__,Method satellite_tools.disk_dumper.iss.FileMapper.__init__()=satellite_tools.disk_dumper.iss.FileMapper-class.html#__init__,Method satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource.__init__()=satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource-class.html#__init__,Method satellite_tools.disk_dumper.iss.ISSError.__init__()=satellite_tools.disk_dumper.iss.ISSError-class.html#__init__,Method satellite_tools.disk_dumper.iss_actions.ActionDeps.__init__()=satellite_tools.disk_dumper.iss_actions.ActionDeps-class.html#__init__,Method satellite_tools.disk_dumper.iss_ui.UI.__init__()=satellite_tools.disk_dumper.iss_ui.UI-class.html#__init__,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.__init__()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#__init__,Method satellite_tools.exporter.exportLib.ArrayIterator.__init__()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#__init__,Method satellite_tools.exporter.exportLib.BaseDumper.__init__()=satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.BaseRowDumper.__init__()=satellite_tools.exporter.exportLib.BaseRowDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelDumper.__init__()=satellite_tools.exporter.exportLib.ChannelDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelFamiliesDumper.__init__()=satellite_tools.exporter.exportLib.ChannelFamiliesDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.ChannelsDumper.__init__()=satellite_tools.exporter.exportLib.ChannelsDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.EmptyDumper.__init__()=satellite_tools.exporter.exportLib.EmptyDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__()=satellite_tools.exporter.exportLib.RestrictedArchCompatDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.RestrictedArchesDumper.__init__()=satellite_tools.exporter.exportLib.RestrictedArchesDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.SatelliteDumper.__init__()=satellite_tools.exporter.exportLib.SatelliteDumper-class.html#__init__,Method satellite_tools.exporter.exportLib.SimpleDumper.__init__()=satellite_tools.exporter.exportLib.SimpleDumper-class.html#__init__,Method satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__()=satellite_tools.exporter.exportLib._ChannelFamilyDumper-class.html#__init__,Method satellite_tools.exporter.exportLib._DependencyDumper.__init__()=satellite_tools.exporter.exportLib._DependencyDumper-class.html#__init__,Method satellite_tools.exporter.exporter.Dumper.__init__()=satellite_tools.exporter.exporter.Dumper-class.html#__init__,Method satellite_tools.exporter.xmlWriter.XMLWriter.__init__()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#__init__,Method satellite_tools.progress_bar.ProgressBar.__init__()=satellite_tools.progress_bar.ProgressBar-class.html#__init__,Method satellite_tools.repo_plugins.yum_src.ContentSource.__init__()=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#__init__,Method satellite_tools.reposync.ContentPackage.__init__()=satellite_tools.reposync.ContentPackage-class.html#__init__,Method satellite_tools.req_channels.Method.__init__()=satellite_tools.req_channels.Method-class.html#__init__,Method satellite_tools.req_channels.RequestedChannels.__init__()=satellite_tools.req_channels.RequestedChannels-class.html#__init__,Method satellite_tools.satCerts.CertVersionMismatchError.__init__()=satellite_tools.satCerts.CertVersionMismatchError-class.html#__init__,Method satellite_tools.satCerts.NoFreeEntitlementsError.__init__()=satellite_tools.satCerts.NoFreeEntitlementsError-class.html#__init__,Method satellite_tools.satComputePkgHeaders.Runner.__init__()=satellite_tools.satComputePkgHeaders.Runner-class.html#__init__,Method satellite_tools.satsync.Runner.__init__()=satellite_tools.satsync.Runner-class.html#__init__,Method satellite_tools.satsync.StreamProducer.__init__()=satellite_tools.satsync.StreamProducer-class.html#__init__,Method satellite_tools.satsync.Syncer.__init__()=satellite_tools.satsync.Syncer-class.html#__init__,Method satellite_tools.syncCache.BaseCache.__init__()=satellite_tools.syncCache.BaseCache-class.html#__init__,Method satellite_tools.syncLib.FileManip.__init__()=satellite_tools.syncLib.FileManip-class.html#__init__,Method satellite_tools.syncLib.RpmManip.__init__()=satellite_tools.syncLib.RpmManip-class.html#__init__,Method satellite_tools.sync_handlers.BaseCollection.__init__()=satellite_tools.sync_handlers.BaseCollection-class.html#__init__,Method satellite_tools.sync_handlers.ChannelCollection.__init__()=satellite_tools.sync_handlers.ChannelCollection-class.html#__init__,Method satellite_tools.sync_handlers.ContainerHandler.__init__()=satellite_tools.sync_handlers.ContainerHandler-class.html#__init__,Method satellite_tools.sync_handlers.ErrataCollection.__init__()=satellite_tools.sync_handlers.ErrataCollection-class.html#__init__,Method satellite_tools.sync_handlers.ShortPackageCollection.__init__()=satellite_tools.sync_handlers.ShortPackageCollection-class.html#__init__,Method satellite_tools.xmlDiskDumper.Dumper.__init__()=satellite_tools.xmlDiskDumper.Dumper-class.html#__init__,Method satellite_tools.xmlDiskSource.BinaryRPMDiskSource.__init__()=satellite_tools.xmlDiskSource.BinaryRPMDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.ChannelDiskSource.__init__()=satellite_tools.xmlDiskSource.ChannelDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.DiskSource.__init__()=satellite_tools.xmlDiskSource.DiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.KickstartDataDiskSource.__init__()=satellite_tools.xmlDiskSource.KickstartDataDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.KickstartFileDiskSource.__init__()=satellite_tools.xmlDiskSource.KickstartFileDiskSource-class.html#__init__,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.__init__()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#__init__,Method satellite_tools.xmlSource.BaseDispatchHandler.__init__()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#__init__,Method satellite_tools.xmlSource.ContainerHandler.__init__()=satellite_tools.xmlSource.ContainerHandler-class.html#__init__,Method satellite_tools.xmlSource.IncompatibleVersionError.__init__()=satellite_tools.xmlSource.IncompatibleVersionError-class.html#__init__,Method satellite_tools.xmlSource.Node.__init__()=satellite_tools.xmlSource.Node-class.html#__init__,Method satellite_tools.xmlSource._EndContainerEvent.__init__()=satellite_tools.xmlSource._EndContainerEvent-class.html#__init__,Method satellite_tools.xmlWireSource.BaseWireSource.__init__()=satellite_tools.xmlWireSource.BaseWireSource-class.html#__init__,Method satellite_tools.xmlWireSource.FileWireSource.__init__()=satellite_tools.xmlWireSource.FileWireSource-class.html#__init__,Method satellite_tools.xmlWireSource.RPCGetWireSource.__init__()=satellite_tools.xmlWireSource.RPCGetWireSource-class.html#__init__,Method server.action.utils.ChannelPackage.__init__()=server.action.utils.ChannelPackage-class.html#__init__,Method server.action.utils.PackageInstallScheduler.__init__()=server.action.utils.PackageInstallScheduler-class.html#__init__,Method server.action.utils.SubscribedChannel.__init__()=server.action.utils.SubscribedChannel-class.html#__init__,Method server.action.virt.NoRowFoundException.__init__()=server.action.virt.NoRowFoundException-class.html#__init__,Method server.action.virt.NoUUIDException.__init__()=server.action.virt.NoUUIDException-class.html#__init__,Method server.apacheHandler.apacheHandler.__init__()=server.apacheHandler.apacheHandler-class.html#__init__,Method server.apacheRequest.GetHandler.__init__()=server.apacheRequest.GetHandler-class.html#__init__,Method server.apacheRequest.UnknownXML.__init__()=server.apacheRequest.UnknownXML-class.html#__init__,Method server.apacheRequest.apacheGET.__init__()=server.apacheRequest.apacheGET-class.html#__init__,Method server.apacheRequest.apacheRequest.__init__()=server.apacheRequest.apacheRequest-class.html#__init__,Method server.apacheServer.HandlerWrap.__init__()=server.apacheServer.HandlerWrap-class.html#__init__,Method server.apacheUploadServer.UploadHandler.__init__()=server.apacheUploadServer.UploadHandler-class.html#__init__,Method server.basePackageUpload.BasePackageUpload.__init__()=server.basePackageUpload.BasePackageUpload-class.html#__init__,Method server.configFilesHandler.BaseConfigFileError.__init__()=server.configFilesHandler.BaseConfigFileError-class.html#__init__,Method server.configFilesHandler.ConfigFileError.__init__()=server.configFilesHandler.ConfigFileError-class.html#__init__,Method server.configFilesHandler.ConfigFilesHandler.__init__()=server.configFilesHandler.ConfigFilesHandler-class.html#__init__,Method server.config_common.base_templated_document.BaseTemplatedDocument.__init__()=server.config_common.base_templated_document.BaseTemplatedDocument-class.html#__init__,Method server.config_common.templated_document.ServerTemplatedDocument.__init__()=server.config_common.templated_document.ServerTemplatedDocument-class.html#__init__,Method server.handlers.app.channel.Channel.__init__()=server.handlers.app.channel.Channel-class.html#__init__,Method server.handlers.app.comps.Comps.__init__()=server.handlers.app.comps.Comps-class.html#__init__,Method server.handlers.app.packages.Packages.__init__()=server.handlers.app.packages.Packages-class.html#__init__,Method server.handlers.app.rhn_mpm.MPM_Header.__init__()=server.handlers.app.rhn_mpm.MPM_Header-class.html#__init__,Method server.handlers.app.rhn_mpm.MPM_Package.__init__()=server.handlers.app.rhn_mpm.MPM_Package-class.html#__init__,Method server.handlers.applet.applet.Applet.__init__()=server.handlers.applet.applet.Applet-class.html#__init__,Method server.handlers.config.rhn_config_management.ConfigManagement.__init__()=server.handlers.config.rhn_config_management.ConfigManagement-class.html#__init__,Method server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__()=server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#__init__,Method server.handlers.sat.auth.Authentication.__init__()=server.handlers.sat.auth.Authentication-class.html#__init__,Method server.handlers.sat.cert.Certificate.__init__()=server.handlers.sat.cert.Certificate-class.html#__init__,Method server.handlers.xmlrpc.errata.Errata.__init__()=server.handlers.xmlrpc.errata.Errata-class.html#__init__,Method server.handlers.xmlrpc.proxy.Proxy.__init__()=server.handlers.xmlrpc.proxy.Proxy-class.html#__init__,Method server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__()=server.handlers.xmlrpc.proxy.rhnProxyHandler-class.html#__init__,Method server.handlers.xmlrpc.queue.Queue.__init__()=server.handlers.xmlrpc.queue.Queue-class.html#__init__,Method server.handlers.xmlrpc.registration.Registration.__init__()=server.handlers.xmlrpc.registration.Registration-class.html#__init__,Method server.handlers.xmlrpc.up2date.Servers.__init__()=server.handlers.xmlrpc.up2date.Servers-class.html#__init__,Method server.handlers.xmlrpc.up2date.Up2date.__init__()=server.handlers.xmlrpc.up2date.Up2date-class.html#__init__,Method server.handlers.xp.packages.Packages.__init__()=server.handlers.xp.packages.Packages-class.html#__init__,Method server.handlers.xp.rhnlint.RHNLint.__init__()=server.handlers.xp.rhnlint.RHNLint-class.html#__init__,Method server.importlib.archImport.BaseArchCompatImport.__init__()=server.importlib.archImport.BaseArchCompatImport-class.html#__init__,Method server.importlib.backend.Backend.__init__()=server.importlib.backend.Backend-class.html#__init__,Method server.importlib.backend.DML.__init__()=server.importlib.backend.DML-class.html#__init__,Method server.importlib.backendLib.BaseTableLookup.__init__()=server.importlib.backendLib.BaseTableLookup-class.html#__init__,Method server.importlib.backendLib.DBstring.__init__()=server.importlib.backendLib.DBstring-class.html#__init__,Method server.importlib.backendLib.Table.__init__()=server.importlib.backendLib.Table-class.html#__init__,Method server.importlib.backendLib.TableCollection.__init__()=server.importlib.backendLib.TableCollection-class.html#__init__,Method server.importlib.backendLib.TableDelete.__init__()=server.importlib.backendLib.TableDelete-class.html#__init__,Method server.importlib.backendLib.TableInsert.__init__()=server.importlib.backendLib.TableInsert-class.html#__init__,Method server.importlib.backendLib.TableLookup.__init__()=server.importlib.backendLib.TableLookup-class.html#__init__,Method server.importlib.backendLib.TableUpdate.__init__()=server.importlib.backendLib.TableUpdate-class.html#__init__,Method server.importlib.backendOracle.OracleBackend.__init__()=server.importlib.backendOracle.OracleBackend-class.html#__init__,Method server.importlib.blacklistImport.BlacklistObsoletesImport.__init__()=server.importlib.blacklistImport.BlacklistObsoletesImport-class.html#__init__,Method server.importlib.channelImport.ChannelFamilyPermissionsImport.__init__()=server.importlib.channelImport.ChannelFamilyPermissionsImport-class.html#__init__,Method server.importlib.channelImport.ChannelImport.__init__()=server.importlib.channelImport.ChannelImport-class.html#__init__,Method server.importlib.channelImport.DistChannelMapImport.__init__()=server.importlib.channelImport.DistChannelMapImport-class.html#__init__,Method server.importlib.channelImport.ReleaseChannelMapImport.__init__()=server.importlib.channelImport.ReleaseChannelMapImport-class.html#__init__,Method server.importlib.errataImport.ErrataImport.__init__()=server.importlib.errataImport.ErrataImport-class.html#__init__,Method server.importlib.importLib.AlreadyUploadedError.__init__()=server.importlib.importLib.AlreadyUploadedError-class.html#__init__,Method server.importlib.importLib.BaseInformation.__init__()=server.importlib.importLib.BaseInformation-class.html#__init__,Method server.importlib.importLib.ChangeLog.__init__()=server.importlib.importLib.ChangeLog-class.html#__init__,Method server.importlib.importLib.Collection.__init__()=server.importlib.importLib.Collection-class.html#__init__,Method server.importlib.importLib.Dependency.__init__()=server.importlib.importLib.Dependency-class.html#__init__,Method server.importlib.importLib.Diff.__init__()=server.importlib.importLib.Diff-class.html#__init__,Method server.importlib.importLib.File.__init__()=server.importlib.importLib.File-class.html#__init__,Method server.importlib.importLib.GenericPackageImport.__init__()=server.importlib.importLib.GenericPackageImport-class.html#__init__,Method server.importlib.importLib.Import.__init__()=server.importlib.importLib.Import-class.html#__init__,Method server.importlib.importLib.ImportException.__init__()=server.importlib.importLib.ImportException-class.html#__init__,Method server.importlib.importLib.IncompatibleArchError.__init__()=server.importlib.importLib.IncompatibleArchError-class.html#__init__,Method server.importlib.importLib.IncompletePackage.__init__()=server.importlib.importLib.IncompletePackage-class.html#__init__,Method server.importlib.importLib.Information.__init__()=server.importlib.importLib.Information-class.html#__init__,Method server.importlib.importLib.InvalidArchError.__init__()=server.importlib.importLib.InvalidArchError-class.html#__init__,Method server.importlib.importLib.InvalidChannelError.__init__()=server.importlib.importLib.InvalidChannelError-class.html#__init__,Method server.importlib.importLib.InvalidChannelFamilyError.__init__()=server.importlib.importLib.InvalidChannelFamilyError-class.html#__init__,Method server.importlib.importLib.InvalidPackageError.__init__()=server.importlib.importLib.InvalidPackageError-class.html#__init__,Method server.importlib.importLib.InvalidSeverityError.__init__()=server.importlib.importLib.InvalidSeverityError-class.html#__init__,Method server.importlib.importLib.Item.__init__()=server.importlib.importLib.Item-class.html#__init__,Method server.importlib.importLib.MissingParentChannelError.__init__()=server.importlib.importLib.MissingParentChannelError-class.html#__init__,Method server.importlib.importLib.Package.__init__()=server.importlib.importLib.Package-class.html#__init__,Method server.importlib.importLib.SourcePackage.__init__()=server.importlib.importLib.SourcePackage-class.html#__init__,Method server.importlib.importLib.TransactionError.__init__()=server.importlib.importLib.TransactionError-class.html#__init__,Method server.importlib.kickstartImport.KickstartableTreeImport.__init__()=server.importlib.kickstartImport.KickstartableTreeImport-class.html#__init__,Method server.importlib.packageImport.ChannelPackageSubscription.__init__()=server.importlib.packageImport.ChannelPackageSubscription-class.html#__init__,Method server.importlib.packageImport.PackageImport.__init__()=server.importlib.packageImport.PackageImport-class.html#__init__,Method server.importlib.packageImport.SourcePackageImport.__init__()=server.importlib.packageImport.SourcePackageImport-class.html#__init__,Method server.importlib.productNamesImport.ProductNamesImport.__init__()=server.importlib.productNamesImport.ProductNamesImport-class.html#__init__,Method server.importlib.userAuth.UserAuth.__init__()=server.importlib.userAuth.UserAuth-class.html#__init__,Method server.repomd.domain.Channel.__init__()=server.repomd.domain.Channel-class.html#__init__,Method server.repomd.domain.Comps.__init__()=server.repomd.domain.Comps-class.html#__init__,Method server.repomd.domain.Erratum.__init__()=server.repomd.domain.Erratum-class.html#__init__,Method server.repomd.domain.Package.__init__()=server.repomd.domain.Package-class.html#__init__,Method server.repomd.mapper.CachedErratumMapper.__init__()=server.repomd.mapper.CachedErratumMapper-class.html#__init__,Method server.repomd.mapper.CachedPackageMapper.__init__()=server.repomd.mapper.CachedPackageMapper-class.html#__init__,Method server.repomd.mapper.ChannelMapper.__init__()=server.repomd.mapper.ChannelMapper-class.html#__init__,Method server.repomd.mapper.SqlCompsMapper.__init__()=server.repomd.mapper.SqlCompsMapper-class.html#__init__,Method server.repomd.mapper.SqlErratumMapper.__init__()=server.repomd.mapper.SqlErratumMapper-class.html#__init__,Method server.repomd.mapper.SqlPackageMapper.__init__()=server.repomd.mapper.SqlPackageMapper-class.html#__init__,Method server.repomd.repository.CachedRepository.__init__()=server.repomd.repository.CachedRepository-class.html#__init__,Method server.repomd.repository.CompressedRepository.__init__()=server.repomd.repository.CompressedRepository-class.html#__init__,Method server.repomd.repository.MetadataRepository.__init__()=server.repomd.repository.MetadataRepository-class.html#__init__,Method server.repomd.repository.Repository.__init__()=server.repomd.repository.Repository-class.html#__init__,Method server.repomd.view.CompsView.__init__()=server.repomd.view.CompsView-class.html#__init__,Method server.repomd.view.FilelistsView.__init__()=server.repomd.view.FilelistsView-class.html#__init__,Method server.repomd.view.OtherView.__init__()=server.repomd.view.OtherView-class.html#__init__,Method server.repomd.view.PrimaryView.__init__()=server.repomd.view.PrimaryView-class.html#__init__,Method server.repomd.view.RepoView.__init__()=server.repomd.view.RepoView-class.html#__init__,Method server.repomd.view.UpdateinfoView.__init__()=server.repomd.view.UpdateinfoView-class.html#__init__,Method server.rhnActivationKey.ActivationKey.__init__()=server.rhnActivationKey.ActivationKey-class.html#__init__,Method server.rhnActivationKey.CallableObj.__init__()=server.rhnActivationKey.CallableObj-class.html#__init__,Method server.rhnChannel.BaseDatabaseObject.__init__()=server.rhnChannel.BaseDatabaseObject-class.html#__init__,Method server.rhnChannel.Channel.__init__()=server.rhnChannel.Channel-class.html#__init__,Method server.rhnChannel.ChannelException.__init__()=server.rhnChannel.ChannelException-class.html#__init__,Method server.rhnChannel.LiteServer.__init__()=server.rhnChannel.LiteServer-class.html#__init__,Method server.rhnDependency.SolveDependenciesError.__init__()=server.rhnDependency.SolveDependenciesError-class.html#__init__,Method server.rhnHandler'.rhnHandler.__init__()=server.rhnHandler%27.rhnHandler-class.html#__init__,Method server.rhnKickstart.Kickstart.__init__()=server.rhnKickstart.Kickstart-class.html#__init__,Method server.rhnLib.CallableObj.__init__()=server.rhnLib.CallableObj-class.html#__init__,Method server.rhnRepository.Repository.__init__()=server.rhnRepository.Repository-class.html#__init__,Method server.rhnSQL._Callable.__init__()=server.rhnSQL._Callable-class.html#__init__,Method server.rhnSQL._CallableWrapper.__init__()=server.rhnSQL._CallableWrapper-class.html#__init__,Method server.rhnSQL._Function.__init__()=server.rhnSQL._Function-class.html#__init__,Method server.rhnSQL._Procedure.__init__()=server.rhnSQL._Procedure-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Cursor.__init__()=server.rhnSQL.driver_cx_Oracle.Cursor-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Database.__init__()=server.rhnSQL.driver_cx_Oracle.Database-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Function.__init__()=server.rhnSQL.driver_cx_Oracle.Function-class.html#__init__,Method server.rhnSQL.driver_cx_Oracle.Procedure.__init__()=server.rhnSQL.driver_cx_Oracle.Procedure-class.html#__init__,Method server.rhnSQL.driver_postgresql.Cursor.__init__()=server.rhnSQL.driver_postgresql.Cursor-class.html#__init__,Method server.rhnSQL.driver_postgresql.Database.__init__()=server.rhnSQL.driver_postgresql.Database-class.html#__init__,Method server.rhnSQL.driver_postgresql.Procedure.__init__()=server.rhnSQL.driver_postgresql.Procedure-class.html#__init__,Method server.rhnSQL.sql_base.Cursor.__init__()=server.rhnSQL.sql_base.Cursor-class.html#__init__,Method server.rhnSQL.sql_base.Database.__init__()=server.rhnSQL.sql_base.Database-class.html#__init__,Method server.rhnSQL.sql_base.Procedure.__init__()=server.rhnSQL.sql_base.Procedure-class.html#__init__,Method server.rhnSQL.sql_base.SQLConnectError.__init__()=server.rhnSQL.sql_base.SQLConnectError-class.html#__init__,Method server.rhnSQL.sql_base.SQLError.__init__()=server.rhnSQL.sql_base.SQLError-class.html#__init__,Method server.rhnSQL.sql_base.SQLSchemaError.__init__()=server.rhnSQL.sql_base.SQLSchemaError-class.html#__init__,Method server.rhnSQL.sql_base.SQLStatementPrepareError.__init__()=server.rhnSQL.sql_base.SQLStatementPrepareError-class.html#__init__,Method server.rhnSQL.sql_base.Statement.__init__()=server.rhnSQL.sql_base.Statement-class.html#__init__,Method server.rhnSQL.sql_row.Row.__init__()=server.rhnSQL.sql_row.Row-class.html#__init__,Method server.rhnSQL.sql_sequence.Sequence.__init__()=server.rhnSQL.sql_sequence.Sequence-class.html#__init__,Method server.rhnSQL.sql_table.RowData.__init__()=server.rhnSQL.sql_table.RowData-class.html#__init__,Method server.rhnSQL.sql_table.Table.__init__()=server.rhnSQL.sql_table.Table-class.html#__init__,Method server.rhnSQL.sql_types.DatabaseDataType.__init__()=server.rhnSQL.sql_types.DatabaseDataType-class.html#__init__,Method server.rhnSQL.sql_types.STRING.__init__()=server.rhnSQL.sql_types.STRING-class.html#__init__,Method server.rhnServer.satellite_cert.Item.__init__()=server.rhnServer.satellite_cert.Item-class.html#__init__,Method server.rhnServer.satellite_cert.SatelliteCert.__init__()=server.rhnServer.satellite_cert.SatelliteCert-class.html#__init__,Method server.rhnServer.satellite_cert.Slots.__init__()=server.rhnServer.satellite_cert.Slots-class.html#__init__,Method server.rhnServer.search_notify.SearchNotify.__init__()=server.rhnServer.search_notify.SearchNotify-class.html#__init__,Method server.rhnServer.server_certificate.Certificate.__init__()=server.rhnServer.server_certificate.Certificate-class.html#__init__,Method server.rhnServer.server_certificate.Checksum.__init__()=server.rhnServer.server_certificate.Checksum-class.html#__init__,Method server.rhnServer.server_class.Server.__init__()=server.rhnServer.server_class.Server-class.html#__init__,Method server.rhnServer.server_hardware.CPUDevice.__init__()=server.rhnServer.server_hardware.CPUDevice-class.html#__init__,Method server.rhnServer.server_hardware.DMIInformation.__init__()=server.rhnServer.server_hardware.DMIInformation-class.html#__init__,Method server.rhnServer.server_hardware.Device.__init__()=server.rhnServer.server_hardware.Device-class.html#__init__,Method server.rhnServer.server_hardware.GenericDevice.__init__()=server.rhnServer.server_hardware.GenericDevice-class.html#__init__,Method server.rhnServer.server_hardware.Hardware.__init__()=server.rhnServer.server_hardware.Hardware-class.html#__init__,Method server.rhnServer.server_hardware.HardwareDevice.__init__()=server.rhnServer.server_hardware.HardwareDevice-class.html#__init__,Method server.rhnServer.server_hardware.InstallInformation.__init__()=server.rhnServer.server_hardware.InstallInformation-class.html#__init__,Method server.rhnServer.server_hardware.MemoryInformation.__init__()=server.rhnServer.server_hardware.MemoryInformation-class.html#__init__,Method server.rhnServer.server_hardware.NetIfaceInformation.__init__()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#__init__,Method server.rhnServer.server_hardware.NetworkInformation.__init__()=server.rhnServer.server_hardware.NetworkInformation-class.html#__init__,Method server.rhnServer.server_history.History.__init__()=server.rhnServer.server_history.History-class.html#__init__,Method server.rhnServer.server_packages.Packages.__init__()=server.rhnServer.server_packages.Packages-class.html#__init__,Method server.rhnServer.server_packages.dbPackage.__init__()=server.rhnServer.server_packages.dbPackage-class.html#__init__,Method server.rhnServer.server_solarispatches.DBPatch.__init__()=server.rhnServer.server_solarispatches.DBPatch-class.html#__init__,Method server.rhnServer.server_solarispatches.SolarisPatches.__init__()=server.rhnServer.server_solarispatches.SolarisPatches-class.html#__init__,Method server.rhnServer.server_token.ActivationTokens.__init__()=server.rhnServer.server_token.ActivationTokens-class.html#__init__,Method server.rhnServer.server_token.ReRegistrationActivationToken.__init__()=server.rhnServer.server_token.ReRegistrationActivationToken-class.html#__init__,Method server.rhnServer.server_wrapper.ServerWrapper.__init__()=server.rhnServer.server_wrapper.ServerWrapper-class.html#__init__,Method server.rhnServerGroup.CallableObj.__init__()=server.rhnServerGroup.CallableObj-class.html#__init__,Method server.rhnServerGroup.ServerGroup.__init__()=server.rhnServerGroup.ServerGroup-class.html#__init__,Method server.rhnSession.Session.__init__()=server.rhnSession.Session-class.html#__init__,Method server.rhnUser.User.__init__()=server.rhnUser.User-class.html#__init__,Method server.rhnVirtualization.VirtualizationEventHandler.__init__()=server.rhnVirtualization.VirtualizationEventHandler-class.html#__init__,Method server.rhnVirtualization.VirtualizationListener.__init__()=server.rhnVirtualization.VirtualizationListener-class.html#__init__,Method server.taskomatic.RepodataQueueEntry.__init__()=server.taskomatic.RepodataQueueEntry-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiConnection.__init__()=server.wsgi.wsgiRequest.WsgiConnection-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiRequest.__init__()=server.wsgi.wsgiRequest.WsgiRequest-class.html#__init__,Method server.wsgi.wsgiRequest.WsgiServer.__init__()=server.wsgi.wsgiRequest.WsgiServer-class.html#__init__,Method spacewalk.common.fileutils.GecosCache.__init__()=spacewalk.common.fileutils.GecosCache-class.html#__init__,Method spacewalk.common.rhn_mpm.MPM_Header.__init__()=spacewalk.common.rhn_mpm.MPM_Header-class.html#__init__,Method spacewalk.common.rhn_mpm.MPM_Package.__init__()=spacewalk.common.rhn_mpm.MPM_Package-class.html#__init__,Method spacewalk.common.rhn_rpm.MatchIterator.__init__()=spacewalk.common.rhn_rpm.MatchIterator-class.html#__init__,Method spacewalk.common.rhn_rpm.RPMReadOnlyTransaction.__init__()=spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html#__init__,Method spacewalk.common.rhn_rpm.RPMTransaction.__init__()=spacewalk.common.rhn_rpm.RPMTransaction-class.html#__init__,Method spacewalk.common.rhn_rpm.RPM_Header.__init__()=spacewalk.common.rhn_rpm.RPM_Header-class.html#__init__,Method spacewalk.common.rhn_rpm.SharedStateTransaction.__init__()=spacewalk.common.rhn_rpm.SharedStateTransaction-class.html#__init__,Method upload_server.handlers.package_push.package_push.PackagePush.__init__()=upload_server.handlers.package_push.package_push.PackagePush-class.html#__init__"><a title="common.RPC_Base'.RPC_Base.__init__
+common.UserDictCase'.UserDictCase.__init__
+common.rhnApache'.rhnApache.__init__
+common.rhnCache.ClosingZipFile.__init__
+common.rhnCache.CompressedCache.__init__
+common.rhnCache.LockedFile.__init__
+common.rhnCache.NullCache.__init__
+common.rhnCache.ObjectCache.__init__
+common.rhnConfig.RHNOptions.__init__
+common.rhnException'.redirectException.__init__
+common.rhnException'.rhnException.__init__
+common.rhnException'.rhnFault.__init__
+common.rhnLockfile.Lockfile.__init__
+common.rhnLog.rhnLog.__init__
+common.rhnRepository.Repository.__init__
+common.rhnTB.SecurityList.__init__
+common.rhnTranslate.i18n.__init__
+common.rhn_timer.Timer.__init__
+proxy.apacheHandler.apacheHandler.__init__
+proxy.apacheServer.HandlerWrap.__init__
+proxy.broker.rhnBroker.BrokerHandler.__init__
+proxy.broker.rhnRepository.Repository.__init__
+proxy.redirect.rhnRedirect.RedirectHandler.__init__
+proxy.responseContext.ResponseContext.__init__
+proxy.rhnAuthCacheClient.Shelf.__init__
+proxy.rhnAuthCacheClient._Method.__init__
+proxy.rhnAuthProtocol.CommunicationError.__init__
+proxy.rhnProxyAuth.ProxyAuth.__init__
+proxy.rhnShared.SharedHandler.__init__
+pygettext.TokenEater.__init__
+rhn.SSL.SSLSocket.__init__
+rhn.SSL.TimeoutException.__init__
+rhn.SmartIO.SmartIO.__init__
+rhn.UserDictCase.UserDictCase.__init__
+rhn.connections.HTTPConnection.__init__
+rhn.connections.HTTPProxyConnection.__init__
+rhn.connections.HTTPSConnection.__init__
+rhn.connections.HTTPSProxyConnection.__init__
+rhn.nonblocking.NonBlockingFile.__init__
+rhn.rpclib.GETServer.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.SlicingMethod.__init__
+rhn.rpclib._Method.__init__
+rhn.transports.BaseOutput.__init__
+rhn.transports.File.__init__
+rhn.transports.Input.__init__
+rhn.transports.InputStream.__init__
+rhn.transports.ProxyTransport.__init__
+rhn.transports.SafeProxyTransport.__init__
+rhn.transports.SafeTransport.__init__
+rhn.transports.Transport.__init__
+satellite_exporter.handlers.non_auth_dumper.ChannelsDumper.__init__
+satellite_exporter.handlers.non_auth_dumper.ContainerWriter.__init__
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.__init__
+satellite_exporter.handlers.non_auth_dumper._ChannelDumper.__init__
+satellite_exporter.satexport.ApacheServer.__init__
+satellite_exporter.satexport.BaseApacheServer.__init__
+satellite_tools.SequenceServer.SequenceServer.__init__
+satellite_tools.connection.CompressedStream.__init__
+satellite_tools.connection.StreamConnection.__init__
+satellite_tools.connection.Transport.__init__
+satellite_tools.disk_dumper.dumper.CachedDumper.__init__
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx.__init__
+satellite_tools.disk_dumper.dumper.DatabaseStatement.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumper.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumperEx.__init__
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__
+satellite_tools.disk_dumper.dumper.PackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.QueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.TeeStream.__init__
+satellite_tools.disk_dumper.dumper.XML_Dumper.__init__
+satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__
+satellite_tools.disk_dumper.iss.Dumper.__init__
+satellite_tools.disk_dumper.iss.ExporterMain.__init__
+satellite_tools.disk_dumper.iss.FileMapper.__init__
+satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource.__init__
+satellite_tools.disk_dumper.iss.ISSError.__init__
+satellite_tools.disk_dumper.iss_actions.ActionDeps.__init__
+satellite_tools.disk_dumper.iss_ui.UI.__init__
+satellite_tools.disk_dumper.string_buffer.StringBuffer.__init__
+satellite_tools.exporter.exportLib.ArrayIterator.__init__
+satellite_tools.exporter.exportLib.BaseDumper.__init__
+satellite_tools.exporter.exportLib.BaseRowDumper.__init__
+satellite_tools.exporter.exportLib.ChannelDumper.__init__
+satellite_tools.exporter.exportLib.ChannelFamiliesDumper.__init__
+satellite_tools.exporter.exportLib.ChannelsDumper.__init__
+satellite_tools.exporter.exportLib.EmptyDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchesDumper.__init__
+satellite_tools.exporter.exportLib.SatelliteDumper.__init__
+satellite_tools.exporter.exportLib.SimpleDumper.__init__
+satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__
+satellite_tools.exporter.exportLib._DependencyDumper.__init__
+satellite_tools.exporter.exporter.Dumper.__init__
+satellite_tools.exporter.xmlWriter.XMLWriter.__init__
+satellite_tools.progress_bar.ProgressBar.__init__
+satellite_tools.repo_plugins.yum_src.ContentSource.__init__
+satellite_tools.reposync.ContentPackage.__init__
+satellite_tools.req_channels.Method.__init__
+satellite_tools.req_channels.RequestedChannels.__init__
+satellite_tools.satCerts.CertVersionMismatchError.__init__
+satellite_tools.satCerts.NoFreeEntitlementsError.__init__
+satellite_tools.satComputePkgHeaders.Runner.__init__
+satellite_tools.satsync.Runner.__init__
+satellite_tools.satsync.StreamProducer.__init__
+satellite_tools.satsync.Syncer.__init__
+satellite_tools.syncCache.BaseCache.__init__
+satellite_tools.syncLib.FileManip.__init__
+satellite_tools.syncLib.RpmManip.__init__
+satellite_tools.sync_handlers.BaseCollection.__init__
+satellite_tools.sync_handlers.ChannelCollection.__init__
+satellite_tools.sync_handlers.ContainerHandler.__init__
+satellite_tools.sync_handlers.ErrataCollection.__init__
+satellite_tools.sync_handlers.ShortPackageCollection.__init__
+satellite_tools.xmlDiskDumper.Dumper.__init__
+satellite_tools.xmlDiskSource.BinaryRPMDiskSource.__init__
+satellite_tools.xmlDiskSource.ChannelDiskSource.__init__
+satellite_tools.xmlDiskSource.DiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartDataDiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartFileDiskSource.__init__
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.__init__
+satellite_tools.xmlSource.BaseDispatchHandler.__init__
+satellite_tools.xmlSource.ContainerHandler.__init__
+satellite_tools.xmlSource.IncompatibleVersionError.__init__
+satellite_tools.xmlSource.Node.__init__
+satellite_tools.xmlSource._EndContainerEvent.__init__
+satellite_tools.xmlWireSource.BaseWireSource.__init__
+satellite_tools.xmlWireSource.FileWireSource.__init__
+satellite_tools.xmlWireSource.RPCGetWireSource.__init__
+server.action.utils.ChannelPackage.__init__
+server.action.utils.PackageInstallScheduler.__init__
+server.action.utils.SubscribedChannel.__init__
+server.action.virt.NoRowFoundException.__init__
+server.action.virt.NoUUIDException.__init__
+server.apacheHandler.apacheHandler.__init__
+server.apacheRequest.GetHandler.__init__
+server.apacheRequest.UnknownXML.__init__
+server.apacheRequest.apacheGET.__init__
+server.apacheRequest.apacheRequest.__init__
+server.apacheServer.HandlerWrap.__init__
+server.apacheUploadServer.UploadHandler.__init__
+server.basePackageUpload.BasePackageUpload.__init__
+server.configFilesHandler.BaseConfigFileError.__init__
+server.configFilesHandler.ConfigFileError.__init__
+server.configFilesHandler.ConfigFilesHandler.__init__
+server.config_common.base_templated_document.BaseTemplatedDocument.__init__
+server.config_common.templated_document.ServerTemplatedDocument.__init__
+server.handlers.app.channel.Channel.__init__
+server.handlers.app.comps.Comps.__init__
+server.handlers.app.packages.Packages.__init__
+server.handlers.app.rhn_mpm.MPM_Header.__init__
+server.handlers.app.rhn_mpm.MPM_Package.__init__
+server.handlers.applet.applet.Applet.__init__
+server.handlers.config.rhn_config_management.ConfigManagement.__init__
+server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__
+server.handlers.sat.auth.Authentication.__init__
+server.handlers.sat.cert.Certificate.__init__
+server.handlers.xmlrpc.errata.Errata.__init__
+server.handlers.xmlrpc.proxy.Proxy.__init__
+server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__
+server.handlers.xmlrpc.queue.Queue.__init__
+server.handlers.xmlrpc.registration.Registration.__init__
+server.handlers.xmlrpc.up2date.Servers.__init__
+server.handlers.xmlrpc.up2date.Up2date.__init__
+server.handlers.xp.packages.Packages.__init__
+server.handlers.xp.rhnlint.RHNLint.__init__
+server.importlib.archImport.BaseArchCompatImport.__init__
+server.importlib.backend.Backend.__init__
+server.importlib.backend.DML.__init__
+server.importlib.backendLib.BaseTableLookup.__init__
+server.importlib.backendLib.DBstring.__init__
+server.importlib.backendLib.Table.__init__
+server.importlib.backendLib.TableCollection.__init__
+server.importlib.backendLib.TableDelete.__init__
+server.importlib.backendLib.TableInsert.__init__
+server.importlib.backendLib.TableLookup.__init__
+server.importlib.backendLib.TableUpdate.__init__
+server.importlib.backendOracle.OracleBackend.__init__
+server.importlib.blacklistImport.BlacklistObsoletesImport.__init__
+server.importlib.channelImport.ChannelFamilyPermissionsImport.__init__
+server.importlib.channelImport.ChannelImport.__init__
+server.importlib.channelImport.DistChannelMapImport.__init__
+server.importlib.channelImport.ReleaseChannelMapImport.__init__
+server.importlib.errataImport.ErrataImport.__init__
+server.importlib.importLib.AlreadyUploadedError.__init__
+server.importlib.importLib.BaseInformation.__init__
+server.importlib.importLib.ChangeLog.__init__
+server.importlib.importLib.Collection.__init__
+server.importlib.importLib.Dependency.__init__
+server.importlib.importLib.Diff.__init__
+server.importlib.importLib.File.__init__
+server.importlib.importLib.GenericPackageImport.__init__
+server.importlib.importLib.Import.__init__
+server.importlib.importLib.ImportException.__init__
+server.importlib.importLib.IncompatibleArchError.__init__
+server.importlib.importLib.IncompletePackage.__init__
+server.importlib.importLib.Information.__init__
+server.importlib.importLib.InvalidArchError.__init__
+server.importlib.importLib.InvalidChannelError.__init__
+server.importlib.importLib.InvalidChannelFamilyError.__init__
+server.importlib.importLib.InvalidPackageError.__init__
+server.importlib.importLib.InvalidSeverityError.__init__
+server.importlib.importLib.Item.__init__
+server.importlib.importLib.MissingParentChannelError.__init__
+server.importlib.importLib.Package.__init__
+server.importlib.importLib.SourcePackage.__init__
+server.importlib.importLib.TransactionError.__init__
+server.importlib.kickstartImport.KickstartableTreeImport.__init__
+server.importlib.packageImport.ChannelPackageSubscription.__init__
+server.importlib.packageImport.PackageImport.__init__
+server.importlib.packageImport.SourcePackageImport.__init__
+server.importlib.productNamesImport.ProductNamesImport.__init__
+server.importlib.userAuth.UserAuth.__init__
+server.repomd.domain.Channel.__init__
+server.repomd.domain.Comps.__init__
+server.repomd.domain.Erratum.__init__
+server.repomd.domain.Package.__init__
+server.repomd.mapper.CachedErratumMapper.__init__
+server.repomd.mapper.CachedPackageMapper.__init__
+server.repomd.mapper.ChannelMapper.__init__
+server.repomd.mapper.SqlCompsMapper.__init__
+server.repomd.mapper.SqlErratumMapper.__init__
+server.repomd.mapper.SqlPackageMapper.__init__
+server.repomd.repository.CachedRepository.__init__
+server.repomd.repository.CompressedRepository.__init__
+server.repomd.repository.MetadataRepository.__init__
+server.repomd.repository.Repository.__init__
+server.repomd.view.CompsView.__init__
+server.repomd.view.FilelistsView.__init__
+server.repomd.view.OtherView.__init__
+server.repomd.view.PrimaryView.__init__
+server.repomd.view.RepoView.__init__
+server.repomd.view.UpdateinfoView.__init__
+server.rhnActivationKey.ActivationKey.__init__
+server.rhnActivationKey.CallableObj.__init__
+server.rhnChannel.BaseDatabaseObject.__init__
+server.rhnChannel.Channel.__init__
+server.rhnChannel.ChannelException.__init__
+server.rhnChannel.LiteServer.__init__
+server.rhnDependency.SolveDependenciesError.__init__
+server.rhnHandler'.rhnHandler.__init__
+server.rhnKickstart.Kickstart.__init__
+server.rhnLib.CallableObj.__init__
+server.rhnRepository.Repository.__init__
+server.rhnSQL._Callable.__init__
+server.rhnSQL._CallableWrapper.__init__
+server.rhnSQL._Function.__init__
+server.rhnSQL._Procedure.__init__
+server.rhnSQL.driver_cx_Oracle.Cursor.__init__
+server.rhnSQL.driver_cx_Oracle.Database.__init__
+server.rhnSQL.driver_cx_Oracle.Function.__init__
+server.rhnSQL.driver_cx_Oracle.Procedure.__init__
+server.rhnSQL.driver_postgresql.Cursor.__init__
+server.rhnSQL.driver_postgresql.Database.__init__
+server.rhnSQL.driver_postgresql.Procedure.__init__
+server.rhnSQL.sql_base.Cursor.__init__
+server.rhnSQL.sql_base.Database.__init__
+server.rhnSQL.sql_base.Procedure.__init__
+server.rhnSQL.sql_base.SQLConnectError.__init__
+server.rhnSQL.sql_base.SQLError.__init__
+server.rhnSQL.sql_base.SQLSchemaError.__init__
+server.rhnSQL.sql_base.SQLStatementPrepareError.__init__
+server.rhnSQL.sql_base.Statement.__init__
+server.rhnSQL.sql_row.Row.__init__
+server.rhnSQL.sql_sequence.Sequence.__init__
+server.rhnSQL.sql_table.RowData.__init__
+server.rhnSQL.sql_table.Table.__init__
+server.rhnSQL.sql_types.DatabaseDataType.__init__
+server.rhnSQL.sql_types.STRING.__init__
+server.rhnServer.satellite_cert.Item.__init__
+server.rhnServer.satellite_cert.SatelliteCert.__init__
+server.rhnServer.satellite_cert.Slots.__init__
+server.rhnServer.search_notify.SearchNotify.__init__
+server.rhnServer.server_certificate.Certificate.__init__
+server.rhnServer.server_certificate.Checksum.__init__
+server.rhnServer.server_class.Server.__init__
+server.rhnServer.server_hardware.CPUDevice.__init__
+server.rhnServer.server_hardware.DMIInformation.__init__
+server.rhnServer.server_hardware.Device.__init__
+server.rhnServer.server_hardware.GenericDevice.__init__
+server.rhnServer.server_hardware.Hardware.__init__
+server.rhnServer.server_hardware.HardwareDevice.__init__
+server.rhnServer.server_hardware.InstallInformation.__init__
+server.rhnServer.server_hardware.MemoryInformation.__init__
+server.rhnServer.server_hardware.NetIfaceInformation.__init__
+server.rhnServer.server_hardware.NetworkInformation.__init__
+server.rhnServer.server_history.History.__init__
+server.rhnServer.server_packages.Packages.__init__
+server.rhnServer.server_packages.dbPackage.__init__
+server.rhnServer.server_solarispatches.DBPatch.__init__
+server.rhnServer.server_solarispatches.SolarisPatches.__init__
+server.rhnServer.server_token.ActivationTokens.__init__
+server.rhnServer.server_token.ReRegistrationActivationToken.__init__
+server.rhnServer.server_wrapper.ServerWrapper.__init__
+server.rhnServerGroup.CallableObj.__init__
+server.rhnServerGroup.ServerGroup.__init__
+server.rhnSession.Session.__init__
+server.rhnUser.User.__init__
+server.rhnVirtualization.VirtualizationEventHandler.__init__
+server.rhnVirtualization.VirtualizationListener.__init__
+server.taskomatic.RepodataQueueEntry.__init__
+server.wsgi.wsgiRequest.WsgiConnection.__init__
+server.wsgi.wsgiRequest.WsgiRequest.__init__
+server.wsgi.wsgiRequest.WsgiServer.__init__
+spacewalk.common.fileutils.GecosCache.__init__
+spacewalk.common.rhn_mpm.MPM_Header.__init__
+spacewalk.common.rhn_mpm.MPM_Package.__init__
+spacewalk.common.rhn_rpm.MatchIterator.__init__
+spacewalk.common.rhn_rpm.RPMReadOnlyTransaction.__init__
+spacewalk.common.rhn_rpm.RPMTransaction.__init__
+spacewalk.common.rhn_rpm.RPM_Header.__init__
+spacewalk.common.rhn_rpm.SharedStateTransaction.__init__
+upload_server.handlers.package_push.package_push.PackagePush.__init__" class="py-name" href="#" onclick="return doclink('link-38', '__init__', 'link-38');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="NoRowFoundException"></a><div id="NoRowFoundException-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="NoRowFoundException-toggle" onclick="return toggle('NoRowFoundException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.action.virt.NoRowFoundException-class.html">NoRowFoundException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="NoRowFoundException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="NoRowFoundException-expanded"><a name="NoRowFoundException.__init__"></a><div id="NoRowFoundException.__init__-def"><a name="L121"></a><tt class="py-lineno">121</tt> <a class="py-toggle" href="#" id="NoRowFoundException.__init__-toggle" onclick="return toggle('NoRowFoundException.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt.NoRowFoundException-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="NoRowFoundException.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="NoRowFoundException.__init__-expanded"><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">Exception</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="common.RPC_Base'.RPC_Base.__init__
+common.UserDictCase'.UserDictCase.__init__
+common.rhnApache'.rhnApache.__init__
+common.rhnCache.ClosingZipFile.__init__
+common.rhnCache.CompressedCache.__init__
+common.rhnCache.LockedFile.__init__
+common.rhnCache.NullCache.__init__
+common.rhnCache.ObjectCache.__init__
+common.rhnConfig.RHNOptions.__init__
+common.rhnException'.redirectException.__init__
+common.rhnException'.rhnException.__init__
+common.rhnException'.rhnFault.__init__
+common.rhnLockfile.Lockfile.__init__
+common.rhnLog.rhnLog.__init__
+common.rhnRepository.Repository.__init__
+common.rhnTB.SecurityList.__init__
+common.rhnTranslate.i18n.__init__
+common.rhn_timer.Timer.__init__
+proxy.apacheHandler.apacheHandler.__init__
+proxy.apacheServer.HandlerWrap.__init__
+proxy.broker.rhnBroker.BrokerHandler.__init__
+proxy.broker.rhnRepository.Repository.__init__
+proxy.redirect.rhnRedirect.RedirectHandler.__init__
+proxy.responseContext.ResponseContext.__init__
+proxy.rhnAuthCacheClient.Shelf.__init__
+proxy.rhnAuthCacheClient._Method.__init__
+proxy.rhnAuthProtocol.CommunicationError.__init__
+proxy.rhnProxyAuth.ProxyAuth.__init__
+proxy.rhnShared.SharedHandler.__init__
+pygettext.TokenEater.__init__
+rhn.SSL.SSLSocket.__init__
+rhn.SSL.TimeoutException.__init__
+rhn.SmartIO.SmartIO.__init__
+rhn.UserDictCase.UserDictCase.__init__
+rhn.connections.HTTPConnection.__init__
+rhn.connections.HTTPProxyConnection.__init__
+rhn.connections.HTTPSConnection.__init__
+rhn.connections.HTTPSProxyConnection.__init__
+rhn.nonblocking.NonBlockingFile.__init__
+rhn.rpclib.GETServer.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.Server.__init__
+rhn.rpclib.SlicingMethod.__init__
+rhn.rpclib._Method.__init__
+rhn.transports.BaseOutput.__init__
+rhn.transports.File.__init__
+rhn.transports.Input.__init__
+rhn.transports.InputStream.__init__
+rhn.transports.ProxyTransport.__init__
+rhn.transports.SafeProxyTransport.__init__
+rhn.transports.SafeTransport.__init__
+rhn.transports.Transport.__init__
+satellite_exporter.handlers.non_auth_dumper.ChannelsDumper.__init__
+satellite_exporter.handlers.non_auth_dumper.ContainerWriter.__init__
+satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.__init__
+satellite_exporter.handlers.non_auth_dumper._ChannelDumper.__init__
+satellite_exporter.satexport.ApacheServer.__init__
+satellite_exporter.satexport.BaseApacheServer.__init__
+satellite_tools.SequenceServer.SequenceServer.__init__
+satellite_tools.connection.CompressedStream.__init__
+satellite_tools.connection.StreamConnection.__init__
+satellite_tools.connection.Transport.__init__
+satellite_tools.disk_dumper.dumper.CachedDumper.__init__
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumper.__init__
+satellite_tools.disk_dumper.dumper.ChannelsDumperEx.__init__
+satellite_tools.disk_dumper.dumper.DatabaseStatement.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumper.__init__
+satellite_tools.disk_dumper.dumper.ErrataDumperEx.__init__
+satellite_tools.disk_dumper.dumper.KickstartableTreesDumper.__init__
+satellite_tools.disk_dumper.dumper.PackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.QueryIterator.__init__
+satellite_tools.disk_dumper.dumper.ShortPackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.SourcePackagesDumper.__init__
+satellite_tools.disk_dumper.dumper.TeeStream.__init__
+satellite_tools.disk_dumper.dumper.XML_Dumper.__init__
+satellite_tools.disk_dumper.dumper.XML_DumperEx.__init__
+satellite_tools.disk_dumper.iss.Dumper.__init__
+satellite_tools.disk_dumper.iss.ExporterMain.__init__
+satellite_tools.disk_dumper.iss.FileMapper.__init__
+satellite_tools.disk_dumper.iss.ISSChannelPackageShortDiskSource.__init__
+satellite_tools.disk_dumper.iss.ISSError.__init__
+satellite_tools.disk_dumper.iss_actions.ActionDeps.__init__
+satellite_tools.disk_dumper.iss_ui.UI.__init__
+satellite_tools.disk_dumper.string_buffer.StringBuffer.__init__
+satellite_tools.exporter.exportLib.ArrayIterator.__init__
+satellite_tools.exporter.exportLib.BaseDumper.__init__
+satellite_tools.exporter.exportLib.BaseRowDumper.__init__
+satellite_tools.exporter.exportLib.ChannelDumper.__init__
+satellite_tools.exporter.exportLib.ChannelFamiliesDumper.__init__
+satellite_tools.exporter.exportLib.ChannelsDumper.__init__
+satellite_tools.exporter.exportLib.EmptyDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchCompatDumper.__init__
+satellite_tools.exporter.exportLib.RestrictedArchesDumper.__init__
+satellite_tools.exporter.exportLib.SatelliteDumper.__init__
+satellite_tools.exporter.exportLib.SimpleDumper.__init__
+satellite_tools.exporter.exportLib._ChannelFamilyDumper.__init__
+satellite_tools.exporter.exportLib._DependencyDumper.__init__
+satellite_tools.exporter.exporter.Dumper.__init__
+satellite_tools.exporter.xmlWriter.XMLWriter.__init__
+satellite_tools.progress_bar.ProgressBar.__init__
+satellite_tools.repo_plugins.yum_src.ContentSource.__init__
+satellite_tools.reposync.ContentPackage.__init__
+satellite_tools.req_channels.Method.__init__
+satellite_tools.req_channels.RequestedChannels.__init__
+satellite_tools.satCerts.CertVersionMismatchError.__init__
+satellite_tools.satCerts.NoFreeEntitlementsError.__init__
+satellite_tools.satComputePkgHeaders.Runner.__init__
+satellite_tools.satsync.Runner.__init__
+satellite_tools.satsync.StreamProducer.__init__
+satellite_tools.satsync.Syncer.__init__
+satellite_tools.syncCache.BaseCache.__init__
+satellite_tools.syncLib.FileManip.__init__
+satellite_tools.syncLib.RpmManip.__init__
+satellite_tools.sync_handlers.BaseCollection.__init__
+satellite_tools.sync_handlers.ChannelCollection.__init__
+satellite_tools.sync_handlers.ContainerHandler.__init__
+satellite_tools.sync_handlers.ErrataCollection.__init__
+satellite_tools.sync_handlers.ShortPackageCollection.__init__
+satellite_tools.xmlDiskDumper.Dumper.__init__
+satellite_tools.xmlDiskSource.BinaryRPMDiskSource.__init__
+satellite_tools.xmlDiskSource.ChannelDiskSource.__init__
+satellite_tools.xmlDiskSource.DiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartDataDiskSource.__init__
+satellite_tools.xmlDiskSource.KickstartFileDiskSource.__init__
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.__init__
+satellite_tools.xmlSource.BaseDispatchHandler.__init__
+satellite_tools.xmlSource.ContainerHandler.__init__
+satellite_tools.xmlSource.IncompatibleVersionError.__init__
+satellite_tools.xmlSource.Node.__init__
+satellite_tools.xmlSource._EndContainerEvent.__init__
+satellite_tools.xmlWireSource.BaseWireSource.__init__
+satellite_tools.xmlWireSource.FileWireSource.__init__
+satellite_tools.xmlWireSource.RPCGetWireSource.__init__
+server.action.utils.ChannelPackage.__init__
+server.action.utils.PackageInstallScheduler.__init__
+server.action.utils.SubscribedChannel.__init__
+server.action.virt.NoRowFoundException.__init__
+server.action.virt.NoUUIDException.__init__
+server.apacheHandler.apacheHandler.__init__
+server.apacheRequest.GetHandler.__init__
+server.apacheRequest.UnknownXML.__init__
+server.apacheRequest.apacheGET.__init__
+server.apacheRequest.apacheRequest.__init__
+server.apacheServer.HandlerWrap.__init__
+server.apacheUploadServer.UploadHandler.__init__
+server.basePackageUpload.BasePackageUpload.__init__
+server.configFilesHandler.BaseConfigFileError.__init__
+server.configFilesHandler.ConfigFileError.__init__
+server.configFilesHandler.ConfigFilesHandler.__init__
+server.config_common.base_templated_document.BaseTemplatedDocument.__init__
+server.config_common.templated_document.ServerTemplatedDocument.__init__
+server.handlers.app.channel.Channel.__init__
+server.handlers.app.comps.Comps.__init__
+server.handlers.app.packages.Packages.__init__
+server.handlers.app.rhn_mpm.MPM_Header.__init__
+server.handlers.app.rhn_mpm.MPM_Package.__init__
+server.handlers.applet.applet.Applet.__init__
+server.handlers.config.rhn_config_management.ConfigManagement.__init__
+server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__
+server.handlers.sat.auth.Authentication.__init__
+server.handlers.sat.cert.Certificate.__init__
+server.handlers.xmlrpc.errata.Errata.__init__
+server.handlers.xmlrpc.proxy.Proxy.__init__
+server.handlers.xmlrpc.proxy.rhnProxyHandler.__init__
+server.handlers.xmlrpc.queue.Queue.__init__
+server.handlers.xmlrpc.registration.Registration.__init__
+server.handlers.xmlrpc.up2date.Servers.__init__
+server.handlers.xmlrpc.up2date.Up2date.__init__
+server.handlers.xp.packages.Packages.__init__
+server.handlers.xp.rhnlint.RHNLint.__init__
+server.importlib.archImport.BaseArchCompatImport.__init__
+server.importlib.backend.Backend.__init__
+server.importlib.backend.DML.__init__
+server.importlib.backendLib.BaseTableLookup.__init__
+server.importlib.backendLib.DBstring.__init__
+server.importlib.backendLib.Table.__init__
+server.importlib.backendLib.TableCollection.__init__
+server.importlib.backendLib.TableDelete.__init__
+server.importlib.backendLib.TableInsert.__init__
+server.importlib.backendLib.TableLookup.__init__
+server.importlib.backendLib.TableUpdate.__init__
+server.importlib.backendOracle.OracleBackend.__init__
+server.importlib.blacklistImport.BlacklistObsoletesImport.__init__
+server.importlib.channelImport.ChannelFamilyPermissionsImport.__init__
+server.importlib.channelImport.ChannelImport.__init__
+server.importlib.channelImport.DistChannelMapImport.__init__
+server.importlib.channelImport.ReleaseChannelMapImport.__init__
+server.importlib.errataImport.ErrataImport.__init__
+server.importlib.importLib.AlreadyUploadedError.__init__
+server.importlib.importLib.BaseInformation.__init__
+server.importlib.importLib.ChangeLog.__init__
+server.importlib.importLib.Collection.__init__
+server.importlib.importLib.Dependency.__init__
+server.importlib.importLib.Diff.__init__
+server.importlib.importLib.File.__init__
+server.importlib.importLib.GenericPackageImport.__init__
+server.importlib.importLib.Import.__init__
+server.importlib.importLib.ImportException.__init__
+server.importlib.importLib.IncompatibleArchError.__init__
+server.importlib.importLib.IncompletePackage.__init__
+server.importlib.importLib.Information.__init__
+server.importlib.importLib.InvalidArchError.__init__
+server.importlib.importLib.InvalidChannelError.__init__
+server.importlib.importLib.InvalidChannelFamilyError.__init__
+server.importlib.importLib.InvalidPackageError.__init__
+server.importlib.importLib.InvalidSeverityError.__init__
+server.importlib.importLib.Item.__init__
+server.importlib.importLib.MissingParentChannelError.__init__
+server.importlib.importLib.Package.__init__
+server.importlib.importLib.SourcePackage.__init__
+server.importlib.importLib.TransactionError.__init__
+server.importlib.kickstartImport.KickstartableTreeImport.__init__
+server.importlib.packageImport.ChannelPackageSubscription.__init__
+server.importlib.packageImport.PackageImport.__init__
+server.importlib.packageImport.SourcePackageImport.__init__
+server.importlib.productNamesImport.ProductNamesImport.__init__
+server.importlib.userAuth.UserAuth.__init__
+server.repomd.domain.Channel.__init__
+server.repomd.domain.Comps.__init__
+server.repomd.domain.Erratum.__init__
+server.repomd.domain.Package.__init__
+server.repomd.mapper.CachedErratumMapper.__init__
+server.repomd.mapper.CachedPackageMapper.__init__
+server.repomd.mapper.ChannelMapper.__init__
+server.repomd.mapper.SqlCompsMapper.__init__
+server.repomd.mapper.SqlErratumMapper.__init__
+server.repomd.mapper.SqlPackageMapper.__init__
+server.repomd.repository.CachedRepository.__init__
+server.repomd.repository.CompressedRepository.__init__
+server.repomd.repository.MetadataRepository.__init__
+server.repomd.repository.Repository.__init__
+server.repomd.view.CompsView.__init__
+server.repomd.view.FilelistsView.__init__
+server.repomd.view.OtherView.__init__
+server.repomd.view.PrimaryView.__init__
+server.repomd.view.RepoView.__init__
+server.repomd.view.UpdateinfoView.__init__
+server.rhnActivationKey.ActivationKey.__init__
+server.rhnActivationKey.CallableObj.__init__
+server.rhnChannel.BaseDatabaseObject.__init__
+server.rhnChannel.Channel.__init__
+server.rhnChannel.ChannelException.__init__
+server.rhnChannel.LiteServer.__init__
+server.rhnDependency.SolveDependenciesError.__init__
+server.rhnHandler'.rhnHandler.__init__
+server.rhnKickstart.Kickstart.__init__
+server.rhnLib.CallableObj.__init__
+server.rhnRepository.Repository.__init__
+server.rhnSQL._Callable.__init__
+server.rhnSQL._CallableWrapper.__init__
+server.rhnSQL._Function.__init__
+server.rhnSQL._Procedure.__init__
+server.rhnSQL.driver_cx_Oracle.Cursor.__init__
+server.rhnSQL.driver_cx_Oracle.Database.__init__
+server.rhnSQL.driver_cx_Oracle.Function.__init__
+server.rhnSQL.driver_cx_Oracle.Procedure.__init__
+server.rhnSQL.driver_postgresql.Cursor.__init__
+server.rhnSQL.driver_postgresql.Database.__init__
+server.rhnSQL.driver_postgresql.Procedure.__init__
+server.rhnSQL.sql_base.Cursor.__init__
+server.rhnSQL.sql_base.Database.__init__
+server.rhnSQL.sql_base.Procedure.__init__
+server.rhnSQL.sql_base.SQLConnectError.__init__
+server.rhnSQL.sql_base.SQLError.__init__
+server.rhnSQL.sql_base.SQLSchemaError.__init__
+server.rhnSQL.sql_base.SQLStatementPrepareError.__init__
+server.rhnSQL.sql_base.Statement.__init__
+server.rhnSQL.sql_row.Row.__init__
+server.rhnSQL.sql_sequence.Sequence.__init__
+server.rhnSQL.sql_table.RowData.__init__
+server.rhnSQL.sql_table.Table.__init__
+server.rhnSQL.sql_types.DatabaseDataType.__init__
+server.rhnSQL.sql_types.STRING.__init__
+server.rhnServer.satellite_cert.Item.__init__
+server.rhnServer.satellite_cert.SatelliteCert.__init__
+server.rhnServer.satellite_cert.Slots.__init__
+server.rhnServer.search_notify.SearchNotify.__init__
+server.rhnServer.server_certificate.Certificate.__init__
+server.rhnServer.server_certificate.Checksum.__init__
+server.rhnServer.server_class.Server.__init__
+server.rhnServer.server_hardware.CPUDevice.__init__
+server.rhnServer.server_hardware.DMIInformation.__init__
+server.rhnServer.server_hardware.Device.__init__
+server.rhnServer.server_hardware.GenericDevice.__init__
+server.rhnServer.server_hardware.Hardware.__init__
+server.rhnServer.server_hardware.HardwareDevice.__init__
+server.rhnServer.server_hardware.InstallInformation.__init__
+server.rhnServer.server_hardware.MemoryInformation.__init__
+server.rhnServer.server_hardware.NetIfaceInformation.__init__
+server.rhnServer.server_hardware.NetworkInformation.__init__
+server.rhnServer.server_history.History.__init__
+server.rhnServer.server_packages.Packages.__init__
+server.rhnServer.server_packages.dbPackage.__init__
+server.rhnServer.server_solarispatches.DBPatch.__init__
+server.rhnServer.server_solarispatches.SolarisPatches.__init__
+server.rhnServer.server_token.ActivationTokens.__init__
+server.rhnServer.server_token.ReRegistrationActivationToken.__init__
+server.rhnServer.server_wrapper.ServerWrapper.__init__
+server.rhnServerGroup.CallableObj.__init__
+server.rhnServerGroup.ServerGroup.__init__
+server.rhnSession.Session.__init__
+server.rhnUser.User.__init__
+server.rhnVirtualization.VirtualizationEventHandler.__init__
+server.rhnVirtualization.VirtualizationListener.__init__
+server.taskomatic.RepodataQueueEntry.__init__
+server.wsgi.wsgiRequest.WsgiConnection.__init__
+server.wsgi.wsgiRequest.WsgiRequest.__init__
+server.wsgi.wsgiRequest.WsgiServer.__init__
+spacewalk.common.fileutils.GecosCache.__init__
+spacewalk.common.rhn_mpm.MPM_Header.__init__
+spacewalk.common.rhn_mpm.MPM_Package.__init__
+spacewalk.common.rhn_rpm.MatchIterator.__init__
+spacewalk.common.rhn_rpm.RPMReadOnlyTransaction.__init__
+spacewalk.common.rhn_rpm.RPMTransaction.__init__
+spacewalk.common.rhn_rpm.RPM_Header.__init__
+spacewalk.common.rhn_rpm.SharedStateTransaction.__init__
+upload_server.handlers.package_push.package_push.PackagePush.__init__" class="py-name" href="#" onclick="return doclink('link-39', '__init__', 'link-38');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="_get_uuid"></a><div id="_get_uuid-def"><a name="L124"></a><tt class="py-lineno">124</tt> <a class="py-toggle" href="#" id="_get_uuid-toggle" onclick="return toggle('_get_uuid');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#_get_uuid">_get_uuid</a><tt class="py-op">(</tt><tt class="py-param">query_str</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_get_uuid-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_get_uuid-expanded"><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt id="link-40" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-40', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-41', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-42', 'prepare', 'link-42');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">query_str</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-43', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-44', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-45" class="py-name" targets="Class server.action.virt.NoRowFoundException=server.action.virt.NoRowFoundException-class.html"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-45', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-46', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'uuid'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-47" class="py-name" targets="Class server.action.virt.NoUUIDException=server.action.virt.NoUUIDException-class.html"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-47', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'uuid'</tt><tt class="py-op">]</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">uuid</tt> </tt>
+</div><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-comment">#Returns an empty tuple, since the virt.refresh action has no params.</tt> </tt>
+<a name="refresh"></a><div id="refresh-def"><a name="L141"></a><tt class="py-lineno">141</tt> <a class="py-toggle" href="#" id="refresh-toggle" onclick="return toggle('refresh');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#refresh">refresh</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="refresh-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="refresh-expanded"><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt id="link-48" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-48', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt> <tt class="py-op">=</tt> <tt id="link-49" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-49', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-50', 'prepare', 'link-42');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-51" class="py-name"><a title="server.action.virt._query_refresh" class="py-name" href="#" onclick="return doclink('link-51', '_query_refresh', 'link-8');">_query_refresh</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-52', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">    <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-53', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-54" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-54', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-comment">#Sanity check. If this doesn't pass then something is definitely screwed up.</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'action_id'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-55" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-55', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Refresh action is missing an action_id."</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid</tt> </tt>
+<a name="start"></a><div id="start-def"><a name="L158"></a><tt class="py-lineno">158</tt> <a class="py-toggle" href="#" id="start-toggle" onclick="return toggle('start');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#start">start</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="start-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="start-expanded"><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt id="link-56" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-56', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-57" class="py-name" targets="Function server.action.virt._get_uuid()=server.action.virt-module.html#_get_uuid"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-57', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-58" class="py-name"><a title="server.action.virt._query_start" class="py-name" href="#" onclick="return doclink('link-58', '_query_start', 'link-26');">_query_start</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-59" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-59', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-60" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-60', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No start actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-61" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-61', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-62" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-62', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Start action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid.</tt> </tt>
+<a name="shutdown"></a><div id="shutdown-def"><a name="L169"></a><tt class="py-lineno">169</tt> <a class="py-toggle" href="#" id="shutdown-toggle" onclick="return toggle('shutdown');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#shutdown">shutdown</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="shutdown-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="shutdown-expanded"><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">    <tt id="link-63" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-63', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-64" class="py-name"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-64', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-65" class="py-name"><a title="server.action.virt._query_shutdown" class="py-name" href="#" onclick="return doclink('link-65', '_query_shutdown', 'link-11');">_query_shutdown</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-66" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-66', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-67" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-67', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No shutdown actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-68" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-68', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-69" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-69', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Shutdown action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid.</tt> </tt>
+<a name="suspend"></a><div id="suspend-def"><a name="L180"></a><tt class="py-lineno">180</tt> <a class="py-toggle" href="#" id="suspend-toggle" onclick="return toggle('suspend');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#suspend">suspend</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="suspend-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="suspend-expanded"><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt id="link-70" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-70', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-71" class="py-name"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-71', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-72" class="py-name"><a title="server.action.virt._query_suspend" class="py-name" href="#" onclick="return doclink('link-72', '_query_suspend', 'link-14');">_query_suspend</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-73" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-73', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-74" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-74', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No suspend actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-75" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-75', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-76" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-76', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Suspend action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid.</tt> </tt>
+<a name="resume"></a><div id="resume-def"><a name="L192"></a><tt class="py-lineno">192</tt> <a class="py-toggle" href="#" id="resume-toggle" onclick="return toggle('resume');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#resume">resume</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="resume-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="resume-expanded"><a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">    <tt id="link-77" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-77', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-78" class="py-name"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-78', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-79" class="py-name"><a title="server.action.virt._query_resume" class="py-name" href="#" onclick="return doclink('link-79', '_query_resume', 'link-17');">_query_resume</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-80" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-80', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-81" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-81', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No resume actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-82" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-82', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-83" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-83', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Resume action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid.</tt> </tt>
+<a name="reboot"></a><div id="reboot-def"><a name="L203"></a><tt class="py-lineno">203</tt> <a class="py-toggle" href="#" id="reboot-toggle" onclick="return toggle('reboot');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#reboot">reboot</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="reboot-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="reboot-expanded"><a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">    <tt id="link-84" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-84', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-85" class="py-name"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-85', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-86" class="py-name"><a title="server.action.virt._query_reboot" class="py-name" href="#" onclick="return doclink('link-86', '_query_reboot', 'link-20');">_query_reboot</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-87" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-87', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-88" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-88', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No reboot actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-89" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-89', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-90" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-90', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Reboot action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid.</tt> </tt>
+<a name="destroy"></a><div id="destroy-def"><a name="L214"></a><tt class="py-lineno">214</tt> <a class="py-toggle" href="#" id="destroy-toggle" onclick="return toggle('destroy');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#destroy">destroy</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="destroy-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="destroy-expanded"><a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">    <tt id="link-91" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-91', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt id="link-92" class="py-name"><a title="server.action.virt._get_uuid" class="py-name" href="#" onclick="return doclink('link-92', '_get_uuid', 'link-57');">_get_uuid</a></tt><tt class="py-op">(</tt><tt id="link-93" class="py-name"><a title="server.action.virt._query_destroy" class="py-name" href="#" onclick="return doclink('link-93', '_query_destroy', 'link-23');">_query_destroy</a></tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-94" class="py-name"><a title="server.action.virt.NoRowFoundException" class="py-name" href="#" onclick="return doclink('link-94', 'NoRowFoundException', 'link-45');">NoRowFoundException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-95" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-95', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No destroy actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-96" class="py-name"><a title="server.action.virt.NoUUIDException" class="py-name" href="#" onclick="return doclink('link-96', 'NoUUIDException', 'link-47');">NoUUIDException</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-97" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-97', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Destroy action %s has no uuid associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid and the amount of memory to allocate to the domain.</tt> </tt>
+<a name="setMemory"></a><div id="setMemory-def"><a name="L225"></a><tt class="py-lineno">225</tt> <a class="py-toggle" href="#" id="setMemory-toggle" onclick="return toggle('setMemory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#setMemory">setMemory</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setMemory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setMemory-expanded"><a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">    <tt id="link-98" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-98', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt> <tt class="py-op">=</tt> <tt id="link-99" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-99', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-100" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-100', 'prepare', 'link-42');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-101" class="py-name"><a title="server.action.virt._query_setMemory" class="py-name" href="#" onclick="return doclink('link-101', '_query_setMemory', 'link-29');">_query_setMemory</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-102', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">    <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-103', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line"> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-104" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-104', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No setMemory actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-105" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-105', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'uuid'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-106" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-106', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"Set Memory action %s has no uuid."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line"> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-107', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'memory'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-108" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-108', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"setMemory action %s has no memory set."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">    <tt class="py-name">uuid</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'uuid'</tt><tt class="py-op">]</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">    <tt class="py-name">memory</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'memory'</tt><tt class="py-op">]</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">uuid</tt><tt class="py-op">,</tt> <tt class="py-name">memory</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line"><tt class="py-comment">#Returns a uuid and the amount of VCPUs to allocate to the domain.</tt> </tt>
+<a name="setVCPUs"></a><div id="setVCPUs-def"><a name="L247"></a><tt class="py-lineno">247</tt> <a class="py-toggle" href="#" id="setVCPUs-toggle" onclick="return toggle('setVCPUs');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#setVCPUs">setVCPUs</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setVCPUs-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setVCPUs-expanded"><a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">    <tt id="link-109" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-109', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt> <tt class="py-op">=</tt> <tt id="link-110" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-110', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-111" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-111', 'prepare', 'link-42');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-112" class="py-name"><a title="server.action.virt._query_getVCPUs" class="py-name" href="#" onclick="return doclink('link-112', '_query_getVCPUs', 'link-32');">_query_getVCPUs</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-113', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">    <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-114" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-114', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-115" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-115', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No VCPU actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line"> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'uuid'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'vcpu'</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line"> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line"> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line"><tt class="py-comment">#Returns the minute, hour, dom, month, and dow to call schedulePoller with.</tt> </tt>
+<a name="schedulePoller"></a><div id="schedulePoller-def"><a name="L261"></a><tt class="py-lineno">261</tt> <a class="py-toggle" href="#" id="schedulePoller-toggle" onclick="return toggle('schedulePoller');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.virt-module.html#schedulePoller">schedulePoller</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="schedulePoller-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="schedulePoller-expanded"><a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">    <tt id="link-116" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-116', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt> <tt class="py-op">=</tt> <tt id="link-117" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-117', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-118" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-118', 'prepare', 'link-42');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-119" class="py-name"><a title="server.action.virt._query_schedulePoller" class="py-name" href="#" onclick="return doclink('link-119', '_query_schedulePoller', 'link-35');">_query_schedulePoller</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">    <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-120" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-120', 'execute', 'link-43');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">    <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">prepared_query</tt><tt class="py-op">.</tt><tt id="link-121" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-121', 'fetchone_dict', 'link-44');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line"> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-122" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-122', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"No schedulePoller actions found."</tt><tt class="py-op">)</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-123" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-123', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'minute'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-124" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-124', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"schedulePoller action %s has no minute associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line"> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-125" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-125', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'hour'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-126" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-126', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"schedulePoller action %s has no hour associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-127" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-127', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'dom'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-128" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-128', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"schedulePoller action %s has no day of the month associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line"> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-129" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-129', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'month'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-130" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-130', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"schedulePoller action %s has no month associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line"> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">.</tt><tt id="link-131" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-131', 'has_key', 'link-46');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'dow'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-132" class="py-name"><a title="server.rhnLib.InvalidAction" class="py-name" href="#" onclick="return doclink('link-132', 'InvalidAction', 'link-6');">InvalidAction</a></tt><tt class="py-op">(</tt><tt class="py-string">"schedulePoller action %s has no day of the week associated with it."</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'minute'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'hour'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'dom'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'month'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'dow'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:22 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

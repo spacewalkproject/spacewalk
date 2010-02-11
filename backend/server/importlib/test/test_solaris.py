@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -48,7 +48,8 @@ solaris_pkgs = [
             'release': 1,
             'requires': [],
             'rpm_version': None,
-            'sigmd5': None,
+            'sigchecksum_type': None,
+            'sigchecksum': None,
             'sigsize': 0,
             'sourcerpm': None,
             'summary': 'openssh',
@@ -56,7 +57,8 @@ solaris_pkgs = [
             'version': '4.0p1'
         },
         size=1024,
-        checksum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris']
@@ -94,7 +96,8 @@ solaris_patches = [
             'release': 1,
             'requires': [],
             'rpm_version': None,
-            'sigmd5': None,
+            'sigchecksum_type': None,
+            'sigchecksum': None,
             'sigsize': 0,
             'solaris_rel': '9_x86',
             'sourcerpm': None,
@@ -105,7 +108,8 @@ solaris_patches = [
             'version': '09',
         },
         size=1024,
-        checksum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris-patches']
@@ -185,7 +189,8 @@ solaris_patches = [
             'release': 1,
             'requires': [{'version': '06', 'flags': 12, 'name': '113986'}],
             'rpm_version': None,
-            'sigmd5': None,
+            'sigchecksum_type': None,
+            'sigchecksum': None,
             'sigsize': 0,
             'solaris_rel': '9_x86',
             'sourcerpm': None,
@@ -196,7 +201,8 @@ solaris_patches = [
             'version': '36',
         },
         size=1024,
-        checksum=('md5','somemorecrap'),
+        checksum_type='md5',
+        checksum='somemorecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris-patches']
@@ -231,7 +237,8 @@ solaris_patch_sets = [
             'release': 1,
             'requires': [],
             'rpm_version': None,
-            'sigmd5': None,
+            'sigchecksum_type': None,
+            'sigchecksum': None,
             'sigsize': 0,
             'sourcerpm': None,
             'summary': 'J2SE Solaris 9_x86 Recommended Patch Cluster',
@@ -239,7 +246,8 @@ solaris_patch_sets = [
             'version': '20050323',
         },
         size=1024,
-        chekcsum=('md5','somecrap'),
+        checksum_type='md5',
+        checksum='somecrap',
         path='/dev/null',
         org_id=1,
         channels=['solaris']

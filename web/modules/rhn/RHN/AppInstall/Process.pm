@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -61,24 +61,6 @@ sub lookup_step {
   }
 
   return $step;
-}
-
-sub get_steps {
-  my $self = shift;
-  return @{$self->{steps} || []};
-}
-
-sub set_steps {
-  my $self = shift;
-  my @steps = @_;
-
-  if (ref $steps[0] eq 'ARRAY') {
-    @steps = @{$steps[0]};
-  }
-
-  $self->push_step(@steps);
-
-  return;
 }
 
 sub push_step {

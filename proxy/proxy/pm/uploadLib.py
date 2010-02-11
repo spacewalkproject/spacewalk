@@ -1,6 +1,6 @@
 # Uploading function lib
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,7 @@ import fnmatch
 import getpass
 
 # RHN imports
-from rhnpush import rhn_mpm
+from spacewalk.common import rhn_mpm
 from rhnpush import uploadLib
 
 class UploadClass(uploadLib.UploadClass):
@@ -111,7 +111,7 @@ class UploadClass(uploadLib.UploadClass):
         while self.files:
             chunk = self.files[:self.count]
             del self.files[:self.count]
-            uploadedPackages, headersList = _processBatch(chunk,
+            uploadedPackages, headersList = uploadLib._processBatch(chunk,
                 relativeDir=self.relativeDir, source=self.options.source, 
                 verbose=self.options.verbose, nosig=self.options.nosig)
 
@@ -141,7 +141,7 @@ class UploadClass(uploadLib.UploadClass):
             else:
                 method = self.server.packages.uploadPackageInfo
 
-            ret = call(method, self.username, self.password, hash)
+            ret = uploadLib.call(method, self.username, self.password, hash)
             if ret is None:
                self.die(-1, "Upload attempt failed")
 

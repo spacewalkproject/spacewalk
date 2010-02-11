@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,6 +43,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     private boolean secure;
     private List cookies;
     private String encoding;
+    private String method;
     private Enumeration headerNames;
     
     /**
@@ -59,6 +60,7 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
         setupGetRequestURI("/rhn/network/somepage.do");
         setLocale(Locale.getDefault());
         setSession(new RhnMockHttpSession());
+        setMethod("POST");
     }
     
     /**
@@ -219,5 +221,21 @@ public class RhnMockHttpServletRequest extends MockHttpServletRequest {
     /** {@inheritDoc} */
     public void setCharacterEncoding(String encodingIn) {
         this.encoding = encodingIn; 
+    }
+
+
+    /**
+     * @return Returns the method.
+     */
+    public String getMethod() {
+        return method;
+    }
+
+
+    /**
+     * @param methodIn The method to set.
+     */
+    public void setMethod(String methodIn) {
+        this.method = methodIn;
     }
 }

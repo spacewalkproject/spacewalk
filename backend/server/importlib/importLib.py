@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,11 +23,11 @@ from UserDict import UserDict
 from UserList import UserList
 
 from common import log_debug
-from common.rhnLib import maketemp, createPath, setPermsPath
 
 from server.rhnLib import get_package_path
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
+from spacewalk.common.fileutils import maketemp, createPath, setPermsPath
 
 # no-op class, used to define the type of an attribute
 class DateType:
@@ -204,6 +204,7 @@ class Channel(Information):
         'product_name_id'   : IntType,
         'channel_product_id': IntType,
         'receiving_updates' : StringType,
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
         # XXX Not really useful stuff
         'basedir'           : StringType,
         'product_name'      : StringType,
@@ -233,11 +234,14 @@ class File(Item):
         'rdev'              : IntType,
         'file_size'         : IntType,
         'mtime'             : DateType,
-        'md5'               : StringType,
         'linkto'            : StringType,
         'flags'             : IntType,
         'verifyflags'       : IntType,
         'lang'              : StringType,
+        # those attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
     def __init__(self):
         Item.__init__(self, self.attributeTypes)
@@ -272,9 +276,12 @@ class IncompletePackage(BaseInformation):
         'release'           : StringType,
         'arch'              : StringType,
         'org_id'            : IntType,
-        'md5sum'            : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
+        # those attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
         # These attributes are lists of objects
         'channels'          : [StringType],
     }
@@ -328,14 +335,19 @@ class Package(IncompletePackage):
         'source_rpm'        : StringType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
-        'md5sum'            : StringType,
-        'sigmd5'            : StringType,
         'sigpgp'            : StringType,
         'siggpg'            : StringType,
         'sigsize'           : IntType,
         'header_start'      : IntType,
         'header_end'        : IntType,
         'path'              : StringType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'sigmd5'            : StringType,       # xml dumps < 3.5 and rpms
+        'sigchecksum_type'  : StringType,       # xml dumps >= 3.5
+        'sigchecksum'       : StringType,       # xml dumps >= 3.5
         # These attributes are lists of objects
         'files'             : [File],
         'requires'          : [Dependency],
@@ -362,12 +374,17 @@ class SourcePackage(IncompletePackage):
         'payload_format'    : StringType,
         'build_host'        : StringType,
         'build_time'        : DateType,
-        'sigmd5'            : StringType,
+        'sigchecksum_type'  : StringType,
+        'sigchecksum'       : StringType,
         'vendor'            : StringType,
         'cookie'            : StringType,
         'package_size'      : IntType,
-        'md5sum'            : StringType,
         'path'              : StringType,
+        'last_modified'     : DateType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
     def __init__(self):
         # Inherit from IncompletePackage
@@ -384,9 +401,12 @@ class SourcePackage(IncompletePackage):
 class SourcePackageFile(Information):
     attributeTypes = {
         'file_size'         : IntType,
-        'md5sum'            : StringType,
         'path'              : StringType,
         'org_id'            : IntType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 
@@ -399,11 +419,14 @@ class Bug(Information):
 
 class ErrataFile(Information):
     attributeTypes = {
-        'md5sum'            : StringType,
         'filename'          : StringType,
         'file_type'         : StringType,
         'channel_list'      : [StringType],
         'package_id'        : IntType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 
@@ -512,7 +535,10 @@ class KickstartFile(Information):
         'relative_path' : StringType,
         'last_modified' : DateType,
         'file_size'     : IntType,
-        'md5sum'        : StringType,
+        # these attributes are mutualy exclusive
+        'md5sum'            : StringType,       # xml dumps < 3.5
+        'checksum'          : StringType,       # xml dumps >= 3.5
+        'checksum_type'     : StringType,       # xml dumps >= 3.5
     }
 
 class KickstartableTree(Information):
@@ -678,14 +704,9 @@ class GenericPackageImport(Import):
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
 
-        # FIXME: needs to be fixed for sha256
-        if not package.has_key('checksum'):
-            checksum = ('md5',package['md5sum'])
-            package['checksum'] = checksum
-        else:
-            checksum = package['checksum']
-        if not self.checksums.has_key(checksum):
-            self.checksums[checksum] = None
+        checksumTuple = (package['checksum_type'], package['checksum'])
+        if not self.checksums.has_key(checksumTuple):
+            self.checksums[checksumTuple] = None
 
     def _postprocessPackageNEVRA(self, package):
         arch = self.package_arches[package.arch]
@@ -706,7 +727,7 @@ class GenericPackageImport(Import):
 
         package['name_id'], package['evr_id'], package['package_arch_id'] = nevra
         package['nevra_id'] = nevra_dict[nevra]
-        package['checksum_id'] = self.checksums[package['checksum']]
+        package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
 # Exceptions
 class ImportException(Exception):
@@ -793,42 +814,7 @@ def removeNone(list):
 
 # Assorted functions for various things
 
-def write_temp_package(packageData, org_id, prepend=""):
-    """
-    Writes the package data to a temporary file
-    Returns:
-        an open file descriptor to the temp file
-        header: an RPM header
-        package size
-        package md5sum
-        relative path
-        a source flag
-    """
-    log_debug(3, 'prepend', prepend)
-    packageSize = len(packageData)
-    # Create a temp file to write the package into
-    filename, fd = maketemp("/tmp/package")
-    os.unlink(filename)
-    # Rewind the fd
-    os.lseek(fd, 0, 0)
-    # Write the bits
-    os.write(fd, packageData)
-    # Clean up the package variable
-    del packageData
-    # Compute the md5sum
-    pkgmd5sum = getFileChecksum('md5', None, fd)        # FIXME sha256
-    # Read the RPM header
-    os.lseek(fd, 0, 0)
-    header = rhn_mpm.get_package_header(fd=fd)
-    # Get nevra
-    nevra = get_nevra(header)
-    checksum = ('md5', pkgmd5sum)       # FIXME sha256
-    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
-                                     checksum)
-    # And return this information
-    return fd, header, packageSize, pkgmd5sum, relPackagePath
-
-def copy_package(fd, basedir, relpath, checksum, force=None):
+def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
     """
     Copies the information from the file descriptor to a file
     Checks the file's checksum, raising FileConflictErrror if it's different
@@ -839,8 +825,7 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
     # Is the file there already?
     if os.path.isfile(packagePath) and not force:
         # Get its checksum
-        localsum = (checksum[0],
-                    getFileChecksum(checksum[0], packagePath))
+        localsum = getFileChecksum(checksum_type, packagePath)
         if checksum == localsum:
             # Same file, so get outa here
             return 
@@ -865,18 +850,6 @@ def copy_package(fd, basedir, relpath, checksum, force=None):
     # set the path perms readable by all users
     setPermsPath(packagePath, chmod=0644)
 
-
-# Assuming packageData is an RPM package, writes it on the disk
-# (optionally forcing the write)
-def write_package(packageData, basedir, org_id, prepend="", force=None):
-    """
-    Writes the bytes in a directory structure
-    """
-    fd, header, packageSize, md5sum, relpath = write_temp_package(
-        packageData, org_id, prepend)
-    copy_package(fd, basedir, relpath, md5sum, force=force)
-    os.close(fd)
-    return header, relpath, md5sum, packageSize
 
 # Returns a list of containing nevra for the given RPM header
 def get_nevra(header):

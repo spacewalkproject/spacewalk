@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,10 +19,6 @@ import rpm
 import struct
 
 import exceptions
-if not hasattr(exceptions, 'StopIteration'):
-    # Presumably python 1.5.2
-    class StopIteration(Exception):
-        pass
 
 # Expose a bunch of useful constants from rpm
 error = rpm.error
@@ -66,18 +62,8 @@ class InvalidPackageError(Exception):
 class RPMTransaction:
     read_only = 0
     def __init__(self):
-        if hasattr(rpm, 'opendb'):
-            db = getattr(rpm, 'opendb')(not self.read_only)
-            self.ts = rpm.TransactionSet('/', db)
-        else:
-            self.ts = rpm.TransactionSet()
+        self.ts = rpm.TransactionSet()
         self.tsflags = []
-        # For rpm 4.0.4
-        self._flags = 0
-        self._prob_filter = 0
-
-    def __getattr__(self, attr):
-        return getattr(self.ts, attr)
 
     def getMethod(self, method):
         # in theory, we can override this with
@@ -89,65 +75,39 @@ class RPMTransaction:
     # easier
     def pushVSFlags(self, flags):
         self.tsflags.append(flags)
-        if hasattr(self.ts, 'setVSFlags'):
-            f = getattr(self.ts, 'setVSFlags')
-            f(self.tsflags[-1])
+        self.ts.setVSFlags(self.tsflags[-1])
 
     def popVSFlags(self):
         del self.tsflags[-1]
-        if hasattr(self.ts, 'setVSFlags'):
-            f = getattr(self.ts, 'setVSFlags')
-            f(self.tsflags[-1])
+        self.ts.setVSFlags(self.tsflags[-1])
 
     def addInstall(self, arg1, arg2, mode):
         """Install a package"""
         hdr = arg1.hdr
-        if hasattr(self.ts, 'addInstall'):
-            f = getattr(self.ts, 'addInstall')
-            return f(hdr, arg2, mode)
-        return self.ts.add(hdr, arg2, mode)
+        return self.ts.addInstall(hdr, arg2, mode)
 
     def addErase(self, arg1):
         """Erase a package"""
         hdr = arg1.hdr
-        if hasattr(self.ts, 'addErase'):
-            f = getattr(self.ts, 'addErase')
-            return f(hdr)
-        return self.ts.add(hdr, hdr, "e")
+        return self.ts.addErase(hdr)
 
     def check(self):
         """Check dependencies"""
-        if hasattr(self.ts, 'check'):
-            f = getattr(self.ts, 'check')
-        else:
-            f = getattr(self.ts, 'depcheck')
-        return f()
+        return self.ts.check()
 
     def setFlags(self, flag):
         """Set transaction flags"""
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            old_flags = self._flags
-            self._flags = flag
-            return old_flags
         return self.ts.setFlags(flag)
 
     def setProbFilter(self, flag):
         """Set problem flags"""
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            old_flags = self._prob_filter
-            self._prob_filter = flag
-            return old_flags
         return self.ts.setProbFilter(flag)
 
     def run(self, callback, user_data):
-        if hasattr(rpm, 'headerFromPackage'):
-            # Old style rpm
-            return self.ts.run(self._flags, self._prob_filter, callback,
-                user_data)
         return self.ts.run(callback, user_data)
 
+    def hdrFromFdno(self, fd):
+	return self.ts.hdrFromFdno(fd)
 
 
 
@@ -296,27 +256,28 @@ def get_package_header(filename=None, file=None, fd=None):
     else:
         file_desc = f.fileno()
 
-    if hasattr(rpm, 'headerFromPackage'):
-        hdr, is_source = rpm.headerFromPackage(file_desc)
-        if hdr is None:
-            raise InvalidPackageError
+# FIXME:
+    if None:
+        pass
+# - readHeaderFromFD() doesn't set hdr['archivesize'] which makes payload_size = 0
+#   for all imported packages
+# - this code was introduced as a fix of bz 487621; if it re-appears then uncomment
+#   and try to fix missing hdr['archivesize'] another way
+#    #if hasattr(rpm, 'readHeaderFromFD'):
+#
+#        header_start, header_end = \
+#                get_header_byte_range(os.fdopen(os.dup(file_desc)))
+#        os.lseek(file_desc, header_start, 0)
+#        hdr, offset = rpm.readHeaderFromFD(file_desc)
     else:
-        if hasattr(rpm, 'readHeaderFromFD'):
-            header_start, header_end = \
-                    get_header_byte_range(os.fdopen(os.dup(file_desc)))
-            os.lseek(file_desc, header_start, 0)
-            hdr, offset = rpm.readHeaderFromFD(file_desc)
-        else:
-            # RHEL-4 and older, do the old way
-            ts = RPMReadOnlyTransaction()
-            nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
-            needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
-            ts.pushVSFlags(~(nomd5 | needpayload))
-            hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
-            ts.popVSFlags()
-        if hdr is None:
-            raise InvalidPackageError
-        is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+        # RHEL-4 and older, do the old way
+        ts = RPMReadOnlyTransaction()
+        ts.pushVSFlags(~(rpm.RPMVSF_NOMD5 | rpm.RPMVSF_NEEDPAYLOAD))
+        hdr = ts.hdrFromFdno(file_desc)
+        ts.popVSFlags()
+    if hdr is None:
+        raise InvalidPackageError
+    is_source = hdr[rpm.RPMTAG_SOURCEPACKAGE]
 
     return RPM_Header(hdr, is_source)
 
@@ -326,15 +287,10 @@ class MatchIterator:
         if not tag_name:
             tag_name = "name"
 
-        if hasattr(rpm, "headerFromPackage"):
-            # rpm 4.0.4 or earlier
-            self.db = rpm.opendb()
-            method = self.db.match
-        else:
-            # rpm 4.1 or later
-            self.ts = rpm.TransactionSet()
-            self.ts.setVSFlags(8)
-            method = self.ts.dbMatch
+        # rpm 4.1 or later
+        self.ts = rpm.TransactionSet()
+        self.ts.setVSFlags(8)
+        method = self.ts.dbMatch
 
         if value:
             self.mi = method(tag_name, value)
@@ -352,19 +308,13 @@ class MatchIterator:
 
         if hdr is None:
             return None
-        if hasattr(rpm, "headerFromPackage"):
-            is_source = not hdr[rpm.RPMTAG_SOURCERPM]
-        else:
-            is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+        is_source =  hdr[rpm.RPMTAG_SOURCEPACKAGE]
         return RPM_Header(hdr, is_source)
 
 
 def headerLoad(data):
     hdr = rpm.headerLoad(data)
-    if hasattr(rpm, "headerFromPackage"):
-        is_source = not hdr[rpm.RPMTAG_SOURCERPM]
-    else:
-        is_source =  hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
+    is_source =  hdr[rpm.RPMTAG_SOURCEPACKAGE]
     return RPM_Header(hdr, is_source)
 
 def labelCompare(t1, t2):

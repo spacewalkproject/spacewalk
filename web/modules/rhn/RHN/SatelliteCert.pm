@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,11 +20,6 @@ package RHN::SatelliteCert;
 use RHN::Cert;
 
 our @ISA = qw/RHN::Cert/;
-
-# change this when signature criteria changes
-sub current_generation {
-  return 2;
-}
 
 sub _init {
   my $self = shift;

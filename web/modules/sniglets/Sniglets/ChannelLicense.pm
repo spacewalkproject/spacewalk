@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@ use strict;
 
 package Sniglets::ChannelLicense;
 
-use Data::Dumper;
 use PXT::Utils;
 use RHN::Exception;
 use RHN::ServerActions;
@@ -309,7 +308,7 @@ EOM
     PXT::Debug->log(7, "cancel...");
 
     if ($pxt->dirty_param('cdc')) {
-      $pxt->redirect("/network/software/channels/target_systems.pxt?cid=$cid");
+      $pxt->redirect("/rhn/channels/TargetSystems.do?cid=$cid");
     }
 
     if ($system_set) {

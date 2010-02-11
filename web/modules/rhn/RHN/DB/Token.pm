@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,6 +24,10 @@ use RHN::DataSource::Simple;
 use RHN::Exception qw/throw/;
 
 use Digest::MD5 qw(md5_hex);
+
+use RHN::DataSource::General ();
+use RHN::Entitlements ();
+
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -165,73 +169,6 @@ sub fancy_packages {
   return @$data;
 }
 
-sub set_config_channels {
-  my $self = shift;
-  my @config_channels = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenConfigChannels RTCC
-      WHERE RTCC.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenConfigChannels
-            (token_id, config_channel_id, position)
-     VALUES (?, ?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  my $counter = 1;
-  foreach my $ns_id (@config_channels) {
-    $sth->execute($self->id, $ns_id, $counter);
-    $counter++;
-  }
-
-  $sth->finish;
-  $dbh->commit;
-}
-
-sub set_packages {
-  my $self = shift;
-  my @packages = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenPackages RTP
-      WHERE RTP.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenPackages
-            (token_id, name_id)
-     VALUES (?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $pid (@packages) {
-    next unless $pid;
-    $sth->execute($self->id, $pid);
-  }
-
-  $sth->finish;
-  $dbh->commit;
-}
-
 sub groups {
   my $self = shift;
 
@@ -298,38 +235,6 @@ EOQ
   $dbh->commit unless $params{transaction};
 
   return;
-}
-
-sub set_groups {
-  my $self = shift;
-  my @groups = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-DELETE FROM rhnRegTokenGroups RTG
-      WHERE RTG.token_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $query = <<EOQ;
-INSERT INTO rhnRegTokenGroups
-            (token_id, server_group_id)
-     VALUES (?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $group (@groups) {
-    $sth->execute($self->id, $group);
-  }
-
-  $sth->finish;
-  $dbh->commit;
 }
 
 sub lookup {
@@ -615,16 +520,6 @@ EOQ
   delete $self->{":modified:"};
 }
 
-sub org_activation_keys {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $ds = new RHN::DataSource::General(-mode => 'activation_keys');
-  my $data = $ds->execute_query(-org_id => $org_id);
-
-  return @{$data};
-}
-
 sub generate_random_key {
   my $class = shift;
 
@@ -656,42 +551,6 @@ sub org_default {
   $sth->finish;
 
   return $hit ? 1 : 0;
-}
-
-sub create_new_key {
-  my $self = shift;
-
-  my $new_key = $self->generate_random_key;
-
-  while (my $existing = RHN::Token->lookup(-token => $new_key)) {
-    $new_key = $self->generate_random_key;
-  }
-
-  $self->activation_key_token($new_key);
-
-  return $new_key;
-}
-
-sub clone_token {
-  my $self = shift;
-
-  my $other = RHN::Token->create_token;
-
-  foreach my $field ($t->method_names, map { lc } @ak_fields) {
-    next if ($field eq 'id');
-    $other->$field($self->$field);
-  }
-
-  $other->create_new_key;
-
-  $other->commit;
-
-  $other->set_channels(-channels => [ $self->channels ]);
-  $other->set_groups($self->groups);
-  $other->set_config_channels($self->config_channels);
-  $other->set_packages($self->packages);
-
-  return $other;
 }
 
 1;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -82,6 +82,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,6 +170,25 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
     
+    /**
+     * Gets the list of channel ids that this server could subscribe to
+     * according to it's base channel.
+     * @param sid The id of the server in question
+     * @param uid The id of the user asking
+     * @param cid The id of the base channel for the server
+     * @return Returns a list of subscribable (child) channel ids for this server.
+     */
+    public static Set subscribableChannelIds(Long sid, Long uid, Long cid) {
+        Iterator subscribableChannelIter = subscribableChannels(sid, uid, cid).iterator();
+
+        Set subscribableChannelIdSet = new HashSet();
+        while (subscribableChannelIter.hasNext()) {
+            Map row = (Map) subscribableChannelIter.next();
+            subscribableChannelIdSet.add(row.get("id"));
+        }
+        return subscribableChannelIdSet;
+    }
+
     /**
      * Gets the latest upgradable packages for a system
      * @param sid The id for the system we want packages for
@@ -2613,6 +2633,43 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("org_id", org.getId());
         retval = mode.execute(params);
+        return retval;
+    }
+
+    /**
+     * list systems that can be subscribed to a particular child channel
+     * @param user the user
+     * @param chan the child channle
+     * @return list of SystemOverview objects
+     */
+    public static List<SystemOverview> listTargetSystemForChannel(User user, Channel chan) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "target_systems_for_channel");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", chan.getId());
+        params.put("org_id", user.getOrg().getId());
+        retval = mode.execute(params);
+        retval.setElaborationParams(Collections.EMPTY_MAP);
+        return retval;
+    }
+
+    /**
+     * Get a list of SystemOverview objects for the systems in an rhnset
+     * @param user the user doing the lookup
+     * @param setLabel the label of the set
+     * @return List of SystemOverview objects
+     */
+    public static List<SystemOverview> inSet(User user, String setLabel) {
+        DataResult retval = null;
+        SelectMode mode = ModeFactory.getMode("System_queries",
+                "in_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        retval = mode.execute(params);
+        retval.setElaborationParams(Collections.EMPTY_MAP);
         return retval;
     }
 }

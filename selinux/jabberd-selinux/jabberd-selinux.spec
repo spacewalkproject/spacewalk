@@ -6,7 +6,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.7
+Version:        1.4.8
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -107,6 +107,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jan 29 2010 Jan Pazdziora 1.4.8-1
+- Do not hide any error messages produced by semanage port -a.
+
 * Thu Nov 26 2009 Miroslav Suchý <msuchy@redhat.com> 1.4.7-1
 - use %%global instead of %%define
 

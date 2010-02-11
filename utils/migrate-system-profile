@@ -2,7 +2,7 @@
 #
 # wrapper for Script to migrate systems between Orgs.
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # Authors: Pradeep Kilambi
 #
@@ -37,23 +37,9 @@ def systemExit(code, msgs=None):
 try:
     import os
     import socket
+    from rhn import rhnLockfile
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
-
-
-_LIBPATH = "/usr/share/rhn"
-# add to the path if need be
-if _LIBPATH not in sys.path:
-    sys.path.append(_LIBPATH)
-
-try:
-    from utils import rhnLockfile
-except KeyboardInterrupt:
-    systemExit(0, "\nUser interrupted process.")
-except ImportError:
-    sys.stderr.write("Unable to find RHN code tree.\n"
-                     "Path not correct? '%s'\n" % _LIBPATH)
-    raise
 
 
 ### acquire lock/check for other instances of migrate servers

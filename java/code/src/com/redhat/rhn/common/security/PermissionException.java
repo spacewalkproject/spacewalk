@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -84,7 +84,6 @@ public class PermissionException extends RhnRuntimeException  {
         
         //wrap the reasons as an ordered list
         HtmlTag ol = new HtmlTag("ol");
-        addReason(ol, "permission.jsp.summary.acl.reason1", null);
         
         //The second reason gives the minutes for a login session to expire.
         int seconds = Config.get().getInt(ConfigDefaults.WEB_SESSION_DATABASE_LIFETIME);

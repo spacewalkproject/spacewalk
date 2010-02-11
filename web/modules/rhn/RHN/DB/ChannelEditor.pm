@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@ use strict;
 package RHN::DB::ChannelEditor;
 
 use RHN::DB;
-use RHN::Utils;
 use RHN::DataSource::Errata;
 
 use RHN::Channel;
@@ -28,7 +27,7 @@ use RHN::ErrataTmp;
 use RHN::ErrataEditor;
 use RHN::ChannelEditor;
 
-use Data::Dumper;
+use RHN::Date ();
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -61,33 +60,6 @@ EOS
 
   return @result;
 
-}
-
-sub channel_edit_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT AC.channel_name, AC.channel_id, AC.channel_depth, AC.channel_arch_id
-  FROM rhnAvailableChannels AC
- WHERE AC.org_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
 }
 
 sub channel_base_arch_map {
@@ -201,82 +173,6 @@ EOQ
   }
 
   return @channels;
-}
-
-sub delete_channel {
-  my $class = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  die "Attempt to delete RHN channel '$cid'" unless $channel->org_id;
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT 
-  INTO rhnRepoRegenQueue
-        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
-        :label, 'perl-web::delete_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
-EOQ
-
-  $sth->execute_h(label => $channel->label);
-
-  $dbh->call_procedure('delete_channel', $cid);
-
-  $dbh->commit;
-}
-
-#remove all packages from channel, and replace with contents of set.
-#Caller is responsible for making sure the user is allowed to do this
-sub replace_channel_packages {
-  my $class = shift;
-  my $cid = shift;
-  my $set = shift;
-
-  die "No channel id" unless $cid;
-
-  my $query = <<EOQ;
-DELETE FROM rhnChannelPackage
- WHERE channel_id = ?
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($cid);
-
-  $query = <<EOQ;
-INSERT INTO rhnChannelPackage
-(channel_id, package_id)
-SELECT $cid, element
-  FROM rhnSet
- WHERE label = ?
-   AND user_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($set->label, $set->uid);
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT 
-  INTO rhnRepoRegenQueue
-        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
-        :label, 'perl-web::replace_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
-EOQ
-
-  my $channel = RHN::Channel->lookup(-id => $cid); 
-  $sth->execute_h(label => $channel->label);
-
-  $dbh->call_procedure('rhn_channel.update_channel', $cid);
-
-  $dbh->commit;
-
-  return 1;
 }
 
 sub add_channel_packages {

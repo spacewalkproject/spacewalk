@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ package RHN::DB::Server::CdDevice;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnCdDevice table...
 # basically, a cdrom drive attached to a server?
@@ -42,36 +41,6 @@ sub _blank_cd_device {
    my $self = bless { }, $class;
 
    return $self;
-}
-
-# returns one cddevice object from it's key
-sub lookup_cd_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $c->select_query("C.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_cd_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $c->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading cddevice $id; no ID? (@columns)";
-  }
-
-  return $ret;
 }
 
 # returns an array of cddevice objects given a server id

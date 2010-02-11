@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,21 +43,26 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         String invalidEmail = "foobar";
         String validEmail   = "foobar@foobar.com";
         
+        String invalidPrefix = "Foo.";
+        String validPrefix = "Sr.";
+
         //Test invalid values
         command.setLogin(invalidLogin);
         command.setEmail(invalidEmail);
         command.setPassword(invalidPassword);
+        command.setPrefix(invalidPrefix);
         command.setFirstNames("testuser");
         command.setLastName("testuser");
 
-        //We should get 3 errors (login, email, password)
+        //We should get 4 errors (login, email, password, prefix)
         Object[] errors = command.validate();
-        assertEquals(3, errors.length);
+        assertEquals(4, errors.length);
         
         //Test valid values
         command.setLogin(validLogin);
         command.setEmail(validEmail);
         command.setPassword(validPassword);
+        command.setPrefix(validPrefix);
         
         errors = command.validate();
         assertEquals(0, errors.length);
@@ -70,6 +75,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLogin(login);
         command.setPassword("password");
         command.setEmail("rhn-java-unit-tests@redhat.com");
+        command.setPrefix("Dr.");
         command.setFirstNames("Chuck Norris");
         command.setLastName("Texas Ranger");
         command.setOrg(org);
@@ -94,6 +100,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setFirstNames("testuser");
         command.setLastName("testuser");
         command.setPassword("validPassword");
+        command.setPrefix("Ms.");
         
         invalidUsername("foo&user", command);
         invalidUsername("joe+page", command);
@@ -141,6 +148,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLogin("bilbo");
         command.setEmail("bilbo@baggins.com");
         command.setPassword("aaaaa\tb");
+        command.setPrefix("Hr.");
         ValidatorError [] errors = command.validate();
         assertEquals(1, errors.length);
     }
@@ -149,6 +157,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         command.setLogin("bilbo");
         command.setEmail("bilbo@baggins.com");
         command.setPassword("aaaaa\nb");
+        command.setPrefix("Hr.");
         ValidatorError [] errors = command.validate();
         assertEquals(1, errors.length);
     }

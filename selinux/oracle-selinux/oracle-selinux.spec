@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.13%{?obtag}%{?dist}%{?repo}
+Release:         23.14%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -121,8 +121,9 @@ rm -rf %{buildroot}
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
 # add an oracle port if it does not already exist
@@ -167,7 +168,8 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
+      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
   # Clean up any remaining file contexts (shouldn't be any really)
   [ -d %{oracle_base} ] && \
@@ -187,7 +189,8 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext &> /dev/null || :
+      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext || :
     done
 fi
 
@@ -205,6 +208,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Fri Jan 29 2010 Jan Pazdziora 0.1-23.14
+- Do semodule -l before any semodule operation.
+
 * Tue Dec 01 2009 Jan Pazdziora 0.1-23.13
 - Allow sqlplus to read pipes from unconfined_t
 

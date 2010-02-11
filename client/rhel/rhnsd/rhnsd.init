@@ -29,30 +29,32 @@
 
 
 # interval in minutes to connect to Red Hat Network. The minimum allowed
-# value is currently 1 hour; by default rhnsd will connect every other hour.
+# value is currently 1 hour; by default rhnsd will connect every four hours.
 # This should be more than suitable for the vast majority of systems.  You
 # may adjust the interval by editing the file /etc/sysconfig/rhn/rhnsd.
 
+RHNSD=/usr/sbin/rhnsd
+
 # Sanity checks.
-[ -x /usr/sbin/rhnsd ] || exit 6
+[ -x $RHNSD ] || exit 6
 RHN_UP2DATE_FILE="/etc/sysconfig/rhn/up2date"
 [ -f $RHN_UP2DATE_FILE ] || exit 6
-RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
-[ -f $RHN_SYSTEMID_FILE ] || exit 6
+if [ -r $RHN_UP2DATE_FILE ]; then
+        RHN_SYSTEMID_FILE=`awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $RHN_UP2DATE_FILE`
+        [ -f $RHN_SYSTEMID_FILE ] || exit 6
+elif [ "$1" != "status" ];  then
+        echo "Insufficient privilege. Cannot open file $RHN_UP2DATE_FILE for reading."
+        exit 4
+fi
 
 # Source function library.
 . /etc/rc.d/init.d/functions
-
-# read configuration settings (interval) for rhnsd, if present.
-if [ -f /etc/sysconfig/rhn/rhnsd ]; then
-  . /etc/sysconfig/rhn/rhnsd
-fi
 
 RETVAL=0
 
 start() {
     echo -n $"Starting Red Hat Network Daemon: "
-    daemon rhnsd --interval $INTERVAL
+    daemon rhnsd
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch /var/lock/subsys/rhnsd
@@ -80,7 +82,7 @@ case "$1" in
         status rhnsd
 	RETVAL=$?
         ;;
-    restart)
+    restart|force-reload)
 	stop
 	start
 	;;
@@ -92,12 +94,18 @@ case "$1" in
 	;;
     reload)
         echo -n $"Reloading Red Hat Network Daemon: "
-  	killproc rhnsd -HUP
-	RETVAL=$?
+        if [ -n "`pidfileofproc $RHNSD`" ] ; then
+            killproc $RHNSD -HUP
+            RETVAL=$?
+        else
+            failure $"Reloading rhnsd"
+            # not running
+            RETVAL=7
+        fi
         echo
         ;;
     *)
-	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload}"
-        exit 1
+	echo $"Usage: $0 {start|stop|status|restart|force-reload|condrestart|try-restart|reload}"
+        exit 2
 esac
 exit $RETVAL

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -202,7 +202,7 @@ public class KickstartFormatter {
      * @return String containing kickstart file
      */
     public String getFileData() {
-        StringBuilder buf = new StringBuilder();
+        StringBuffer buf = new StringBuffer();
         buf.append(getHeader());
         buf.append(getCommands());
         
@@ -221,9 +221,9 @@ public class KickstartFormatter {
         buf.append("$kickstart_start");
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "pre_install_network_config");
-        buf.append(NEWLINE);        
+        buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
-        buf.append(NEWLINE);      
+        buf.append(NEWLINE);
         buf.append(getNoChroot());
         buf.append(NEWLINE);
         buf.append(getRhnPost());
@@ -232,7 +232,6 @@ public class KickstartFormatter {
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "post_install_kernel_options");
-        addCobblerSnippet(buf, "post_install_network_config");
         addCobblerSnippet(buf, "koan_environment");
         buf.append("$kickstart_done");
         buf.append(NEWLINE);
@@ -242,7 +241,7 @@ public class KickstartFormatter {
         return retval;
     }
 
-    private void addCobblerSnippet(StringBuilder buf, String contents) {
+    private void addCobblerSnippet(StringBuffer buf, String contents) {
         CobblerSnippet.makeFragment(contents);
         buf.append(CobblerSnippet.makeFragment(contents));
         buf.append(NEWLINE);
@@ -255,7 +254,7 @@ public class KickstartFormatter {
      */    
     private StringBuffer getHeader() {
         StringBuffer header = new StringBuffer();
-        header.append("#errorCatcher Echo").append(NEWLINE);
+        header.append(ConfigDefaults.get().getKickstartTemplateHeader()).append(NEWLINE);
         header.append(HEADER);
         header.append(COMMENT);
         header.append("# Profile Label : " + this.ksdata.getLabel() + NEWLINE);
@@ -701,6 +700,7 @@ public class KickstartFormatter {
         
         retval.append(NEWLINE);
         retval.append(END_POST);
+        addCobblerSnippet(retval, "post_install_network_config");
         return retval.toString();
     }
 
@@ -849,7 +849,7 @@ public class KickstartFormatter {
     private String getSHA1PackagePath(Package p) {
         String retval = null;
         if (p != null) {
-            retval = "http://" + this.ksHost +
+            retval = "http://" + REDHAT_MGMT_SERVER +
                 DownloadManager.getPackageDownloadPathNoExpiration(p, user);
         }            
         return retval;

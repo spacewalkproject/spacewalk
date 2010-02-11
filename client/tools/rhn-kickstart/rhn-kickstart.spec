@@ -5,7 +5,7 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.4.0
+Version: 5.4.2
 Release: 1%{?dist}
 BuildArch: noarch
 BuildRequires: python
@@ -107,6 +107,12 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.2-1
+- updated copyrights
+
+* Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 5.4.1-1
+- replaced popen2 with subprocess in client (michael.mraka@redhat.com)
+
 * Tue Jun 16 2009 Brad Buckingham <bbuckingham@redhat.com> 5.4.0-1
 - bumping version (bbuckingham@redhat.com)
 

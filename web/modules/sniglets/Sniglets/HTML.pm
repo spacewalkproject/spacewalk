@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,8 +34,6 @@ sub register_tags {
 
   $pxt->register_tag("rhn-creation-link", \&creation_link);
   $pxt->register_tag("rhn-deletion-link", \&deletion_link);
-
-  $pxt->register_tag("rhn-browser-css-compliance", \&browser_css_compliance);
 
   $pxt->register_tag("rhn-toolbar", \&toolbar);
 
@@ -169,7 +167,6 @@ sub render_help_link {
   my $url_prefix;
 
   if ($satellite_only) {
-    return '' unless PXT::Config->get('satellite');
     $url_prefix = '/rhn/help/satellite/en-US/';
   }
   elsif ($guide ne 'reference') {
@@ -210,22 +207,6 @@ sub unless_var {
   my $block = $attr{__block__};
 
   return $block unless ($pxt->passthrough_param($attr{formvar}) or $pxt->context($attr{formvar}));
-
-  return;
-}
-
-sub browser_css_compliance {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $block = $attr{__block__};
-
-  if (defined (my $least = $attr{at_least})) {
-    return $block if $pxt->browser_css_compliance >= $least;
-  }
-  elsif (defined(my $most = $attr{at_most})) {
-    return $block if $pxt->browser_css_compliance <= $most;
-  }
 
   return;
 }

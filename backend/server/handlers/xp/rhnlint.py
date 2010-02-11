@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -308,8 +308,8 @@ def testChecksums(info, results):
             'version':header['version'], 
             'release':header['release'], 
             'epoch':header['epoch'], 
-            'checksum':package['checksum'][1],
-            'checksum_type':package['checksum'][0],
+            'checksum':package['checksum'],
+            'checksum_type':package['checksum_type'],
             'org_id':info['org_id'],
             'arch':header['arch'],
         }

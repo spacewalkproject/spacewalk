@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnServer</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Package&nbsp;rhnServer
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnServer-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnServer-module.html">Package server.rhnServer</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># Module for handling the rhnServer objects.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-comment"># these are pretty much the only entry points</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Class common.rhnException'.rhnFault=common.rhnException%27.rhnFault-class.html"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-1', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-2', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-3', 'log_error', 'link-3');">log_error</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-4', 'server', 'link-4');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Module server.rhnUser=server.rhnUser-module.html"><a title="server.rhnUser" class="py-name" href="#" onclick="return doclink('link-5', 'rhnUser', 'link-5');">rhnUser</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-comment"># Local imports</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name" targets="Module server.rhnServer.server_class=server.rhnServer.server_class-module.html"><a title="server.rhnServer.server_class" class="py-name" href="#" onclick="return doclink('link-6', 'server_class', 'link-6');">server_class</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Class rhn.rpclib.Server=rhn.rpclib.Server-class.html,Class server.rhnServer.server_class.Server=server.rhnServer.server_class.Server-class.html"><a title="rhn.rpclib.Server
+server.rhnServer.server_class.Server" class="py-name" href="#" onclick="return doclink('link-7', 'Server', 'link-7');">Server</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-8" class="py-name" targets="Module server.rhnServer.server_certificate=server.rhnServer.server_certificate-module.html"><a title="server.rhnServer.server_certificate" class="py-name" href="#" onclick="return doclink('link-8', 'server_certificate', 'link-8');">server_certificate</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Class server.handlers.sat.cert.Certificate=server.handlers.sat.cert.Certificate-class.html,Class server.rhnServer.server_certificate.Certificate=server.rhnServer.server_certificate.Certificate-class.html"><a title="server.handlers.sat.cert.Certificate
+server.rhnServer.server_certificate.Certificate" class="py-name" href="#" onclick="return doclink('link-9', 'Certificate', 'link-9');">Certificate</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name" targets="Module server.rhnServer.server_token=server.rhnServer.server_token-module.html"><a title="server.rhnServer.server_token" class="py-name" href="#" onclick="return doclink('link-10', 'server_token', 'link-10');">server_token</a></tt> <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Function server.rhnServer.server_token.fetch_token()=server.rhnServer.server_token-module.html#fetch_token"><a title="server.rhnServer.server_token.fetch_token" class="py-name" href="#" onclick="return doclink('link-11', 'fetch_token', 'link-11');">fetch_token</a></tt><tt class="py-op">,</tt> <tt id="link-12" class="py-name" targets="Function server.rhnServer.server_token.fetch_org_token()=server.rhnServer.server_token-module.html#fetch_org_token"><a title="server.rhnServer.server_token.fetch_org_token" class="py-name" href="#" onclick="return doclink('link-12', 'fetch_org_token', 'link-12');">fetch_org_token</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-comment"># retrieve the server with matching certificate from the database</tt> </tt>
+<a name="get"></a><div id="get-def"><a name="L29"></a><tt class="py-lineno">29</tt> <a class="py-toggle" href="#" id="get-toggle" onclick="return toggle('get');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer-module.html#get">get</a><tt class="py-op">(</tt><tt class="py-param">system_id</tt><tt class="py-op">,</tt> <tt class="py-param">load_user</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get-expanded"><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt id="link-13" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-13', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-string">"load_user = %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">load_user</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-comment"># This has to be a string</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-14" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-14', 'type', 'link-14');">type</a></tt><tt class="py-op">(</tt><tt id="link-15" class="py-name" targets="Method server.rhnServer.server_class.Server.system_id()=server.rhnServer.server_class.Server-class.html#system_id"><a title="server.rhnServer.server_class.Server.system_id" class="py-name" href="#" onclick="return doclink('link-15', 'system_id', 'link-15');">system_id</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-16" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-16', 'type', 'link-14');">type</a></tt><tt class="py-op">(</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-comment"># Try to initialize the certificate object</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt id="link-17" class="py-name" targets="Module server.handlers.sat.cert=server.handlers.sat.cert-module.html"><a title="server.handlers.sat.cert" class="py-name" href="#" onclick="return doclink('link-17', 'cert', 'link-17');">cert</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="server.handlers.sat.cert.Certificate
+server.rhnServer.server_certificate.Certificate" class="py-name" href="#" onclick="return doclink('link-18', 'Certificate', 'link-9');">Certificate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-19" class="py-name"><a title="server.handlers.sat.cert" class="py-name" href="#" onclick="return doclink('link-19', 'cert', 'link-17');">cert</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method server.rhnServer.server_certificate.Certificate.reload()=server.rhnServer.server_certificate.Certificate-class.html#reload,Method server.rhnServer.server_class.Server.reload()=server.rhnServer.server_class.Server-class.html#reload,Method server.rhnServer.server_hardware.GenericDevice.reload()=server.rhnServer.server_hardware.GenericDevice-class.html#reload,Method server.rhnServer.server_hardware.NetIfaceInformation.reload()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#reload,Method server.rhnUser.User.reload()=server.rhnUser.User-class.html#reload"><a title="server.rhnServer.server_certificate.Certificate.reload
+server.rhnServer.server_class.Server.reload
+server.rhnServer.server_hardware.GenericDevice.reload
+server.rhnServer.server_hardware.NetIfaceInformation.reload
+server.rhnUser.User.reload" class="py-name" href="#" onclick="return doclink('link-20', 'reload', 'link-20');">reload</a></tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="server.rhnServer.server_class.Server.system_id" class="py-name" href="#" onclick="return doclink('link-21', 'system_id', 'link-15');">system_id</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-comment"># if invalid, stop here</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-22" class="py-name"><a title="server.handlers.sat.cert" class="py-name" href="#" onclick="return doclink('link-22', 'cert', 'link-17');">cert</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method server.rhnServer.server_certificate.Certificate.valid()=server.rhnServer.server_certificate.Certificate-class.html#valid"><a title="server.rhnServer.server_certificate.Certificate.valid" class="py-name" href="#" onclick="return doclink('link-23', 'valid', 'link-23');">valid</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt>     </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-comment"># this looks like a real server</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-24', 'server', 'link-4');">server</a></tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="rhn.rpclib.Server
+server.rhnServer.server_class.Server" class="py-name" href="#" onclick="return doclink('link-25', 'Server', 'link-7');">Server</a></tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt class="py-comment"># and load it up</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-26" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-26', 'server', 'link-4');">server</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method server.rhnServer.server_class.Server.loadcert()=server.rhnServer.server_class.Server-class.html#loadcert"><a title="server.rhnServer.server_class.Server.loadcert" class="py-name" href="#" onclick="return doclink('link-27', 'loadcert', 'link-27');">loadcert</a></tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="server.handlers.sat.cert" class="py-name" href="#" onclick="return doclink('link-28', 'cert', 'link-17');">cert</a></tt><tt class="py-op">,</tt> <tt class="py-name">load_user</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt>    </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-comment"># okay, it is a valid certificate</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-29" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-29', 'server', 'link-4');">server</a></tt> </tt>
+</div><a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-comment"># search for a server in the database and return the Server object</tt> </tt>
+<a name="search"></a><div id="search-def"><a name="L52"></a><tt class="py-lineno">52</tt> <a class="py-toggle" href="#" id="search-toggle" onclick="return toggle('search');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer-module.html#search">search</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">username</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="search-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="search-expanded"><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt id="link-30" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-30', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">server_id</tt><tt class="py-op">,</tt> <tt class="py-name">username</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">    <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="rhn.rpclib.Server
+server.rhnServer.server_class.Server" class="py-name" href="#" onclick="return doclink('link-31', 'Server', 'link-7');">Server</a></tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="server.rhnServer.server_certificate.Certificate.reload
+server.rhnServer.server_class.Server.reload
+server.rhnServer.server_hardware.GenericDevice.reload
+server.rhnServer.server_hardware.NetIfaceInformation.reload
+server.rhnUser.User.reload" class="py-name" href="#" onclick="return doclink('link-32', 'reload', 'link-20');">reload</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt id="link-33" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-33', 'log_error', 'link-3');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Reloading server id %d failed"</tt> <tt class="py-op">%</tt> <tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-comment"># we can't say that the server is not really found</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-34" class="py-name"><a title="common.rhnException'.rhnFault" class="py-name" href="#" onclick="return doclink('link-34', 'rhnFault', 'link-1');">rhnFault</a></tt><tt class="py-op">(</tt><tt class="py-number">20</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt class="py-comment"># now that it is reloaded, fix up the s.user field</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">username</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">user</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="server.rhnUser" class="py-name" href="#" onclick="return doclink('link-35', 'rhnUser', 'link-5');">rhnUser</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Function server.rhnServer.search()=server.rhnServer-module.html#search,Function server.rhnUser.search()=server.rhnUser-module.html#search"><a title="server.rhnServer.search
+server.rhnUser.search" class="py-name" href="#" onclick="return doclink('link-36', 'search', 'link-36');">search</a></tt><tt class="py-op">(</tt><tt class="py-name">username</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"> </tt>
+<a name="search_token"></a><div id="search_token-def"><a name="L64"></a><tt class="py-lineno">64</tt> <a class="py-toggle" href="#" id="search_token-toggle" onclick="return toggle('search_token');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer-module.html#search_token">search_token</a><tt class="py-op">(</tt><tt class="py-param">token</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="search_token-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="search_token-expanded"><a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt id="link-37" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-37', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">token</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-38" class="py-name"><a title="server.rhnServer.server_token.fetch_token" class="py-name" href="#" onclick="return doclink('link-38', 'fetch_token', 'link-11');">fetch_token</a></tt><tt class="py-op">(</tt><tt class="py-name">token</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt>
+<a name="search_org_token"></a><div id="search_org_token-def"><a name="L68"></a><tt class="py-lineno">68</tt> <a class="py-toggle" href="#" id="search_org_token-toggle" onclick="return toggle('search_org_token');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServer-module.html#search_org_token">search_org_token</a><tt class="py-op">(</tt><tt class="py-param">org_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="search_org_token-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="search_org_token-expanded"><a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">    <tt id="link-39" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-39', 'log_debug', 'link-2');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-40" class="py-name"><a title="server.rhnServer.server_token.fetch_org_token" class="py-name" href="#" onclick="return doclink('link-40', 'fetch_org_token', 'link-12');">fetch_org_token</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:26 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

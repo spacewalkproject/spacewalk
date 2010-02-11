@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,7 @@
 #
 # $Id$
 
-import md5
+import hashlib
 import time
 import random
 import socket    
@@ -34,7 +34,7 @@ from server_lib import getServerSecret
 # Generate a secret
 def gen_secret():
     seed = repr(time.time())
-    sum = md5.new(seed)
+    sum = hashlib.new('md5', seed)
     # feed some random numbers
     for k in range(1, random.randint(5,15)):
         sum.update(repr(random.random()))
@@ -48,7 +48,7 @@ def gen_secret():
 # Functions for handling system_id strings
 class Checksum:
     def __init__(self, secret, *args):
-        self.sum = md5.new(secret)
+        self.sum = hashlib.new('md5', secret)
         if len(args) > 0:
             apply(self.feed, args)
     def feed(self, arg):        

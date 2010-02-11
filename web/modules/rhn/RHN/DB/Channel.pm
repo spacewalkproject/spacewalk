@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,8 +22,9 @@ Params::Validate::validation_options(strip_leading => "-");
 
 use RHN::DB;
 use RHN::DB::TableClass;
-
-use RHN::Utils;
+use RHN::Channel ();
+use RHN::DataSource::Channel ();
+use RHN::Server ();
 
 use Carp;
 
@@ -370,25 +371,6 @@ EOQ
   return @ret;
 }
 
-sub available_entitlements {
-  my $class = shift;
-  my %params = validate(@_, {org_id => 1, channel_id => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = "SELECT rhn_channel.available_chan_subscriptions(:channel_id, :org_id) FROM DUAL";
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(org_id => $params{org_id}, channel_id => $params{channel_id});
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish;
-
-  return $count;
-}
-
 sub has_downloads {
   my $class = shift;
   my $cid = shift;
@@ -423,47 +405,6 @@ sub tri_state_channel_list {
   my $channels = $ds->execute_query(-user_id => $user_id);
 
   return @$channels;
-}
-
-sub systems_to_be_subscribed {
-  my $class = shift;
-  my $org_id = shift;
-  my $channel_id = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT COUNT(ES.id)
-  FROM rhnChannel C,
-       rhnServerChannel SC,
-       rhnEntitledServers ES
- WHERE ES.org_id = ?
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = ES.id)
-   AND ES.id = SC.server_id
-   AND C.id = ?
-   AND SC.channel_id = C.parent_channel
-   AND NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = ES.id AND channel_id = C.id)
-   AND EXISTS (SELECT 1 FROM rhnSet WHERE user_id = ? AND label = 'system_list' AND element = ES.id)
-ORDER BY UPPER(NVL(ES.NAME, '(none)')), ES.ID
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($org_id, $user_id, $channel_id, $user_id);
-
-  my @row = $sth->fetchrow;
-  $sth->finish;
-
-  if (@row) {
-    return $row[0];
-  }
-  else {
-    return 0;
-  }
 }
 
 sub subscribable_channels {
@@ -515,35 +456,6 @@ EOQ
     $sth = $dbh->prepare($query);
     $sth->execute($org_id, $channel_id);
   }
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ $row[0], 'channel_' . $row[1] ];
-  }
-
-  return @channels;
-}
-
-sub compat_channels {
-  my $class = shift;
-  my $channel_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-  SELECT  C1.name, C1.id
-    FROM  rhnChannel C2, rhnChannel C1
-   WHERE  C2.id = ?
-     AND  C1.channel_arch_id = C2.channel_arch_id
-ORDER BY  C1.org_id DESC, C1.name
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($channel_id);
-
   my @channels;
 
   while (my @row = $sth->fetchrow) {
@@ -644,175 +556,6 @@ EOQ
   return @channels;
 }
 
-sub server_set_channel_set_true_actions {
-  my $class = shift;
-  my %params = @_;
-# my $user_id = shift;
-
-  my ($user_id, $lower, $upper, $total_ref) =
-    map { $params{"-" . $_} } qw/user_id lower upper total_rows/;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT  S.id
-  FROM  rhnChannel CHANNELS_TO_ADD, rhnAvailableChannels AC, rhnServerChannel SC, rhnServer S, rhnSet ST
- WHERE  ST.user_id = ?
-   AND  ST.label = 'system_list'
-   AND  ST.element = SC.server_id
-   AND  ST.element = S.id
-   AND  S.org_id = AC.org_id
-   AND  ((AC.available_members > 0) OR (AC.available_members IS NULL))
-   AND  CHANNELS_TO_ADD.id = AC.channel_id
-   AND  CHANNELS_TO_ADD.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = ? AND label = 'channel_list' AND ST2.element_two = 1)
-   AND  CHANNELS_TO_ADD.id NOT IN (SELECT SC.channel_id FROM rhnServerChannel SC WHERE SC.server_id = S.id)
-   AND  CHANNELS_TO_ADD.parent_channel = SC.channel_id
-UNION
-SELECT  S.id
-  FROM  rhnChannel CHANNELS_TO_REMOVE, rhnServer S, rhnSet ST
- WHERE  ST.user_id = ?
-   AND  ST.label = 'system_list'
-   AND  ST.element = S.id
-   AND  CHANNELS_TO_REMOVE.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = ? AND label = 'channel_list' AND ST2.element_two = 2)
-   AND  CHANNELS_TO_REMOVE.id IN (SELECT SC.channel_id FROM rhnServerChannel SC WHERE SC.server_id = S.id)
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($user_id, $user_id, $user_id, $user_id);
-
-  $$total_ref = 0;
-  my $i = 1;
-  my @ids;
-  while (my @row = $sth->fetchrow) {
-    $$total_ref = $i;
-    if ($i >= $lower and $i <= $upper) {
-      push @ids,  @row;
-    }
-    $i++;
-  }
-
-  if (!@ids) {
-    return;
-  }
-
-  $query = sprintf(<<EOQ, join(", ", ("?") x @ids), join(", ", ("?") x @ids));
-SELECT  S.id, S.name, CHANNELS_TO_ADD.id, CHANNELS_TO_ADD.name, 'subscribe'
-  FROM  rhnChannel CHANNELS_TO_ADD, rhnAvailableChannels AC, rhnServerChannel SC, rhnServer S
- WHERE  S.id IN (%s)
-   AND  S.id = SC.server_id
-   AND  S.org_id = AC.org_id
-   AND  ((AC.available_members > 0) OR (AC.available_members IS NULL))
-   AND  CHANNELS_TO_ADD.id = AC.channel_id
-   AND  CHANNELS_TO_ADD.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = ? AND label = 'channel_list' AND ST2.element_two = 1)
-   AND  CHANNELS_TO_ADD.id NOT IN (SELECT SC2.channel_id FROM rhnServerChannel SC2 WHERE SC2.server_id = S.id)
-   AND  CHANNELS_TO_ADD.parent_channel = SC.channel_id
-UNION
-SELECT  S.id, S.name, CHANNELS_TO_REMOVE.id, CHANNELS_TO_REMOVE.name, 'unsubscribe'
-  FROM  rhnChannel CHANNELS_TO_REMOVE, rhnServer S
- WHERE  S.id IN (%s)
-   AND  CHANNELS_TO_REMOVE.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = ? AND label = 'channel_list' AND ST2.element_two = 2)
-   AND  CHANNELS_TO_REMOVE.id IN (SELECT SC.channel_id FROM rhnServerChannel SC WHERE SC.server_id = S.id)
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute(@ids, $user_id, @ids, $user_id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-
-sub user_subscribable_base_channels {
-  my $self = shift;
-  my %params = validate(@_, {user_id => 1, org_id => 1});
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  C.id, C.name
-  FROM  rhnChannel C,
-        rhnUserChannel UC
- WHERE  UC.user_id = :user_id
-   AND  UC.role = 'subscribe'
-   AND  UC.channel_id = C.id
-   AND  C.parent_channel IS NULL
-   AND  C.org_id = :org_id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $params{user_id}, org_id => $params{org_id});
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
-}
-
-# base channels owned by org
-sub org_base_channel_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query =<<EOQ;
-SELECT C.id, C.name
-  FROM rhnChannel C, rhnAvailableChannels AC
- WHERE AC.org_id = ?
-   AND AC.channel_depth = 1
-   AND AC.channel_id = C.id
-   AND C.org_id = AC.org_id
-ORDER BY C.id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return RHN::Utils->parameterize(\@channels, 'id', 'name');
-}
-
-sub base_channel_list {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT AC.channel_name, AC.channel_id, AC.channel_arch_id
-  FROM rhnAvailableChannels AC
- WHERE AC.org_id = ?
-   AND AC.channel_depth = 1
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @channels;
-
-  while (my @row = $sth->fetchrow) {
-    push @channels, [ @row ];
-  }
-
-  return @channels;
-}
 
 sub package_groups {
   my $class = shift;
@@ -913,20 +656,6 @@ sub channel_id_by_label {
   return $id;
 }
 
-sub channel_arch_id_by_label {
-  my $class = shift;
-  my $label = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT CA.id FROM rhnChannelArch CA WHERE CA.label = ?');
-  $sth->execute($label);
-
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-
-  return $id;
-}
-
 
 sub channel_entitlement_overview {
   my $self = shift;
@@ -946,46 +675,6 @@ EOQ
   }
 
   return @ret;
-}
-
-#returns true if channel is owned by org.
-sub channel_owned {
-
-  my $self = shift;
-  my $org_id = shift;
-  my $cid;
-
-  if (ref $self) {
-    $cid = $self->id;
-  }
-  else {
-    $cid = shift;
-  }
-
-  undef $self;
-  die "No org_id" unless defined $org_id;
-  die "No channel_id" unless defined $cid;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-SELECT  C.org_id
-  FROM  rhnChannel C
- WHERE  C.id = ?
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($cid);
-
-  my $oid = $sth->fetchrow || 0;
-
-  $sth->finish;
-
-  if ($org_id == $oid) {
-    return 1;
-  }
-  else {
-    return 0;
-  }
 }
 
 #adopt channel into channel_famil(y|ies)
@@ -1067,90 +756,6 @@ EOQ
   }
 
   return @ret;
-}
-
-sub errata_pkg_vers_in_channels {
-  my $class = shift;
-  my $eid = shift;
-  my @ids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT DISTINCT C.label,
-                PA.name,
-                PN.id,
-                PN.name,
-                PE.epoch,
-                PE.version,
-                PE.release,
-                E.advisory_name,
-                C.name,
-                Csum.checksum OUTDATED_PACKAGE_MD5SUM,
-                P.path
-  FROM rhnPackageArch PA,
-       rhnChannel C,
-       rhnPackageEVR PE,
-       rhnPackageName PN,
-       rhnErrata E,
-       rhnErrataPackage EP2,
-       rhnChannelPackage CP,
-       rhnChannelErrata CE2,
-       rhnChannelErrata CE,
-       rhnPackage P2,
-       rhnPackage P,
-       rhnErrataPackage EP,
-       rhnChecksum Csum
- WHERE EP.errata_id = ?
-   AND EP.package_id = P.id
-   AND P.name_id = P2.name_id
-   AND P.package_arch_id = P2.package_arch_id
-   AND CE.errata_id = ?
-   AND CE.channel_id = CP.channel_id
-   AND CP.package_id = P2.id
-   AND P2.id = EP2.package_id
-   AND EP2.errata_id = CE2.errata_id
-   AND CE.channel_id = CE2.channel_id
-   AND CE2.errata_id = E.id
-   AND P.name_id = PN.id
-   AND P2.evr_id = PE.id
-   AND P2.package_arch_id = PA.id
-   AND CE2.channel_id = C.id
-   AND P.checksum_id = Csum.id
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($eid, $eid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub package_list_modified {
-  my $class = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $query = <<EOQ;
-SELECT TO_CHAR(MAX(CP.modified), 'YYYY-MM-DD HH24:MI:SS')
-  FROM rhnChannelPackage CP
- WHERE CP.channel_id = ?
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($cid);
-
-  my ($date) = $sth->fetchrow;
-  $sth->finish;
-
-  return $date;
 }
 
 sub distros {
@@ -1287,55 +892,7 @@ EOQ
   return $row;
 }
 
-# details about a channel family, given the rhnChannelFamily.id
-sub family_details {
-  my $class = shift;
-  my $cfid = shift;
 
-  die "No channel family id" unless defined $cfid;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id
-  FROM  rhnChannelFamily CF
- WHERE  CF.id = :cfid
-EOQ
-
-  $sth->execute_h(cfid => $cfid);
-  my ($row) = $sth->fetchrow_hashref;
-
-  $sth->finish;
-
-  return $row;
-}
-
-
-
-sub family_details_from_set {
-  my $class = shift;
-  my $uid = shift;
-  my $set_label = shift;
-
-  die "No uid" unless defined $uid;
-  die "No set label" unless defined $set_label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  CF.id, CF.name, CF.label, CF.product_url, CF.org_id, RS.element_two
-  FROM  rhnChannelFamily CF,
-        rhnSet RS
-WHERE  CF.id=RS.element and RS.user_id = :user_id AND RS.label=:label
-EOQ
-
-  $sth->execute_h(user_id=> $uid, label => $set_label);
-
-  my @ret;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @ret, $row;
-  }
-
-  return @ret;
-}
 
 sub packages {
   my $self = shift;
@@ -1486,42 +1043,6 @@ EOQ
   return %ret;
 }
 
-# If a package from the incoming list exists in a channel, the version
-# in the channel must be greater than or equal to the version of the
-# incoming package.  If not, return true.
-sub has_latest_packages {
-  my $class = shift;
-  my $cid = shift;
-  my @pids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my @newer;
-
-  foreach my $pid (@pids) {
-    my $query =<<EOQ;
-SELECT 1
-  FROM rhnPackage P1, rhnPackageEVR PE1, rhnChannelNewestPackage CNP, rhnPackageEVR PE2
- WHERE P1.id = :package_id
-   AND CNP.channel_id = :channel_id
-   AND P1.name_id = CNP.name_id
-   AND P1.package_arch_id = CNP.package_arch_id
-   AND PE1.id = P1.evr_id
-   AND PE2.id = CNP.evr_id
-   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) > 0
-EOQ
-
-    my $sth = $dbh->prepare($query);
-    $sth->execute_h(package_id => $pid, channel_id => $cid);
-
-    my ($pid_newer) = $sth->fetchrow || 0;
-    $sth->finish;
-
-    push @newer, $pid if $pid_newer;
-  }
-
-  return (@newer) ? 0 : 1;
-}
-
 sub remove_packages_in_set {
   my $self = shift;
   my %attr = validate_with(params => \@_, spec => { set_label => 1, user_id => 1 }, strip_leading => '-');
@@ -1590,50 +1111,6 @@ EOQ
   return;
 }
 
-# XXX: hack; for now, rely on filesystem presence.  later, store this
-# info in the database
-
-sub installable_path {
-  my $self = shift;
-
-  return "rhn/kickstart/" . $self->label;
-}
-
-sub installable {
-  my $self = shift;
-
-  my $path = File::Spec->catfile(PXT::Config->get('kickstart_mount_point'), $self->installable_path);
-
-  return -d $path;
-}
-
-sub package_by_filename {
-  my $self = shift;
-  my $filename = shift;
-
-  die "Invalid filename: contains naughty bits" if $filename =~ m(/);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT P.id
-  FROM rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.path LIKE :pathlike
-EOQ
-
-  $sth->execute_h(cid => $self->id, pathlike => "%/$filename");
-  my ($pid) = $sth->fetchrow;
-
-  # we got a pid for the first hit... can we get another?
-  if ($pid and $sth->fetchrow) {
-    die "Multiple returns for package '$filename' in channel " . $self->label;
-  }
-
-  return $pid;
-}
-
 sub package_by_filename_in_tree {
   my $self = shift;
   my $filename = shift;
@@ -1657,85 +1134,6 @@ EOQ
 
   $sth->finish();
   return ($pid, $path);
-}
-
-sub latest_package_by_name {
-  my $self = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CP.package_id
-  FROM rhnChannelNewestPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.name_id = LOOKUP_PACKAGE_NAME(:name)
-EOQ
-
-  $sth->execute_h(cid => $self->id, name => $name);
-  return map { @$_ } $sth->fullfetch;
-}
-
-sub latest_package_like {
-  my $class = shift;
-  my $cid = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CP.package_id
-  FROM rhnPackageName PN, rhnChannelNewestPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.name_id = PN.id
-   AND PN.name LIKE :namelike
-EOQ
-
-  $sth->execute_h(cid => $cid, namelike => '%' . $name . '%');
-  return map { @$_ } $sth->fullfetch;
-}
-
-sub latest_package_equal {
-  my $class = shift;
-  my $cid = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CP.package_id
-  FROM rhnPackageName PN, rhnChannelNewestPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.name_id = PN.id
-   AND PN.name = :name
-EOQ
-
-  $sth->execute_h(cid => $cid, name => $name);
-  return map { @$_ } $sth->fullfetch;
-}
-
-sub get_rhn_extras_channel {
-  my $class = shift;
-  my $cid = shift;
-  my $org_id = shift;
-
-  my @children = RHN::Channel->children($cid);
-
-  my $pid;
-  my $extras_cid;
-
-  my $org = RHN::Org->lookup(-id => $org_id);
-
-  foreach my $child_cid (@children) {
-    next unless $org->has_channel_permission($child_cid);
-
-    my @pids = RHN::Channel->latest_package_like($child_cid, 'auto-kickstart-');
-
-    if (@pids) {
-      $extras_cid = $child_cid;
-      $pid = $pids[0];
-      last;
-    }
-  }
-
-  return $extras_cid;
 }
 
 sub packaging_type {
@@ -1806,29 +1204,6 @@ sub channel_type_capable {
   }
 
   return 1;
-}
-
-# return true if an errata is 'for' a channel.
-sub is_errata_for_channel {
-  my $class = shift;
-  my $eid = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM rhnChannelErrata CE
- WHERE CE.channel_id = :cid
-   AND CE.errata_id = :eid
-EOQ
-
-  $sth->execute_h(cid => $cid, eid => $eid);
-
-  my ($res) = $sth->fetchrow;
-  $sth->finish;
-
-  return $res ? 1 : 0;
 }
 
 1;

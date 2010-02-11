@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -29,7 +29,6 @@ sub new {
 
   my $self = bless { tag_handlers => [ ],
 		     callbacks => [ ],
-		     rpc_handlers => [ ],
 		   }, $class;
 
   return $self;
@@ -55,16 +54,6 @@ sub register_callback {
 }
 
 sub callbacks { return @{$_[0]->{callbacks}} }
-
-sub register_xmlrpc {
-  my $self = shift;
-  my $method = shift;
-  my $handler = shift;
-
-  push @{$self->{rpc_handlers}}, $method, $handler;
-}
-
-sub rpc_handlers { return @{$_[0]->{rpc_handlers}} }
 
 sub expand_tags {
   my $self = shift;

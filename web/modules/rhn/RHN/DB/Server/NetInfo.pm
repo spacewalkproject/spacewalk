@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ package RHN::DB::Server::NetInfo;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnServerNetwork table...
 # basically, hostname/ip addr
@@ -39,39 +38,6 @@ sub _blank_net_info {
   my $self = bless {}, $class;
 
   return $self;
-}
-
-# returns one net info object from it's key
-sub lookup_net_info {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $n->select_query("N.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_net_info;
-    $ret->{"__".$_."__"} = shift @columns foreach $n->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading net info $id; no ID? (@columns)";
-  }
-
-  # bretm - fix ipaddr, all seem to length==16 w/ whitespace padding in db
-  $ret->{__ipaddr__} =~ s/^\s*(.*?)\s*$/$1/e;  # strip leading and following ws
-
-  return $ret;
 }
 
 # returns an array of net info objects given a server id

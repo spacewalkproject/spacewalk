@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Table-RHNSERVERACTIONVERIFYMISSING </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHNSERVERACTIONVERIFYMISSING</h2>
+<a href="sql_sources/table/rhnserveractionverifymissing.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>SERVER_ID<a name="col-SERVER_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>ACTION_ID<a name="col-ACTION_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_NAME_ID<a name="col-PACKAGE_NAME_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_EVR_ID<a name="col-PACKAGE_EVR_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_ARCH_ID<a name="col-PACKAGE_ARCH_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PACKAGE_CAPABILITY_ID<a name="col-PACKAGE_CAPABILITY_ID"></a></td><td>NUMBER(38)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CREATED<a name="col-CREATED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+<tr><td>MODIFIED<a name="col-MODIFIED"></a></td><td>DATE</td><td>N</td><td>(sysdate) </td><td>&nbsp;</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_SACTIONVM_AID_FK<a name="cs-RHN_SACTIONVM_AID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-ACTION_ID">ACTION_ID </a>
+</td><td><a href="table-RHNACTION.html"> RHNACTION </a></td><td><a href="table-RHNACTION.html#cs-RHN_ACTION_PK">RHN_ACTION_PK </a>
+</td><td>CASCADE</td></tr>
+<tr><td>RHN_SACTIONVM_PAID_FK<a name="cs-RHN_SACTIONVM_PAID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_ARCH_ID">PACKAGE_ARCH_ID </a>
+</td><td><a href="table-RHNPACKAGEARCH.html"> RHNPACKAGEARCH </a></td><td><a href="table-RHNPACKAGEARCH.html#cs-RHN_PARCH_ID_PK">RHN_PARCH_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_SACTIONVM_PCID_FK<a name="cs-RHN_SACTIONVM_PCID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_CAPABILITY_ID">PACKAGE_CAPABILITY_ID </a>
+</td><td><a href="table-RHNPACKAGECAPABILITY.html"> RHNPACKAGECAPABILITY </a></td><td><a href="table-RHNPACKAGECAPABILITY.html#cs-RHN_PKG_CAPABILITY_ID_PK">RHN_PKG_CAPABILITY_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_SACTIONVM_PEID_FK<a name="cs-RHN_SACTIONVM_PEID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_EVR_ID">PACKAGE_EVR_ID </a>
+</td><td><a href="table-RHNPACKAGEEVR.html"> RHNPACKAGEEVR </a></td><td><a href="table-RHNPACKAGEEVR.html#cs-RHN_PE_ID_PK">RHN_PE_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_SACTIONVM_PNID_FK<a name="cs-RHN_SACTIONVM_PNID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_NAME_ID">PACKAGE_NAME_ID </a>
+</td><td><a href="table-RHNPACKAGENAME.html"> RHNPACKAGENAME </a></td><td><a href="table-RHNPACKAGENAME.html#cs-RHN_PN_ID_PK">RHN_PN_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_SACTIONVM_SID_FK<a name="cs-RHN_SACTIONVM_SID_FK"></a></td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-SERVER_ID">SERVER_ID </a>
+</td><td><a href="table-RHNSERVER.html"> RHNSERVER </a></td><td><a href="table-RHNSERVER.html#cs-RHN_SERVER_ID_PK">RHN_SERVER_ID_PK </a>
+</td><td>NO ACTION</td></tr>
+</table><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_SACTIONVM_SANEC_UQ<a name="ind-RHN_SACTIONVM_SANEC_UQ"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-SERVER_ID">SERVER_ID </a>
+, <a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-ACTION_ID">ACTION_ID </a>
+, <a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_NAME_ID">PACKAGE_NAME_ID </a>
+, <a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_EVR_ID">PACKAGE_EVR_ID </a>
+, <a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_ARCH_ID">PACKAGE_ARCH_ID </a>
+, <a href="table-RHNSERVERACTIONVERIFYMISSING.html#col-PACKAGE_CAPABILITY_ID">PACKAGE_CAPABILITY_ID </a>
+</td><td><a href="sql_sources/index/rhn_sactionvm_sanec_uq.sql">DDL script</a></td></tr>
+</table><h3>Triggers</h3>
+<a name="t-trgs"></a><a name="trg-RHN_SACTIONVM_MOD_TRIG"></a><h4>RHN_SACTIONVM_MOD_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_sactionvm_mod_trig
+before <span class="reserved">insert</span> <span class="reserved">or</span> <span class="reserved">update</span> <span class="reserved">on</span> rhnServerActionVerifyMissing
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">begin</span>
+	<span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>modified <span class="operator">:</span><span class="operator">=</span> sysdate;
+<span class="reserved">end</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+</body></html>

@@ -2,7 +2,7 @@
 #
 # Script to synchronize RHN meta data between Red Hat and a local RHN Satellite.
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,7 +52,8 @@ if os.getuid() != 0:
 
 
 try:
-    from common import rhnLockfile, CFG, fetchTraceback
+    from rhn import rhnLockfile
+    from common import CFG, fetchTraceback
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError:

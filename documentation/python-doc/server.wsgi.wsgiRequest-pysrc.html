@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.wsgi.wsgiRequest</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.wsgi-module.html">Package&nbsp;wsgi</a> ::
+        Module&nbsp;wsgiRequest
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.wsgi.wsgiRequest-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.wsgi.wsgiRequest-module.html">Module server.wsgi.wsgiRequest</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2010 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">socket</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest"></a><div id="WsgiRequest-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="WsgiRequest-toggle" onclick="return toggle('WsgiRequest');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html">WsgiRequest</a><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="WsgiRequest-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.__init__"></a><div id="WsgiRequest.__init__-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="WsgiRequest.__init__-toggle" onclick="return toggle('WsgiRequest.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">env</tt><tt class="py-op">,</tt> <tt class="py-param">start_response</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.__init__-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-op">=</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'REQUEST_METHOD'</tt><tt class="py-op">]</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt> <tt class="py-op">=</tt> <tt class="py-name">env</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">path_info</tt> <tt class="py-op">=</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'PATH_INFO'</tt><tt class="py-op">]</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_response</tt> <tt class="py-op">=</tt> <tt class="py-name">start_response</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">unparsed_uri</tt> <tt class="py-op">=</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'REQUEST_URI'</tt><tt class="py-op">]</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-2', 'server', 'link-2');">server</a></tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name" targets="Class server.wsgi.wsgiRequest.WsgiServer=server.wsgi.wsgiRequest.WsgiServer-class.html"><a title="server.wsgi.wsgiRequest.WsgiServer" class="py-name" href="#" onclick="return doclink('link-3', 'WsgiServer', 'link-3');">WsgiServer</a></tt><tt class="py-op">(</tt><tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'SERVER_NAME'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'SERVER_PORT'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module satellite_tools.connection=satellite_tools.connection-module.html"><a title="satellite_tools.connection" class="py-name" href="#" onclick="return doclink('link-4', 'connection', 'link-4');">connection</a></tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name" targets="Class server.wsgi.wsgiRequest.WsgiConnection=server.wsgi.wsgiRequest.WsgiConnection-class.html"><a title="server.wsgi.wsgiRequest.WsgiConnection" class="py-name" href="#" onclick="return doclink('link-5', 'WsgiConnection', 'link-5');">WsgiConnection</a></tt><tt class="py-op">(</tt><tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'REMOTE_ADDR'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Function common.rhnLockfile.main()=common.rhnLockfile-module.html#main,Function proxy.pm.rhn_package_manager.main()=proxy.pm.rhn_package_manager-module.html#main,Function pygettext.main()=pygettext-module.html#main,Method satellite_tools.disk_dumper.iss.ExporterMain.main()=satellite_tools.disk_dumper.iss.ExporterMain-class.html#main,Function satellite_tools.exporter.exporter.main()=satellite_tools.exporter.exporter-module.html#main,Function satellite_tools.geniso.main()=satellite_tools.geniso-module.html#main,Function satellite_tools.gentree.main()=satellite_tools.gentree-module.html#main,Method satellite_tools.reposync.RepoSync.main()=satellite_tools.reposync.RepoSync-class.html#main,Function satellite_tools.rhn_satellite_activate.main()=satellite_tools.rhn_satellite_activate-module.html#main,Function satellite_tools.rhn_ssl_dbstore.main()=satellite_tools.rhn_ssl_dbstore-module.html#main,Method satellite_tools.satComputePkgHeaders.Runner.main()=satellite_tools.satComputePkgHeaders.Runner-class.html#main,Function satellite_tools.satrm.main()=satellite_tools.satrm-module.html#main,Method satellite_tools.satsync.Runner.main()=satellite_tools.satsync.Runner-class.html#main,Function satellite_tools.updatePackages.main()=satellite_tools.updatePackages-module.html#main,Function script-db_checker_py.main()=script-db_checker_py-module.html#main,Function script-rhn_entitlement_report_py.main()=script-rhn_entitlement_report_py-module.html#main"><a title="common.rhnLockfile.main
+proxy.pm.rhn_package_manager.main
+pygettext.main
+satellite_tools.disk_dumper.iss.ExporterMain.main
+satellite_tools.exporter.exporter.main
+satellite_tools.geniso.main
+satellite_tools.gentree.main
+satellite_tools.reposync.RepoSync.main
+satellite_tools.rhn_satellite_activate.main
+satellite_tools.rhn_ssl_dbstore.main
+satellite_tools.satComputePkgHeaders.Runner.main
+satellite_tools.satrm.main
+satellite_tools.satsync.Runner.main
+satellite_tools.updatePackages.main
+script-db_checker_py.main
+script-rhn_entitlement_report_py.main" class="py-name" href="#" onclick="return doclink('link-6', 'main', 'link-6');">main</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">proto_num</tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'SERVER_PROTOCOL'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name" targets="Class server.wsgi.wsgiRequest.WsgiDict=server.wsgi.wsgiRequest.WsgiDict-class.html"><a title="server.wsgi.wsgiRequest.WsgiDict" class="py-name" href="#" onclick="return doclink('link-7', 'WsgiDict', 'link-7');">WsgiDict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sent_header</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">content_type</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">the_request</tt> <tt class="py-op">=</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'REQUEST_METHOD'</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">" "</tt> <tt class="py-op">+</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'SCRIPT_NAME'</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">" "</tt>  <tt class="py-op">+</tt> <tt class="py-name">env</tt><tt class="py-op">[</tt><tt class="py-string">'SERVER_PROTOCOL'</tt><tt class="py-op">]</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">output</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">err_headers_out</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="server.wsgi.wsgiRequest.WsgiDict" class="py-name" href="#" onclick="return doclink('link-8', 'WsgiDict', 'link-7');">WsgiDict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-9', 'status', 'link-9');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sent_bodyct</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sent_header</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.set_option"></a><div id="WsgiRequest.set_option-def"><a name="L45"></a><tt class="py-lineno">45</tt> <a class="py-toggle" href="#" id="WsgiRequest.set_option-toggle" onclick="return toggle('WsgiRequest.set_option');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#set_option">set_option</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.set_option-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.set_option-expanded"><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.get_options"></a><div id="WsgiRequest.get_options-def"><a name="L48"></a><tt class="py-lineno">48</tt> <a class="py-toggle" href="#" id="WsgiRequest.get_options-toggle" onclick="return toggle('WsgiRequest.get_options');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#get_options">get_options</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.get_options-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.get_options-expanded"><a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">options</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.get_config"></a><div id="WsgiRequest.get_config-def"><a name="L51"></a><tt class="py-lineno">51</tt> <a class="py-toggle" href="#" id="WsgiRequest.get_config-toggle" onclick="return toggle('WsgiRequest.get_config');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#get_config">get_config</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.get_config-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.get_config-expanded"><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">""</tt>  <tt class="py-comment">#FIXME</tt> </tt>
+</div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.write"></a><div id="WsgiRequest.write-def"><a name="L54"></a><tt class="py-lineno">54</tt> <a class="py-toggle" href="#" id="WsgiRequest.write-toggle" onclick="return toggle('WsgiRequest.write');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#write">write</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">str</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.write-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.write-expanded"><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">output</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-10', 'append', 'link-10');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.send_http_header"></a><div id="WsgiRequest.send_http_header-def"><a name="L57"></a><tt class="py-lineno">57</tt> <a class="py-toggle" href="#" id="WsgiRequest.send_http_header-toggle" onclick="return toggle('WsgiRequest.send_http_header');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#send_http_header">send_http_header</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">status</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.send_http_header-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.send_http_header-expanded"><a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">sent_header</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-11', 'status', 'link-9');">status</a></tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">or</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-12', 'status', 'link-9');">status</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-13', 'status', 'link-9');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"200 OK"</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-14', 'status', 'link-9');">status</a></tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-15', 'status', 'link-9');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-16', 'status', 'link-9');">status</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">content_type</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">           <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt><tt class="py-op">[</tt><tt class="py-string">'Content-Type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">content_type</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-comment">#default to text/xml</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-17', 'has_key', 'link-17');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">'Content-Type'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt><tt class="py-op">[</tt><tt class="py-string">'Content-Type'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'text/xml'</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_response</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-18', 'status', 'link-9');">status</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_out</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-19', 'items', 'link-19');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.get_remote_host"></a><div id="WsgiRequest.get_remote_host-def"><a name="L74"></a><tt class="py-lineno">74</tt> <a class="py-toggle" href="#" id="WsgiRequest.get_remote_host-toggle" onclick="return toggle('WsgiRequest.get_remote_host');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#get_remote_host">get_remote_host</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">rev</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.get_remote_host-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.get_remote_host-expanded"><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">        <tt class="py-name">host</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-string">'REMOTE_ADDR'</tt><tt class="py-op">]</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">            <tt class="py-name">host</tt> <tt class="py-op">=</tt> <tt class="py-name">socket</tt><tt class="py-op">.</tt><tt class="py-name">gethostbyaddr</tt><tt class="py-op">(</tt><tt class="py-name">host</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">host</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"> </tt>
+<a name="WsgiRequest.read"></a><div id="WsgiRequest.read-def"><a name="L82"></a><tt class="py-lineno">82</tt> <a class="py-toggle" href="#" id="WsgiRequest.read-toggle" onclick="return toggle('WsgiRequest.read');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiRequest-class.html#read">read</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">buffer</tt><tt class="py-op">=</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiRequest.read-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiRequest.read-expanded"><a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">headers_in</tt><tt class="py-op">[</tt><tt class="py-string">'wsgi.input'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-20', 'read', 'link-20');">read</a></tt><tt class="py-op">(</tt><tt class="py-name">buffer</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line"> </tt>
+<a name="WsgiServer"></a><div id="WsgiServer-def"><a name="L86"></a><tt class="py-lineno">86</tt> <a class="py-toggle" href="#" id="WsgiServer-toggle" onclick="return toggle('WsgiServer');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiServer-class.html">WsgiServer</a><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiServer-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="WsgiServer-expanded"><a name="WsgiServer.__init__"></a><div id="WsgiServer.__init__-def"><a name="L87"></a><tt class="py-lineno">87</tt> <a class="py-toggle" href="#" id="WsgiServer.__init__-toggle" onclick="return toggle('WsgiServer.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiServer-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">hostname</tt><tt class="py-op">,</tt> <tt class="py-param">port</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiServer.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiServer.__init__-expanded"><a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">server_hostname</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name" targets="Variable common.rhnTB.hostname=common.rhnTB-module.html#hostname,Variable proxy.rhnProxyAuth.ProxyAuth.hostname=proxy.rhnProxyAuth.ProxyAuth-class.html#hostname,Method server.config_common.templated_document.ServerTemplatedDocument.hostname()=server.config_common.templated_document.ServerTemplatedDocument-class.html#hostname"><a title="common.rhnTB.hostname
+proxy.rhnProxyAuth.ProxyAuth.hostname
+server.config_common.templated_document.ServerTemplatedDocument.hostname" class="py-name" href="#" onclick="return doclink('link-21', 'hostname', 'link-21');">hostname</a></tt> </tt>
+<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">port</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">port</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line"> </tt>
+<a name="WsgiConnection"></a><div id="WsgiConnection-def"><a name="L91"></a><tt class="py-lineno">91</tt> <a class="py-toggle" href="#" id="WsgiConnection-toggle" onclick="return toggle('WsgiConnection');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiConnection-class.html">WsgiConnection</a><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiConnection-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="WsgiConnection-expanded"><a name="WsgiConnection.__init__"></a><div id="WsgiConnection.__init__-def"><a name="L92"></a><tt class="py-lineno">92</tt> <a class="py-toggle" href="#" id="WsgiConnection.__init__-toggle" onclick="return toggle('WsgiConnection.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiConnection-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">remote_ip</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiConnection.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiConnection.__init__-expanded"><a name="L93"></a><tt class="py-lineno">93</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">remote_ip</tt> <tt class="py-op">=</tt> <tt class="py-name">remote_ip</tt> </tt>
+</div></div><a name="L94"></a><tt class="py-lineno">94</tt>  <tt class="py-line"> </tt>
+<a name="WsgiDict"></a><div id="WsgiDict-def"><a name="L95"></a><tt class="py-lineno">95</tt> <a class="py-toggle" href="#" id="WsgiDict-toggle" onclick="return toggle('WsgiDict');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiDict-class.html">WsgiDict</a><tt class="py-op">(</tt><tt class="py-base-class">dict</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiDict-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="WsgiDict-expanded"><a name="WsgiDict.add"></a><div id="WsgiDict.add-def"><a name="L96"></a><tt class="py-lineno">96</tt> <a class="py-toggle" href="#" id="WsgiDict.add-toggle" onclick="return toggle('WsgiDict.add');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.wsgi.wsgiRequest.WsgiDict-class.html#add">add</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="WsgiDict.add-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="WsgiDict.add-expanded"><a name="L97"></a><tt class="py-lineno">97</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">;</tt> </tt>
+</div></div><a name="L98"></a><tt class="py-lineno">98</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:30 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

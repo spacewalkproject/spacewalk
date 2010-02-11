@@ -2,7 +2,7 @@
 #
 # Decoding data from XML streams
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -250,6 +250,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 # Particular case: a satellite handler
 class SatelliteDispatchHandler(BaseDispatchHandler):
     rootElement = 'rhn-satellite'
+    # this is the oldest version of channel dump we support
     version = "3.0"
 
     # Historical log
@@ -457,15 +458,27 @@ class ChannelItem(BaseItem):
         'rhn-channel-errata'        : 'errata_timestamps',
         'source-packages'           : 'source_packages',
         'rhn-channel-gpg-key-url'   : 'gpg_key_url',
-	    'rhn-channel-product-name'  : 'product_name',
+        'rhn-channel-product-name'  : 'product_name',
         'rhn-channel-product-version'  : 'product_version',
         'rhn-channel-product-beta'  : 'product_beta',
         'rhn-channel-receiving-updates' : 'receiving_updates',
+        'rhn-channel-checksum-type' : 'checksum_type',
     }
 addItem(ChannelItem)
 
+class BaseChecksummedItem(BaseItem):
+    def populate(self, attributes, elements):
+        item = BaseItem.populate(self, attributes, elements)
+        if 'md5sum' in item:
+            if type(item['checksum']) != types.StringType:
+                # xml dumps < 3.5 (aka pre-sha256)
+                item['checksum_type'] = 'md5'
+                item['checksum']      = item['md5sum']
+            del(item['md5sum'])
+        return item
+addItem(BaseChecksummedItem)
 
-class IncompletePackageItem(BaseItem):
+class IncompletePackageItem(BaseChecksummedItem):
     item_name = 'rhn-package-short'
     item_class = importLib.IncompletePackage
     tagMap = {
@@ -474,6 +487,7 @@ class IncompletePackageItem(BaseItem):
         'last-modified'             : 'last_modified',
         'package-arch'              : 'arch',
         'org-id'                    : 'org_id',
+        'checksum-type'             : 'checksum_type',  # xml dump 3.5 (sha256)
     }
 addItem(IncompletePackageItem)
 
@@ -538,7 +552,7 @@ class SourcePackageItem(BaseItem):
         'build-host'                : 'build_host',
         'build-time'                : 'build_time',
         'package-size'              : 'package_size',
-        #???'rhn-package-last-modified' : 'last_modified',
+        'last-modified'             : 'last_modified',
     }
 addItem(SourcePackageItem)
 
@@ -584,23 +598,11 @@ class ObsoletesItem(BaseItem):
     }
 addItem(ObsoletesItem)
 
-class FileItem(BaseItem):
+class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
     tagMap = {
-        'rhn-package-file-device'   : 'device',
-        'rhn-package-file-inode'    : 'inode',
-        'rhn-package-file-file_mode': 'file_mode',
-        'rhn-package-file-username' : 'username',
-        'rhn-package-file-groupname': 'groupname',
-        'rhn-package-file-rdev'     : 'rdev',
-        'rhn-package-file-file_size': 'file_size',
-        'rhn-package-file-mtime'    : 'mtime',
-        'rhn-package-file-md5'      : 'md5',
-        'rhn-package-file-linkto'   : 'linkto',
-        'rhn-package-file-flags'    : 'flags',
-        'rhn-package-file-verifyflags': 'verifyflags',
-        'rhn-package-file-lang'     : 'lang',
+        'md5' : 'md5sum',
     }
 addItem(FileItem)
 
@@ -681,7 +683,7 @@ class ErrorItem(BaseItem):
     tagMap = {}
 addItem(ErrorItem)
 
-class ErrataFileItem(BaseItem):
+class ErrataFileItem(BaseChecksummedItem):
     item_name = 'rhn-erratum-file'
     item_class = importLib.ErrataFile
     tagMap = {
@@ -690,6 +692,7 @@ class ErrataFileItem(BaseItem):
         # Specific to XML
         'package'                   : 'package',
         'source-package'            : 'source-package',
+        'checksum-type'             : 'checksum_type',
     }
 addItem(ErrataFileItem)
 
@@ -720,13 +723,14 @@ class KickstartableTreeItem(BaseItem):
     }
 addItem(KickstartableTreeItem)
 
-class KickstartFileItem(BaseItem):
+class KickstartFileItem(BaseChecksummedItem):
     item_name = 'rhn-kickstart-file'
     item_class = importLib.KickstartFile
     tagMap = {
         'relative-path'             : 'relative_path',
         'file-size'                 : 'file_size',
         'last-modified'             : 'last_modified',
+        'checksum-type'             : 'checksum_type',
     }
 addItem(KickstartFileItem)
 

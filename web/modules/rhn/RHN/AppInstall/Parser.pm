@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,6 @@ use strict;
 use XML::LibXML;
 use Digest::MD5 qw/md5_hex/;
 use RHN::Exception qw/throw/;
-use Data::Dumper;
 
 use RHN::AppInstall::Instance;
 use RHN::AppInstall::ACL;

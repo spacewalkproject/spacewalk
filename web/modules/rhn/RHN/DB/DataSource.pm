@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -184,31 +184,6 @@ sub parse {
   }
 
   return $mode_data;
-}
-
-sub is_xml_data_cached { #just for testing
-  my $self = shift;
-
-  return scalar keys %{$self->mode_data()};
-}
-
-my %xml_cache_time;
-
-sub load_data_file {
-  my $class = shift;
-  my $filename = shift;
-
-  my $xml_dir = $INC{"RHN/DB/DataSource.pm"};
-  $xml_dir =~ s/\.pm$/\//;
-
-  my $path = File::Spec->catfile($xml_dir, 'xml');
-  my $fc = RHN::Cache::File->new(-name => $filename, -directory => $path, -no_cache => 1);
-
-  if ($fc->is_up2date) {
-    return;
-  }
-
-  return $fc->contents;
 }
 
 sub data_file {

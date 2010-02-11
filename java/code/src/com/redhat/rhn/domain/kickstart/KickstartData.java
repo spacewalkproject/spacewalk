@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,9 +21,12 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
@@ -1227,9 +1230,7 @@ public class KickstartData {
             cloned.setCryptoKeys(new HashSet(this.getCryptoKeys()));
         }
         
-        if (this.getDefaultRegTokens() != null) {
-            cloned.setDefaultRegTokens(new HashSet(this.getDefaultRegTokens()));
-        }
+
 
         // NOTE: Make sure we *DONT* clone isOrgDefault
         cloned.setIsOrgDefault(Boolean.FALSE);
@@ -1256,6 +1257,24 @@ public class KickstartData {
                 cloned.addScript(ksscloned);   
             }
         }
+        
+        //copy all of the non-session related kickstarts
+        Set<Token> newTokens = new HashSet<Token>();
+        if (this.getDefaultRegTokens() != null) {
+            for (Token tok : this.getDefaultRegTokens()) {
+                ActivationKey key = ActivationKeyFactory.lookupByToken(tok);
+                if (key == null || key.getKickstartSession() == null) {
+                    newTokens.add(tok);
+                }
+            }
+        }
+        cloned.setDefaultRegTokens(newTokens);
+        
+        //create a new session one
+        KickstartSessionCreateCommand cmd = new KickstartSessionCreateCommand(
+                user.getOrg(), cloned);
+        cmd.store();
+        
     }
     
     // Helper method to copy KickstartCommands

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -68,8 +68,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         }
         
         ChecksumType ct = ChannelFactory.findChecksumTypeByLabel(checksum);
-        
-        if (!ct.getLabel().equals(c.getChecksum().getLabel()) && c.getPackageCount() > 0) {
+        if (!ct.getLabel().equals(c.getChecksumTypeLabel()) && c.getPackageCount() > 0) {
             // schedule repo re generation if the checksum type changed 
             // and the channel has packages
             ChannelManager.queueChannelChange(c.getLabel(), 
@@ -84,7 +83,7 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
-        c.setChecksum(ct);
+        c.setChecksumType(ct);
         c.setAccess(access);
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);

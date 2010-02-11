@@ -1,0 +1,25 @@
+rhn-clone-errata.py : This handles pulling errata from RHN and
+publishing them in my "official" RHEL channels.  Typical usage for me:
+
+rhn-clone-errata.py -s localhost -l <username> -p <password> \
+  --src-channel=rhel-x86_64-server-5 \
+  -b YYYYMMDD -e YYYYMMDD -u
+
+spw-clone-errata.py : This handles cloning the errata I have in my
+"official" channels into cloned "production" channels.  This helps me do
+proper release management of errata for my org.  Typical usage:
+
+spw-clone-errata.py -s localhost -l <username> -p <password> -c
+rhel-i386-server-prod-4-7 -e 20080724
+
+(NOTE: This end-date corresponds to the release of RHEL 4.7.  This
+allows me to clone to production channels all errata up to that
+release.. more or less.)
+
+These will eventually be thrown together into one script... but I'm
+still actively developing and will get there eventually.  I've also been
+lazy about handling credentials... so you'll find these sanitized for my
+protection.
+
+Andy Speagle
+

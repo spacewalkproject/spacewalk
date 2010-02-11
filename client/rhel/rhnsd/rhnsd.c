@@ -1,5 +1,5 @@
 /*
- * Copright (C) 2000, Red Hat, Inc.
+ * Copright (C) 2000--2010 Red Hat, Inc.
  *
  * Author:
  *	Cristian Gafton <gafton@redhat.com>
@@ -33,7 +33,7 @@
 #define RHN_UP2DATE "/etc/sysconfig/rhn/up2date"
 #define RHNSD_CONFIG_FILE "/etc/sysconfig/rhn/rhnsd"
 
-#define MAX_PATH_SIZE   512 
+#define MAX_PATH_SIZE   512
 
 /* gettext stuff */
 #define N_(msgid)	(msgid)
@@ -54,8 +54,6 @@ static const struct argp_option options[] =
 {
     { "interval", 'i', N_("MINS"), 0,
       N_("Connect to Red Hat Network every MINS minutes") },
-    { "verbose", 'v', NULL, 0,
-      N_("Log all actions to syslog") },
     { "foreground", 'f', NULL, 0,
       N_("Run in foreground") },
     { NULL, 0, NULL, 0, NULL }
@@ -64,12 +62,14 @@ static const struct argp_option options[] =
 /* Short description of program.  */
 static const char doc[] = N_("Red Hat Network Services Daemon");
 #define PROGRAM		"rhnsd"
-#define VERSION		"1.0.2"
+#ifndef VERSION
+#define VERSION		"unknown"
+#endif
 
 /* Configuration parameters */
 static const char* param_name_interval = "interval";
 
-typedef struct _config_param  
+typedef struct _config_param
 {
     char *key;
     char *data;
@@ -98,13 +98,12 @@ static void unset_signal_handlers (void);
 static void SIGHUP_handler(int);
 
 /* Arguments */
-#define MIN_INTERVAL  1         /* minimal sane interval; RHN will blacklist
+#define MIN_INTERVAL  60         /* minimal sane interval; RHN will blacklist
 				   if lower, so don't think you can recompile
 				   with a lower value than this. */
 
 static int foreground = 0;       /* run in foreground */
 static int interval = 240;       /* check RHN every interval minutes */
-static int verbose = 0;          /* how verbose should we be */
 
 int main (int argc, char **argv)
 {
@@ -117,7 +116,7 @@ int main (int argc, char **argv)
 	fprintf(stderr, _("Only root can run this program\n"));
 	exit(-1);
     }
-    
+
     /* Set locale via LC_ALL.  */
     setlocale(LC_ALL, "");
 
@@ -125,7 +124,7 @@ int main (int argc, char **argv)
     bindtextdomain(PROGRAM, "/usr/share/locale");
     textdomain(PROGRAM);
 
-    /* Read default configuration file and allow command line 
+    /* Read default configuration file and allow command line
      * options to override initial configuration file entries
      **/
     read_configuration();
@@ -174,11 +173,11 @@ int main (int argc, char **argv)
 
     /* Init databases.  */
     rhn_init();
-    
+
     while(1) {
 	time_t rhn_check_start_time;
 	time_t sleep_until = interval * 60 + time(NULL) - last_run_duration;
-	/* every 12 passes (24 hours with default interval), perturb the
+	/* every 12 passes (48 hours with default interval), perturb the
 	 * checkin counter slightly so as to break up cyclical
 	 * patterns */
 	if (pass_count % 12 == 0) {
@@ -229,11 +228,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	    setInterval(arg);
 	    break;
 
-	case 'v':
-	    /* --verbose */
-	    verbose++;
-	    break;
-		
 	default:
 	    return ARGP_ERR_UNKNOWN;
     }
@@ -248,7 +242,7 @@ print_version (FILE *stream, struct argp_state *state)
   fprintf (stream, "rhnsd (%s) %s\n", doc, VERSION);
   fprintf (stream, gettext("\
 Copyright (C) %s Red Hat, Inc.\n\
-"), "2000");
+"), "2000--2010");
   fprintf (stream, gettext("\
 Written by %s.\n\
 "), "Cristian Gafton <gafton@redhat.com>");
@@ -258,7 +252,7 @@ Written by %s.\n\
 static void termination_handler (int signum)
 {
     syslog(LOG_NOTICE, "Exiting");
-    
+
     /* Clean up pid file.  */
     unlink (_PATH_RHNDPID);
 
@@ -290,7 +284,7 @@ static int check_pid (const char *file)
 static int write_pid (const char *file)
 {
     FILE *fp;
-    
+
     fp = fopen (file, "w");
     if (fp == NULL)
 	return -1;
@@ -305,7 +299,7 @@ static int write_pid (const char *file)
     return 0;
 }
 
-static void 
+static void
 set_signal_handlers (void)
 {
     signal (SIGINT, termination_handler);
@@ -315,7 +309,7 @@ set_signal_handlers (void)
     signal (SIGHUP, SIGHUP_handler);
 }
 
-static void 
+static void
 unset_signal_handlers (void)
 {
     signal (SIGINT, SIG_DFL);
@@ -329,7 +323,7 @@ unset_signal_handlers (void)
 /* perform the initialization for the enless loop */
 static int rhn_init(void)
 {
-    syslog(LOG_NOTICE, "%s starting up.", doc);
+    syslog(LOG_NOTICE, "%s starting up, check in interval %d minutes.", doc, interval);
     srand(time(NULL) ^ getpid());
     return 0;
 }
@@ -366,7 +360,7 @@ static int rhn_do_action(void)
          syslog(LOG_DEBUG, "%s does not exist or is unreadable", systemid_path);
          return -1;
     }
-    
+
     /* first, the child will have the stdout redirected */
     if (pipe(fds) != 0) {
 	syslog(LOG_ERR, "Could not create pipe for forking process; %m");
@@ -387,7 +381,7 @@ static int rhn_do_action(void)
 
 	/* make sure this child has a stderr */
 	dup2(STDOUT_FILENO, STDERR_FILENO);
-	
+
 	/* syslog for safekeeping */
 	syslog(LOG_DEBUG, "running program %s", RHN_CHECK);
 
@@ -405,7 +399,7 @@ static int rhn_do_action(void)
 	int ret = 1;
 	char *buf, buffer[10];
 	int bufsize = 0;
-	
+
 	buf = malloc(sizeof(buffer));
 	if (buf == NULL) {
 	    syslog(LOG_ERR, "out of memory");
@@ -414,19 +408,19 @@ static int rhn_do_action(void)
 	    bufsize = sizeof(buffer);
 	}
 	memset(buf, '\0', bufsize);
-	
+
 	close(fds[1]); /* we don't need it */
-	
-	while (ret > 0) {	    
+
+	while (ret > 0) {
 	    struct timeval tv;
 	    fd_set rset;
-	        
+
 	    memset(buffer, '\0', sizeof(buffer));
 	    tv.tv_sec = 2; /* 2 sec should be fine enough */
 	    tv.tv_usec = 0;
 	    FD_ZERO(&rset);
 	    FD_SET(fds[0], &rset);
-	    
+
 	    ret = select(fds[0] + 1, &rset, NULL, NULL, &tv);
 
 	    if (ret < 0) {
@@ -440,11 +434,11 @@ static int rhn_do_action(void)
 		int chars;
 		/* now we can read */
 		chars = read(fds[0], buffer, sizeof(buffer)-1);
-		
+
 		if (chars > 0) {
 		    bufsize += chars;
 		    buf = realloc(buf, bufsize);
-		    strcat(buf, buffer);		
+		    strcat(buf, buffer);
 		} else {
 		    /* chars is 0, so the remote end of the socket was closed, we
 		       can handle this just like a timeout */
@@ -471,9 +465,9 @@ static int rhn_do_action(void)
 		    ret = 1;
 		    continue;
 		}
-	    } 
+	    }
 	}
-		    
+
 	syslog(LOG_WARNING, "caught exceptional exit status from child program");
 	/* NOT REACHED */
 	/* wait for the kid to finish */
@@ -483,26 +477,25 @@ static int rhn_do_action(void)
 	return -2;
     } else {
 	syslog(LOG_ERR, "Could not fork process %s: %m", RHN_CHECK);
-	close(fds[0]); 
+	close(fds[0]);
 	close(fds[1]);
 	return -1;
     }
     /* notreached */
-    close(fds[0]); 
+    close(fds[0]);
     close(fds[1]);
     return 0;
 }
 
 
 
-static void setInterval(char *arg) 
+static void setInterval(char *arg)
 {
     interval = atoi(arg);
     if (interval < MIN_INTERVAL) {
         interval = MIN_INTERVAL;
         syslog(LOG_WARNING, "you cannot specify a minimum interval less than %d, interval adjusted.", MIN_INTERVAL);
     }
-    syslog(LOG_NOTICE, "%s running with check_in interval set to %d seconds.", doc, interval);
 }
 
 static int skipLine(char *line)
@@ -522,12 +515,12 @@ static int skipLine(char *line)
  * Expected format of config entries is:
  * KEY=VALUE
  */
-static config_param *parseLine(char *line) 
+static config_param *parseLine(char *line)
 {
     if (skipLine(line)) {
         return NULL;
     }
-    
+
     config_param *cp = malloc(sizeof(config_param));
     char delim[] = "=";
     char *dup = strdup(line);
@@ -551,7 +544,7 @@ static config_param *parseLine(char *line)
     return cp;
 }
 
-static void read_configuration() 
+static void read_configuration()
 {
     FILE *config = fopen(RHNSD_CONFIG_FILE, "r");
     if (config == NULL) {
@@ -573,9 +566,10 @@ static void read_configuration()
     fclose(config);
 }
 
-static void SIGHUP_handler(int signum) 
+static void SIGHUP_handler(int signum)
 {
     read_configuration();
+    syslog(LOG_NOTICE, "%s reloading, check in interval %d minutes.", doc, interval);
 }
 
 
@@ -585,6 +579,7 @@ static void SIGHUP_handler(int signum)
 /* parse systemIdPath from the up2date configuration file */
 static int parse_systemid_path(char* systemid_path, int systemid_path_length)
 {
+    int ret = 1; /* 1 indicates file not found */
     FILE* config_file;
     regex_t re_systemIdPath;
     regmatch_t submatch[SYSTEMID_NMATCH];
@@ -595,16 +590,20 @@ static int parse_systemid_path(char* systemid_path, int systemid_path_length)
         char line[MAX_CONFIG_LINE_SIZE];
         while (NULL != fgets(line, MAX_CONFIG_LINE_SIZE, config_file))
         {
-             int match_length = submatch[1].rm_eo - submatch[1].rm_so;
-             if (systemid_path_length < match_length)
-                   match_length = systemid_path_length - 1;
+            if (regexec(&re_systemIdPath, line, SYSTEMID_NMATCH, submatch, 0) != REG_NOMATCH)
+            {
+                int match_length = submatch[1].rm_eo - submatch[1].rm_so;
+                if (systemid_path_length < match_length)
+                     match_length = systemid_path_length - 1;
 
-             strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
-             systemid_path[match_length] = '\0';
-             return 0;
+                strncpy(systemid_path, &line[submatch[1].rm_so], match_length);
+                systemid_path[match_length] = '\0';
+                ret = 0;
+                break;
+            }
         }
         fclose(config_file);
     }
-    return 1;   /* file / key not found */
+    return ret;
 }
 

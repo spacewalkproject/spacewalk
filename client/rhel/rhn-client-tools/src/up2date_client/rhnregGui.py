@@ -1,9 +1,17 @@
 #
-# Copyright (c) 1999-2006 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999--2010 Red Hat, Inc.
 #
-# Authors:
-#    ?
-#    Daniel Benamy <dbenamy@redhat.com>
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 # this is a module containing classes for the registration related windows in
 # gui.py. The code is split up so we can reuse it in the firstboot modules
@@ -1094,7 +1102,7 @@ class CreateProfilePage:
         
         if self.sendPackages:
             getArch = 0
-            if self.cfg['supportsExtendedPackageProfile']:
+            if cfg['supportsExtendedPackageProfile']:
                 getArch = 1
             packageList = rpmUtils.getInstalledPackageList(progressCallback = lambda amount,
                                                            total: gtk.main_iteration(False),

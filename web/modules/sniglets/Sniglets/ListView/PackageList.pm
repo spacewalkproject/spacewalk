@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,19 +22,16 @@ use RHN::Package;
 use RHN::Channel;
 use RHN::DB;
 use RHN::Action;
-use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Package;
 use RHN::DataSource;
 use RHN::DataSource::Simple;
-use RHN::Utils;
 use PXT::Utils;
 use RHN::Scheduler;
 use RHN::Manifest;
 
 use RHN::Exception qw/throw/;
 
-use Time::HiRes;
 use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;
@@ -286,9 +283,6 @@ sub default_callback {
   elsif ($label eq 'confirm_package_install') {
     return install_packages_cb($pxt);
   }
-  elsif ($label eq 'confirm_package_verify') {
-    return verify_packages_cb($pxt);
-  }
   elsif ($label eq 'package_install_remote_command') {
     return install_packages_cb($pxt, 'package_install_remote_command');
   }
@@ -298,63 +292,14 @@ sub default_callback {
   elsif ($label eq 'ssm_package_install_answer_files') {
     return ssm_install_packages_cb($pxt, 'ssm_package_install_answer_files');
   }
-  elsif ($label eq 'package_remove_remote_command') {
-    return package_remove_remote_command_cb($pxt);
-  }
-  elsif ($label eq 'download_system_packages') {
-    my $set_label = $pxt->dirty_param('set_label');
-    my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-    my $download_set = RHN::Set->lookup(-label => 'package_downloadable_list', -uid => $pxt->user->id);
-
-    $download_set->empty;
-    $download_set->add($package_set->contents);
-    $download_set->commit;
-
-    if ($download_set->element_count > PXT::Config->get('download_tarball_max')) {
-      $pxt->push_message(site_info =>sprintf("At most %d packages may be downloaded as a tarball at one time; please reduce your selection size",
-					     PXT::Config->get('download_tarball_max')));
-      return 0;
-    }
-
-    return 1;
-  }
-  elsif ($label eq 'download_packages') {
-    my $set_label = $pxt->dirty_param('list_set_label');
-    my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-    if ($set->element_count > PXT::Config->get('download_tarball_max')) {
-      $pxt->push_message(site_info =>sprintf("At most %d packages may be downloaded as a tarball at one time; please reduce your selection size",
-					     PXT::Config->get('download_tarball_max')));
-      return 0;
-    }
-    return 1;
-  }
-  elsif ($label eq 'update_channel_packages_from_errata') {
-    return add_channel_packages_cb($pxt);
-  }
-  elsif ($label eq 'remove_packages_from_channel') {
-    return remove_packages_from_channel_cb($pxt);
-  }
   elsif ($label eq 'remove_patches_from_channel') {
     return remove_patches_from_channel_cb($pxt);
-  }
-  elsif ($label eq 'add_packages_to_channel') {
-    return add_packages_to_channel_cb($pxt);
   }
   elsif ($label eq 'add_patches_to_channel') {
     return add_patches_to_channel_cb($pxt);
   }
   elsif ($label eq 'add_patchsets_to_channel') {
     return add_patchsets_to_channel_cb($pxt);
-  }
-  elsif ($label eq 'remove_packages_from_errata') {
-    return remove_packages_from_errata_cb($pxt);
-  }
-  elsif ($label eq 'add_packages_to_errata') {
-    return add_packages_to_errata_cb($pxt);
-  }
-  elsif ($label eq 'download_system_packages') {
-    return package_download_for_system_cb($pxt);
   }
   elsif ($label eq 'sync_packages_to_channel') {
     return sync_packages_to_channel_cb($pxt);
@@ -600,31 +545,6 @@ sub missing_packages_for_sync_provider {
   return (data => $data,
 	  all_ids => $all_ids,
 	  alphabar => $alphabar);
-}
-
-sub package_name_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $search = RHN::SearchTypes->find_type('package');
-  my $mode = 'packages_by_name';
-
-  if ($pxt->dirty_param('search_subscribed_channels')) {
-    if ($pxt->user->org->server_count > 0) {
-      $mode = "packages_by_name_smart";
-    }
-    else {
-      $mode = "packages_by_name_clabel";
-    }
-  }
-
-  my $ds = $self->datasource;
-  $ds->mode($mode);
-
-  my %params = map { ("-$_" => ($pxt->passthrough_param($_) || '')) } qw/channel_arch_ia32 channel_arch_ia64 channel_arch_x86_64/;
-  my %ret = $self->default_provider($pxt, %params);
-
-  return %ret;
 }
 
 sub package_removal_failures_provider {
@@ -1209,35 +1129,6 @@ sub package_download_for_system_arch_select_provider {
 	  alphabar => $alphabar);
 }
 
-sub package_download_for_system_cb {
-  my $pxt = shift;
-  my $set_label = shift || 'downloadable_package_list';
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my @files = $pxt->dirty_param('download_packages');
-  my @optional_files = $pxt->dirty_param('optional_pacakges');
-
-  my @selected_pids = $set->contents;
-  my @selected_files;
-  my $prefix = '/pub/';
-
-  foreach my $pid (@selected_pids) {
-    my $package = RHN::Package->lookup(-id => $pid);
-    push @selected_files, $prefix . $package->path;
-  }
-
-  my $all_files = join("&", (map { 'filename_full=' . PXT::Utils->escapeURI($_) } @files, @optional_files));
-  my $selected_files = join("&", (map { 'filename=' . PXT::Utils->escapeURI($_) } @files, @selected_files));
-
-  my $token = $pxt->dirty_param('token');
-
-  my $vars = sprintf('token=%s&%s&%s', $token, $all_files, $selected_files);
-
-  my $uri = '/cgi-bin/download.pl?' . $vars;
-
-  $pxt->redirect($uri);
-}
-
 sub delete_packages_cb {
   my $pxt = shift;
   my $set_label = shift || 'deletable_package_list';
@@ -1461,42 +1352,6 @@ sub install_packages_cb {
   return wantarray ? @action_order : 1;
 }
 
-sub verify_packages_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-
-  my $package_set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $package_set_label;
-
-  my $package_set = RHN::Set->lookup(-label => $package_set_label, -uid => $pxt->user->id);
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $actions_scheduled =
-    RHN::Scheduler->schedule_system_package_action(-org_id => $pxt->user->org_id,
-						   -user_id => $pxt->user->id,
-						   -earliest => $earliest_date,
-						   -sid => $sid,
-						   -id_combos => [ $package_set->contents ],
-						   -action_type => 'verify',
-						  );
-
-  my $system = RHN::Server->lookup(-id => $sid);
-
-  foreach my $action_id (keys %{$actions_scheduled}) {
-    my $package_count = scalar @{$actions_scheduled->{$action_id}};
-    $pxt->push_message(site_info =>
-		       sprintf('<strong>%d</strong> package verif%s been <a href="/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d">scheduled</a> for <a href="/rhn/systems/details/Overview.do?sid=%d"><strong>%s</strong></a>.',
-			       $package_count, $package_count == 1 ? 'y has' : 'ies have', $system->id, $action_id,
-			       $sid, PXT::Utils->escapeHTML($system->name)));
-  }
-
-  $package_set->empty;
-  $package_set->commit;
-
-  return 1;
-}
-
 sub ssm_install_packages_cb {
   my $pxt = shift;
   my $mode = shift || 'confirm_ssm_package_install';
@@ -1527,16 +1382,6 @@ sub package_install_remote_command_cb {
   my $set_label = $pxt->dirty_param('set_label');
 
   $pxt->redirect("/rhn/systems/details/packages/ScheduleRemoteCommand.do?sid=$sid&set_label=$set_label&mode=package_install");
-
-  return 1;
-}
-
-sub package_remove_remote_command_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  my $set_label = $pxt->dirty_param('set_label');
-
-  $pxt->redirect("/rhn/systems/details/packages/ScheduleRemoteCommand.do?sid=$sid&set_label=$set_label&mode=package_remove");
 
   return 1;
 }
@@ -2142,120 +1987,6 @@ sub empty_set_action_cb { #overridden from ListView::List
   return $self->SUPER::empty_set_action_cb($pxt, %action);
 }
 
-sub add_channel_packages_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  my $channel_id = $pxt->param('cid');
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  RHN::ChannelEditor->add_channel_packages($channel_id, $package_set->contents);
-  RHN::Channel->refresh_newest_package_cache($channel_id, 'web.errata_cloning');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel_id, 0);
-
-  if (RHN::Channel->channel_type_capable($channel_id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel_id} = 0;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $package_set->empty;
-  $package_set->commit;
-
-  my $action_type;
-  if ($pxt->dirty_param('publish_errata')) {
-    $action_type = 'publish_errata';
-  }
-  elsif ($pxt->dirty_param('update_channels')) {
-    $action_type = 'update_channels';
-  }
-  else {
-    throw "The action type parameter is missing.  It should have been preserved."
-  }
-
-  my $channel_set = RHN::Set->lookup(-label => 'update_channels_list', -uid => $pxt->user->id);
-
-  my @updates_needed = $channel_set->contents;
-
-  if (@updates_needed) {
-    my $cid = pop @updates_needed;
-
-    my $next_package_set = RHN::Set->lookup(-label => 'update_package_list', -uid => $pxt->user->id);
-    $next_package_set->empty;
-
-    my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $pxt->param('eid'));
-    my $eid_cloned_from = $errata->cloned_from;
-    my $cid_cloned_from = RHN::Channel->channel_cloned_from($cid);
-
-    if ($eid_cloned_from and $cid_cloned_from
-	and RHN::Channel->is_errata_for_channel($eid_cloned_from, $cid_cloned_from)) {
-      my $ds = new RHN::DataSource::Package(-mode => 'channel_errata_full_intersection');
-      my $data = $ds->execute_full(-eid => $eid_cloned_from, -cid => $cid_cloned_from);
-
-      if (@{$data}) {
-	$next_package_set->add(map { $_->{ID} } @{$data});
-	$pxt->push_message(local_info => 'This errata is cloned from an official Red Hat errata, and the channel you are publishing this errata to is the clone of a Red Hat channel.  Packages which are associated with the original channel and errata are preselected below.');
-      }
-    }
-    $next_package_set->commit;
-
-    $channel_set->empty;
-    $channel_set->add(@updates_needed);
-    $channel_set->commit;
-
-    my $redir = $pxt->dirty_param('update_channel_redirect');
-
-    throw "Param 'update_channel_redirect' needed but not provided"
-      unless $redir;
-
-    my $eid = $pxt->param('eid');
-    # bugzilla: 197966 - need to retain the action_type
-    $pxt->redirect($redir . "?eid=${eid}&cid=${cid}&${action_type}=1");
-  }
-  elsif ($action_type eq 'publish_errata') {
-    Sniglets::ErrataEditor::errata_publish_cb($pxt);
-  }
-  else {
-    Sniglets::ErrataEditor::select_channels_cb($pxt);
-  }
-
-  return 1;
-}
-
-sub remove_packages_from_channel_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $cid = $pxt->param('cid');
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  $channel->remove_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my $count = scalar $package_set->contents;
-
-  $package_set->empty;
-  $package_set->commit;
-
-  RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel->id, 3600);
-
-  if (RHN::Channel->channel_type_capable($channel->id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel->id} = time;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s removed from channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
-					  $channel->name));
-
-  return 1;
-}
-
 sub remove_patches_from_channel_cb {
   my $pxt = shift;
 
@@ -2280,40 +2011,6 @@ sub remove_patches_from_channel_cb {
 
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patch%s removed from channel <strong>%s</strong>.",
 					  $count, $count == 1 ? '' : 'es',
-					  $channel->name));
-
-  return 1;
-}
-
-sub add_packages_to_channel_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $cid = $pxt->param('cid');
-  my $channel = RHN::Channel->lookup(-id => $cid);
-
-  $channel->add_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my $count = scalar $package_set->contents;
-
-  $package_set->empty;
-  $package_set->commit;
-
-  RHN::Channel->refresh_newest_package_cache($channel->id, 'web.channel_manager');
-  RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $channel->id, 3600);
-
-  if (RHN::Channel->channel_type_capable($channel->id, 'errata')) {
-    my $package_list_edited = $pxt->session->get('package_list_edited') || { };
-    $package_list_edited->{$channel->id} = time;
-    $pxt->session->set(package_list_edited => $package_list_edited);
-  }
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s added to channel <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
 					  $channel->name));
 
   return 1;
@@ -2369,78 +2066,6 @@ sub add_patchsets_to_channel_cb {
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> patchset%s added to channel <strong>%s</strong>.",
 					  $count, $count == 1 ? '' : 's',
 					  $channel->name));
-
-  return 1;
-}
-
-sub remove_packages_from_errata_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $eid = $pxt->param('eid');
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  $errata->remove_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  my $count = scalar $package_set->contents;
-
-  $package_set->empty;
-  $package_set->commit;
-
-  unless ($errata->isa('RHN::DB::ErrataTmp')) {
-
-    foreach my $cid (RHN::Errata->channels($eid)) {
-      RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid, 3600);
-    }
-    my $package_list_edited = $pxt->session->get('errata_package_list_edited') || { };
-    $package_list_edited->{$eid} = time;
-    $pxt->session->set(errata_package_list_edited => $package_list_edited);
-  }
-
-  $errata->refresh_erratafiles;
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s removed from errata <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
-					  $errata->advisory));
-
-  return 1;
-}
-
-sub add_packages_to_errata_cb {
-  my $pxt = shift;
-
-  my $set_label = $pxt->dirty_param('set_label');
-  throw "No package set label" unless $set_label;
-
-  my $eid = $pxt->param('eid');
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  $errata->add_packages_in_set(-set_label => $set_label, -user_id => $pxt->user->id);
-
-  my $package_set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my $count = scalar $package_set->contents;
-  $package_set->empty;
-  $package_set->commit;
-
-  unless ($errata->isa('RHN::DB::ErrataTmp')) {
-    foreach my $cid (RHN::Errata->channels($eid)) {
-      RHN::ChannelEditor->schedule_errata_cache_update($pxt->user->org_id, $cid, 3600);
-    }
-
-    my $package_list_edited = $pxt->session->get('errata_package_list_edited') || { };
-    $package_list_edited->{$eid} = time;
-    $pxt->session->set(errata_package_list_edited => $package_list_edited);
-  }
-
-  $errata->refresh_erratafiles;
-
-  $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s added to errata <strong>%s</strong>.",
-					  $count, $count == 1 ? '' : 's',
-					  $errata->advisory));
 
   return 1;
 }

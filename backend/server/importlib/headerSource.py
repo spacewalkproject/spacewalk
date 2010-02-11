@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,18 +23,23 @@ import string
 from importLib import File, Dependency, ChangeLog, Channel, \
     IncompletePackage, Package, SourcePackage
 from backendLib import gmtime, localtime
-from types import ListType, TupleType, IntType
+from types import ListType, TupleType, IntType, LongType, StringType
 from common import log_debug
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class rpmPackage(IncompletePackage):
     # Various mappings
     tagMap = {
         # Ignoring these tags
         'last_modified'     : None,
+        # We set them differently
+	'checksum'          : None,
+	'checksum_type'     : None,
+        'sigchecksum'       : None,
+        'sigchecksum_type'  : None,
     }
 
-    def populate(self, header, size, checksum, path=None, org_id=None,
+    def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
         header_start=None, header_end=None, channels=[]):
         
         # XXX is seems to me that this is the place that 'source_rpm' is getting
@@ -50,7 +55,7 @@ class rpmPackage(IncompletePackage):
             # get the db field value from the header
             val = header[field]
             if f == 'build_time':
-                if val is not None and isinstance(val, IntType):
+                if type(val) in (IntType, LongType):
                     # A UNIX timestamp
                     val = gmtime(val)
             elif val:
@@ -64,12 +69,17 @@ class rpmPackage(IncompletePackage):
             self[f] = val
 
         self['package_size'] = size
+        self['checksum_type'] = checksum_type
         self['checksum'] = checksum
         self['path'] = path
         self['org_id'] = org_id
         self['header_start'] = header_start
         self['header_end'] = header_end
         self['last_modified'] = localtime(time.time())
+        if self['sigmd5']:
+            self['sigchecksum_type'] = 'md5'
+            self['sigchecksum'] = self['sigmd5']
+        del(self['sigmd5'])
 
         # Fix some of the information up
         vendor = self['vendor']
@@ -97,10 +107,10 @@ class rpmPackage(IncompletePackage):
         if relpath:
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
-        checksum = (header.checksum_type(),
-                    checksum.getFileChecksum(header.checksum_type(), file=f_obj))
-        self.populate(header, size, checksum, path, org_id, header_start,
-            header_end, channels)
+        checksum_type = header.checksum_type()
+        checksum = getFileChecksum(header.checksum_type(), file=f_obj)
+        self.populate(header, size, checksum_type, checksum, path, org_id,
+                 header_start, header_end, channels)
 
 class rpmBinaryPackage(Package, rpmPackage):
     # Various mappings
@@ -134,10 +144,10 @@ class rpmBinaryPackage(Package, rpmPackage):
         'package_id'    : None,
     })
 
-    def populate(self, header, size, checksum, path=None, org_id=None,
+    def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
              header_start=None, header_end=None, channels=[]):
 
-        rpmPackage.populate(self, header, size, checksum, path, org_id,
+        rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
             header_start, header_end)
         
         # Populate file information
@@ -225,6 +235,8 @@ class rpmBinaryPackage(Package, rpmPackage):
                     # duplicate dep, ignore
                     continue
             else:
+                if tag == 'files':
+                    hash['checksum_type'] = self['checksum_type']
                 obj.populate(hash)
                 self[tag].append(obj)
 
@@ -249,9 +261,9 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         'channels'      : None,
         'package_id'    : None,
     })
-    def populate(self, header, size, checksum, path=None, org_id=None,
+    def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,
         header_start=None, header_end=None, channels=[]):
-        rpmPackage.populate(self, header, size, checksum, path, org_id,
+        rpmPackage.populate(self, header, size, checksum_type, checksum, path, org_id,
             header_start, header_end)
         nvr = []
         # Fill in source_rpm
@@ -264,9 +276,10 @@ class rpmSourcePackage(SourcePackage, rpmPackage):
         else:
             self['source_rpm'] = "%s-%s-%s.src.rpm" % tuple(nvr)
 
-        # Convert sigmd5 to ASCII
-        self['sigmd5'] = string.join(
-            map(lambda x: "%02x" % ord(x), self['sigmd5']), '')
+        # Convert sigchecksum to ASCII
+        self['sigchecksum_type'] = 'md5'
+        self['sigchecksum'] = string.join(
+            map(lambda x: "%02x" % ord(x), self['sigchecksum']), '')
 
     def populateFromFile(self, file, relpath=None, org_id=None, channels=[]):
         return self._populateFromFile(file, relpath, org_id, channels, source=1)
@@ -294,9 +307,12 @@ class rpmFile(File, ChangeLog):
         ChangeLog.populate(self, hash)
         # Fix the time
         tm = self['mtime']
-        if tm is not None and isinstance(tm, IntType):
+        if type(tm) in (IntType, LongType):
             # A UNIX timestamp
             self['mtime'] = gmtime(tm)
+        if type(self['filedigest']) == StringType:
+            self['checksum'] = self['filedigest']
+            del(self['filedigest'])
     
 class rpmProvides(Dependency):
     # More mappings
@@ -341,9 +357,16 @@ class rpmChangeLog(ChangeLog):
         ChangeLog.populate(self, hash)
         # Fix the time
         tm = self['time']
-        if tm is not None and isinstance(tm, IntType):
+        if type(tm) in (IntType, LongType):
             # A UNIX timestamp
             self['time'] = gmtime(tm)
+        # In changelog, data is either in UTF-8, or in any other
+        # undetermined encoding. Assume ISO-Latin-1 if not UTF-8.
+        for i in ('text', 'name'):
+            try:
+                self[i] = unicode(self[i], "utf-8")
+            except UnicodeDecodeError:
+                self[i] = unicode(self[i], "iso-8859-1")
 
 def sanitizePath(path):
     if not path:
@@ -361,7 +384,7 @@ def sanitizeList(l):
         return l
     return [l]
 
-def createPackage(header, size, checksum, relpath, org_id, header_start,
+def createPackage(header, size, checksum_type, checksum, relpath, org_id, header_start,
     header_end, channels):
     """
     Returns a populated instance of rpmBinaryPackage or rpmSourcePackage
@@ -376,7 +399,7 @@ def createPackage(header, size, checksum, relpath, org_id, header_start,
     # bug #524231 - we need to call fullFilelist() for RPM v3 file list
     # to expand correctly
     header.hdr.fullFilelist()
-    p.populate(header, size, checksum, relpath, org_id, header_start, header_end,
+    p.populate(header, size, checksum_type, checksum, relpath, org_id, header_start, header_end,
         channels)
     return p
 

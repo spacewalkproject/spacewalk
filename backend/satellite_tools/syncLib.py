@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,7 +25,7 @@ from cStringIO import StringIO
 # rhn imports:
 from common import CFG, log_clean, rhnLib
 from common.rhnLog import log_time
-from common.rhnLib import createPath
+from spacewalk.common.fileutils import createPath, setPermsPath
 
 import messages
 
@@ -201,7 +201,7 @@ class FileManip:
         fout = open(self.full_path, 'wb')
         # setting file permissions; NOTE: rhnpush uses apache to write to disk,
         # hence the 6 setting.
-        rhnLib.setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
+        setPermsPath(self.full_path, user='apache', group='apache', chmod=0644)
         size = 0
         try:
             while 1:
@@ -243,7 +243,7 @@ class RpmManip(FileManip):
 
     """General [S]RPM manipulation class.
 
-    o Check md5sums for mismatches
+    o Check checksums for mismatches
     o Write RPMs to the filesystem
     o get NVRE and NVREA
     """

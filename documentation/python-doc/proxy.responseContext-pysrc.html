@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>proxy.responseContext</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="proxy-module.html">Package&nbsp;proxy</a> ::
+        Module&nbsp;responseContext
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="proxy.responseContext-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="proxy.responseContext-module.html">Module proxy.responseContext</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># $Id: responseContext.py,v 1.1 2006/04/10 16:06:41 pvetere Exp $</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># This module provides a response context for use by the proxy broker</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># and redirect components.  This context provides a stackable set of </tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># response, header, and connection sets which can be used to easily maintain</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># the proxy's response state in the event of redirects.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable proxy.responseContext.CXT_RESP_HEADERS=proxy.responseContext-module.html#CXT_RESP_HEADERS"><a title="proxy.responseContext.CXT_RESP_HEADERS" class="py-name" href="#" onclick="return doclink('link-0', 'CXT_RESP_HEADERS', 'link-0');">CXT_RESP_HEADERS</a></tt> <tt class="py-op">=</tt> <tt class="py-docstring">'headers'</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable proxy.responseContext.CXT_RESP_BODYFD=proxy.responseContext-module.html#CXT_RESP_BODYFD"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-1', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt>  <tt class="py-op">=</tt> <tt class="py-string">'bodyFd'</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable proxy.responseContext.CXT_CONNECTION=proxy.responseContext-module.html#CXT_CONNECTION"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-2', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt>   <tt class="py-op">=</tt> <tt class="py-string">'connection'</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext"></a><div id="ResponseContext-def"><a name="L26"></a><tt class="py-lineno"> 26</tt> <a class="py-toggle" href="#" id="ResponseContext-toggle" onclick="return toggle('ResponseContext');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html">ResponseContext</a><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ResponseContext-expanded"><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-docstring">""" This class provides a response context for use by the proxy broker</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-docstring">        and redirect components.  This context provides a stackable set of</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">        response, header, and connection sets which can be used to easily maintain</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">        the proxy's response state in the event of redirects. """</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-comment"># Constructors and Destructors ############################################</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.__init__"></a><div id="ResponseContext.__init__-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="ResponseContext.__init__-toggle" onclick="return toggle('ResponseContext.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.__init__-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method common.rhnTB.SecurityList.add()=common.rhnTB.SecurityList-class.html#add,Method proxy.responseContext.ResponseContext.add()=proxy.responseContext.ResponseContext-class.html#add,Method server.rhnServer.server_packages.dbPackage.add()=server.rhnServer.server_packages.dbPackage-class.html#add,Method server.taskomatic.RepodataQueue.add()=server.taskomatic.RepodataQueue-class.html#add,Method server.wsgi.wsgiRequest.WsgiDict.add()=server.wsgi.wsgiRequest.WsgiDict-class.html#add"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-3', 'add', 'link-3');">add</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-comment"># Public Interface ########################################################</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.getHeaders"></a><div id="ResponseContext.getHeaders-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="ResponseContext.getHeaders-toggle" onclick="return toggle('ResponseContext.getHeaders');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#getHeaders">getHeaders</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.getHeaders-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.getHeaders-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-docstring">""" Get the current response headers. """</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method proxy.responseContext.ResponseContext._getCurrentContext()=proxy.responseContext.ResponseContext-class.html#_getCurrentContext"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-4', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-5" class="py-name"><a title="proxy.responseContext.CXT_RESP_HEADERS" class="py-name" href="#" onclick="return doclink('link-5', 'CXT_RESP_HEADERS', 'link-0');">CXT_RESP_HEADERS</a></tt><tt class="py-op">]</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.setHeaders"></a><div id="ResponseContext.setHeaders-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="ResponseContext.setHeaders-toggle" onclick="return toggle('ResponseContext.setHeaders');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#setHeaders">setHeaders</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">responseHeaders</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.setHeaders-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.setHeaders-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set the current response headers. """</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-6', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-7" class="py-name"><a title="proxy.responseContext.CXT_RESP_HEADERS" class="py-name" href="#" onclick="return doclink('link-7', 'CXT_RESP_HEADERS', 'link-0');">CXT_RESP_HEADERS</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">responseHeaders</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.getBodyFd"></a><div id="ResponseContext.getBodyFd-def"><a name="L48"></a><tt class="py-lineno"> 48</tt> <a class="py-toggle" href="#" id="ResponseContext.getBodyFd-toggle" onclick="return toggle('ResponseContext.getBodyFd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#getBodyFd">getBodyFd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.getBodyFd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.getBodyFd-expanded"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-docstring">""" Get the current response body file descriptor. """</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-8', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-9" class="py-name"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-9', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt><tt class="py-op">]</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.setBodyFd"></a><div id="ResponseContext.setBodyFd-def"><a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="ResponseContext.setBodyFd-toggle" onclick="return toggle('ResponseContext.setBodyFd');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#setBodyFd">setBodyFd</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">responseBodyFd</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.setBodyFd-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.setBodyFd-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set the current response body file descriptor. """</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-10', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-11" class="py-name"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-11', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">responseBodyFd</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.getConnection"></a><div id="ResponseContext.getConnection-def"><a name="L56"></a><tt class="py-lineno"> 56</tt> <a class="py-toggle" href="#" id="ResponseContext.getConnection-toggle" onclick="return toggle('ResponseContext.getConnection');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#getConnection">getConnection</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.getConnection-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.getConnection-expanded"><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-docstring">""" Get the current connection object. """</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-12', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-13" class="py-name"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-13', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt><tt class="py-op">]</tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.setConnection"></a><div id="ResponseContext.setConnection-def"><a name="L60"></a><tt class="py-lineno"> 60</tt> <a class="py-toggle" href="#" id="ResponseContext.setConnection-toggle" onclick="return toggle('ResponseContext.setConnection');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#setConnection">setConnection</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">connection</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.setConnection-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.setConnection-expanded"><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-docstring">""" Set the current connection object. """</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-14', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt id="link-15" class="py-name"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-15', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name" targets="Module satellite_tools.connection=satellite_tools.connection-module.html"><a title="satellite_tools.connection" class="py-name" href="#" onclick="return doclink('link-16', 'connection', 'link-16');">connection</a></tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.add"></a><div id="ResponseContext.add-def"><a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="ResponseContext.add-toggle" onclick="return toggle('ResponseContext.add');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#add">add</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.add-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.add-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-docstring">""" Add a new context to the stack.  The new context becomes the current one. """</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-17', 'append', 'link-17');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method proxy.responseContext.ResponseContext._createContext()=proxy.responseContext.ResponseContext-class.html#_createContext"><a title="proxy.responseContext.ResponseContext._createContext" class="py-name" href="#" onclick="return doclink('link-18', '_createContext', 'link-18');">_createContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.remove"></a><div id="ResponseContext.remove-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="ResponseContext.remove-toggle" onclick="return toggle('ResponseContext.remove');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#remove">remove</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.remove-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.remove-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-docstring">""" Remove the current context. """</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method proxy.responseContext.ResponseContext._isEmpty()=proxy.responseContext.ResponseContext-class.html#_isEmpty"><a title="proxy.responseContext.ResponseContext._isEmpty" class="py-name" href="#" onclick="return doclink('link-19', '_isEmpty', 'link-19');">_isEmpty</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-20', 'close', 'link-20');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">.</tt><tt class="py-name">pop</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.close"></a><div id="ResponseContext.close-def"><a name="L74"></a><tt class="py-lineno"> 74</tt> <a class="py-toggle" href="#" id="ResponseContext.close-toggle" onclick="return toggle('ResponseContext.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.close-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.close-expanded"><a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-docstring">""" Close the current context. """</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">context</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="proxy.responseContext.ResponseContext._getCurrentContext" class="py-name" href="#" onclick="return doclink('link-21', '_getCurrentContext', 'link-4');">_getCurrentContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method proxy.responseContext.ResponseContext._closeContext()=proxy.responseContext.ResponseContext-class.html#_closeContext"><a title="proxy.responseContext.ResponseContext._closeContext" class="py-name" href="#" onclick="return doclink('link-22', '_closeContext', 'link-22');">_closeContext</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.clear"></a><div id="ResponseContext.clear-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="ResponseContext.clear-toggle" onclick="return toggle('ResponseContext.clear');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#clear">clear</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.clear-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.clear-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-docstring">""" Close and remove all contexts. """</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method proxy.responseContext.ResponseContext.remove()=proxy.responseContext.ResponseContext-class.html#remove,Function server.action.packages.remove()=server.action.packages-module.html#remove,Function server.action.solarispkgs.remove()=server.action.solarispkgs-module.html#remove,Function server.action_extra_data.packages.remove()=server.action_extra_data.packages-module.html#remove"><a title="proxy.responseContext.ResponseContext.remove
+server.action.packages.remove
+server.action.solarispkgs.remove
+server.action_extra_data.packages.remove" class="py-name" href="#" onclick="return doclink('link-23', 'remove', 'link-23');">remove</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext.__str__"></a><div id="ResponseContext.__str__-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="ResponseContext.__str__-toggle" onclick="return toggle('ResponseContext.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext.__str__-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-docstring">""" String representation. """</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">    <tt class="py-comment"># Helper Methods ##########################################################</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext._isEmpty"></a><div id="ResponseContext._isEmpty-def"><a name="L90"></a><tt class="py-lineno"> 90</tt> <a class="py-toggle" href="#" id="ResponseContext._isEmpty-toggle" onclick="return toggle('ResponseContext._isEmpty');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#_isEmpty">_isEmpty</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext._isEmpty-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext._isEmpty-expanded"><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">)</tt> <tt class="py-op">&lt;=</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext._closeContext"></a><div id="ResponseContext._closeContext-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="ResponseContext._closeContext-toggle" onclick="return toggle('ResponseContext._closeContext');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#_closeContext">_closeContext</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext._closeContext-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext._closeContext-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">context</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">context</tt><tt class="py-op">[</tt><tt id="link-24" class="py-name"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-24', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                <tt class="py-name">context</tt><tt class="py-op">[</tt><tt id="link-25" class="py-name"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-25', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-26', 'close', 'link-20');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">context</tt><tt class="py-op">[</tt><tt id="link-27" class="py-name"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-27', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                <tt class="py-name">context</tt><tt class="py-op">[</tt><tt id="link-28" class="py-name"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-28', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-29', 'close', 'link-20');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext._getCurrentContext"></a><div id="ResponseContext._getCurrentContext-def"><a name="L100"></a><tt class="py-lineno">100</tt> <a class="py-toggle" href="#" id="ResponseContext._getCurrentContext-toggle" onclick="return toggle('ResponseContext._getCurrentContext');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#_getCurrentContext">_getCurrentContext</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext._getCurrentContext-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext._getCurrentContext-expanded"><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_contextStack</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="ResponseContext._createContext"></a><div id="ResponseContext._createContext-def"><a name="L103"></a><tt class="py-lineno">103</tt> <a class="py-toggle" href="#" id="ResponseContext._createContext-toggle" onclick="return toggle('ResponseContext._createContext');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="proxy.responseContext.ResponseContext-class.html#_createContext">_createContext</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt>  </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                       <tt class="py-param">responseHeaders</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt>  </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                       <tt class="py-param">responseBodyFd</tt>  <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt>  </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                       <tt class="py-param">connection</tt>      <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ResponseContext._createContext-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ResponseContext._createContext-expanded"><a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">{</tt> <tt id="link-30" class="py-name"><a title="proxy.responseContext.CXT_RESP_HEADERS" class="py-name" href="#" onclick="return doclink('link-30', 'CXT_RESP_HEADERS', 'link-0');">CXT_RESP_HEADERS</a></tt> <tt class="py-op">:</tt> <tt class="py-name">responseHeaders</tt><tt class="py-op">,</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">                 <tt id="link-31" class="py-name"><a title="proxy.responseContext.CXT_RESP_BODYFD" class="py-name" href="#" onclick="return doclink('link-31', 'CXT_RESP_BODYFD', 'link-1');">CXT_RESP_BODYFD</a></tt>  <tt class="py-op">:</tt> <tt class="py-name">responseBodyFd</tt><tt class="py-op">,</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">                 <tt id="link-32" class="py-name"><a title="proxy.responseContext.CXT_CONNECTION" class="py-name" href="#" onclick="return doclink('link-32', 'CXT_CONNECTION', 'link-2');">CXT_CONNECTION</a></tt>   <tt class="py-op">:</tt> <tt id="link-33" class="py-name"><a title="satellite_tools.connection" class="py-name" href="#" onclick="return doclink('link-33', 'connection', 'link-16');">connection</a></tt>       <tt class="py-op">}</tt> </tt>
+</div></div><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-comment"># Test Routine</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">         </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name" targets="Class proxy.responseContext.ResponseContext=proxy.responseContext.ResponseContext-class.html"><a title="proxy.responseContext.ResponseContext" class="py-name" href="#" onclick="return doclink('link-34', 'ResponseContext', 'link-34');">ResponseContext</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"init   | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="proxy.responseContext.ResponseContext.remove
+server.action.packages.remove
+server.action.solarispkgs.remove
+server.action_extra_data.packages.remove" class="py-name" href="#" onclick="return doclink('link-35', 'remove', 'link-23');">remove</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"remove | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-36', 'add', 'link-3');">add</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"add    | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="proxy.responseContext.ResponseContext.remove
+server.action.packages.remove
+server.action.solarispkgs.remove
+server.action_extra_data.packages.remove" class="py-name" href="#" onclick="return doclink('link-37', 'remove', 'link-23');">remove</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"remove | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-38', 'add', 'link-3');">add</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-39', 'add', 'link-3');">add</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"addadd | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method common.UserDictCase'.UserDictCase.clear()=common.UserDictCase%27.UserDictCase-class.html#clear,Method proxy.responseContext.ResponseContext.clear()=proxy.responseContext.ResponseContext-class.html#clear,Method rhn.UserDictCase.UserDictCase.clear()=rhn.UserDictCase.UserDictCase-class.html#clear,Method satellite_tools.sync_handlers.ContainerHandler.clear()=satellite_tools.sync_handlers.ContainerHandler-class.html#clear,Method satellite_tools.xmlSource.BaseDispatchHandler.clear()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#clear"><a title="common.UserDictCase'.UserDictCase.clear
+proxy.responseContext.ResponseContext.clear
+rhn.UserDictCase.UserDictCase.clear
+satellite_tools.sync_handlers.ContainerHandler.clear
+satellite_tools.xmlSource.BaseDispatchHandler.clear" class="py-name" href="#" onclick="return doclink('link-40', 'clear', 'link-40');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"clear  | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-name">respContext</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="common.rhnTB.SecurityList.add
+proxy.responseContext.ResponseContext.add
+server.rhnServer.server_packages.dbPackage.add
+server.taskomatic.RepodataQueue.add
+server.wsgi.wsgiRequest.WsgiDict.add" class="py-name" href="#" onclick="return doclink('link-41', 'add', 'link-3');">add</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"add    | context = "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">respContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:24 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

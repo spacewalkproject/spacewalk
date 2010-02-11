@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,8 +18,6 @@ use strict;
 package Sniglets::Errata;
 
 use Carp;
-use Data::Dumper;
-use Time::HiRes;
 use File::Spec;
 
 use RHN::Access;
@@ -27,12 +25,7 @@ use RHN::Errata;
 use RHN::ErrataTmp;
 use PXT::Utils;
 use PXT::HTML;
-use Sniglets::Downloads;
 use RHN::Exception;
-
-my $ti = 1;
-my $prev_t = 0;
-sub dump_time { PXT::Debug->log(4, "[TIME] snap $ti: " . (Time::HiRes::time() - $prev_t)); $ti++; $prev_t = Time::HiRes::time(); }
 
 
 sub register_tags {
@@ -69,19 +62,6 @@ my %e_icons = ('Security Advisory' => { image => '/img/rhn-icon-security.gif',
 				      grey => "/img/wrh_bug-grey.gif",
 				      alt => "Bug Fix Advisory" } );
 
-
-# returns true if we have db knowledge of an errata.
-sub errata_in_db {
-  my $path_info = shift;
-
-  $path_info =~ m/\/(.*?)-(.*?)\.html/;
-  my ($type, $version) = ($1, $2);
-  $version =~ s/-/:/;
-
-  my $errata = RHN::Errata->find_by_advisory(-type => $type, -version => $version);
-
-  return $errata;
-}
 
 sub errata_name {
   my $pxt = shift;

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,8 +25,6 @@ Params::Validate::validation_options(strip_leading => "-");
 use overload # I, for one, welcome our new operator overloaders
   '""' => \&as_string;
 
-my @valid_helpers = qw//;
-
 sub new {
   my $class = shift;
   my $val = shift;
@@ -45,10 +43,6 @@ sub as_string {
   my $self = shift;
 
   return $$self;
-}
-
-sub valid_helpers {
-  return @valid_helpers;
 }
 
 1;

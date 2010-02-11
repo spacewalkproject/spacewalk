@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,19 +27,22 @@ ks_trees = [
         'files'         : [
             KickstartFile().populate({
                 'relative_path' : 'foo/foo1',
-                'md5sum'        : 'axbycz',
+                'checksum_type' : 'md5',
+                'checksum'      : 'axbycz',
                 'last_modified' : '2003-10-11 12:13:14',
                 'file_size'     : 12345,
             }),
             KickstartFile().populate({
                 'relative_path' : 'foo/foo4',
-                'md5sum'        : 'axbycz',
+                'checksum_type' : 'md5',
+                'checksum'      : 'axbycz',
                 'last_modified' : '2003-10-11 12:13:14',
                 'file_size'     : 123456,
             }),
             KickstartFile().populate({
                 'relative_path' : 'foo/foo3',
-                'md5sum'        : 'axbycz',
+                'checksum_type' : 'md5',
+                'checksum'      : 'axbycz',
                 'last_modified' : '2003-10-11 12:13:14',
                 'file_size'     : 1234567,
             }),

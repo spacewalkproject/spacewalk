@@ -82,8 +82,8 @@
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do" >
-        <rhn-tab-directory>/systems/provisioning/preservation/</rhn-tab-directory>
+      <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
+        <rhn-tab-url>/rhn/systems/provisioning/preservation/PreservationListEdit.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="snippets.jsp.toolbar" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CustomSnippetList.do" >
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetList.do</rhn-tab-url>
@@ -126,7 +126,7 @@
     <rhn-tab name="Software Channels" url="/rhn/software/channels/All.do">
       <rhn-tab-directory>/rhn/channels</rhn-tab-directory>
       <rhn-tab name="channel.nav.all" url="/rhn/software/channels/All.do"/>
-      <rhn-tab name="channel.nav.redhat" url="/rhn/software/channels/RedHat.do"/>
+      <rhn-tab name="channel.nav.redhat" url="/rhn/software/channels/RedHat.do" acl="is_satellite()"/>
 	  <rhn-tab name="channel.nav.popular" url="/rhn/software/channels/Popular.do"/>
       <rhn-tab name="channel.nav.custom" url="/rhn/software/channels/Custom.do"/>
       <rhn-tab name="channel.nav.shared" url="/rhn/software/channels/Shared.do"/>
@@ -199,7 +199,6 @@
     <rhn-tab name="Scout Config Push" acl="show_monitoring();" url="/network/monitoring/scout/index.pxt" />
     <rhn-tab name="Notification" acl="show_monitoring()" url="/rhn/monitoring/config/notification/Methods.do">
       <rhn-tab-url>/rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
-      <rhn-tab-directory>/network/monitoring/notifications/contact_methods</rhn-tab-directory>
       <rhn-tab name="Filters" acl="show_monitoring()" url="/rhn/monitoring/config/notification/ActiveFilters.do">
         <rhn-tab-directory>/rhn/monitoring/config/notification</rhn-tab-directory>
       </rhn-tab>

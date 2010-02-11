@@ -123,7 +123,7 @@
         <span class="summary-sig-arg">action_id</span>,
         <span class="summary-sig-arg">status</span>,
         <span class="summary-sig-arg">result_code</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">result_message</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span></td>
+        <span class="summary-sig-arg">result_message</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#update_server_action">source&nbsp;code</a></span>
             
@@ -160,7 +160,7 @@
         <span class="summary-sig-arg">package_ids</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">&quot;Package update&quot;</span>)</span></td>
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">Package update</code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_server_packages_update">source&nbsp;code</a></span>
             
@@ -180,7 +180,7 @@
         <span class="summary-sig-arg">package_arch_ids</span>,
         <span class="summary-sig-arg">org_id</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">prerequisite</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default">&quot;Package update&quot;</span>)</span></td>
+        <span class="summary-sig-arg">action_name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">Package update</code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.rhnAction-pysrc.html#schedule_server_packages_update_by_arch">source&nbsp;code</a></span>
             
@@ -212,7 +212,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnAction-module.html#_query_lookup_action" class="summary-name" onclick="show_private();">_query_lookup_action</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnAction-module.html#_query_lookup_action" class="summary-name" onclick="show_private();">_query_lookup_action</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 143722284; statement=
     select sa.action_id, sa.status
       from rhnServerAction sa,
          (
@@ -220,31 +220,37 @@
             from rhnAction
            start with id = :action_id
                  connect by prior id = prerequisite
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement insta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 143722252; statement=
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id\
+, 'upgrade')
+">&lt;server.rhnSQL.sql_ba<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update_by_arch" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update_by_arch</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.rhnAction-module.html#_query_schedule_server_packages_update_by_arch" class="summary-name" onclick="show_private();">_query_schedule_server_packages_update_by_arch</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 143722380; statement=
     insert into rhnActionPackage (id, action_id, name_id, package_arch\
-_id, \
-           parameter)
-    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, :arch_id, \
-\
-           'upgrade')
-&quot;&quot;&quot;)">rhnSQL.Statem<code class="variable-ellipsis">...</code></code>
+_id,            parameter)
+    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id\
+, :arch_id,            'upgrade')
+">&lt;server.rhnSQ<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server'"><code class="variable-quote">'</code><code class="variable-string">server</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -278,7 +284,7 @@ _id, \
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 143722284; statement=
     select sa.action_id, sa.status
       from rhnServerAction sa,
          (
@@ -304,10 +310,11 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 143722252; statement=
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
-&quot;&quot;&quot;)
+    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+, 'upgrade')
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -325,14 +332,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 143722380; statement=
     insert into rhnActionPackage (id, action_id, name_id, package_arch<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-_id, \
-           parameter)
-    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, :arch_id, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-\
-           'upgrade')
-&quot;&quot;&quot;)
+_id,            parameter)
+    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+, :arch_id,            'upgrade')
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -362,7 +367,7 @@ _id, \
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:15 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

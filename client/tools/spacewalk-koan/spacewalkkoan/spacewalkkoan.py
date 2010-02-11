@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,7 +22,7 @@ import shutil
 import sys
 import types
 import os
-import popen2
+import subprocess
 import os.path
 import tempfile
 import xmlrpclib
@@ -271,14 +271,15 @@ def _remove_func(path):
 
 def my_popen(cmd):
     print "CMD: %s " % cmd
-    c = popen2.Popen3(cmd, capturestderr=1, bufsize=-1)
-    c.tochild.close()
+    c = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                 stderr=subprocess.PIPE, close_fds=True, bufsize=-1)
+    c.stdin.close()
     while 1:
         status = c.poll()
-        if os.WIFEXITED(status):
+        if status is not None:
             # Save the exit code, we still have to read from
             # the pipes
-            return os.WEXITSTATUS(status), c.fromchild, c.childerr
+            return status, c.stdout, c.stderr
 
 def _build_error(status, stdout, stderr):
     params = {

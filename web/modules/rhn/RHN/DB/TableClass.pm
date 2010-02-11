@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -156,43 +156,6 @@ sub insert_query {
   return $ret;
 }
 
-sub update_query_lob {
-  my $self = shift;
-  my %changed_fields = map { $_ => 1 } @_;
-
-  return '' unless grep { exists $changed_fields{$_} } $self->column_names;
-
-  my $ret;
-  my $n = 0;
-
-  $ret .= "UPDATE $self->{name} $self->{alias}\nSET ";
-  $ret .= join(", ", map { $n++; "$_ = " . $self->type_to_placeholder($_, ":q$n") }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
-
-  $ret .= "\nWHERE ";
-
-  return $ret;
-}
-
-sub insert_query_lob {
-  my $self = shift;
-  my %changed_fields = map { $_ => 1 } @_;
-
-  return '' unless grep { exists $changed_fields{$_} } $self->column_names;
-
-  my $ret;
-  my $n = 0;
-
-  $ret .= "INSERT INTO $self->{name} $self->{alias}\n (";
-  $ret .= join(", ", grep { exists $changed_fields{$_} } $self->column_names);
-  $ret .= ") VALUES (";
-  $ret .= join(", ", map { $n++; $self->type_to_placeholder($_, ":q$n") }
-	       grep { exists $changed_fields{$_} } map { "$_" } $self->column_names);
-  $ret .= ")";
-
-  return $ret;
-}
-
 sub column_names {
   my $self = shift;
 
@@ -212,12 +175,6 @@ sub methods_to_columns {
   my $self = shift;
 
   return map { $self->{m_to_c}->{$_} } @_;
-}
-
-sub column_to_methods {
-  my $self = shift;
-
-  return map { $self->{c_to_m}->{$_} } @_;
 }
 
 sub column_flags {

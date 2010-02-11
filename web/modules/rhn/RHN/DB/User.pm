@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,6 @@ package RHN::DB::User;
 
 use Authen::PAM;
 use Carp;
-use Data::Dumper;
 use Date::Parse;
 use POSIX;
 use Apache2::RequestUtil ();
@@ -35,12 +34,14 @@ use RHN::Org;
 use RHN::Date;
 use RHN::DB::TableClass;
 use RHN::DB::JoinClass;
-use RHN::EmailAddress;
 use RHN::CustomInfoKey;
 use RHN::FileList;
 use RHN::SystemSnapshot;
 use RHN::Tag;
 use RHN::KSTree;
+
+use PXT::Debug ();
+use RHN::User ();
 
 use RHN::Exception qw/throw/;
 
@@ -215,46 +216,6 @@ EOQ
 }
 
 
-sub _change_user_state {
-  my $self = shift;
-  my $doer_id = shift;
-  my $state_label = shift;
-
-  my $transaction = shift;
-
-  my $dbh = $transaction || RHN::DB->connect();
-
-  my $query = <<EOQ;
-INSERT INTO rhnWebContactChangelog (id, web_contact_id, web_contact_from_id, change_state_id)
-SELECT rhn_wcon_disabled_seq.nextval, :target_id, :doer_id, id
-  FROM rhnWebContactChangeState
- WHERE label = :state_label
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(target_id => $self->id, doer_id => $doer_id, state_label => $state_label);
-
-  unless ($transaction) {
-    $dbh->commit;
-  }
-
-  return $transaction;
-}
-
-sub disable_user {
-  my $self = shift;
-  my $doer_id = shift;
-
-  return $self->_change_user_state($doer_id, 'disabled');
-}
-
-sub enable_user {
-  my $self = shift;
-  my $doer_id = shift;
-
-  return $self->_change_user_state($doer_id, 'enabled');
-}
-
 
 sub delete_user {
   my $class = shift;
@@ -265,37 +226,6 @@ sub delete_user {
   my $dbh = RHN::DB->connect();
 
   $dbh->call_procedure('rhn_org.delete_user', $user_id);
-}
-
-
-# queues up a user to be deleted/disabled
-sub request_deactivation {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("INSERT INTO rhnUserDeletionQueue (user_id) VALUES (?)");
-
-  $sth->execute($self->id);
-  $dbh->commit;
-}
-
-
-sub create_custom_data_key {
-  my $self = shift;
-  my %params = validate(@_, {label => 1, description => 1});
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnCustomDataKey (id, org_id, label, description, created_by, last_modified_by)
-VALUES (rhn_cdatakey_id_seq.nextval, :org_id, :label, :description, :user_id, :user_id)
-EOQ
-  $sth->execute_h(user_id => $self->id,
-		  org_id => $self->org_id,
-		  label => $params{label},
-		  description => $params{description},
-		 );
-
-  $dbh->commit;
 }
 
 
@@ -349,126 +279,12 @@ sub is {
   }
 }
 
-sub role_labels {
-  my $self = shift;
-
-  if (not keys %role_cache) {
-    $self->rebuild_role_cache;
-  }
-
-  return map { $role_cache{$_} } $self->roles;
-}
-
 sub _blank_user {
   my $class = shift;
 
   my $self = bless { }, $class;
 
   return $self;
-}
-
-sub create_new_user {
-  my $class = shift;
-  my %params = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $commit_org = 0;
-
-  # type 'S' (a placeholder for the first satellite user)
-  if (exists $params{-customer_type} and $params{-customer_type} eq 'S') {
-
-    # check to be sure we really are running in satellite mode
-    die "Attempt to create satellite user when not running a satellite" unless
-      PXT::Config->get('satellite');
-
-    # check to be sure the one and only org for this satellite was created
-    my $sth = $dbh->prepare('SELECT id FROM web_customer');
-    $sth->execute;
-    my ($org_id) = $sth->fetchrow;
-    if (not defined $org_id) {
-      die "Attempt to create satellite user when no orgs exist";
-    }
-
-    if ($sth->fetchrow) {
-      die "Attempt to create satellite user when more than one org exists";
-    }
-
-    $sth->finish;
-
-    # check to be sure there are no other users on this satellite
-    $sth = $dbh->prepare('SELECT id FROM web_contact');
-    $sth->execute;
-    my ($existing_user) = $sth->fetchrow;
-    $sth->finish;
-
-    if ($existing_user) {
-      die "Attempt to create satellite user when a user already exists";
-    }
-
-    $params{-customer_type} = 'P';
-    $params{-org_id} = $org_id;
-  }
-
-  if (not $params{-org_id} or $params{-org_id} < 1) {
-    @params{'-org_id', '-org_admin_group', '-org_app_group'} =
-      RHN::Org->create_new_org(-org_name => $params{-org_name} || "$params{-first_names} $params{-last_name}",
-			       -org_password => $params{-org_password} || PXT::Utils->random_password(16),
-			       -oracle_customer_number => $params{-oracle_customer_number},
-			       -oracle_customer_id => $params{-oracle_customer_id},
-			       -customer_type => $params{-customer_type} || 'P',
-			       -commit => 0);
-    $commit_org = 1;
-  }
-
-
-  if (PXT::Config->get('encrypted_passwords')) {
-    my $salt = '$1$' . PXT::Utils->generate_salt(8);
-
-    $params{-password} =  crypt($params{-password}, $salt);
-  }
-
-  my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  :user_id := CREATE_NEW_USER(org_id_in => :org_id, login_in => :login, password_in => :password,
-                              oracle_contact_id_in => :oracle_contact_id, prefix_in => :prefix,
-                              first_names_in => :first_names, last_name_in => :last_name, genqual_in => :genqual,
-                              parent_company_in => :parent_company, company_in => :company, title_in => :title,
-                              phone_in => :phone, fax_in => :fax, email_in => :email, pin_in => :pin,
-                              first_names_ol_in => :first_names_ol, last_name_ol_in => :last_name_ol,
-                              address1_in => :address1, address2_in => :address2, address3_in => :address3,
-                              city_in => :city, state_in => :state, zip_in => :zip, country_in => :country,
-                              alt_first_names_in => :alt_first_names, alt_last_name_in => :alt_last_name,
-                              contact_call_in => :contact_call,
-                              contact_mail_in => :contact_mail,
-                              contact_email_in => :contact_email,
-                              contact_fax_in => :contact_fax);
-END;
-EOQ
-
-# warn "Param dump for new user: " . Data::Dumper->Dump([\%params]);
-  foreach (qw/org_id login password oracle_contact_id prefix/,
-	   qw/first_names last_name genqual parent_company company title phone/,
-	   qw/fax email pin first_names_ol last_name_ol contact_call/,
-	   qw/contact_mail contact_email contact_fax address1 address2 address3/,
-	   qw/city state zip country alt_first_names alt_last_name/) {
-    $sth->bind_param(":${_}" => $params{"-$_"});
-  }
-
-  my $user_id;
-  $sth->bind_param_inout(':user_id' => \$user_id, 4096);
-  $sth->execute;
-
-  my $ret = RHN::User->lookup(-id => $user_id);
-  $dbh->commit;
-
-  if ($commit_org) {
-    my $org = RHN::Org->lookup(-id => $params{-org_id});
-    $org->oai_customer_sync();
-  }
-
-  $ret->oai_contact_sync();
-
-  return $ret;
 }
 
 sub create {
@@ -538,31 +354,6 @@ sub users_by_email {
   $sth->execute(uc($email));
 
   return $sth->fullfetch;
-}
-
-# NOTE: do not use this unless you know you have cleansed any Oracle
-# regexps from the input pattern
-sub users_like_email {
-  my $class = shift;
-  my $pattern = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT web_user_id FROM web_user_personal_info WHERE email LIKE ?');
-  $sth->execute($pattern);
-
-  return $sth->fullfetch;
-}
-
-sub full_opt_out {
-  my $self = shift;
-
-  $self->contact_email('N');
-  $self->contact_mail('N');
-  $self->contact_call('N');
-  $self->contact_fax('N');
-  $self->set_pref('email_notify', '0');
-
-  $self->commit;
 }
 
 sub set_password {
@@ -733,95 +524,6 @@ sub convert_time {
   return $rv;
 }
 
-my %server_action_names = (
-                           'Package List Refresh' => 'package_list_refresh',
-                           'Hardware List Refresh' => 'hardware_list_refresh',
-                           'Package Install' => 'package_install',
-                           'Package Removal' => 'package_removal',
-                           'Errata Update' => 'errata_update',
-			   'Profile Match' => 'profile_match'
-                          );
-
-sub action_list_overview {
-  my $self = shift;
-  my %params = @_;
-
-  my ($lower, $upper, $total_ref, $mode, $all_ids) =
-    map { $params{"-" . $_} } qw/lower upper total_rows mode all_ids/;
-
-  $lower ||= 1;
-  $upper ||= 100000;
-
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-
-  if ($mode eq 'pending_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status IN (0, 1))
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'completed_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status = 2)
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'failed_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnServerAction SA WHERE SA.action_id = AO.action_id AND status = 3)
-   AND  AO.archived = 0
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  elsif ($mode eq 'archived_actions') {
-    $query = <<EOQ;
-SELECT  AO.type_name, TO_CHAR(AO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') EARLIEST, AO.total_count, AO.successful_count, AO.failed_count, AO.in_progress_count, AO.action_id, DECODE(AO.name, NULL, AO.type_name, AO.name)
-  FROM  rhnActionOverview AO
- WHERE  AO.org_id = ?
-   AND  AO.archived = 1
-ORDER BY EARLIEST DESC
-EOQ
-  }
-  else {
-    croak 'no supported mode!  mode == '.$mode;
-  }
-
-#  warn "Action list query:  $query\n".$self->org_id.", ".$self->login;
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->org_id);
-
-  $$total_ref = 0;
-  my $i = 1;
-  my @actions;
-  while (my @action = $sth->fetchrow) {
-    $$total_ref = $i;
-        push @$all_ids, $action[6] if $all_ids;
-    if ($i >= $lower and $i <= $upper) {
-#      push @actions, [@action, $server_action_names{$action[0]}];
-      $action[1] = $self->convert_time($action[1]);
-      push @actions, [ @action ];
-    }
-    $i++;
-  }
-
-  return @actions;
-}
-
 sub commit {
   my $self = shift;
   my $dbh = RHN::DB->connect;
@@ -865,7 +567,6 @@ sub commit {
 #    carp "update/insert query:  ".$query->[0]."\n";
     my $sth = $dbh->prepare($query->[0]);
     my @vars = ((map { $self->$_() } grep { exists $modified{$_} } @{$query->[1]}), $modified{id} ? () : $self->id);
-#    carp "vars:\n" . Data::Dumper->Dump([@vars]);
     $sth->execute(@vars);
   }
 
@@ -885,17 +586,6 @@ sub oai_contact_sync {
   else {
     # nop
   }
-}
-
-sub new_site {
-  my $self = shift;
-  my $type = shift;
-
-  my $site = bless { }, 'RHN::DB::UserSite';
-  $site->{__newly_created__} = 1;
-  $site->{__site_id__} = -1;
-  $site->site_type($type);
-  return $site;
 }
 
 # instance OR class method
@@ -921,104 +611,6 @@ sub sites {
   my @ret;
   while (my @row = $sth->fetchrow) {
     push @ret, bless { map { ("__${_}__" => shift @row) } $s->method_names }, "RHN::DB::UserSite";
-  }
-
-  return @ret;
-}
-
-sub default_bill_address {
-  my $self = shift;
-
-  my $site = ($self->sites('B'))[0] || ($self->sites('M'))[0] || ($self->sites('S'))[0];
-
-  $site = $self->new_site('B') if not $site;
-
-  return $site;
-}
-
-# Now an object method because we need a user who owns the set
-sub add_users_to_groups {
-  my $self = shift;
-  my @users = @{+shift};
-  my @groups = @{+shift};
-  my $pending = shift;
-
-  return unless @users and @groups;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = "delete from rhnSet where user_id = :user_id and label = :label";
-  my $sth0 = $dbh->prepare($query);
-  $sth0->execute_h(user_id => $self->id, label => "user_group_list");
-
-  my $sth1 = $dbh->prepare(<<EOQ);
-INSERT INTO rhnSet (user_id, label, element, element_two)
-    values (:set_owner, 'user_group_list', :user_id, :ugid)
-EOQ
-
-  my $pending_group = RHN::Org->org_applicant_group_from_ugid($groups[0]);
-
-  foreach my $user_id (@users) {
-    foreach my $group_id (@groups) {
-      next if ($pending_group and ($group_id == $pending_group) and (!$pending));
-      $sth1->execute_h(set_owner => $self->id, user_id => $user_id, ugid => $group_id);
-    }
-  }
-
-  $dbh->call_procedure("rhn_user.add_users_to_usergroups", $self->id);
-  $sth0->execute_h(user_id => $self->id, label=>"user_group_list");
-
-  $dbh->commit;
-}
-
-# Now an object method because we need a user who owns the set
-sub remove_users_from_groups {
-  my $self = shift;
-  my @users = @{+shift};
-  my @groups = @{+shift};
-
-  return unless @users and @groups;
-  my $dbh = RHN::DB->connect;
-
-  my $query = "delete from rhnSet where user_id = :user_id and label = :label";
-  my $sth0 = $dbh->prepare($query);
-  $sth0->execute_h(user_id=>$self->id, label=>"user_group_list");
-
-  my $sth1 = $dbh->prepare(<<EOQ);
-INSERT INTO rhnSet (user_id, label, element, element_two)
-    values (:owner, 'user_group_list', :user_id, :ugid)
-EOQ
-
-  for my $user (@users) {
-    for my $group (@groups) {
-      $sth1->execute_h(owner=>$self->id, user_id=>$user, ugid=>$group);
-    }
-  }
-
-  $dbh->call_procedure("rhn_user.remove_users_from_servergroups", $self->id);
-
-  $sth0->execute_h(user_id=>$self->id, label=>"user_group_list");
-  $dbh->commit;
-}
-
-sub group_list_for_user {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-  SELECT MAX(DECODE(user_id, ?, 1, 0)), GROUP_ID, GROUP_NAME, GROUP_TYPE
-    FROM rhnUserGroupMembership
-   WHERE ORG_ID = ?
-GROUP BY group_id, group_name, group_type
-ORDER BY UPPER(group_name), group_id
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $self->org_id);
-
-  my @ret;
-  while (my ($user_member, $id, $name, $group_type) = $sth->fetchrow) {
-    push @ret, [ $user_member, $id, $name, $group_type ];
   }
 
   return @ret;
@@ -1082,20 +674,6 @@ sub RHN::DB::UserSite::oai_site_sync {
   }
   else {
   }
-}
-
-sub RHN::DB::UserSite::associated_with_order {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT id FROM web_user_order WHERE web_user_id = ? AND (bill_to_contact_id = ? OR ship_to_contact_id = ?)");
-
-  $sth->execute($self->site_web_user_id, $self->site_id, $self->site_id);
-  my ($id) = $sth->fetchrow;
-
-  $sth->finish;
-
-  return $id ? 1 : 0;
 }
 
 sub selection_details {
@@ -1511,31 +1089,6 @@ EOQ
     $sth->finish;
 
     return 0 unless $server_note;
-  }
-
-  return 1;
-}
-
-sub verify_transaction_access {
-  my $self = shift;
-  my @transaction_ids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT  1
-  FROM  rhnTransaction T
- WHERE  T.id = :tid
-   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = T.server_id)
-EOQ
-
-  foreach my $tid (@transaction_ids) {
-    $sth->execute_h(tid => $tid, user_id => $self->id);
-
-    my ($first_row) = $sth->fetchrow;
-
-    $sth->finish;
-
-    return 0 unless $first_row;
   }
 
   return 1;
@@ -2018,52 +1571,6 @@ EOS
   return $val;
 }
 
-sub get_server_pref {
-  my $self = shift;
-  my $server_id = shift;
-  my $pref = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT value FROM rhnUserServerPrefs WHERE user_id = ? AND server_id = ? AND name = ?");
-
-  $sth->execute($self->id, $server_id, $pref);
-  my ($val) = $sth->fetchrow;
-  $sth->finish;
-
-  return $val;
-}
-
-sub set_server_pref {
-  my $self = shift;
-  my $server_id = shift;
-  my $pref = shift;
-  my $new_val = shift;
-  my $assumed_default = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-DELETE FROM rhnUserServerPrefs
- WHERE user_id = ?
-   AND server_id = ?
-   AND name = ?
-EOS
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id, $server_id, $pref);
-
-  if ($new_val ne $assumed_default) {
-    my $query = <<EOS;
-INSERT INTO rhnUserServerPrefs
-(user_id, server_id, name, value)
-VALUES
-(?, ?, ?, ?)
-EOS
-    my $sth = $dbh->prepare($query);
-    $sth->execute($self->id, $server_id, $pref, $new_val);
-  }
-
-  $dbh->commit;
-}
-
 sub set_pref {
   my $self = shift;
   my $pref = shift;
@@ -2085,139 +1592,6 @@ sub set_pref {
   $sth = $dbh->prepare("UPDATE rhnUserInfo SET $pref = ? WHERE user_id = ?");
   $sth->execute($val, $self->id);
   $dbh->commit;
-}
-
-# applicant info:
-#   $sth = $dbh->prepare(<<EOS);
-# SELECT UG.id,
-#        (SELECT COUNT(*) FROM rhnUserGroupMembers WHERE user_group_id = UG.id)
-#   FROM rhnUserGroupType UGT,
-#        rhnUserGroup UG
-#  WHERE UG.org_id = ?
-#    AND UG.group_type = UGT.id
-#    AND UGT.label = 'org_applicant'
-# EOS
-#   $sth->execute($self->org_id);
-#   my ($applicant_group, $applicant_count) = $sth->fetchrow;
-#   $sth->finish;
-
-sub system_summary {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = S.id)
-   AND NOT EXISTS (SELECT 1 FROM rhnEntitledServers ES where ES.id = S.id)
-EOS
-  $sth->execute($self->org_id, $self->id);
-  my ($unentitled) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = S.id)
-   AND NOT EXISTS (SELECT 1
-                     FROM rhnServerGroup SG, rhnServerGroupMembers SGM
-                    WHERE SGM.server_id = S.id
-                      AND SG.id = SGM.server_group_id
-                      AND SG.group_type IS NULL)
-EOS
-  $sth->execute($self->org_id, $self->id);
-  my ($ungrouped) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-EOS
-  $sth->execute($self->id);
-  my ($total_servers) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-   AND EXISTS (SELECT 1 FROM rhnServerNeededPackageCache WHERE server_id = USP.server_id)
-EOS
-  $sth->execute($self->id);
-  my ($servers_needing_attention) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(USP.server_id)
-  FROM rhnUserServerPerms USP
- WHERE USP.user_id = ?
-   AND EXISTS (SELECT 1 FROM rhnServerInfo WHERE server_id = USP.server_id AND checkin < sysdate - ?)
-EOS
-
-  $sth->execute($self->id, PXT::Config->get('system_checkin_threshold'));
-  my ($inactive_server_count) = $sth->fetchrow;
-  $sth->finish;
-
-
-  return [ $total_servers, $servers_needing_attention, $unentitled, $ungrouped, $inactive_server_count ];
-}
-
-sub action_summary {
-  my $self = shift;
-#  my $days = shift or die "No days argument to action_summary";
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status = 3
-     AND A.archived = 0
-EOS
-#     AND (sysdate - SA.completion_time) < $days
-  $sth->execute($self->id);
-  my ($failed) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status IN (0, 1)
-     AND A.archived = 0
-EOS
-#     AND ABS(A.earliest_action - sysdate) < $days
-  $sth->execute($self->id);
-  my ($pending) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOS);
-  SELECT count(distinct SA.action_id)
-    FROM rhnAction A, rhnServerAction SA, rhnUserServerPerms USP
-   WHERE USP.user_id = ?
-     AND SA.server_id = USP.server_id
-     AND SA.action_id = A.id
-     AND SA.status = 2
-     AND A.archived = 0
-EOS
-#     AND (sysdate - SA.completion_time) < $days
-  $sth->execute($self->id);
-  my ($completed) = $sth->fetchrow;
-  $sth->finish;
-
-  return [ $failed, $pending, $completed, $failed + $pending + $completed ];
-
 }
 
 sub server_group_count {
@@ -2264,28 +1638,6 @@ EOQ
 }
 
 
-sub remove_from_group {
-  my $self = shift;
-  my $label = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UG.id
-  FROM rhnUserGroupType UGT,
-       rhnUserGroup UG
- WHERE UG.org_id = ?
-   AND UG.group_type = UGT.id
-   AND UGT.label = ?
-EOQ
-
-  $sth->execute($self->org_id, $label);
-  my ($ugid) = $sth->fetchrow;
-  $sth->finish;
-
-  $dbh->call_procedure("rhn_user.delete_from_usergroup", $self->id, $ugid);
-  $dbh->commit;
-}
-
 sub has_incomplete_info {
   my $self = shift;
 
@@ -2299,100 +1651,6 @@ sub has_incomplete_info {
   }
 
   return 0;
-}
-
-sub orders_for_user {
-  my $class = shift;
-  my $uid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT CUSTOMER_NUMBER, WEB_ORDER_NUMBER, LINE_ID, PRODUCT_ITEM_CODE, PRODUCT_NAME, QUANTITY
-  FROM user_orders
- WHERE customer_number = (SELECT oracle_customer_number FROM web_customer cu, web_contact co WHERE co.id = ? and co.org_id = cu.id)
-EOS
-
-  $sth->execute($uid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub products_for_user {
-  my $class = shift;
-  my $uid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT REGISTRATION_USER_ID, REG_NUMBER, SERVICE_TAG, PRODUCT_DESCRIPTION, PRODUCT_ITEM_CODE,
-       PRODUCT_START_DATE, PRODUCT_END_DATE, PRODUCT_ACTIVE_FLAG, PRODUCT_QUANTITY,
-       SERVICE_DESCRIPTION, SERVICE_ITEM_CODE, SERVICE_START_DATE, SERVICE_END_DATE,
-       SERVICE_ACTIVE_FLAG
-  FROM user_products
- WHERE user_id = ?
-EOS
-
-  $sth->execute($uid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub uids_by_login_prefix {
-  my $class = shift;
-  my $login = uc shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT id, login
-  FROM web_contact
- WHERE login_uc LIKE ?
-EOS
-
-  $sth->execute("$login%");
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub banish {
-  my $self = shift;
-
-  my ($org_id) = RHN::Org->create_new_org(-org_name => "Rejection Org for " . $self->login,
-					  -org_password => PXT::Utils->random_password(16),
-					  -customer_type => 'P');
-
-  $self->remove_from_group('org_applicant');
-
-  $self->org_id($org_id);
-  delete $self->{__orgobj__};
-  $self->set_password(PXT::Utils->random_password(16));
-  $self->login(substr($self->id . '-' . $self->login, 0, 63));
-
-  $self->commit;
-}
-
-sub approve {
-  my $self = shift;
-
-  $self->set_password(PXT::Utils->random_password(10));
-  $self->remove_from_group('org_applicant');
-
-  $self->commit;
-
-  return $self->password;
 }
 
 sub grant_servergroup_permission {
@@ -2542,54 +1800,6 @@ EOQ
   return @sids;
 }
 
-sub email_addresses {
-  my $self_or_class = shift;
-  my $id;
-
-  if (ref $self_or_class) {
-    $id = $self_or_class->id;
-  }
-  else {
-    $id = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT id
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-ORDER BY MODIFIED DESC
-EOQ
-
-  $sth->execute_h(user_id => $id);
-
-  my @ret;
-
-  while (my ($id) = $sth->fetchrow) {
-    push @ret, RHN::EmailAddress->lookup(-id => $id);
-  }
-
-  return @ret;
-}
-
-sub delete_nonverified_addresses {
-  my $self = shift;
-  my %params = validate(@_, {transaction => 0});
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my $query = <<EOQ;
-DELETE
-  FROM rhnEmailAddress
- WHERE user_id = :user_id
-   AND state_id != (SELECT id FROM rhnEmailAddressState WHERE label = 'verified')
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  $dbh->commit unless $params{transaction};
-}
-
 #lock the user's row in web_contact -- $dbh must be committed or rolled back at some point
 sub lock_web_contact {
   my $class = shift;
@@ -2647,27 +1857,6 @@ EOQ
   return 1;
 }
 
-# can this user modify the target user?
-sub can_modify_user {
-  my $self = shift;
-  my $target = shift;
-
-  die "'$target' is not a user object"
-      unless (ref $target and $target->isa('RHN::DB::User'));
-
-  if ($self->org_id != $target->org_id) {
-    warn "Orgs for admin user edit mistatch (admin: @{[$self->org_id]} != @{[$target->org_id]}";
-    return 0;
-  }
-
-  if ($target->id != $self->id and not $self->is('org_admin')) {
-    warn "Non-orgadmin attempting to edit another's record";
-    return 0;
-  }
-
-  return 1;
-}
-
 sub manages_a_channel {
   my $self = shift;
 
@@ -2687,65 +1876,6 @@ EOQ
   $sth->finish;
 
   return $truth ? 1 : 0;
-}
-
-sub default_system_groups {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query =<<EOQ;
-SELECT system_group_id
-  FROM rhnUserDefaultSystemGroups
- WHERE user_id = :user_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  my @groups;
-
-  while (my ($gid) = $sth->fetchrow) {
-    push @groups, $gid;
-  }
-
-  return @groups;
-}
-
-sub set_default_system_groups {
-  my $self = shift;
-  my @sgids = grep { $_ } @_;
-
-  my $dbh = RHN::DB->connect;
-
-  $self->org->owns_server_groups(@sgids)
-    or die "Attempt to set system groups (@sgids) for user '" . $self->id . "' without permission";
-
-  my $query =<<EOQ;
-DELETE
-  FROM rhnUserDefaultSystemGroups
- WHERE user_id = :user_id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(user_id => $self->id);
-
-  $query =<<EOQ;
-INSERT
-  INTO rhnUserDefaultSystemGroups
-       (user_id, system_group_id)
-VALUES (:user_id, :sgid)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $sgid (@sgids) {
-    $sth->execute_h(user_id => $self->id, sgid => $sgid);
-  }
-
-  $dbh->commit;
-
-  return;
 }
 
 ##

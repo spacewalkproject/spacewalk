@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,13 +19,8 @@ package Sniglets::ListView::SystemGroupList;
 
 use Sniglets::ListView::List;
 use Sniglets::ServerGroup;
-use RHN::Package;
 use RHN::DataSource::SystemGroup;
-use RHN::Server;
 use RHN::ServerGroup;
-use RHN::Utils;
-
-use RHN::Exception qw/throw/;
 
 use Data::Dumper;
 
@@ -305,27 +300,6 @@ sub group_permissions_cb {
   }
 
   return 1;
-}
-
-sub group_membership_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
-
-  foreach my $row (@{$ret{data}}) {
-
-    $row->{GROUP_MEMBERSHIP_CHECKBOX} =
-      PXT::HTML->checkbox(-name => 'group_' . $row->{ID} . '_member',
-			  -value => 1,
-			  -checked => $row->{IS_SYSTEM_MEMBER});
-
-    $row->{GROUP_MEMBERSHIP_CHECKBOX} .=
-      PXT::HTML->hidden(-name => "sgid", -value => $row->{ID});
-
-  }
-
-  return (%ret);
 }
 
 

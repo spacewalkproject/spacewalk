@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -67,7 +67,7 @@ def get_package_path(server_id, pkg_spec, channel):
     """
     h = rhnSQL.prepare(statement)
     pkg = map(str, pkg)
-    h.execute(name = pkg[0], ver = pkg[1], rel = pkg[2], arch = pkg[4],
+    h.execute(name = pkg[0], ver = pkg[2], rel = pkg[3], arch = pkg[4],
               channel = channel, server_id = server_id)
     rs = h.fetchall_dict()
     if not rs:
@@ -180,35 +180,6 @@ def get_all_package_paths(server_id, pkg_spec, channel):
     localpath, pkg_id = get_package_path(server_id, pkg_spec, channel)
 
     return remotepath, localpath
-
-def get_package_remote_location_path(pkg_id):
-    """
-    check if the given package is available on remote host
-    and return the base_url + remotepath
-    """
-    log_debug(3, pkg_id)
-    #get the (edge network) redirect url
-    query_ = """
-        select rl.id host_id, rl.base_url base_url, rp.path path
-        from
-              rhnPackageLocation rpl,
-              rhnLocation rl,
-              rhnPackage rp
-        where
-              rpl.package_id = :pkg_id
-              and rpl.location_id = rl.id
-              and rpl.package_id = rp.id
-    """
-    h = rhnSQL.prepare(query_)
-    h.execute(pkg_id=pkg_id)
-    rs = h.fetchall_dict()
-    #if pkg not on remote host return localpath
-    if not rs:
-        return None
-    path_dict = rs[0]
-    remotepath = os.path.join(path_dict['base_url'],path_dict['path'])
-
-    return remotepath 
 
 # New client
 # Returns the path to a source rpm
@@ -432,10 +403,7 @@ def get_channels_for_package(pkg):
         return []
     return map(lambda c: c['label'], ret)
 
-def get_package_for_md5sum(org_id, md5sum):
-     return get_package_for_checksum(org_id, ('md5', md5sum))
-
-def get_package_for_checksum(org_id, checksum):
+def get_package_for_checksum(org_id, checksum_type, checksum):
      statement = """
      select
          p.id
@@ -448,7 +416,7 @@ def get_package_for_checksum(org_id, checksum):
          and c.checksum_type = :checksumtype
      """
      h = rhnSQL.prepare(statement)
-     h.execute(org_id=org_id, checksum=checksum[1], checksumtype=checksum[0])
+     h.execute(org_id=org_id, checksum=checksum, checksumtype=checksum_type)
      ret = h.fetchone_dict()
      if not ret:
          return None

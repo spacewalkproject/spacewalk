@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.8.0
+Version:	0.9.0
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -18,6 +18,7 @@ BuildRequires:  python
 
 Requires:       python, rpm-python
 Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       rhnlib >= 2.5.20
 
 %description
 Generic utilities that may be run against a Spacewalk server.  This package
@@ -51,12 +52,19 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
 %{rhnroot}/utils/migrateSystemProfile.py*
-%{rhnroot}/utils/rhnLockfile.py*
-%{rhnroot}/utils/rhn_fcntl.py*
 %{_mandir}/man8/*
 
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- updated copyrights
+
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
+- use rhnLockfile from rhnlib
+
+* Tue Jan 05 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
+- added scr.cgi and apply_errata scripts
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
 - migration of system profile should be able to run as non root now that it can run on any client and not just satellite. (pkilambi@redhat.com)
 - bumping Version to 0.7.0 (jmatthew@redhat.com)

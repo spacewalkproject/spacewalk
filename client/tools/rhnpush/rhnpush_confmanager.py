@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -39,54 +39,8 @@ class  ConfManager:
         regfile = os.path.join(homedir, regular)
         cwdfile = os.path.join(os.getcwd(), regular)
 
-        write_regfile = False
-        write_cwdfile = False
-        regfilename = None  
-        cwdfilename = None
-
-        #Test for the existence of each of the configfiles.
-        if not os.access(deffile, os.F_OK):
-            print "%s not found." % (deffile)
-            sys.exit(1)
-        
-        if not os.access(deffile, os.R_OK):
-            print "rhnpush does not have read permissions on %s" % (deffile)
-            sys.exit(1)
-        
-        #Check to see if the ~/.rhnpushrc exists.
-        if os.access(regfile, os.F_OK):
-            #Check for read permissions.
-            if not os.access(regfile, os.R_OK):
-                print "rhnpush does not have read permission on %s" % (regfile,)
-                sys.exit(1)
-        else:
-            #It's not there, don't read it.
-            regfile = deffile
-
-        #Check to see if the ./.rhnpushrc file exists.
-        if os.access(cwdfile, os.F_OK):
-            #Check for read permissions.
-            if not os.access(cwdfile, os.R_OK):
-                print "rhnpush does not have read permission on %s" % (cwdfile,)
-                sys.exit(1)
-        else:
-            #It's not there, don't read it.
-            cwdfile = regfile
-
-        #Create configuration objects, and set the backups for the user and cwd config file.
-        #If the cwd config is missing, use the user config for the cwd. 
-        #If the user config is missing use the default config for the user config.
-        self.defaultconfig = rhnpush_config.rhnpushConfigParser(deffile, ensure_consistency = True)
-
-        if deffile != regfile:
-            self.userconfig = rhnpush_config.rhnpushConfigParser(regfile)
-        else:
-            self.userconfig = self.defaultconfig
-
-        if regfile != cwdfile:
-            self.cwdconfig = rhnpush_config.rhnpushConfigParser(cwdfile)
-        else:
-            self.cwdconfig = self.userconfig
+        self.cfgFileList = [deffile, regfile, cwdfile]
+        self.defaultconfig = rhnpush_config.rhnpushConfigParser(ensure_consistency=True)
 
         #Get a reference to the object containing command-line options  
         self.cmdconfig = optionparser
@@ -105,27 +59,17 @@ class  ConfManager:
             config_obj.write(new_config_file)
             new_config_file.close()
 
-    #Change the files options of the self.userconfig, self.defaultconfig, and self.cwdconfig to lists.
-    #Change the exclude options of the self.userconfig, self.defaultconfig, and self.cwdconfig to lists.
+    #Change the files options of the self.userconfig
+    #Change the exclude options of the self.userconfig
     def _files_to_list(self):
         #Change the files options to lists.
-        if self.userconfig.__dict__.has_key('files') and not type(self.userconfig.__dict__['files']) == type([]):
-            self.userconfig.files = map(string.strip, string.split(self.userconfig.files, ','))
-
-        if self.cwdconfig.__dict__.has_key('files') and not type(self.userconfig.__dict__['files']) == type([]):
-            self.cwdconfig.files = map(string.strip, string.split(self.cwdconfig.files, ','))
-
-        if not type(self.defaultconfig.files) == type([]):
+        if (self.defaultconfig.__dict__.has_key('files') and
+            not type(self.defaultconfig.files) == type([])):
             self.defaultconfig.files = map(string.strip, string.split(self.defaultconfig.files, ','))
 
         #Change the exclude options to list.
-        if self.userconfig.__dict__.has_key('exclude') and not type(self.userconfig.__dict__['exclude']) == type([]):
-            self.userconfig.exclude = map(string.strip, string.split(self.userconfig.exclude, ','))
-        
-        if self.cwdconfig.__dict__.has_key('exclude') and not type(self.cwdconfig.__dict__['exclude']) == type([]):
-            self.cwdconfig.exclude = map(string.strip, string.split(self.cwdconfig.exclude, ','))
-        
-        if not type(self.defaultconfig.files) == type([]):
+        if (self.defaultconfig.__dict__.has_key('exclude') and
+            not type(self.defaultconfig.__dict__['exclude']) == type([])):
             self.defaultconfig.exclude = map(string.strip, string.split(self.defaultconfig.exclude, ','))
 
 
@@ -137,14 +81,17 @@ class  ConfManager:
                     config.__dict__[opt] = None
 
     def get_config(self):
+        for f in self.cfgFileList:
+            if os.access(f, os.F_OK):
+                if not os.access(f, os.R_OK):
+                    print "rhnpush does not have read permission on %s" % f
+                    sys.exit(1)
+                config2 = rhnpush_config.rhnpushConfigParser(f)
+                self.defaultconfig, config2 = utils.make_common_attr_equal(self.defaultconfig, config2)
+
         self._files_to_list()
         
-        #Cascade the options from self.userconfig and self.cwdconfig into the self.defaultconfig object.
-        self.defaultconfig, self.userconfig = utils.make_common_attr_equal(self.defaultconfig, self.userconfig)
-        self.defaultconfig, self.cwdconfig = utils.make_common_attr_equal(self.defaultconfig, self.cwdconfig)
-        
         #Change the channel string into a list of strings.
-        
         if not self.defaultconfig.channel:
             #if no channel then make it null array instead of
             #an empty string array from of size 1 [''] .

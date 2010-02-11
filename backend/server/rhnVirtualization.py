@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -752,10 +752,7 @@ class VirtualizationEventHandler:
         if properties.has_key(PropertyType.UUID):
             uuid = properties[PropertyType.UUID]
             if uuid:
-                if uuid == 'Not Settable':
-                    uuid_as_number = 0
-                else:
-                    uuid_as_number = string.atol(uuid, 16)
+                uuid_as_number = string.atol(uuid, 16)
 
                 if uuid_as_number == 0:
                     # If the UUID is a bunch of null bytes, we will convert it 
@@ -1076,12 +1073,9 @@ class EntitlementVirtualizationListener(VirtualizationListener):
         # rhnSQL.commit()
 
 
-# Copyright (c) 2006, Red Hat Inc.
-#
+
 # This file provides an interface that allows components of the RHN server to
 # listen for virtualization events.
-#
-# $Id$
 
 ###############################################################################
 # Constants

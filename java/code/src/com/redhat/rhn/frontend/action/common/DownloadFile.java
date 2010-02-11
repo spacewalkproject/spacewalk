@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -35,10 +35,12 @@ import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -86,6 +88,7 @@ public class DownloadFile extends DownloadAction {
     private static final String TREE = "tree";
     private static final String PATH = "path";
     private static final String SESSION = "session";
+    private static final String URL = "url";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -98,20 +101,21 @@ public class DownloadFile extends DownloadAction {
             log.debug("url : [" + url + "]");
         }
         if (url.startsWith("/ks/dist")) {
-            if (log.isDebugEnabled()) {
-                log.debug("URL is ks dist..");
-            }
+            log.debug("URL is ks dist..");
             ActionForward error = handleKickstartDownload(request, response, 
                     url, mapping);
-            if (log.isDebugEnabled()) {
-                log.debug("Done handling ks download");
-            }
+            log.debug("Done handling ks download");
             if (error != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("returning null");
-                }
+                log.debug("returning null");
                 return null;
             }
+        }
+        else if (url.startsWith("/cblr/svc/op/ks/")) {
+            Map params = new HashMap();
+            params.put(TYPE,  DownloadManager.DOWNLOAD_TYPE_COBBLER);
+            params.put(URL, url);
+            request.setAttribute(PARAMS, params);
+            return super.execute(mapping, formIn, request, response);            
         }
         else {
             ActionForward error = handleUserDownload(request, url, mapping);
@@ -120,9 +124,7 @@ public class DownloadFile extends DownloadAction {
             }
         }
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Calling super.execute");
-            }
+            log.debug("Calling super.execute");
             super.execute(mapping, formIn, request, response);
         }
         catch (Exception e) {
@@ -317,6 +319,22 @@ public class DownloadFile extends DownloadAction {
         if (type.equals(DownloadManager.DOWNLOAD_TYPE_KICKSTART)) {
             return getStreamInfoKickstart(mapping, form, request, response, path);
         }
+        else if (type.equals(DownloadManager.DOWNLOAD_TYPE_COBBLER)) {
+            String url = ConfigDefaults.get().getCobblerServerUrl() + 
+                        (String) params.get(URL);
+            KickstartHelper helper = new KickstartHelper(request);
+            String data = "";
+            if (helper.isProxyRequest()) {
+                data = KickstartManager.getInstance().renderKickstart(
+                        helper.getKickstartHost(), url);
+            }
+            else {
+                data = KickstartManager.getInstance().renderKickstart(url);
+            } 
+            //Must set content length or it doesn't quite work right
+            response.addHeader("Content-Length", data.length() + "");
+            return getStreamForText(data.getBytes());
+        }        
         else {
             Long fileId = (Long) params.get(FILEID);
             Long userid = (Long) params.get(USERID);

@@ -4,7 +4,7 @@
 #   - RHN certificate
 #   - SSL CA certificate
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,7 +28,6 @@ from server import rhnSQL
 from server.rhnServer import satellite_cert
 from common.rhnTB import fetchTraceback
 from common.rhnConfig import RHNOptions
-from spacewalk.common.rhn_rpm import getInstalledHeader
 
 #
 # RHN certificate section

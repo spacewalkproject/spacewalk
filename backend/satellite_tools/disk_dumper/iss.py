@@ -1,6 +1,6 @@
 #!/bin/env python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ from iss_ui import UI
 from iss_actions import ActionDeps
 import shutil
 import iss_isos
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 class ISSError(Exception):
     def __init__(self, msg, tb):
@@ -156,6 +156,12 @@ class Dumper(dumper.XML_Dumper):
 
 	self.start_date = start_date
 	self.end_date   = end_date
+
+	if self.start_date:
+            dates = { 'start_date' : self.start_date,
+                      'end_date'   : self.end_date, }
+        else:
+            dates = {}
     
         #The queries here are a little weird. They grab just enough information
         #to satisfy the dumper objects, which will use the information to look up
@@ -163,22 +169,18 @@ class Dumper(dumper.XML_Dumper):
         #of the information that you'd think would be necessary to sync stuff.
         ####CHANNEL INFO###
         try:
-	    if self.start_date:
-	        self.channel_query = rhnSQL.Statement("""
+            query = """
                  select ch.id channel_id, label, 
 		      TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
 		   from rhnChannel ch
 		  where ch.label = :label
+		"""
+	    if self.start_date:
+                query += """
 		    and last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		    and last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-		""")
-	    else:
-                self.channel_query = rhnSQL.Statement("""
-                    select ch.id channel_id, label, 
-		          TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-                      from rhnChannel ch
-                     where ch.label = :label
-                """)
+                    """
+            self.channel_query = rhnSQL.Statement(query)
             ch_data = rhnSQL.prepare(self.channel_query)
             
             #self.channel_ids contains the list of dictionaries that hold the channel information
@@ -188,12 +190,7 @@ class Dumper(dumper.XML_Dumper):
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
             for ids in channel_labels:
-	        if self.start_date:
-                    ch_data.execute(label=ids, start_date=self.start_date, 
-		                     end_date=self.end_date)
-		else:
-                    ch_data.execute(label=ids)
-		    
+                ch_data.execute(label=ids, **dates)
                 ch_info = ch_data.fetchall_dict()
                 
                 if not ch_info:
@@ -213,37 +210,26 @@ class Dumper(dumper.XML_Dumper):
 
         ###BINARY RPM INFO###
         try:
-	    if self.start_date:
-	        self.brpm_query = rhnSQL.Statement("""
-                     select rcp.package_id id, rp.path path, c.checksum md5sum,
-		            TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
-		       from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
+            query = """
+                     select rcp.package_id id, rp.path path
+		       from rhnChannelPackage rcp, rhnPackage rp
 		      where rcp.package_id = rp.id
 		        and rcp.channel_id = :channel_id
+                """
+            if self.start_date:
+                query += """
 		        and rp.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		        and rp.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-                        and rp.checksum_id = c.id
-		""")
-	    else:
-	        self.brpm_query = rhnSQL.Statement("""
-                    select rcp.package_id id, rp.path path, c.checksum md5sum
-                      from rhnChannelPackage rcp, rhnPackage rp, rhnChecksum c
-                     where rcp.package_id = rp.id
-                       and rcp.channel_id = :channel_id
-                       and rp.checksum_id = c.id
-                """)
+                        """
+	    self.brpm_query = rhnSQL.Statement(query)
             brpm_data = rhnSQL.prepare(self.brpm_query)
             
             #self.brpms is a list of binary rpm info. It is a list of dictionaries, where each dictionary
-            #has 'id', 'path', and 'md5sum' as the keys.
+            #has 'id' and 'path' as the keys.
             self.brpms = []
             log2stdout(1, "Gathering binary RPM info...")
             for ch in self.channel_ids:
-                if self.start_date:
-                   brpm_data.execute(channel_id=ch['channel_id'], 
-		          start_date=self.start_date, end_date=self.end_date)
-                else:
-		   brpm_data.execute(channel_id=ch['channel_id'])
+                brpm_data.execute(channel_id=ch['channel_id'], **dates)
                 self.brpms = self.brpms + (brpm_data.fetchall_dict() or [])
                 
         except Exception, e:
@@ -254,24 +240,19 @@ class Dumper(dumper.XML_Dumper):
         ###PACKAGE INFO###
         #This will grab channel package information for a given channel.
         try:
-	    if self.start_date:
-	        self.package_query = rhnSQL.Statement("""
+            query = """
                  select rp.id package_id,  
 		        TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified
 		   from rhnPackage rp, rhnChannelPackage rcp
 		  where rcp.channel_id = :channel_id
 		    and rcp.package_id = rp.id
+		"""
+	    if self.start_date:
+                query += """
 		    and rp.last_modified >= TO_DATE(:start_date,'YYYYMMDDHH24MISS')
 		    and rp.last_modified <= TO_DATE(:end_date,'YYYYMMDDHH24MISS')
-		""")
-	    else:
-                self.package_query = rhnSQL.Statement("""
-                 select rp.id package_id,  
-		        TO_CHAR(rp.last_modified, 'YYYYMMDDHH24MISS') last_modified 
-                   from rhnPackage rp, rhnChannelPackage rcp
-                  where rcp.channel_id = :channel_id
-                    and rcp.package_id = rp.id
-                """)
+                    """
+            self.package_query = rhnSQL.Statement(query)
             package_data = rhnSQL.prepare(self.package_query)
             
             #self.pkg_info will be a list of dictionaries containing channel package information.
@@ -282,11 +263,7 @@ class Dumper(dumper.XML_Dumper):
             #self.channel_ids.
             log2stdout(1, "Gathering package info...")
             for channel_id in self.channel_ids:
-	        if self.start_date:
-		    package_data.execute(channel_id=channel_id['channel_id'], 
-		               start_date=self.start_date, end_date=self.end_date)
-	        else:
-                    package_data.execute(channel_id=channel_id['channel_id'])
+                package_data.execute(channel_id=channel_id['channel_id'], **dates)
                 a_package = package_data.fetchall_dict() or []
     
                 #Don't bother placing None into self.pkg_info.
@@ -300,27 +277,19 @@ class Dumper(dumper.XML_Dumper):
 
         ###SOURCE PACKAGE INFO###
         try:
-	    if self.start_date:
-	        self.source_package_query = rhnSQL.Statement("""
+	    query = """
                   select ps.id package_id, 
 		         TO_CHAR(ps.last_modified,'YYYYMMDDHH24MISS') last_modified,                         ps.source_rpm_id source_rpm_id
                     from rhnPackageSource ps
+		"""
+            if self.start_date:
+                query += """
 	           where ps.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 	             and ps.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-		""")
-	    else:
-                self.source_package_query = rhnSQL.Statement("""
-                    select ps.id package_id, 
-		      TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
-		      ps.source_rpm_id source_rpm_id
-                    from rhnPackageSource ps
-                """)
+                   """
+            self.source_package_query = rhnSQL.Statement(query)
             source_package_data = rhnSQL.prepare(self.source_package_query)
-	    if self.start_date:
-	        source_package_data.execute(start_date=self.start_date,
-		                            end_date=self.end_date)
-            else:
-                source_package_data.execute()
+	    source_package_data.execute(**dates)
     
             #self.src_pkg_info is a list of dictionaries containing the source package information.
             #The keys for each dictionary are 'package_id', 'last_modified', and 'source_rpm_id'.
@@ -337,26 +306,20 @@ class Dumper(dumper.XML_Dumper):
 
         ###ERRATA INFO###
         try:
-	    if self.start_date:
-	        self.errata_query = rhnSQL.Statement("""
+            query = """
                    select e.id errata_id,
 		          TO_CHAR(e.last_modified,'YYYYMMDDHH24MISS') last_modified,
 		          e.advisory_name "advisory-name"
 	             from rhnChannelErrata ce, rhnErrata e
 		    where ce.channel_id = :channel_id
 		      and ce.errata_id = e.id
+		"""
+            if self.start_date:
+                query += """
 		      and e.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		      and e.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-		""")
-	    else:
-                self.errata_query = rhnSQL.Statement("""
-                    select e.id errata_id, 
-		          TO_CHAR(e.last_modified,'YYYYMMDDHH24MISS') last_modified,
-                          e.advisory_name "advisory-name"
-                    from  rhnChannelErrata ce, rhnErrata e
-                    where ce.channel_id = :channel_id
-                      and ce.errata_id = e.id
-            """)
+                      """
+            self.errata_query = rhnSQL.Statement(query)
             errata_data = rhnSQL.prepare(self.errata_query)
             
             #self.errata_info will be a list of dictionaries containing errata info for the channels
@@ -364,11 +327,7 @@ class Dumper(dumper.XML_Dumper):
             self.errata_info = []
             log2stdout(1, "Gathering errata info...")
             for channel_id in self.channel_ids:
-	        if self.start_date:
-                    errata_data.execute(channel_id=channel_id['channel_id'],
-		          start_date=self.start_date, end_date=self.end_date)
-	        else:
-                    errata_data.execute(channel_id=channel_id['channel_id'])    
+                errata_data.execute(channel_id=channel_id['channel_id'], **dates)
                 an_errata = errata_data.fetchall_dict() or []
                 if an_errata:
                     self.errata_info = self.errata_info + an_errata
@@ -380,32 +339,25 @@ class Dumper(dumper.XML_Dumper):
         
         ###KICKSTART DATA/TREES INFO###
         try:
-	    if self.start_date:
-	        self.kickstart_trees_query = rhnSQL.Statement("""
+            query = """
 	        select  kt.id kstree_id, kt.label kickstart_label, 
 		        TO_CHAR(kt.last_modified, 'YYYYMMDDHH24MISS') last_modified
 		  from  rhnKickstartableTree kt
 		 where   kt.channel_id = :channel_id
+		 """
+            if self.start_date:
+                query += """
 		   and kt.last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		   and kt.last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
 		   and kt.org_id is Null
-		 """)
-	    else:
-                self.kickstart_trees_query = rhnSQL.Statement("""
-                    select kt.id kstree_id, kt.label kickstart_label, 
-		           TO_CHAR(kt.modified, 'YYYYMMDDHH24MISS') last_modified
-                      from rhnKickstartableTree kt
-                     where kt.channel_id = :channel_id
-                """)
+                   """
+            self.kickstart_trees_query = rhnSQL.Statement(query)
             kickstart_data = rhnSQL.prepare(self.kickstart_trees_query)
             self.kickstart_trees = []
             log2stdout(1, "Gathering kickstart data...")
             for channel_id in self.channel_ids:
-	        if self.start_date:
-                    kickstart_data.execute(channel_id=channel_id['channel_id'],
-               	       	    start_date=self.start_date, end_date=self.end_date)
-	        else:
-                    kickstart_data.execute(channel_id=channel_id['channel_id'])
+                kickstart_data.execute(channel_id=channel_id['channel_id'],
+                            **dates)
                 a_tree = kickstart_data.fetchall_dict() or []
                 if a_tree:
                     self.kickstart_trees = self.kickstart_trees + a_tree
@@ -417,44 +369,31 @@ class Dumper(dumper.XML_Dumper):
 
         ###KICKSTART FILES INFO###
         try:
-	    if self.start_date:
-	        self.kickstart_files_query = rhnSQL.Statement("""
+            query = """
 		    select rktf.relative_filename "relative-path", 
-		           c.checksum md5sum, rktf.file_size "file-size",
+		           c.checksum_type "checksum-type", c.checksum,
+                           rktf.file_size "file-size",
 		           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
 			   rkt.base_path "base-path",
 		           rkt.label label, 
 			   TO_CHAR(rkt.modified, 'YYYYMMDDHH24MISS') "modified"
 		      from rhnKSTreeFile rktf, rhnKickstartableTree rkt,
-                           rhnChecksum c
+                           rhnChecksumView c
 		     where rktf.kstree_id = :kstree_id
 		       and rkt.id = rktf.kstree_id
+                       and rktf.checksum_id = c.id
+	        """
+            if self.start_date:
+                query += """
 		       and rkt.modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
 		       and rkt.modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-                       and rktf.checksum_id = c.id
-	        """)
-	    else:
-                self.kickstart_files_query = rhnSQL.Statement("""
-                    select rktf.relative_filename "relative-path",
-		           c.checksum md5sum, rktf.file_size "file-size",
-                           TO_CHAR(rktf.last_modified, 'YYYYMMDDHH24MISS') "last-modified", 
-			   rkt.base_path "base-path",
-                           rkt.label label
-                     from  rhnKSTreeFile rktf, rhnKickstartableTree rkt,
-                           rhnChecksum c
-                    where  rktf.kstree_id = :kstree_id
-                      and  rkt.id = rktf.kstree_id
-                      and  rktf.checksum_id = c.id
-            """)
+                """
+            self.kickstart_files_query = rhnSQL.Statement(query)
             kickstart_files = rhnSQL.prepare(self.kickstart_files_query)
             self.kickstart_files = []
             log2stdout(1, "Gathering kickstart files info...")
             for kstree in self.kickstart_trees:
-	        if self.start_date:
-                    kickstart_files.execute(kstree_id=kstree['kstree_id'],
-               	       	    start_date=self.start_date, end_date=self.end_date)
-		else:
-                    kickstart_files.execute(kstree_id=kstree['kstree_id'])
+                kickstart_files.execute(kstree_id=kstree['kstree_id'], **dates)
                 a_file = kickstart_files.fetchall_dict() or []
                 if a_file:
                     self.kickstart_files = self.kickstart_files + a_file
@@ -1125,7 +1064,7 @@ class ExporterMain:
 		    for file in os.listdir(iso_output):
 		        if self.options.make_isos != "dvds":
 			    if file != "MD5SUM":
-		                md5_val = checksum.getFileChecksum('md5', (os.path.join(iso_output, file)))
+		                md5_val = getFileChecksum('md5', (os.path.join(iso_output, file)))
 			        md5str = "%s  %s\n" % (md5_val, file)
 	                        f.write(md5str)
 	            f.close()

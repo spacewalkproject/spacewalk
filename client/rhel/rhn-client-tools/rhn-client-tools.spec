@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.8.2
+Version: 0.9.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?suse_version: %{suse_version} > 1000} 
@@ -13,7 +13,7 @@ BuildArch: noarch
 BuildRequires: update-desktop-files
 %endif
 
-Requires: rhnlib >= 2.2.7
+Requires: rhnlib >= 2.5.20
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
 Requires: python-ethtool
@@ -153,8 +153,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/up2date_client/clientCaps.*
 %{_datadir}/rhn/up2date_client/capabilities.*
 %{_datadir}/rhn/up2date_client/rhncli.*
-%{_datadir}/rhn/up2date_client/rhn_fcntl.*
-%{_datadir}/rhn/up2date_client/rhnLockfile.*
 %{_datadir}/rhn/__init__.*
 
 %{_sbindir}/rhn-profile-sync
@@ -227,6 +225,41 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Feb  5 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.12-1
+- 543509 - found another part of code where we use hal for getting DMI inforation, removing
+
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.10-1
+- updated copyrights
+- 561485 - clear dmi warnings on ia64
+
+* Wed Feb 03 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
+- fixed several unit test
+
+* Tue Feb 02 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.8-1
+- fixed failed build 
+
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- use rhnLockfile.py from rhnlib
+- 543509 - don't send "Not Settable"/"Not Present" when guest have no UUID
+
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.6-1
+- 557370 - clear dmi warnings for xen pv guests (mzazrivec@redhat.com)
+- 546312 - fix typo - we do not want to assign the result of the SetResultType operation. (jpazdziora@redhat.com)
+- Remove other branches that check SubscriptionWindow by name. (jpazdziora@redhat.com)
+- Since SubscriptionWindow is not in the list now, remove the whole class. (jpazdziora@redhat.com)
+- Remove the SubscriptionWindow from the list. (jpazdziora@redhat.com)
+
+* Thu Jan 21 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.5-1
+- 557059 - convert dbus.string to unicode
+
+* Thu Jan 21 2010 Milan Zazrivec <mzazrivec@redhat.com> 0.8.4-1
+- 557370 - put dmidecode import warnings into log
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- 554317 - fix for gui registration traceback
+- removed dead code
+- 513660 - save / update up2date config during firstboot
+
 * Tue Dec 15 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - 546312 - do not depend on hald for rhnreg_ks
 

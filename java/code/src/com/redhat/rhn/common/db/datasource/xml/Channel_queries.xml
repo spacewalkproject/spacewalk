@@ -17,6 +17,13 @@ DELETE
   </query>
 </write-mode>
 
+<write-mode name="add_channel_packages">
+  <query params="cid">
+  INSERT INTO rhnChannelPackage (channel_id, package_id)
+      select :cid, P.id from rhnPackage P where P.id in (%s) 
+  </query>
+</write-mode>
+
 <write-mode name="add_org_channel_setting">
   <query params="org_id, cid, label">
 INSERT

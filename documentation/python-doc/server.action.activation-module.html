@@ -127,35 +127,42 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__rhnexport__"></a><span class="summary-name">__rhnexport__</span> = <code title="['schedule_deploy', 'schedule_pkg_install',]">['schedule_deploy', 'schedule_pkg_install',]</code>
+        <a name="__rhnexport__"></a><span class="summary-name">__rhnexport__</span> = <code title="['schedule_deploy', 'schedule_pkg_install']"><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">schedule_deploy</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">schedule_pkg_install</code><code class="variable-quote">'</code><code class="variable-group">]</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.activation-module.html#_query_copy_pkgs_from_shadow_action" class="summary-name" onclick="show_private();">_query_copy_pkgs_from_shadow_action</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.activation-module.html#_query_copy_pkgs_from_shadow_action" class="summary-name" onclick="show_private();">_query_copy_pkgs_from_shadow_action</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159048780; statement=
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    select rhn_act_p_id_seq.nextval, :new_action_id, name_id, paramete\
-r
+    select sequence_nextval('rhn_act_p_id_seq'), :new_action_id, name_\
+id, parameter
       from rhnActionPackage
      where action_id = :action_id
-&quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+">&lt;server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.action.activation-module.html#_query_copy_revs_from_shadow_action" class="summary-name" onclick="show_private();">_query_copy_revs_from_shadow_action</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.action.activation-module.html#_query_copy_revs_from_shadow_action" class="summary-name" onclick="show_private();">_query_copy_revs_from_shadow_action</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159067788; statement=
     insert into rhnActionConfigRevision (id, action_id, server_id, con\
 fig_revision_id)
-    select rhn_actioncr_id_seq.nextval, :new_action_id, server_id, con\
-fig_revision_id
+    select sequence_nextval('rhn_actioncr_id_seq'), :new_action_id, se\
+rver_id, config_revision_id
       from rhnActionConfigRevision
      where action_id = :action_id
        and server_id = :server_id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'server.action'"><code class="variable-quote">'</code><code class="variable-string">server.action</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -189,13 +196,13 @@ fig_revision_id
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159048780; statement=
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    select rhn_act_p_id_seq.nextval, :new_action_id, name_id, paramete<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-r
+    select sequence_nextval('rhn_act_p_id_seq'), :new_action_id, name_<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+id, parameter
       from rhnActionPackage
      where action_id = :action_id
-&quot;&quot;&quot;)
+
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -213,11 +220,11 @@ r
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159067788; statement=
     insert into rhnActionConfigRevision (id, action_id, server_id, con<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 fig_revision_id)
-    select rhn_actioncr_id_seq.nextval, :new_action_id, server_id, con<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-fig_revision_id
+    select sequence_nextval('rhn_actioncr_id_seq'), :new_action_id, se<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+rver_id, config_revision_id
       from rhnActionConfigRevision
      where action_id = :action_id
        and server_id = :server_id
@@ -251,7 +258,7 @@ fig_revision_id
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

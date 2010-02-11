@@ -55,7 +55,20 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class IncompletePackageItem</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#IncompletePackageItem">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_217" name="uml_class_diagram_for_satellit_217">
+<area shape="rect" href="satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate" title="satellite_tools.xmlSource.BaseChecksummedItem.populate" alt="" coords="48,129,264,148"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseChecksummedItem-class.html" title="satellite_tools.xmlSource.BaseChecksummedItem" alt="" coords="47,104,265,149"/>
+<area shape="rect" href="satellite_tools.xmlSource.IncompletePackageItem-class.html#item_name" title="hash(x)" alt="" coords="81,196,231,215"/>
+<area shape="rect" href="server.importlib.importLib.IncompletePackage-class.html" title="hash(x)" alt="" coords="81,215,231,233"/>
+<area shape="rect" href="satellite_tools.xmlSource.IncompletePackageItem-class.html#tagMap" title="satellite_tools.xmlSource.IncompletePackageItem.tagMap" alt="" coords="81,233,231,252"/>
+<area shape="rect" href="satellite_tools.xmlSource.IncompletePackageItem-class.html" title="satellite_tools.xmlSource.IncompletePackageItem" alt="" coords="80,179,232,261"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes" title="satellite_tools.xmlSource.BaseItem.populateFromAttributes" alt="" coords="17,36,295,55"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements" title="satellite_tools.xmlSource.BaseItem.populateFromElements" alt="" coords="17,55,295,73"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseItem-class.html" title="satellite_tools.xmlSource.BaseItem" alt="" coords="16,11,296,75"/>
+<area shape="rect" href="satellite_tools.xmlSource.PackageItem-class.html" title="satellite_tools.xmlSource.PackageItem" alt="" coords="108,291,204,317"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_217.png" alt='' usemap="#uml_class_diagram_for_satellit_217" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== NESTED CLASSES ==================== -->
@@ -79,7 +92,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.importlib.importLib.IncompletePackage-class.html" class="summary-name">item_class</a>
+        <a href="server.importlib.importLib.IncompletePackage-class.html" class="summary-name">item_class</a><br />
+      hash(x)
     </td>
   </tr>
 </table>
@@ -102,8 +116,10 @@
 </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.xmlSource.BaseChecksummedItem-class.html">BaseChecksummedItem</a></code></b>:
+      <code><a href="satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate">populate</a></code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="satellite_tools.xmlSource.BaseItem-class.html">BaseItem</a></code></b>:
-      <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populate">populate</a></code>,
       <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromAttributes">populateFromAttributes</a></code>,
       <code><a href="satellite_tools.xmlSource.BaseItem-class.html#populateFromElements">populateFromElements</a></code>
       </p>
@@ -131,15 +147,20 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-package-short'">'rhn-package-short'</code>
+        <a name="item_name"></a><span class="summary-name">item_name</span> = <code title="'rhn-package-short'"><code class="variable-quote">'</code><code class="variable-string">rhn-package-short</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.xmlSource.IncompletePackageItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'id': 'package_id', 'package-size': 'package_size', 'last-modified': \
-'last_modified', 'package-arch': 'arch', 'org-id': 'org_id',}">{'id': 'package_id', 'package-size': 'package_size', <code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.xmlSource.IncompletePackageItem-class.html#tagMap" class="summary-name">tagMap</a> = <code title="{'checksum-type': 'checksum_type',
+ 'id': 'package_id',
+ 'last-modified': 'last_modified',
+ 'org-id': 'org_id',
+ 'package-arch': 'arch',
+ 'package-size': 'package_size'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">checksum-type</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">checksum_type</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">package_id</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -173,8 +194,12 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{'id': 'package_id', 'package-size': 'package_size', 'last-modified': <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-'last_modified', 'package-arch': 'arch', 'org-id': 'org_id',}
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">checksum-type</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">checksum_type</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">package_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">last-modified</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">last_modified</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">org-id</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">org_id</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">package-arch</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">arch</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">package-size</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">package_size</code><code class="variable-quote">'</code><code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -204,7 +229,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:13 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:41 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

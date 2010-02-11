@@ -55,7 +55,40 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class SatelliteDispatchHandler</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.xmlSource-pysrc.html#SatelliteDispatchHandler">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_235" name="uml_class_diagram_for_satellit_235">
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#container_dispatch" title="satellite_tools.xmlSource.BaseDispatchHandler.container_dispatch" alt="" coords="172,252,385,271"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#__init__" title="satellite_tools.xmlSource.BaseDispatchHandler.__init__" alt="" coords="172,273,385,292"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#restoreParser" title="satellite_tools.xmlSource.BaseDispatchHandler.restoreParser" alt="" coords="172,292,385,311"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#setStream" title="satellite_tools.xmlSource.BaseDispatchHandler.setStream" alt="" coords="172,311,385,329"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#process" title="satellite_tools.xmlSource.BaseDispatchHandler.process" alt="" coords="172,329,385,348"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#reset" title="satellite_tools.xmlSource.BaseDispatchHandler.reset" alt="" coords="172,348,385,367"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#close" title="satellite_tools.xmlSource.BaseDispatchHandler.close" alt="" coords="172,367,385,385"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#clear" title="satellite_tools.xmlSource.BaseDispatchHandler.clear" alt="" coords="172,385,385,404"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#set_container" title="satellite_tools.xmlSource.BaseDispatchHandler.set_container" alt="" coords="172,404,385,423"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#get_container" title="satellite_tools.xmlSource.BaseDispatchHandler.get_container" alt="" coords="172,423,385,441"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#has_container" title="satellite_tools.xmlSource.BaseDispatchHandler.has_container" alt="" coords="172,441,385,460"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#setDocumentLocator" title="Called by the parser to give the application a locator for locating the &#160;origin of document events." alt="" coords="172,460,385,479"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#startElement" title="Signals the start of an element in non&#45;namespace mode." alt="" coords="172,479,385,497"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#characters" title="Receive notification of character data." alt="" coords="172,497,385,516"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#warning" title="Handle a warning." alt="" coords="172,535,385,553"/>
+<area shape="rect" href="satellite_tools.xmlSource.BaseDispatchHandler-class.html" title="satellite_tools.xmlSource.BaseDispatchHandler" alt="" coords="171,235,387,555"/>
+<area shape="rect" href="satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#rootElement" title="hash(x)" alt="" coords="203,601,355,620"/>
+<area shape="rect" href="satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#version" title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" alt="" coords="203,620,355,639"/>
+<area shape="rect" href="satellite_tools.xmlSource.SatelliteDispatchHandler-class.html" title="satellite_tools.xmlSource.SatelliteDispatchHandler" alt="" coords="201,584,356,648"/>
+<area shape="rect" href="javascript:void(0);" title="Receive notification of the end of a document." alt="" coords="17,36,273,55"/>
+<area shape="rect" href="javascript:void(0);" title="Signals the end of an element in namespace mode." alt="" coords="17,55,273,73"/>
+<area shape="rect" href="javascript:void(0);" title="End the scope of a prefix&#45;URI mapping." alt="" coords="17,73,273,92"/>
+<area shape="rect" href="javascript:void(0);" title="Receive notification of ignorable whitespace in element content." alt="" coords="17,92,273,111"/>
+<area shape="rect" href="javascript:void(0);" title="Receive notification of a processing instruction." alt="" coords="17,111,273,129"/>
+<area shape="rect" href="javascript:void(0);" title="Receive notification of a skipped entity." alt="" coords="17,129,273,148"/>
+<area shape="rect" href="javascript:void(0);" title="Receive notification of the beginning of a document." alt="" coords="17,148,273,167"/>
+<area shape="rect" href="javascript:void(0);" title="Signals the start of an element in namespace mode." alt="" coords="17,167,273,185"/>
+<area shape="rect" href="javascript:void(0);" title="Begin the scope of a prefix&#45;URI Namespace mapping." alt="" coords="17,185,273,204"/>
+<area shape="rect" href="javascript:void(0);" title="Interface for receiving logical document content events." alt="" coords="16,11,275,205"/>
+<area shape="rect" href="javascript:void(0);" title="Basic interface for SAX error handlers." alt="" coords="325,92,501,124"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_235.png" alt='' usemap="#uml_class_diagram_for_satellit_235" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -112,6 +145,17 @@
       <code><a href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#startElement">startElement</a></code>,
       <code><a href="satellite_tools.xmlSource.BaseDispatchHandler-class.html#warning">warning</a></code>
       </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>xml.sax.handler.ContentHandler</code></b>:
+      <code>endDocument</code>,
+      <code>endElementNS</code>,
+      <code>endPrefixMapping</code>,
+      <code>ignorableWhitespace</code>,
+      <code>processingInstruction</code>,
+      <code>skippedEntity</code>,
+      <code>startDocument</code>,
+      <code>startElementNS</code>,
+      <code>startPrefixMapping</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -136,14 +180,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="rootElement"></a><span class="summary-name">rootElement</span> = <code title="'rhn-satellite'">'rhn-satellite'</code>
+        <a name="rootElement"></a><span class="summary-name">rootElement</span> = <code title="'rhn-satellite'"><code class="variable-quote">'</code><code class="variable-string">rhn-satellite</code><code class="variable-quote">'</code></code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="version"></a><span class="summary-name">version</span> = <code title="&quot;3.0&quot;">&quot;3.0&quot;</code>
+        <a name="version"></a><span class="summary-name">version</span> = <code title="'3.0'"><code class="variable-quote">'</code><code class="variable-string">3.0</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
   <tr>
@@ -218,7 +263,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:42 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

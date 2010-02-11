@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.8.0
+Version: 0.9.0
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,22 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.5-1
+- updated copyrights
+
+* Mon Jan 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
+- fixed HTTP Error 401 Authorization Required on Fedora 12
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- fixed syntax error
+
+* Thu Jan 14 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
+- 549368 - yum now (F12) pass new attribute size, we should honor it if given
+
+* Fri Dec 18 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
+- 504295 - retrieve and use debug level from rhncli, pass it to yum
+- 548448 - when we are doing rollback, bypass dependecy resolution
+
 * Tue Dec  1 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.8-1
 - 437822 - python dependecy is not picked up automatically
 - 437822 - when persistent enable/disable of rhn repo is requested, do it in rhnplugin.conf

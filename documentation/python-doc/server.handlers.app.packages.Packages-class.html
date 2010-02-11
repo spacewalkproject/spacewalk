@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        app ::
-        packages ::
-        Packages ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.app-module.html">Package&nbsp;app</a> ::
+        <a href="server.handlers.app.packages-module.html" onclick="show_private();">Module&nbsp;packages</a> ::
         Class&nbsp;Packages
       </span>
     </td>
@@ -58,7 +57,27 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Packages</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_3" name="uml_class_diagram_for_server_h_3">
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="117,36,312,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="116,11,313,56"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#__init__" title="server.handlers.app.packages.Packages.__init__" alt="" coords="17,111,412,129"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#no_op" title="This is so the client can tell if the satellite supports session tokens or &#160;not." alt="" coords="17,129,412,148"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadPackageInfo" title="Upload a collection of binary packages." alt="" coords="17,148,412,167"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadPackageInfoBySession" title="server.handlers.app.packages.Packages.uploadPackageInfoBySession" alt="" coords="17,167,412,185"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadSourcePackageInfo" title="Upload a collection of source packages." alt="" coords="17,185,412,204"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#uploadSourcePackageInfoBySession" title="server.handlers.app.packages.Packages.uploadSourcePackageInfoBySession" alt="" coords="17,204,412,223"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelSource" title="server.handlers.app.packages.Packages.listChannelSource" alt="" coords="17,223,412,241"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelSourceBySession" title="server.handlers.app.packages.Packages.listChannelSourceBySession" alt="" coords="17,241,412,260"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannel" title="List packages of a specified channel." alt="" coords="17,260,412,279"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#listChannelBySession" title="server.handlers.app.packages.Packages.listChannelBySession" alt="" coords="17,279,412,297"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#login" title="This function that takes in the username and password and returns a session string if they are correct." alt="" coords="17,297,412,316"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#check_session" title="Checks a session string to make sure it is authentic expired." alt="" coords="17,316,412,335"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#test_login" title="server.handlers.app.packages.Packages.test_login" alt="" coords="17,335,412,353"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html#getSourcePackageMD5sumBySession" title="server.handlers.app.packages.Packages.getSourcePackageMD5sumBySession" alt="" coords="17,372,412,391"/>
+<area shape="rect" href="server.handlers.app.packages.Packages-class.html" title="server.handlers.app.packages.Packages" alt="" coords="16,85,413,392"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_3.png" alt='' usemap="#uml_class_diagram_for_server_h_3" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -84,7 +103,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.__init__">source&nbsp;code</a></span>
             
@@ -100,7 +119,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="no_op"></a><span class="summary-sig-name">no_op</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="no_op"></a><span class="summary-sig-name">no_op</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      This is so the client can tell if the satellite supports session 
+      tokens or not.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.no_op">source&nbsp;code</a></span>
             
@@ -119,7 +140,8 @@
           <td><span class="summary-sig"><a name="uploadPackageInfo"></a><span class="summary-sig-name">uploadPackageInfo</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Upload a collection of binary packages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.uploadPackageInfo">source&nbsp;code</a></span>
             
@@ -174,7 +196,8 @@
           <td><span class="summary-sig"><a name="uploadSourcePackageInfo"></a><span class="summary-sig-name">uploadSourcePackageInfo</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Upload a collection of source packages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.uploadSourcePackageInfo">source&nbsp;code</a></span>
             
@@ -285,7 +308,7 @@
         <span class="summary-sig-arg">channelList</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>)</span><br />
-      list packages of a specified channel</td>
+      List packages of a specified channel.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.listChannel">source&nbsp;code</a></span>
             
@@ -337,9 +360,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="login"></a><span class="summary-sig-name">login</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#login" class="summary-sig-name">login</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      This function that takes in the username and password and returns a 
+      session string if they are correct.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.login">source&nbsp;code</a></span>
             
@@ -356,7 +381,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="check_session"></a><span class="summary-sig-name">check_session</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">session</span>)</span></td>
+        <span class="summary-sig-arg">session</span>)</span><br />
+      Checks a session string to make sure it is authentic expired.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.check_session">source&nbsp;code</a></span>
             
@@ -393,7 +419,8 @@
           <td><span class="summary-sig"><a name="test_new_login"></a><span class="summary-sig-name">test_new_login</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
-        <span class="summary-sig-arg">session</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">session</span>=<span class="summary-sig-default">None</span>)</span><br />
+      rhnpush's --extended-test will call this function.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.test_new_login">source&nbsp;code</a></span>
             
@@ -410,7 +437,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="test_check_session"></a><span class="summary-sig-name">test_check_session</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">session</span>)</span></td>
+        <span class="summary-sig-arg">session</span>)</span><br />
+      rhnpush's --extended-test will call this function.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.test_check_session">source&nbsp;code</a></span>
             
@@ -429,7 +457,8 @@
           <td><span class="summary-sig"><a name="listMissingSourcePackages"></a><span class="summary-sig-name">listMissingSourcePackages</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channelList</span>,
         <span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span></td>
+        <span class="summary-sig-arg">password</span>)</span><br />
+      List source packages for a list of channels.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.listMissingSourcePackages">source&nbsp;code</a></span>
             
@@ -485,7 +514,7 @@
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
         <span class="summary-sig-arg">info</span>)</span><br />
-      Uploads an RPM package</td>
+      Uploads an RPM package.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.uploadPackage">source&nbsp;code</a></span>
             
@@ -544,7 +573,7 @@
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
         <span class="summary-sig-arg">info</span>)</span><br />
-      Uploads an RPM package</td>
+      Uploads an RPM package.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.channelPackageSubscription">source&nbsp;code</a></span>
             
@@ -613,6 +642,27 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="getPackageChecksum"></a><span class="summary-sig-name">getPackageChecksum</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">info</span>)</span><br />
+      returns checksum info of available packages also does an existance 
+      check on the filesystem.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageChecksum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#getPackageMD5sum" class="summary-sig-name">getPackageMD5sum</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">username</span>,
         <span class="summary-sig-arg">password</span>,
@@ -620,6 +670,24 @@
       bug#177762 gives md5sum info of available packages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageMD5sum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getPackageChecksumBySession"></a><span class="summary-sig-name">getPackageChecksumBySession</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">session_string</span>,
+        <span class="summary-sig-arg">info</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getPackageChecksumBySession">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -651,12 +719,65 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_getPackageMD5sum"></a><span class="summary-sig-name">_getPackageMD5sum</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="_getPackageChecksum"></a><span class="summary-sig-name">_getPackageChecksum</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">pkg_infos</span>,
+        <span class="summary-sig-arg">pkg_infos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getPackageChecksum">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_MD5sum2Checksum_info"></a><span class="summary-sig-name">_MD5sum2Checksum_info</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">info</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getPackageMD5sum">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._MD5sum2Checksum_info">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_Checksum2MD5sum_list"></a><span class="summary-sig-name">_Checksum2MD5sum_list</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">checksum_list</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._Checksum2MD5sum_list">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getSourcePackageChecksum"></a><span class="summary-sig-name">getSourcePackageChecksum</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">info</span>)</span><br />
+      Uploads an RPM package</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getSourcePackageChecksum">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -689,6 +810,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="getSourcePackageChecksumBySession"></a><span class="summary-sig-name">getSourcePackageChecksumBySession</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">session_string</span>,
+        <span class="summary-sig-arg">info</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.getSourcePackageChecksumBySession">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="getSourcePackageMD5sumBySession"></a><span class="summary-sig-name">getSourcePackageMD5sumBySession</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">session_string</span>,
         <span class="summary-sig-arg">info</span>)</span></td>
@@ -707,12 +846,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_getSourcePackageMD5sum"></a><span class="summary-sig-name">_getSourcePackageMD5sum</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.app.packages.Packages-class.html#_getSourcePackageChecksum" class="summary-sig-name" onclick="show_private();">_getSourcePackageChecksum</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">org_id</span>,
-        <span class="summary-sig-arg">pkg_infos</span>,
-        <span class="summary-sig-arg">info</span>)</span></td>
+        <span class="summary-sig-arg">pkg_infos</span>)</span><br />
+      Gives checksum info of available source packages.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getSourcePackageMD5sum">source&nbsp;code</a></span>
+            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getSourcePackageChecksum">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -720,21 +859,11 @@
       
     </td>
   </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="_getSourcePackageInfo"></a><span class="summary-sig-name">_getSourcePackageInfo</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">source_rpm_id</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getSourcePackageInfo">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
     </td>
   </tr>
 </table>
@@ -759,28 +888,28 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.app.packages.Packages-class.html#_query_count_channel_servers" class="summary-name" onclick="show_private();">_query_count_channel_servers</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="server.handlers.app.packages.Packages-class.html#_query_count_channel_servers" class="summary-name" onclick="show_private();">_query_count_channel_servers</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 152570476; statement=
         select count(*) server_count
           from rhnServerChannel sc, 
                rhnChannel c
          where c.label = :channel
            and c.id = sc.channel_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="server.handlers.app.packages.Packages-class.html#_get_pkg_info_query" class="summary-name" onclick="show_private();">_get_pkg_info_query</a> = <code title="&quot;&quot;&quot;
+        <a href="server.handlers.app.packages.Packages-class.html#_get_pkg_info_query" class="summary-name" onclick="show_private();">_get_pkg_info_query</a> = <code title="'''
         select
-               p.md5sum md5sum,
+               c.checksum_type,
+               c.checksum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
-               rhnPackage p,
-..."><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-quote">'</code><code class="variable-string">\n        select\n               c.chec</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -802,6 +931,52 @@
   </td>
 </tr>
 </table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="login"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">login</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">username</span>,
+        <span class="sig-arg">password</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages.login">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This function that takes in the username and password and returns a 
+  session string if they are correct. It raises a rhnFault if the user/pass
+  combo is not acceptable.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <a name="getPackageMD5sum"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -820,6 +995,28 @@
   </tr></table>
   
   <p>bug#177762 gives md5sum info of available packages. also does an 
+  existance check on the filesystem.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_getSourcePackageChecksum"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_getSourcePackageChecksum</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">org_id</span>,
+        <span class="sig-arg">pkg_infos</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.app.packages-pysrc.html#Packages._getSourcePackageChecksum">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Gives checksum info of available source packages. Also does an 
   existance check on the filesystem.</p>
   <dl class="fields">
   </dl>
@@ -856,13 +1053,13 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 152570476; statement=
         select count(*) server_count
           from rhnServerChannel sc, 
                rhnChannel c
          where c.label = :channel
            and c.id = sc.channel_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -880,14 +1077,14 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-&quot;&quot;&quot;
-        select
-               p.md5sum md5sum,
-               p.path path
-         from
-               rhnPackageEVR pe,
-               rhnPackageName pn,
-               rhnPackage p,
+<code class="variable-quote">'''</code><code class="variable-string"></code>
+<code class="variable-string">        select</code>
+<code class="variable-string">               c.checksum_type,</code>
+<code class="variable-string">               c.checksum,</code>
+<code class="variable-string">               p.path path</code>
+<code class="variable-string">         from</code>
+<code class="variable-string">               rhnPackageEVR pe,</code>
+<code class="variable-string">               rhnPackageName pn,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -918,7 +1115,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:45 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

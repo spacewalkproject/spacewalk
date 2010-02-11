@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,6 @@
 package RHN::DB::Notes;
 
 use strict;
-use Data::Dumper;
 use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;
@@ -154,36 +153,6 @@ sub commit {
 
    $dbh->commit;
    delete $self->{":modified:"};
-}
-
-# arg1 = column name
-# arg2 = column value
-# arg3 = columns wanted
-# return list of rows where column name has column value
-sub notes_by_col {
-   my $self = shift;
-   my $col = shift;
-   my $colval = shift;
-   my @cols = @_;
-
-   my $dbh = RHN::DB->connect;
-   my $query = sprintf <<EOS, join(", ", map { "T.$_" } @cols),$self->table,$col;
-SELECT %s
-FROM %s T 
-WHERE T.%s = ?
-ORDER BY T.created
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($colval);
-
-  my @ret;
-
-  while (my (@row) = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
 }
 
 #

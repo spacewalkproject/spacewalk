@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,17 +18,15 @@
 
 
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'md5', 'md5sum' );
+            (rhn_checksum_id_seq.nextval, 'md5', 'MD5sum' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha1', 'sha1sum' );
+            (rhn_checksum_id_seq.nextval, 'sha1', 'SHA1sum' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha224', 'sha224sum' );
+            (rhn_checksum_id_seq.nextval, 'sha256', 'SHA256sum' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha256', 'sha256sum' );
+            (rhn_checksum_id_seq.nextval, 'sha384', 'SHA384sum' );
 insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha384', 'sha384sum' );
-insert into rhnChecksumType (id, label, description) values
-            (rhn_checksum_id_seq.nextval, 'sha512', 'sha512sum' );
+            (rhn_checksum_id_seq.nextval, 'sha512', 'SHA512sum' );
 
 commit;
 

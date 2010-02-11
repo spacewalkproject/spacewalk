@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -178,17 +178,6 @@ sub lookup_widget {
   my $label = shift;
 
   return $self->{widgets_by_label}->{$label};
-}
-
-sub lookup_value {
-  my $self = shift;
-  my $label = shift;
-
-  my $widg = $self->{widgets_by_label}->{$label};
-
-  return undef unless $widg;
-
-  return $widg->value;
 }
 
 sub clone_widgets {

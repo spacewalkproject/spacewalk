@@ -49,7 +49,7 @@ install:: all $(DIRS)
 $(RHNSD): $(RHNSD).o
 	$(CC) -o $@ $<
 %.o : %.c
-	$(CC) -fPIC $(CFLAGS) -c -o $@ $<
+	$(CC) -DVERSION=\"$(VERSION)\" -fPIC $(CFLAGS) -c -o $@ $<
 
 clean::
 	@rm -fv *~ .*~ $(RHNSD) *.o 

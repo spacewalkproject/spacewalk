@@ -395,7 +395,7 @@ def registerSystem(username = None, password = None,
         auth_dict["password"] = password
 
     if cfg['supportsSMBIOS']:
-        auth_dict["smbios"] = hardware.get_hal_smbios()
+        auth_dict["smbios"] = hardware.get_smbios()
     
     s = rhnserver.RhnServer()
     if packages == None:
@@ -469,7 +469,7 @@ def registerSystem2(username = None, password = None,
                        'channel']
 
     if cfg['supportsSMBIOS']:
-        other["smbios"] = hardware.get_hal_smbios()
+        other["smbios"] = hardware.get_smbios()
 
     s = rhnserver.RhnServer()
     
@@ -551,7 +551,7 @@ def getRemainingSubscriptions(username, password):
     # the virt_uuid.
 
     if cfg['supportsSMBIOS']:
-        smbios = hardware.get_hal_smbios()
+        smbios = hardware.get_smbios()
         subs = s.registration.remaining_subscriptions(username, password, 
                                                       arch,
                                                       release,

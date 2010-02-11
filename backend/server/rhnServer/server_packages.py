@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -374,7 +374,7 @@ def update_errata_cache(server_id):
     # Return the number of changes
     return changed
 
-def processPackageKeyAssociations(header, checksum):
+def processPackageKeyAssociations(header, checksum_type, checksum):
     provider_sql = rhnSQL.prepare("""
         insert into rhnPackageKeyAssociation
             (package_id, key_id) values
@@ -415,7 +415,7 @@ def processPackageKeyAssociations(header, checksum):
            and key_id = :key_id
     """)
 
-    lookup_pkgid_sql.execute(ctype=checksum[0], csum=checksum[1])
+    lookup_pkgid_sql.execute(ctype=checksum_type, csum=checksum)
     pkg_id = lookup_pkgid_sql.fetchall_dict()
 
     if not pkg_id:

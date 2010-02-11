@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -248,14 +248,6 @@ sub render_nav {
 
   return $ret;
 
-}
-
-sub some_handler {
-  my $class = shift;
-  my $node = shift;
-  my $pxt = shift;
-
-  warn "***on click handler for node " . $node->name;
 }
 
 1;

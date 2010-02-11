@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -222,19 +222,6 @@ def getUserGroups(login, password):
             break
         groups.append(row['label'])
     return groups, org_id, user_id
-
-
-# Validate the channels for superusers
-def validateChannels(channels):
-    h = rhnSQL.prepare("""
-        select id
-          from rhnChannel
-         where label = :channel
-    """)
-    for channel in channels:
-        h.execute(channel=channel)
-        if not h.fetchone_dict():
-            raise rhnFault(32, _("Channel %s does not exist ") % channel)
 
 
 def user_manages_channels(user_id):

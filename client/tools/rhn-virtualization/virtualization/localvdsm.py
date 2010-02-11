@@ -1,7 +1,19 @@
 #!/usr/bin/python
 #
-# Copyright 2009 Red Hat, Inc.
+# Copyright (c) 2009--2010 Red Hat, Inc.
 #
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
 # Contact vdsm running on localhost over xmlrpc (possibly over ssl)
 #
 # Dan Kenigsberg <danken@redhat.com>
@@ -40,8 +52,8 @@ def getLocalVdsName(tsPath):
 def connect():
     tsPath = getTrustStorePath()
     port = config.get('addresses', 'management_port')
-    addr = getLocalVdsName(tsPath)
     if tsPath:
+        addr = getLocalVdsName(tsPath)
         from M2Crypto.m2xmlrpclib import SSL_Transport
         from M2Crypto import SSL
 
@@ -58,7 +70,7 @@ def connect():
         server = xmlrpclib.Server('https://%s:%s' % (addr, port),
                                 SSL_Transport(ctx))
     else:
-        server = xmlrpclib.Server('http://%s:%s' % (addr, port))
+        server = xmlrpclib.Server('http://localhost:%s' % port)
     return server
 
 if __name__ == '__main__':

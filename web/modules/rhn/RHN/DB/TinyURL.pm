@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,9 +17,9 @@ package RHN::DB::TinyURL;
 use strict;
 
 use PXT::Utils;
-use RHN::Utils;
 use RHN::DB;
-use RHN::Exception qw/throw/;
+
+use RHN::Date ();
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -44,22 +44,6 @@ EOS
   $sth->finish;
 
   return $result;
-}
-
-sub lookup_consume {
-  my $class = shift;
-  my %params = validate(@_, {token => 1});
-  my $token = $params{token};
-
-  my $ret = $class->lookup(-token => $token);
-  if ($ret) {
-    my $dbh = RHN::DB->connect;
-    my $sth = $dbh->prepare("UPDATE rhnTinyURL SET enabled = 'N' WHERE token = :token");
-    $sth->execute_h(token => $token);
-    $dbh->commit;
-  }
-
-  return $ret;
 }
 
 sub create {
@@ -106,31 +90,6 @@ sub random_url_string {
   }
 
   return $result;
-}
-
-# Take a (local-to-this-server) path and return a tiny url for it and
-# the token string.
-sub tinify_path {
-  my $class = shift;
-  my %params = validate(@_, { path => 1,
-			      expiration => 0,
-			      scheme => { default => 'http' },
-			      host => 0,
-			     } );
-
-  $params{host} ||= PXT::Config->get('base_domain');
-
-  throw "(invalid_url_scheme) $params{scheme} should be 'http' or 'https'"
-    unless (grep { $_ eq $params{scheme} } qw/http https/);
-
-  my $token = $class->create($params{path}, $params{expiration});
-
-  my $tiny_url = new URI::URL;
-  $tiny_url->scheme($params{scheme});
-  $tiny_url->host($params{host});
-  $tiny_url->path('/ty/' . $token);
-
-  return ($tiny_url->as_string, $token);
 }
 
 1;

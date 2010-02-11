@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -83,12 +83,6 @@ sub set_argument {
   $self->{argument} = $argument;
 
   return;
-}
-
-sub get_failed_message {
-  my $self = shift;
-
-  return $self->{failed_message};
 }
 
 sub set_failed_message {

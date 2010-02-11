@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,23 +28,17 @@ use PXT::HTML;
 
 
 use RHN::Server;
-use RHN::ServerGroup;
-use RHN::Org;
 use RHN::Set;
-use RHN::Utils;
 use RHN::Exception;
 use RHN::Channel;
 use RHN::ServerActions;
-use RHN::Entitlements;
 use RHN::Form;
 use RHN::Form::Widget::Select;
 use RHN::Form::Widget::CheckboxGroup;
 use RHN::SatelliteCert;
-use RHN::ConfigFile;
 use RHN::Kickstart::Session;
 
 use Sniglets::Forms;
-use Sniglets::Org;
 use Sniglets::HTML;
 use Sniglets::AppInstall;
 use Sniglets::ServerActions;
@@ -74,8 +68,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-server-history-event-details' => \&server_history_event_details);
 
-  $pxt->register_tag('rhn-system-base-channel-select' => \&system_base_channel_select);
-
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
@@ -91,17 +83,11 @@ sub register_callbacks {
   $pxt->register_callback('rhn:proxy_entitlement_cb' => \&proxy_entitlement_cb);
   $pxt->register_callback('rhn:cancel_scheduled_proxy_install_cb' => \&cancel_scheduled_proxy_install);
 
-  $pxt->register_callback('rhn:admin_server_edit_cb' => \&admin_server_edit_cb);
-
   $pxt->register_callback('rhn:delete_server_cb' => \&delete_server_cb);
   $pxt->register_callback('rhn:reboot_server_cb' => \&reboot_server_cb);
 
   $pxt->register_callback('rhn:server_prefs_form_cb' => \&server_prefs_form_cb);
 
-  # this now gets called in some cases by admin_server_edit_cb
-  $pxt->register_callback('rhn:system_update_brb_cb' => \&system_update_brb_cb);
-
-  $pxt->register_callback('rhn:system_package_list_refresh_cb' => \&system_package_list_refresh_cb);
   $pxt->register_callback('rhn:server_hardware_list_refresh_cb' => \&server_hardware_list_refresh_cb);
 
   $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
@@ -109,30 +95,11 @@ sub register_callbacks {
   $pxt->register_callback('rhn:delete_servers_cb' => \&delete_servers_cb);
 
   $pxt->register_callback('rhn:system-activation-key-cb' => \&system_activation_key_cb);
-  $pxt->register_callback('rhn:add-filenames-to-set-cb' => \&add_filenames_to_set_cb);
 
-  $pxt->register_callback('rhn:server_lock_cb' => \&server_lock_cb);
   $pxt->register_callback('rhn:server_set_lock_cb' => \&server_set_lock_cb);
 
   $pxt->register_callback('rhn:remote-command-cb' => \&remote_command_cb);
   $pxt->register_callback('rhn:package-action-command-cb' => \&package_action_command_cb);
-
-  $pxt->register_callback('rhn:osa-ping' => \&osa_ping_cb);
-}
-
-sub osa_ping_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-
-  die "no sid" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server" unless $server;
-
-  $server->osa_ping();
-
-  # $pxt->push_message(site_info => "<strong>" . $server->name . "</strong> has been pinged.  OSA Status will update within the next minute.");
-  $pxt->redirect('/rhn/systems/details/Overview.do?sid=' . $sid . "&message=system.osad.pinged&messagep1=" . $server->name);
 }
 
 sub system_pending_actions_count {
@@ -396,24 +363,6 @@ sub cancel_scheduled_proxy_install {
   $pxt->redirect($url . "?sid=$sid");
 }
 
-sub system_package_list_refresh_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  throw "no server id" unless $sid;
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $action_id = RHN::Scheduler->schedule_package_refresh(-org_id => $pxt->user->org_id,
-							   -user_id => $pxt->user->id,
-							   -earliest => $earliest_date,
-							   -server_id => $sid);
-
-  my $system = RHN::Server->lookup(-id => $sid);
-
-  $pxt->push_message(site_info => sprintf("You have successfully scheduled a package profile refresh for <strong>%s</strong>.", PXT::Utils->escapeHTML($system->name)));
-  return;
-}
-
 sub server_hardware_list_refresh_cb {
   my $pxt = shift;
 
@@ -470,14 +419,8 @@ sub system_status_info {
     $ret->{status_class} = 'system-status-unentitled';
 
     if ($user->is('org_admin')) {
-      if ($user->org->unused_entitlements || PXT::Config->get('satellite')) {
-	$ret->{message} = 'entitle it here';
- 	$ret->{link} = "/network/systems/details/edit.pxt?sid=${sid}";
-      }
-      else {
-  	$ret->{message} = 'buy more entitlements';
-  	$ret->{link} = "/rhn/account/SubscriptionManagement.do";
-      }
+      $ret->{message} = 'entitle it here';
+      $ret->{link} = "/network/systems/details/edit.pxt?sid=${sid}";
     }
   }
   elsif ($data->{LAST_CHECKIN_DAYS_AGO} > PXT::Config->get('system_checkin_threshold')) {
@@ -658,48 +601,6 @@ sub base_entitlement {
   }
 }
 
-sub base_entitlement_box {
-  my $pxt = shift;
-  my $server = shift;
-
-  my ($base_entitlement) = grep { $_->{IS_BASE} eq 'Y' } $server->entitlements;
-
-  $base_entitlement ||= { LABEL => 'none',
-			  PERMANENT => 'N' };
-
-  if ($base_entitlement->{PERMANENT} eq 'Y') {
-    return $pxt->user->org->slot_name($base_entitlement->{LABEL});
-  }
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my @allowed_entitlements = grep { $_->{IS_BASE} eq 'Y' and
-				      ( $_->{LABEL} eq $base_entitlement->{LABEL} or
-					$server->can_switch_base_entitlement($_->{LABEL})
-				      )
-				  } @all_entitlements;
-
-  my @options = ( map { {label => $pxt->user->org->slot_name($_->{LABEL}),
-			   value => $_->{LABEL}},
-			 } @allowed_entitlements);
-
-  if ($base_entitlement->{LABEL} eq 'none') {
-    unshift @options,
-      { label => 'None',
-	value => 'none' };
-  }
-  else {
-    unshift @options,
-      { label => 'Unentitle System',
-	value => 'unentitle' };
-  }
-
-  my $selectbox = new RHN::Form::Widget::Select (name => 'Base Entitlement',
-						 label => 'base_entitlement',
-						 default => $base_entitlement->{LABEL},
-						 options => \@options);
-  return $selectbox->render;
-}
-
 sub addon_entitlements {
   my $pxt = shift;
   my $server = shift;
@@ -714,74 +615,6 @@ sub addon_entitlements {
   }
 
   return join(", ", @addon_entitlements);
-}
-
-sub addon_entitlement_box {
-  my $pxt = shift;
-  my $server = shift;
-
-  my @system_entitlements = $server->entitlements;
-  my ($base_entitlement) = grep { $_->{IS_BASE} eq 'Y' } @system_entitlements;
-  my %addon_entitlements = map { ($_->{LABEL}, $_) }
-    grep { $_->{IS_BASE} eq 'N' } @system_entitlements;
-
-  if (not $base_entitlement) {
-    return "A system must have a base entitlement to have add-on entitlements.";
-  }
-
-  my @all_entitlements = RHN::Entitlements->valid_system_entitlements_for_org($pxt->user->org_id);
-  my %allowed_entitlements = map { ($_->{LABEL}, $_) }
-    grep { $_->{IS_BASE} eq 'N' and
-	   $server->can_entitle_server($_->{LABEL}) } @all_entitlements;
-
-  my @options;
-  my @selected;
-
-  foreach my $ent (@all_entitlements) {
-    if (exists $addon_entitlements{$ent->{LABEL}} or
-	exists $allowed_entitlements{$ent->{LABEL}}) {
-      my $disabled = (exists $addon_entitlements{$ent->{LABEL}} and
-		   $ent->{PERMANENT} eq 'Y') ? 1 : 0;
-
-      push @options, { label => $pxt->user->org->slot_name($ent->{LABEL}),
-		       value => $ent->{LABEL},
-		       disabled => $disabled };
-      push(@selected, $ent->{LABEL}) if exists $addon_entitlements{$ent->{LABEL}};
-    }
-  }
-
-  unless (@options) {
-    return "No add-on entitlements available.";
-  }
-
-  my $boxes = new RHN::Form::Widget::CheckboxGroup (name => 'Add-On Entitlements',
-						    label => 'addon_entitlements',
-						    default => \@selected,
-						    options => \@options);
-
-  return join("<br/>\n", $boxes->render);
-}
-
-sub server_edit_location_cb {
-  my $pxt = shift;
-  my $transaction = shift;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  my $server = $transaction || RHN::Server->lookup(-id => $sid);
-
-  die "Orgs for admin server edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$server->org_id]}"
-    unless $pxt->user->org_id == $server->org_id;
-
-  foreach my $form_var (qw/country state city address1 address2 building room rack/) {
-    my $function = 'location_' . $form_var;
-    $server->$function($pxt->dirty_param($form_var));
-  }
-
-  $server->commit unless $transaction;
-
-  return $server;
 }
 
 sub reboot_server_cb {
@@ -807,173 +640,6 @@ sub reboot_server_cb {
 #
 #  $pxt->push_message(site_info => $message);
   $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid&message=system.reboot.scheduled&messagep1=" . $server->name . "&messagep2=" . $pretty_earliest_date . "&messagep3=" . $action_id);
-}
-
-sub admin_server_edit_cb {
-  my $pxt = shift;
-
-  my @extra_messages;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless ($sid);
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $trunc_name = substr($pxt->dirty_param('name'), 0, 128);
-  $trunc_name =~ s/^\s+//;
-  $trunc_name =~ s/\s+$//;
-
-  unless (length $trunc_name > 2) {
-    $pxt->push_message(local_alert => "A system name must be at least three characters in length.");
-    return;
-  }
-
-  unless ($trunc_name =~ /^[\x20-\x7e]+$/) {
-    $pxt->push_message(local_alert => "Desired System Name contains invalid characters. In addition to alphanumeric characters, '-', '_', '.', and '\@' are allowed. Please try again");
-    return;
-  }
-
-
-  $server->name($trunc_name);
-  my $trunc_desc = substr($pxt->dirty_param('description'), 0, 256);
-  $server->description($trunc_desc);
-
-  $pxt->user->set_server_pref($server->id,
-			      'receive_notifications',
-			      $pxt->dirty_param('receive_notifications') ? 1 : 0, 1);
-  $pxt->user->set_server_pref($server->id,
-			      'include_in_daily_summary',
-			      ($pxt->dirty_param('include_in_daily_summary') and
-			       $server->has_feature('ftr_daily_summary')
-			      ) ? 1 : 0, 1);
-
-  if ($pxt->user->is('org_admin')) {
-    handle_system_entitlement_change($pxt, $server);
-  }
-
-  $server = server_edit_location_cb($pxt, $server);
-
-  my $auto_update = $pxt->dirty_param('auto_update') ? 'Y' : 'N';
-
-  if (($auto_update ne uc $server->auto_update) and $server->has_feature('ftr_auto_errata_updates')) {
-    $server->auto_update($auto_update);
-
-# only do the auto update if we're switching to an auto-updated enterprise slot system...
-    if ($auto_update eq 'Y') {
-      RHN::Scheduler->schedule_all_errata_updates_for_system(-earliest => RHN::Date->now->long_date,
-							     -org_id => $pxt->user->org_id,
-							     -user_id => $pxt->user->id,
-							     -server_id => $server->id,
-							    );
-
-      push @extra_messages, $server->name . " will be <strong>fully updated</strong> in accordance with Auto Errata Update preference.";
-    }
-  }
-
-  $server->commit;
-  $pxt->push_message(site_info => "System properties changed for <strong>" . $server->name . "</strong>.");
-
-  foreach my $message (@extra_messages) {
-    $pxt->push_message(site_info => $message);
-  }
-  $pxt->redirect("/rhn/systems/details/Overview.do?sid=$sid");
-}
-
-# Not a sniglet - handle system entitlement changes from server
-# properties edit page.
-sub handle_system_entitlement_change {
-  my $pxt = shift;
-  my $server = shift;
-
-  my $base_entitlement = $pxt->dirty_param('base_entitlement');
-
-  my $transaction = RHN::DB->connect();
-  $transaction->nest_transactions();
-
-  eval {
-    my $changed = 0;
-
-    my %addon_entitlements = map { ($_, 1) } $pxt->dirty_param('addon_entitlements');
-    my %current_entitlements = map { ($_->{LABEL}, $_) }
-      grep { $_->{IS_BASE} eq 'N' } $server->entitlements;
-
-    my $has_monitoring = ( grep { $_ eq 'monitoring_entitled' } keys %current_entitlements ) ? 1 : 0;
-    my $removed_monitoring = 0;
-    my @sat_clusters;
-
-    if ($has_monitoring) {
-      @sat_clusters = RHN::Server->sat_clusters_for_system($server->id);
-    }
-
-    foreach my $ent (keys %addon_entitlements) {
-      unless (exists $current_entitlements{$ent}) {
-	$server->entitle_server($ent);
-	$changed = 1;
-      }
-    }
-
-    foreach my $ent (keys %current_entitlements) {
-      unless (exists $addon_entitlements{$ent}) {
-	if ($ent eq 'monitoring_entitled') {
-	  $removed_monitoring = 1;
-	}
-	$server->remove_entitlement($ent);
-	$changed = 1;
-      }
-    }
-
-    if ($base_entitlement eq 'unentitle') {
-      $changed = 1;
-
-      if ($has_monitoring) {
-	$removed_monitoring = 1;
-      }
-
-      $server->unentitle_server();
-    } elsif ($base_entitlement ne 'none' and
-	     not $server->has_entitlement($base_entitlement)) {
-      $changed = 1;
-
-      if ($has_monitoring) {
-	$removed_monitoring = 1;
-      }
-
-      $server->unentitle_server();
-      $server->entitle_server($base_entitlement);
-    }
-
-    if ($changed and $server->has_feature('ftr_snapshotting')) {
-      RHN::Server->snapshot_server(-server_id => $server->id,
-				   -reason => "Entitlement change");
-    }
-
-    if ($removed_monitoring) {
-      $server->schedule_sat_cluster_push($pxt->user->id, @sat_clusters);
-    }
-  };
-
-  if ($@) {
-    my $E = $@;
-    $transaction->nested_rollback();
-
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('servergroup_max_members')) {
-	$pxt->push_message(local_alert => sprintf("You do not have enough entitlements to entitle <strong>%s</strong>.", PXT::Utils->escapeHTML($server->name)));
-	return;
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-  else {
-    $transaction->nested_commit();
-  }
-
-  return;
 }
 
 sub server_network_details {
@@ -1074,38 +740,6 @@ sub server_network_interfaces {
   $block =~ s{<rhn-interface-data>.*?<\/rhn-interface-data>}{$html}ism;
 
   return $block;
-}
-
-sub server_location {
-  my $pxt = shift;
-  my %params = @_;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless ($sid);
-
-  # if possible, reuse existing server object
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my %subst;
-
-  $subst{country} = defined $server->location_country ? $server->location_country : "";
-
-  $subst{state} = defined $server->location_state ? $server->location_state : "";
-
-  $subst{city} = defined $server->location_city ? $server->location_city : "";
-
-  $subst{address1} = defined $server->location_address1 ? $server->location_address1 : "";
-  $subst{address2} = defined $server->location_address2 ? $server->location_address2 : "";
-
-  $subst{building} = defined $server->location_building ? $server->location_building : "";
-
-  $subst{room} = defined $server->location_room ? $server->location_room : "" ;
-  $subst{rack} = defined $server->location_rack ? $server->location_rack : "" ;
-
-  $subst{machine} = defined $server->location_machine ? $server->location_machine : "";
-
-  PXT::Utils->escapeHTML_multi(\%subst);
-
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
 }
 
 # must happen *after* server_hardware_profile... so use tags
@@ -1404,44 +1038,6 @@ sub server_prefs_form_cb {
   }
 }
 
-sub system_base_channel_select {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-  my $sid = $pxt->param('sid');
-
-  die "No Server id!"
-    unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $current_base_id = $server->base_channel_id || 0;
-
-  if ($current_base_id and not $pxt->user->verify_channel_subscribe($current_base_id)) {
-    $pxt->pnotes(resubscribe_base_warning => 1);
-  }
-
-  my @channels = RHN::Channel->user_subscribable_bases_for_system($server, $pxt->user);
-
-  unshift @channels, { ID => 0, NAME => "(none, disable service)", LABEL => "(none)" };
-
-  my @options;
-
-  foreach my $channel (@channels) {
-    my $selected = '';
-
-    if ($channel->{ID} == $current_base_id) {
-      $selected = '1';
-    }
-
-    push @options, [ PXT::Utils->escapeHTML($channel->{NAME} || ''), $channel->{ID}, $selected ];
-  }
-
-  return PXT::HTML->select(-name => "system_base_channel",
-			   -options => \@options);
-}
-
 sub delete_servers_cb {
   my $pxt = shift;
 
@@ -1454,47 +1050,6 @@ sub delete_servers_cb {
 
   my $message = "message=" . sprintf('message.ssm.server%sdeleted', ($count == 1 ? '' : 's')) . "%messagep1=$count";
   $pxt->redirect('/rhn/systems/Overview.do?empty_set=true&return_url=/rhn/systems/Overview.do?' . $message);
-}
-
-sub store_bounce {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $ret = $params{__block__};
-
-  # A bit of an ugly and hurried loop here, but it'll work.
-
-  my @ent_types = ('sw_mgr_', 'enterprise_');
-  my $ent_type;
-
-  foreach $ent_type (@ent_types) {
-    my $eg = $ent_type . "entitled";
-    my ($server_count, $entitled_server_count, $entitlement_count) = $pxt->user->org->entitlement_gap($eg);
-    my $recommend = $server_count - $entitlement_count;
-    $recommend = int($recommend/5 + 1) * 5;
-    $recommend = 5 if $recommend < 5;
-
-    my $remaining = $entitlement_count - $entitled_server_count;
-    $remaining = 0 if $remaining < 0;
-
-    my $rq = $ent_type . 'recommend_quantity';
-    my $edc = $ent_type . 'entitled_count';
-    my $etc = $ent_type . 'entitlement_count';
-    my $er = $ent_type . 'entitlement_remaining';
-
-    $ret =~ s/\{$rq\}/$recommend/gms;
-
-    $ret =~ s/\{$edc\}/$entitled_server_count/gms;
-    $ret =~ s/\{$etc\}/defined $entitlement_count ? $entitlement_count : '(unlimited)'/egms;
-    $ret =~ s/\{$er\}/defined $entitlement_count ? $remaining : '(unlimited)'/egms;
-
-    $ret =~ s/\{quantity\}/$pxt->param('quantity') || 5/egms;
-
-    $ret =~ s/\{rhn_$_\}/$pxt->dir_config("rhn_$_")/egsmi
-      foreach qw/item_code store_url/;
-  }
-
-  return $ret;
 }
 
 sub system_activation_key_form {
@@ -1575,60 +1130,6 @@ sub system_activation_key_cb {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=" . $sid);
-}
-
-sub add_filenames_to_set_cb {
-  my $pxt = shift;
-
-  my $filenames = $pxt->dirty_param('input_filenames');
-
-  my @filenames = split(/,\s*/, $filenames);
-
-  my $errors;
-
-  foreach my $file (@filenames) {
-    my $errmsg = RHN::ConfigFile->validate_path_name($file);
-    if ($errmsg) {
-      $pxt->push_message(local_alert => sprintf('Invalid path <strong>%s</strong>: %s', PXT::Utils->escapeHTML($file), $errmsg));
-      $errors++;
-    }
-  }
-
-  return if $errors;
-
-  my $set_label = 'selected_configfilenames';
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-  foreach my $file (@filenames) {
-    $set->add(RHN::ConfigFile->path_to_id($file));
-  }
-
-  $set->commit;
-
-  my $sid = $pxt->param('sid');
-  my $uri = $pxt->uri;
-
-  $pxt->redirect($uri . '?sid=' . $sid);
-}
-
-sub server_lock_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  my $lock = $pxt->dirty_param('lock');
-
-  my $system = RHN::Server->lookup(-id => $sid);
-  my $msg;
-  if ($lock) {
-    $system->lock_server($pxt->user, "Manually locked");
-    $msg = "<strong>%s</strong> has been locked.";
-  }
-  else {
-    $system->unlock_server();
-    $msg = "<strong>%s</strong> has been unlocked.";
-  }
-
-  $pxt->push_message(site_info => sprintf($msg, $system->name));
-  $pxt->redirect("index.pxt?sid=$sid");
 }
 
 sub server_set_lock_cb {

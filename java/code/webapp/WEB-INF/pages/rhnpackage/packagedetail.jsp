@@ -68,10 +68,10 @@
       </tr>
 
       <tr>
-        <th><bean:message key="package.jsp.md5sum"/>:</th>
-        <td><c:out value="${pack.checksum}" /></td>
-      </tr>          
-      
+        <th><c:out value="${pack.checksum.checksumType.description}"/>:</th>
+        <td><c:out value="${pack.checksum.checksum}" /></td>
+      </tr>
+
       <tr>
         <th><bean:message key="package.jsp.path"/>:</th>
         <td><c:out value="${pack.path}" /></td>

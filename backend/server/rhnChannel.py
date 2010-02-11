@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,7 +24,6 @@ from types import IntType, ListType, DictType
 # common module
 from common import log_debug, log_error, rhnFault, rhnException, rhnCache, rhnFlags, CFG
 from common.rhnTranslate import _
-from common.rhnLib import startswith
 from spacewalk.common import rhn_rpm
 from rhnServer import server_lib
 from rhnDependency import MakeEvrError
@@ -82,9 +81,9 @@ class BaseDatabaseObject:
         self._row = None
 
     def __getattr__(self, name):
-        if startswith(name, 'get_'):
+        if name.startswith('get_'):
             return rhnLib.CallableObj(name[4:], self._get)
-        if startswith(name, 'set_'):
+        if name.startswith('set_'):
             return rhnLib.CallableObj(name[4:], self._set)
         raise AttributeError(name)
 
@@ -735,157 +734,6 @@ def channel_info(channel):
     h.execute(channel = str(channel))
     ret = h.fetchone_dict()
     return __stringify(ret)
-
-# Migrate the packages from one channel to another
-# 
-# Called from server/redhat_xlmrpc/channels.py
-# 
-def migrate_packages(from_channel_id, to_channel_id, force=0):
-
-    # Checks to see if any of the packages in the shadow channel already exist
-    # in the real channel.
-    h_chk_pkgs = rhnSQL.prepare("""
-    select 1
-    from rhnChannelPackage cp
-    where cp.channel_id = :from_channel_id
-    and exists ( select 1
-                 from rhnChannelPackage cp2
-                 where cp2.channel_id = :to_channel_id
-                 and cp2.package_id = cp.package_id
-               )
-    """)
-
-    h_chk_pkgs.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-    ret = h_chk_pkgs.fetchone()
-    
-    # If the query returned a row and force is not specified, raise an
-    # exception
-    if ret != None and force == 0:
-        rhnSQL.rollback()
-        raise ForceNotSpecified("--force-packages not specified and some " +
-                                "duplicate packages exist in the real channel")
-
-    # Move the packages.
-    h_upd_pkgs = rhnSQL.prepare("""
-    update rhnchannelPackage cp
-    set cp.channel_id = :to_channel_id
-    where
-       (not exists ( select 1
-                       from rhnChannelPackage cp2
-                      where cp2.package_id = cp.package_id
-                       and cp2.channel_id = :to_channel_id )
-       )
-       and channel_id = :from_channel_id
-    """)
-
-    h_upd_pkgs.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-
-    return 1
-
-# Migrate the packages from one channel to another
-# 
-# Called from server/redhat_xlmrpc/channels.py
-# 
-def migrate_errata(from_channel_id, to_channel_id, force=0):
-    
-    # Checks to see if any of the errata in the shadow channel already exist
-    # in the real channel.
-    h_chk_errata = rhnSQL.prepare("""
-    select 1
-    from rhnChannelErrata ce
-    where ce.channel_id = :from_channel_id
-    and exists ( select 1
-                 from rhnChannelErrata ce2
-                 where ce2.channel_id = :to_channel_id
-                 and ce2.errata_id = ce.errata_id
-               )
-    """)
-
-    h_chk_errata.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-    ret = h_chk_errata.fetchone()
-    
-    # If the query returned a row and force is not specified, raise an
-    # exception
-    if ret != None and force == 0:
-        rhnSQL.rollback()
-        raise ForceNotSpecified("--force-errata not specified and some " +
-                                "duplicate errata exist in the real channel")
-
-    # Update the issue_date and update_date for the errata we're going to move.
-    # These 2 fields are metadata fields, and RHN doesn't key any logic off of
-    # them.
-    h_upd_e_dates = rhnSQL.prepare("""
-    update rhnErrata e
-    set e.issue_date = sysdate, e.update_date = sysdate
-    where e.id in ( select ce.errata_id
-                    from rhnChannelErrata ce
-                    where ce.channel_id = :to_channel_id
-                  )
-    """)
-    h_upd_e_dates.execute(to_channel_id = to_channel_id)
-
-    # Move the errata.
-    h_upd_errata = rhnSQL.prepare("""
-    update rhnchannelErrata ce
-    set ce.channel_id = :to_channel_id
-    where
-       (not exists ( select 1
-                       from rhnChannelErrata ce2
-                      where ce2.errata_id = ce.errata_id
-                       and ce2.channel_id = :to_channel_id )
-       )
-       and ce.channel_id = :from_channel_id
-    """)
-    h_upd_errata.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-
-    return 1
-
-# Migrate the packages from one channel to another
-# 
-# Called from server/redhat_xlmrpc/channels.py
-# 
-def migrate_errata_files(from_channel_id, to_channel_id, force=0):
-
-    # Checks to see if any of the errata files in the shadow channel already exist
-    # in the real channel.
-    h_chk_e_files = rhnSQL.prepare("""
-    select 1
-    from rhnErrataFileChannel efc
-    where efc.channel_id = :from_channel_id
-    and exists ( select 1
-                 from rhnErrataFileChannel efc2
-                 where efc2.channel_id = :to_channel_id
-                 and efc2.errata_file_id = efc.errata_file_id
-               )
-    """)
-
-    h_chk_e_files.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-    ret = h_chk_e_files.fetchone()
-    
-    # If the query returned a row and force is not specified, raise an
-    # exception
-    if ret != None and force == 0:
-        rhnSQL.rollback()
-        raise ForceNotSpecified("--force-errata-files not specified and some " +
-                                "duplicate errata files exist in the real channel")
-
-    # Move the errata files.
-    h_upd_e_files = rhnSQL.prepare("""
-    update rhnErrataFileChannel efc
-    set efc.channel_id = :to_channel_id
-    where
-       (not exists ( select 1
-                       from rhnErrataFileChannel efc2
-                      where efc2.errata_file_id = efc.errata_file_id
-                       and efc2.channel_id = :to_channel_id )
-       )
-       and channel_id = :from_channel_id
-    """)
-
-    h_upd_e_files.execute(from_channel_id = from_channel_id, to_channel_id = to_channel_id)
-
-    return 1
-
 
 # return information about a base channel for a server_id
 def get_base_channel(server_id, none_ok = 0):

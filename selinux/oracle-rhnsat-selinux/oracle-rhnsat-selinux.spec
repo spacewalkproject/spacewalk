@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         14%{?dist}
+Release:         15%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -97,7 +97,8 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
+      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 
   # Clean up oracle-server-arch files
@@ -115,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Jan 29 2010 Jan Pazdziora 10.2-15
+- Do semodule -l before any semodule operation.
+
 * Thu Jun 18 2009 Jan Pazdziora 10.2-14
 - 505606 - Require at least selinux-policy 2.4.6-80
 - do semodule -l first to see if we have the store

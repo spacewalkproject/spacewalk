@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -611,45 +611,6 @@ sub have_package {
   return;
 }
 
-
-# The process to push monitoring config changes is currently:
-# 1) Find all Monitoring-enabled proxies (those with SatCluster records).
-# 2) Schedule a remote command for them: service rhn-proxy restart
-sub push_monitoring_config_changes {
-  my $class = shift;
-  my $user = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => "scout_queries",
-				       -mode => 'scouts_for_org');
-  my $data = $ds->execute_query(-org_id => $user->org_id);
-
-  # Use a hash for uniqification
-  my %server_ids = map { ($_->{SERVER_ID}, 1) }
-    grep { $_->{SERVER_ID} } @{$data};
-
-  return unless %server_ids;
-
-  my $scheduled_time = RHN::Date->now()->long_date();
-
-  my $script =<<EOQ;
-#!/bin/sh
-
-/sbin/service MonitoringScout restart
-EOQ
-
-  my $script_aid = RHN::Scheduler->schedule_remote_command(-org_id => $user->org_id,
-							   -user_id => $user->id,
-							   -server_ids => [ keys %server_ids ],
-							   -earliest => $scheduled_time,
-							   -action_name => 'Restart Monitoring Services',
-							   -script => $script,
-							   -username => 'root',
-							   -group => 'root',
-							   -timeout => 300,
-							  );
-
-  return $script_aid;
-}
 
 sub import_ssl_cert_for_kickstarts {
   my $ca_cert = shift;

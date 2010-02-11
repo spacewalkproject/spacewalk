@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,6 @@
 
 package RHN::DB::SystemSnapshot;
 
-use Data::Dumper;
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -30,6 +29,13 @@ use RHN::DataSource::Package;
 use RHN::DataSource::ConfigChannel;
 use RHN::Exception;
 use RHN::Manifest;
+
+use RHN::Action ();
+use RHN::DataSource::Simple ();
+use RHN::Date ();
+use RHN::Scheduler ();
+use RHN::Server ();
+use RHN::SystemSnapshot ();
 
 my @s_fields = qw/id org_id server_id created:longdate modified:longdate/;
 my @i_fields = qw/id label name/;

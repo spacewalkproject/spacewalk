@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnServerGroup</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;rhnServerGroup
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnServerGroup-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnServerGroup-module.html">Module server.rhnServerGroup</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">types</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-0', 'server', 'link-0');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-1', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Module server.rhnUser=server.rhnUser-module.html"><a title="server.rhnUser" class="py-name" href="#" onclick="return doclink('link-2', 'rhnUser', 'link-2');">rhnUser</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="InvalidUserError"></a><div id="InvalidUserError-def"><a name="L22"></a><tt class="py-lineno"> 22</tt> <a class="py-toggle" href="#" id="InvalidUserError-toggle" onclick="return toggle('InvalidUserError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServerGroup.InvalidUserError-class.html">InvalidUserError</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="InvalidUserError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="InvalidUserError-expanded"><a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="InvalidOrgError"></a><div id="InvalidOrgError-def"><a name="L25"></a><tt class="py-lineno"> 25</tt> <a class="py-toggle" href="#" id="InvalidOrgError-toggle" onclick="return toggle('InvalidOrgError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServerGroup.InvalidOrgError-class.html">InvalidOrgError</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="InvalidOrgError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="InvalidOrgError-expanded"><a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="InvalidServerGroupError"></a><div id="InvalidServerGroupError-def"><a name="L28"></a><tt class="py-lineno"> 28</tt> <a class="py-toggle" href="#" id="InvalidServerGroupError-toggle" onclick="return toggle('InvalidServerGroupError');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServerGroup.InvalidServerGroupError-class.html">InvalidServerGroupError</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="InvalidServerGroupError-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="InvalidServerGroupError-expanded"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup"></a><div id="ServerGroup-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="ServerGroup-toggle" onclick="return toggle('ServerGroup');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html">ServerGroup</a><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ServerGroup-expanded"><a name="ServerGroup.__init__"></a><div id="ServerGroup.__init__-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="ServerGroup.__init__-toggle" onclick="return toggle('ServerGroup.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup.__init__-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable server.rhnServerGroup.ServerGroup._query_lookup=server.rhnServerGroup.ServerGroup-class.html#_query_lookup"><a title="server.rhnServerGroup.ServerGroup._query_lookup" class="py-name" href="#" onclick="return doclink('link-3', '_query_lookup', 'link-3');">_query_lookup</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-4', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Class server.rhnSQL.sql_base.Statement=server.rhnSQL.sql_base.Statement-class.html"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-5', 'Statement', 'link-5');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-string">        select id</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-string">          from rhnServerGroup</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-string">         where org_id = :org_id</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-string">           and name = :name</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="ServerGroup.load"></a><div id="ServerGroup.load-def"><a name="L41"></a><tt class="py-lineno"> 41</tt> <a class="py-toggle" href="#" id="ServerGroup.load-toggle" onclick="return toggle('ServerGroup.load');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#load">load</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup.load-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup.load-expanded"><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">org_id</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method server.rhnChannel.BaseChannelObject._lookup_org_id()=server.rhnChannel.BaseChannelObject-class.html#_lookup_org_id,Method server.rhnServerGroup.ServerGroup._lookup_org_id()=server.rhnServerGroup.ServerGroup-class.html#_lookup_org_id"><a title="server.rhnChannel.BaseChannelObject._lookup_org_id
+server.rhnServerGroup.ServerGroup._lookup_org_id" class="py-name" href="#" onclick="return doclink('link-6', '_lookup_org_id', 'link-6');">_lookup_org_id</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-7', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-8', 'prepare', 'link-8');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="server.rhnServerGroup.ServerGroup._query_lookup" class="py-name" href="#" onclick="return doclink('link-9', '_query_lookup', 'link-3');">_query_lookup</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-10', 'execute', 'link-10');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">=</tt><tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-11', 'name', 'link-11');">name</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-12', 'name', 'link-11');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-13', 'fetchone_dict', 'link-13');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-14" class="py-name" targets="Class server.rhnServerGroup.InvalidServerGroupError=server.rhnServerGroup.InvalidServerGroupError-class.html"><a title="server.rhnServerGroup.InvalidServerGroupError" class="py-name" href="#" onclick="return doclink('link-14', 'InvalidServerGroupError', 'link-14');">InvalidServerGroupError</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-15" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-15', 'name', 'link-11');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">server_group_id</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-16', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Function server.rhnSQL.Row()=server.rhnSQL-module.html#Row,Class server.rhnSQL.sql_row.Row=server.rhnSQL.sql_row.Row-class.html"><a title="server.rhnSQL.Row
+server.rhnSQL.sql_row.Row" class="py-name" href="#" onclick="return doclink('link-17', 'Row', 'link-17');">Row</a></tt><tt class="py-op">(</tt><tt class="py-string">"rhnServerGroup"</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method satellite_tools.xmlDiskSource.DiskSource.load()=satellite_tools.xmlDiskSource.DiskSource-class.html#load,Method server.handlers.app.rhn_mpm.MPM_Package.load()=server.handlers.app.rhn_mpm.MPM_Package-class.html#load,Function server.handlers.app.rhn_mpm.load()=server.handlers.app.rhn_mpm-module.html#load,Method server.rhnActivationKey.ActivationKey.load()=server.rhnActivationKey.ActivationKey-class.html#load,Method server.rhnImport.Loader.load()=server.rhnImport.Loader-class.html#load,Function server.rhnImport.load()=server.rhnImport-module.html#load,Method server.rhnSQL.sql_row.Row.load()=server.rhnSQL.sql_row.Row-class.html#load,Method server.rhnServer.satellite_cert.SatelliteCert.load()=server.rhnServer.satellite_cert.SatelliteCert-class.html#load,Method server.rhnServerGroup.ServerGroup.load()=server.rhnServerGroup.ServerGroup-class.html#load,Method server.rhnSession.Session.load()=server.rhnSession.Session-class.html#load,Function server.rhnSession.load()=server.rhnSession-module.html#load,Method spacewalk.common.rhn_mpm.MPM_Package.load()=spacewalk.common.rhn_mpm.MPM_Package-class.html#load,Function spacewalk.common.rhn_mpm.load()=spacewalk.common.rhn_mpm-module.html#load"><a title="satellite_tools.xmlDiskSource.DiskSource.load
+server.handlers.app.rhn_mpm.MPM_Package.load
+server.handlers.app.rhn_mpm.load
+server.rhnActivationKey.ActivationKey.load
+server.rhnImport.Loader.load
+server.rhnImport.load
+server.rhnSQL.sql_row.Row.load
+server.rhnServer.satellite_cert.SatelliteCert.load
+server.rhnServerGroup.ServerGroup.load
+server.rhnSession.Session.load
+server.rhnSession.load
+spacewalk.common.rhn_mpm.MPM_Package.load
+spacewalk.common.rhn_mpm.load" class="py-name" href="#" onclick="return doclink('link-18', 'load', 'link-18');">load</a></tt><tt class="py-op">(</tt><tt class="py-name">server_group_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-comment"># Setters</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup.set_org_id"></a><div id="ServerGroup.set_org_id-def"><a name="L54"></a><tt class="py-lineno"> 54</tt> <a class="py-toggle" href="#" id="ServerGroup.set_org_id-toggle" onclick="return toggle('ServerGroup.set_org_id');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#set_org_id">set_org_id</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup.set_org_id-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup.set_org_id-expanded"><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method satellite_tools.req_channels.RequestedChannels._set()=satellite_tools.req_channels.RequestedChannels-class.html#_set,Method server.rhnActivationKey.ActivationKey._set()=server.rhnActivationKey.ActivationKey-class.html#_set,Method server.rhnChannel.BaseDatabaseObject._set()=server.rhnChannel.BaseDatabaseObject-class.html#_set,Method server.rhnServerGroup.ServerGroup._set()=server.rhnServerGroup.ServerGroup-class.html#_set"><a title="satellite_tools.req_channels.RequestedChannels._set
+server.rhnActivationKey.ActivationKey._set
+server.rhnChannel.BaseDatabaseObject._set
+server.rhnServerGroup.ServerGroup._set" class="py-name" href="#" onclick="return doclink('link-19', '_set', 'link-19');">_set</a></tt><tt class="py-op">(</tt><tt class="py-string">'org_id'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="server.rhnChannel.BaseChannelObject._lookup_org_id
+server.rhnServerGroup.ServerGroup._lookup_org_id" class="py-name" href="#" onclick="return doclink('link-20', '_lookup_org_id', 'link-6');">_lookup_org_id</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">             </tt>
+<a name="ServerGroup._set"></a><div id="ServerGroup._set-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="ServerGroup._set-toggle" onclick="return toggle('ServerGroup._set');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#_set">_set</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup._set-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup._set-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-21', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="server.rhnSQL.Row
+server.rhnSQL.sql_row.Row" class="py-name" href="#" onclick="return doclink('link-22', 'Row', 'link-17');">Row</a></tt><tt class="py-op">(</tt><tt class="py-string">'rhnServerGroup'</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">            <tt class="py-name">server_group_id</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-23', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Function server.rhnSQL.Sequence()=server.rhnSQL-module.html#Sequence,Class server.rhnSQL.sql_sequence.Sequence=server.rhnSQL.sql_sequence.Sequence-class.html"><a title="server.rhnSQL.Sequence
+server.rhnSQL.sql_sequence.Sequence" class="py-name" href="#" onclick="return doclink('link-24', 'Sequence', 'link-24');">Sequence</a></tt><tt class="py-op">(</tt><tt class="py-string">'rhn_server_group_id_seq'</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.next()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#next,Method server.rhnSQL.sql_sequence.Sequence.next()=server.rhnSQL.sql_sequence.Sequence-class.html#next,Method spacewalk.common.rhn_rpm.MatchIterator.next()=spacewalk.common.rhn_rpm.MatchIterator-class.html#next"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.next
+server.rhnSQL.sql_sequence.Sequence.next
+spacewalk.common.rhn_rpm.MatchIterator.next" class="py-name" href="#" onclick="return doclink('link-25', 'next', 'link-25');">next</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method server.rhnSQL.sql_row.Row.create()=server.rhnSQL.sql_row.Row-class.html#create"><a title="server.rhnSQL.sql_row.Row.create" class="py-name" href="#" onclick="return doclink('link-26', 'create', 'link-26');">create</a></tt><tt class="py-op">(</tt><tt class="py-name">server_group_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">[</tt><tt id="link-27" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-27', 'name', 'link-11');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">val</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-comment"># Getters</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup._get"></a><div id="ServerGroup._get-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="ServerGroup._get-toggle" onclick="return toggle('ServerGroup._get');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#_get">_get</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup._get-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup._get-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">[</tt><tt id="link-28" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-28', 'name', 'link-11');">name</a></tt><tt class="py-op">]</tt> </tt>
+</div><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup._lookup_org_id"></a><div id="ServerGroup._lookup_org_id-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="ServerGroup._lookup_org_id-toggle" onclick="return toggle('ServerGroup._lookup_org_id');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#_lookup_org_id">_lookup_org_id</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup._lookup_org_id-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup._lookup_org_id-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt class="py-name">types</tt><tt class="py-op">.</tt><tt class="py-name">StringType</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-comment"># Is it a user?</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-name">u</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="server.rhnUser" class="py-name" href="#" onclick="return doclink('link-29', 'rhnUser', 'link-2');">rhnUser</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Function server.rhnServer.search()=server.rhnServer-module.html#search,Function server.rhnUser.search()=server.rhnUser-module.html#search"><a title="server.rhnServer.search
+server.rhnUser.search" class="py-name" href="#" onclick="return doclink('link-30', 'search', 'link-30');">search</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">u</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt id="link-31" class="py-name" targets="Class server.rhnServerGroup.InvalidUserError=server.rhnServerGroup.InvalidUserError-class.html"><a title="server.rhnServerGroup.InvalidUserError" class="py-name" href="#" onclick="return doclink('link-31', 'InvalidUserError', 'link-31');">InvalidUserError</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">u</tt><tt class="py-op">.</tt><tt class="py-name">contact</tt><tt class="py-op">[</tt><tt class="py-string">'org_id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt id="link-32" class="py-name" targets="Variable server.importlib.mpmSource.mpmBinaryPackage.t=server.importlib.mpmSource.mpmBinaryPackage-class.html#t"><a title="server.importlib.mpmSource.mpmBinaryPackage.t" class="py-name" href="#" onclick="return doclink('link-32', 't', 'link-32');">t</a></tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-33', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Class server.importlib.backendLib.Table=server.importlib.backendLib.Table-class.html,Function server.rhnSQL.Table()=server.rhnSQL-module.html#Table,Class server.rhnSQL.sql_table.Table=server.rhnSQL.sql_table.Table-class.html"><a title="server.importlib.backendLib.Table
+server.rhnSQL.Table
+server.rhnSQL.sql_table.Table" class="py-name" href="#" onclick="return doclink('link-34', 'Table', 'link-34');">Table</a></tt><tt class="py-op">(</tt><tt class="py-string">'web_customer'</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage.t" class="py-name" href="#" onclick="return doclink('link-35', 't', 'link-32');">t</a></tt><tt class="py-op">[</tt><tt class="py-name">org_id</tt><tt class="py-op">]</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt id="link-36" class="py-name" targets="Class server.rhnServerGroup.InvalidOrgError=server.rhnServerGroup.InvalidOrgError-class.html"><a title="server.rhnServerGroup.InvalidOrgError" class="py-name" href="#" onclick="return doclink('link-36', 'InvalidOrgError', 'link-36');">InvalidOrgError</a></tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'id'</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup.save"></a><div id="ServerGroup.save-def"><a name="L86"></a><tt class="py-lineno"> 86</tt> <a class="py-toggle" href="#" id="ServerGroup.save-toggle" onclick="return toggle('ServerGroup.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup.save-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup.save-expanded"><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_row_server_group</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method server.rhnActivationKey.ActivationKey.save()=server.rhnActivationKey.ActivationKey-class.html#save,Method server.rhnChannel.BaseDatabaseObject.save()=server.rhnChannel.BaseDatabaseObject-class.html#save,Method server.rhnSQL.sql_row.Row.save()=server.rhnSQL.sql_row.Row-class.html#save,Method server.rhnServer.server_class.Server.save()=server.rhnServer.server_class.Server-class.html#save,Method server.rhnServer.server_hardware.GenericDevice.save()=server.rhnServer.server_hardware.GenericDevice-class.html#save,Method server.rhnServer.server_hardware.NetIfaceInformation.save()=server.rhnServer.server_hardware.NetIfaceInformation-class.html#save,Method server.rhnServerGroup.ServerGroup.save()=server.rhnServerGroup.ServerGroup-class.html#save,Method server.rhnSession.Session.save()=server.rhnSession.Session-class.html#save,Method server.rhnUser.User.save()=server.rhnUser.User-class.html#save"><a title="server.rhnActivationKey.ActivationKey.save
+server.rhnChannel.BaseDatabaseObject.save
+server.rhnSQL.sql_row.Row.save
+server.rhnServer.server_class.Server.save
+server.rhnServer.server_hardware.GenericDevice.save
+server.rhnServer.server_hardware.NetIfaceInformation.save
+server.rhnServerGroup.ServerGroup.save
+server.rhnSession.Session.save
+server.rhnUser.User.save" class="py-name" href="#" onclick="return doclink('link-37', 'save', 'link-37');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"> </tt>
+<a name="ServerGroup.__getattr__"></a><div id="ServerGroup.__getattr__-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="ServerGroup.__getattr__-toggle" onclick="return toggle('ServerGroup.__getattr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.ServerGroup-class.html#__getattr__">__getattr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ServerGroup.__getattr__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ServerGroup.__getattr__-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-38" class="py-name" targets="Function common.rhnLib.startswith()=common.rhnLib-module.html#startswith,Function satellite_tools.req_channels.startswith()=satellite_tools.req_channels-module.html#startswith,Function server.handlers.config_mgmt.rhn_config_management.startswith()=server.handlers.config_mgmt.rhn_config_management-module.html#startswith,Function server.rhnActivationKey.startswith()=server.rhnActivationKey-module.html#startswith,Function server.rhnServerGroup.startswith()=server.rhnServerGroup-module.html#startswith"><a title="common.rhnLib.startswith
+satellite_tools.req_channels.startswith
+server.handlers.config_mgmt.rhn_config_management.startswith
+server.rhnActivationKey.startswith
+server.rhnServerGroup.startswith" class="py-name" href="#" onclick="return doclink('link-38', 'startswith', 'link-38');">startswith</a></tt><tt class="py-op">(</tt><tt id="link-39" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-39', 'name', 'link-11');">name</a></tt><tt class="py-op">,</tt> <tt class="py-string">'get_'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-40" class="py-name" targets="Class server.rhnActivationKey.CallableObj=server.rhnActivationKey.CallableObj-class.html,Class server.rhnLib.CallableObj=server.rhnLib.CallableObj-class.html,Class server.rhnServerGroup.CallableObj=server.rhnServerGroup.CallableObj-class.html"><a title="server.rhnActivationKey.CallableObj
+server.rhnLib.CallableObj
+server.rhnServerGroup.CallableObj" class="py-name" href="#" onclick="return doclink('link-40', 'CallableObj', 'link-40');">CallableObj</a></tt><tt class="py-op">(</tt><tt id="link-41" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-41', 'name', 'link-11');">name</a></tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method satellite_tools.req_channels.RequestedChannels._get()=satellite_tools.req_channels.RequestedChannels-class.html#_get,Method server.rhnActivationKey.ActivationKey._get()=server.rhnActivationKey.ActivationKey-class.html#_get,Method server.rhnChannel.BaseDatabaseObject._get()=server.rhnChannel.BaseDatabaseObject-class.html#_get,Method server.rhnServerGroup.ServerGroup._get()=server.rhnServerGroup.ServerGroup-class.html#_get"><a title="satellite_tools.req_channels.RequestedChannels._get
+server.rhnActivationKey.ActivationKey._get
+server.rhnChannel.BaseDatabaseObject._get
+server.rhnServerGroup.ServerGroup._get" class="py-name" href="#" onclick="return doclink('link-42', '_get', 'link-42');">_get</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-43" class="py-name"><a title="common.rhnLib.startswith
+satellite_tools.req_channels.startswith
+server.handlers.config_mgmt.rhn_config_management.startswith
+server.rhnActivationKey.startswith
+server.rhnServerGroup.startswith" class="py-name" href="#" onclick="return doclink('link-43', 'startswith', 'link-38');">startswith</a></tt><tt class="py-op">(</tt><tt id="link-44" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-44', 'name', 'link-11');">name</a></tt><tt class="py-op">,</tt> <tt class="py-string">'set_'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-45" class="py-name"><a title="server.rhnActivationKey.CallableObj
+server.rhnLib.CallableObj
+server.rhnServerGroup.CallableObj" class="py-name" href="#" onclick="return doclink('link-45', 'CallableObj', 'link-40');">CallableObj</a></tt><tt class="py-op">(</tt><tt id="link-46" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-46', 'name', 'link-11');">name</a></tt><tt class="py-op">[</tt><tt class="py-number">4</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="satellite_tools.req_channels.RequestedChannels._set
+server.rhnActivationKey.ActivationKey._set
+server.rhnChannel.BaseDatabaseObject._set
+server.rhnServerGroup.ServerGroup._set" class="py-name" href="#" onclick="return doclink('link-47', '_set', 'link-19');">_set</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">(</tt><tt id="link-48" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-48', 'name', 'link-11');">name</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="startswith"></a><div id="startswith-def"><a name="L98"></a><tt class="py-lineno"> 98</tt> <a class="py-toggle" href="#" id="startswith-toggle" onclick="return toggle('startswith');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup-module.html#startswith">startswith</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">,</tt> <tt class="py-param">prefix</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="startswith-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="startswith-expanded"><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">s</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">prefix</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-name">prefix</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="CallableObj"></a><div id="CallableObj-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="CallableObj-toggle" onclick="return toggle('CallableObj');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.rhnServerGroup.CallableObj-class.html">CallableObj</a><tt class="py-op">:</tt> </tt>
+</div><div id="CallableObj-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CallableObj-expanded"><a name="CallableObj.__init__"></a><div id="CallableObj.__init__-def"><a name="L102"></a><tt class="py-lineno">102</tt> <a class="py-toggle" href="#" id="CallableObj.__init__-toggle" onclick="return toggle('CallableObj.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.CallableObj-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">func</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CallableObj.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CallableObj.__init__-expanded"><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">func</tt> <tt class="py-op">=</tt> <tt class="py-name">func</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-49', 'name', 'link-11');">name</a></tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-50', 'name', 'link-11');">name</a></tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="CallableObj.__call__"></a><div id="CallableObj.__call__-def"><a name="L106"></a><tt class="py-lineno">106</tt> <a class="py-toggle" href="#" id="CallableObj.__call__-toggle" onclick="return toggle('CallableObj.__call__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup.CallableObj-class.html#__call__">__call__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CallableObj.__call__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="CallableObj.__call__-expanded"><a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">func</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-51', 'name', 'link-11');">name</a></tt><tt class="py-op">,</tt> <tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="create_new_org"></a><div id="create_new_org-def"><a name="L109"></a><tt class="py-lineno">109</tt> <a class="py-toggle" href="#" id="create_new_org-toggle" onclick="return toggle('create_new_org');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnServerGroup-module.html#create_new_org">create_new_org</a><tt class="py-op">(</tt><tt class="py-param">username</tt><tt class="py-op">,</tt> <tt class="py-param">password</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="create_new_org-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="create_new_org-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt id="link-52" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-52', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-53" class="py-name" targets="Function server.rhnSQL.Procedure()=server.rhnSQL-module.html#Procedure,Class server.rhnSQL.driver_cx_Oracle.Procedure=server.rhnSQL.driver_cx_Oracle.Procedure-class.html,Class server.rhnSQL.driver_postgresql.Procedure=server.rhnSQL.driver_postgresql.Procedure-class.html,Class server.rhnSQL.sql_base.Procedure=server.rhnSQL.sql_base.Procedure-class.html"><a title="server.rhnSQL.Procedure
+server.rhnSQL.driver_cx_Oracle.Procedure
+server.rhnSQL.driver_postgresql.Procedure
+server.rhnSQL.sql_base.Procedure" class="py-name" href="#" onclick="return doclink('link-53', 'Procedure', 'link-53');">Procedure</a></tt><tt class="py-op">(</tt><tt class="py-string">'create_new_org'</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-name">ncl</tt> <tt class="py-op">=</tt> <tt id="link-54" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-54', 'rhnSQL', 'link-1');">rhnSQL</a></tt><tt class="py-op">.</tt><tt class="py-name">types</tt><tt class="py-op">.</tt><tt id="link-55" class="py-name" targets="Class server.rhnSQL.sql_types.NUMBER=server.rhnSQL.sql_types.NUMBER-class.html"><a title="server.rhnSQL.sql_types.NUMBER" class="py-name" href="#" onclick="return doclink('link-55', 'NUMBER', 'link-55');">NUMBER</a></tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt><tt class="py-op">(</tt><tt class="py-name">username</tt><tt class="py-op">,</tt> <tt class="py-name">password</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-string">'P'</tt><tt class="py-op">,</tt> <tt class="py-name">ncl</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ncl</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ncl</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">org_id</tt> <tt class="py-op">=</tt> <tt class="py-name">ret</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">3</tt><tt class="py-op">]</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">org_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:45 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

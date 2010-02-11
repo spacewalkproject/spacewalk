@@ -12,13 +12,15 @@ from up2date_client import rpcServer
 import unittest
 from rhn import rpclib
 
+test_up2date = "etc-sysconfig-rhn/up2date"
+
 def write(blip):
     sys.stdout.write("\n%s\n" % blip)
 
 
 class TestGetServer(unittest.TestCase):
     def setUp(self):
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.origssl = self.cfg['sslCACert']
 
     def tearDown(self):
@@ -142,7 +144,7 @@ class TestRpcServer500Error(unittest.TestCase):
         testutils.setupConfig("fc1-at-pepsi")
 
         # cant import config until we put the right stuff in place
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.cfg['serverURL'] = self.defaultServer
         
     def tearDown(self):
@@ -181,7 +183,7 @@ class TestRpcServerWelcomeMessage(unittest.TestCase):
         unittest.TestCase.__init__(self, methodname)
         
     def setUp(self):
-        self.cfg = config.initUp2dateConfig()
+        self.cfg = config.initUp2dateConfig(test_up2date)
         self.defaultServer = self.cfg['serverURL']
 #        self.defaultServer = "http://SECRET_URL/XMLRPC"
 #        write("defaultServer: %s" % self.cfg['serverURL'])

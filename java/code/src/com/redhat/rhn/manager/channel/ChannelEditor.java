@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -114,19 +114,20 @@ public class ChannelEditor {
         
         List<Long> existingPids = ChannelFactory.getPackageIds(channel.getId());
 
-        //Loop through packages and add to channel. 
+        List list = new ArrayList();
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
             Long pid = convertObjectToLong(itr.next());
-            List list = new ArrayList();
-            list.add(pid);
-            if (add && !existingPids.contains(pid)) {
-                ChannelManager.addPackages(channel, list, user);
-            }
-            else if (!add) {
-                ChannelManager.removePackages(channel, list, user);
+            if (!add || !existingPids.contains(pid)) {
+                list.add(pid);
             }
         }
-        
+        if (add) {
+            ChannelManager.addPackages(channel, list, user);
+        }
+        else {
+            ChannelManager.removePackages(channel, list, user);
+        }
+                
         // Mark the affected channel to have it smetadata evaluated, where necessary
         // (RHEL5+, mostly)
         ChannelManager.queueChannelChange(channel.getLabel(), "java::changePackages", null);

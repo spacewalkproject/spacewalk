@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.disk_dumper.iss_runcommand</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
+        Module&nbsp;iss_runcommand
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.disk_dumper.iss_runcommand-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.disk_dumper.iss_runcommand-module.html">Module satellite_tools.disk_dumper.iss_runcommand</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">subprocess</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">fcntl</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Method server.rhnSQL.sql_table.Table.select()=server.rhnSQL.sql_table.Table-class.html#select"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-0', 'select', 'link-0');">select</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">StringIO</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-comment">#   Adapted from the Python Cookbook recipe called</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment">#   "Capturing the Output and Error Streams from a</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-comment">#    Unix Shell Command."</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="make_fd_nonblocking"></a><div id="make_fd_nonblocking-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="make_fd_nonblocking-toggle" onclick="return toggle('make_fd_nonblocking');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_runcommand-module.html#make_fd_nonblocking">make_fd_nonblocking</a><tt class="py-op">(</tt><tt class="py-param">file_desc</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="make_fd_nonblocking-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="make_fd_nonblocking-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">flags</tt> <tt class="py-op">=</tt> <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">fcntl</tt><tt class="py-op">(</tt><tt class="py-name">file_desc</tt><tt class="py-op">,</tt> <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">F_GETFL</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">fcntl</tt><tt class="py-op">(</tt><tt class="py-name">file_desc</tt><tt class="py-op">,</tt> <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">F_SETFL</tt><tt class="py-op">,</tt> <tt class="py-name">flags</tt> <tt class="py-op">|</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">O_NDELAY</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">fcntl</tt><tt class="py-op">(</tt><tt class="py-name">file_desc</tt><tt class="py-op">,</tt> <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">F_SETFL</tt><tt class="py-op">,</tt> <tt class="py-name">flags</tt> <tt class="py-op">|</tt> <tt class="py-name">fcntl</tt><tt class="py-op">.</tt><tt class="py-name">FNDELAY</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="run_command"></a><div id="run_command-def"><a name="L36"></a><tt class="py-lineno">36</tt> <a class="py-toggle" href="#" id="run_command-toggle" onclick="return toggle('run_command');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.disk_dumper.iss_runcommand-module.html#run_command">run_command</a><tt class="py-op">(</tt><tt class="py-param">command</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="run_command-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="run_command-expanded"><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">command_process</tt> <tt class="py-op">=</tt> <tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">Popen</tt><tt class="py-op">(</tt><tt class="py-name">command</tt><tt class="py-op">,</tt> <tt class="py-name">stdin</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                            <tt class="py-name">stdout</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> <tt class="py-name">stderr</tt><tt class="py-op">=</tt><tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">PIPE</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                            <tt class="py-name">close_fds</tt><tt class="py-op">=</tt><tt id="link-1" class="py-name" targets="Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-1', 'True', 'link-1');">True</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">outstring</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">.</tt><tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-name">errstring</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">.</tt><tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">     </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-name">command_process</tt><tt class="py-op">.</tt><tt class="py-name">stdin</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-2', 'close', 'link-2');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment"># Don't need input to command_process.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable compile.outfile=compile-module.html#outfile,Variable proxy.compile.outfile=proxy.compile-module.html#outfile"><a title="compile.outfile
+proxy.compile.outfile" class="py-name" href="#" onclick="return doclink('link-3', 'outfile', 'link-3');">outfile</a></tt> <tt class="py-op">=</tt> <tt class="py-name">command_process</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-name">outfile_fd</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="compile.outfile
+proxy.compile.outfile" class="py-name" href="#" onclick="return doclink('link-4', 'outfile', 'link-3');">outfile</a></tt><tt class="py-op">.</tt><tt class="py-name">fileno</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-name">errfile</tt> <tt class="py-op">=</tt> <tt class="py-name">command_process</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-name">errfile_fd</tt> <tt class="py-op">=</tt> <tt class="py-name">errfile</tt><tt class="py-op">.</tt><tt class="py-name">fileno</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">     </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Function satellite_tools.disk_dumper.iss_runcommand.make_fd_nonblocking()=satellite_tools.disk_dumper.iss_runcommand-module.html#make_fd_nonblocking"><a title="satellite_tools.disk_dumper.iss_runcommand.make_fd_nonblocking" class="py-name" href="#" onclick="return doclink('link-5', 'make_fd_nonblocking', 'link-5');">make_fd_nonblocking</a></tt><tt class="py-op">(</tt><tt class="py-name">outfile_fd</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt id="link-6" class="py-name"><a title="satellite_tools.disk_dumper.iss_runcommand.make_fd_nonblocking" class="py-name" href="#" onclick="return doclink('link-6', 'make_fd_nonblocking', 'link-5');">make_fd_nonblocking</a></tt><tt class="py-op">(</tt><tt class="py-name">errfile_fd</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">    <tt class="py-name">outdata</tt><tt class="py-op">,</tt> <tt class="py-name">errdata</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-name">out_eof</tt> <tt class="py-op">=</tt> <tt class="py-name">err_eof</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name" targets="Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-7', 'False', 'link-7');">False</a></tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">     </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt id="link-8" class="py-name"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-8', 'True', 'link-1');">True</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-name">to_check</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">outfile_fd</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">out_eof</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-op">[</tt><tt class="py-name">errfile_fd</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-op">(</tt><tt class="py-keyword">not</tt> <tt class="py-name">err_eof</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-name">ready</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-9', 'select', 'link-0');">select</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-10', 'select', 'link-0');">select</a></tt><tt class="py-op">(</tt><tt class="py-name">to_check</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">outfile_fd</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ready</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">            <tt class="py-name">outchunk</tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="compile.outfile
+proxy.compile.outfile" class="py-name" href="#" onclick="return doclink('link-11', 'outfile', 'link-3');">outfile</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-12', 'read', 'link-12');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">outchunk</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">                <tt class="py-name">out_eof</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-13', 'True', 'link-1');">True</a></tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">                <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stdout</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-14', 'write', 'link-14');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">outchunk</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">                <tt class="py-name">outstring</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-15', 'write', 'link-14');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">outchunk</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">errfile_fd</tt> <tt class="py-keyword">in</tt> <tt class="py-name">ready</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">            <tt class="py-name">errchunk</tt> <tt class="py-op">=</tt> <tt class="py-name">errfile</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-16', 'read', 'link-12');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">errchunk</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">                <tt class="py-name">err_eof</tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-17', 'True', 'link-1');">True</a></tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">                <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-18', 'write', 'link-14');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">errchunk</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">                <tt class="py-name">errstring</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-19', 'write', 'link-14');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">errchunk</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">out_eof</tt> <tt class="py-keyword">and</tt> <tt class="py-name">err_eof</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">        <tt id="link-20" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-20', 'select', 'link-0');">select</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="server.rhnSQL.sql_table.Table.select" class="py-name" href="#" onclick="return doclink('link-21', 'select', 'link-0');">select</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-number">.1</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">    <tt id="link-22" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-22', 'status', 'link-22');">status</a></tt> <tt class="py-op">=</tt> <tt class="py-name">command_process</tt><tt class="py-op">.</tt><tt class="py-name">wait</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">    <tt class="py-name">outval</tt> <tt class="py-op">=</tt> <tt class="py-name">outstring</tt><tt class="py-op">.</tt><tt class="py-name">getvalue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">    <tt class="py-name">errval</tt> <tt class="py-op">=</tt> <tt class="py-name">errstring</tt><tt class="py-op">.</tt><tt class="py-name">getvalue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">    <tt class="py-name">outstring</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-23', 'close', 'link-2');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">    <tt class="py-name">errstring</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-24', 'close', 'link-2');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-25" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-25', 'status', 'link-22');">status</a></tt><tt class="py-op">,</tt> <tt class="py-name">outval</tt><tt class="py-op">,</tt> <tt class="py-name">errval</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line">    <tt id="link-26" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-26', 'status', 'link-22');">status</a></tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name" targets="Function satellite_tools.disk_dumper.iss_runcommand.run_command()=satellite_tools.disk_dumper.iss_runcommand-module.html#run_command"><a title="satellite_tools.disk_dumper.iss_runcommand.run_command" class="py-name" href="#" onclick="return doclink('link-27', 'run_command', 'link-27');">run_command</a></tt><tt class="py-op">(</tt><tt class="py-string">"ls -l"</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt id="link-28" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-28', 'status', 'link-22');">status</a></tt> </tt>
+<a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

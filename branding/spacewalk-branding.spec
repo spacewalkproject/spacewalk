@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.8.0
+Version:    0.9.0
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,14 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
+- upadating spacewalk cert (jsherril@redhat.com)
+
+* Fri Jan 08 2010 Jan Pazdziora 0.8.1-1
+- Update copyright years to end with 2010.
+- Dead code removal.
+- bumping Version to 0.8.0 (msuchy@redhat.com)
+
 * Wed Sep 02 2009 Michael Mraka <michael.mraka@redhat.com> 0.7.1-1
 - Add symlink capability to config management (joshua.roys@gtri.gatech.edu)
 - add the Chat graphic as an advertisement to the layouts

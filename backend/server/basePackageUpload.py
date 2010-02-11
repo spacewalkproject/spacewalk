@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@
 
 import os
 import tempfile
-from mod_python import apache
+from server import apache
 
 from common import log_debug, rhnFault, UserDictCase
 
@@ -86,8 +86,8 @@ class BasePackageUpload:
         self.package_version = self.field_data["Package-Version"]
         self.package_release = self.field_data["Package-Release"]
         self.package_arch = self.field_data["Package-Arch"]
-        self.file_checksum = (self.field_data["File-Checksum-Type"],
-                              self.field_data["File-Checksum"] )
+        self.file_checksum_type = self.field_data["File-Checksum-Type"]
+        self.file_checksum = self.field_data["File-Checksum"]
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
         self.is_source = (self.package_arch == 'src' or self.package_arch == 'nosrc')
         return apache.OK

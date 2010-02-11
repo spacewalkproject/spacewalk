@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.disk_dumper-module.html">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
         Module&nbsp;dumper
       </span>
     </td>
@@ -89,6 +89,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html" class="summary-name">XML_DumperEx</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="satellite_tools.disk_dumper.dumper.SatelliteDumper-class.html" class="summary-name">SatelliteDumper</a>
     </td>
   </tr>
@@ -96,14 +103,26 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.QueryIterator-class.html" class="summary-name">QueryIterator</a>
+        <a href="satellite_tools.disk_dumper.dumper.SatelliteDumperEx-class.html" class="summary-name">SatelliteDumperEx</a>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html" class="summary-name">CachedQueryIterator</a>
+        <a href="satellite_tools.disk_dumper.dumper.QueryIterator-class.html" class="summary-name">QueryIterator</a><br />
+      A query iterator successively applies the list of params as 
+        execute() to the statement that was passed in, and presents the 
+        union of the result sets as a single result set.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html" class="summary-name">CachedQueryIterator</a><br />
+      This class will attempt to retrieve information, either from the 
+        database or from a local cache.
     </td>
   </tr>
 <tr>
@@ -125,6 +144,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.disk_dumper.dumper._ChannelsDumper-class.html" class="summary-name" onclick="show_private();">_ChannelsDumper</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.disk_dumper.dumper.ChannelsDumperEx-class.html" class="summary-name">ChannelsDumperEx</a>
     </td>
   </tr>
 <tr>
@@ -153,6 +179,13 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="satellite_tools.disk_dumper.dumper.ErrataDumper-class.html" class="summary-name">ErrataDumper</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="satellite_tools.disk_dumper.dumper.ErrataDumperEx-class.html" class="summary-name">ErrataDumperEx</a>
     </td>
   </tr>
 <tr>
@@ -202,7 +235,12 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="hash_object_id"></a><span class="summary-sig-name">hash_object_id</span>(<span class="summary-sig-arg">obj_id</span>,
-        <span class="summary-sig-arg">factor</span>)</span></td>
+        <span class="summary-sig-arg">factor</span>)</span><br />
+      This looks complicated; it returns the (integer part of) obj_id, 
+      modulo factor The string is left padded with as many 0 chars as 
+      necessary to match factor XXX This is copied from 
+      satellite_tools.diskImportLib.hashPackageID - should figure out a way
+      to share it -- misa</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#hash_object_id">source&nbsp;code</a></span>
             
@@ -234,14 +272,23 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="LOWER_LIMIT"></a><span class="summary-name">LOWER_LIMIT</span> = <code title="None">None</code>
+        <a name="LOWER_LIMIT"></a><span class="summary-name">LOWER_LIMIT</span> = <code title="None">None</code><br />
+      hash(x)
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="UPPER_LIMIT"></a><span class="summary-name">UPPER_LIMIT</span> = <code title="None">None</code>
+        <a name="UPPER_LIMIT"></a><span class="summary-name">UPPER_LIMIT</span> = <code title="None">None</code><br />
+      hash(x)
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'satellite_tools.disk_dumper'"><code class="variable-quote">'</code><code class="variable-string">satellite_tools.disk_dumper</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 </table>
@@ -268,7 +315,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:05 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:14 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

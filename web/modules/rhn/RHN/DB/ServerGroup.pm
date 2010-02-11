@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,9 +20,7 @@ use strict;
 package RHN::DB::ServerGroup;
 
 use RHN::DB;
-use Data::Dumper;
 use RHN::DB::TableClass;
-use RHN::User;
 use RHN::Set;
 
 use Params::Validate qw/:all/;
@@ -239,206 +237,6 @@ EOQ
   $dbh->commit();
 }
 
-=head1 retrieve
-
-arguments - $group_id (scalar) - the group_id to be retrieved
-returns - list
-
-=cut
-
-sub retrieve {
-  my $class = shift;
-  my $group_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query ='SELECT ' . join(', ', @server_group) . ' FROM ' . $t->table_name . ' where id = ?';
-  my $sth = $dbh->prepare($query);
-  $sth->execute($group_id);
-  my @data = $sth->fetchrow();
-  $sth->finish;
-
-  return @data;
-}
-
-=head1 list 
-
-arguments - $group_id
-returns - list of serverId's in group
-
-=cut
-
-sub servers_in_groups {
-  my $class = shift;
-  my $groups = shift;
-  my $bounds = shift;
-  my @columns = @_;
-
-  if (not ref $bounds or ref $bounds ne 'ARRAY') {
-    unshift @columns, $bounds;
-    $bounds = [ 1, 1_000_000 ];
-  }
-
-  $groups = [ $groups ] unless ref $groups;
-  @columns = ('S.ID') unless @columns;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = sprintf <<EOQ, join(", ", @columns), join(", ", ("?") x @$groups);
-SELECT %s
-FROM rhnServerGroupMembers SGM, rhnServer S, rhnServerArch SA
-WHERE SGM.server_group_id IN (%s) AND
-      SGM.server_id = S.id AND
-      S.server_arch_id = SA.id
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute(@$groups);
-
-  my @result;
-
-  my $i = 1;
-  while ( my (@data) = $sth->fetchrow ) {
-    if ( $i >= $bounds->[0] and $i <= $bounds->[1]) {
-      push ( @result, \@data );
-    } else {
-      last;
-    }
-    $i++
-  }
-
-  $sth->finish;
-
-  return @result;
-}
-
-sub groups_in_org_overview {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $lower, $upper, $total_ref, $mode, $mode_params, $all_ids) =
-    map { $params{"-" . $_} } qw/org_id user_id lower upper total_rows mode mode_params all_ids/;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-
-  if ($mode eq 'server') {
-    $query = <<EOS;
-SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GO.GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS
-  FROM   rhnVisServerGroupOverview GO, rhnServerGroupMembers SGM
- WHERE   GO.ORG_ID = ?
-   AND   SGM.server_group_id = GO.group_id
-   AND   SGM.server_id = ?
-   AND   EXISTS (SELECT 1 FROM rhnUserServerGroupPerms WHERE server_group_id = GO.group_id AND user_id = ?)
-ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
-EOS
-  }
-  elsif ($mode eq 'user') {
-    $query = <<EOS;
-SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GO.GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS
-  FROM   rhnVisServerGroupOverview GO, rhnUserManagedServerGroups UMSG
- WHERE   GO.ORG_ID = ?
-   AND   GO.GROUP_ID = UMSG.server_group_id
-   AND   UMSG.user_id = ?
-ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
-EOS
-  }
-  elsif ($mode eq 'set') {
-    $query = <<EOS;
-SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, MODIFIED, MAX_MEMBERS
-  FROM   rhnVisServerGroupOverview, rhnSet RS
- WHERE   ORG_ID = ? AND GROUP_ID = RS.element AND RS.label = ? AND RS.user_id = ?
-ORDER BY UPPER(GROUP_NAME), GROUP_ID
-EOS
-  }
-  else {
-    $query = <<EOS;
-SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, MODIFIED, MAX_MEMBERS
-  FROM   rhnVisServerGroupOverview
- WHERE   ORG_ID = ?
-ORDER BY UPPER(GROUP_NAME), GROUP_ID
-EOS
-  }
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id, @{ref $mode_params ? $mode_params : [ $mode_params ]});
-
-  my @result;
-  my $i = 1;
-  $$total_ref = 0;
-
-  while (my @data = $sth->fetchrow) {
-    push @$all_ids, $data[3] if $all_ids;
-    $$total_ref = $i;
-    if ($i >= $lower and $i <= $upper) {
-      push @result, [ @data ];
-    }
-    $i++;
-  }
-  $sth->finish;
-  return @result;
-}
-
-# return is:
-# [ server_id, server_name, numadmins, numgroups_server_is_in, updated ]
-sub group_overview {
-  my $class = shift;
-  my $group_id = shift;
-  my ($lower, $upper) = @_;
-  $lower ||= 1;
-  $upper ||= 100000;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-SELECT   SERVER_ID, SERVER_NAME, 0, GROUP_COUNT, MODIFIED
-FROM     rhnServerOverview
-WHERE    SERVER_GROUP_ID = ?
-ORDER BY UPPER(S.NAME), S.ID
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($group_id);
-
-  my @result;
-  my $i = 1;
-  while (my @data = $sth->fetchrow) {
-    if ($i >= $lower and $i <= $upper) {
-      push @result, [ @data, 0 ];
-    } else {
-      last;
-    }
-    $i++;
-  }
-  $sth->finish;
-  return @result;
-}
-
-sub tri_state_server_group_list {
-  my $self = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-SELECT  SGO.group_id, SGO.group_name
-  FROM  rhnServerGroup SG, rhnServerGroupOverview SGO
- WHERE  SGO.org_id = ?
-   AND  SGO.group_id = SG.id
-   AND  SG.group_type IS NULL
-ORDER BY UPPER (SGO.group_name)
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 sub server_group_list {
   my $self = shift;
   my $org_id = shift;
@@ -550,25 +348,6 @@ EOQ
   }
 
   return @ret;
-}
-
-sub add_systems {
-  my $self = shift;
-  my @sids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  rhn_server.insert_into_servergroup(:sid, :sgid);
-END;
-EOQ
-
-  foreach my $sid (@sids) {
-    $sth->execute_h(sid => $sid, sgid => $self->id);
-  }
-
-  $dbh->commit;
-  return;
 }
 
 sub errata_counts {

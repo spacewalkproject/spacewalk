@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,34 +17,26 @@ use strict;
 
 package Sniglets::ActivationKeys;
 
-use RHN::User;
-use RHN::Org;
 use RHN::Token;
 use RHN::DataSource::Channel;
 use RHN::Exception;
 use RHN::Form::Widget;
-use RHN::Entitlements;
 use RHN::Form::Widget::CheckboxGroup;
-use RHN::ServerGroup;
 
 use PXT::HTML;
 use Storable qw/dclone/;
-
-use Data::Dumper;
 
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
   $pxt->register_tag('rhn-token-details' => \&token_details);
   $pxt->register_tag('rhn-token-channels' => \&edit_token_channels);
-  $pxt->register_tag('rhn-token-packages' => \&edit_token_packages);
 }
 
 sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
   $pxt->register_callback('rhn:edit_token_channels_cb' => \&edit_token_channels_cb);
-  $pxt->register_callback('rhn:edit_token_packages_cb' => \&edit_token_packages_cb);
 }
 
 
@@ -155,55 +147,6 @@ sub create_token {
   return $token;
 }
 
-sub edit_token_packages {
-  my $pxt = shift;
-
-  my $tid = $pxt->param('tid');
-  my $token = RHN::Token->lookup(-id => $tid);
-
-  my @packages = $token->fancy_packages;
-  my $pkg_count = scalar @packages;
-  my $pkg_string = join("\n", map { $_->{NAME} } @packages);
-
-  my $widget = new RHN::Form::Widget::TextArea(name => 'Packages',
-					       label => 'packages',
-					       cols => 64,
-					       rows => $pkg_count < 4 ? 6 : $pkg_count + 1,
-					       default => ($pkg_string || ''));
-  return $widget->render;
-}
-
-sub edit_token_packages_cb {
-  my $pxt = shift;
-
-  my $tid = $pxt->param('tid');
-  my $token = RHN::Token->lookup(-id => $tid);
-
-  my $pkg_string = $pxt->dirty_param('packages');
-  $pkg_string =~ s(\r)()g;
-  # remove whitespace from beginning and end
-  $pkg_string =~ s/^\s+//;
-  $pkg_string =~ s/\s+$//;
-  my @package_names = split /\n+/, $pkg_string;
-
-  my %seen;
-  my @packages;
-  for my $name (@package_names) {
-    if (exists $seen{$name}) {
-      $pxt->push_message(local_alert => "Package '$name' appears multiple times.");
-      return;
-    }
-    $seen{$name}++;
-
-    my $pkg_id = RHN::Package->lookup_package_name_id($name);
-
-    push @packages, $pkg_id;
-  }
-
-  $token->set_packages(@packages);
-  $pxt->push_message(site_info => sprintf('Activation Key <strong>%s</strong> has been modified.', PXT::Utils->escapeHTML($token->note)));
-}
-
 sub token_details {
   my $pxt = shift;
   my %attr = @_;
@@ -225,7 +168,7 @@ sub token_details {
     $token = RHN::Token->blank_token;
     $token->user_id($pxt->user->id);
     $token->org_id($pxt->user->org_id);
-    $token->activation_key_token(PXT::Config->get('satellite') ? '' : 'Will be generated when key is created');
+    $token->activation_key_token('');
   }
 
 

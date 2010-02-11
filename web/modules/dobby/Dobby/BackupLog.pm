@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -160,14 +160,6 @@ sub add_tablespace_entry {
   my $tablespaces = $self->tablespaces;
   push @$tablespaces, @_;
   $self->tablespaces($tablespaces);
-}
-
-sub add_archive_log {
-  my $self = shift;
-
-  my $archive_logs = $self->archive_logs;
-  push @$archive_logs, @_;
-  $self->archive_logs($archive_logs);
 }
 
 sub add_cold_file {

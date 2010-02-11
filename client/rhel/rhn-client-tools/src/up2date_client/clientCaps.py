@@ -18,8 +18,6 @@ class ClientCapabilities(UserDict.UserDict):
         # FIXME: at some point, this will be
         # intelligently populated...
         localcaps = {
-#            "packages.runTransaction":{'version':1, 'value':1},
-#            "blippyfoo":{'version':5, 'value':0},
             "caneatCheese":{'version':1, 'value': 1}
             }
         if capsToPopulate:
@@ -38,8 +36,7 @@ class ClientCapabilities(UserDict.UserDict):
 
 caps = ClientCapabilities()
 
-def loadLocalCaps():
-    capsDir = "/etc/sysconfig/rhn/clientCaps.d"
+def loadLocalCaps(capsDir = "/etc/sysconfig/rhn/clientCaps.d"):
 
     capsFiles = glob.glob("%s/*" % capsDir)
 

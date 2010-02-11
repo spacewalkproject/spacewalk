@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,8 +16,6 @@
 use strict;
 
 package RHN::DB::JoinClass;
-
-use Data::Dumper;
 
 sub new {
   my $class = shift;
@@ -157,12 +155,6 @@ sub methods_to_columns {
   my $self = shift;
 
   return map { $self->{m_to_c}->{$_} } @_;
-}
-
-sub column_to_methods {
-  my $self = shift;
-
-  return map { $self->{c_to_m}->{$_} } @_;
 }
 
 1;

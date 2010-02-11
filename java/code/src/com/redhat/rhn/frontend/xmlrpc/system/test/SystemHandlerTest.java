@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -78,6 +78,7 @@ import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -270,6 +271,10 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         catch (InvalidChannelException e) {
             //success
         }
+        catch (ChannelSubscriptionException e) {
+            //success
+        }
+        
         server = (Server) reload(server);
         assertEquals(2, server.getChannels().size());
         
@@ -360,6 +365,10 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         catch (InvalidChannelException e) {
             //success
         }
+        catch (ChannelSubscriptionException e) {
+            //success
+        }        
+        
         server = (Server) reload(server);
         assertEquals(2, server.getChannels().size());
 

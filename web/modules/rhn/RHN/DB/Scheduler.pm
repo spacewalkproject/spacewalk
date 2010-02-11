@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,10 +16,18 @@
 package RHN::DB::Scheduler;
 use strict;
 
+use Data::Dumper ();
+
 use RHN::DB;
 use RHN::Exception qw/throw/;
 use RHN::DataSource::Simple;
 use RHN::DataSource::System;
+
+use RHN::DataSource::Errata ();
+use RHN::DB::Set ();
+use RHN::Errata ();
+use RHN::Package ();
+use RHN::Server ();
 
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
@@ -168,90 +176,6 @@ EOQ
 }
 
 
-sub schedule_sat_applet {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      earliest => 1,
-			      server_id => 1,});
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'rhn_applet.use_satellite',
-						       -earliest => $params{earliest},
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $params{user_id}, undef, $params{server_id});
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_mtime_upload {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      earliest => 1,
-			      after => 1,
-			      before => 0,
-			      server_id => 1,
-			      action_name => 0,
-			      white_list => 1,
-			      black_list => 0,
-			      import_contents => 0,
-			    });
-
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'configfiles.mtime_upload',
-						       -earliest => $params{earliest},
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $params{user_id}, undef, $params{server_id});
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionConfigDate (action_id, start_date, end_date, import_contents)
-VALUES (:action_id, TO_DATE(:start_date, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(:end_date, 'YYYY-MM-DD HH24:MI:SS'), :import_contents)
-EOQ
-
-  $sth->execute_h(action_id => $action_id,
-		  start_date => $params{after},
-		  end_date => $params{before},
-		  import_contents => ($params{import_contents} ? 'Y' : 'N'),
-		 );
-
-  my $upload_chan_id = RHN::ConfigChannel->vivify_server_config_channel($params{server_id}, 'server_import');
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionConfigChannel (action_id, server_id, config_channel_id)
-VALUES (:action_id, :server_id, :config_channel_id)
-EOQ
-  $sth->execute_h(action_id => $action_id, server_id => $params{server_id}, config_channel_id => $upload_chan_id);
-
-  # file_type/path_type:  'w' for whitelist, 'b' for blacklist, so sayeth pjones :)
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionConfigDateFile (action_id, file_name, file_type)
-VALUES (:action_id, :path, :path_type)
-EOQ
-
-  for my $w (@{$params{white_list}}) {
-    $sth->execute_h(action_id => $action_id, path => $w, path_type => 'W');
-  }
-
-  for my $b (@{$params{black_list}}) {
-    $sth->execute_h(action_id => $action_id, path => $b, path_type => 'B');
-  }
-
-  $dbh->commit();
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
 sub schedule_reboot {
   my $class = shift;
   my %params = @_;
@@ -303,121 +227,6 @@ sub sscd_schedule_reboot {
     warn "rebooting $server->{ID}...";
     $sth->execute($server->{ID}, $action_id, $action_stat_id);
   }
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_rollback {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $server_id, $earliest, $from_tid, $to_tid) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set server_id earliest from_tid to_tid/;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'rollback.rollback',
-						       -earliest => $earliest);
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, $server_set, $server_id);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionTransactions
-  (action_id, from_trans_id, to_trans_id)
-VALUES
-  (?, ?, ?)
-EOQ
-  $sth->execute($action_id, $from_tid, $to_tid);
-  $dbh->commit;
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_rollback_refresh {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $server_id, $earliest) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set server_id earliest/;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'rollback.listTransactions',
-						       -earliest => $earliest
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, $server_set, $server_id);
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_rollback_config {
-  my $class = shift;
-  my %params = @_;
-
-  die "not yet implemented";
-
-  my ($org_id, $user_id, $server_set, $server_id, $earliest, $flag) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set server_id earliest flag/;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'rollback.listTransactions',
-						       -earliest => $earliest
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, $server_set, $server_id);
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionRollbackConfig
-  (action_id, flag)
-VALUES
-  (?, ?)
-EOQ
-  $sth->execute($action_id, $flag);
-  $dbh->commit;
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_package_refresh {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_id, $earliest, $transaction) =
-    map { $params{"-" . $_} } qw/org_id user_id server_id earliest transaction/;
-
-  my $action_label;
-  my $server_packaging_type = RHN::Server->packaging_type($server_id);
-
-  if ($server_packaging_type eq 'rpm') {
-    $action_label = 'packages.refresh_list';
-  }
-  elsif ($server_packaging_type eq 'sysv-solaris') {
-    $action_label = 'solarispkgs.refresh_list';
-  }
-  else {
-    throw "Unknown packaging type ($server_packaging_type) for system ($server_id)";
-  }
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => $action_label,
-						       -earliest => $earliest,
-						       -transaction => $transaction
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, undef, $server_id);
 
   osa_wakeup_tickle();
 
@@ -605,75 +414,6 @@ EOQ
   osa_wakeup_tickle();
 
   return \%actions;
-}
-
-sub sscd_schedule_package_verify {
-  my $class = shift;
-  my %params = @_;
-
-  my ($earliest, $org_id, $user_id) =
-    map { $params{"-" . $_} } qw/earliest org_id user_id/;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-SELECT  DISTINCT S.id, S.name
-  FROM  rhnServer S,
-        rhnServerPackage SP,
-        rhnSet SYSTEM_SET
- WHERE  SYSTEM_SET.user_id = ?
-   AND  SYSTEM_SET.label = 'system_list'
-   AND  SYSTEM_SET.element = SP.server_id
-   AND  SP.name_id IN (SELECT element FROM rhnSet WHERE user_id = SYSTEM_SET.user_id AND label = 'sscd_verify_package_list')
-   AND  SP.server_id = S.id
-ORDER BY UPPER(S.name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($user_id);
-
-  my @actions;
-  while (my ($server_id, $server_name) = $sth->fetchrow) {
-    my $action_name = "Package Verify for " . $server_name;
-
-    my ($action_id, $action_stat_id) = $class->make_base_action(-org_id => $org_id,
-								-user_id => $user_id,
-								-type_label => 'packages.verify',
-								-earliest => $earliest,
-								-action_name => $action_name,
-							       );
-
-    push @actions, { action_id => $action_id, status_id => $action_stat_id, server_id => $server_id };
-  }
-
-  foreach my $action (@actions) {
-    $query = <<EOQ;
-INSERT INTO rhnServerAction (server_id, action_id, status) VALUES (?, ?, ?)
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($action->{server_id}, $action->{action_id}, $action->{status_id});
-
-    $query = <<EOQ;
-INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
-(
-SELECT  rhn_act_p_id_seq.nextval, ?, SP.name_id, SP.evr_id
-  FROM  rhnServerPackage SP, rhnSet PACKAGE_LIST
- WHERE  PACKAGE_LIST.user_id = ?
-   AND  PACKAGE_LIST.label = 'sscd_verify_package_list'
-   AND  SP.server_id = ?
-   AND  SP.name_id = PACKAGE_LIST.element
-   AND  SP.evr_id = PACKAGE_LIST.element_two
-)
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($action->{action_id}, $user_id, $action->{server_id});
-  }
-
-  $dbh->commit();
-
-  osa_wakeup_tickle();
-
-  return \@actions;
 }
 
 # one or more package install or remove for a single system
@@ -895,7 +635,6 @@ sub schedule_package_install {
   my $sth;
 
   my $rhn_class = '';
-  $rhn_class = 'RHN.' unless PXT::Config->get('satellite');
 
   if ($package_id and $server_set) {
     $query = <<EOQ;
@@ -1475,57 +1214,6 @@ EOQ
   return @action_ids;
 }
 
-# 1 errata
-sub schedule_errata_update_for_all_affected_systems {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $earliest, $errata_id) =
-    map { $params{"-" . $_} } qw/org_id user_id earliest errata_id/;
-
-  die "no errata!" unless $errata_id;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $errata = RHN::Errata->lookup(-id => $errata_id);
-
-  die "errata lookup failed!" if !$errata;
-
-  my $action_name = "Errata Update: " . $errata->advisory . ' - ' . $errata->synopsis;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'errata.update',
-						       -earliest => $earliest,
-						       -action_name => $action_name,
-						      );
-
-#  warn "org_id == $org_id, errata id == $errata_id, action id == $action_id, status id == $stat_id";
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnServerAction (server_id, action_id, status)
-(
-SELECT  DISTINCT SNEC.server_id, ?, ?
-  FROM  rhnServerNeededErrataCache SNEC
- WHERE  SNEC.org_id = ?
-   AND  SNEC.errata_id = ?
-   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = SNEC.server_id)
-   AND  EXISTS (SELECT 1 FROM rhnEntitledServers ES WHERE ES.id = SNEC.server_id)
-)
-EOQ
-  $sth->execute($action_id, $stat_id, $org_id, $errata_id, $user_id);
-
-  $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionErrataUpdate (action_id, errata_id) VALUES (?, ?)
-EOQ
-  $sth->execute($action_id, $errata_id);
-
-  $dbh->commit;
-
-  osa_wakeup_tickle();
-}
-
 sub schedule_package_sync {
   my $class = shift;
   my %params = validate(@_, { org_id => 1,
@@ -1605,7 +1293,7 @@ EOS
 		    v => $_->[1]->version,
 		    r => $_->[1]->release,
 		    e => $_->[1]->epoch,
-		    a => undef,
+		    a => $_->[1]->arch,
 		    operation => $_->[0]) for @delta;
   }
 
@@ -1752,126 +1440,6 @@ EOQ
 }
 
 
-# treat uploads differently, because, well, they're different.
-sub schedule_config_upload {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      server_id => 1,
-			      earliest => 1,
-			      action_name => 1,
-			      transaction => 0,
-			      prerequisite => 0,
-			      filename_ids => 1,
-			      config_channel_id => 1,
-			    });
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'configfiles.upload',
-						       -earliest => $params{earliest},
-						       -action_name => $params{action_name},
-						       -prerequisite => $params{prerequisite},
-						       -transaction => $dbh,
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $params{user_id}, undef, $params{server_id});
-
-  my $server = RHN::Server->lookup(-id => $params{server_id});
-
-  my $query;
-  my $sth;
-
-  $query =<<EOQ;
-INSERT
-  INTO rhnActionConfigFileName
-       (action_id, config_file_name_id, server_id)
-VALUES (:aid, :cfnid, :server_id)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $file_name_id (@{$params{filename_ids}}) {
-    $sth->execute_h(server_id => $params{server_id},
-		    aid => $action_id,
-		    cfnid => $file_name_id,
-		   );
-  }
-
-  $query =<<EOQ;
-INSERT
-  INTO rhnActionConfigChannel
-       (action_id, server_id, config_channel_id)
-VALUES (:aid, :server_id, :config_channel_id)
-EOQ
-
-  $sth = $dbh->prepare($query);
-  $sth->execute_h(aid => $action_id,
-		  config_channel_id => $params{config_channel_id},
-		  server_id => $params{server_id},
-		 );
-
-  $dbh->commit unless $params{transaction};
-
-  # XXX FIXME:  trace and percolate up
-  osa_wakeup_tickle();
-
-  return ($action_id, $dbh);
-}
-
-
-sub schedule_kickstart_inject {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1, user_id => 1, server_id => 1, earliest => 1, kstree_id => 1, append_string => 1, prerequisite => 0, transaction => 0, static_device => 1, ksid => 0});
-
-  my $dbh = $params{transaction} || RHN::DB->connect;
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'kickstart.initiate',
-						       -earliest => $params{earliest},
-						       -action_name => 'Kickstart',
-						       -prerequisite => $params{prerequisite},
-						       -transaction => $dbh,
-						      );
-
-  $class->add_servers_to_action($action_id, $stat_id, $params{user_id}, undef, $params{server_id});
-
-  my $server = RHN::Server->lookup(-id => $params{server_id});
-
-  my $query =<<EOQ;
-INSERT
-  INTO rhnActionKickstart
-       (id, action_id, append_string, kstree_id, static_device)
-VALUES (rhn_actionks_id_seq.nextval, :aid, :append, :kstid, :static_device)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute_h(aid => $action_id, append => $params{append_string}, kstid => $params{kstree_id}, static_device => $params{static_device});
-
-  if ($params{ksid}) {
-    $sth = $dbh->prepare("SELECT rhn_actionks_id_seq.currval FROM DUAL");
-    $sth->execute;
-    my ($action_ks_id) = $sth->fetchrow;
-    $sth->finish;
-
-    $sth = $dbh->prepare(<<EOQ);
-INSERT
-  INTO rhnActionKickstartFileList
-       (action_ks_id, file_list_id)
-       (SELECT :action_ks_id, KSPFL.file_list_id
-          FROM rhnKickstartPreserveFileList KSPFL
-         WHERE KSPFL.kickstart_id = :ksid)
-EOQ
-    $sth->execute_h(action_ks_id => $action_ks_id, ksid => $params{ksid});
-  }
-
-  $dbh->commit unless $params{transaction};osa_wakeup_tickle(); return $action_id;
-}
-
 sub associate_answer_files_with_action {
   my $class = shift;
   my $action_id = shift;
@@ -2004,69 +1572,6 @@ EOQ
 
   osa_wakeup_tickle();
 
-  return $action_id;
-}
-
-sub schedule_activate_proxy {
-  my $class = shift;
-  my %params = validate(@_, { org_id => 1,
-			      user_id => 1,
-			      server_id => 1,
-			      earliest => 1,
-			      action_name => 0,
-			      prerequisite => 0,
-			    });
-
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $params{org_id},
-						       -user_id => $params{user_id},
-						       -type_label => 'rhn_proxy.activate',
-						       -earliest => $params{earliest},
-						       -action_name => $params{action_name},
-						       -prerequisite => $params{prerequisite},
-						      );
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $class->add_servers_to_action($action_id,
-				$stat_id,
-				$params{user_id},
-				undef,
-				$params{server_id});
-
-  osa_wakeup_tickle();
-
-  return $action_id;
-}
-
-sub schedule_rhnsd_config {
-  my $class = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id, $server_set, $server_id, $earliest, $prerequisite, $transaction, $interval, $reboot_flag) =
-    map { $params{"-" . $_} } qw/org_id user_id server_set server_id earliest prerequisite transaction interval reboot_flag/;
-
-  my $dbh = $transaction || RHN::DB->connect;
-  my ($action_id, $stat_id) = $class->make_base_action(-org_id => $org_id,
-						       -user_id => $user_id,
-						       -type_label => 'rhnsd.configure',
-						       -earliest => $earliest,
-						       -transaction => $transaction);
-
-  $class->add_servers_to_action($action_id, $stat_id, $user_id, $server_set, $server_id);
-
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnActionDaemonConfig
-  (action_id, interval, restart)
-VALUES
-  (?, ?, ?)
-EOQ
-  $sth->execute($action_id, $interval, $reboot_flag);
-  $dbh->commit
-    unless $params{-transaction};
-
-  # XXX FIXME:  trace and percolate up?
-  osa_wakeup_tickle();
   return $action_id;
 }
 

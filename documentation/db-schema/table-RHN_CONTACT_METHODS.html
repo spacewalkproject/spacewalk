@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Table-RHN_CONTACT_METHODS </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#t-descr">Description</a> <a href="#t-cols">Columns</a> <a href="#t-pk">Primary key</a> <a href="#t-cc">Check Constraints</a> <a href="#t-fk">Foreign keys</a> <a href="#t-uc">Unique Keys</a> <a href="#t-opt">Options</a> <a href="#t-ind">Indexes</a> <a href="#t-refs">Referenced by</a> <a href="#t-trgs">Triggers</a> <a href="#t-parts">Partitions</a> </div><h2>RHN_CONTACT_METHODS</h2>
+<h3>Description:</h3>
+ <a name="t-descr"></a><p>cmeth  contact method definitions</p><a href="sql_sources/table/rhn_contact_methods.sql">DDL script</a><h3>Columns<a name="t-cols"></a></h3>
+<table>
+<tr><th>Name</th><th>Type</th><th>Nullable</th><th>Default value</th><th>Comment</th></tr><tr><td>RECID<a name="col-RECID"></a></td><td>NUMBER(12)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>METHOD_NAME<a name="col-METHOD_NAME"></a></td><td>VARCHAR2(20)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>CONTACT_ID<a name="col-CONTACT_ID"></a></td><td>NUMBER(12)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>SCHEDULE_ID<a name="col-SCHEDULE_ID"></a></td><td>NUMBER(12)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>METHOD_TYPE_ID<a name="col-METHOD_TYPE_ID"></a></td><td>NUMBER(12)</td><td>N</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PAGER_TYPE_ID<a name="col-PAGER_TYPE_ID"></a></td><td>NUMBER(12)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PAGER_PIN<a name="col-PAGER_PIN"></a></td><td>VARCHAR2(20)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PAGER_EMAIL<a name="col-PAGER_EMAIL"></a></td><td>VARCHAR2(50)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PAGER_MAX_MESSAGE_LENGTH<a name="col-PAGER_MAX_MESSAGE_LENGTH"></a></td><td>NUMBER(6)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>PAGER_SPLIT_LONG_MESSAGES<a name="col-PAGER_SPLIT_LONG_MESSAGES"></a></td><td>CHAR(1)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>EMAIL_ADDRESS<a name="col-EMAIL_ADDRESS"></a></td><td>VARCHAR2(50)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>EMAIL_REPLY_TO<a name="col-EMAIL_REPLY_TO"></a></td><td>VARCHAR2(50)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>LAST_UPDATE_USER<a name="col-LAST_UPDATE_USER"></a></td><td>VARCHAR2(40)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>LAST_UPDATE_DATE<a name="col-LAST_UPDATE_DATE"></a></td><td>DATE</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>SNMP_HOST<a name="col-SNMP_HOST"></a></td><td>VARCHAR2(255)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>SNMP_PORT<a name="col-SNMP_PORT"></a></td><td>NUMBER(5)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>NOTIFICATION_FORMAT_ID<a name="col-NOTIFICATION_FORMAT_ID"></a></td><td>NUMBER(12)</td><td>N</td><td>(4) </td><td>&nbsp;</td></tr>
+<tr><td>SENDER_SAT_CLUSTER_ID<a name="col-SENDER_SAT_CLUSTER_ID"></a></td><td>NUMBER(12)</td><td>Y</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table><h3>Primary key:<a name="t-pk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th></tr><tr><td>RHN_CMETH_RECID_PK<a name="cs-RHN_CMETH_RECID_PK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-RECID">RECID </a>
+</td></tr>
+</table><h3>Check Constraints:<a name="t-cc"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Check Condition</th></tr><tr><td>RHN_CMETH_PGR_LENGTH_LIMIT<a name="cs-RHN_CMETH_PGR_LENGTH_LIMIT"></a></td><td>pager_max_message_length between 10 and 1920</td></tr>
+<tr><td>RHN_CMETH_RECID_NOTZERO<a name="cs-RHN_CMETH_RECID_NOTZERO"></a></td><td>recid &gt; 0</td></tr>
+</table><h3>Foreign Keys:<a name="t-fk"></a></h3>
+<table>
+<tr><th>Constraint Name</th><th>Columns</th><th>Referenced table</th><th>Referenced Constraint</th><th>On Delete Rule</th></tr><tr><td>RHN_CMETH_CONTACT_ID_FK<a name="cs-RHN_CMETH_CONTACT_ID_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-CONTACT_ID">CONTACT_ID </a>
+</td><td><a href="table-WEB_CONTACT.html"> WEB_CONTACT </a></td><td><a href="table-WEB_CONTACT.html#cs-WEB_CONTACT_PK">WEB_CONTACT_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CMETH_METHOD_TYPE_ID_FK<a name="cs-RHN_CMETH_METHOD_TYPE_ID_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-METHOD_TYPE_ID">METHOD_TYPE_ID </a>
+</td><td><a href="table-RHN_METHOD_TYPES.html"> RHN_METHOD_TYPES </a></td><td><a href="table-RHN_METHOD_TYPES.html#cs-RHN_MTHTP_RECID_PK">RHN_MTHTP_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CMETH_NTFMT_ID_FK<a name="cs-RHN_CMETH_NTFMT_ID_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-NOTIFICATION_FORMAT_ID">NOTIFICATION_FORMAT_ID </a>
+</td><td><a href="table-RHN_NOTIFICATION_FORMATS.html"> RHN_NOTIFICATION_FORMATS </a></td><td><a href="table-RHN_NOTIFICATION_FORMATS.html#cs-RHN_NTFMT_RECID_PK">RHN_NTFMT_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CMETH_PAGER_TYPE_ID_FK<a name="cs-RHN_CMETH_PAGER_TYPE_ID_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-PAGER_TYPE_ID">PAGER_TYPE_ID </a>
+</td><td><a href="table-RHN_PAGER_TYPES.html"> RHN_PAGER_TYPES </a></td><td><a href="table-RHN_PAGER_TYPES.html#cs-RHN_PGRTP_RECID_PK">RHN_PGRTP_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CMETH_SCHEDULE_ID_FK<a name="cs-RHN_CMETH_SCHEDULE_ID_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-SCHEDULE_ID">SCHEDULE_ID </a>
+</td><td><a href="table-RHN_SCHEDULES.html"> RHN_SCHEDULES </a></td><td><a href="table-RHN_SCHEDULES.html#cs-RHN_SCHED_RECID_PK">RHN_SCHED_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+<tr><td>RHN_CMETH_SENDER_SAT_CLUS_FK<a name="cs-RHN_CMETH_SENDER_SAT_CLUS_FK"></a></td><td><a href="table-RHN_CONTACT_METHODS.html#col-SENDER_SAT_CLUSTER_ID">SENDER_SAT_CLUSTER_ID </a>
+</td><td><a href="table-RHN_SAT_CLUSTER.html"> RHN_SAT_CLUSTER </a></td><td><a href="table-RHN_SAT_CLUSTER.html#cs-RHN_SATCL_RECID_PK">RHN_SATCL_RECID_PK </a>
+</td><td>NO ACTION</td></tr>
+</table><h3>Options:<a name="t-opt"></a></h3>
+<table>
+<tr><th>Option</th><th>Settings</th></tr><tr><td>Tablespace</td><td>DATA_TBS</td></tr>
+<tr><td>Index Organized</td><td>No</td></tr>
+<tr><td>Generated by Oracle</td><td>No</td></tr>
+<tr><td>Clustered</td><td>No</td></tr>
+<tr><td>Nested</td><td>No</td></tr>
+<tr><td>Temporary</td><td>No</td></tr>
+</table><h3>Indexes:<a name="t-ind"></a></h3>
+<table>
+<tr><th>Index Name</th><th>Type</th><th>Unuqueness</th><th>Columns</th><th>DDL script</th></tr><tr><td>RHN_CMETH_CONTACT_ID_IDX<a name="ind-RHN_CMETH_CONTACT_ID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-CONTACT_ID">CONTACT_ID </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_contact_id_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_CMETH_ID_NAME_UQ<a name="ind-RHN_CMETH_ID_NAME_UQ"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-CONTACT_ID">CONTACT_ID </a>
+, <a href="table-RHN_CONTACT_METHODS.html#col-METHOD_NAME">METHOD_NAME </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_id_name_uq.sql">DDL script</a></td></tr>
+<tr><td>RHN_CMETH_METHOD_TYPE_ID_IDX<a name="ind-RHN_CMETH_METHOD_TYPE_ID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-METHOD_TYPE_ID">METHOD_TYPE_ID </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_method_type_id_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_CMETH_RECID_PK<a name="ind-RHN_CMETH_RECID_PK"></a></td><td>NORMAL</td><td>UNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-RECID">RECID </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_recid_pk.sql">DDL script</a></td></tr>
+<tr><td>RHN_CMETH_SCHEDULE_ID_IDX<a name="ind-RHN_CMETH_SCHEDULE_ID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-SCHEDULE_ID">SCHEDULE_ID </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_schedule_id_idx.sql">DDL script</a></td></tr>
+<tr><td>RHN_CMETH_SNDR_SCID_IDX<a name="ind-RHN_CMETH_SNDR_SCID_IDX"></a></td><td>NORMAL</td><td>NONUNIQUE</td><td><a href="table-RHN_CONTACT_METHODS.html#col-SENDER_SAT_CLUSTER_ID">SENDER_SAT_CLUSTER_ID </a>
+</td><td><a href="sql_sources/index/rhn_cmeth_sndr_scid_idx.sql">DDL script</a></td></tr>
+</table><h3>Referenced by:<a name="t-refs"></a></h3>
+<table>
+<tr><th>Table</th><th>Constraint</th></tr><tr><td><a href="table-RHN_CONTACT_GROUP_MEMBERS.html"> RHN_CONTACT_GROUP_MEMBERS </a></td><td><a href="table-RHN_CONTACT_GROUP_MEMBERS.html#cs-RHN_CNTGM_MCMID_FK">RHN_CNTGM_MCMID_FK </a>
+</td></tr>
+<tr><td><a href="table-RHN_REDIRECT_METHOD_TARGETS.html"> RHN_REDIRECT_METHOD_TARGETS </a></td><td><a href="table-RHN_REDIRECT_METHOD_TARGETS.html#cs-RHN_RDRMT_CMETH_REDIRECT_ID_FK">RHN_RDRMT_CMETH_REDIRECT_ID_FK </a>
+</td></tr>
+</table><h3>Triggers</h3>
+<a name="t-trgs"></a><a name="trg-RHN_CMETH_VAL_TRIG"></a><h4>RHN_CMETH_VAL_TRIG</h4>
+<pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+<span class="reserved">CREATE</span> TRIGGER 
+rhn_cmeth_val_trig
+before <span class="reserved">insert</span> <span class="reserved">or</span> <span class="reserved">update</span> <span class="reserved">on</span> rhn_contact_methods
+referencing <span class="keyword">new</span> <span class="reserved">as</span> <span class="keyword">new</span> old <span class="reserved">as</span> old
+<span class="reserved">for</span> each <span class="keyword">row</span>
+
+REFERENCING <span class="keyword">NEW</span> <span class="reserved">AS</span> <span class="keyword">NEW</span> OLD <span class="reserved">AS</span> OLD
+<span class="reserved">declare</span>
+    msg  varchar2<span class="operator">(</span>200<span class="operator">)</span>;
+    missing_data <span class="reserved">exception</span>;
+<span class="reserved">begin</span>
+    msg <span class="operator">:</span><span class="operator">=</span><span class="string">'missing or invalid data for contact_methods table'</span>;
+
+    <span class="reserved">if</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>method_type_id <span class="operator">=</span> 1
+    <span class="reserved">then</span>
+
+    <span class="comment">--- pager fields pager_email,pager_split_long_messages should be not null</span>
+        <span class="reserved">if</span> <span class="operator">(</span>
+            <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>pager_email   <span class="reserved">is</span> <span class="reserved">null</span>     <span class="reserved">or</span>
+            <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>pager_split_long_messages  <span class="reserved">is</span> <span class="reserved">null</span> <span class="operator">)</span>
+        <span class="reserved">then</span>
+            <span class="keyword">raise</span> missing_data;
+        <span class="reserved">end</span> <span class="reserved">if</span>;
+    <span class="reserved">end</span> <span class="reserved">if</span>;
+
+    <span class="reserved">if</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>method_type_id <span class="operator">=</span> 2
+    <span class="reserved">then</span>
+
+    <span class="comment">--- the all email fields but email_reply_to should be not null</span>
+        <span class="reserved">if</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>email_address <span class="reserved">is</span> <span class="reserved">null</span>
+        <span class="reserved">then</span>
+            <span class="keyword">raise</span> missing_data;
+        <span class="reserved">end</span> <span class="reserved">if</span>;
+    <span class="reserved">end</span> <span class="reserved">if</span>;
+
+    <span class="reserved">if</span> <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>method_type_id <span class="operator">=</span> 5
+    <span class="reserved">then</span>
+
+    <span class="comment">--- the all sntp fields be not null</span>
+        <span class="reserved">if</span> <span class="operator">(</span><span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>snmp_host <span class="reserved">is</span> <span class="reserved">null</span>   <span class="reserved">or</span>
+           <span class="operator">:</span><span class="keyword">new</span><span class="operator">.</span>snmp_port <span class="reserved">is</span> <span class="reserved">null</span><span class="operator">)</span>
+        <span class="reserved">then</span>
+            <span class="keyword">raise</span> missing_data;
+        <span class="reserved">end</span> <span class="reserved">if</span>;
+    <span class="reserved">end</span> <span class="reserved">if</span>;
+
+    <span class="reserved">exception</span>
+    <span class="reserved">when</span> missing_data <span class="reserved">then</span>
+    raise_application_error <span class="operator">(</span><span class="operator">-</span>20012<span class="operator">,</span>msg<span class="operator">)</span>;
+    <span class="reserved">when</span> <span class="keyword">others</span> <span class="reserved">then</span>
+    <span class="keyword">raise</span>;
+<span class="reserved">end</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:14 2010</div>
+</body></html>

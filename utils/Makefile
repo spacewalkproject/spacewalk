@@ -6,8 +6,8 @@ NAME := spacewalk-utils
 
 SUBDIR  = utils
 
-FILES	= __init__ systemSnapshot migrateSystemProfile rhnLockfile rhn_fcntl
-SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata
+FILES	= __init__ systemSnapshot migrateSystemProfile
+SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata scr.cgi
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 

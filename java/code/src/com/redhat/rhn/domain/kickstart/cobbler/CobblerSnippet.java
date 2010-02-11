@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -130,6 +130,25 @@ public class CobblerSnippet implements Comparable {
         snippy.path = new File(getPrefixFor(snippy.org) + "/" + nameIn);
         return snippy;
     }
+    
+    /**
+     * Performs the same function as loadEditable, except it will return null instead 
+     *  of a bad snippet
+     * @param nameIn the snippet name ${name} in 
+     *          ${spacewalk.snippets.dir}/${org.id}/${name}
+     * @param orgIn the org in ${spacewalk.snippets.dir}/${org.id}/${name}
+     * @return the cobbler snippet. or null if doesn't exist
+     */
+    public static CobblerSnippet loadEditableIfExists(String nameIn, Org orgIn) {
+        File f = new File(getPrefixFor(orgIn) + "/" + nameIn);
+        if (f.exists()) {
+            return loadEditable(nameIn, orgIn);
+        }
+        else {
+            return null;
+        }
+    }
+    
     /**
      * Constructor load a non editable spacewalk cobbler snippets
      * as in all the snippets that reside under 

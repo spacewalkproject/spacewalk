@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -859,26 +859,6 @@ public class UserManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         return m.execute(params);
-    }
-
-    /**
-     * Returns the systems in the given set
-     * @param user The user
-     * @param label The name of the set
-     * @param pc Page Control
-     * @return completed DataResult
-     */
-    public static DataResult systemsInSet(User user, String label, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "in_set");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, params, pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
     }
 
     /**

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005--2010 Red Hat, Inc.
 #
 # Written by Joel Martin <jmartin@redhat.com>
 #
@@ -595,13 +595,14 @@ def getPkgData(filename):
             pkgdir = filename
         else:
             import tempfile
-            import popen2
+            import subprocess
             tdir = tempfile.mkdtemp()
-            c = popen2.Popen3(("pkgtrans", filename, tdir, "all"),
-                    capturestderr=1)
+            c = subprocess.Popen(("pkgtrans", filename, tdir, "all"),
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE, close_fds=True)
             ret = c.wait()
-            if ret != 0: return (pkginfo, depend)
-            m = PKGTRANSRE.match(c.childerr.read())
+            if ret: return (pkginfo, depend)
+            m = PKGTRANSRE.match(c.stderr.read())
             if not m: return (pkginfo, depend)
             pkgname = m.groups()[0]
             pkgdir = os.path.join(tdir, pkgname)

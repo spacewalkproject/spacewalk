@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>setup</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;setup
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="setup-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="setup-module.html">Module setup</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># setup of spacewalk-backend-libs</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">distutils</tt><tt class="py-op">.</tt><tt class="py-name">core</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module setup=setup-module.html"><a title="setup" class="py-name" href="#" onclick="return doclink('link-0', 'setup', 'link-0');">setup</a></tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt id="link-1" class="py-name"><a title="setup" class="py-name" href="#" onclick="return doclink('link-1', 'setup', 'link-0');">setup</a></tt><tt class="py-op">(</tt><tt id="link-2" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-2', 'name', 'link-2');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">[</tt><tt class="py-string">"PYTHON_MODULE_NAME"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">      <tt id="link-3" class="py-name" targets="Variable satellite_tools.xmlSource.SatelliteDispatchHandler.version=satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#version"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-3', 'version', 'link-3');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">environ</tt><tt class="py-op">[</tt><tt class="py-string">"PYTHON_MODULE_VERSION"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">      <tt id="link-4" class="py-name" targets="Method server.config_common.templated_document.ServerTemplatedDocument.description()=server.config_common.templated_document.ServerTemplatedDocument-class.html#description"><a title="server.config_common.templated_document.ServerTemplatedDocument.description" class="py-name" href="#" onclick="return doclink('link-4', 'description', 'link-4');">description</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Python libraries for the Spacewalk project"</tt><tt class="py-op">,</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">      <tt class="py-name">long_description</tt> <tt class="py-op">=</tt> <tt class="py-string">"""A collection of python modules used by the</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-string">Spacewalk (http://spacewalk.redhat.com) software."""</tt><tt class="py-op">,</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">      <tt id="link-5" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.url=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#url,Variable satellite_tools.reposync.RepoSync.url=satellite_tools.reposync.RepoSync-class.html#url,Variable satellite_tools.xmlWireSource.BaseWireSource.url=satellite_tools.xmlWireSource.BaseWireSource-class.html#url"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-5', 'url', 'link-5');">url</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'http://spacewalk.redhat.com'</tt><tt class="py-op">,</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">      <tt id="link-6" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#packages,Module server.action.packages=server.action.packages-module.html,Module server.action_extra_data.packages=server.action_extra_data.packages-module.html,Module server.handlers.app.packages=server.handlers.app.packages-module.html,Module server.handlers.xp.packages=server.handlers.xp.packages-module.html"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.packages
+server.action.packages
+server.action_extra_data.packages
+server.handlers.app.packages
+server.handlers.xp.packages" class="py-name" href="#" onclick="return doclink('link-6', 'packages', 'link-6');">packages</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"spacewalk"</tt><tt class="py-op">,</tt> <tt class="py-string">"spacewalk/common"</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">      <tt class="py-name">license</tt> <tt class="py-op">=</tt> <tt class="py-string">"GPL"</tt><tt class="py-op">,</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">      <tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

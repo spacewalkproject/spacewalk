@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -128,15 +128,6 @@ sub active {
   }
 
   return $cache->get('tracing_active') || 0;
-}
-
-sub clear_traces {
-  my $self = shift;
-
-  my $cache = $self->get_cache;
-  my $tracing = $cache->get('tracing_active');
-  $cache->clear;
-  $cache->set('tracing_active', $tracing);
 }
 
 sub get_cache {

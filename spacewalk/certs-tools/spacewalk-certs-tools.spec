@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 0.8.3
+Version: 0.9.0
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -10,7 +10,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl rpm-build
 Requires: rhn-client-tools
-Requires: spacewalk-backend-libs >= 0.8.3
+Requires: spacewalk-backend-libs >= 0.8.28
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
@@ -56,6 +56,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.7-1
+- updated copyrights
+
+* Mon Jan 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.6-1
+- dead code / imports
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.5-1
+- fixed build error
+
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.4-1
+- removed duplicated code
+
 * Mon Dec 14 2009 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
 - fixed namespace of rhn_rpm
 - removed dead code

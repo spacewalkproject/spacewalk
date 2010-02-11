@@ -82,12 +82,14 @@ SELECT PN.id AS NAME_ID,
        PE.evr.version AS VERSION,
        PE.evr.release AS RELEASE,
        PE.evr.epoch AS EPOCH,
+       PA.label as ARCH,
        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageNEVRA PNEVRA,
        rhnSnapshotPackage SP,
-       rhnSnapshot S
+       rhnSnapshot S,
+       rhnPackageArch PA
  WHERE S.id = :ss_id
    AND S.server_id = :sid
    AND S.id = SP.snapshot_id
@@ -96,6 +98,7 @@ SELECT PN.id AS NAME_ID,
    AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
                      PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
    AND PNEVRA.evr_id = PE.id
+   AND PNEVRA.package_arch_id = PA.id
 ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END))
   </query>
 </mode>
@@ -467,12 +470,14 @@ SELECT  PN.id || '|' || PE.id AS ID,
         PE.version,
         PE.release,
         PE.epoch,
+        PA.label as arch,
         PN.id AS NAME_ID,
         PE.id AS EVR_ID
-  FROM  rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
+  FROM  rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP, rhnPackageArch PA
  WHERE  SP.server_id = :sid
    AND  SP.name_id = PN.id
    AND  SP.evr_id = PE.id
+   AND  SP.package_arch_id = PA.id
 ORDER BY UPPER(NVRE)
   </query>
 </mode>

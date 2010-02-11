@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.exporter-module.html">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter-module.html" onclick="show_private();">Package&nbsp;exporter</a> ::
         <a href="satellite_tools.exporter.exportLib-module.html">Module&nbsp;exportLib</a> ::
         Class&nbsp;ServerGroupTypeDumper
       </span>
@@ -56,7 +56,21 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ServerGroupTypeDumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.exporter.exportLib-pysrc.html#ServerGroupTypeDumper">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_satellit_78" name="uml_class_diagram_for_satellit_78">
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#__init__" title="satellite_tools.exporter.exportLib.BaseDumper.__init__" alt="" coords="17,36,383,55"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#timer" title="satellite_tools.exporter.exportLib.BaseDumper.timer" alt="" coords="17,55,383,73"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_attributes" title="satellite_tools.exporter.exportLib.BaseDumper.set_attributes" alt="" coords="17,73,383,92"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#dump" title="satellite_tools.exporter.exportLib.BaseDumper.dump" alt="" coords="17,92,383,111"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#get_writer" title="satellite_tools.exporter.exportLib.BaseDumper.get_writer" alt="" coords="17,111,383,129"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html#set_writer" title="satellite_tools.exporter.exportLib.BaseDumper.set_writer" alt="" coords="17,129,383,148"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.BaseDumper-class.html" title="satellite_tools.exporter.exportLib.BaseDumper" alt="" coords="16,11,384,149"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html#tag_name" title="satellite_tools.exporter.exportLib.ServerGroupTypeDumper.tag_name" alt="" coords="108,196,292,215"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html#set_iterator" title="satellite_tools.exporter.exportLib.ServerGroupTypeDumper.set_iterator" alt="" coords="108,217,292,236"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html#dump_subelement" title="satellite_tools.exporter.exportLib.ServerGroupTypeDumper.dump_subelement" alt="" coords="108,236,292,255"/>
+<area shape="rect" href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html" title="satellite_tools.exporter.exportLib.ServerGroupTypeDumper" alt="" coords="107,179,293,256"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_78.png" alt='' usemap="#uml_class_diagram_for_satellit_78" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -143,17 +157,17 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-server-group-types'">'rhn-server-group-types'</code>
+        <a name="tag_name"></a><span class="summary-name">tag_name</span> = <code title="'rhn-server-group-types'"><code class="variable-quote">'</code><code class="variable-string">rhn-server-group-types</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html#_query_set_iterator" class="summary-name" onclick="show_private();">_query_set_iterator</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.exporter.exportLib.ServerGroupTypeDumper-class.html#_query_set_iterator" class="summary-name" onclick="show_private();">_query_set_iterator</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147161900; statement=
         select label, name
           from rhnServerGroupType
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -251,10 +265,10 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147161900; statement=
         select label, name
           from rhnServerGroupType
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -284,7 +298,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:30 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

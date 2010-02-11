@@ -56,7 +56,26 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Repository</h1><p class="nomargin-top"><span class="codelink"><a href="server.repomd.repository-pysrc.html#Repository">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_r_2" name="uml_class_diagram_for_server_r_2">
+<area shape="rect" href="server.repomd.repository.Repository-class.html#channel" title="Late binding for the channel." alt="" coords="17,28,311,47"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,49,311,68"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_primary_xml_file" title="Return a file&#45;like object of the primarl.xml for this channel." alt="" coords="17,68,311,87"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_other_xml_file" title="Return a file&#45;like object of the other.xml for this channel." alt="" coords="17,87,311,105"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_filelists_xml_file" title="Return a file&#45;like object of the filelists.xml for this channel." alt="" coords="17,105,311,124"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_updateinfo_xml_file" title="Return a file&#45;like object of the updateinfo.xml for the channel." alt="" coords="17,124,311,143"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_cache_entry_name" title="server.repomd.repository.Repository.get_cache_entry_name" alt="" coords="17,143,311,161"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_cache_file" title="server.repomd.repository.Repository.get_cache_file" alt="" coords="17,161,311,180"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_cache_view" title="server.repomd.repository.Repository.get_cache_view" alt="" coords="17,180,311,199"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_primary_cache" title="server.repomd.repository.Repository.get_primary_cache" alt="" coords="17,199,311,217"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_other_cache" title="server.repomd.repository.Repository.get_other_cache" alt="" coords="17,217,311,236"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_filelists_cache" title="server.repomd.repository.Repository.get_filelists_cache" alt="" coords="17,236,311,255"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_primary_view" title="server.repomd.repository.Repository.get_primary_view" alt="" coords="17,255,311,273"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#get_other_view" title="server.repomd.repository.Repository.get_other_view" alt="" coords="17,273,311,292"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html#generate_files" title="server.repomd.repository.Repository.generate_files" alt="" coords="17,311,311,329"/>
+<area shape="rect" href="server.repomd.repository.Repository-class.html" title="Representation of RHN channels as repository metadata." alt="" coords="16,11,312,331"/>
+</map>
+  <img src="uml_class_diagram_for_server_r_2.png" alt='' usemap="#uml_class_diagram_for_server_r_2" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Representation of RHN channels as repository metadata.</p>
@@ -364,27 +383,11 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="channel"></a><span class="summary-sig-name">channel</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Late binding for the channel.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="server.repomd.repository-pysrc.html#Repository.channel">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__new__</code>,
@@ -392,7 +395,9 @@
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -414,6 +419,14 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.repomd.repository.Repository-class.html#channel" class="summary-name">channel</a><br />
+      Late binding for the channel.
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
@@ -467,6 +480,40 @@
 </td></tr></table>
 </div>
 <br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="channel"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">channel</h3>
+  <p>Late binding for the channel.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><a href="server.repomd.repository.Repository-class.html#__get_channel" class="summary-sig-name" onclick="show_private();">__get_channel</a>(<span class="summary-sig-arg">self</span>)</span>
+        - Late binding for the channel.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -490,7 +537,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:16 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:00 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

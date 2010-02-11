@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,9 +23,12 @@ use RHN::DB::TableClass;
 use RHN::Exception qw/throw/;
 use RHN::Action;
 use RHN::Token;
-use RHN::TinyURL;
 use RHN::DataSource::Simple;
-use RHN::Server;
+
+use PXT::Config ();
+use RHN::DataSource::General ();
+use RHN::KSTree ();
+use RHN::SessionSwap ();
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -269,39 +272,6 @@ sub get_url {
   return $url;
 }
 
-sub get_tiny_url {
-  my $self = shift;
-  my %params = validate(@_, { expected_time => 0 });
-
-  my $url = $self->get_url;
-  my $host = $self->system_rhn_host;
-
-  my ($tu, $token) =
-    RHN::TinyURL->tinify_path(-path => $url->full_path,
-			      -host => $host,
-			      -expiration => $params{expected_time});
-
-  return ($tu, $token);
-}
-
-sub fail_inprogress {
-  my $class = shift;
-  my %params = validate(@_, {org_id => 1, sid => 1});
-
-  my $ds = new RHN::DataSource::General(-mode => 'kickstart_sessions_for_system');
-  my $data = $ds->execute_full(-sid => $params{sid});
-
-  foreach my $row (@{$data}) {
-    next if (grep { $row->{STATE_LABEL} eq $_ } qw/failed complete/);
-    next if ($row->{NEW_SERVER_ID} and $row->{NEW_SERVER_ID} != $params{sid});
-
-    my $session = $class->lookup(-id => $row->{ID});
-    $session->mark_failed('A new kickstart session was initiated for this system.');
-  }
-
-  return;
-}
-
 sub action {
   my $self = shift;
 
@@ -343,79 +313,12 @@ sub activation_keys {
   return @tokens;
 }
 
-sub mark_failed {
-  my $self = shift;
-  my $message = shift;
-
-  my $action = $self->action;
-
-  if ($action) {
-
-    while ($action->prerequisite) {
-      $action = $action->prerequisite_action;
-    }
-
-    if ($self->current_server) {
-      RHN::Action->delete_systems_from_action($action->id, $self->current_server->id);
-    }
-  }
-
-  $self->update_state('failed');
-  $self->action_id('');
-  $self->commit;
-
-  $self->set_history_message($message) if $message;
-}
-
-sub old_server {
-  my $self = shift;
-
-  my $sid = $self->old_server_id;
-
-  return $sid ? RHN::Server->lookup(-id => $sid) : undef;
-}
-
-sub new_server {
-  my $self = shift;
-
-  my $sid = $self->new_server_id;
-
-  return $sid ? RHN::Server->lookup(-id => $sid) : undef;
-}
-
-sub current_server {
-  my $self = shift;
-
-  return ($self->new_server || $self->old_server);
-}
-
 sub kstree {
   my $self = shift;
 
   return unless $self->kstree_id;
 
   return RHN::KSTree->lookup(-id => $self->kstree_id);
-}
-
-sub set_history_message {
-  my $self = shift;
-  my $message = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  $dbh->call_procedure("set_ks_session_history_message", $self->id, $self->session_state_label, $message);
-  $dbh->commit;
-
-  return;
-}
-
-sub last_history_event {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::Simple(-querybase => 'General_queries', -mode => 'kickstart_session_history');
-  my $data = $ds->execute_query(-kssid => $self->id);
-
-  return $data->[-1];
 }
 
 1;

@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.disk_dumper-module.html">Package&nbsp;disk_dumper</a> ::
+        <a href="satellite_tools.disk_dumper-module.html" onclick="show_private();">Package&nbsp;disk_dumper</a> ::
         <a href="satellite_tools.disk_dumper.dumper-module.html">Module&nbsp;dumper</a> ::
         Class&nbsp;XML_Dumper
       </span>
@@ -55,6 +55,31 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class XML_Dumper</h1><p class="nomargin-top"><span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_Dumper">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_satellit_43" name="uml_class_diagram_for_satellit_43">
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html" title="satellite_tools.disk_dumper.dumper.XML_DumperEx" alt="" coords="181,347,293,373"/>
+<area shape="rect" href="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html" title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper" alt="" coords="16,403,459,429"/>
+<area shape="rect" href="satellite_tools.disk_dumper.iss.Dumper-class.html" title="satellite_tools.disk_dumper.iss.Dumper" alt="" coords="344,347,427,373"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#__init__" title="satellite_tools.disk_dumper.dumper.XML_Dumper.__init__" alt="" coords="60,36,561,55"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channel_families_statement" alt="" coords="60,55,561,73"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channel_families_statement_new" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channel_families_statement_new" alt="" coords="60,73,561,92"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_channels_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_channels_statement" alt="" coords="60,92,561,111"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_packages_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_packages_statement" alt="" coords="60,111,561,129"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_source_packages_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_source_packages_statement" alt="" coords="60,129,561,148"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#get_errata_statement" title="satellite_tools.disk_dumper.dumper.XML_Dumper.get_errata_statement" alt="" coords="60,148,561,167"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_blacklist_obsoletes" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_blacklist_obsoletes" alt="" coords="60,167,561,185"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_arches" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_arches" alt="" coords="60,185,561,204"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_server_group_type_server_arches" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_server_group_type_server_arches" alt="" coords="60,204,561,223"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channel_families" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_channel_families" alt="" coords="60,223,561,241"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channels" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_channels" alt="" coords="60,241,561,260"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_channel_packages_short" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_channel_packages_short" alt="" coords="60,260,561,279"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#dump_kickstartable_trees" title="satellite_tools.disk_dumper.dumper.XML_Dumper.dump_kickstartable_trees" alt="" coords="60,297,561,316"/>
+<area shape="rect" href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html" title="satellite_tools.disk_dumper.dumper.XML_Dumper" alt="" coords="59,11,563,317"/>
+</map>
+  <img src="uml_class_diagram_for_satellit_43.png" alt='' usemap="#uml_class_diagram_for_satellit_43" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -241,7 +266,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="dump_server_group_type_server_arches"></a><span class="summary-sig-name">dump_server_group_type_server_arches</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">rpm_arch_type_only</span>=<span class="summary-sig-default">0</span>)</span></td>
+        <span class="summary-sig-arg">rpm_arch_type_only</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">virt_filter</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_Dumper.dump_server_group_type_server_arches">source&nbsp;code</a></span>
             
@@ -312,7 +338,8 @@
           <td><span class="summary-sig"><a name="_cache_channel_packages_short"></a><span class="summary-sig-name">_cache_channel_packages_short</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">channel_id</span>,
         <span class="summary-sig-arg">key</span>,
-        <span class="summary-sig-arg">last_modified</span>)</span></td>
+        <span class="summary-sig-arg">last_modified</span>)</span><br />
+      Caches the short package entries for channel_id</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_Dumper._cache_channel_packages_short">source&nbsp;code</a></span>
             
@@ -329,7 +356,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="_normalize_compressed_stream"></a><span class="summary-sig-name">_normalize_compressed_stream</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">stream</span>)</span></td>
+        <span class="summary-sig-arg">stream</span>)</span><br />
+      Given a compressed stream, will either return the stream, or will 
+      decompress it and return it, depending on the compression level 
+      self.compress_level</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.disk_dumper.dumper-pysrc.html#XML_Dumper._normalize_compressed_stream">source&nbsp;code</a></span>
             
@@ -500,7 +530,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147206092; statement=
         select cp.package_id, 
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modif\
 ied
@@ -508,20 +538,20 @@ ied
                rhnPackage p
          where cp.channel_id = :channel_id
            and cp.package_id = p.id
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_validate_kickstarts" class="summary-name" onclick="show_private();">_query_validate_kickstarts</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.disk_dumper.dumper.XML_Dumper-class.html#_query_validate_kickstarts" class="summary-name" onclick="show_private();">_query_validate_kickstarts</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 147402924; statement=
         select kt.label kickstart_label,
                TO_CHAR(kt.modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnKickstartableTree kt
          where kt.channel_id = :channel_id
            and kt.org_id is null
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -555,7 +585,7 @@ ied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147206092; statement=
         select cp.package_id, 
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modif<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
 ied
@@ -581,13 +611,13 @@ ied
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 147402924; statement=
         select kt.label kickstart_label,
                TO_CHAR(kt.modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnKickstartableTree kt
          where kt.channel_id = :channel_id
            and kt.org_id is null
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -617,7 +647,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:10 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:26 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

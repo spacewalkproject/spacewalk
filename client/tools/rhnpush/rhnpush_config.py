@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,7 +34,7 @@ False = 0
 class rhnpushConfigParser:
     _instance = None
 
-    def __init__(self, filename, ensure_consistency=False):
+    def __init__(self, filename=None, ensure_consistency=False):
                 
         #Defaults that are used if the ensure_consistency parameter of the constructor is true
         #and the config file that is being read is missing some values.
@@ -69,20 +69,15 @@ class rhnpushConfigParser:
         #Used to parse the config file.
         self.settings = ConfigParser.ConfigParser()
         
-        
-        if filename is None:
-            print "filename not passed to the rhnpushConfigParser constructor."
-            sys.exit(1)
-        else:
-            self.filename = filename
-        
         #use options from the rhnpush section.  
         self.section = "rhnpush"
 
         self.username = None
         self.password = None    
     
-        self._read_config_files()
+        if filename:
+            self.filename = filename
+            self._read_config_files()
 
         #Take all of the options read from the configuration file and add them as attributes 
         #(instance variables, member variables, whatever) of this object.
@@ -104,10 +99,7 @@ class rhnpushConfigParser:
 
     def write(self, fileobj):
         try:
-            if hasattr(self.settings, "write"):
-                self.settings.write(fileobj)
-            else:
-                _write(self.settings, fileobj)
+            self.settings.write(fileobj)
         except IOError, e:
             print "Config File Error: line %s, file %s: $s" % (e.lineno, e.filename, e)
             sys.exit(1)
@@ -129,7 +121,10 @@ class rhnpushConfigParser:
 
     #Returns the keys of the options read in from the configuration files.
     def _keys(self):
-        return self.settings.options(self.section)
+        if self.settings.has_section(self.section):
+            return self.settings.options(self.section)
+        else:
+            return ()
 
     #Returns an option read in from the configuration files.
     def __getitem__(self, item):
@@ -144,19 +139,5 @@ class rhnpushConfigParser:
         if ensure_consistency:
             for thiskey in self.options_defaults.keys():
                 if not self.__dict__.has_key(thiskey):
-                    print "/etc/sysconfig/rhn/rhnpushrc is missing %s option." % (thiskey)
-                    print "Option %s is being set to the default value of %s." % (thiskey, self.options_defaults[thiskey])
                     self.__dict__[thiskey] = self.options_defaults[thiskey]
-
-#Used in Python 1.5.2 because its ConfigParser class doesn't have write(). 
-#settings needs to be a ConfigParser object.
-#fileobj is a fileobj that's ready to be written to.
-def _write(settings, fileobj):
-    all_sections = settings.sections()
-    
-    for sect in all_sections:
-        fileobj.write("[%s]\n" % (sect))
-        
-        for opt in settings.options(sect):
-            fileobj.write("%s = %s\n" % (opt, settings.get(sect, opt)))
 

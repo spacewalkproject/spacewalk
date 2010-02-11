@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -109,6 +109,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(PackageProviderSerializer.class);
         SERIALIZER_CLASSES.add(PackageDtoSerializer.class);
         SERIALIZER_CLASSES.add(PackageOverviewSerializer.class);
+        SERIALIZER_CLASSES.add(SnippetSerializer.class);
     }
     
     /**

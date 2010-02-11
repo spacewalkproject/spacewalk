@@ -29,6 +29,7 @@
   <template name="kickstart.profile.software" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler" />
   <template name="kickstart.profile.system" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system.SystemDetailsHandler" />
   <template name="kickstart.profile.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler" />
+  <template name="kickstart.snippet" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.snippet.SnippetHandler" />
   <template name="kickstart.tree" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler" />
   <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
   <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />

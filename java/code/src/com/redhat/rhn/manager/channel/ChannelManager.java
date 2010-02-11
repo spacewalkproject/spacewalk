@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -2633,11 +2633,12 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();
         params.put("cid", chan.getId());
 
-        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_package");
-        for (Long pid : packageIds) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "add_channel_packages");
+        m.executeUpdate(params, packageIds);
+    /*    for (Long pid : packageIds) {
             params.put("pid", pid);
             m.executeUpdate(params);
-        }
+        }*/
 
 
         HibernateFactory.getSession().refresh(chan);

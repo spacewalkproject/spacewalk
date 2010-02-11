@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.183.11
+Version:      1.183.13
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -73,6 +73,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.183.13-1
+- updated copyrights
+
+* Thu Jan  7 2010 Miroslav Suchý <msuchy@redhat.com> 1.183.12-1
+- enhance monitoring-data-cleanup to allow delete in smaller chunk
+
 * Fri Aug 28 2009 Miroslav Suchý <msuchy@redhat.com> 1.183.11-1
 - 520101 - add monitoring-data-cleanup script
 

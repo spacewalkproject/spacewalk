@@ -3,8 +3,9 @@
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
   do
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      /usr/share/selinux/${selinuxvariant}/oracle-xe.pp &> /dev/null || :
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        /usr/share/selinux/${selinuxvariant}/oracle-xe.pp || :
   done
 
 /usr/sbin/semanage port -a -t oracle_port_t -p tcp 9055 || :

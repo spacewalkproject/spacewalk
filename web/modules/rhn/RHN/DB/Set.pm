@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,8 +18,9 @@ use strict;
 package RHN::DB::Set;
 
 use RHN::DB;
+use RHN::User ();
+
 use Carp;
-use Data::Dumper;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -70,10 +71,6 @@ sub contains {
   return exists $self->{contents}->{$val};
 }
 
-sub element_count {
-  return scalar keys %{$_[0]->{contents}};
-}
-
 sub empty {
   $_[0]->{contents} = { };
 }
@@ -101,47 +98,6 @@ sub add {
   @vals = map { ref $_ ? join("|", @$_) : $_ } @vals;
 
   @{$self->{contents}}{@vals} = (1) x @vals;
-}
-
-sub immediate_add {
-  my $self = shift;
-  my @vals = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("INSERT INTO rhnSet (user_id, label, element, element_two) VALUES (?, ?, ?, ?)");
-
-  for my $val (@vals) {
-    if (ref $val) {
-      $sth->execute($self->uid, $self->label, $val->[0], $val->[1])
-	unless exists $self->{contents}->{join("|", @$val)};
-    }
-    else {
-      $sth->execute($self->uid, $self->label, $val, undef)
-	unless exists $self->{contents}->{$val};
-    }
-  }
-
-  $self->add(@vals);
-}
-
-sub immediate_remove {
-  my $self = shift;
-  my @vals = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  for my $val (@vals) {
-    if (ref $val) {
-      my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ? AND element_two = ?");
-      $sth->execute($self->uid, $self->label, $val->[0], $val->[1]);
-    }
-    else {
-      my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ?");
-      $sth->execute($self->uid, $self->label, $val);
-    }
-  }
-
-  $self->remove(@vals);
 }
 
 sub remove {
@@ -297,52 +253,6 @@ EOQ
   $dbh->commit;
 }
 
-
-sub num_proxies_in_set {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-
-  $query = <<EOQ;
-SELECT COUNT(ST.element)
-  FROM rhnProxyInfo PI,
-       rhnSet ST
- WHERE ST.user_id = ?
-   AND ST.label = ?
-   AND ST.element = PI.server_id
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->uid, $self->label);
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish();
-
-  return $count;
-}
-
-sub num_satellites_in_set {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-
-  $query = <<EOQ;
-SELECT COUNT(ST.element)
-  FROM rhnSatelliteInfo SI,
-       rhnSet ST
- WHERE ST.user_id = ?
-   AND ST.label = ?
-   AND ST.element = SI.server_id
-EOQ
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->uid, $self->label);
-
-  my ($count) = $sth->fetchrow;
-  $sth->finish();
-
-  return $count;
-}
 
 sub remove_scheduled_errata_for_system {
   my $self = shift;

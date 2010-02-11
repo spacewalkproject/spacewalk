@@ -44,7 +44,7 @@
                            sortattr="description"
                            defaultsort="asc"
                            filterattr="description">
-                    <a href="ProbeSuiteProbeEdit.do?suite_id=${probeSuite.id}&probe_id=${current.id}">
+                    <a href="ProbeSuiteProbeEdit.do?suite_id=${suite_id}&probe_id=${current.id}">
 					<c:out value="${current.description}"/>
                     </a>
 

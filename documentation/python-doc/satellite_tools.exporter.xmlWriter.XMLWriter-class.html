@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.exporter-module.html">Package&nbsp;exporter</a> ::
+        <a href="satellite_tools.exporter-module.html" onclick="show_private();">Package&nbsp;exporter</a> ::
         <a href="satellite_tools.exporter.xmlWriter-module.html">Module&nbsp;xmlWriter</a> ::
         Class&nbsp;XMLWriter
       </span>
@@ -81,9 +81,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">charset</span>=<span class="summary-sig-default">&quot;iso-8859-1&quot;</span>,
-        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">&quot;UTF-8&quot;</span>,
-        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdout</span>,
+        <span class="summary-sig-arg">charset</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">iso-8859-1</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">UTF-8</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">stream</span>=<span class="summary-sig-default">sys.stdin</span>,
         <span class="summary-sig-arg">skip_xml_decl</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.__init__">source&nbsp;code</a></span>
@@ -119,7 +119,7 @@
         <tr>
           <td><span class="summary-sig"><a name="open_tag"></a><span class="summary-sig-name">open_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span><br />
       Opens a tag with the specified attributes</td>
           <td align="right" valign="top">
@@ -139,7 +139,7 @@
         <tr>
           <td><span class="summary-sig"><a name="empty_tag"></a><span class="summary-sig-name">empty_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span><br />
       Writes an empty tag with the specified attributes</td>
           <td align="right" valign="top">
@@ -160,7 +160,7 @@
           <td><span class="summary-sig"><a name="_open_tag"></a><span class="summary-sig-name">_open_tag</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">empty</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default">{}</span>,
+        <span class="summary-sig-arg">attributes</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
         <span class="summary-sig-arg">namespace</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter._open_tag">source&nbsp;code</a></span>
@@ -244,22 +244,6 @@
       
     </td>
   </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="__del__"></a><span class="summary-sig-name">__del__</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="satellite_tools.exporter.xmlWriter-pysrc.html#XMLWriter.__del__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 </table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
@@ -282,22 +266,18 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_with_native_unicode"></a><span class="summary-name">_with_native_unicode</span> = <code title="0">0</code>
+        <a name="_re"></a><span class="summary-name">_re</span> = <code title="re.compile(r'(&amp;|&lt;|&gt;|\'|&quot;|[^\t\n\r -\xff])')">re.compile(r'<code class="re-group">(</code>&amp;<code class="re-op">|</code>&lt;<code class="re-op">|</code>&gt;<code class="re-op">|</code>\'<code class="re-op">|</code>&quot;<code class="re-op">|</code><code class="re-group">[</code><code class="re-op">^</code>\t\n\r <code class="re-op">-</code>\xff<code class="re-group">]</code><code class="re-group">)</code>')</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_re"></a><span class="summary-name">_re</span> = <code title="re.compile(&quot;(&amp;|&lt;|&gt;|'|\&quot;|[^\x09\x0a\x0d\x20-\xFF])&quot;)">re.compile(&quot;(&amp;|&lt;|&gt;|'|\&quot;|[^\x09\x0a\x0d\x20-\xFF])&quot;)</code>
-    </td>
-  </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#_escaped_chars" class="summary-name" onclick="show_private();">_escaped_chars</a> = <code title="{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;': '&amp;quot;', &quot;'&quot;: '&amp;apos;',\
-}">{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;':<code class="variable-ellipsis">...</code></code>
+        <a href="satellite_tools.exporter.xmlWriter.XMLWriter-class.html#_escaped_chars" class="summary-name" onclick="show_private();">_escaped_chars</a> = <code title="{'&quot;': '&amp;quot;',
+ '&amp;': '&amp;amp;',
+ '\'': '&amp;apos;',
+ '&lt;': '&amp;lt;',
+ '&gt;': '&amp;gt;'}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;quot;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;amp;</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;apos;</code><code class="variable-quote">'</code><code class="variable-op">,</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -395,8 +375,11 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-{'&amp;': '&amp;amp;', '&lt;': '&amp;lt;', '&gt;': '&amp;gt;', '&quot;': '&amp;quot;', &quot;'&quot;: '&amp;apos;',<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-}
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">&quot;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;quot;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&amp;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;amp;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">\'</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;apos;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&lt;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;lt;</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">&gt;</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">&amp;gt;</code><code class="variable-quote">'</code><code class="variable-group">}</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -426,7 +409,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:11 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:31 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

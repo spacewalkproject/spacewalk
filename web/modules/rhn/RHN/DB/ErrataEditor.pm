@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@ use strict;
 package RHN::DB::ErrataEditor;
 
 use RHN::DB;
-use RHN::Channel;
 use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Errata;
@@ -26,38 +25,6 @@ use RHN::Exception qw/throw/;
 
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
-
-sub packages_in_errata {
-  my $class = shift;
-  my $eid = shift;
-  my $temp = shift || 0;
-
-  die "No errata id!" unless $eid;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  my $table = $temp ? 'rhnErrataPackageTmp' : 'rhnErrataPackage';
-
-  $query = <<EOS;
-  SELECT DISTINCT EP.package_id
-    FROM $table EP
-   WHERE EP.errata_id = ?
-EOS
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute($eid);
-
-  my @result;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @result, $pid;
-  }
-
-  return @result;
-}
 
 sub publish_errata {
   my $class = shift;
@@ -183,144 +150,6 @@ EOQ
   $dbh->nested_commit;
 
   return ($new_eid);
-}
-
-#remove all packages from errata, and replace with contents of set.
-#Caller is responsible for making sure the user is allowed to do this
-sub replace_errata_packages {
-  my $class = shift;
-  my $errata = shift;
-  my $set = shift;
-
-  die "No errata" unless $errata;
-
-  my $eid = $errata->id;
-
-  my $eptable = $errata->table_map('rhnErrataPackage');
-
-  my $query = <<EOQ;
-DELETE FROM $eptable
- WHERE errata_id = ?
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  $dbh->nest_transactions;
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($eid);
-
-  $query = <<EOQ;
-SELECT element
-  FROM rhnSet
- WHERE label = :label
-   AND user_id = :uid
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(label => $set->label, user_id => $set->uid);
-  my @pids;
-
-  while (my ($pid) = $sth->fetchrow) {
-    push @pids, $pid;
-  }
-
-  $query = <<EOQ;
-INSERT
-  INTO $eptable
-       (errata_id, package_id)
-VALUES (:eid, :pid)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  foreach my $pid (@pids) {
-    $sth->execute_h(eid => $eid, pid => $pid);
-  }
-
-  $errata->refresh_erratafiles();
-
-  $dbh->nested_commit;
-
-  return 1;
-}
-
-sub assign_errata_to_channels {
-  my $class = shift;
-  my $eid = shift;
-  my $channels = shift;
-  my $transaction = shift;
-
-  my $dbh = $transaction || RHN::DB->connect();
-  $dbh->nest_transactions;
-
-  my $query = <<EOQ;
-DELETE FROM rhnChannelErrata
- WHERE errata_id = ?
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($eid);
-
-  $query = <<EOQ;
-INSERT INTO rhnChannelErrata
-       (errata_id, channel_id)
-VALUES (?, ?)
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  my $rrqh = $dbh->prepare(<<EOQ);
-INSERT 
-  INTO rhnRepoRegenQueue
-        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
-VALUES (rhn_repo_regen_queue_id_seq.nextval,
-        :label, 'perl-web', 'assign_errata_to_channels', 'N', 'N', sysdate, sysdate, sysdate)
-EOQ
-
-  foreach my $cid (@{$channels}) {
-    $sth->execute($eid, $cid);
-    my $channel = RHN::Channel->lookup(-id => $cid);
-    $rrqh->execute(label => $channel->label);
-  }
-
-  $sth->finish;
-  $rrqh->finish;
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-  $errata->refresh_erratafiles;
-
-  $dbh->nested_commit;
-
-  return 1;
-}
-
-# schedule errata notices for all orgs that have access to a channel
-# that this errata affects, instead of just the org that owns the
-# errata
-
-sub update_notification_queue {
-  my $class = shift;
-
-  my $eid = shift;
-  my $minutes_from_now = shift || 0;
-
-  my $dbh = RHN::DB->connect;
-
-  $dbh->do('DELETE FROM rhnErrataQueue ENQ WHERE ENQ.errata_id = ?', { }, $eid);
-
-  my $sth = $dbh->prepare(<<EOQ);
-INSERT INTO rhnErrataQueue
-       (errata_id, next_action)
-VALUES
-       (:errata_id, sysdate + :minutes/1440)
-EOQ
-
-  $sth->execute_h(errata_id => $eid, minutes => $minutes_from_now);
-
-  $dbh->commit;
-
-  return;
 }
 
 sub find_next_advisory {
@@ -499,22 +328,6 @@ sub find_clones_of_errata {
   push @{$data}, @{$data2};
 
   return $data;
-}
-
-sub delete_errata {
-  my $class = shift;
-  my $eid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
-
-  die "Attempt to delete RHN errata '$eid'" unless $errata->org_id;
-
-  $dbh->call_procedure('delete_errata', $eid);
-
-  $dbh->commit;
 }
 
 1;

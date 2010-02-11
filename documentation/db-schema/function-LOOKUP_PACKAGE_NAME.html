@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head><title> Spacewalk DB Schema - Function - LOOKUP_PACKAGE_NAME returns NUMBER(38) </title>
+        <link rel="stylesheet" type="text/css" href="oraschemadoc.css" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="author" content="Petr Vanek, petr@scribus.info" />
+        <meta name="generator" content="oraschemadoc" />
+        </head>
+        <body>
+            <div class="contextbar">
+            <a href="main.html">Main</a>
+            <a href="tables-list.html">Tables</a>
+            <a href="views-list.html">Views</a>
+            <a href="mviews-list.html">Materialized&nbsp;Views</a>
+            <a href="indexes-list.html">Indexes</a>
+            <a href="constraints-list.html">Constraints</a>
+            <a href="triggers-list.html">Triggers</a>
+            <a href="procedures-list.html">Procedures</a>
+            <a href="functions-list.html">Functions</a>
+            <a href="packages-list.html">Packages</a>
+            <a href="sequences.html">Sequences</a>
+            <a href="java-sources-list.html">Java&nbsp;Sources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="sanity-check.html">Sanity&nbsp;Check</a>
+            <a href="symbol-index.html">Index</a>
+            <a href="sql_sources/" target="Main">DDL&nbsp;scrips</a>
+            </div><div class="subcontextbar"><a href="#f-args">Arguments</a> <a href="#f-src">Source</a> </div><h2>LOOKUP_PACKAGE_NAME</h2>
+<a href="sql_sources/function/lookup_package_name.sql">DDL script</a><h3>Arguments:<a name="f-args"></a></h3>
+<table>
+<tr><th>Name</th><th>Data Type</th><th>Default Value</th><th>In/Out</th></tr><tr><td>NAME_IN</td><td>VARCHAR2</td><td>&nbsp;</td><td>IN</td></tr>
+<tr><td>IGNORE_NULL</td><td>NUMBER(38)</td><td>&nbsp;</td><td>IN</td></tr>
+</table><h3>Returns:</h3>
+NUMBER(38)<h2>Source</h2>
+<a name="f-src"></a><pre>
+Legend: <span class="comment">comment</span> <span class="string">string</span> <span class="keyword">keyword</span> <span class="reserved">reserved word</span> <span class="operator">operator</span></pre>
+<pre>
+     1<span class="operator">:</span> <span class="keyword">FUNCTION</span>
+     2<span class="operator">:</span> LOOKUP_PACKAGE_NAME<span class="operator">(</span>name_in <span class="reserved">IN</span> VARCHAR2<span class="operator">,</span> ignore_null <span class="reserved">in</span> number <span class="operator">:</span><span class="operator">=</span> 0<span class="operator">)</span>
+     3<span class="operator">:</span> <span class="keyword">RETURN</span> NUMBER
+     4<span class="operator">:</span> <span class="reserved">IS</span>
+     5<span class="operator">:</span> 	<span class="keyword">PRAGMA</span> AUTONOMOUS_TRANSACTION;
+     6<span class="operator">:</span> 	name_id		NUMBER;
+     7<span class="operator">:</span> <span class="reserved">BEGIN</span>
+     8<span class="operator">:</span> 	<span class="reserved">if</span> ignore_null <span class="operator">=</span> 1 <span class="reserved">and</span> name_in <span class="reserved">is</span> <span class="reserved">null</span> <span class="reserved">then</span>
+     9<span class="operator">:</span> 		<span class="keyword">return</span> <span class="reserved">null</span>;
+    10<span class="operator">:</span> 	<span class="reserved">end</span> <span class="reserved">if</span>;
+    11<span class="operator">:</span> 
+    12<span class="operator">:</span> 	<span class="reserved">SELECT</span> id
+    13<span class="operator">:</span>           <span class="reserved">INTO</span> name_id
+    14<span class="operator">:</span>           <span class="reserved">FROM</span> rhnPackageName
+    15<span class="operator">:</span>          <span class="reserved">WHERE</span> <span class="keyword">name</span> <span class="operator">=</span> name_in;
+    16<span class="operator">:</span> 
+    17<span class="operator">:</span> 	<span class="keyword">RETURN</span> name_id;
+    18<span class="operator">:</span> <span class="reserved">EXCEPTION</span>
+    19<span class="operator">:</span>         <span class="reserved">WHEN</span> NO_DATA_FOUND <span class="reserved">THEN</span>
+    20<span class="operator">:</span>             <span class="reserved">INSERT</span> <span class="reserved">INTO</span> rhnPackageName <span class="operator">(</span>id<span class="operator">,</span> <span class="keyword">name</span><span class="operator">)</span>
+    21<span class="operator">:</span>                 <span class="reserved">VALUES</span> <span class="operator">(</span>rhn_pkg_name_seq<span class="operator">.</span>nextval<span class="operator">,</span> name_in<span class="operator">)</span>
+    22<span class="operator">:</span>                 <span class="keyword">RETURNING</span> id <span class="reserved">INTO</span> name_id;
+    23<span class="operator">:</span>             <span class="keyword">COMMIT</span>;
+    24<span class="operator">:</span> 	<span class="keyword">RETURN</span> name_id;
+    25<span class="operator">:</span> <span class="reserved">END</span>;
+</pre>
+<div class="footer">
+        Generated by  <a href="http://www.yarpen.cz/oraschemadoc">OraSchemaDoc</a>,
+        (c) Petr Vanek, 2005; Aram Kananov, 2002, on Fri Jan 22 13:41:15 2010</div>
+</body></html>

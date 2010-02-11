@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -84,7 +84,7 @@ class Backend:
     def processCapabilities(self, capabilityHash):
         # First figure out which capabilities are already inserted
 	templ = """
-            select id
+            select /*+index(rhnPackageCapability rhn_pkg_cap_name_version_uq)*/ id
               from rhnPackageCapability
              where name = :name 
                and version %s"""
@@ -434,6 +434,17 @@ class Backend:
             if row:
                 checksumHash[k] = row['id']
 
+    def lookupChecksumTypes(self, checksumTypeHash):
+        if not checksumTypeHash:
+            return
+        sql = "select id from rhnChecksumType where label = :label"
+        h = self.dbmodule.prepare(sql)
+        for l in checksumTypeHash.keys():
+            h.execute(label=l)
+            row = h.fetchone_dict()
+            if row:
+                checksumTypeHash[l] = row['id']
+
     def lookupPackageNEVRAs(self, nevraHash):
         sql = "select LOOKUP_PACKAGE_NEVRA(:name, :evr, :arch) id from dual"
         h = self.dbmodule.prepare(sql)
@@ -490,7 +501,7 @@ class Backend:
         self.__processHash('rhnPackageGroup', 'name', hash)
 
     def lookupPackages(self, packages, ignore_missing = 0):
-        # If nevra is enabled use md5sum as primary key
+        # If nevra is enabled use checksum as primary key
         self.validate_pks()
         for package in packages:
             if not isinstance(package, IncompletePackage):
@@ -1805,21 +1816,22 @@ class Backend:
                  pe.evr.release release,
                  pa.label arch,
                  p.org_id,
-                 cc.checksum md5sum
+                 cc.checksum_type,
+                 cc.checksum
             from rhnChannel c, 
                  rhnChannelPackage cp,
                  rhnPackage p,
                  rhnPackageName pn,
                  rhnPackageEVR pe,
                  rhnPackageArch pa,
-                 rhnChecksum cc
+                 rhnChecksumView cc
             where c.label = :label
                  and p.package_arch_id = pa.id
                  and cp.channel_id = c.id
                  and cp.package_id = p.id
                  and p.name_id = pn.id
                  and p.evr_id = pe.id
-                 and p.checksum_id = pc.id
+                 and p.checksum_id = cc.id
         """
         h = self.dbmodule.prepare(query)
         h.execute(label=channel)

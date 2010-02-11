@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,6 @@
 package RHN::DataSource;
 
 use strict;
-use RHN::Utils;
 use RHN::DB::DataSource;
 use RHN::Exception qw/throw/;
 use Data::Dumper;
@@ -96,28 +95,11 @@ sub required_params {
   return @uniq_params;
 }
 
-sub execute_one {
-  my $self = shift;
-
-  my $ret = $self->execute_query(@_);
-  throw "Too many rows returned from query (mode $self->{mode})" if @$ret > 1;
-
-  return @$ret > 0 ? $ret->[0] : ();
-}
-
 sub get_query_body {
   my $self = shift;
 
   my $mode_data = $self->lookup_mode_data;
   return $mode_data->{query}->{body};
-}
-
-sub get_query_params {
-  my $self = shift;
-
-  my $mode_data = $self->lookup_mode_data;
-
-  return $mode_data->{query}->{params};
 }
 
 sub execute_query {
@@ -270,37 +252,6 @@ sub collate_data {
   }
 
   return $data;
-}
-
-# static method to return a list of all the available datasources.
-# used by test suite and by query performance metric script
-
-sub available_datasource_files {
-  my $class = shift;
-  my @extra_entries = @_;
-
-  my $core_dir = $INC{"RHN/DB/DataSource.pm"};
-  $core_dir =~ s(\.pm$)(/xml);
-
-  my @ret;
-
-  for my $entry ($core_dir, @extra_entries) {
-    my @files;
-
-    if (-d $entry) {
-      my $dir = $entry;
-      opendir DIR, $dir or die "opendir $dir: $!";
-      push @files, grep { -f "$dir/$_" } readdir DIR;
-      closedir DIR;
-    }
-    else {
-      push @files, $entry;
-    }
-
-    push @ret, map { s(\.xml$)(); $_ } grep { m(\.xml$) } @files;
-  }
-
-  return sort @ret;
 }
 
 1;

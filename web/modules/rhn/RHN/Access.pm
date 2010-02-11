@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,8 @@ use PXT::Config;
 
 use RHN::Server;
 use RHN::User;
+use PXT::Debug ();
+use RHN::Entitlements ();
 
 sub register_acl_handlers {
   my $self = shift;
@@ -33,8 +35,6 @@ sub register_acl_handlers {
   $acl->register_handler(global_config => \&global_config_acl_test);
   $acl->register_handler(org_role => \&org_role_acl_test);
   $acl->register_handler(org_entitlement => \&org_entitlement_acl_test);
-  $acl->register_handler(org_satellite_entitlement => \&org_satellite_entitlement_acl_test);
-  $acl->register_handler(support_org_satellite_entitlement => \&support_org_satellite_entitlement_acl_test);
   $acl->register_handler(org_is_paying_customer => \&org_is_paying_customer_acl_test);
   $acl->register_handler(system_entitled => \&system_entitled_acl_test);
   $acl->register_handler(system_locked => \&system_locked_acl_test);
@@ -43,7 +43,6 @@ sub register_acl_handlers {
   $acl->register_handler(system_is_satellite => \&system_is_satellite_acl_test);
   $acl->register_handler(org_channel_family => \&org_channel_family_acl_test);
   $acl->register_handler(formvar_exists => \&formvar_exists_acl_test);
-  $acl->register_handler(org_has_scouts => \&org_has_scouts);
   $acl->register_handler(show_monitoring => \&show_monitoring);
   $acl->register_handler(is_solaris => \&is_solaris_acl_test);
   $acl->register_handler(user_has_access_to_servergroup => \&user_has_access_to_servergroup_acl_test);
@@ -112,14 +111,6 @@ sub org_is_paying_customer_acl_test {
   return $pxt->user->org->is_paying_customer() ? 1 : 0;
 }
 
-sub org_has_scouts {
-  my $pxt = shift;
-
-  die "org_has_scouts called with no \$pxt->user authenticated" unless $pxt->user;
-
-  return $pxt->user->org->get_scout_options() ? 1 : 0;
-}
-
 sub show_monitoring {
   my $pxt = shift;
 
@@ -145,29 +136,6 @@ sub org_channel_family_acl_test {
   die "org_channel_family_acl_test called with no \$pxt->user authenticated" unless $pxt->user;
 
   return $pxt->user->org->has_channel_family_entitlement($cfam) ? 1 : 0;
-}
-
-sub org_satellite_entitlement_acl_test {
-  my $pxt = shift;
-
-  #You are probably here because you intend to implement this acl
-  #in the java code.  This acl is equivalent to the acl,
-  #org_channel_family(rhn-satellite).  I suggest simply changing the acl.
-  return 1 if $pxt->user->org->entitled_satellite_families();
-
-  return 0;
-}
-
-sub support_org_satellite_entitlement_acl_test {
-  my $pxt = shift;
-
-  my $support_org_id = $pxt->param('support_org_id');
-  throw "No support_org_id parameter when testing for support org  entitlement sat entitlement."
-    unless $support_org_id;
-  my $org = RHN::Org->lookup(-id => $support_org_id);
-  return 1 if $org->entitled_satellite_families();
-
-  return 0;
 }
 
 sub system_entitled_acl_test {

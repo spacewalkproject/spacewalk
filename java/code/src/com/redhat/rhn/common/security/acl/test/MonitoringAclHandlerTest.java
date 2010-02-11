@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -60,27 +60,4 @@ public class MonitoringAclHandlerTest extends RhnBaseTestCase {
         c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, orig);
     }
 
-    public void testOrgHasScouts() throws Exception {
-        
-        Config c = Config.get();
-
-        Acl acl = new Acl();
-        acl.registerHandler(new MonitoringAclHandler());
-
-        Map context = new HashMap();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        UserTestUtils.addMonitoring(user.getOrg());
-        context.put("user", user);
-        
-        String orig = c.getString(ConfigDefaults.WEB_IS_MONITORING_BACKEND);
-        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "1");
-        assertTrue(acl.evalAcl(context, "org_has_scouts()"));
-        
-        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, "0");
-        assertFalse(acl.evalAcl(context, "org_has_scouts()"));
-        
-        c.setBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND, orig);
-    }
-    
-    
 }

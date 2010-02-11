@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -347,7 +347,7 @@ public class ConfigDefaults {
      * @return boolean if this sat is disconnected or not
      */
     public boolean isDisconnected() {
-        return (Config.get().getString(SATELLITE_PARENT) != null);
+        return (Config.get().getBoolean(DISCONNECTED));
     }
 
     /**
@@ -388,6 +388,15 @@ public class ConfigDefaults {
     public String getCobblerHost() {
         return Config.get().getString("cobbler.host", "localhost");
     }
+    
+    /**
+     * get the text to print at the top of a kickstart template
+     * @return the header
+     */
+    public String getKickstartTemplateHeader() {
+        return Config.get().getString("kickstart.header", "#errorCatcher ListErrors");
+    }
+    
     
     /**
      * Returns the default network interface for a kickstart profile

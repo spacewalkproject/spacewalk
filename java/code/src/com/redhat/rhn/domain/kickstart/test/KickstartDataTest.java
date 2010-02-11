@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -710,14 +710,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     
     // Test to make sure 
     public void testDeepCopyEmptySets() throws Exception {
-        KickstartData k = createTestKickstartData(user.getOrg());
-        k.setCryptoKeys(null);
-        k.setCommands(null);
-        k.setDefaultRegTokens(null);
-        k.setIps(null);
-        k.setKsPackages(null);
-        k.setPreserveFileLists(null);
-        k.setScripts(null);
+        KickstartData k = createKickstartWithChannel(user.getOrg());
+
         // Now we deep copy it, save and reload
         KickstartData cloned = k.deepCopy(user, 
                 "someNewLabel" + TestUtils.randomString());

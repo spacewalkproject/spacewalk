@@ -8450,7 +8450,10 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
 	<trans-unit id="request.post.check">
         <source>This action requires a POST request, but this was not one.</source>
-     </trans-unit>     
+     </trans-unit>
+     <trans-unit id="channeltarget.success">
+        <source>Subscribed {0} system(s) to {1}.</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

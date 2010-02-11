@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -97,26 +97,29 @@ public class AuditManager /* extends BaseManager */ {
         }
 
         try {
-            for (AuditReviewDto aureview : getMachineReviewSections(machine)) {
-                fileStart = aureview.getStart().getTime();
-                fileEnd = aureview.getEnd().getTime();
+            DataResult<AuditReviewDto> aureviewsections = getMachineReviewSections(machine);
+            if (aureviewsections != null) {
+                for (AuditReviewDto aureview : getMachineReviewSections(machine)) {
+                    fileStart = aureview.getStart().getTime();
+                    fileEnd = aureview.getEnd().getTime();
 
-                if (fileEnd < start || fileStart > end) {
-                    continue;
-                }
+                    if (fileEnd < start || fileStart > end) {
+                        continue;
+                    }
 
-                File auditLog = new File(
-                    logDirStr + "/" + aureview.getName() + "/audit/audit-" +
-                    (fileStart / 1000) + "-" +
-                    (fileEnd / 1000) + ".parsed");
+                    File auditLog = new File(
+                        logDirStr + "/" + aureview.getName() + "/audit/audit-" +
+                        (fileStart / 1000) + "-" +
+                        (fileEnd / 1000) + ".parsed");
 
-                l = readAuditFile(auditLog, types, start, end);
+                    l = readAuditFile(auditLog, types, start, end);
 
-                if (dr == null) {
-                    dr = new DataResult(l);
-                }
-                else {
-                    dr.addAll(l);
+                    if (dr == null) {
+                        dr = new DataResult(l);
+                    }
+                    else {
+                        dr.addAll(l);
+                    }
                 }
             }
         }

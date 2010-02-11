@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -177,14 +177,6 @@ sub short_date {
   my $self = shift;
 
   return $self->strftime("%Y-%m-%d");
-}
-
-# helper function for our classical "long_date" format, with abbreviated zone name
-sub long_date_with_zone {
-  my $self = shift;
-  my $user = shift;
-
-  return $self->long_date . " " . $self->user_short_timezone($user);
 }
 
 # increment an RHN::Date object.  parameters are passed straight

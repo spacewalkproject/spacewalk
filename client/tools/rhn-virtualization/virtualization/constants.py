@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,10 +51,15 @@ class PropertyType:
 ##
 # This structure maps the libvirt state enumeration to labels that RHN 
 # understands.
-#
-VIRT_STATE_NAME_MAP = ( StateType.NOSTATE,  # VIR_DOMAIN_NOSTATE
+# Reasons we don't care about differences between NOSTATE, RUNNING and BLOCKED:
+# 1. technically, the domain is still "running"
+# 2. RHN / RHN Satellite / Spacewalk are not able to display 'blocked' & 'nostate'
+#    as valid states
+# 3. to avoid 'Abuse of Service' messages: bugs #230106 and #546676
+
+VIRT_STATE_NAME_MAP = ( StateType.RUNNING,  # VIR_DOMAIN_NOSTATE
                         StateType.RUNNING,  # VIR_DOMAIN_RUNNING
-                        StateType.BLOCKED,  # VIR_DOMAIN_BLOCKED
+                        StateType.RUNNING,  # VIR_DOMAIN_BLOCKED
                         StateType.PAUSED,   # VIR_DOMAIN_PAUSED
                         StateType.SHUTDOWN, # VIR_DOMAIN_SHUTDOWN
                         StateType.SHUTOFF,  # VIR_DOMAIN_SHUTOFF

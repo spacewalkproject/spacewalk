@@ -1555,8 +1555,8 @@
 				<target>{0} sistemas seleccionados</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.copyright">
-				<source>Copyright &amp;#169; 2002-09 Red Hat, Inc. All rights reserved.</source>
-				<target>Copyright &amp;#169; 2002-09 Red Hat, Inc. Todos los derechos reservados.</target>
+				<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+				<target>Copyright &amp;#169; 2002-10 Red Hat, Inc. Todos los derechos reservados.</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.legalStatement">
 				<source>Legal statement</source>

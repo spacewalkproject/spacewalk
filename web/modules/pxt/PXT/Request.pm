@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,8 +23,7 @@ use RHN::Access;
 use RHN::Exception qw/throw/;
 use RHN::StoredMessage;
 use PXT::Trace;
-use PXT::XmlrpcRequest;
-use PXT::SoapRequest;
+use RHN::Cleansers ();
 
 use Carp qw/cluck confess/;
 use Data::Dumper;
@@ -35,6 +34,11 @@ use APR::URI ();
 use Apache2::RequestIO ();
 use Apache2::Connection ();
 use Apache2::SubRequest ();
+
+use PXT::Config ();
+use PXT::Utils ();
+use PXT::ApacheHandler ();
+use PXT::Debug ();
 
 sub new {
   my $class = shift;
@@ -47,8 +51,6 @@ sub new {
 		     apr => $apache_request,
 		     cookies => $cookies,
 		     session => $session,
-		     rpc => 0,
-		     stage => "",
 		     context => { },
                      no_cache => 1,
 		     cleansed_params => { },
@@ -353,26 +355,6 @@ sub passthrough_param {
   }
 }
 
-sub numeric_param {
-  my $self = shift;
-  my $name = shift;
-
-  my $n = $self->param($name) || 0;
-
-  $n = int(0 + $n);
-
-  return $n;
-}
-
-sub positive_numeric_param {
-  my $self = shift;
-  my $name = shift;
-
-  my $n = $self->numeric_param($name);
-
-  return $n < 0 ? -$n : $n;
-}
-
 sub prefill_form_values {
   my $self = shift;
   my $block = shift;
@@ -486,123 +468,6 @@ sub pxt_no_cache {
   return $self->{no_cache};
 }
 
-sub xml_request {
-  my $self = shift;
-
-  if (@_) {
-    $self->{rpc} = shift;
-  }
-  return $self->{rpc};
-}
-
-sub xml_return_raw {
-  my $self = shift;
-
-  if (@_) {
-    $self->{xml_raw} = shift;
-  }
-  return $self->{xml_raw};
-}
-
-sub gzip_output {
-  my $self = shift;
-
-  if (@_) {
-    $self->{gzip_output} = shift;
-  }
-  return $self->{gzip_output};
-}
-
-sub xml_body {
-  my $self = shift;
-
-  return $self->{xml_body} if exists $self->{xml_body};
-  return unless $self->xml_request;
-
-  my $length = $self->header_in('Content-length');
-  return unless $length;
-
-  my $buf;
-  my $bytes_read = $self->{apache}->read($buf, $length);
-
-  if ($bytes_read != $length) {
-    throw "Tried to read $length bytes from rpc request, but only could read $bytes_read";
-  }
-
-  $self->{xml_body} = $buf;
-
-  return $buf;
-}
-
-sub rpc_params {
-  my $self = shift;
-
-  return @{$self->{rpc_params}} if $self->{rpc_params};
-
-  $self->{rpc_params} = $self->xml_request->decode_rpc_params($self->xml_body);
-
-  return @{$self->{rpc_params}};
-}
-
-sub encode_rpc_result {
-  my $self = shift;
-
-  return $self->xml_request->encode_rpc_result(@_);
-}
-
-sub encode_rpc_fault {
-  my $self = shift;
-
-  return $self->xml_request->encode_rpc_fault(@_);
-}
-
-my %fault_messages =
-  ( unknown_error => 'Unknown internal error',
-    server_security => 'No server perms/server does not exist',
-    invalid_login => 'Invalid username/password',
-    old_client => 'Your client does not support this version of PXT.  Contact rhn-feedback@redhat.com',
-    invalid_certificate => 'Invalid server certificate',
-    invalid_sat_certificate => 'Invalid entitlement certificate',
-    satellite_already_activated => 'Satellite has already been activated',
-    no_sat_chan_for_version => 'No Satellite channel exists for specified version',
-    no_access_to_sat_channel => 'Account does not have access to any Satellite channels',
-    insufficient_channel_entitlements => 'All entitlements to the required channel are currently in use.',
-  );
-
-sub rpc_fault {
-  my $self = shift;
-  my $fault_string = shift;
-  my $fault_code = -2; # later we'll assign numbers; for now, -2 means
-                       # "not in fault list" and -1 means "in list"
-
-  if (exists $fault_messages{$fault_string}) {
-    $fault_code = -1;
-    $fault_string = $fault_messages{$fault_string};
-  }
-
-  die bless { fault_text => $fault_string, fault_code => $fault_code }, "PXT::RPCFault";
-}
-
-sub exception_message_map {
-  my $self = shift;
-  my $exception = shift;
-  my %map = @_;
-
-  for my $key (%map) {
-    if (ref $exception and $exception->is_rhn_exception($key)) {
-      $self->push_message(local_alert => $map{$key});
-      return 1;
-    }
-  }
-
-  if (exists $map{__default__}) {
-    $self->push_message(local_alert => $map{__default__});
-    return 1;
-  }
-
-  return 0;
-}
-
 sub touch_session {
   $_[0]->{session_touched} = 1;
 }
@@ -671,38 +536,10 @@ sub user {
   return $self->{__user__};
 }
 
-sub current_stage {
-  my $self = shift;
-
-  return $self->{stage};
-}
-
-sub set_stage {
-  my $self = shift;
-
-  $self->{stage} = shift;
-
-  return $self->current_stage;
-}
-
 sub form_builder_variables {
   my $self = shift;
 
   push @{$self->{form_builder_variables}}, @_;
-}
-
-sub form_builder_query_string {
-  my $self = shift;
-
-  return join("&", map { "$_=" . $self->pnotes($_) } @{$self->{form_builder_variables}});
-}
-
-sub form_builder_hidden_vars {
-  my $self = shift;
-
-  return join("\n",
-	      map { sprintf(q{<input type="hidden" name="%s" value="%s">}, $_, $self->pnotes($_)) }
-	      @{$self->{form_builder_variables}});
 }
 
 sub parse {
@@ -793,16 +630,6 @@ sub derelative_url {
   $url->port(PXT::Config->get('base_port')) if PXT::Config->get('base_port') and not $url->scheme eq 'https';
 
   return $url;
-}
-
-sub pagination_bounds {
-  my $self = shift;
-  my $prefix = shift;
-
-  my $lower = $self->param('lower') || $self->pnotes("${prefix}_lower") || 1;
-  my $upper = $self->param('upper') || $self->pnotes("${prefix}_upper") || $self->user->preferred_page_size;
-
-  return ($lower, $upper);
 }
 
 sub route_marker {
@@ -978,47 +805,5 @@ sub use_sessions {
   return $self->{use_sessions};
 }
 
-# return a vague idea of how well the browser supports CSS.  note that
-# NN gets a 0, everything else a 1, roughly corresponding to CSS-1
-# compliance
-
-sub browser_css_compliance {
-  my $self = shift;
-
-  my $ua = $self->header_in('User-Agent');
-  if ($ua and $ua =~ m(Mozilla/4.[567])) {
-    return 0;
-  }
-
-  return 1;
-}
-
-package PXT::Debug;
-
-sub log {
-  my $class = shift;
-  my $level = shift;
-  my @msg = @_;
-
-  if ($level < PXT::Config->get('debug')) {
-    my (undef, $file, $line) = caller;
-    my @frame = caller(1);
-
-    warn "$frame[3] ($file:$line): " . join(" ", @msg) . "\n";
-  }
-}
-
-sub log_dump {
-  my $class = shift;
-  my $level = shift;
-  my @structs = @_;
-
-  if ($level < PXT::Config->get('debug')) {
-    my (undef, $file, $line) = caller;
-    my @frame = caller(1);
-
-    warn sprintf("$frame[3] ($file:$line): %s\n", Data::Dumper->Dump(\@structs));
-  }
-}
-
 1;
+

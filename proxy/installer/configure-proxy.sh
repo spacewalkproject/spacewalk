@@ -381,6 +381,7 @@ if [ $USE_SSL -eq 1 ]; then
 fi
 echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > $HTTPDCONFD_DIR/cobbler-proxy.conf
 echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
+echo "RewriteRule ^/cblr/svc/op/ks/(.*)$ /download/\$0 [P,L]" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
 echo "ProxyPass /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
 echo "ProxyPassReverse /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
 echo "ProxyPass /cobbler $PROTO://$RHN_PARENT/cobbler" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
@@ -452,7 +453,7 @@ if [ -e $HTTPDCONFD_DIR/ssl.conf ]; then
 fi
 sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
 	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile $HTTPDCONF_DIR/ssl.key/server.key|g" \
-	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" \
+	    -e "s|</VirtualHost>|RewriteEngine on\nRewriteOptions inherit\nSSLProxyEngine on\n</VirtualHost>|" \
         < $HTTPDCONFD_DIR/ssl.conf.bak  > $HTTPDCONFD_DIR/ssl.conf
 
 

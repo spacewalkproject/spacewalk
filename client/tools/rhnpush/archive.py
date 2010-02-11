@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,12 +15,8 @@
 
 """Archive Parsing module"""
 
-# Copyright 2005 Red Hat Inc.
-# Author: Jason L. Connor <jconnor@redhat.com>
-# $Id$
-
 import os
-import popen2
+import subprocess
 import shutil
 import sys
 import tempfile
@@ -318,15 +314,16 @@ def _has_executable(exc):
 def _my_popen(cmd):
     """Execute a command as a subprocess and return its exit status"""
 
-    popen = popen2.Popen3(cmd, capturestderr=1)
-    popen.tochild.close()
+    popen = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                 stderr=subprocess.PIPE, close_fds=True)
+    popen.stdin.close()
 
     txt = ""
     while 1:
-        rd, wr, ex = select.select([ popen.fromchild, popen.childerr ], [], [ popen.fromchild, popen.childerr ], 5)
+        rd, wr, ex = select.select([ popen.stdout, popen.stderr ], [], [ popen.stdout, popen.stderr ], 5)
         if ex:
-            txt += popen.fromchild.read()
-            txt += popen.childerr.read()
+            txt += popen.stdout.read()
+            txt += popen.stderr.read()
             break
         if rd:
             txt += rd[0].read()

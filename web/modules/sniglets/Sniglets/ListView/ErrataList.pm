@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ package Sniglets::ListView::ErrataList;
 use Sniglets::ListView::List;
 use RHN::DataSource::Errata;
 use RHN::DataSource::Simple;
-use RHN::Utils;
 use RHN::Server;
 use RHN::Channel;
 use RHN::ChannelEditor;
@@ -207,9 +206,6 @@ sub default_callback {
   elsif ($label eq 'add_errata') {
     return add_errata_to_channel($pxt);
   }
-  elsif ($label eq 'delete_errata') {
-    return delete_errata_cb($pxt);
-  }
 
   return 1;
 }
@@ -245,29 +241,6 @@ sub apply_unscheduled_errata {
   }
 
   return 1;
-}
-
-sub errata_summary_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  $self->lower(1);
-  $self->upper(10);
-
-  my %ret = $self->default_provider($pxt);
-
-  my $summary = '';
-
-  if (scalar(@{$ret{all_ids}})) {
-    $summary = {errata_shown => scalar(@{$ret{data}}) || '0',
-		errata_total => scalar(@{$ret{all_ids}}) || '0',
-		errata_relevant => scalar(grep { $_->{AFFECTED_SERVER_COUNT} > 0 } @{$ret{data}}) || '0',
-	       };
-  }
-
-  $pxt->pnotes('errata_summary', $summary);
-
-  return (%ret);
 }
 
 sub relevant_to_system_provider {
@@ -700,29 +673,6 @@ sub add_errata_to_channel {
   $transaction->nested_commit;
 
   $pxt->push_message(site_info => sprintf('Added <strong>%d</strong> errata to <strong>%s</strong>.', $count, $channel->name));
-
-  return 1;
-}
-
-sub delete_errata_cb {
-  my $pxt = shift;
-  my $set_label = $pxt->dirty_param('set_label');
-
-  throw "No set_label" unless $set_label;
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my @eids = $set->contents;
-
-  my $count = scalar(@eids);
-
-  foreach my $eid (@eids) {
-    RHN::ErrataEditor->delete_errata($eid);
-  }
-
-  $set->empty;
-  $set->commit;
-
-  $pxt->push_message(site_info => sprintf('Deleted <strong>%d</strong> errata.', $count));
 
   return 1;
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,6 +40,17 @@ public abstract class BaseHandler implements AclHandler {
         boolean retval = (user.getOrg().hasEntitlement(monType) &&
                 Config.get().getBoolean(ConfigDefaults.WEB_IS_MONITORING_BACKEND));
         return retval;
+    }
+    
+    
+    /**
+     * returns true if satellite, false if spacewalk
+     * @param ctx Our current context, containing a crid or cfid.
+     * @param params nothing
+     * @return true if satellite, false if spacewalk 
+     */
+    public boolean aclIsSatellite(Object ctx, String[] params) {
+        return !ConfigDefaults.get().isSpacewalk();
     }
     
     

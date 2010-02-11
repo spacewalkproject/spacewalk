@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -428,7 +428,7 @@ public class ActivationKeyManager {
      * @param user TODO
      */
     public void changeKey(String newKey, ActivationKey key, User user) {
-        newKey = newKey.trim();
+        newKey = newKey.trim().replace(" ", "");
         String oldKey = key.getKey();
         if (!newKey.equals(key.getKey())) {
             ActivationKeyFactory.validateKeyName(newKey);

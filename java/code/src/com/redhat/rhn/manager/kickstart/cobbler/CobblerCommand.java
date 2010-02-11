@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -123,13 +123,13 @@ public abstract class CobblerCommand {
      * @return the cobbler name.
      */
     public static String makeCobblerName(String label, Org org) {
-        label = label.replaceAll("[^a-zA-Z0-9]", "").replace(' ', '_');
+        label = label.replace(' ', '_').replaceAll("[^a-zA-Z0-9_-]", "");
 
         if (org == null) {
             return label;
         }
 
-        String orgName = org.getName().replaceAll("[^a-zA-Z0-9]", "").replace(' ', '_');
+        String orgName = org.getName().replaceAll("[^a-zA-Z0-9_-]", "").replace(' ', '_');
         String format = "%s:%s:%s";
         return String.format(format, label, org.getId(), orgName);
 

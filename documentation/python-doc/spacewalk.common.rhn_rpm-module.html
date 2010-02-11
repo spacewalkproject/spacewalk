@@ -1,0 +1,2534 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spacewalk.common.rhn_rpm</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spacewalk-module.html">Package&nbsp;spacewalk</a> ::
+        <a href="spacewalk.common-module.html">Package&nbsp;common</a> ::
+        Module&nbsp;rhn_rpm
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spacewalk.common.rhn_rpm-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module rhn_rpm</h1><p class="nomargin-top"><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html">source&nbsp;code</a></span></p>
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.InvalidPackageError-class.html" class="summary-name">InvalidPackageError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.RPMTransaction-class.html" class="summary-name">RPMTransaction</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.SharedStateTransaction-class.html" class="summary-name">SharedStateTransaction</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.RPMReadOnlyTransaction-class.html" class="summary-name">RPMReadOnlyTransaction</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.RPM_Header-class.html" class="summary-name">RPM_Header</a><br />
+      Wrapper class for an rpm header - we need to store a flag is_source
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm.MatchIterator-class.html" class="summary-name">MatchIterator</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spacewalk.common.rhn_rpm-module.html#get_header_byte_range" class="summary-sig-name">get_header_byte_range</a>(<span class="summary-sig-arg">package_file</span>)</span><br />
+      Return the start and end bytes of the rpm header object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#get_header_byte_range">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_header_struct_size"></a><span class="summary-sig-name">get_header_struct_size</span>(<span class="summary-sig-arg">package_file</span>)</span><br />
+      Compute the size in bytes of the rpm header struct starting at the 
+      current position in package_file.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#get_header_struct_size">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_package_header"></a><span class="summary-sig-name">get_package_header</span>(<span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">file</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">fd</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#get_package_header">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="headerLoad"></a><span class="summary-sig-name">headerLoad</span>(<span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#headerLoad">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="labelCompare"></a><span class="summary-sig-name">labelCompare</span>(<span class="summary-sig-arg">t1</span>,
+        <span class="summary-sig-arg">t2</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#labelCompare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="nvre_compare"></a><span class="summary-sig-name">nvre_compare</span>(<span class="summary-sig-arg">t1</span>,
+        <span class="summary-sig-arg">t2</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#nvre_compare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="hdrLabelCompare"></a><span class="summary-sig-name">hdrLabelCompare</span>(<span class="summary-sig-arg">hdr1</span>,
+        <span class="summary-sig-arg">hdr2</span>)</span><br />
+      take two RPMs or headers and compare them for order</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#hdrLabelCompare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rpmLabelCompare"></a><span class="summary-sig-name">rpmLabelCompare</span>(<span class="summary-sig-arg">rpmFilename1</span>,
+        <span class="summary-sig-arg">rpmFilename2</span>)</span><br />
+      take two RPMs and compare them for order</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#rpmLabelCompare">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spacewalk.common.rhn_rpm-module.html#sortHeaders" class="summary-sig-name">sortHeaders</a>(<span class="summary-sig-arg">hdrs</span>)</span><br />
+      Sorts a list of RPM headers (or RPMs).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortHeaders">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spacewalk.common.rhn_rpm-module.html#sortRPMs" class="summary-sig-name">sortRPMs</a>(<span class="summary-sig-arg">rpms</span>)</span><br />
+      Sorts a list of RPM files.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortRPMs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getInstalledHeader"></a><span class="summary-sig-name">getInstalledHeader</span>(<span class="summary-sig-arg">rpmName</span>)</span><br />
+      quieries the RPM DB for a header matching rpmName.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#getInstalledHeader">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="spacewalk.common.rhn_rpm-module.html#PGPHASHALGO" class="summary-name">PGPHASHALGO</a> = <code title="{1: 'md5',
+ 2: 'sha1',
+ 3: 'ripemd160',
+ 5: 'md2',
+ 6: 'tiger192',
+ 7: 'haval-5-160',
+ 8: 'sha256',
+ 9: 'sha384',
+..."><code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md5</code><code class="variable-quote">'</code><code class="variable-op">, </code>2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">sha1</code><code class="variable-quote">'</code><code class="variable-op">, </code>3<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">ripemd160</code><code class="variable-quote">'</code><code class="variable-op">, </code>5<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md2</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_CPIO_ERROR"></a><span class="summary-name">RPMCALLBACK_CPIO_ERROR</span> = <code title="16384">16384</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_INST_CLOSE_FILE"></a><span class="summary-name">RPMCALLBACK_INST_CLOSE_FILE</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_INST_OPEN_FILE"></a><span class="summary-name">RPMCALLBACK_INST_OPEN_FILE</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_INST_PROGRESS"></a><span class="summary-name">RPMCALLBACK_INST_PROGRESS</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_INST_START"></a><span class="summary-name">RPMCALLBACK_INST_START</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_REPACKAGE_PROGRESS"></a><span class="summary-name">RPMCALLBACK_REPACKAGE_PROGRESS</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_REPACKAGE_START"></a><span class="summary-name">RPMCALLBACK_REPACKAGE_START</span> = <code title="2048">2048</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_REPACKAGE_STOP"></a><span class="summary-name">RPMCALLBACK_REPACKAGE_STOP</span> = <code title="4096">4096</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_SCRIPT_ERROR"></a><span class="summary-name">RPMCALLBACK_SCRIPT_ERROR</span> = <code title="32768">32768</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_TRANS_PROGRESS"></a><span class="summary-name">RPMCALLBACK_TRANS_PROGRESS</span> = <code title="16">16</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_TRANS_START"></a><span class="summary-name">RPMCALLBACK_TRANS_START</span> = <code title="32">32</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_TRANS_STOP"></a><span class="summary-name">RPMCALLBACK_TRANS_STOP</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_UNINST_PROGRESS"></a><span class="summary-name">RPMCALLBACK_UNINST_PROGRESS</span> = <code title="128">128</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_UNINST_START"></a><span class="summary-name">RPMCALLBACK_UNINST_START</span> = <code title="256">256</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_UNINST_STOP"></a><span class="summary-name">RPMCALLBACK_UNINST_STOP</span> = <code title="512">512</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_UNKNOWN"></a><span class="summary-name">RPMCALLBACK_UNKNOWN</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMCALLBACK_UNPACK_ERROR"></a><span class="summary-name">RPMCALLBACK_UNPACK_ERROR</span> = <code title="8192">8192</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMDBI_PACKAGES"></a><span class="summary-name">RPMDBI_PACKAGES</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMDEP_SENSE_CONFLICTS"></a><span class="summary-name">RPMDEP_SENSE_CONFLICTS</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMDEP_SENSE_REQUIRES"></a><span class="summary-name">RPMDEP_SENSE_REQUIRES</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_CONFIG"></a><span class="summary-name">RPMFILE_CONFIG</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_DOC"></a><span class="summary-name">RPMFILE_DOC</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_EXCLUDE"></a><span class="summary-name">RPMFILE_EXCLUDE</span> = <code title="512">512</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_GHOST"></a><span class="summary-name">RPMFILE_GHOST</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_ICON"></a><span class="summary-name">RPMFILE_ICON</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_LICENSE"></a><span class="summary-name">RPMFILE_LICENSE</span> = <code title="128">128</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_MISSINGOK"></a><span class="summary-name">RPMFILE_MISSINGOK</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_NOREPLACE"></a><span class="summary-name">RPMFILE_NOREPLACE</span> = <code title="16">16</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_PUBKEY"></a><span class="summary-name">RPMFILE_PUBKEY</span> = <code title="2048">2048</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_README"></a><span class="summary-name">RPMFILE_README</span> = <code title="256">256</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_STATE_NETSHARED"></a><span class="summary-name">RPMFILE_STATE_NETSHARED</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_STATE_NORMAL"></a><span class="summary-name">RPMFILE_STATE_NORMAL</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_STATE_NOTINSTALLED"></a><span class="summary-name">RPMFILE_STATE_NOTINSTALLED</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_STATE_REPLACED"></a><span class="summary-name">RPMFILE_STATE_REPLACED</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_STATE_WRONGCOLOR"></a><span class="summary-name">RPMFILE_STATE_WRONGCOLOR</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMFILE_UNPATCHED"></a><span class="summary-name">RPMFILE_UNPATCHED</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_ALERT"></a><span class="summary-name">RPMLOG_ALERT</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_CRIT"></a><span class="summary-name">RPMLOG_CRIT</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_DEBUG"></a><span class="summary-name">RPMLOG_DEBUG</span> = <code title="7">7</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_EMERG"></a><span class="summary-name">RPMLOG_EMERG</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_ERR"></a><span class="summary-name">RPMLOG_ERR</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_INFO"></a><span class="summary-name">RPMLOG_INFO</span> = <code title="6">6</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_NOTICE"></a><span class="summary-name">RPMLOG_NOTICE</span> = <code title="5">5</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMLOG_WARNING"></a><span class="summary-name">RPMLOG_WARNING</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMMIRE_DEFAULT"></a><span class="summary-name">RPMMIRE_DEFAULT</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMMIRE_GLOB"></a><span class="summary-name">RPMMIRE_GLOB</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMMIRE_REGEX"></a><span class="summary-name">RPMMIRE_REGEX</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMMIRE_STRCMP"></a><span class="summary-name">RPMMIRE_STRCMP</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_BADARCH"></a><span class="summary-name">RPMPROB_BADARCH</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_BADOS"></a><span class="summary-name">RPMPROB_BADOS</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_BADRELOCATE"></a><span class="summary-name">RPMPROB_BADRELOCATE</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_CONFLICT"></a><span class="summary-name">RPMPROB_CONFLICT</span> = <code title="5">5</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_DISKNODES"></a><span class="summary-name">RPMPROB_DISKNODES</span> = <code title="10">10</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_DISKSPACE"></a><span class="summary-name">RPMPROB_DISKSPACE</span> = <code title="9">9</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILE_CONFLICT"></a><span class="summary-name">RPMPROB_FILE_CONFLICT</span> = <code title="7">7</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_DISKNODES"></a><span class="summary-name">RPMPROB_FILTER_DISKNODES</span> = <code title="256">256</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_DISKSPACE"></a><span class="summary-name">RPMPROB_FILTER_DISKSPACE</span> = <code title="128">128</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_FORCERELOCATE"></a><span class="summary-name">RPMPROB_FILTER_FORCERELOCATE</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_IGNOREARCH"></a><span class="summary-name">RPMPROB_FILTER_IGNOREARCH</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_IGNOREOS"></a><span class="summary-name">RPMPROB_FILTER_IGNOREOS</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_OLDPACKAGE"></a><span class="summary-name">RPMPROB_FILTER_OLDPACKAGE</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_REPLACENEWFILES"></a><span class="summary-name">RPMPROB_FILTER_REPLACENEWFILES</span> = <code title="16">16</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_REPLACEOLDFILES"></a><span class="summary-name">RPMPROB_FILTER_REPLACEOLDFILES</span> = <code title="32">32</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_FILTER_REPLACEPKG"></a><span class="summary-name">RPMPROB_FILTER_REPLACEPKG</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_NEW_FILE_CONFLICT"></a><span class="summary-name">RPMPROB_NEW_FILE_CONFLICT</span> = <code title="6">6</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_OLDPACKAGE"></a><span class="summary-name">RPMPROB_OLDPACKAGE</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_PKG_INSTALLED"></a><span class="summary-name">RPMPROB_PKG_INSTALLED</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMPROB_REQUIRES"></a><span class="summary-name">RPMPROB_REQUIRES</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_CONFIG"></a><span class="summary-name">RPMSENSE_CONFIG</span> = <code title="268435456">268435456</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_EQUAL"></a><span class="summary-name">RPMSENSE_EQUAL</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_FIND_PROVIDES"></a><span class="summary-name">RPMSENSE_FIND_PROVIDES</span> = <code title="32768">32768</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_FIND_REQUIRES"></a><span class="summary-name">RPMSENSE_FIND_REQUIRES</span> = <code title="16384">16384</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_GREATER"></a><span class="summary-name">RPMSENSE_GREATER</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_INTERP"></a><span class="summary-name">RPMSENSE_INTERP</span> = <code title="256">256</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_KEYRING"></a><span class="summary-name">RPMSENSE_KEYRING</span> = <code title="67108864">67108864</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_LESS"></a><span class="summary-name">RPMSENSE_LESS</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_PATCHES"></a><span class="summary-name">RPMSENSE_PATCHES</span> = <code title="134217728">134217728</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_PREREQ"></a><span class="summary-name">RPMSENSE_PREREQ</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_RPMLIB"></a><span class="summary-name">RPMSENSE_RPMLIB</span> = <code title="16777216">16777216</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_BUILD"></a><span class="summary-name">RPMSENSE_SCRIPT_BUILD</span> = <code title="2097152">2097152</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_CLEAN"></a><span class="summary-name">RPMSENSE_SCRIPT_CLEAN</span> = <code title="8388608">8388608</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_INSTALL"></a><span class="summary-name">RPMSENSE_SCRIPT_INSTALL</span> = <code title="4194304">4194304</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_POST"></a><span class="summary-name">RPMSENSE_SCRIPT_POST</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_POSTUN"></a><span class="summary-name">RPMSENSE_SCRIPT_POSTUN</span> = <code title="4096">4096</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_PRE"></a><span class="summary-name">RPMSENSE_SCRIPT_PRE</span> = <code title="512">512</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_PREP"></a><span class="summary-name">RPMSENSE_SCRIPT_PREP</span> = <code title="1048576">1048576</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_PREUN"></a><span class="summary-name">RPMSENSE_SCRIPT_PREUN</span> = <code title="2048">2048</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_SCRIPT_VERIFY"></a><span class="summary-name">RPMSENSE_SCRIPT_VERIFY</span> = <code title="8192">8192</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_TRIGGERIN"></a><span class="summary-name">RPMSENSE_TRIGGERIN</span> = <code title="65536">65536</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_TRIGGERPOSTUN"></a><span class="summary-name">RPMSENSE_TRIGGERPOSTUN</span> = <code title="262144">262144</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_TRIGGERPREIN"></a><span class="summary-name">RPMSENSE_TRIGGERPREIN</span> = <code title="33554432">33554432</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMSENSE_TRIGGERUN"></a><span class="summary-name">RPMSENSE_TRIGGERUN</span> = <code title="131072">131072</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ARCH"></a><span class="summary-name">RPMTAG_ARCH</span> = <code title="1022">1022</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ARCHIVESIZE"></a><span class="summary-name">RPMTAG_ARCHIVESIZE</span> = <code title="1046">1046</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_BASENAMES"></a><span class="summary-name">RPMTAG_BASENAMES</span> = <code title="1117">1117</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_BUGURL"></a><span class="summary-name">RPMTAG_BUGURL</span> = <code title="5012">5012</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_BUILDARCHS"></a><span class="summary-name">RPMTAG_BUILDARCHS</span> = <code title="1089">1089</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_BUILDHOST"></a><span class="summary-name">RPMTAG_BUILDHOST</span> = <code title="1007">1007</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_BUILDTIME"></a><span class="summary-name">RPMTAG_BUILDTIME</span> = <code title="1006">1006</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_C"></a><span class="summary-name">RPMTAG_C</span> = <code title="1054">1054</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CAPABILITY"></a><span class="summary-name">RPMTAG_CAPABILITY</span> = <code title="1105">1105</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CHANGELOGNAME"></a><span class="summary-name">RPMTAG_CHANGELOGNAME</span> = <code title="1081">1081</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CHANGELOGTEXT"></a><span class="summary-name">RPMTAG_CHANGELOGTEXT</span> = <code title="1082">1082</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CHANGELOGTIME"></a><span class="summary-name">RPMTAG_CHANGELOGTIME</span> = <code title="1080">1080</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CLASSDICT"></a><span class="summary-name">RPMTAG_CLASSDICT</span> = <code title="1142">1142</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CONFLICTFLAGS"></a><span class="summary-name">RPMTAG_CONFLICTFLAGS</span> = <code title="1053">1053</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CONFLICTNAME"></a><span class="summary-name">RPMTAG_CONFLICTNAME</span> = <code title="1054">1054</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CONFLICTS"></a><span class="summary-name">RPMTAG_CONFLICTS</span> = <code title="1054">1054</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_CONFLICTVERSION"></a><span class="summary-name">RPMTAG_CONFLICTVERSION</span> = <code title="1055">1055</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_COOKIE"></a><span class="summary-name">RPMTAG_COOKIE</span> = <code title="1094">1094</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DEPENDSDICT"></a><span class="summary-name">RPMTAG_DEPENDSDICT</span> = <code title="1145">1145</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DESCRIPTION"></a><span class="summary-name">RPMTAG_DESCRIPTION</span> = <code title="1005">1005</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DIRINDEXES"></a><span class="summary-name">RPMTAG_DIRINDEXES</span> = <code title="1116">1116</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DIRNAMES"></a><span class="summary-name">RPMTAG_DIRNAMES</span> = <code title="1118">1118</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DISTRIBUTION"></a><span class="summary-name">RPMTAG_DISTRIBUTION</span> = <code title="1010">1010</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DISTTAG"></a><span class="summary-name">RPMTAG_DISTTAG</span> = <code title="1155">1155</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DISTURL"></a><span class="summary-name">RPMTAG_DISTURL</span> = <code title="1123">1123</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_DSAHEADER"></a><span class="summary-name">RPMTAG_DSAHEADER</span> = <code title="267">267</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_E"></a><span class="summary-name">RPMTAG_E</span> = <code title="1003">1003</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EPOCH"></a><span class="summary-name">RPMTAG_EPOCH</span> = <code title="1003">1003</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EXCLUDEARCH"></a><span class="summary-name">RPMTAG_EXCLUDEARCH</span> = <code title="1059">1059</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EXCLUDEOS"></a><span class="summary-name">RPMTAG_EXCLUDEOS</span> = <code title="1060">1060</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EXCLUSIVEARCH"></a><span class="summary-name">RPMTAG_EXCLUSIVEARCH</span> = <code title="1061">1061</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_EXCLUSIVEOS"></a><span class="summary-name">RPMTAG_EXCLUSIVEOS</span> = <code title="1062">1062</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILECAPS"></a><span class="summary-name">RPMTAG_FILECAPS</span> = <code title="5010">5010</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILECLASS"></a><span class="summary-name">RPMTAG_FILECLASS</span> = <code title="1141">1141</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILECOLORS"></a><span class="summary-name">RPMTAG_FILECOLORS</span> = <code title="1140">1140</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILECONTEXTS"></a><span class="summary-name">RPMTAG_FILECONTEXTS</span> = <code title="1147">1147</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEDEPENDSN"></a><span class="summary-name">RPMTAG_FILEDEPENDSN</span> = <code title="1144">1144</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEDEPENDSX"></a><span class="summary-name">RPMTAG_FILEDEPENDSX</span> = <code title="1143">1143</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEDEVICES"></a><span class="summary-name">RPMTAG_FILEDEVICES</span> = <code title="1095">1095</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEDIGESTALGO"></a><span class="summary-name">RPMTAG_FILEDIGESTALGO</span> = <code title="5011">5011</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEDIGESTS"></a><span class="summary-name">RPMTAG_FILEDIGESTS</span> = <code title="1035">1035</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEFLAGS"></a><span class="summary-name">RPMTAG_FILEFLAGS</span> = <code title="1037">1037</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEGROUPNAME"></a><span class="summary-name">RPMTAG_FILEGROUPNAME</span> = <code title="1040">1040</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEINODES"></a><span class="summary-name">RPMTAG_FILEINODES</span> = <code title="1096">1096</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILELANGS"></a><span class="summary-name">RPMTAG_FILELANGS</span> = <code title="1097">1097</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILELINKTOS"></a><span class="summary-name">RPMTAG_FILELINKTOS</span> = <code title="1036">1036</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEMD5S"></a><span class="summary-name">RPMTAG_FILEMD5S</span> = <code title="1035">1035</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEMODES"></a><span class="summary-name">RPMTAG_FILEMODES</span> = <code title="1030">1030</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEMTIMES"></a><span class="summary-name">RPMTAG_FILEMTIMES</span> = <code title="1034">1034</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILENAMES"></a><span class="summary-name">RPMTAG_FILENAMES</span> = <code title="5000">5000</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEPROVIDE"></a><span class="summary-name">RPMTAG_FILEPROVIDE</span> = <code title="5001">5001</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILERDEVS"></a><span class="summary-name">RPMTAG_FILERDEVS</span> = <code title="1033">1033</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEREQUIRE"></a><span class="summary-name">RPMTAG_FILEREQUIRE</span> = <code title="5002">5002</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILESIZES"></a><span class="summary-name">RPMTAG_FILESIZES</span> = <code title="1028">1028</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILESTATES"></a><span class="summary-name">RPMTAG_FILESTATES</span> = <code title="1029">1029</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEUSERNAME"></a><span class="summary-name">RPMTAG_FILEUSERNAME</span> = <code title="1039">1039</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FILEVERIFYFLAGS"></a><span class="summary-name">RPMTAG_FILEVERIFYFLAGS</span> = <code title="1045">1045</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FSCONTEXTS"></a><span class="summary-name">RPMTAG_FSCONTEXTS</span> = <code title="1148">1148</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FSNAMES"></a><span class="summary-name">RPMTAG_FSNAMES</span> = <code title="5003">5003</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_FSSIZES"></a><span class="summary-name">RPMTAG_FSSIZES</span> = <code title="5004">5004</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_GIF"></a><span class="summary-name">RPMTAG_GIF</span> = <code title="1012">1012</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_GROUP"></a><span class="summary-name">RPMTAG_GROUP</span> = <code title="1016">1016</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HDRID"></a><span class="summary-name">RPMTAG_HDRID</span> = <code title="269">269</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HEADERI18NTABLE"></a><span class="summary-name">RPMTAG_HEADERI18NTABLE</span> = <code title="100">100</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HEADERIMAGE"></a><span class="summary-name">RPMTAG_HEADERIMAGE</span> = <code title="61">61</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HEADERIMMUTABLE"></a><span class="summary-name">RPMTAG_HEADERIMMUTABLE</span> = <code title="63">63</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HEADERREGIONS"></a><span class="summary-name">RPMTAG_HEADERREGIONS</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_HEADERSIGNATURES"></a><span class="summary-name">RPMTAG_HEADERSIGNATURES</span> = <code title="62">62</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ICON"></a><span class="summary-name">RPMTAG_ICON</span> = <code title="1043">1043</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_INSTALLCOLOR"></a><span class="summary-name">RPMTAG_INSTALLCOLOR</span> = <code title="1127">1127</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_INSTALLTID"></a><span class="summary-name">RPMTAG_INSTALLTID</span> = <code title="1128">1128</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_INSTALLTIME"></a><span class="summary-name">RPMTAG_INSTALLTIME</span> = <code title="1008">1008</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_INSTPREFIXES"></a><span class="summary-name">RPMTAG_INSTPREFIXES</span> = <code title="1099">1099</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_LICENSE"></a><span class="summary-name">RPMTAG_LICENSE</span> = <code title="1014">1014</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_LONGARCHIVESIZE"></a><span class="summary-name">RPMTAG_LONGARCHIVESIZE</span> = <code title="271">271</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_LONGFILESIZES"></a><span class="summary-name">RPMTAG_LONGFILESIZES</span> = <code title="5008">5008</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_LONGSIGSIZE"></a><span class="summary-name">RPMTAG_LONGSIGSIZE</span> = <code title="270">270</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_LONGSIZE"></a><span class="summary-name">RPMTAG_LONGSIZE</span> = <code title="5009">5009</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_N"></a><span class="summary-name">RPMTAG_N</span> = <code title="1000">1000</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NAME"></a><span class="summary-name">RPMTAG_NAME</span> = <code title="1000">1000</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_NOT_FOUND"></a><span class="summary-name">RPMTAG_NOT_FOUND</span> = <code title="-1">-1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_O"></a><span class="summary-name">RPMTAG_O</span> = <code title="1090">1090</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OBSOLETEFLAGS"></a><span class="summary-name">RPMTAG_OBSOLETEFLAGS</span> = <code title="1114">1114</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OBSOLETENAME"></a><span class="summary-name">RPMTAG_OBSOLETENAME</span> = <code title="1090">1090</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OBSOLETES"></a><span class="summary-name">RPMTAG_OBSOLETES</span> = <code title="1090">1090</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OBSOLETEVERSION"></a><span class="summary-name">RPMTAG_OBSOLETEVERSION</span> = <code title="1115">1115</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OLDFILENAMES"></a><span class="summary-name">RPMTAG_OLDFILENAMES</span> = <code title="1027">1027</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OPTFLAGS"></a><span class="summary-name">RPMTAG_OPTFLAGS</span> = <code title="1122">1122</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ORIGBASENAMES"></a><span class="summary-name">RPMTAG_ORIGBASENAMES</span> = <code title="1120">1120</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ORIGDIRINDEXES"></a><span class="summary-name">RPMTAG_ORIGDIRINDEXES</span> = <code title="1119">1119</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ORIGDIRNAMES"></a><span class="summary-name">RPMTAG_ORIGDIRNAMES</span> = <code title="1121">1121</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_ORIGFILENAMES"></a><span class="summary-name">RPMTAG_ORIGFILENAMES</span> = <code title="5007">5007</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_OS"></a><span class="summary-name">RPMTAG_OS</span> = <code title="1021">1021</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_P"></a><span class="summary-name">RPMTAG_P</span> = <code title="1047">1047</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PACKAGER"></a><span class="summary-name">RPMTAG_PACKAGER</span> = <code title="1015">1015</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PATCH"></a><span class="summary-name">RPMTAG_PATCH</span> = <code title="1019">1019</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PATCHESFLAGS"></a><span class="summary-name">RPMTAG_PATCHESFLAGS</span> = <code title="1134">1134</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PATCHESNAME"></a><span class="summary-name">RPMTAG_PATCHESNAME</span> = <code title="1133">1133</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PATCHESVERSION"></a><span class="summary-name">RPMTAG_PATCHESVERSION</span> = <code title="1135">1135</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PAYLOADCOMPRESSOR"></a><span class="summary-name">RPMTAG_PAYLOADCOMPRESSOR</span> = <code title="1125">1125</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PAYLOADFLAGS"></a><span class="summary-name">RPMTAG_PAYLOADFLAGS</span> = <code title="1126">1126</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PAYLOADFORMAT"></a><span class="summary-name">RPMTAG_PAYLOADFORMAT</span> = <code title="1124">1124</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PKGID"></a><span class="summary-name">RPMTAG_PKGID</span> = <code title="261">261</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PLATFORM"></a><span class="summary-name">RPMTAG_PLATFORM</span> = <code title="1132">1132</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POLICIES"></a><span class="summary-name">RPMTAG_POLICIES</span> = <code title="1150">1150</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTIN"></a><span class="summary-name">RPMTAG_POSTIN</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTINPROG"></a><span class="summary-name">RPMTAG_POSTINPROG</span> = <code title="1086">1086</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTTRANS"></a><span class="summary-name">RPMTAG_POSTTRANS</span> = <code title="1152">1152</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTTRANSPROG"></a><span class="summary-name">RPMTAG_POSTTRANSPROG</span> = <code title="1154">1154</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTUN"></a><span class="summary-name">RPMTAG_POSTUN</span> = <code title="1026">1026</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_POSTUNPROG"></a><span class="summary-name">RPMTAG_POSTUNPROG</span> = <code title="1088">1088</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PREFIXES"></a><span class="summary-name">RPMTAG_PREFIXES</span> = <code title="1098">1098</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PREIN"></a><span class="summary-name">RPMTAG_PREIN</span> = <code title="1023">1023</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PREINPROG"></a><span class="summary-name">RPMTAG_PREINPROG</span> = <code title="1085">1085</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PRETRANS"></a><span class="summary-name">RPMTAG_PRETRANS</span> = <code title="1151">1151</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PRETRANSPROG"></a><span class="summary-name">RPMTAG_PRETRANSPROG</span> = <code title="1153">1153</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PREUN"></a><span class="summary-name">RPMTAG_PREUN</span> = <code title="1025">1025</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PREUNPROG"></a><span class="summary-name">RPMTAG_PREUNPROG</span> = <code title="1087">1087</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PROVIDEFLAGS"></a><span class="summary-name">RPMTAG_PROVIDEFLAGS</span> = <code title="1112">1112</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PROVIDENAME"></a><span class="summary-name">RPMTAG_PROVIDENAME</span> = <code title="1047">1047</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PROVIDES"></a><span class="summary-name">RPMTAG_PROVIDES</span> = <code title="1047">1047</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PROVIDEVERSION"></a><span class="summary-name">RPMTAG_PROVIDEVERSION</span> = <code title="1113">1113</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_PUBKEYS"></a><span class="summary-name">RPMTAG_PUBKEYS</span> = <code title="266">266</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_R"></a><span class="summary-name">RPMTAG_R</span> = <code title="1002">1002</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_RECONTEXTS"></a><span class="summary-name">RPMTAG_RECONTEXTS</span> = <code title="1149">1149</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_RELEASE"></a><span class="summary-name">RPMTAG_RELEASE</span> = <code title="1002">1002</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_REMOVETID"></a><span class="summary-name">RPMTAG_REMOVETID</span> = <code title="1129">1129</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_REQUIREFLAGS"></a><span class="summary-name">RPMTAG_REQUIREFLAGS</span> = <code title="1048">1048</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_REQUIRENAME"></a><span class="summary-name">RPMTAG_REQUIRENAME</span> = <code title="1049">1049</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_REQUIRES"></a><span class="summary-name">RPMTAG_REQUIRES</span> = <code title="1049">1049</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_REQUIREVERSION"></a><span class="summary-name">RPMTAG_REQUIREVERSION</span> = <code title="1050">1050</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_RHNPLATFORM"></a><span class="summary-name">RPMTAG_RHNPLATFORM</span> = <code title="1131">1131</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_RPMVERSION"></a><span class="summary-name">RPMTAG_RPMVERSION</span> = <code title="1064">1064</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_RSAHEADER"></a><span class="summary-name">RPMTAG_RSAHEADER</span> = <code title="268">268</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SHA1HEADER"></a><span class="summary-name">RPMTAG_SHA1HEADER</span> = <code title="269">269</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SIGGPG"></a><span class="summary-name">RPMTAG_SIGGPG</span> = <code title="262">262</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SIGMD5"></a><span class="summary-name">RPMTAG_SIGMD5</span> = <code title="261">261</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SIGPGP"></a><span class="summary-name">RPMTAG_SIGPGP</span> = <code title="259">259</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SIGSIZE"></a><span class="summary-name">RPMTAG_SIGSIZE</span> = <code title="257">257</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SIZE"></a><span class="summary-name">RPMTAG_SIZE</span> = <code title="1009">1009</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SOURCE"></a><span class="summary-name">RPMTAG_SOURCE</span> = <code title="1018">1018</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SOURCEPACKAGE"></a><span class="summary-name">RPMTAG_SOURCEPACKAGE</span> = <code title="1106">1106</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SOURCEPKGID"></a><span class="summary-name">RPMTAG_SOURCEPKGID</span> = <code title="1146">1146</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SOURCERPM"></a><span class="summary-name">RPMTAG_SOURCERPM</span> = <code title="1044">1044</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_SUMMARY"></a><span class="summary-name">RPMTAG_SUMMARY</span> = <code title="1004">1004</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERCONDS"></a><span class="summary-name">RPMTAG_TRIGGERCONDS</span> = <code title="5005">5005</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERFLAGS"></a><span class="summary-name">RPMTAG_TRIGGERFLAGS</span> = <code title="1068">1068</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERINDEX"></a><span class="summary-name">RPMTAG_TRIGGERINDEX</span> = <code title="1069">1069</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERNAME"></a><span class="summary-name">RPMTAG_TRIGGERNAME</span> = <code title="1066">1066</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERSCRIPTPROG"></a><span class="summary-name">RPMTAG_TRIGGERSCRIPTPROG</span> = <code title="1092">1092</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERSCRIPTS"></a><span class="summary-name">RPMTAG_TRIGGERSCRIPTS</span> = <code title="1065">1065</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERTYPE"></a><span class="summary-name">RPMTAG_TRIGGERTYPE</span> = <code title="5006">5006</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_TRIGGERVERSION"></a><span class="summary-name">RPMTAG_TRIGGERVERSION</span> = <code title="1067">1067</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_URL"></a><span class="summary-name">RPMTAG_URL</span> = <code title="1020">1020</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_V"></a><span class="summary-name">RPMTAG_V</span> = <code title="1001">1001</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_VENDOR"></a><span class="summary-name">RPMTAG_VENDOR</span> = <code title="1011">1011</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_VERIFYSCRIPT"></a><span class="summary-name">RPMTAG_VERIFYSCRIPT</span> = <code title="1079">1079</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_VERIFYSCRIPTPROG"></a><span class="summary-name">RPMTAG_VERIFYSCRIPTPROG</span> = <code title="1091">1091</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_VERSION"></a><span class="summary-name">RPMTAG_VERSION</span> = <code title="1001">1001</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTAG_XPM"></a><span class="summary-name">RPMTAG_XPM</span> = <code title="1013">1013</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_ADDINDEPS"></a><span class="summary-name">RPMTRANS_FLAG_ADDINDEPS</span> = <code title="536870912">536870912</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_ALLFILES"></a><span class="summary-name">RPMTRANS_FLAG_ALLFILES</span> = <code title="64">64</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_BUILD_PROBS"></a><span class="summary-name">RPMTRANS_FLAG_BUILD_PROBS</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_JUSTDB"></a><span class="summary-name">RPMTRANS_FLAG_JUSTDB</span> = <code title="8">8</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_KEEPOBSOLETE"></a><span class="summary-name">RPMTRANS_FLAG_KEEPOBSOLETE</span> = <code title="128">128</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOCONFIGS"></a><span class="summary-name">RPMTRANS_FLAG_NOCONFIGS</span> = <code title="1073741824">1073741824</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NODOCS"></a><span class="summary-name">RPMTRANS_FLAG_NODOCS</span> = <code title="32">32</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOFILEDIGEST"></a><span class="summary-name">RPMTRANS_FLAG_NOFILEDIGEST</span> = <code title="134217728">134217728</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOMD5"></a><span class="summary-name">RPMTRANS_FLAG_NOMD5</span> = <code title="134217728">134217728</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOPOST"></a><span class="summary-name">RPMTRANS_FLAG_NOPOST</span> = <code title="262144">262144</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOPOSTUN"></a><span class="summary-name">RPMTRANS_FLAG_NOPOSTUN</span> = <code title="4194304">4194304</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOPRE"></a><span class="summary-name">RPMTRANS_FLAG_NOPRE</span> = <code title="131072">131072</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOPREUN"></a><span class="summary-name">RPMTRANS_FLAG_NOPREUN</span> = <code title="2097152">2097152</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOSCRIPTS"></a><span class="summary-name">RPMTRANS_FLAG_NOSCRIPTS</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOSUGGEST"></a><span class="summary-name">RPMTRANS_FLAG_NOSUGGEST</span> = <code title="268435456">268435456</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOTRIGGERIN"></a><span class="summary-name">RPMTRANS_FLAG_NOTRIGGERIN</span> = <code title="524288">524288</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOTRIGGERPOSTUN"></a><span class="summary-name">RPMTRANS_FLAG_NOTRIGGERPOSTUN</span> = <code title="8388608">8388608</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOTRIGGERPREIN"></a><span class="summary-name">RPMTRANS_FLAG_NOTRIGGERPREIN</span> = <code title="65536">65536</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOTRIGGERS"></a><span class="summary-name">RPMTRANS_FLAG_NOTRIGGERS</span> = <code title="16">16</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_NOTRIGGERUN"></a><span class="summary-name">RPMTRANS_FLAG_NOTRIGGERUN</span> = <code title="1048576">1048576</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_REPACKAGE"></a><span class="summary-name">RPMTRANS_FLAG_REPACKAGE</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_REVERSE"></a><span class="summary-name">RPMTRANS_FLAG_REVERSE</span> = <code title="32768">32768</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMTRANS_FLAG_TEST"></a><span class="summary-name">RPMTRANS_FLAG_TEST</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_DEFAULT"></a><span class="summary-name">RPMVSF_DEFAULT</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NEEDPAYLOAD"></a><span class="summary-name">RPMVSF_NEEDPAYLOAD</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NODSA"></a><span class="summary-name">RPMVSF_NODSA</span> = <code title="262144">262144</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NODSAHEADER"></a><span class="summary-name">RPMVSF_NODSAHEADER</span> = <code title="1024">1024</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NOHDRCHK"></a><span class="summary-name">RPMVSF_NOHDRCHK</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NOMD5"></a><span class="summary-name">RPMVSF_NOMD5</span> = <code title="131072">131072</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NOMD5HEADER"></a><span class="summary-name">RPMVSF_NOMD5HEADER</span> = <code title="512">512</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NORSA"></a><span class="summary-name">RPMVSF_NORSA</span> = <code title="524288">524288</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NORSAHEADER"></a><span class="summary-name">RPMVSF_NORSAHEADER</span> = <code title="2048">2048</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NOSHA1"></a><span class="summary-name">RPMVSF_NOSHA1</span> = <code title="65536">65536</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="RPMVSF_NOSHA1HEADER"></a><span class="summary-name">RPMVSF_NOSHA1HEADER</span> = <code title="256">256</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'spacewalk.common'"><code class="variable-quote">'</code><code class="variable-string">spacewalk.common</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="get_header_byte_range"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_header_byte_range</span>(<span class="sig-arg">package_file</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#get_header_byte_range">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return the start and end bytes of the rpm header object.</p>
+  <p>For details of the rpm file format, see: 
+  http://www.rpm.org/max-rpm/s1-rpm-file-format-rpm-file-format.html</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="sortHeaders"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sortHeaders</span>(<span class="sig-arg">hdrs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortHeaders">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sorts a list of RPM headers (or RPMs). Assertion: they *must* 
+  exist.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="sortRPMs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">sortRPMs</span>(<span class="sig-arg">rpms</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spacewalk.common.rhn_rpm-pysrc.html#sortRPMs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sorts a list of RPM files. They *must* exist.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="PGPHASHALGO"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">PGPHASHALGO</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md5</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">sha1</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 3<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">ripemd160</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 5<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">md2</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 6<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">tiger192</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 7<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">haval-5-160</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 8<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">sha256</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 9<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">sha384</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:16 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

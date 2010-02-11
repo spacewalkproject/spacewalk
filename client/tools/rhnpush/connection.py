@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -169,7 +169,7 @@ class PackageUpload:
 
         return self._response
 
-    def upload(self, file, FileChecksum):
+    def upload(self, file, FileChecksumType, FileChecksum):
         """
         Uploads a file.
         Returns (http_error_code, error_message)
@@ -210,6 +210,7 @@ class PackageUpload:
         self.nvra = nvra
 
         # use the precomputed passed checksum
+        self.checksum_type = FileChecksumType
         self.checksum = FileChecksum
                 
         # Set headers
@@ -222,11 +223,11 @@ class PackageUpload:
         self.set_header("%s-%s" % (prefix, "Package-Release"), nvra[2])
         self.set_header("%s-%s" % (prefix, "Package-Arch"), nvra[3])
         self.set_header("%s-%s" % (prefix, "Packaging"), self.packaging)
-        if self.checksum[0] == 'md5':
-            self.set_header("%s-%s" % (prefix, "File-MD5sum"), self.checksum[1])
+        if self.checksum_type == 'md5':
+            self.set_header("%s-%s" % (prefix, "File-MD5sum"), self.checksum)
         else:
-            self.set_header("%s-%s" % (prefix, "File-Checksum-Type"), self.checksum[0])
-            self.set_header("%s-%s" % (prefix, "File-Checksum"), self.checksum[1])
+            self.set_header("%s-%s" % (prefix, "File-Checksum-Type"), self.checksum_type)
+            self.set_header("%s-%s" % (prefix, "File-Checksum"), self.checksum)
         
         self._response = self.send_http('POST', stream_body=f)
         f.close()
@@ -246,7 +247,7 @@ class PackageUpload:
         if status == 201:
             # Created
             return (status, "%s %s: %s-%s-%s.%s.rpm already uploaded" % (
-                self.checksum[0], self.checksum[1],
+                self.checksum_type, self.checksum,
                 self.nvra[0], self.nvra[1], self.nvra[2], self.nvra[3]))
         if status in (404, 409):
             # Conflict

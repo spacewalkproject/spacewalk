@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,13 +22,14 @@ package RHN::DB::Org;
 use RHN::DB;
 use RHN::DB::TableClass;
 use RHN::Exception;
-use RHN::Probe;
 
 use RHN::DataSource::Channel;
 
-use Data::Dumper;
+use PXT::Config ();
+use PXT::Debug ();
+use RHN::DB::Server ();
+
 use Date::Parse;
-use Time::HiRes;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -37,28 +38,6 @@ my @org_fields = qw/ID NAME ORACLE_CUSTOMER_ID ORACLE_CUSTOMER_NUMBER CUSTOMER_T
 my @skip_cert_channels = qw/%%-beta%% %%-staging%% rhn-satellite%%/;
 
 my $o = new RHN::DB::TableClass("web_customer", "O", "", @org_fields);
-
-# loads the org for a satellite, dies if called in non-satellite context
-sub satellite_org {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  $sth = $dbh->prepare("SELECT is_satellite() FROM DUAL");
-  $sth->execute();
-  my ($is_satellite)= $sth->fetchrow;
-  $sth->finish;
-
-  die 'not a satellite!' unless $is_satellite;
-
-  $sth = $dbh->prepare("SELECT id FROM web_customer");
-  $sth->execute;
-  my ($org_id) = $sth->fetchrow;
-  $sth->finish;
-
-  return $class->lookup(-id => $org_id);
-}
 
 sub lookup {
   my $class = shift;
@@ -160,15 +139,6 @@ sub blank_org {
   return $self;
 }
 
-sub create_org {
-  my $class = shift;
-
-  my $org = $class->blank_org;
-  $org->{__id__} = -1;
-
-  return $org;
-}
-
 # build some accessors
 foreach my $field ($o->method_names) {
   my $sub = q {
@@ -237,36 +207,6 @@ sub commit {
   delete $self->{":modified:"};
 }
 
-sub random_org_admin {
-  my $self_or_class = shift;
-  my $oid;
-
-  if (ref $self_or_class) {
-    $oid = $self_or_class->id;
-  }
-  else {
-    $oid = shift;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOSQL;
-SELECT UGM.user_id
-  FROM rhnUserGroupMembers UGM,
-       rhnUserGroup UG
- WHERE UG.id = UGM.user_group_id
-   AND UG.org_id = ?
-   AND UG.group_type = (SELECT id FROM rhnUserGroupType WHERE label = 'org_admin')
-EOSQL
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($oid);
-
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-
-  return $id;
-}
-
 sub users_in_org {
   my $class = shift;
   my $org_id = shift;
@@ -290,102 +230,6 @@ EOSQL
 
   return @ret;
 }
-
-# calling convention:
-# RHN::DB::Org->servers_in_org(org_id, [upper, lower], columns to display)
-# TODO: make servergroups_in_org, users_in_org, usergroups_in_org act like servers_in_org
-
-sub servers_in_org {
-  my $class = shift;
-  my $org_id = shift;
-  my $bounds = shift;
-  my @columns = @_;
-
-  if (not ref $bounds or ref $bounds ne 'ARRAY') {
-    unshift @columns, $bounds;
-    $bounds = [ 1, 1_000_000 ];
-  }
-
-  @columns = ('S.ID') unless @columns;
-
-  my $dbh = RHN::DB->connect;
-  my $query = sprintf <<EOSQL, join(", ", map { "S.$_" } @columns);
-SELECT %s
-FROM rhnServer S
-WHERE S.org_id = ?
-ORDER BY UPPER(S.name), S.id
-EOSQL
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-
-  my $i = 1;
-  while (my @row = $sth->fetchrow) {
-    if ($i >= $bounds->[0] and $i <= $bounds->[1]) {
-      push @ret, [ @row ];
-    } else {
-      last;
-    }
-    $i++;
-  }
-  $sth->finish;
-
-  return @ret;
-}
-
-sub usergroups_in_org {
-  my $class = shift;
-  my $org_id = shift;
-  my @columns = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $query = sprintf <<EOSQL, join(", ", map { "UG.$_" } @columns);
-SELECT %s
-FROM rhnUserGroup UG
-WHERE UG.org_id = ?
-EOSQL
-
-#  warn "q: $query";
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub servergroups_in_org {
-  my $class = shift;
-  my $org_id = shift;
-  my @columns = @_ ? @_ : ("ID");
-
-  my $dbh = RHN::DB->connect;
-  my $query = sprintf <<EOSQL, join(", ", map { "SG.$_" } @columns);
-SELECT %s
-FROM rhnServerGroup SG
-WHERE SG.org_id = ?
-  AND SG.group_type is NULL
-EOSQL
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 
 sub users_in_org_overview {
   my $class = shift;
@@ -463,128 +307,6 @@ EOQ
   return @result;
 }
 
-sub user_count {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT COUNT(id) FROM web_contact WHERE org_id = ?');
-  $sth->execute($self->id);
-  my ($count) = $sth->fetchrow;
-  $sth->finish;
-
-  return $count;
-}
-
-sub user_group_id {
-  my $self = shift;
-  my $label = shift;
-
-  die "No label" unless $label;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT UG.id FROM rhnUserGroupType UGT, rhnUserGroup UG WHERE UG.org_id = ? AND UG.group_type = UGT.id AND UGT.label = ?');
-  $sth->execute($self->id, $label);
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-
-  return $id;
-}
-
-sub user_applicant_group {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT UG.id FROM rhnUserGroupType UGT, rhnUserGroup UG WHERE UG.org_id = ? AND UG.group_type = UGT.id AND UGT.label = ?');
-  $sth->execute($self->id, 'org_applicant');
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-
-  return $id;
-}
-
-sub create_new_org {
-  my $class = shift;
-  my %params = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-BEGIN
-  CREATE_NEW_ORG(name_in => :org_name, password_in => :org_password,
-                 oracle_customer_number_in => :oracle_customer_number,
-                 oracle_customer_id_in => :oracle_customer_id,
-                 customer_type_in => :customer_type,
-                 org_id_out => :org_id, org_admin_group_out => :org_admin_group,
-                 org_app_group_out => :org_app_group,
-                 creation_location => 'rhn');
-END;
-EOQ
-
-  $sth->bind_param(":org_name" => $params{"-org_name"});
-  $sth->bind_param(":org_password" => $params{"-org_password"});
-
-  $sth->bind_param(":${_}" => $params{"-$_"})
-    foreach qw/oracle_customer_number oracle_customer_id customer_type/;
-
-  my ($org_id, $org_admin_group, $org_app_group);
-  $sth->bind_param_inout(':org_id' => \$org_id, 4096);
-  $sth->bind_param_inout(':org_admin_group' => \$org_admin_group, 4096);
-  $sth->bind_param_inout(':org_app_group' => \$org_app_group, 4096);
-  $sth->execute;
-
-  if ($params{-commit}) {
-    $dbh->commit;
-  }
-
-  return ($org_id, $org_admin_group, $org_app_group);
-}
-
-sub user_applet_overview {
-  my $class = shift;
-  my $user_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $sth = $dbh->prepare("SELECT COUNT(server_id) FROM rhnUserServerPerms WHERE user_id = ?");
-  $sth->execute($user_id);
-  my ($count) = $sth->fetchrow;
-  $sth->finish;
-
-  $sth = $dbh->prepare(<<EOSQL);
-SELECT security_count, bug_count, enhancement_count
-  FROM rhnUserAppletOverview
- WHERE user_id = ?
-EOSQL
-  $sth->execute($user_id);
-
-  my ($sec, $bug, $enh) = $sth->fetchrow;
-  $sth->finish;
-
-  return ($count, $sec, $bug, $enh);
-}
-
-sub org_applicant_group_from_ugid {
-  my $class = shift;
-  my $ugid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UG1.id
-  FROM rhnUserGroupType UGT,
-       rhnUserGroup UG1,
-       rhnUserGroup UG2
- WHERE UG1.group_type = UGT.id
-   AND UGT.label = 'org_applicant'
-   AND UG1.org_id = UG2.org_id
-   AND UG2.id = ?
-EOQ
-
-  $sth->execute($ugid);
-  my ($ret) = $sth->fetchrow;
-  $sth->finish;
-
-  return $ret;
-}
-
 sub entitlement_counts {
   my $self = shift;
   my $entitlement = shift;
@@ -629,23 +351,6 @@ sub entitlement_data {
   return $ent_data;
 }
 
-# How many systems in the org?
-sub server_count {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT COUNT(S.id)
-  FROM rhnServer S
- WHERE S.org_id = ?
-EOS
-  $sth->execute($self->id);
-  my ($server_count) = $sth->fetchrow;
-  $sth->finish;
-
-  return ($server_count || 0);
-}
-
 #How many unused basic or enterprise slots does the org have?
 sub unused_entitlements {
   my $self = shift;
@@ -663,25 +368,6 @@ EOS
   $sth->finish;
 
   return $tot;
-}
-
-sub owns_servers {
-  my $self = shift;
-  my @server_ids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("SELECT org_id FROM rhnServer WHERE id = ?");
-
-  foreach my $server (@server_ids) {
-    $sth->execute($server);
-    my ($org_id) = $sth->fetchrow;
-    $sth->finish;
-
-    return 0 if not defined $org_id;
-    return 0 if $org_id != $self->id;
-  }
-
-  return 1;
 }
 
 sub owns_server_groups {
@@ -761,158 +447,6 @@ EOQ
   return 0;
 }
 
-sub support_user_overview {
-  my $class = shift;
-  my %params = @_;
-
-  my $org_id;
-
-  if (exists $params{-org_id}) {
-    $org_id = $params{-org_id};
-  }
-  elsif (exists $params{-custnum}) {
-    my $dbh = RHN::DB->connect;
-    my $sth = $dbh->prepare('SELECT id FROM web_customer WHERE oracle_customer_number = ?');
-
-    $sth->execute($params{-custnum});
-    ($org_id) = $sth->fetchrow;
-    $sth->finish;
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare('SELECT id, login FROM web_contact WHERE org_id = ?');
-
-  $sth->execute($org_id);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub orders_for_org {
-  my $class = shift;
-  my $oid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT CUSTOMER_NUMBER, WEB_ORDER_NUMBER, LINE_ID, PRODUCT_ITEM_CODE, PRODUCT_NAME, QUANTITY
-  FROM user_orders
- WHERE customer_number = (SELECT oracle_customer_id FROM web_customer cu WHERE cu.id = ?)
-EOS
-
-  $sth->execute($oid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub products_for_org {
-  my $class = shift;
-  my $oid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT REGISTRATION_USER_ID, REG_NUMBER, SERVICE_TAG, PRODUCT_DESCRIPTION, PRODUCT_ITEM_CODE,
-       PRODUCT_START_DATE, PRODUCT_END_DATE, PRODUCT_ACTIVE_FLAG, PRODUCT_QUANTITY,
-       SERVICE_DESCRIPTION, SERVICE_ITEM_CODE, SERVICE_START_DATE, SERVICE_END_DATE,
-       SERVICE_ACTIVE_FLAG
-  FROM user_products
- WHERE org_id = ?
-EOS
-
-  $sth->execute($oid);
-
-  my @ret;
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
-sub pending_users {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT wc.id, wc.login, wupi.first_names, wupi.last_name, wupi.title, wupi.email
-  FROM web_user_personal_info wupi,
-       web_contact wc,
-       rhnUserGroupMembers UGM
- WHERE UGM.user_group_id = (SELECT id
-                              FROM rhnUserGroup
-                             WHERE org_id = ?
-                               AND group_type = (SELECT id FROM rhnUserGroupType WHERE label = 'org_applicant'))
-   AND UGM.user_id = wc.id
-   AND wupi.web_user_id = wc.id
-EOS
-
-  $sth->execute($org_id);
-
-  my @ret = $sth->fullfetch;
-
-  return @ret;
-}
-
-sub org_admins {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT ugm.user_id
-  FROM rhnUserGroupMembers ugm,
-       web_contact wc
- WHERE ugm.user_group_id = (SELECT id
-                              FROM rhnUserGroup
-                             WHERE org_id = ?
-                               AND group_type = (SELECT id FROM rhnUserGroupType WHERE label = 'org_admin'))
-   AND wc.id = ugm.user_id
-ORDER BY wc.id
-EOS
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my ($id) = $sth->fetchrow) {
-    push @ret, $id;
-  }
-
-  return @ret;
-}
-
-# find a user who is responsible (org admin; current policy is org
-# admin with lowest id)
-sub find_responsible_user {
-  my $self = shift;
-
-  my @ret = $self->org_admins;
-  if (@ret) {
-    return RHN::User->lookup(-id => $ret[0]);
-  }
-  else {
-    return undef;
-  }
-}
-
-sub entitled_satellite_families {
-  my $self = shift;
-
-  my @families;
-
-  foreach my $fam (qw/rhn-satellite/) {
-    push @families, $fam if $self->has_channel_family_entitlement($fam);
-  }
-
-  return @families;
-}
-
 sub has_channel_family_entitlement {
   my $self = shift;
   my $label = shift;
@@ -930,50 +464,6 @@ EOS
   $sth->finish;
 
   return $ret;
-}
-
-sub entitlement_history {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT wce.customer_id,
-       wce.active_flag,
-       TO_CHAR(wce.start_date_active, 'YYYY-MM-DD'),
-       TO_CHAR(wce.end_date_active, 'YYYY-MM-DD'),
-       wce.product_name,
-       wce.service_name,
-       wce.product_item_code,
-       wce.service_item_code,
-       wce.group_label,
-       wce.quantity,
-       wce.customer_product_id,
-       wce.paid
-  FROM web_customer_entitlements wce
- WHERE wce.customer_id = ?
-EOS
-
-  $sth->execute($self->id);
-
-  my @ret = $sth->fullfetch;
-
-  return @ret;
-}
-
-sub rename_customer {
-  my $self = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare("UPDATE web_customer SET name = ? WHERE id = ?");
-  $sth->execute($name, $self->id);
-
-  $sth = $dbh->prepare("UPDATE web_user_personal_info SET company = ? WHERE web_user_id IN (SELECT id FROM web_contact WHERE org_id = ?)");
-  $sth->execute($name, $self->id);
-
-  $self->name($name);
-
-  $self->oai_customer_sync();
 }
 
 sub oai_customer_sync {
@@ -1015,23 +505,6 @@ EOQ
 
   return @channel_family_ids;
 
-}
-
-sub enter_edu_holding_pen {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOQ;
-INSERT INTO rhnEduHoldingPen
-  (org_id)
-VALUES
-  (?)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  $dbh->commit;
 }
 
 # all roles that are available to the org
@@ -1105,7 +578,7 @@ sub slot_name {
   my $self = shift;
   my $ent = shift;
 
-  if ($ent eq 'sw_mgr_entitled' and PXT::Config->get('satellite')) {
+  if ($ent eq 'sw_mgr_entitled') {
     return 'VERY BROKEN UPDATE ENTITLEMENT';
   }
 
@@ -1128,47 +601,6 @@ sub slot_name {
   return $self->{cached_slot_names}->{$ent};
 }
 
-sub basic_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('sw_mgr_entitled');
-}
-
-sub enterprise_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('enterprise_entitled');
-}
-
-sub provisioning_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('provisioning_entitled');
-}
-
-sub monitoring_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('monitoring_entitled');
-}
-
-sub nonlinux_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('nonlinux_entitled');
-}
-
-sub virtualization_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('virtualization_host');
-}
-
-sub virtualization_platform_slot_name {
-  my $self = shift;
-
-  return $self->slot_name('virtualization_host_platform');
-}
 
 
 sub org_channel_setting {
@@ -1346,29 +778,6 @@ sub channel_entitlements {
   return $channels;
 }
 
-sub quota_data {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT OQ.total, OQ.bonus, OQ.used
-  FROM rhnOrgQuota OQ
- WHERE OQ.org_id = :org_id
-EOQ
-
-  $sth->execute_h(org_id => $self->id);
-  my $data = $sth->fetchrow_hashref;
-
-  $sth->finish;
-
-  return unless (ref $data eq 'HASH');
-
-  $data->{LIMIT} = $data->{TOTAL} + $data->{BONUS};
-  $data->{AVAILABLE} = $data->{LIMIT} - $data->{USED};
-
-  return $data;
-}
-
 sub validate_cert {
   my $self = shift;
 
@@ -1398,49 +807,5 @@ EOQ
   }
 }
 
-
-sub available_cert_channels {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $stmt =  <<EOQ;
-SELECT  
-        cf.id                           id,
-        cf.name                         name,
-        cf.label                        label
-FROM    rhnChannelFamily                cf
-WHERE   1=1
-    and cf.org_id is null
-EOQ
-
-  foreach my $skip_clause (@skip_cert_channels) {
-    $stmt .= " and cf.label not like '$skip_clause'";
-  }
-  $stmt .= " order by cf.label";
-
-  my $sth = $dbh->prepare($stmt);
-
-  $sth->execute_h();
-
-  my @result;
-
-  while ( my (@data) = $sth->fetchrow ) {
-      push ( @result, \@data );
-  }
-
-  $sth->finish;
-
-  return @result;
-  
-}
-
-
-# Get options defined for this Org's list of monitoring Scouts
-sub get_scout_options {
-    my $self = shift;
-    my $scouts = RHN::Probe->list_scouts($self->id);
-    my @scout_options = map { { value => $_->{SAT_CLUSTER_ID}, label => $_->{DESCRIPTION} } } @{$scouts};
-    return @scout_options;
-}
 
 1;

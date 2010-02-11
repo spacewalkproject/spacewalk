@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,17 +20,13 @@ package Sniglets::Users;
 use PXT::Utils;
 
 use RHN::User;
-use RHN::UserGroup;
 use RHN::Org;
-use RHN::Grail;
 use PXT::HTML;
 use RHN::UserActions;
-use RHN::Exception qw/throw catchable/;
 use RHN::SessionSwap;
 use RHN::Mail;
 use RHN::Postal;
 use RHN::TemplateString;
-use RHN::Utils;
 use PXT::ACL;
 use Mail::RFC822::Address;
 use URI;
@@ -47,19 +43,13 @@ use RHN::DataSource::SystemGroup;
 use Digest::MD5;
 use Date::Parse;
 
-use Data::Dumper;
-
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
-
   $pxt->register_tag('rhn-login-form', \&rhn_login_form);
 
   $pxt->register_tag('rhn-require' => \&rhn_require, -1000);
-
-  $pxt->register_tag('rhn-user-site-view' => \&user_site_view);
 
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
 }
@@ -68,161 +58,11 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:education_cb' => \&education_cb);
-
   $pxt->register_callback('rhn:login_cb', \&rhn_login_cb);
   $pxt->register_callback('rhn:forgot_password_cb', \&forgot_password_cb);
   $pxt->register_callback('rhn:forgot_accounts_cb', \&forgot_accounts_cb);
-  $pxt->register_callback('rhn:logout_cb', \&rhn_logout_cb);
-
-
-  $pxt->register_callback('rhn:admin_user_edit_cb' => \&admin_user_edit_cb);
-  $pxt->register_callback('rhn:admin_user_site_edit_cb' => \&admin_user_site_edit_cb);
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
-
-
-  $pxt->register_callback('rhn:toggle_pref_cb' => \&toggle_pref_cb);
-
-
-  $pxt->register_callback('rhn:delete_user_cb' => \&delete_user_cb);
-  $pxt->register_callback('rhn:request_account_deactivation_cb' => \&request_account_deactivation_cb);
-  $pxt->register_callback('rhn:user_default_system_groups_cb' => \&default_system_groups_cb);
-  
-  $pxt->register_callback('rhn:accepted' => \&tnc_accepted_cb);
-}
-
-#Can you see this
-sub tnc_accepted_cb {
-	my $pxt = shift;
-	$pxt->push_message(site_info => 'Thank you for accepting the Terms and Conditions!');
-	$pxt->redirect("/rhn/YourRhn.do");
-}
-
-# secures *all* intraserver links and all links to specified exterior servers
-sub secure_links_if_logged_in {
-  my $pxt = shift;
-  my %params = @_;
-
-  return $params{__block__} unless $pxt->user;
-
-  #  intra server ones...
-  #$params{__block__} =~ s/href="(http:\/\/.*?)"/'href="' . $pxt->derelative_url($1, 'https') . '"'/egism;
-
-  #  inter server ones
-  foreach my $server_str (split /[|]/, $params{servers}) {
-    $params{__block__} =~ s{http://($server_str)}{https://$1}gism;
-  }
-
-  return $params{__block__};
-}
-
-sub delete_user_cb {
-  my $pxt = shift;
-
-  my $uid = $pxt->param('uid');
-  die 'no user id' unless $uid;
-
-  if ($uid == $pxt->user->id) {
-    $pxt->push_message(local_alert => "You may not delete yourself.");
-    $pxt->redirect("/rhn/users/UserDetails.do?uid=$uid");
-  }
-
-  my $user = RHN::User->lookup(-id => $uid);
-  die 'user lookup failed' unless $user;
-
-  my $login = $user->login;
-
-  eval {
-    RHN::User->delete_user($uid);
-  };
-  if ($@ and catchable($@)) {
-    my $E = $@;
-
-    if ($E->is_rhn_exception('cannot_delete_user')) {
-      $pxt->push_message(local_alert => "Could not delete user <strong>" . $login . "</strong>.");
-      $pxt->redirect("/rhn/users/UserDetails.do?uid=$uid");
-    }
-    else {
-      throw $E;
-    }
-  }
-  else {
-    $pxt->push_message(site_info => "Deleted user <strong>" . $login . "</strong>.");
-  }
-
-  $pxt->redirect('/rhn/users/index.jsp');
-
-  return;
-}
-
-
-sub request_account_deactivation_cb {
-  my $pxt = shift;
-  my $user = $pxt->user;
-
-  die "no user!" unless $user;
-
-  eval {
-    $user->request_deactivation();
-  };
-
-  if ($@) {
-
-    my $E = $@;
-
-    if (ref $E and catchable($E) and $E->constraint_value eq 'RHN_UDQUEUE_UID_UQ') {
-      $pxt->push_message(site_info => 'We have already logged your deactivation request and will complete the request as soon as possible.');
-    }
-    else {
-      throw $E;
-    }
-  }
-  else {
-    $pxt->push_message(site_info => 'Request for account deactivation sent.');
-  }
-
-  $pxt->redirect('/network/account/details.pxt');
-}
-
-
-sub education_cb {
-  my $pxt = shift;
-
-  eval {
-    $pxt->user->org->enter_edu_holding_pen();
-  };
-  if ($@) {
-    my $E = $@;
-    if (ref($E) eq 'RHN::Exception') {
-    if ($E->constraint_value eq 'RHN_EDU_HP_OID_UQ') {
-      $pxt->push_message(local_alert => 'Your application is currently being processed.');
-      return;
-      }
-      else {
-	warn "unknown error in education_cb:  " . Data::Dumper->Dump([($@)]);
-	die $@;
-      }
-    }
-    else {
-      # passthrough, add real error checking later
-      die $@;
-    }
-  }
-  else {
-    my ($login, $uid, $env, $oid) = ($pxt->user->login, $pxt->user->id, $pxt->hostname, $pxt->user->org->id);
-    RHN::Mail->send(to => PXT::Config->get('education_account_email'),
-		    subject => "EDUCATION: User $login has subscribed to the education channels",
-		    headers => { "X-RHN-Info" => "education_account_creation"},
-		    body => <<EOB);
-
-The user $login (uid $uid, oid $oid) has subscribed to the education
-channels in the $env environment.
-
-EOB
-
-    $pxt->redirect("/newlogin/education_pending.pxt");
-  }
 }
 
 
@@ -384,7 +224,7 @@ sub forgot_password_cb {
     my $letter = new RHN::Postal;
     $letter->template("forgot_password.xml");
     $letter->set_tag('email-address' => $email);
-    $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ?  "your satellite administrator" : "dev-null\@redhat.com");
+    $letter->set_tag('product-name' => PXT::Config->get('product_name'));
     $letter->set_tag('username' => $username);
     $letter->set_tag('password' => $password);
     $letter->render;
@@ -420,7 +260,7 @@ sub forgot_accounts_cb {
   my $letter = new RHN::Postal;
   $letter->template("forgot_accounts.xml");
   $letter->set_tag('email-address' => $email);
-  $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ?  "your satellite administrator" : "dev-null\@redhat.com");
+  $letter->set_tag('product-name' => PXT::Config->get('product_name'));
   $letter->set_tag('account-list' => join("\n", map { "  " . $_->login } @users));
   $letter->set_header("X-RHN-Info" => "account_list");
   $letter->render;
@@ -445,7 +285,7 @@ sub rhn_login_cb {
   $pxt->clear_user;
   $pxt->session->uid(undef);
 
-  if (PXT::Config->get('satellite') and not RHN::Org->validate_cert() ) {
+  if (not RHN::Org->validate_cert() ) {
     warn "Certificate is expired.";
     $pxt->redirect('/errors/cert-expired.pxt');
   }
@@ -469,7 +309,7 @@ sub rhn_login_cb {
       $pxt->redirect('/rhn/account/UserDetails.do');
     }
     else {
-      if ($pxt->dirty_param('url_bounce') and $pxt->header_in('User-Agent') !~ /Konqueror/) {
+      if ($pxt->dirty_param('url_bounce')) {
 	my $url = $pxt->dirty_param('url_bounce');
 
 	if ($url =~ /\?/) {
@@ -479,12 +319,7 @@ sub rhn_login_cb {
 	$pxt->redirect($url);
       }
       else {
-	if ($pxt->header_in('User-Agent') =~ /Konqueror\/3.0.0/) {
-	  $pxt->redirect('/konq.pxt');
-	}
-	else {
-	  $pxt->redirect('/rhn/YourRhn.do');
-	}
+        $pxt->redirect('/rhn/YourRhn.do');
       }
     }
   }
@@ -499,385 +334,6 @@ sub rhn_login_cb {
 
 }
 
-sub rhn_logout_cb {
-  my $pxt = shift;
-
-  $pxt->clear_user;
-  $pxt->session->uid(undef);
-  $pxt->clear_session;
-
-  if ($pxt->dirty_param('logout_redirect')) {
-    my @extra_params = grep { $_ ne 'logout_redirect' and $_ ne 'pxt:trap' and $_ ne ''} $pxt->param();
-    my $extra_params = @extra_params ? "?" . join("&", map { $_ . "=" . $pxt->param($_) } @extra_params) : "";
-    $pxt->redirect($pxt->dirty_param('logout_redirect') . $extra_params);
-  }
-  else {
-    $pxt->redirect('/rhn/Logout.do');
-  }
-}
-
-
-sub admin_user_edit_cb {
-  my $pxt = shift;
-
-  my $user = Sniglets::Forms::catch_form($pxt);
-  return unless $user;
-
-  $pxt->redirect("/errors/permission.pxt") unless $pxt->user->can_modify_user($user);
-
-  if ($pxt->dirty_param('user_password_confirm') ne $pxt->dirty_param('user_password')) {
-    $pxt->push_message(local_alert => 'Password and confirmation do not match');
-    return;
-  }
-
-# validation done, start modifying
-
-# pam authentication is a satellite feature
-  if (PXT::Config->get('pam_auth_service') and not $pxt->dirty_param('editing_self')) {
-    $user->set_pref(use_pam_authentication => ($pxt->dirty_param('use_pam_authentication') ? 'Y' : 'N'));
-  }
-  elsif ($pxt->dirty_param('user_password') =~ /[^*]/) { # otherwise, just set the password
-    $user->set_password($pxt->dirty_param('user_password'))
-  }
-
-  my $url = new URI ($pxt->uri);
-
-  eval {
-    # Set the user's roles/groups
-    if (not $pxt->dirty_param('editing_self') and $pxt->user->is('org_admin')) {
-      my %old_groups = map { $_->[1] => 1 } grep { $_->[0] } $user->group_list_for_user;
-      my %new_groups = map { $_ => 1 } $pxt->dirty_param('user_groups');
-
-      my $chan_admin_group = $user->org->user_group_id('channel_admin') || 0;
-      my $conf_admin_group = $user->org->user_group_id('config_admin') || 0;
-
-      if ($user->is('org_admin') and exists ($old_groups{$chan_admin_group})) {
-	$new_groups{$chan_admin_group} = 1;
-      }
-
-      if ($user->is('org_admin') and exists ($old_groups{$conf_admin_group})) {
-	$new_groups{$conf_admin_group} = 1;
-      }
-
-      my @remove = grep { not exists $new_groups{$_} } keys %old_groups;
-      my @add = grep { not exists $old_groups{$_} } keys %new_groups;
-
-      my $admin_group = $user->org->user_group_id('org_admin');
-
-      if ($user->is('org_admin') && (grep { $_ == $admin_group} @remove)) {
-	if ($user->org->org_admins == 1) {
-	  $pxt->push_message(local_alert => 'This user is the last Org Admin for this Org.  You cannot remove him from the Org Admins group.');
-	  return;
-	}
-	elsif ($user->id == $pxt->user->id) {
-	  $pxt->push_message(site_info => "You have removed your Org Admin privileges.");
-	  $url->path_query('/rhn/YourRhn.do');
-	}
-      }
-
-      $user->remove_users_from_groups([ $user->id ], \@remove);
-      $user->add_users_to_groups([ $user->id ], \@add);
-    }
-  };
-
-  if ($@ and catchable($@)) {
-    my $E = $@;
-
-    if ($E->is_rhn_exception('usergroup_max_members')) {
-      $pxt->push_message(local_alert => "Maximum group membership exceeded.");
-      return;
-    }
-    else {
-      throw $E;
-    }
-  }
-
-# Set company name
-  $user->company($user->org->name)
-    if $user->org->customer_type eq 'B';
-
-# set marketing site info
-  my ($marketing_site) = $user->sites('M');
-  if ($marketing_site) {
-    $marketing_site->site_alt_first_names($user->first_names);
-    $marketing_site->site_alt_last_name($user->last_name);
-
-# commit changes
-    $marketing_site->commit;
-  }
-
-  $user->commit;
-
-  $pxt->push_message(site_info => 'User information updated.');
-
-  unless ($pxt->dirty_param('editing_self')) {
-    $url->query_form(uid => $user->id);
-  }
-
-  $url->query_form($url->query_form, rand => int rand 5000000);
-
-  $pxt->redirect($url->as_string)
-}
-
-
-sub user_site_view {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $uid = $pxt->param('uid') || $pxt->pnotes('uid') || $pxt->user->id;
-  my $user = RHN::User->lookup(-id => $uid);
-
-  die "no user" unless $user;
-
-  if ($pxt->user->org_id != $user->org_id) {
-    Carp::cluck "Orgs for admin user edit mistatch (admin: @{[$pxt->user->org_id]} != @{[$user->org_id]}";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  if ($uid != $pxt->user->id and not $pxt->user->is('org_admin')) {
-    Carp::cluck "Non-orgadmin attempting to edit another's record";
-    $pxt->redirect("/errors/permission.pxt");
-  }
-
-  $pxt->pnotes(user_name => $user->login);
-
-  my $type = uc $params{type} || $pxt->dirty_param('type') || $pxt->pnotes('type') || 'M';
-  my $block = $params{__block__};
-  my ($site) = $user->sites($type);
-
-  unless ($site && $site->site_city && $site->site_state && $site->site_zip) {
-    #($site) = $user->sites('M');
-    my $link = PXT::HTML->link("edit_address.pxt?type=$type&amp;uid=$uid", 'Add this address');
-    my $html = qq(<div>\n<strong>(Address not filled out)</strong></div>);
-    $html .= qq(<div>\n$link\n</div>\n);
-
-    return $html;
-  }
-
-  if ($user->id == $pxt->user->id) {
-    if ($type eq 'M' and $pxt->uri =~ m(/network/account/edit_address.pxt) and $site and ($site->site_city eq '.' or $site->site_address1 eq '.')) {
-      $pxt->push_message(site_info => 'Please take a moment and complete the information below for our records.');
-
-      $site->$_('')
-	foreach qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_fax site_phone/;
-    }
-  }
-
-  my %subst;
-
-  my $site_addr = '';
-  $site_addr .= $site->$_() ? PXT::Utils->escapeHTML($site->$_()) . '<br />' : ''
-    foreach qw/site_address1 site_address2 site_address3/;
-
-  $subst{site_address} = $site_addr;
-
-  my $site_city = $site->site_city() || '';
-  my $site_state = $site->site_state() || '';
-  my $site_zip = $site->site_zip() || '';
-
-  my $site_city_state_zip = $site_city ne '' ? "$site_city, $site_state" : $site_state;
-  $site_city_state_zip .= $site_zip ? " $site_zip" : '';
-
-  $subst{site_city_state_zip} = PXT::Utils->escapeHTML($site_city_state_zip);
-
-  $subst{user_id} = $user->id;
-
-  $subst{site_type} = $type;
-
-  $subst{$_} = $site->$_() ? PXT::Utils->escapeHTML($site->$_()) || '' : ''
-    foreach qw/site_phone site_fax/;
-
-  return PXT::Utils->perform_substitutions($block, \%subst);
-}
-
-
-sub update_site_record {
-  my $class = shift;
-
-  my $pxt = shift;
-  my $user = shift;
-  my $type = shift;
-
-  my $address = $pxt->dirty_param('site_address1') || '';
-  if ($address =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a valid street address.");
-    return;
-  }
-
-  my $city = $pxt->dirty_param('site_city') || '';
-  if ($city =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a valid city.");
-    return;
-  }
-
-  my $country = $pxt->dirty_param('site_country') || '';
-  if ($country =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a valid country.");
-    return;
-  }
-
-  my $zip = $pxt->dirty_param('site_zip') || '';
-  if ($zip =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a zipcode.");
-    return;
-  }
-
-  my $state = $pxt->dirty_param('site_state') || '';
-  if ($state =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a state.");
-    return;
-  }
-
-  my $phone = $pxt->dirty_param('site_phone') || '';
-  if ($phone =~ /^\s*$/) {
-    $pxt->push_message(local_alert => "You must enter a phone number.");
-    return;
-  }
-
-  my ($site) = $user->sites($type);
-
-  if ($site) {
-    if (($site->site_type eq 'B' or $site->site_type eq 'S') and $site->associated_with_order()) {
-      $site = $user->new_site($type);
-    }
-  }
-  else {
-    $site = $user->new_site($type);
-  }
-
-  my $changed = 0;
-  foreach (qw/site_address1 site_address2 site_address3 site_city site_state site_zip site_country site_zip site_phone site_fax/) {
-    my $value = $site->$_() || '';
-    if ($value ne ($pxt->dirty_param($_) || '')) {
-      $changed = 1;
-      if ($_ eq 'site_state') {
-	$site->$_(uc $pxt->dirty_param($_))
-      }
-      else {
-	$site->$_($pxt->dirty_param($_))
-      }
-    }
-  }
-
-  $site->site_alt_first_names($user->first_names);
-  $site->site_alt_last_name($user->last_name);
-  my $site_email = $site->site_email || '';
-
-  if ($user->email ne $site_email) {
-    $site->site_email($user->email);
-    $changed = 1;
-  }
-
-  $site->site_web_user_id($user->id);
-  $site->site_type($type);
-
-  $site->commit;
-
-  return (1, $changed);
-}
-
-sub admin_user_site_edit_cb {
-  my $pxt = shift;
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my $incomplete = $user->has_incomplete_info;
-  my $broken;
-  $broken = 1 if $incomplete;
-
-  my ($success, $changed) = Sniglets::Users->update_site_record($pxt, $user, $pxt->dirty_param('type'));
-  return unless $success;
-
-  $incomplete = $user->has_incomplete_info;
-
-  if ($broken and not $incomplete) {
-    $pxt->push_message(site_info => 'Thank you for completely filling out your account information.');
-    $pxt->redirect('/network/');
-  }
-
-  $pxt->push_message(site_info => 'Address changed.');
-
-  $pxt->redirect('/network/') if ($pxt->dirty_param('redirect_to_main_page'));
-  $pxt->redirect('/network/account/addresses.pxt') if ($pxt->dirty_param('redirect_to_my_addresses'));
-  $pxt->redirect('/rhn/users/Addresses.do?uid=' . $user->id) if ($pxt->dirty_param('redirect_to_user_addresses'));
-}
-
-my @required_map =
-  ( 'login' => 'Username',
-    'password1' => 'Password',
-    'password2' => 'Password Confirmation',
-    'account_type' => 'Account Type',
-    'prefix' => 'Title',
-    'first_names' => 'First Name',
-    'last_name' => 'Last Name',
-    'email' => 'E-mail Address',
-  );
-
-unless (PXT::Config->get('satellite')) {
-  push @required_map, ('address1' => 'Mailing Address',
-		       'city' => 'City',
-		       'zip' => 'Zip Code',
-		       'phone' => 'Phone');
-
-}
-
-my %required_map = @required_map;
-my @required_fields = map { $_ & 1 ? () : $required_map[$_] } 0..$#required_map;
-
-sub group_checkboxes {
-  my $formvar = shift;
-  my $user = shift;
-
-  my @groups = $user->group_list_for_user;
-
-  my $ret;
-
-  foreach my $line (@groups) {
-    next if !$line->[0] and $line->[3] and $line->[3] eq 'org_applicant';
-
-    $ret .= PXT::HTML->checkbox(-name => $formvar,
-				-value => $line->[1],     #group_id
-				-checked => $line->[0]);  #user has permissions to group
-
-    $ret .= $line->[2]; #group_name
-
-    $ret .= "<br />\n";
-  }
-
-  return $ret;
-}
-
-# sort timezones, making the listed ones pop to the top
-sub timezone_sort {
-  my $class = shift;
-  my @zones = @_;
-
-  my $i = 10;
-  my %preferred_zones =
-    map { $_ => --$i }
-      ( "United States (Eastern)",
-	"United States (Central)",
-	"United States (Indiana)",
-	"United States (Mountain)",
-	"United States (Arizona)",
-	"United States (Pacific)",
-	"United States (Alaska)",
-	"United States (Hawaii)" );
-
-  # now we we-order the timezones based on a random, euro-centric hueristic
-  @zones =
-    sort {
-      my $a_name = $a->{DESCRIPTION};
-      my $b_name = $b->{DESCRIPTION};
-      my $a_score = $preferred_zones{$a_name} || -1;
-      my $b_score = $preferred_zones{$b_name} || -1;
-
-      return ($b_score <=> $a_score) || ($a->{OFFSET} <=> $b->{OFFSET}) || ($a_name cmp $b_name);
-    } @zones;
-
-  return @zones;
-}
 
 sub user_prefs_edit_cb {
   my $pxt = shift;
@@ -942,156 +398,6 @@ sub rhn_require {
    }
 
    return '';
-}
-
-sub toggle_pref_cb {
-  my $pxt = shift;
-
-  my $name = $pxt->dirty_param('pref_name') || '';
-  my $value = $pxt->dirty_param('pref_value') || '';
-
-  die "rhn:toggle_pref_cb called without proper args ($name, $value)" unless $name && $value;
-
-  $pxt->user->set_pref($name, $value);
-
-  $pxt->redirect($pxt->uri);
-
-  return;
-}
-
-sub validate_user {
-  my $pxt = shift;
-
-  my @param_list = (qw/password1 password2 prefix first_names last_name/,
-		    qw/genqual parent_company company title phone fax email pin/,
-		    qw/first_names_ol last_name_ol address1 address2 city state zip country/,
-		    qw/contact_call contact_email contact_fax contact_mail account_type education_account/);
-
-  my %user_params = map { ("${_}" => ($pxt->dirty_param($_) || '')) } @param_list;
-  $user_params{login} = $pxt->passthrough_param('login') || '';
-
-  $user_params{alt_first_names} = $user_params{first_names};
-  $user_params{alt_last_name} = $user_params{last_name};
-  $user_params{$_} = $user_params{$_} ? 'Y' : 'N'
-    foreach qw/contact_call contact_email contact_fax contact_mail/;
-
-  $user_params{$_} =~ s/^\s+// foreach keys %user_params;
-  $user_params{$_} =~ s/\s+$// foreach keys %user_params;
-
-  my ($min_username, $max_username) = (PXT::Config->get('min_user_len'), PXT::Config->get('max_user_len'));
-
-
-#-- BEGIN BASIC VALIDATION
-  my $validator = 'valid';
-
-  if (length $user_params{login} < $min_username) {
-    PXT::Debug->log(7, "username too short");
-    $pxt->push_message(local_alert =>"Usernames must be no shorter than $min_username characters.");
-    $validator = 'invalid';
-  }
-  if (length $user_params{login} > $max_username) {
-    PXT::Debug->log(7, "username too long");
-    $pxt->push_message(local_alert =>"Usernames must be no longer than $max_username characters.");
-    $validator = 'invalid';
-  }
-
-  if ( ( $user_params{login} !~ /^[\x20-\x7e]+$/ ) or ( $user_params{login} =~ /[&+\s%'`=#"]/ ) ) { #'
-    PXT::Debug->log(7, "invalid login chars");
-    $pxt->push_message(local_alert =>'The specified user name contains invalid characters. Please use alphanumeric characters.');
-    $validator = 'invalid';
-  }
-
-  if (not PXT::Config->get('satellite')) {
-    if ($user_params{login} =~ /\@redhat\.com$/i) {
-      $pxt->push_message(local_alert => 'Usernames may not be of the form "*@redhat.com"');
-      $validator = 'invalid';
-    }
-  }
-
-  if ($user_params{education_account}) {
-    unless ($user_params{company}) {
-      $pxt->push_message(local_alert => 'You must enter a school.');
-      $validator = 'invalid';
-    }
-
-    unless ($user_params{title}) {
-      $pxt->push_message(local_alert => 'You must enter a grade, year, or position.');
-      $validator = 'invalid';
-    }
-  }
-
-  if ($user_params{account_type} eq 'create_corporate') {
-
-    unless ($user_params{company}) {
-      $pxt->push_message(local_alert => 'You must enter your company name.');
-      $validator = 'invalid';
-    }
-  }
-
-  my @missing;
-  foreach my $field (@required_fields) {
-    push @missing, $field if $user_params{$field} =~ /^\s*$/;
-  }
-
-  if (@missing) {
-    my $msg = "The following fields are required to create or modify an account: <br />";
-    if (@missing > 1) {
-      $msg .= join(", ", @required_map{@missing[0..$#missing - 1]}) . ", and " . $required_map{$missing[-1]};
-    }
-    else {
-      $msg .= $required_map{$missing[0]};
-    }
-
-    PXT::Debug->log(7, "missing fields");
-    $pxt->push_message(local_alert =>$msg);
-    $validator = 'invalid';
-  }
-
-  if (not Mail::RFC822::Address::valid($user_params{email})) {
-    $pxt->push_message(local_alert =>'Email address is not valid.');
-    $validator = 'invalid';
-    # no need to display a message twice for invalid and dupe emails.
-  }
-
-  if ($user_params{country} eq 'US' and not $user_params{state}) {
-    PXT::Debug->log(7, "no state");
-    $pxt->push_message(local_alert =>'State is required for US citizens.');
-    $validator = 'invalid';
-  }
-
-  if (length $user_params{password1} < 5) {
-    PXT::Debug->log(7, "password short");
-    $pxt->push_message(local_alert =>'Passwords must be at least 5 characters long.');
-    $validator = 'invalid';
-  }
-
-  if (length $user_params{password1} > 32) {
-    PXT::Debug->log(7, "password long");
-    $pxt->push_message(local_alert =>'Passwords must be shorter than 32 characters long.');
-    $validator = 'invalid';
-  }
-
-  if ($user_params{password1} ne $user_params{password2}) {
-    PXT::Debug->log(7, "passwords don't match");
-    $pxt->push_message(local_alert =>'Your passwords do not match; please re-confirm your password of choice.');
-    $validator = 'invalid';
-  }
-
-  if ($user_params{account_type} eq 'into_org') {
-    unless ($pxt->user->is('org_admin')) {
-      PXT::Debug->log(7, "not an org admin");
-      $pxt->push_message(local_alert =>'Only an Org Admin can add a user');
-      $validator = 'invalid';
-    }
-  }
-
-  $user_params{password} = $user_params{password1};
-
-  PXT::Debug->log(7, "validator: $validator");
-
-  return if $validator eq 'invalid';
-
-  return \%user_params;
 }
 
 #abstracting permission checking code from rhn_require to here
@@ -1221,91 +527,6 @@ sub rhn_user_login {
     }
   }
   return $user->login;
-}
-
-sub default_system_groups_cb {
-  my $pxt = shift;
-
-  my $form = build_default_system_groups_form($pxt);
-  my $response = $form->prepare_response;
-
-  my $errors = Sniglets::Forms::load_params($pxt, $response);
-
-  if (@{$errors}) {
-    foreach my $error (@{$errors}) {
-      $pxt->push_message(local_alert => $error);
-    }
-    return;
-  }
-
-  my @groups = $response->lookup_widget('default_system_groups')->value;
-
-  if (ref $groups[0] eq 'ARRAY') {
-    @groups = @{$groups[0]};
-  }
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my @old_groups = $user->default_system_groups;
-  $user->set_default_system_groups(@groups);
-
-  if (RHN::Utils::sets_differ(\@groups, \@old_groups)) {
-    $pxt->push_message(site_info => sprintf('Default system groups updated for <strong>%s</strong>.', $user->login));
-  }
-
-  my $url = $pxt->uri;
-  $pxt->redirect($url . "?uid=" . $user->id);
-
-  return;
-}
-
-sub build_default_system_groups_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = new RHN::Form::ParsedForm(name => 'Default System Groups',
-				       label => 'default_system_groups',
-				       action => $attr{action},
-				      );
-
-  my $group_selectbox = new RHN::Form::Widget::Select(name => 'Default System Groups',
-						      label =>'default_system_groups', 
-						      multiple => 1,
-						      size => 4);
-
-  my $uid = $pxt->param('uid');
-  my $user = RHN::User->lookup(-id => $uid);
-
-  my $group_perms_ds = new RHN::DataSource::SystemGroup(-mode => 'user_permissions');
-  my $data = $group_perms_ds->execute_full(-formvar_uid => $uid, -org_id => $user->org_id);
-
-  foreach my $group ( @{$data} ) {
-    my $name = $group->{GROUP_NAME};
-    my $id = $group->{ID};
-
-    if ($group->{HAS_PERMISSION}) {
-      $name = '(*) ' . $name;
-    }
-
-    $group_selectbox->add_option( {value => $id,
-				   label => $name,
-				  } );
-  }
-
-  $group_selectbox->value([ $user->default_system_groups ]);
-
-  unless (@{$data}) { #no system groups in org
-    $form->add_widget( new RHN::Form::Widget::Literal(name => 'Default System Groups', value => '<strong>Your organization has no system groups.</strong>') );
-    return $form;
-  }
-
-  $form->add_widget($group_selectbox);
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'uid', value => $user->id) );
-  $form->add_widget( new RHN::Form::Widget::Hidden(name => 'pxt:trap', value => 'rhn:user_default_system_groups_cb') );
-  $form->add_widget( new RHN::Form::Widget::Submit(name => 'Update Defaults') );
-
-  return $form;
 }
 
 1;

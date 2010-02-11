@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.handlers.xmlrpc.country</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
+        Module&nbsp;country
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.handlers.xmlrpc.country-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.handlers.xmlrpc.country-module.html">Module server.handlers.xmlrpc.country</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># states.py                                     - Abbreviations for countries.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#-----------------------------------------------------------------------------</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable server.handlers.xmlrpc.country.country_to_iso=server.handlers.xmlrpc.country-module.html#country_to_iso"><a title="server.handlers.xmlrpc.country.country_to_iso" class="py-name" href="#" onclick="return doclink('link-0', 'country_to_iso', 'link-0');">country_to_iso</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">        <tt class="py-string">'Afghanistan'</tt><tt class="py-op">:</tt><tt class="py-string">'AF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">        <tt class="py-string">'Albania'</tt><tt class="py-op">:</tt><tt class="py-string">'AL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">        <tt class="py-string">'Algeria'</tt><tt class="py-op">:</tt><tt class="py-string">'DZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">        <tt class="py-string">'American Samoa'</tt><tt class="py-op">:</tt><tt class="py-string">'AS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-string">'Andorra'</tt><tt class="py-op">:</tt><tt class="py-string">'AD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-string">'Angola'</tt><tt class="py-op">:</tt><tt class="py-string">'AO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt class="py-string">'Anguilla'</tt><tt class="py-op">:</tt><tt class="py-string">'AI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">        <tt class="py-string">'Antarctica'</tt><tt class="py-op">:</tt><tt class="py-string">'AQ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-string">'Antigua and Barbuda'</tt><tt class="py-op">:</tt><tt class="py-string">'AG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-string">'Argentina'</tt><tt class="py-op">:</tt><tt class="py-string">'AR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-string">'Armenia'</tt><tt class="py-op">:</tt><tt class="py-string">'AM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-string">'Aruba'</tt><tt class="py-op">:</tt><tt class="py-string">'AW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-string">'Australia'</tt><tt class="py-op">:</tt><tt class="py-string">'AU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-string">'Austria'</tt><tt class="py-op">:</tt><tt class="py-string">'AT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-string">'Azerbaijan'</tt><tt class="py-op">:</tt><tt class="py-string">'AZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-string">'Bahamas'</tt><tt class="py-op">:</tt><tt class="py-string">'BS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-string">'Bahrain'</tt><tt class="py-op">:</tt><tt class="py-string">'BH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-string">'Bangladesh'</tt><tt class="py-op">:</tt><tt class="py-string">'BD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-string">'Barbados'</tt><tt class="py-op">:</tt><tt class="py-string">'BB'</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-string">'Belarus'</tt><tt class="py-op">:</tt><tt class="py-string">'BY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-string">'Belgium'</tt><tt class="py-op">:</tt><tt class="py-string">'BE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-string">'Belize'</tt><tt class="py-op">:</tt><tt class="py-string">'BZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-string">'Benin'</tt><tt class="py-op">:</tt><tt class="py-string">'BJ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-string">'Bermuda'</tt><tt class="py-op">:</tt><tt class="py-string">'BM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-string">'Bhutan'</tt><tt class="py-op">:</tt><tt class="py-string">'BT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-string">'Bolivia'</tt><tt class="py-op">:</tt><tt class="py-string">'BO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-string">'Bosnia and Herzegovina'</tt><tt class="py-op">:</tt><tt class="py-string">'BA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-string">'Botswana'</tt><tt class="py-op">:</tt><tt class="py-string">'BW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-string">'Bouvet Island'</tt><tt class="py-op">:</tt><tt class="py-string">'BV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-string">'Brazil'</tt><tt class="py-op">:</tt><tt class="py-string">'BR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-string">'British Indian Ocean Territory'</tt><tt class="py-op">:</tt><tt class="py-string">'IO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-string">'Brunei Darussalam'</tt><tt class="py-op">:</tt><tt class="py-string">'BN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-string">'Bulgaria'</tt><tt class="py-op">:</tt><tt class="py-string">'BG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-string">'Burkina Faso'</tt><tt class="py-op">:</tt><tt class="py-string">'BF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-string">'Burundi'</tt><tt class="py-op">:</tt><tt class="py-string">'BI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-string">'Cambodia'</tt><tt class="py-op">:</tt><tt class="py-string">'KH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-string">'Cameroon'</tt><tt class="py-op">:</tt><tt class="py-string">'CM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-string">'Canada'</tt><tt class="py-op">:</tt><tt class="py-string">'CA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-string">'Cape Verde'</tt><tt class="py-op">:</tt><tt class="py-string">'CV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-string">'Cayman Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'KY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-string">'Central African Republic'</tt><tt class="py-op">:</tt><tt class="py-string">'CF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-string">'Chad'</tt><tt class="py-op">:</tt><tt class="py-string">'TD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-string">'Chile'</tt><tt class="py-op">:</tt><tt class="py-string">'CL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-string">'China'</tt><tt class="py-op">:</tt><tt class="py-string">'CN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-string">'Christmas Island'</tt><tt class="py-op">:</tt><tt class="py-string">'CX'</tt><tt class="py-op">,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-string">'Colombia'</tt><tt class="py-op">:</tt><tt class="py-string">'CO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-string">'Comoros'</tt><tt class="py-op">:</tt><tt class="py-string">'KM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-string">'Congo'</tt><tt class="py-op">:</tt><tt class="py-string">'CG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-string">'Cook Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'CK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-string">'Costa Rica'</tt><tt class="py-op">:</tt><tt class="py-string">'CR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-string">'Cote d\'Ivoire'</tt><tt class="py-op">:</tt><tt class="py-string">'CI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-string">'Croatia'</tt><tt class="py-op">:</tt><tt class="py-string">'HR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-string">'Cyprus'</tt><tt class="py-op">:</tt><tt class="py-string">'CY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-string">'Czech Republic'</tt><tt class="py-op">:</tt><tt class="py-string">'CZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-string">'Denmark'</tt><tt class="py-op">:</tt><tt class="py-string">'DK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-string">'Djibouti'</tt><tt class="py-op">:</tt><tt class="py-string">'DJ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-string">'Dominica'</tt><tt class="py-op">:</tt><tt class="py-string">'DM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-string">'Dominican Republic'</tt><tt class="py-op">:</tt><tt class="py-string">'DO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-string">'East Timor'</tt><tt class="py-op">:</tt><tt class="py-string">'TP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-string">'Ecuador'</tt><tt class="py-op">:</tt><tt class="py-string">'EC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-string">'Egypt'</tt><tt class="py-op">:</tt><tt class="py-string">'EG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-string">'El Salvador'</tt><tt class="py-op">:</tt><tt class="py-string">'SV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-string">'Equatorial Guinea'</tt><tt class="py-op">:</tt><tt class="py-string">'GQ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-string">'Eritrea'</tt><tt class="py-op">:</tt><tt class="py-string">'ER'</tt><tt class="py-op">,</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-string">'Estonia'</tt><tt class="py-op">:</tt><tt class="py-string">'EE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-string">'Ethiopia'</tt><tt class="py-op">:</tt><tt class="py-string">'ET'</tt><tt class="py-op">,</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-string">'Falkland Islands (Malvinas)'</tt><tt class="py-op">:</tt><tt class="py-string">'FK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-string">'Faroe Island'</tt><tt class="py-op">:</tt><tt class="py-string">'FO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-string">'Fiji'</tt><tt class="py-op">:</tt><tt class="py-string">'FJ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-string">'Finland'</tt><tt class="py-op">:</tt><tt class="py-string">'FI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-string">'France (European Territory)'</tt><tt class="py-op">:</tt><tt class="py-string">'FX'</tt><tt class="py-op">,</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-string">'France'</tt><tt class="py-op">:</tt><tt class="py-string">'FR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-string">'France, Metropolitan'</tt><tt class="py-op">:</tt><tt class="py-string">'FR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-string">'French Guiana'</tt><tt class="py-op">:</tt><tt class="py-string">'GF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-string">'French Polynesia'</tt><tt class="py-op">:</tt><tt class="py-string">'PF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-string">'Gabon'</tt><tt class="py-op">:</tt><tt class="py-string">'GA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-string">'Gambia'</tt><tt class="py-op">:</tt><tt class="py-string">'GM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-string">'Georgia'</tt><tt class="py-op">:</tt><tt class="py-string">'GE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-string">'Germany'</tt><tt class="py-op">:</tt><tt class="py-string">'DE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-string">'Ghana'</tt><tt class="py-op">:</tt><tt class="py-string">'GH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-string">'Gibraltar'</tt><tt class="py-op">:</tt><tt class="py-string">'GI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-string">'Greece'</tt><tt class="py-op">:</tt><tt class="py-string">'GR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-string">'Greenland'</tt><tt class="py-op">:</tt><tt class="py-string">'GL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-string">'Grenada'</tt><tt class="py-op">:</tt><tt class="py-string">'GD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-string">'Guadeloupe'</tt><tt class="py-op">:</tt><tt class="py-string">'GP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-string">'Guam'</tt><tt class="py-op">:</tt><tt class="py-string">'GU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-string">'Guatemala'</tt><tt class="py-op">:</tt><tt class="py-string">'GT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-string">'Guinea-Bissau'</tt><tt class="py-op">:</tt><tt class="py-string">'GW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-string">'Guinea'</tt><tt class="py-op">:</tt><tt class="py-string">'GN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">        <tt class="py-string">'Guyana'</tt><tt class="py-op">:</tt><tt class="py-string">'GY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-string">'Haiti'</tt><tt class="py-op">:</tt><tt class="py-string">'HT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">        <tt class="py-string">'Heard and McDonald Island'</tt><tt class="py-op">:</tt><tt class="py-string">'HM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-string">'Honduras'</tt><tt class="py-op">:</tt><tt class="py-string">'HN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-string">'Hong Kong'</tt><tt class="py-op">:</tt><tt class="py-string">'HK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-string">'Hungary'</tt><tt class="py-op">:</tt><tt class="py-string">'HU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-string">'Iceland'</tt><tt class="py-op">:</tt><tt class="py-string">'IS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-string">'India'</tt><tt class="py-op">:</tt><tt class="py-string">'IN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-string">'Indian'</tt><tt class="py-op">:</tt><tt class="py-string">'IN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-string">'Indonesia'</tt><tt class="py-op">:</tt><tt class="py-string">'ID'</tt><tt class="py-op">,</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-string">'Ireland'</tt><tt class="py-op">:</tt><tt class="py-string">'IE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-string">'Israel'</tt><tt class="py-op">:</tt><tt class="py-string">'IL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-string">'Italy'</tt><tt class="py-op">:</tt><tt class="py-string">'IT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-string">'Jamaica'</tt><tt class="py-op">:</tt><tt class="py-string">'JM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-string">'Japan'</tt><tt class="py-op">:</tt><tt class="py-string">'JP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-string">'Jordan'</tt><tt class="py-op">:</tt><tt class="py-string">'JO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-string">'Kazakhstan'</tt><tt class="py-op">:</tt><tt class="py-string">'KZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-string">'Kenya'</tt><tt class="py-op">:</tt><tt class="py-string">'KE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-string">'Korea, Republic of'</tt><tt class="py-op">:</tt><tt class="py-string">'KR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-string">'Kuwait'</tt><tt class="py-op">:</tt><tt class="py-string">'KW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-string">'Kyrgyzstan'</tt><tt class="py-op">:</tt><tt class="py-string">'KG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-string">'Laos'</tt><tt class="py-op">:</tt><tt class="py-string">'LA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-string">'Latvia'</tt><tt class="py-op">:</tt><tt class="py-string">'LV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-string">'Lebanon'</tt><tt class="py-op">:</tt><tt class="py-string">'LB'</tt><tt class="py-op">,</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-string">'Lesoth'</tt><tt class="py-op">:</tt><tt class="py-string">'LS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-string">'Liberia'</tt><tt class="py-op">:</tt><tt class="py-string">'LR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-string">'Libyan Arab Jamahiriya'</tt><tt class="py-op">:</tt><tt class="py-string">'LY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">        <tt class="py-string">'Liechtenstein'</tt><tt class="py-op">:</tt><tt class="py-string">'LI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-string">'Lithuania'</tt><tt class="py-op">:</tt><tt class="py-string">'LT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-string">'Lithuania'</tt><tt class="py-op">:</tt><tt class="py-string">'LX'</tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-string">'Luxembourg'</tt><tt class="py-op">:</tt><tt class="py-string">'LU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-string">'Macau'</tt><tt class="py-op">:</tt><tt class="py-string">'MO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-string">'Macedonia'</tt><tt class="py-op">:</tt><tt class="py-string">'MK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-string">'Madagascar'</tt><tt class="py-op">:</tt><tt class="py-string">'MG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-string">'Malawi'</tt><tt class="py-op">:</tt><tt class="py-string">'MW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-string">'Malaysia'</tt><tt class="py-op">:</tt><tt class="py-string">'MY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-string">'Maldives'</tt><tt class="py-op">:</tt><tt class="py-string">'MV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-string">'Mali'</tt><tt class="py-op">:</tt><tt class="py-string">'ML'</tt><tt class="py-op">,</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-string">'Malta'</tt><tt class="py-op">:</tt><tt class="py-string">'MT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-string">'Marshall Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'MH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-string">'Martinique'</tt><tt class="py-op">:</tt><tt class="py-string">'MQ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-string">'Mauritania'</tt><tt class="py-op">:</tt><tt class="py-string">'MR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-string">'Mauritius'</tt><tt class="py-op">:</tt><tt class="py-string">'MU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-string">'Mexico'</tt><tt class="py-op">:</tt><tt class="py-string">'MX'</tt><tt class="py-op">,</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-string">'Micronesia (Federated States of)'</tt><tt class="py-op">:</tt><tt class="py-string">'FM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">        <tt class="py-string">'Moldova'</tt><tt class="py-op">:</tt><tt class="py-string">'MD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-string">'Moldova, Republic of'</tt><tt class="py-op">:</tt><tt class="py-string">'MD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-string">'Monaco'</tt><tt class="py-op">:</tt><tt class="py-string">'MC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-string">'Mongolia'</tt><tt class="py-op">:</tt><tt class="py-string">'MN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-string">'Montenegro'</tt><tt class="py-op">:</tt><tt class="py-string">'ME'</tt><tt class="py-op">,</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-string">'Montserrat'</tt><tt class="py-op">:</tt><tt class="py-string">'MS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">        <tt class="py-string">'Morocco'</tt><tt class="py-op">:</tt><tt class="py-string">'MA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-string">'Mozambique'</tt><tt class="py-op">:</tt><tt class="py-string">'MZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-string">'Namibia'</tt><tt class="py-op">:</tt><tt class="py-string">'NA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-string">'Nederland'</tt><tt class="py-op">:</tt><tt class="py-string">'NL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-string">'Nepal'</tt><tt class="py-op">:</tt><tt class="py-string">'NP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-string">'Netherlands Antilles'</tt><tt class="py-op">:</tt><tt class="py-string">'AN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-string">'Netherlands'</tt><tt class="py-op">:</tt><tt class="py-string">'NL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-string">'New Caledonia'</tt><tt class="py-op">:</tt><tt class="py-string">'NC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-string">'New Zealand'</tt><tt class="py-op">:</tt><tt class="py-string">'NZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-string">'Nicaragua'</tt><tt class="py-op">:</tt><tt class="py-string">'NI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-string">'Nigeria'</tt><tt class="py-op">:</tt><tt class="py-string">'NG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-string">'Niger'</tt><tt class="py-op">:</tt><tt class="py-string">'NE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-string">'Norway'</tt><tt class="py-op">:</tt><tt class="py-string">'NO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-string">'Oman'</tt><tt class="py-op">:</tt><tt class="py-string">'OM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-string">'Pakistan'</tt><tt class="py-op">:</tt><tt class="py-string">'PK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-string">'Palau'</tt><tt class="py-op">:</tt><tt class="py-string">'PW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-string">'Panama'</tt><tt class="py-op">:</tt><tt class="py-string">'PA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-string">'Papua New Guinea'</tt><tt class="py-op">:</tt><tt class="py-string">'PG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-string">'Paraguay'</tt><tt class="py-op">:</tt><tt class="py-string">'PY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-string">'Peru'</tt><tt class="py-op">:</tt><tt class="py-string">'PE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-string">'Philippines'</tt><tt class="py-op">:</tt><tt class="py-string">'PH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-string">'Pitcairn'</tt><tt class="py-op">:</tt><tt class="py-string">'PN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-string">'Poland'</tt><tt class="py-op">:</tt><tt class="py-string">'PL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-string">'Portugal'</tt><tt class="py-op">:</tt><tt class="py-string">'PT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-string">'Puerto Rico'</tt><tt class="py-op">:</tt><tt class="py-string">'PR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-string">'Qatar'</tt><tt class="py-op">:</tt><tt class="py-string">'QA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-string">'Reunion Island'</tt><tt class="py-op">:</tt><tt class="py-string">'RE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-string">'Romania'</tt><tt class="py-op">:</tt><tt class="py-string">'RO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-string">'Russian Federation'</tt><tt class="py-op">:</tt><tt class="py-string">'RU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-string">'Rwanda'</tt><tt class="py-op">:</tt><tt class="py-string">'RW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-string">'Saint Kitts and Nevis'</tt><tt class="py-op">:</tt><tt class="py-string">'KN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-string">'Saint Lucia'</tt><tt class="py-op">:</tt><tt class="py-string">'LC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-string">'Saint Pierre and Miquelon'</tt><tt class="py-op">:</tt><tt class="py-string">'PM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">        <tt class="py-string">'Saint Vincent and the Grenadines'</tt><tt class="py-op">:</tt><tt class="py-string">'VC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt class="py-string">'Samoa'</tt><tt class="py-op">:</tt><tt class="py-string">'WS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-string">'San Marino'</tt><tt class="py-op">:</tt><tt class="py-string">'SM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">        <tt class="py-string">'Saudi Arabia'</tt><tt class="py-op">:</tt><tt class="py-string">'SA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">        <tt class="py-string">'Serbia'</tt><tt class="py-op">:</tt><tt class="py-string">'RS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-string">'Serbia and Montenegro'</tt><tt class="py-op">:</tt><tt class="py-string">'CS'</tt><tt class="py-op">,</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-string">'Senegal'</tt><tt class="py-op">:</tt><tt class="py-string">'SN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">        <tt class="py-string">'Seychelles'</tt><tt class="py-op">:</tt><tt class="py-string">'SC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-string">'Sierra Leone'</tt><tt class="py-op">:</tt><tt class="py-string">'SL'</tt><tt class="py-op">,</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-string">'Singapore'</tt><tt class="py-op">:</tt><tt class="py-string">'SG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-string">'Slovakia'</tt><tt class="py-op">:</tt><tt class="py-string">'SK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">        <tt class="py-string">'Slovenia'</tt><tt class="py-op">:</tt><tt class="py-string">'SI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-string">'Solomon Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'SB'</tt><tt class="py-op">,</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-string">'Somalia'</tt><tt class="py-op">:</tt><tt class="py-string">'SO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-string">'South Africa'</tt><tt class="py-op">:</tt><tt class="py-string">'ZA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-string">'Spain'</tt><tt class="py-op">:</tt><tt class="py-string">'ES'</tt><tt class="py-op">,</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">        <tt class="py-string">'Sri Lanka'</tt><tt class="py-op">:</tt><tt class="py-string">'LK'</tt><tt class="py-op">,</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">        <tt class="py-string">'Sudan'</tt><tt class="py-op">:</tt><tt class="py-string">'SD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">        <tt class="py-string">'Suriname'</tt><tt class="py-op">:</tt><tt class="py-string">'SR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-string">'Svalbard &amp; Jan Mayen Island'</tt><tt class="py-op">:</tt><tt class="py-string">'SJ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-string">'Swaziland'</tt><tt class="py-op">:</tt><tt class="py-string">'SZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-string">'Sweden'</tt><tt class="py-op">:</tt><tt class="py-string">'SE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">        <tt class="py-string">'Switzerland'</tt><tt class="py-op">:</tt><tt class="py-string">'CH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-string">'Syrian Arab Republic'</tt><tt class="py-op">:</tt><tt class="py-string">'SY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-string">'Taiwan, Republic of'</tt><tt class="py-op">:</tt><tt class="py-string">'TW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-string">'Tanzania, United Republic of'</tt><tt class="py-op">:</tt><tt class="py-string">'TZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-string">'Thailand'</tt><tt class="py-op">:</tt><tt class="py-string">'TH'</tt><tt class="py-op">,</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt class="py-string">'Togo'</tt><tt class="py-op">:</tt><tt class="py-string">'TG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-string">'Tonga'</tt><tt class="py-op">:</tt><tt class="py-string">'TO'</tt><tt class="py-op">,</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">        <tt class="py-string">'Trinidad and Tobago'</tt><tt class="py-op">:</tt><tt class="py-string">'TT'</tt><tt class="py-op">,</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">        <tt class="py-string">'Tunisia'</tt><tt class="py-op">:</tt><tt class="py-string">'TN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">        <tt class="py-string">'Turkey'</tt><tt class="py-op">:</tt><tt class="py-string">'TR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">        <tt class="py-string">'Turkmenistan'</tt><tt class="py-op">:</tt><tt class="py-string">'TM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">        <tt class="py-string">'Turks and Caicos Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'TC'</tt><tt class="py-op">,</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-string">'Tuvalu'</tt><tt class="py-op">:</tt><tt class="py-string">'TV'</tt><tt class="py-op">,</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-string">'Uganda'</tt><tt class="py-op">:</tt><tt class="py-string">'UG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-string">'Ukraine'</tt><tt class="py-op">:</tt><tt class="py-string">'UA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-string">'United Arab Emirates'</tt><tt class="py-op">:</tt><tt class="py-string">'AE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt class="py-string">'United Kingdom'</tt><tt class="py-op">:</tt><tt class="py-string">'GB'</tt><tt class="py-op">,</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-string">'United States'</tt><tt class="py-op">:</tt><tt class="py-string">'US'</tt><tt class="py-op">,</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-string">'Uruguay'</tt><tt class="py-op">:</tt><tt class="py-string">'UY'</tt><tt class="py-op">,</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">        <tt class="py-string">'US Minor Outlying Islands'</tt><tt class="py-op">:</tt><tt class="py-string">'UM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">        <tt class="py-string">'Uzbekistan'</tt><tt class="py-op">:</tt><tt class="py-string">'UZ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-string">'Vanuatu'</tt><tt class="py-op">:</tt><tt class="py-string">'VU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">        <tt class="py-string">'Vatican City State (Holy See)'</tt><tt class="py-op">:</tt><tt class="py-string">'VA'</tt><tt class="py-op">,</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-string">'Venezuela'</tt><tt class="py-op">:</tt><tt class="py-string">'VE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">        <tt class="py-string">'Vietnam'</tt><tt class="py-op">:</tt><tt class="py-string">'VN'</tt><tt class="py-op">,</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">        <tt class="py-string">'Virgin Islands (British)'</tt><tt class="py-op">:</tt><tt class="py-string">'VG'</tt><tt class="py-op">,</tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-string">'Virgin Islands (U.S.)'</tt><tt class="py-op">:</tt><tt class="py-string">'VI'</tt><tt class="py-op">,</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-string">'Wallis and Futuna'</tt><tt class="py-op">:</tt><tt class="py-string">'WF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">        <tt class="py-string">'Yemen'</tt><tt class="py-op">:</tt><tt class="py-string">'YE'</tt><tt class="py-op">,</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-string">'Yugoslavia'</tt><tt class="py-op">:</tt><tt class="py-string">'YU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">        <tt class="py-string">'Zaire'</tt><tt class="py-op">:</tt><tt class="py-string">'ZR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">        <tt class="py-string">'Zambia'</tt><tt class="py-op">:</tt><tt class="py-string">'ZM'</tt><tt class="py-op">,</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-string">'Zimbabwe'</tt><tt class="py-op">:</tt><tt class="py-string">'ZW'</tt><tt class="py-op">,</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"><tt class="py-op">}</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line"> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable server.handlers.xmlrpc.country.t9_countries=server.handlers.xmlrpc.country-module.html#t9_countries"><a title="server.handlers.xmlrpc.country.t9_countries" class="py-name" href="#" onclick="return doclink('link-1', 't9_countries', 'link-1');">t9_countries</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line">    <tt class="py-string">"Korea, Democratic People's Republic of"</tt><tt class="py-op">:</tt><tt class="py-string">'KP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">    <tt class="py-string">'North Korea'</tt><tt class="py-op">:</tt><tt class="py-string">'KP'</tt><tt class="py-op">,</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">    <tt class="py-string">'Afghanistan'</tt><tt class="py-op">:</tt><tt class="py-string">'AF'</tt><tt class="py-op">,</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">    <tt class="py-string">'Cuba'</tt><tt class="py-op">:</tt><tt class="py-string">'CU'</tt><tt class="py-op">,</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">    <tt class="py-string">'Iran'</tt><tt class="py-op">:</tt><tt class="py-string">'IR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">    <tt class="py-string">'Iraq'</tt><tt class="py-op">:</tt><tt class="py-string">'IQ'</tt><tt class="py-op">,</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">    <tt class="py-string">'Islamic Republic of Iran'</tt><tt class="py-op">:</tt><tt class="py-string">'IR'</tt><tt class="py-op">,</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">    <tt class="py-string">'Sudan'</tt><tt class="py-op">:</tt><tt class="py-string">'SD'</tt><tt class="py-op">,</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">    <tt class="py-string">'Syrian Arab Republic'</tt><tt class="py-op">:</tt><tt class="py-string">'AY'</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line"> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"><tt class="py-comment">#-----------------------------------------------------------------------------</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"You can not run this module by itself"</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line"><tt class="py-comment">#-----------------------------------------------------------------------------</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:40 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

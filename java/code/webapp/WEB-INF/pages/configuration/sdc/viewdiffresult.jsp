@@ -73,7 +73,8 @@
 	</tr>
 	<tr>
 		<th><bean:message key="sdc.config.diff_result.diff"/>:</th>
-			<td><c:out value="${revisionBean.configRevisionActionResult.resultContents}"/>
+			<td>
+			<pre style="overflow: scroll; width: 100%; height: 400px;"><c:out value="${revisionBean.configRevisionActionResult.resultContents}"/></pre>
 			</td>
 	</tr>	
 </table>

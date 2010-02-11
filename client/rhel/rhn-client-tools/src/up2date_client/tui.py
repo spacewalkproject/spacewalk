@@ -1,10 +1,18 @@
 #
 # TUI for RHN Registration
-# Copyright (c) 2000-2002 Red Hat, Inc.
+# Copyright (c) 2000--2010 Red Hat, Inc.
 #
-# Author:
-#       Adrian Likins <alikins@redhat.com>
-#       Preston Brown <pbrown@redhat.com>
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 
 from os import geteuid
 import sys
@@ -554,145 +562,6 @@ class OrgGroupWindow:
         return 1
 
     
-class SubscriptionWindow:
-
-    def __init__(self, screen, tui):
-        self.name = "SubscriptionWindow"
-        self.screen = screen
-        self.tui = tui
-        self.size = snack._snack.size()
-    
-        toplevel = snack.GridForm(screen, SUBSCRIPTION_WINDOW, 1, 18)
-
-        grid = snack.Grid(1, 1)
-        text = snack.Textbox(self.size[0]-10, 3, SUBSCRIPTION_INTRO, wrap = 1)
-        grid.setField(text, 0, 0, anchorLeft = 1)
-
-        toplevel.add(grid, 0, 0)
-
-        grid = snack.Grid(1,1)
-        subscription_text = SUBSCRIPTION_INFO + "\n\n" + \
-                            "* " + SUBSCRIPTION_CHOICE1 + "\n\n" + \
-                             "* " + SUBSCRIPTION_CHOICE2 + "\n\n"
-
-        # Determine which text to show based on if we've already activated a
-        # number.
-        if self.tui.activated_now == 1:
-            subscription_text += "* " + SUBSCRIPTION_CHOICE3_ALT + "\n"
-        else:
-            subscription_text += "* " + SUBSCRIPTION_CHOICE3 + "\n"
-
-        textbox = snack.Textbox(self.size[0]-10, self.size[1]-17,
-                                text = subscription_text,
-                                wrap = 1,
-                                scroll = 1)
-
-        grid.setField(textbox, 0, 0)
-        toplevel.add(grid, 0, 1)
-
-        grid=snack.Grid(1,1)
-        text = snack.Textbox(1, 1, '')
-        grid.setField(text, 0, 0)
-        toplevel.add(grid, 0, 2)
-
-        grid = snack.Grid(2, 2)
-
-        label = snack.Label(ENTITLEMENT_NUM_PROMPT)
-        grid.setField(label, 0, 0)
-        self.entNumEntry = snack.Entry(40)
-        
-        if self.tui.other['registration_number'] == None:
-            self.entNumEntry.set('')
-        else:
-            self.entNumEntry.set(self.tui.other['registration_number'])
-            
-        grid.setField(self.entNumEntry, 1, 0, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-        label = snack.Label(' ')
-        grid.setField(label, 0, 1)
-        label = snack.Label(ENTITLEMENT_NUM_EXAMPLE)
-        grid.setField(label, 1, 1, anchorLeft = 1)
-
-        toplevel.add(grid, 0, 3)
-
-        self.g = toplevel
-
-        # BUTTON BAR
-        self.bb = snack.ButtonBar(screen,
-                                  [(NEXT, "next"),
-                                   (BACK, "back"),
-                                   (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 4, padding = (0, 1, 0, 0),
-                     growx = 1)
-
-
-    def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
-        self.screen.refresh()
-        self.tui.saw_sub_window = 1
-        valid = 0
-        while not valid:
-            result = self.g.run()
-            button = self.bb.buttonPressed(result)
-
-            if result == "F12":
-                button = "next"
-
-            if button == "next":
-                valid = self.validateFields()
-            else:
-                break
-
-        self.screen.popWindow()
-        return button        
-        
-    def validateFields(self):
-        
-        if self.entNumEntry.value() != '':
-            
-            # Now, activate the entitlement number
-            # Send up org_id if we've got one.
-            try:
-                if self.tui.other.has_key('org_id'):
-                    self.tui.activate_result = \
-                                rhnreg.activateRegistrationNumber(
-                                             self.tui.userName, 
-                                             self.tui.password, 
-                                             self.entNumEntry.value(),
-                                             self.tui.other['org_id'])
-                else:
-                    self.tui.activate_result = \
-                                rhnreg.activateRegistrationNumber(
-                                             self.tui.userName, 
-                                             self.tui.password, 
-                                             self.entNumEntry.value())
-
-                if self.tui.activate_result.getStatus() == \
-                   rhnreg.ActivationResult.ACTIVATED_NOW:
-                    return 1                                         
-                else:
-                     RecoverableErrorWindow(self.screen, ALREADY_USED_NUMBER)
-                     return 0
-
-            except up2dateErrors.InvalidRegistrationNumberError:
-                RecoverableErrorWindow(self.screen, INVALID_NUMBER %
-                                       self.entNumEntry.value())
-                return 0
-            except up2dateErrors.NotEntitlingError:
-                RecoverableErrorWindow(self.screen, NONENTITLING_NUMBER)
-                return 0
-        else:
-             snack.ButtonChoiceWindow(self.screen, ERROR,
-                         _("You must enter an Installation Number that " +
-                           "activates subscriptions in your account."),
-                         buttons = [OK])
-             return 0
-
-
-    def saveResults(self):
-        self.tui.other['registration_number'] = self.entNumEntry.value()
-        rhnreg.writeRegNum(self.entNumEntry.value())
-
 class OSReleaseWindow:
 
     def __init__(self, screen, tui):
@@ -1395,7 +1264,6 @@ class Tui:
             StartWindow,
             InfoWindow,
             OrgGroupWindow,
-            SubscriptionWindow,
             OSReleaseWindow,
             HardwareWindow,
             PackagesWindow,
@@ -1600,12 +1468,6 @@ class Tui:
                         index = index + 1
                         continue
 
-                if win.name == 'SubscriptionWindow':
-
-                    if self._show_subscription_window() == False:
-                        index = index + 1
-                        continue
-
                 if win.name == 'OSReleaseWindow':
                     channels = rhnreg.getAvailableChannels(self.userName, 
                                self.password, self.other)
@@ -1634,10 +1496,6 @@ class Tui:
                         else:
                             index = index - 4
 
-                    elif win.name == 'SubscriptionWindow':
-                        # If we didn't see the org window, go back 2
-                        if self.saw_org_window == 0:
-                            index = index - 2
                     elif win.name == 'OSReleaseWindow':
                         if self.saw_sub_window == 1:
                             index = index - 1

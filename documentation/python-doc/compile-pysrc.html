@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>compile</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;compile
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="compile-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="compile-module.html">Module compile</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># python compiler. "Borrowed" from Python's py_compile module. As</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># opposed to the Python one, this script returns error codes when a</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># compile fails, so it can be used from Makefiles</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># $Id$</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">marshal</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">traceback</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">__builtin__</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">imp</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable compile.MAGIC=compile-module.html#MAGIC,Variable proxy.compile.MAGIC=proxy.compile-module.html#MAGIC"><a title="compile.MAGIC
+proxy.compile.MAGIC" class="py-name" href="#" onclick="return doclink('link-0', 'MAGIC', 'link-0');">MAGIC</a></tt> <tt class="py-op">=</tt> <tt class="py-name">imp</tt><tt class="py-op">.</tt><tt class="py-name">get_magic</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">3</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"Usage:"</tt><tt class="py-op">,</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">"infile outfile"</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable compile.infile=compile-module.html#infile,Variable proxy.compile.infile=proxy.compile-module.html#infile"><a title="compile.infile
+proxy.compile.infile" class="py-name" href="#" onclick="return doclink('link-1', 'infile', 'link-1');">infile</a></tt> <tt class="py-op">=</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable compile.outfile=compile-module.html#outfile,Variable proxy.compile.outfile=proxy.compile-module.html#outfile"><a title="compile.outfile
+proxy.compile.outfile" class="py-name" href="#" onclick="return doclink('link-2', 'outfile', 'link-2');">outfile</a></tt> <tt class="py-op">=</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">argv</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="wr_long"></a><div id="wr_long-def"><a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="wr_long-toggle" onclick="return toggle('wr_long');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="compile-module.html#wr_long">wr_long</a><tt class="py-op">(</tt><tt class="py-param">f</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="wr_long-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="wr_long-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-docstring">"Internal; write a 32-bit int to a file in little-endian order."</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-3', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">(</tt> <tt class="py-name">x</tt>        <tt class="py-op">&amp;</tt> <tt class="py-number">0xff</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-4', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">x</tt> <tt class="py-op">&gt;&gt;</tt> <tt class="py-number">8</tt><tt class="py-op">)</tt>  <tt class="py-op">&amp;</tt> <tt class="py-number">0xff</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-5', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">x</tt> <tt class="py-op">&gt;&gt;</tt> <tt class="py-number">16</tt><tt class="py-op">)</tt> <tt class="py-op">&amp;</tt> <tt class="py-number">0xff</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-6', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">chr</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">x</tt> <tt class="py-op">&gt;&gt;</tt> <tt class="py-number">24</tt><tt class="py-op">)</tt> <tt class="py-op">&amp;</tt> <tt class="py-number">0xff</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="compile"></a><div id="compile-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="compile-toggle" onclick="return toggle('compile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="compile-module.html#compile">compile</a><tt class="py-op">(</tt><tt class="py-param">file</tt><tt class="py-op">,</tt> <tt class="py-param">cfile</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">dfile</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="compile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="compile-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-docstring">"""Byte-compile one Python source file to Python bytecode.</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">    Arguments:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    file:  source filename</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    cfile: target filename; defaults to source with 'c' or 'o' appended</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">           ('c' normally, 'o' in optimizing mode, giving .pyc or .pyo)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">    dfile: purported filename; defaults to source (this is the filename</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">           that will show up in error messages)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">    Note that it isn't necessary to byte-compile Python modules for</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">    execution efficiency -- Python itself byte-compiles a module when</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">    it is loaded, and if it can, writes out the bytecode to the</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">    corresponding .pyc (or .pyo) file.</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    However, if a Python installation is shared between users, it is a</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    good idea to byte-compile all modules upon installation, since</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    other users may not be able to write in the source directories,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">    and thus they won't be able to write the .pyc/.pyo file, and then</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    they would be byte-compiling every module each time it is loaded.</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">    This can slow down program start-up considerably.</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">    See compileall.py for a script/module that uses this module to</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">    byte-compile all installed files (or all files in selected</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">    directories).</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt id="link-7" class="py-name" targets="Function common.rhnLib.timestamp()=common.rhnLib-module.html#timestamp"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-7', 'timestamp', 'link-7');">timestamp</a></tt> <tt class="py-op">=</tt> <tt class="py-name">long</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">fstat</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">fileno</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">8</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt id="link-8" class="py-name"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-8', 'timestamp', 'link-7');">timestamp</a></tt> <tt class="py-op">=</tt> <tt class="py-name">long</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Variable _apache.stat=_apache-module.html#stat"><a title="_apache.stat" class="py-name" href="#" onclick="return doclink('link-9', 'stat', 'link-9');">stat</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">8</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-name">codestring</tt> <tt class="py-op">=</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-10', 'read', 'link-10');">read</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-name">f</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-11', 'close', 'link-11');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">codestring</tt> <tt class="py-keyword">and</tt> <tt class="py-name">codestring</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">'\n'</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">codestring</tt> <tt class="py-op">=</tt> <tt class="py-name">codestring</tt> <tt class="py-op">+</tt> <tt class="py-string">'\n'</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">codeobject</tt> <tt class="py-op">=</tt> <tt class="py-name">__builtin__</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Module compile=compile-module.html,Function compile.compile()=compile-module.html#compile,Module proxy.compile=proxy.compile-module.html,Function proxy.compile.compile()=proxy.compile-module.html#compile"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-12', 'compile', 'link-12');">compile</a></tt><tt class="py-op">(</tt><tt class="py-name">codestring</tt><tt class="py-op">,</tt> <tt class="py-name">dfile</tt> <tt class="py-keyword">or</tt> <tt class="py-name">file</tt><tt class="py-op">,</tt> <tt class="py-string">'exec'</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">SyntaxError</tt><tt class="py-op">,</tt> <tt class="py-name">detail</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-name">lines</tt> <tt class="py-op">=</tt> <tt class="py-name">traceback</tt><tt class="py-op">.</tt><tt class="py-name">format_exception_only</tt><tt class="py-op">(</tt><tt class="py-name">SyntaxError</tt><tt class="py-op">,</tt> <tt class="py-name">detail</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-13', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">"%s: Error compiling\n"</tt> <tt class="py-op">%</tt> <tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">lines</tt><tt class="py-op">:</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">            <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-14', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-name">line</tt><tt class="py-op">,</tt> <tt class="py-string">'File "&lt;string&gt;"'</tt><tt class="py-op">,</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                                            <tt class="py-string">'File "%s"'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">dfile</tt> <tt class="py-keyword">or</tt> <tt class="py-name">file</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">cfile</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">cfile</tt> <tt class="py-op">=</tt> <tt class="py-name">file</tt> <tt class="py-op">+</tt> <tt class="py-op">(</tt><tt class="py-name">__debug__</tt> <tt class="py-keyword">and</tt> <tt class="py-string">'c'</tt> <tt class="py-keyword">or</tt> <tt class="py-string">'o'</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">fc</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">cfile</tt><tt class="py-op">,</tt> <tt class="py-string">'wb'</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-15', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'\0\0\0\0'</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt id="link-16" class="py-name" targets="Function compile.wr_long()=compile-module.html#wr_long,Function proxy.compile.wr_long()=proxy.compile-module.html#wr_long"><a title="compile.wr_long
+proxy.compile.wr_long" class="py-name" href="#" onclick="return doclink('link-16', 'wr_long', 'link-16');">wr_long</a></tt><tt class="py-op">(</tt><tt class="py-name">fc</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="common.rhnLib.timestamp" class="py-name" href="#" onclick="return doclink('link-17', 'timestamp', 'link-7');">timestamp</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt class="py-name">marshal</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method satellite_tools.exporter.exportLib.BaseDumper.dump()=satellite_tools.exporter.exportLib.BaseDumper-class.html#dump,Method satellite_tools.exporter.exportLib.EmptyDumper.dump()=satellite_tools.exporter.exportLib.EmptyDumper-class.html#dump,Method satellite_tools.exporter.exportLib.SimpleDumper.dump()=satellite_tools.exporter.exportLib.SimpleDumper-class.html#dump,Method satellite_tools.xmlDiskDumper.BinaryRPMDumper.dump()=satellite_tools.xmlDiskDumper.BinaryRPMDumper-class.html#dump,Method satellite_tools.xmlDiskDumper.Dumper.dump()=satellite_tools.xmlDiskDumper.Dumper-class.html#dump,Method satellite_tools.xmlDiskDumper.KickstartFilesDumper.dump()=satellite_tools.xmlDiskDumper.KickstartFilesDumper-class.html#dump"><a title="satellite_tools.exporter.exportLib.BaseDumper.dump
+satellite_tools.exporter.exportLib.EmptyDumper.dump
+satellite_tools.exporter.exportLib.SimpleDumper.dump
+satellite_tools.xmlDiskDumper.BinaryRPMDumper.dump
+satellite_tools.xmlDiskDumper.Dumper.dump
+satellite_tools.xmlDiskDumper.KickstartFilesDumper.dump" class="py-name" href="#" onclick="return doclink('link-18', 'dump', 'link-18');">dump</a></tt><tt class="py-op">(</tt><tt class="py-name">codeobject</tt><tt class="py-op">,</tt> <tt class="py-name">fc</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method satellite_tools.disk_dumper.string_buffer.StringBuffer.flush()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#flush,Method satellite_tools.exporter.xmlWriter.XMLWriter.flush()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#flush,Method server.rhnSQL.sql_table.Table.flush()=server.rhnSQL.sql_table.Table-class.html#flush"><a title="satellite_tools.disk_dumper.string_buffer.StringBuffer.flush
+satellite_tools.exporter.xmlWriter.XMLWriter.flush
+server.rhnSQL.sql_table.Table.flush" class="py-name" href="#" onclick="return doclink('link-19', 'flush', 'link-19');">flush</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method rhn.SSL.SSLSocket.seek()=rhn.SSL.SSLSocket-class.html#seek"><a title="rhn.SSL.SSLSocket.seek" class="py-name" href="#" onclick="return doclink('link-20', 'seek', 'link-20');">seek</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">    <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-21', 'write', 'link-3');">write</a></tt><tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="compile.MAGIC
+proxy.compile.MAGIC" class="py-name" href="#" onclick="return doclink('link-22', 'MAGIC', 'link-0');">MAGIC</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-23', 'close', 'link-11');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt id="link-24" class="py-name"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-24', 'compile', 'link-12');">compile</a></tt><tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="compile.infile
+proxy.compile.infile" class="py-name" href="#" onclick="return doclink('link-25', 'infile', 'link-1');">infile</a></tt><tt class="py-op">,</tt> <tt id="link-26" class="py-name"><a title="compile.outfile
+proxy.compile.outfile" class="py-name" href="#" onclick="return doclink('link-26', 'outfile', 'link-2');">outfile</a></tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:35 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

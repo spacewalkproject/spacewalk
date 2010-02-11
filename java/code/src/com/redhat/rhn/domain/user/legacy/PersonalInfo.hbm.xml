@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.user.legacy.PersonalInfo"
+           table="WEB_USER_PERSONAL_INFO"
+           lazy="false">
+        <id name="webUserId" type="long" column="web_user_id">
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <property name="prefix" column="prefix" type="string" length="12" />
+        <property name="firstNames" column="first_names" type="string" length="128" />
+        <property name="lastName" column="last_name" type="string" length="128" />
+        <property name="company" column="company" type="string" length="128" />
+        <property name="title" column="title" type="string" length="128" />
+        <property name="phone" column="phone" type="string" length="128" />
+        <property name="fax" column="fax" type="string" length="128" />
+        <property name="email" column="email" type="string" length="128" />
+        <property name="created" type="timestamp" insert="false" update="false" />
+        <property name="modified" type="timestamp" insert="false" update="false" />
+
+        <one-to-one name="user"
+                    class="com.redhat.rhn.domain.user.legacy.UserImpl"
+                    constrained="true" />
+    </class>
+</hibernate-mapping>

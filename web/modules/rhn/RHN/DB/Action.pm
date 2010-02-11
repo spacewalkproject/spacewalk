@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,7 +16,6 @@
 package RHN::DB::Action;
 
 use strict;
-use Data::Dumper;
 use Carp;
 use Params::Validate qw/validate/;
 Params::Validate::validation_options(strip_leading => "-");
@@ -161,29 +160,6 @@ sub get_full_server_status {
 
 }
 
-sub associated_errata {
-  my $self = shift;
-  die "action $self->id is not an errata.update action" unless $self->action_type_label eq 'errata.update';
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT errata_id FROM rhnActionErrataUpdate WHERE action_id = ?
-EOQ
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  my @ret;
-  while (my @data = $sth->fetchrow) {
-    push @ret, @data;
-  }
-
-  return @ret;
-}
-
 
 sub cancel_pending_for_system {
   my $class = shift;
@@ -220,20 +196,6 @@ EOQ
   else {
     $dbh->commit;
   }
-}
-
-sub delete_systems_from_action {
-  my $class = shift;
-  my $aid = shift;
-  my @systems = @_;
-
-  my $dbh = RHN::DB->connect;
-
-  foreach my $sid (@systems) {
-    $dbh->call_procedure('rhn_server.remove_action', $sid, $aid);
-  }
-
-  $dbh->commit;
 }
 
 
@@ -363,13 +325,6 @@ sub lookup {
 
 sub blank_action {
   bless { }, shift;
-}
-
-sub create_action {
-  my $class = shift;
-  my $action = $class->blank_action;
-  $action->{__id__} = -1;
-  return $action;
 }
 
 sub commit {

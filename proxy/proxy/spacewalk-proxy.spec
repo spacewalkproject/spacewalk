@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.8.1
+Version: 0.9.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -24,6 +24,9 @@ Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
 Requires: spacewalk-backend
+# python-hashlib is optional for spacewalk-backend-libs
+# but we need made it mandatory here
+Requires: python-hashlib
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
@@ -125,9 +128,10 @@ Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Group:   Applications/Internet
 Requires: spacewalk-backend
 Requires: rhnlib
-Requires: python-optik
+Requires: python
 Requires: rhnpush
 BuildRequires: /usr/bin/docbook2man
+BuildRequires: python-devel
 Obsoletes: rhn_package_manager < 5.3.0
 Obsoletes: rhns-proxy-package-manager < 5.3.0
 
@@ -294,6 +298,14 @@ fi
 
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
+- updated copyrights
+
+* Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.2-1
+- fix usage of uploadLib, which has been rewriten
+- remove python-optik
+- no hashlib, no checksums :( (michael.mraka@redhat.com)
+
 * Fri Dec  4 2009 Miroslav Suchý <msuchy@redhat.com> 0.8.1-1
 - sha256 support
 

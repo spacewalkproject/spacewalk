@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,7 +15,7 @@
 
 import os
 import re
-import md5
+import hashlib
 import time
 import string
 import base64
@@ -30,26 +30,20 @@ def removeNewlines(str):
     # Remove \n and \r from the string str
     return string.translate(str, string.maketrans("", ""), "\n\r")
 
-
-# Generic MD5 sum calculator
-def md5sum(*fields):
+def computeSignature(*fields):
     # Init the hash
-    m = md5.new()
+    m = hashlib.new('md5')
     for i in fields:
         # use str(i) since some of the fields may be non-string
         m.update(str(i))
-    return m.digest()
-
-
-def computeSignature(*fields):
-    return removeNewlines(base64.encodestring(apply(md5sum, fields)))
+    return removeNewlines(base64.encodestring(m.digest()))
 
 
 # reg exp for splitting package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 def parseRPMName(pkgName):
     """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-        OUT: Four strings (in a tuple): name, version, release, epoch.
+        OUT: Four strings (in a tuple): name, epoch, version, release.
     """
     reg = re_rpmName.match(pkgName)
     if reg == None:
@@ -57,11 +51,10 @@ def parseRPMName(pkgName):
     n, v, r = reg.group(1,2,3)
     e = ""
     ind = string.find(r, ':')
-    if ind < 0: # no epoch
-        return str(n), str(v), str(r), str(e)
-    e = r[ind+1:]
-    r = r[0:ind]
-    return str(n), str(v), str(r), str(e)
+    if ind >= 0: # epoch found
+        e = r[ind+1:]
+        r = r[0:ind]
+    return str(n), str(e), str(v), str(r)
 
 
 # 'n_n-n-v.v.v-r_r.r:e.ARCH.rpm' ---> [n,v,r,e,a]
@@ -76,7 +69,7 @@ def parseRPMFilename(pkgFilename):
        o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
        o Epoch: Can include anything except a - and the : seperator???
          XXX: Is epoch info above correct?
-    OUT: [n,v,r,e, arch].
+    OUT: [n,e,v,r, arch].
     """
     if type(pkgFilename) != type(''):
 	raise rhnFault(21, str(pkgFilename)) # Invalid arg.
@@ -165,7 +158,7 @@ def transpose_to_hash(arr, column_names):
     return rh
 
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
-        package_type='rpm', checksum=(None,None)):
+        package_type='rpm', checksum_type=None, checksum=None):
     """ Computes a package path, optionally prepending a prefix
         The path will look like
         <prefix>/<org_id>/checksum[:3]/n/e:v-r/a/checksum/n-v-r.a.rpm if not omit_epoch
@@ -189,7 +182,7 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, checksum[1][:3], name, version, release, dirarch, checksum[1],
+    return template % (org, checksum[:3], name, version, release, dirarch, checksum,
         name, nevra[2], release, pkgarch, package_type)
 
 
@@ -200,10 +193,10 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
 # This enables us to append an arbitrary file name that is not restricted to the 
 # form: name-version-release.arch.type
 def get_package_path_without_package_name(nevra, org_id, prepend="",
-        checksum=(None,None)):
+        checksum_type=None, checksum=None):
     """return a package path without the package name appended"""
     return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend,
-        checksum=checksum))
+        checksum_type=checksum_type, checksum=checksum))
 
 
 class CallableObj:

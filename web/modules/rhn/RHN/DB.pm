@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,8 +18,6 @@ package RHN::DB;
 use strict;
 use DBI;
 use Carp;
-use Data::Dumper;
-use Time::HiRes;
 use RHN::Exception;
 use PXT::Config;
 
@@ -35,11 +33,6 @@ sub add_alias {
   my $dbi_connection_string = shift;
 
   $aliases{$dbi_connection_string} = [ @_ ];
-}
-
-sub clear_aliases {
-  my $class = shift;
-  %aliases = ();
 }
 
 sub lookup_alias {
@@ -92,19 +85,6 @@ sub apache_child_init_handler {
       RHN::DB->connect($alias);
     }
   }
-}
-
-# DBD::Oracle handles don't survive forks well if you don't
-# immediately exec or somesuch.  so this is what we call when we know
-# we're going to fork
-
-sub prepare_for_fork {
-  my $class = shift;
-
-  for my $handle (grep { defined $_ } values %handles) {
-    $handle->force_disconnect;
-  }
-  %handles = ();
 }
 
 
@@ -187,7 +167,8 @@ sub connect {
   my $alias_data = RHN::DB->lookup_alias($alias);
   Carp::croak "RHN::DB->connect($alias): No such alias '$alias'" unless $alias_data;
 
-  my ($username, $password, $params) = @{ $alias_data };
+  my $params;
+  ($username, $password, $params) = @{ $alias_data };
 
   my $dbh = $handles{$alias} = $class->direct_connect($alias, $username, $password,
 						      { %$params,
@@ -355,12 +336,6 @@ sub profile_format {
   }
 
   return @ret;
-}
-
-sub reset_profiling {
-  my $self = shift;
-
-  $self->{Profile}->{Data} = undef;
 }
 
 sub init_db_handle {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -101,6 +101,35 @@ public class ProfileHandler extends BaseHandler {
         return ksdefault.getKstree().getLabel();
     }
     
+    /**
+     * Set the logging (Pre and post) for a kickstart file
+     * @param sessionKey the session key
+     * @param kslabel the kickstart label
+     * @param pre whether to log pre scripts or not
+     * @param post whether to log post scripts or not
+     * @return int 1 for success
+     *
+     * @xmlrpc.doc Get the kickstart tree for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.param #param_desc("boolean", "pre", "whether or not to log
+     *      the pre section of a kickstart to /root/ks-pre.log")
+     * @xmlrpc.param #param_desc("boolean", "post", "whether or not to log
+     *      the pre section of a kickstart to /root/ks-post.log")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setLogging(String sessionKey, String kslabel, boolean pre, boolean post) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData data = lookupKsData(kslabel, loggedInUser.getOrg());
+        data.setPreLog(pre);
+        data.setPostLog(post);
+        KickstartFactory.saveKickstartData(data);
+        return 1;
+    }
+
+
     /**
      * Set the kickstart tree for a kickstart profile.
      * @param sessionKey User's session key.

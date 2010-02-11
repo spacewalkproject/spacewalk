@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnAuthPAM</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;rhnAuthPAM
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnAuthPAM-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnAuthPAM-module.html">Module server.rhnAuthPAM</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">PAM</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-1', 'log_error', 'link-1');">log_error</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Class common.rhnException'.rhnException=common.rhnException%27.rhnException-class.html"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-2', 'rhnException', 'link-2');">rhnException</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable server.rhnAuthPAM.__username=server.rhnAuthPAM-module.html#__username"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-3', '__username', 'link-3');">__username</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable server.rhnAuthPAM.__password=server.rhnAuthPAM-module.html#__password"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-4', '__password', 'link-4');">__password</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="__pam_conv"></a><div id="__pam_conv-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="__pam_conv-toggle" onclick="return toggle('__pam_conv');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnAuthPAM-module.html#__pam_conv">__pam_conv</a><tt class="py-op">(</tt><tt class="py-param">auth</tt><tt class="py-op">,</tt> <tt class="py-param">query_list</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="__pam_conv-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="__pam_conv-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-5" class="py-name"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-5', '__username', 'link-3');">__username</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-6', '__password', 'link-4');">__password</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt class="py-comment"># Build a list of responses to be passed back to PAM</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-name">resp</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-7" class="py-name" targets="Method server.importlib.backendLib.BaseTableLookup.query()=server.importlib.backendLib.BaseTableLookup-class.html#query,Method server.importlib.backendLib.TableDelete.query()=server.importlib.backendLib.TableDelete-class.html#query,Method server.importlib.backendLib.TableInsert.query()=server.importlib.backendLib.TableInsert-class.html#query,Method server.importlib.backendLib.TableUpdate.query()=server.importlib.backendLib.TableUpdate-class.html#query"><a title="server.importlib.backendLib.BaseTableLookup.query
+server.importlib.backendLib.TableDelete.query
+server.importlib.backendLib.TableInsert.query
+server.importlib.backendLib.TableUpdate.query" class="py-name" href="#" onclick="return doclink('link-7', 'query', 'link-7');">query</a></tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-8', 'type', 'link-8');">type</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">query_list</tt><tt class="py-op">:</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-9" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-9', 'type', 'link-8');">type</a></tt> <tt class="py-op">==</tt> <tt class="py-name">PAM</tt><tt class="py-op">.</tt><tt class="py-name">PAM_PROMPT_ECHO_ON</tt><tt class="py-op">:</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">            <tt class="py-comment"># Prompt for a username</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">            <tt class="py-name">resp</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-10', 'append', 'link-10');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-11', '__username', 'link-3');">__username</a></tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt id="link-12" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-12', 'type', 'link-8');">type</a></tt> <tt class="py-op">==</tt> <tt class="py-name">PAM</tt><tt class="py-op">.</tt><tt class="py-name">PAM_PROMPT_ECHO_OFF</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">            <tt class="py-comment"># Prompt for a password</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">            <tt class="py-name">resp</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-13', 'append', 'link-10');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-14', '__password', 'link-4');">__password</a></tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">            <tt class="py-comment"># Unknown PAM type</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">            <tt id="link-15" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-15', 'log_error', 'link-1');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Got unknown PAM type %s (query=%s)"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-16', 'type', 'link-8');">type</a></tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="server.importlib.backendLib.BaseTableLookup.query
+server.importlib.backendLib.TableDelete.query
+server.importlib.backendLib.TableInsert.query
+server.importlib.backendLib.TableUpdate.query" class="py-name" href="#" onclick="return doclink('link-17', 'query', 'link-7');">query</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">resp</tt> </tt>
+</div><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="check_password"></a><div id="check_password-def"><a name="L42"></a><tt class="py-lineno">42</tt> <a class="py-toggle" href="#" id="check_password-toggle" onclick="return toggle('check_password');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnAuthPAM-module.html#check_password">check_password</a><tt class="py-op">(</tt><tt class="py-param">username</tt><tt class="py-op">,</tt> <tt class="py-param">password</tt><tt class="py-op">,</tt> <tt class="py-param">service</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="check_password-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="check_password-expanded"><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-18" class="py-name"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-18', '__username', 'link-3');">__username</a></tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-19', '__password', 'link-4');">__password</a></tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt id="link-20" class="py-name" targets="Function server.handlers.app.channel.auth()=server.handlers.app.channel-module.html#auth,Function server.handlers.app.comps.auth()=server.handlers.app.comps-module.html#auth,Function server.handlers.app.packages.auth()=server.handlers.app.packages-module.html#auth,Module server.handlers.sat.auth=server.handlers.sat.auth-module.html,Function server.handlers.xp.packages.auth()=server.handlers.xp.packages-module.html#auth,Function server.handlers.xp.rhnlint.auth()=server.handlers.xp.rhnlint-module.html#auth,Method server.importlib.userAuth.UserAuth.auth()=server.importlib.userAuth.UserAuth-class.html#auth"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-20', 'auth', 'link-20');">auth</a></tt> <tt class="py-op">=</tt> <tt class="py-name">PAM</tt><tt class="py-op">.</tt><tt class="py-name">pam</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt id="link-21" class="py-name"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-21', 'auth', 'link-20');">auth</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method common.rhn_timer.Timer.start()=common.rhn_timer.Timer-class.html#start,Function server.action.virt.start()=server.action.virt-module.html#start,Function server.action_extra_data.virt.start()=server.action_extra_data.virt-module.html#start"><a title="common.rhn_timer.Timer.start
+server.action.virt.start
+server.action_extra_data.virt.start" class="py-name" href="#" onclick="return doclink('link-22', 'start', 'link-22');">start</a></tt><tt class="py-op">(</tt><tt class="py-name">service</tt><tt class="py-op">,</tt> <tt class="py-name">username</tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name" targets="Function server.rhnAuthPAM.__pam_conv()=server.rhnAuthPAM-module.html#__pam_conv"><a title="server.rhnAuthPAM.__pam_conv" class="py-name" href="#" onclick="return doclink('link-23', '__pam_conv', 'link-23');">__pam_conv</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-comment"># Save the username and passwords in the globals, the conversation</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-comment"># function needs access to them</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-24', '__username', 'link-3');">__username</a></tt> <tt class="py-op">=</tt> <tt class="py-name">username</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt id="link-25" class="py-name"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-25', '__password', 'link-4');">__password</a></tt> <tt class="py-op">=</tt> <tt class="py-name">password</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt id="link-26" class="py-name"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-26', 'auth', 'link-20');">auth</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Function server.rhnPackageUpload.authenticate()=server.rhnPackageUpload-module.html#authenticate"><a title="server.rhnPackageUpload.authenticate" class="py-name" href="#" onclick="return doclink('link-27', 'authenticate', 'link-27');">authenticate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">            <tt id="link-28" class="py-name"><a title="server.handlers.app.channel.auth
+server.handlers.app.comps.auth
+server.handlers.app.packages.auth
+server.handlers.sat.auth
+server.handlers.xp.packages.auth
+server.handlers.xp.rhnlint.auth
+server.importlib.userAuth.UserAuth.auth" class="py-name" href="#" onclick="return doclink('link-28', 'auth', 'link-20');">auth</a></tt><tt class="py-op">.</tt><tt class="py-name">acct_mgmt</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">finally</tt><tt class="py-op">:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">            <tt class="py-comment"># Something to be always executed - cleanup</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">            <tt id="link-29" class="py-name"><a title="server.rhnAuthPAM.__username" class="py-name" href="#" onclick="return doclink('link-29', '__username', 'link-3');">__username</a></tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="server.rhnAuthPAM.__password" class="py-name" href="#" onclick="return doclink('link-30', '__password', 'link-4');">__password</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">PAM</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method satellite_tools.xmlSource.BaseDispatchHandler.error()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#error"><a title="satellite_tools.xmlSource.BaseDispatchHandler.error" class="py-name" href="#" onclick="return doclink('link-31', 'error', 'link-31');">error</a></tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">resp</tt><tt class="py-op">,</tt> <tt class="py-name">code</tt> <tt class="py-op">=</tt> <tt class="py-name">e</tt><tt class="py-op">.</tt><tt class="py-name">args</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-number">2</tt><tt class="py-op">]</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-32', 'log_error', 'link-1');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"Password check failed (%s): %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">code</tt><tt class="py-op">,</tt> <tt class="py-name">resp</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-33" class="py-name"><a title="common.rhnException'.rhnException" class="py-name" href="#" onclick="return doclink('link-33', 'rhnException', 'link-2');">rhnException</a></tt><tt class="py-op">(</tt><tt class="py-string">'Internal PAM error'</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-comment"># Good password</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

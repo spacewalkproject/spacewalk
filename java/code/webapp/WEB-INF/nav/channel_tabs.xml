@@ -4,7 +4,7 @@
   <rhn-tab name="channel.nav.all">
     <rhn-tab-url>/rhn/software/channels/All.do</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="channel.nav.redhat">
+  <rhn-tab name="channel.nav.redhat" acl="is_satellite()">
     <rhn-tab-url>/rhn/software/channels/RedHat.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="channel.nav.popular">

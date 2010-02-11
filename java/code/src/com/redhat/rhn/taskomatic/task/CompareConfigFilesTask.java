@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@ package com.redhat.rhn.taskomatic.task;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.config.ConfigAction;
+import com.redhat.rhn.domain.action.config.ConfigRevisionAction;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
@@ -31,6 +32,8 @@ import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+
+import java.util.Set;
 
 /**
  * Compare Config Files
@@ -88,10 +91,11 @@ public class CompareConfigFilesTask implements Job {
                 ActionFactory.addConfigRevisionToAction(crev, server, cfact);
             }
 
-            if (act.getServerActions().size() < 1) {
+            if (act.getServerActions() == null || act.getServerActions().size() < 1) {
                 continue;
             }
-            if (cfact.getConfigRevisionActions().size() < 1) {
+            Set<ConfigRevisionAction> cra = cfact.getConfigRevisionActions();
+            if (cra == null || cra.size() < 1) {
                 continue;
             }
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,7 @@
 #
 
 
-import md5
+import hashlib
 import time
 import string
 
@@ -64,7 +64,7 @@ class Session:
 
         secrets = self.get_secrets()
         
-        ctx = md5.new()
+        ctx = hashlib.new('md5')
         ctx.update(string.join(secrets[:2] + [str(self.session_id)] + 
             secrets[2:], ':'))
 

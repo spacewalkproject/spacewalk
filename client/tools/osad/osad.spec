@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.22
+Version: 5.9.29
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -80,8 +80,8 @@ Requires: selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-114
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage, spacewalk-selinux
 Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux
@@ -109,8 +109,6 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
-# Create the auth file
-touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 
 %if %{include_selinux_package}
 for selinuxvariant in %{selinux_variants}
@@ -174,6 +172,12 @@ fi
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
+
+  /usr/sbin/semanage port -ln \
+    | perl '-F/,?\s+/' -ane 'print map "$_\n", @F if shift @F eq "osa_dispatcher_upstream_notif_server_port_t" and shift @F eq "tcp"' \
+    | while read port ; do \
+      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
+    done
   for selinuxvariant in %{selinux_variants}
     do
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
@@ -197,8 +201,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/osad_client.py*
 %{rhnroot}/osad/osad_config.py*
 %{rhnroot}/osad/rhn_log.py*
-%{rhnroot}/osad/rhnLockfile.py*
-%attr(755,root,root) %{rhnroot}/osad/rhn_fcntl.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
@@ -236,6 +238,30 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.29-1
+- updated copyrights
+
+* Mon Feb 01 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.28-1
+- use rhnLockfile.py from rhnlib
+
+* Fri Jan 29 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.27-1
+- fixed the sha module is deprecated
+
+* Fri Jan 29 2010 Jan Pazdziora 5.9.26-1
+- 559230 - address errors during package removal.
+- Do not hide any error messages produced by semanage port -a.
+
+* Wed Jan 27 2010 Miroslav Suchy <msuchy@redhat.com> 5.9.25-1
+- replaced popen2 with subprocess in client (michael.mraka@redhat.com)
+
+* Mon Jan 18 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.24-1
+- fixed syntax error in init.d scripts
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.23-1
+- implement condrestart for osad init script 
+- make reload alias for restart
+- add osad-auth.conf as normal file with placeholder content
+
 * Tue Oct 27 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.22-1
 - Make debugging osa* network/jabber issues easier (joshua.roys@gtri.gatech.edu)
 

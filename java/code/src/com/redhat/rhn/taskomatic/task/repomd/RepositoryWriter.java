@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -104,19 +104,35 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter otherFile;
 
         // Get compatible checksumType
-        this.checksumtype = channel.getChecksumType();
+        this.checksumtype = channel.getChecksumTypeLabel();
         
         log.info("Checksum Type Value" + this.checksumtype);
 
+        // java.security.MessageDigest recognizes:
+        // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
+        String checksumAlgo = this.checksumtype;
+        if (checksumAlgo.toUpperCase().startsWith("SHA")) {
+            checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
+                           this.checksumtype.substring(3);
+        }
+        // translate sha1 to sha for xml repo files
+        String checksumLabel = this.checksumtype;
+        if (checksumLabel == "sha1") {
+            checksumLabel = "sha";
+        }
+
         try {
             primaryFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + PRIMARY_FILE), this.checksumtype);
+                    new FileOutputStream(prefix + PRIMARY_FILE), checksumAlgo);
             filelistsFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + FILELISTS_FILE), this.checksumtype);
+                    new FileOutputStream(prefix + FILELISTS_FILE), checksumAlgo);
             otherFile = new CompressingDigestOutputWriter(new FileOutputStream(
-                    prefix + OTHER_FILE), this.checksumtype);
+                    prefix + OTHER_FILE), checksumAlgo);
         }
         catch (IOException e) {
+            throw new RepomdRuntimeException(e);
+        }
+        catch (NoSuchAlgorithmException e) {
             throw new RepomdRuntimeException(e);
         }
 
@@ -181,20 +197,20 @@ public class RepositoryWriter {
                 '"');
         log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
-                this.checksumtype);
+                checksumAlgo);
 
-        RepomdIndexData groupsData = loadCompsFile(channel);
+        RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
         
         //Set the type so yum can read and perform checksum
-        primaryData.setType(this.checksumtype);
-        filelistsData.setType(this.checksumtype);
-        otherData.setType(this.checksumtype);
+        primaryData.setType(checksumLabel);
+        filelistsData.setType(checksumLabel);
+        otherData.setType(checksumLabel);
         if (updateinfoData != null) {
-            updateinfoData.setType(this.checksumtype);
+            updateinfoData.setType(checksumLabel);
         }
         
         if (groupsData != null) {
-            groupsData.setType(this.checksumtype);
+            groupsData.setType(checksumLabel);
         }
         
         log.info("Primary xml's type" + primaryData.getType());
@@ -234,9 +250,10 @@ public class RepositoryWriter {
     /**
      * 
      * @param channel channel indo
+     * @param checksumAlgo checksum algorithm
      * @return repomd index for given channel
      */
-    private RepomdIndexData loadCompsFile(Channel channel) {
+    private RepomdIndexData loadCompsFile(Channel channel, String checksumAlgo) {
         String relativeFilename;
         String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
  
@@ -262,7 +279,7 @@ public class RepositoryWriter {
         DigestInputStream digestStream;
         try {
             digestStream = new DigestInputStream(stream, MessageDigest
-                    .getInstance(this.checksumtype));
+                    .getInstance(checksumAlgo));
         }
         catch (NoSuchAlgorithmException nsae) {
             throw new RepomdRuntimeException(nsae);
@@ -356,6 +373,12 @@ public class RepositoryWriter {
                     new FileOutputStream(prefix + UPDATEINFO_FILE), checksumtypeIn);
         }
         catch (FileNotFoundException e) {
+            throw new RepomdRuntimeException(e);
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RepomdRuntimeException(e);
+        }
+        catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
         BufferedWriter updateinfoBufferedWriter = new BufferedWriter(

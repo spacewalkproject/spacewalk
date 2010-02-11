@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,6 +22,10 @@ use Apache2::Const qw/:common OK REDIRECT M_GET AUTH_REQUIRED/;
 use Apache2::Access ();
 use RHN::Exception;
 use PXT::ACL;
+
+use PXT::ApacheHandler ();
+use PXT::Utils ();
+use RHN::User ();
 
 sub handler {
   my $r = shift;
@@ -63,71 +67,27 @@ sub handler {
   if (not $username) {
     my $pxt = $r->pnotes('pxt_request');
 
-    # if we're an xml request, we need to NOT let the default
-    # FORBIDDEN page be shown.  why?  well, the client won't
-    # understand it, and pxt won't be happy to see what looks like a
-    # second request for the error page (the ErrorDocument directives
-    # in httpd.conf result in internal redirects... very ugly)
+    my $destination = $r->uri;
 
-    if ($pxt->xml_request) {
-      # our "fake" forbidden handler
-
-      $r->custom_response(FORBIDDEN, "AUTH Required, this field ignored");
-      return FORBIDDEN;
-    }
-    else {
-      my $destination = $r->uri;
-
-      if ($r->args) {
+    if ($r->args) {
 	$destination .= "?" . $r->args;
-      }
-      $destination = PXT::Utils->escapeURI($destination);
-
-      $destination =~ s(\&)(%26)g;
-
-      my $url = "/rhn/ReLogin.do?url_bounce=" . $destination;
-
-      $url = $pxt->derelative_url($url);
-      $url = $url->canonical;
-
-      $r->content_type('text/html');
-      $r->err_headers_out->{'Location'} = $url;
-      $r->method("GET");
-      $r->method_number(M_GET);
-      $r->headers_in->unset('content-length');
-      $r->status(REDIRECT);
-      return REDIRECT;
     }
+    $destination = PXT::Utils->escapeURI($destination);
 
-    # no longer using serverauth
-    my ($ret, $pw) = $r->get_basic_auth_pw;
-    return $ret if $ret;
+    $destination =~ s(\&)(%26)g;
 
-    my $user;
-    $username = $r->connection->user;
-    eval {
-      if ($username) {
-	$user = RHN::User->lookup(-username => $username);
-	$user_id = $user->id;
-      }
-    };
+    my $url = "/rhn/ReLogin.do?url_bounce=" . $destination;
 
-    if ($@ and catchable($@)) {
-      warn "User lookup failed: $@";
-      return AUTH_REQUIRED;
-    }
+    $url = $pxt->derelative_url($url);
+    $url = $url->canonical;
 
-    if (not $user) {
-      $r->note_basic_auth_failure;
-      $r->log_reason("User '$username' does not exist");
-      return AUTH_REQUIRED;
-    }
-
-    if ($user->validate_password($pw)) {
-      $r->note_basic_auth_failure;
-      $r->log_reason("User $username supplied invalid password");
-      return AUTH_REQUIRED;
-    }
+    $r->content_type('text/html');
+    $r->err_headers_out->{'Location'} = $url;
+    $r->method("GET");
+    $r->method_number(M_GET);
+    $r->headers_in->unset('content-length');
+    $r->status(REDIRECT);
+    return REDIRECT;
   }
 
   $r->user($username);

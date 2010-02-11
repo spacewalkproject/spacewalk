@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -45,7 +45,7 @@ except ImportError:
     from optik import Option, OptionParser
 from rhn import rpclib
 from spacewalk.common import rhn_mpm
-from spacewalk.common import checksum
+from spacewalk.common.checksum import getFileChecksum
 
 import uploadLib
 import rhnpush_v2
@@ -151,9 +151,6 @@ def main():
     if ret != 0:
         return 1
     
-if __name__ == "__main__":
-    sys.exit(main())
-
 class UploadClass(uploadLib.UploadClass):
     def setURL(self):
         server = self.options.server
@@ -348,7 +345,7 @@ class UploadClass(uploadLib.UploadClass):
                 if not server_digest_hash.has_key(pkg_key):
                     continue
                 
-                digest = digest_hash[pkg_key]
+                checksum_type, checksum = digest = digest_hash[pkg_key]
                 server_digest = tuple(server_digest_hash[pkg_key])
 
                 # compare checksums for existance check
@@ -392,13 +389,12 @@ class UploadClass(uploadLib.UploadClass):
                     self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                     continue
                 
-                digest = (checksum_type,
-                          checksum.getFileChecksum(checksum_type, file=payload_stream))
+                checksum = getFileChecksum(checksum_type, file=payload_stream)
                 f.close()
                 
             for t in range(0, tries):
                 try:
-                    ret = self.package(pkg, digest)
+                    ret = self.package(pkg, checksum_type, checksum)
                     if ret is None:
                         raise UploadError()
 
@@ -499,8 +495,8 @@ class UploadClass(uploadLib.UploadClass):
                 self.warn(2, "ERROR: %s: No such file or directory available" % pkg)
                 continue
                         
-            digest_hash[pkg_key] =  (checksum_type,
-                        checksum.getFileChecksum(checksum_type, file=payload_stream))
+            checksum = getFileChecksum(checksum_type, file=payload_stream)
+            digest_hash[pkg_key] =  (checksum_type, checksum)
             f.close()
             
             for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -517,7 +513,8 @@ class UploadClass(uploadLib.UploadClass):
                     pkg_info['arch'] = 'nosrc'
                 else:
                     pkg_info['arch'] = 'src'
-            pkg_info['checksum'] = digest_hash[pkg_key]
+            pkg_info['checksum_type'] = checksum_type
+            pkg_info['checksum'] = checksum
             pkg_hash[pkg_key] = pkg_info
 
         if self.options.nullorg:
@@ -553,7 +550,7 @@ class UploadClass(uploadLib.UploadClass):
         return (checksum_data, pkg_hash, digest_hash)
 
 
-    def package(self, package, FileChecksum):
+    def package(self, package, FileChecksumType, FileChecksum):
         self.warn(1, "Uploading package %s" % package)
         if not os.access(package, os.R_OK):
             self.die(-1, "Could not read file %s" % package)
@@ -576,7 +573,7 @@ class UploadClass(uploadLib.UploadClass):
 
         try:
             if self.ping_status == 200:
-                ret = self._push_package_v2(package, FileChecksum)
+                ret = self._push_package_v2(package, FileChecksumType, FileChecksum)
             else:
                 ret = self._push_package_xmlrpc(package, h, packaging)
         except UploadError, e:
@@ -606,7 +603,7 @@ class UploadClass(uploadLib.UploadClass):
 
         return ret
 
-    def _push_package_v2(self, package, FileChecksum):
+    def _push_package_v2(self, package, FileChecksumType, FileChecksum):
         self.warn(1, "Using POST request")
         pu = rhnpush_v2.PackageUpload(self.url_v2)
 
@@ -617,7 +614,7 @@ class UploadClass(uploadLib.UploadClass):
         pu.set_force(self.options.force)
         pu.set_null_org(self.options.nullorg)
 
-        status, msgstr = pu.upload(package, FileChecksum)
+        status, msgstr = pu.upload(package, FileChecksumType, FileChecksum)
 
         ret = {}
         for tag in ('name', 'version', 'release', 'epoch', 'arch'):
@@ -626,6 +623,7 @@ class UploadClass(uploadLib.UploadClass):
                 val = ''
             ret[tag] = val
 
+        ret['checksum_type'] = FileChecksumType
         ret['checksum'] = FileChecksum
         if status == 400:
             # Bad request - something bad happened

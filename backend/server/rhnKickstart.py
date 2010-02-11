@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,9 +40,10 @@ class Kickstart:
             SELECT 
                 relative_filename, 
                 file_size, 
-                c.checksum md5sum,
+                c.checksum_type,
+                c.checksum,
                 TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED 
-            FROM rhnKSTreeFile, rhnChecksum c
+            FROM rhnKSTreeFile, rhnChecksumViev c
            WHERE kstree_id = :tree_id
              AND checksum_id = c.id
         """)
@@ -71,7 +72,8 @@ class Kickstart:
 
         for file in self.files:
             if file['relative_filename'] == ks_file['relative_path'] and \
-               file['md5sum'] == ks_file['md5sum'] and \
+               file['checksum_type'] == ks_file['checksum_type'] and \
+               file['checksum'] == ks_file['checksum'] and \
                file['file_size'] == ks_file['file_size'] and \
                file['last_modified'] == ks_file['last_modified']:
 
@@ -93,18 +95,20 @@ class Kickstart:
         h.execute()
         
         log_debug(3, 'trying to insert ' + str(self.id) + ' , ' + ks_file['relative_path'] + \
-                     ' , ' + str(ks_file['md5sum']) + ' , ' + str(ks_file['file_size']) + \
+                     ' , ' + str(ks_file['checksum_type']) + ':'
+                     ' , ' + str(ks_file['checksum']) + ' , ' + str(ks_file['file_size']) + \
                      ' , ' + ks_file['last_modified'])
 
         insert_file_q = rhnSQL.prepare("""
             insert into rhnKSTreeFile
             (kstree_id, relative_filename, checksum_id, file_size, last_modified)
-            values (:kstree_id, :relative_filename, lookup_checksum('md5', :md5sum),
+            values (:kstree_id, :relative_filename, lookup_checksum(:checksum_type, :checksum),
                     :file_size, :last_modified)
         """)
         insert_file_q.execute(kstree_id = self.id,
                               relative_filename = ks_file['relative_path'],
-                              md5sum = ks_file['md5sum'],
+                              checksum_type = ks_file['checksum_type'],
+                              checksum = ks_file['checksum'],
                               file_size = ks_file['file_size'],
                               last_modified = ks_file['last_modified'])
 

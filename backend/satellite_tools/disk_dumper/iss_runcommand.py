@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,7 @@
 #
 
 import os
-import popen2
+import subprocess
 import fcntl
 import select
 import sys
@@ -34,14 +34,16 @@ def make_fd_nonblocking(file_desc):
         fcntl.fcntl(file_desc, fcntl.F_SETFL, flags | fcntl.FNDELAY)
 
 def run_command(command):
-    command_process = popen2.Popen3(command, 1)
+    command_process = subprocess.Popen(command, stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                            close_fds=True, shell=(not (type(cmd) in (types.ListType, types.TupleType))) )
     outstring = StringIO.StringIO()
     errstring = StringIO.StringIO()
     
-    command_process.tochild.close() # Don't need input to command_process.    
-    outfile = command_process.fromchild
+    command_process.stdin.close() # Don't need input to command_process.
+    outfile = command_process.stdout
     outfile_fd = outfile.fileno()
-    errfile = command_process.childerr
+    errfile = command_process.stderr
     errfile_fd = errfile.fileno()
     
     make_fd_nonblocking(outfile_fd)

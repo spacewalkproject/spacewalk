@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,17 @@
 #
 
 import os
-import sha
+try:
+    import hashlib
+except ImportError:
+    import sha
+    class hashlib:
+        @staticmethod
+        def new(checksum):
+            if checksum == 'sha1':
+                return sha.new()
+            else:
+                raise ValueError, "Incompatible checksum type"
 import re
 import string
 import shutil
@@ -146,7 +156,7 @@ def rm_trailing_slash(slashstring):
 
 
 def sha1_file(file):
-    engine = sha.new()
+    engine = hashlib.new('sha1')
 
     fh = open(file, "r")
     while 1:

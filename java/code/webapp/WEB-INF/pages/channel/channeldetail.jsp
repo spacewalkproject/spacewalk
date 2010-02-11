@@ -48,6 +48,17 @@
         </td>
       </tr>
       <tr>
+        <th><bean:message key="channel.edit.jsp.checksum"/>:</th>
+        <td>
+            <c:if test="${empty channel.checksumType}">
+                <span class="no-details">(none)</span>
+            </c:if>
+            <c:if test="${!empty channel.checksumType}">
+                <c:out value="${channel.checksumType}" />
+            </c:if>
+        </td>
+      </tr>
+      <tr>
         <th><bean:message key="packagelist.jsp.packagearch"/>:</th>
         <td><c:out value="${channel.channelArch.name}" /></td>
       </tr>

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,10 +19,10 @@
 # $Id$
 
 import os
-from common import rhnFault, log_debug, rhnLib
+from common import rhnFault, log_debug
 
 from server import rhnSQL, configFilesHandler
-
+from spacewalk.common.fileutils import maketemp
 
 class ConfigManagement(configFilesHandler.ConfigFilesHandler):
     def __init__(self):
@@ -253,7 +253,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               c.checksum md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -267,7 +268,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
-               rhnChecksum c,
+               rhnChecksumView c,
 	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -285,7 +286,8 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                cc.label config_channel, 
                ccont.contents file_contents,
                ccont.is_binary,
-               c.checksum md5sum,
+               c.checksum_type,
+               c.checksum,
                cr.delim_start, cr.delim_end,
                cr.revision,
                cf.modified,
@@ -299,7 +301,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                rhnConfigRevision cr,
                rhnConfigFile cf,
                rhnConfigContent ccont,
-               rhnChecksum c,
+               rhnChecksumView c,
  	       rhnConfigFileType cft
          where cf.config_channel_id = cc.id
            and cc.label = :config_channel
@@ -472,7 +474,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
         # seems to be invalid (bug 151220)
 
         # Empty files or directories may have NULL instead of lobs
-        filename_src, fd = rhnLib.maketemp("/tmp/rhncfg")
+        filename_src, fd = maketemp("/tmp/rhncfg")
         fc_lob = fsrc['file_contents']
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))
@@ -493,7 +495,7 @@ class ConfigManagement(configFilesHandler.ConfigFilesHandler):
                 "binary data" % (path, revision_dst),
                 explain=0)
         
-        filename_dst, fd = rhnLib.maketemp("/tmp/rhncfg")
+        filename_dst, fd = maketemp("/tmp/rhncfg")
         fc_lob = fdst['file_contents']
         if fc_lob:
             os.write(fd, rhnSQL.read_lob(fc_lob))

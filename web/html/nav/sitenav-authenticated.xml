@@ -69,9 +69,7 @@
               <rhn-tab-directory>/rhn/kickstart</rhn-tab-directory>
               <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="File Preservation" url="/rhn/systems/provisioning/preservation/PreservationList.do" >
-        <rhn-tab-directory>/systems/provisioning/preservation/</rhn-tab-directory>
-      </rhn-tab>
+      <rhn-tab name="File Preservation" url="/rhn/systems/provisioning/preservation/PreservationList.do" />
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Errata" url="/rhn/errata/Overview.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif">
@@ -165,7 +163,6 @@
     </rhn-tab>
     <rhn-tab name="Notification" url="/rhn/monitoring/config/notification/Methods.do">
       <rhn-tab-url>rhn/monitoring/config/notification/NotificationMethods.do</rhn-tab-url>
-      <rhn-tab-directory>/network/monitoring/notifications/contact_methods</rhn-tab-directory>
       <rhn-tab name="Filters" url="/rhn/monitoring/config/notification/ActiveFilters.do"/>
     </rhn-tab>
     <rhn-tab name="Probe Suites" url="/rhn/monitoring/config/ProbeSuites.do">

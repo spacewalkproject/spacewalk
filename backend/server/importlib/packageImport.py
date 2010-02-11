@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,6 +23,7 @@ from importLib import GenericPackageImport, IncompletePackage, Package, \
     IncompatibleArchError
 from server import taskomatic
 from common import CFG
+from types import StringType
 
 class ChannelPackageSubscription(GenericPackageImport):
     def __init__(self, batch, backend, caller=None, strict=0):
@@ -258,13 +259,9 @@ class PackageImport(ChannelPackageSubscription):
             f['capability'] = nv
             if not self.capabilities.has_key(nv):
                 self.capabilities[nv] = None
-            if 'md5' in f:      # old pre-sha256 export
-                fchecksum = ('md5', f['md5'])
-            else:
-                fchecksum = (f['checksum_type'], f['checksum'])
-            f['checksum'] = fchecksum
-            if not self.checksums.has_key(fchecksum):
-                self.checksums[fchecksum] = None
+            fchecksumTuple = (f['checksum_type'], f['checksum'])
+            if not self.checksums.has_key(fchecksumTuple):
+                self.checksums[fchecksumTuple] = None
 
         # Uniquify changelog entries
         changelogs = {}
@@ -363,7 +360,7 @@ class PackageImport(ChannelPackageSubscription):
         else:
             source_rpm = ''
         package['source_rpm_id'] = source_rpm
-        package['checksum_id'] = self.checksums[package['checksum']]
+        package['checksum_id'] = self.checksums[(package['checksum_type'], package['checksum'])]
 
         # Postprocess the dependency information
         for tag in ('provides', 'requires', 'conflicts', 'obsoletes', 'files'):
@@ -372,7 +369,7 @@ class PackageImport(ChannelPackageSubscription):
                 entry['capability_id'] = self.capabilities[nv]
         fileList = package['files']
         for f in fileList:
-            f['checksum_id'] = self.checksums[f['checksum']]
+            f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
 
     def __postprocessSolarisPackage(self, package):
         # set solaris patch packages for a solaris patch
@@ -400,7 +397,7 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[pkgDict['checksum']] = None
+            checksums[(pkgDict['checksum_type'], pkgDict['checksum'])] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
@@ -449,7 +446,7 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[patchDict['checksum']] = None
+            checksums[(patchDict['checksum_type'], patchDict['checksum'])] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
@@ -488,7 +485,8 @@ class PackageImport(ChannelPackageSubscription):
         package['solaris_patch_set_members'] = infoObjs
 
     def _comparePackages(self, package1, package2):
-        if package1['checksum'] == package2['checksum']:
+        if (package1['checksum_type'] == package2['checksum_type']
+            and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")
@@ -554,7 +552,8 @@ class SourcePackageImport(Import):
 
 
     def _comparePackages(self, package1, package2):
-        if package1['checksum'] == package2['checksum']:
+        if (package1['checksum_type'] == package2['checksum_type']
+            and package1['checksum'] == package2['checksum']):
             return
         # XXX Handle this better
         raise Exception("Different packages in the same batch")

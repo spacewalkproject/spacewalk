@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,6 +27,7 @@ class KickstartableTreeImport(Import):
 
         self.kstree_types = {}
         self.ks_install_types = {}
+        self.checksums = {}
 
     def preprocess(self):
         # Processes the batch to a form more suitable for database
@@ -46,11 +47,16 @@ class KickstartableTreeImport(Import):
             ks_install_label = ent['install_type_label']
             ks_install_name = ent['install_type_name']
             self.ks_install_types[ks_install_label] = ks_install_name
+            for f in ent['files']:
+                checksumTuple = (f['checksum_type'], f['checksum'])
+                if checksumTuple not in self.checksums:
+                    self.checksums[checksumTuple] = None
 
     def fix(self):
         self.backend.lookup_kstree_types(self.kstree_types)
         self.backend.lookup_ks_install_types(self.ks_install_types)
         self.backend.lookupChannels(self.channels)
+        self.backend.lookupChecksums(self.checksums)
 
         for ent in self.batch:
             if ent.ignored:
@@ -65,6 +71,9 @@ class KickstartableTreeImport(Import):
             ks_install_label = ent['install_type_label']
             ent['kstree_type'] = self.kstree_types[kstree_type_label]
             ent['install_type'] = self.ks_install_types[ks_install_label]
+            for f in ent['files']:
+                f['checksum_id'] = self.checksums[(f['checksum_type'], f['checksum'])]
+
 
     def submit(self):
         self.backend.processKickstartTrees(self.batch)

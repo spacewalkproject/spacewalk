@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ package RHN::DB::Server::HwDevice;
 use RHN::DB;
 use Carp;
 use RHN::DB::TableClass;
-use Data::Dumper;
 
 # Corresponds to an entry in the rhnHwDevice table...
 # basically, some hardwarea attached to a server?
@@ -47,36 +46,6 @@ sub _blank_hw_device {
    my $self = bless { }, $class;
 
    return $self;
-}
-
-# returns one hwdevice object from it's key
-sub lookup_hw_device {
-  my $class = shift;
-  my $id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query;
-  my $sth;
-
-  $query = $h->select_query("H.ID = ?");
-  $sth = $dbh->prepare($query);
-  $sth->execute($id);
-
-  my @columns = $sth->fetchrow;
-  $sth->finish;
-
-  my $ret;
-  if ($columns[0]) {
-    $ret = $class->_blank_hw_device;
-    $ret->{"__".$_."__"} = shift @columns foreach $h->method_names;
-  }
-  else {
-    local $" = ", ";
-    die "Error loading hw device $id; no ID? (@columns)";
-  }
-
-  return $ret;
 }
 
 # returns an array of hwdevice objects given a server id

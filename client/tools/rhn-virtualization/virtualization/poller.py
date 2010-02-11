@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,7 @@ from virtualization.errors             import VirtualizationException
 from virtualization.constants          import StateType,           \
                                               PropertyType,        \
                                               VirtualizationType,  \
+                                              IdentityType,        \
                                               VIRT_STATE_NAME_MAP, \
                                               VIRT_VDSM_STATUS_MAP
 from virtualization.notification       import Plan,                \
@@ -41,7 +42,7 @@ from virtualization.util               import hyphenize_uuid,      \
                                               is_fully_virt
 from virtualization.poller_state_cache import PollerStateCache
 
-from virtualization.domain_directory    import DomainDirectory
+from virtualization.domain_directory   import DomainDirectory
 ###############################################################################
 # Globals
 ###############################################################################
@@ -161,14 +162,20 @@ def poll_through_vdsm():
         virt_type = VirtualizationType.FULLY
 
         #Memory
-        memory = int(domain['memSize'] * 1024);
+        memory = int(domain['memSize']) * 1024
+
+        # vcpus
+        if domain.has_key('smp'):
+            vcpus = domain['smp']
+        else:
+            vcpus = '1'
 
         properties = {
             PropertyType.NAME   : domain['vmName'],
             PropertyType.UUID   : uuid,
             PropertyType.TYPE   : virt_type,
             PropertyType.MEMORY : memory, # current memory
-            PropertyType.VCPUS  : domain['smp'],
+            PropertyType.VCPUS  : vcpus,
             PropertyType.STATE  : status}
 
         state[uuid] = properties
@@ -226,6 +233,12 @@ def _send_notifications(poller_state):
 
         plan = Plan()
 
+        # Declare virtualization host first
+        plan.add(EventType.EXISTS,
+                 TargetType.SYSTEM,
+                 { PropertyType.IDENTITY : IdentityType.HOST,
+                   PropertyType.UUID     : '0000000000000000' })
+
         for (uuid, data) in added.items():
             plan.add(EventType.EXISTS, TargetType.DOMAIN, data)
 
@@ -261,25 +274,38 @@ if __name__ == "__main__":
     # First, handle the options.
     _parse_options()
 
-    # If no libvirt present, this program is pretty much useless.  Just exit.
-    if libvirt:
-        # Now, crawl each of the domains on this host and obtain the new state.
-        domain_list = poll_hypervisor()
+    # check for VDSM status
+    import commands
+    vdsm_enabled = False
+    status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
+    if status == 0:
+        vdsm_enabled = True
 
-        if not domain_list:
-            # No domains returned, nothing to do, exit polling
-            sys.exit(0)
-        # create the unkonwn domain config files
+    # Crawl each of the domains on this host and obtain the new state.
+    if vdsm_enabled:
+        domain_list = poll_through_vdsm()
+    elif libvirt:
+        domain_list = poll_hypervisor()
+    else:
+        # If no libvirt nor vdsm is present, this program is pretty much
+        # useless.  Just exit.
+        sys.exit(0)
+
+    if not domain_list:
+    # No domains returned, nothing to do, exit polling
+        sys.exit(0)
+
+    # create the unkonwn domain config files (for libvirt only)
+    if libvirt and not vdsm_enabled:
         uuid_list = domain_list.keys()
         domain = DomainDirectory()
         domain.save_unknown_domain_configs(uuid_list)
 
-        cached_state = PollerStateCache(domain_list, 
-                                        debug = options and options.debug)
+    cached_state = PollerStateCache(domain_list,
+                                    debug = options and options.debug)
         
-        # Send notifications, if necessary.
-        _send_notifications(cached_state)
+    # Send notifications, if necessary.
+    _send_notifications(cached_state)
 
-        # Save the new state.
-        cached_state.save()
-
+    # Save the new state.
+    cached_state.save()

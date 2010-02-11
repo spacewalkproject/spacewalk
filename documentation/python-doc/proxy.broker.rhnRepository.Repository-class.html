@@ -56,7 +56,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Repository</h1><p class="nomargin-top"><span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_proxy_br_3" name="uml_class_diagram_for_proxy_br_3">
+<area shape="rect" href="common.rhnRepository.Repository-class.html#__del__" title="common.rhnRepository.Repository.__del__" alt="" coords="461,111,704,129"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackage" title="Get rpm package." alt="" coords="461,129,704,148"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackageHeader" title="Get rpm header." alt="" coords="461,148,704,167"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackagePathNVRA" title="OVERLOAD this in server and proxy rhnRepository." alt="" coords="461,167,704,185"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#getPackageSource" title="Get srpm packrge." alt="" coords="461,185,704,204"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html#set_compress_headers" title="common.rhnRepository.Repository.set_compress_headers" alt="" coords="461,204,704,223"/>
+<area shape="rect" href="common.rhnRepository.Repository-class.html" title="Shared repository class, inherited by both the proxy and server specific Repository classes." alt="" coords="460,85,705,224"/>
+<area shape="rect" href="proxy.broker.rhnRepository.Repository-class.html#__init__" title="proxy.broker.rhnRepository.Repository.__init__" alt="" coords="17,279,1148,297"/>
+<area shape="rect" href="proxy.broker.rhnRepository.Repository-class.html#getPackagePath" title="OVERLOADS getPackagePath in common/rhnRepository." alt="" coords="17,297,1148,316"/>
+<area shape="rect" href="proxy.broker.rhnRepository.Repository-class.html#getSourcePackagePath" title="OVERLOADS getSourcePackagePath in common/rhnRepository." alt="" coords="17,316,1148,335"/>
+<area shape="rect" href="proxy.broker.rhnRepository.Repository-class.html" title="Proxy local package repository lookup and manipulation code." alt="" coords="16,253,1149,336"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="485,36,680,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="484,11,681,56"/>
+</map>
+  <img src="uml_class_diagram_for_proxy_br_3.png" alt='' usemap="#uml_class_diagram_for_proxy_br_3" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>Proxy local package repository lookup and manipulation code.</p>
@@ -145,11 +161,14 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_cacheObj"></a><span class="summary-sig-name">_cacheObj</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="proxy.broker.rhnRepository.Repository-class.html#_cacheObj" class="summary-sig-name" onclick="show_private();">_cacheObj</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">fileName</span>,
         <span class="summary-sig-arg">version</span>,
         <span class="summary-sig-arg">dataProducer</span>,
-        <span class="summary-sig-arg">params</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">params</span>=<span class="summary-sig-default">None</span>)</span><br />
+      The real workhorse for all flavors of listall It tries to pull data 
+      out of a file; if it doesn't work, it calls the data producer with 
+      the specified params to generate the data, which is also cached.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository._cacheObj">source&nbsp;code</a></span>
             
@@ -165,7 +184,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_getPkgListDir"></a><span class="summary-sig-name">_getPkgListDir</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="proxy.broker.rhnRepository.Repository-class.html#_getPkgListDir" class="summary-sig-name" onclick="show_private();">_getPkgListDir</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Creates and returns the directory for cached lists of packages.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository._getPkgListDir">source&nbsp;code</a></span>
             
@@ -181,7 +201,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__channelPackageMapping"></a><span class="summary-sig-name">__channelPackageMapping</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="__channelPackageMapping"></a><span class="summary-sig-name">__channelPackageMapping</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      fetch package list on behalf of the client</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository.__channelPackageMapping">source&nbsp;code</a></span>
             
@@ -207,8 +228,8 @@
       <code><a href="common.rhnRepository.Repository-class.html#_getHeaderFromFile" onclick="show_private();">_getHeaderFromFile</a></code>,
       <code><a href="common.rhnRepository.Repository-class.html#_set_last_modified" onclick="show_private();">_set_last_modified</a></code>
       </p></div>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base.RPC_Base-class.html">common.RPC_Base.RPC_Base</a></code></b>:
-      <code><a href="common.RPC_Base.RPC_Base-class.html#get_function">get_function</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
       </p>
     </td>
   </tr>
@@ -258,7 +279,7 @@
   
   <dl class="fields">
     <dt>Overrides:
-        <a href="common.RPC_Base.RPC_Base-class.html#__init__">common.RPC_Base.RPC_Base.__init__</a>
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -312,6 +333,55 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="_cacheObj"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_cacheObj</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">fileName</span>,
+        <span class="sig-arg">version</span>,
+        <span class="sig-arg">dataProducer</span>,
+        <span class="sig-arg">params</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository._cacheObj">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The real workhorse for all flavors of listall It tries to pull data 
+  out of a file; if it doesn't work, it calls the data producer with the 
+  specified params to generate the data, which is also cached.</p>
+  <p>Returns a string from a cache file or, if the cache file is not there,
+  calls dataProducer to generate the object and caches the results</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_getPkgListDir"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_getPkgListDir</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="proxy.broker.rhnRepository-pysrc.html#Repository._getPkgListDir">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Creates and returns the directory for cached lists of packages. Used 
+  by _cacheObj.</p>
+  <p>XXX: Problem exists here. If PKG_LIST_DIR can't be created due to 
+  ownership... this is bad... need to fix.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -336,7 +406,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:06 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:19 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

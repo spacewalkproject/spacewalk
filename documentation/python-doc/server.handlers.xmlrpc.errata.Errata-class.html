@@ -34,11 +34,10 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        server ::
-        handlers ::
-        xmlrpc ::
-        errata ::
-        Errata ::
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.xmlrpc-module.html">Package&nbsp;xmlrpc</a> ::
+        <a href="server.handlers.xmlrpc.errata-module.html" onclick="show_private();">Module&nbsp;errata</a> ::
         Class&nbsp;Errata
       </span>
     </td>
@@ -58,9 +57,23 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Errata</h1><p class="nomargin-top"><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_h_11" name="uml_class_diagram_for_server_h_11">
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="55,111,236,129"/>
+<area shape="rect" href="server.rhnHandler%27.rhnHandler-class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="53,85,237,131"/>
+<area shape="rect" href="server.handlers.xmlrpc.errata.Errata-class.html#__init__" title="server.handlers.xmlrpc.errata.Errata.__init__" alt="" coords="17,185,273,204"/>
+<area shape="rect" href="server.handlers.xmlrpc.errata.Errata-class.html#GetByPackage" title="Clients v1&#45; Get errata for a package given &quot;n&#45;v&#45;r&quot; format IN: &#160;pkg: &#160;&#160;&quot;n&#45;v&#45;r&quot; (old client call) &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;or [n,v,r] &#160;&#160;&#160;&#160;&#160;osRel: OS release RET: a hash by errata that applies to this package &#160;&#160;&#160;&#160;&#160;(ie, newer packages are available)." alt="" coords="17,204,273,223"/>
+<area shape="rect" href="server.handlers.xmlrpc.errata.Errata-class.html#getPackageErratum" title="Clients v2+ &#45; Get errata for a package given [n,v,r,e,a,...] format" alt="" coords="17,223,273,241"/>
+<area shape="rect" href="server.handlers.xmlrpc.errata.Errata-class.html#getErrataInfo" title="server.handlers.xmlrpc.errata.Errata.getErrataInfo" alt="" coords="17,241,273,260"/>
+<area shape="rect" href="server.handlers.xmlrpc.errata.Errata-class.html" title="Errata class &#45;&#45;&#45; retrieve (via xmlrpc) package errata." alt="" coords="16,160,275,261"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="48,36,243,55"/>
+<area shape="rect" href="common.RPC_Base%27.RPC_Base-class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="47,11,244,56"/>
+</map>
+  <img src="uml_class_diagram_for_server_h_11.png" alt='' usemap="#uml_class_diagram_for_server_h_11" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
+<p>Errata class --- retrieve (via xmlrpc) package errata.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -84,7 +97,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.errata.Errata-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.__init__">source&nbsp;code</a></span>
             
@@ -100,9 +113,15 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="GetByPackage"></a><span class="summary-sig-name">GetByPackage</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.errata.Errata-class.html#GetByPackage" class="summary-sig-name">GetByPackage</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pkg</span>,
-        <span class="summary-sig-arg">osRel</span>)</span></td>
+        <span class="summary-sig-arg">osRel</span>)</span><br />
+      Clients v1- Get errata for a package given &quot;n-v-r&quot; format
+IN:  pkg:   &quot;n-v-r&quot; (old client call)
+            or [n,v,r]
+     osRel: OS release
+RET: a hash by errata that applies to this package
+     (ie, newer packages are available).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.GetByPackage">source&nbsp;code</a></span>
             
@@ -118,9 +137,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="getPackageErratum"></a><span class="summary-sig-name">getPackageErratum</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.handlers.xmlrpc.errata.Errata-class.html#getPackageErratum" class="summary-sig-name">getPackageErratum</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">system_id</span>,
-        <span class="summary-sig-arg">pkg</span>)</span></td>
+        <span class="summary-sig-arg">pkg</span>)</span><br />
+      Clients v2+ - Get errata for a package given [n,v,r,e,a,...] format</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.getPackageErratum">source&nbsp;code</a></span>
             
@@ -148,7 +168,114 @@
       
     </td>
   </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
+      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
+    </td>
+  </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.RPC_Base%27.RPC_Base-class.html#__init__">common.RPC_Base'.RPC_Base.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="GetByPackage"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetByPackage</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">pkg</span>,
+        <span class="sig-arg">osRel</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.GetByPackage">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Clients v1- Get errata for a package given &quot;n-v-r&quot; format
+IN:  pkg:   &quot;n-v-r&quot; (old client call)
+            or [n,v,r]
+     osRel: OS release
+RET: a hash by errata that applies to this package
+     (ie, newer packages are available). We also limit the scope
+     for a particular osRel.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getPackageErratum"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getPackageErratum</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">system_id</span>,
+        <span class="sig-arg">pkg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.handlers.xmlrpc.errata-pysrc.html#Errata.getPackageErratum">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clients v2+ - Get errata for a package given [n,v,r,e,a,...] 
+  format</p>
+  <p>Sing-along: You say erratum(sing), I say errata(pl)! :) IN:  pkg:   
+  [n,v,r,e,s,a,ch,...] RET: a hash by errata that applies to this 
+  package</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -172,7 +299,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:46 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

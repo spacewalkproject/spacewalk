@@ -3,7 +3,6 @@
   <pxt-use class="Grail::Frame" />
   <pxt-use class="Sniglets::Packages" />
   <pxt-use class="Sniglets::Users" />
-  <pxt-use class="Sniglets::Downloads" />
   <pxt-use class="Sniglets::HTML" />
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">

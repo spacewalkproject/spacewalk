@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@ use strict;
 package Sniglets::ServerActions;
 
 use Carp;
-use Data::Dumper;
 
 use RHN::Action;
 use RHN::Set;
@@ -27,7 +26,6 @@ use PXT::HTML;
 use RHN::ConfigChannel;
 
 use PXT::Utils;
-use RHN::Utils;
 use Date::Parse;
 
 use RHN::Exception;
@@ -58,12 +56,6 @@ sub register_callbacks {
   $pxt->register_callback('rhn:reschedule_action_cb' => \&reschedule_action_cb);
 
   $pxt->register_callback('rhn:sscd_reboot_servers_cb' => \&sscd_reboot_servers_cb);
-
-  $pxt->register_callback('rhn:schedule_config_action_cb' => \&schedule_config_action_cb);
-  $pxt->register_callback('rhn:add_managed_files_to_set_cb' => \&add_managed_files_to_set_cb);
-  $pxt->register_callback('rhn:add_managed_filenames_to_set_cb' => \&add_managed_filenames_to_set_cb);
-  $pxt->register_callback('rhn:schedule_ssm_config_action_cb' => \&schedule_ssm_config_action_cb);
-
 }
 
 sub raw_script_output {
@@ -435,226 +427,6 @@ sub server_set_actions_cb {
   else {
     croak 'no valid action specified!';
   }
-}
-
-my %config_actions = ('configfiles.verify' => 'verification',
-		      'configfiles.diff' => 'diff',
-		      'configfiles.upload' => 'upload',
-		      'configfiles.deploy' => 'deploy');
-
-sub schedule_config_action_cb {
-  my $pxt = shift;
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  PXT::Utils->untaint(\$sid);
-
-  my $action;
-
-  foreach my $action_type (keys %config_actions) {
-    $action = $action_type if $pxt->dirty_param($action_type);
-  }
-
-  die "no action" unless $action;
-
-  my $set_label = $pxt->dirty_param('set_label') || '';
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  my %ids = map { ( $_, 1 ) } $set->contents;
-
-  my $count = scalar $set->contents;
-
-  $set->empty;
-  $set->commit;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $action_id;
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-  if ($action eq 'configfiles.upload') {
-    my @filename_ids = keys %ids;
-
-    my $dest_type = $pxt->dirty_param('destination_channel_type') || 'sandbox';
-
-    my $ccid = RHN::ConfigChannel->vivify_server_config_channel($sid, $dest_type eq 'sandbox' ? 'server_import' : 'local_override');
-
-    ($action_id) = RHN::Scheduler->schedule_config_upload(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -action_name => 'Configuration ' . $config_actions{$action},
-							  -filename_ids => [@filename_ids],
-							  -config_channel_id => $ccid,
-							 );
-
-  }
-  else {
-     my @revisions;
-
-     foreach my $revision ($server->latest_managed_config_revisions()) {
-       # skip file/rev unless it's truly under management on the server...
-       next unless $ids{$revision->{LATEST_CONFIG_REVISION_ID}};
-       push @revisions, $revision->{LATEST_CONFIG_REVISION_ID};
-     }
-
-
-    ($action_id) = RHN::Scheduler->schedule_config_action(-org_id => $pxt->user->org_id,
-							  -user_id => $pxt->user->id,
-							  -earliest => $earliest_date,
-							  -server_id => $sid,
-							  -action_type => $action,
-							  -action_name => 'Configuration ' . $config_actions{$action},
-							  -revision_ids => [@revisions],
-							 );
-  }
-
-  $pxt->push_message( site_info =>
-    sprintf('System config <strong><a href="/network/systems/details/history/event.pxt?sid=%d&amp;hid=%d">%s</a></strong> scheduled for <strong>%d</strong> file%s.',
-	    $sid, $action_id, $config_actions{$action}, $count, $count == 1 ? '' : 's') );
-  $pxt->redirect("/rhn/systems/details/configuration/Overview.do?sid=$sid");
-}
-
-sub _schedule_config_action {
-  my $user = shift;
-  my $action = shift;
-  my $earliest_date = shift;
-  my $sid = shift;
-  my $ids = shift;
-  my %id_map = %{$ids};
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my @revisions;
-
-  foreach my $revision ($server->latest_managed_config_revisions()) {
-    # skip file/rev unless it's truly under management on the server...
-    next unless $id_map{$revision->{LATEST_CONFIG_REVISION_ID}};
-    push @revisions, $revision->{LATEST_CONFIG_REVISION_ID};
-  }
-
-  RHN::Scheduler->schedule_config_action(-org_id => $user->org_id,
-              -user_id => $user->id,
-              -earliest => $earliest_date,
-              -server_id => $sid,
-              -action_type => $action,
-              -action_name => 'Configuration ' . $config_actions{$action} . ' for '. $server->name,
-              -revision_ids => [@revisions],
-             );
-}
-
-sub schedule_ssm_config_action_cb {
-
-  my $pxt = shift;
-
-  my $action;
-
-  foreach my $action_type (keys %config_actions) {
-    $action = $action_type if $pxt->dirty_param($action_type);
-  }
-
-  die "no action" unless $action;
-
-
-  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
-
-  # grab all the latest revisions per server
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'ssm_configfile_revisions',
-				      );
-
-  my $data = $ds->execute_query(-user_id => $pxt->user->id);
-
-  # Here's the plan.  ssm_configfile_revisions is ordered by
-  # SERVER_ID, and SCC.POSITION.  So as we loop through the data, all
-  # of the paths for each system are ordered by the
-  # priority/position/rank for that system of the config channel they
-  # were found in.  So we just take the first instance of each path,
-  # and thus avoid scheduling a diff for a path twice if it is in two
-  # config channels that a system is subscribed to.
-
-  my %paths_by_server_id;
-  foreach my $row (@{$data}) {
-    my $sid = $row->{SERVER_ID};
-    my $path = $row->{PATH};
-    my $crid = $row->{ID};
-
-    next if exists $paths_by_server_id{$sid}->{$path};
-    $paths_by_server_id{$sid}->{$path} = $crid;
-  }
-
-  my $server;
-  foreach my $sid (keys %paths_by_server_id) {
-    my %ids = map { ( $_ => 1 ) } values %{$paths_by_server_id{$sid}};
-    _schedule_config_action($pxt->user, $action, $earliest_date, $sid, \%ids);
-  }
-
-  my $count = keys %paths_by_server_id;
-  $pxt->push_message(site_info => sprintf("%d system%s scheduled for %s.", 
-    $count, $count > 1 ? "s" : "", $config_actions{$action}));
-
-  $pxt->redirect("/network/systems/ssm/index.pxt");
-
-}
-
-
-sub add_managed_files_to_set_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  my $mode = $pxt->dirty_param('mode') eq 'diff' ? 'configfiles_for_system_diff' : 'configfiles_for_system';
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => $mode,
-				      );
-  my $data = $ds->execute_query(-sid => $sid);
-
-  my %seen;
-
-  $data = [ sort { $a->{PATH} cmp $b->{PATH} }
-	    grep { not $seen{$_->{PATH}}++ } @{$data} ];
-
-  my @ids = map { $_->{ID} } @{$data};
-
-  my $set_label = $pxt->dirty_param('set_label');
-  die "No set label" unless $set_label;
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  $set->empty;
-  $set->commit;
-  $set->add(@ids);
-  $set->commit;
-
-  my $uri = $pxt->uri;
-  $pxt->redirect($uri . sprintf('?sid=%d&set_label=%s', $sid, $set_label));
-}
-
-sub add_managed_filenames_to_set_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  my $ds = new RHN::DataSource::Simple(-querybase => 'config_queries',
-				       -mode => 'configfiles_for_system',
-				      );
-
-  my $data = $ds->execute_query(-sid => $sid);
-
-  my %seen;
-
-  $data = [ sort { $a->{PATH} cmp $b->{PATH} }
-	    grep { not $seen{$_->{PATH}}++ } @{$data} ];
-
-  my @ids = map { $_->{CONFIG_FILE_NAME_ID} } @{$data};
-
-  my $set_label = $pxt->dirty_param('set_label');
-  die "No set label" unless $set_label;
-
-  my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-  $set->empty;
-  $set->commit;
-  $set->add(@ids);
-  $set->commit;
-
-  my $uri = $pxt->uri;
-  $pxt->redirect($uri . sprintf('?sid=%d&set_label=%s', $sid, $set_label));
 }
 
 sub package_event_result {

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnCapability</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        Module&nbsp;rhnCapability
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnCapability-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.rhnCapability-module.html">Module server.rhnCapability</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># common module</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Module common.rhnFlags=common.rhnFlags-module.html"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-2', 'rhnFlags', 'link-2');">rhnFlags</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># local module</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-3', 'rhnSQL', 'link-3');">rhnSQL</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># Globally store the parsed capabilities in rhnFlags</tt> </tt>
+<a name="set_client_capabilities"></a><div id="set_client_capabilities-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="set_client_capabilities-toggle" onclick="return toggle('set_client_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#set_client_capabilities">set_client_capabilities</a><tt class="py-op">(</tt><tt class="py-param">capabilities</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="set_client_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="set_client_capabilities-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">capabilities</tt><tt class="py-op">:</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-comment"># No capabilities presented; don't set the global flag</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-name">caps</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-name">regexp</tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module compile=compile-module.html,Function compile.compile()=compile-module.html#compile,Module proxy.compile=proxy.compile-module.html,Function proxy.compile.compile()=proxy.compile-module.html#compile"><a title="compile
+compile.compile
+proxy.compile
+proxy.compile.compile" class="py-name" href="#" onclick="return doclink('link-4', 'compile', 'link-4');">compile</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-string">r"^(?P&lt;name&gt;[^(]*)\((?P&lt;version&gt;[^)]*)\)\s*=\s*(?P&lt;value&gt;.*)$"</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">cap</tt> <tt class="py-keyword">in</tt> <tt class="py-name">capabilities</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-name">mo</tt> <tt class="py-op">=</tt> <tt class="py-name">regexp</tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">cap</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">mo</tt><tt class="py-op">:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">            <tt class="py-comment"># XXX Just ignoring it, for now</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt id="link-5" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-5', 'dict', 'link-5');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-name">mo</tt><tt class="py-op">.</tt><tt class="py-name">groupdict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt id="link-6" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-6', 'name', 'link-6');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method server.config_common.base_templated_document.TemplatedDocument.strip()=server.config_common.base_templated_document.TemplatedDocument-class.html#strip"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-7', 'strip', 'link-7');">strip</a></tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-8', 'dict', 'link-5');">dict</a></tt><tt class="py-op">[</tt><tt class="py-string">'name'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt id="link-9" class="py-name" targets="Variable satellite_tools.xmlSource.SatelliteDispatchHandler.version=satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#version"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-9', 'version', 'link-9');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-10', 'strip', 'link-7');">strip</a></tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-11', 'dict', 'link-5');">dict</a></tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="server.config_common.base_templated_document.TemplatedDocument.strip" class="py-name" href="#" onclick="return doclink('link-12', 'strip', 'link-7');">strip</a></tt><tt class="py-op">(</tt><tt id="link-13" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-13', 'dict', 'link-5');">dict</a></tt><tt class="py-op">[</tt><tt class="py-string">'value'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">         </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-name">caps</tt><tt class="py-op">[</tt><tt id="link-14" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-14', 'name', 'link-6');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt id="link-15" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-15', 'version', 'link-9');">version</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">            <tt class="py-string">'value'</tt>     <tt class="py-op">:</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">         </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt id="link-16" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-16', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method common.rhnCache.Cache.set()=common.rhnCache.Cache-class.html#set,Method common.rhnCache.CompressedCache.set()=common.rhnCache.CompressedCache-class.html#set,Method common.rhnCache.NullCache.set()=common.rhnCache.NullCache-class.html#set,Method common.rhnCache.ObjectCache.set()=common.rhnCache.ObjectCache-class.html#set,Function common.rhnCache.set()=common.rhnCache-module.html#set,Method common.rhnConfig.RHNOptions.set()=common.rhnConfig.RHNOptions-class.html#set,Function common.rhnFlags.set()=common.rhnFlags-module.html#set,Method common.rhnTranslate.i18n.set()=common.rhnTranslate.i18n-class.html#set,Function server.rhnDatabaseCache.set()=server.rhnDatabaseCache-module.html#set"><a title="common.rhnCache.Cache.set
+common.rhnCache.CompressedCache.set
+common.rhnCache.NullCache.set
+common.rhnCache.ObjectCache.set
+common.rhnCache.set
+common.rhnConfig.RHNOptions.set
+common.rhnFlags.set
+common.rhnTranslate.i18n.set
+server.rhnDatabaseCache.set" class="py-name" href="#" onclick="return doclink('link-17', 'set', 'link-17');">set</a></tt><tt class="py-op">(</tt><tt class="py-string">'client-capabilities'</tt><tt class="py-op">,</tt> <tt class="py-name">caps</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt id="link-18" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-18', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Client capabilities"</tt><tt class="py-op">,</tt> <tt class="py-name">caps</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"> </tt>
+<a name="get_client_capabilities"></a><div id="get_client_capabilities-def"><a name="L53"></a><tt class="py-lineno"> 53</tt> <a class="py-toggle" href="#" id="get_client_capabilities-toggle" onclick="return toggle('get_client_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#get_client_capabilities">get_client_capabilities</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_client_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_client_capabilities-expanded"><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-19" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-19', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-20', 'get', 'link-20');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'client-capabilities'</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="get_db_client_capabilities"></a><div id="get_db_client_capabilities-def"><a name="L56"></a><tt class="py-lineno"> 56</tt> <a class="py-toggle" href="#" id="get_db_client_capabilities-toggle" onclick="return toggle('get_db_client_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#get_db_client_capabilities">get_db_client_capabilities</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_db_client_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_db_client_capabilities-expanded"><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-21', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-22', 'prepare', 'link-22');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-string">        select cc.capability_name_id, ccn.name capability, cc.version</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-string">        from rhnClientCapability cc, rhnClientCapabilityName ccn</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-string">        where cc.server_id = :server_id</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-string">        and cc.capability_name_id = ccn.id</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-23', 'execute', 'link-23');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">=</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-24', 'fetchone_dict', 'link-24');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt id="link-25" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-25', 'name', 'link-6');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'capability'</tt><tt class="py-op">]</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt id="link-26" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-26', 'version', 'link-9');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">ret</tt><tt class="py-op">[</tt><tt id="link-27" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-27', 'name', 'link-6');">name</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-string">'version'</tt>   <tt class="py-op">:</tt> <tt id="link-28" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-28', 'version', 'link-9');">version</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-string">'value'</tt>     <tt class="py-op">:</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="update_client_capabilities"></a><div id="update_client_capabilities-def"><a name="L78"></a><tt class="py-lineno"> 78</tt> <a class="py-toggle" href="#" id="update_client_capabilities-toggle" onclick="return toggle('update_client_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#update_client_capabilities">update_client_capabilities</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="update_client_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="update_client_capabilities-expanded"><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-name">caps</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name" targets="Function server.rhnCapability.get_client_capabilities()=server.rhnCapability-module.html#get_client_capabilities"><a title="server.rhnCapability.get_client_capabilities" class="py-name" href="#" onclick="return doclink('link-29', 'get_client_capabilities', 'link-29');">get_client_capabilities</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">caps</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-name">caps</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-name">caps</tt> <tt class="py-op">=</tt> <tt class="py-name">caps</tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-30', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-31', 'prepare', 'link-22');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">        select cc.capability_name_id, ccn.name capability, cc.version</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">        from rhnClientCapability cc, rhnClientCapabilityName ccn</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-string">        where cc.server_id = :server_id</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-string">        and cc.capability_name_id = ccn.id</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-string">    """</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">updates</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'server_id'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'capability_name_id'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">}</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">deletes</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'server_id'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'capability_name_id'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">}</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-name">inserts</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'server_id'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'capability'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">}</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-32', 'execute', 'link-23');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">=</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-33', 'fetchone_dict', 'link-24');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">         </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt id="link-34" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-34', 'name', 'link-6');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'capability'</tt><tt class="py-op">]</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt id="link-35" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-35', 'version', 'link-9');">version</a></tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">capability_name_id</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'capability_name_id'</tt><tt class="py-op">]</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">caps</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-36', 'has_key', 'link-36');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-37" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-37', 'name', 'link-6');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-name">local_ver</tt> <tt class="py-op">=</tt> <tt class="py-name">caps</tt><tt class="py-op">[</tt><tt id="link-38" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-38', 'name', 'link-6');">name</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt class="py-name">caps</tt><tt class="py-op">[</tt><tt id="link-39" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-39', 'name', 'link-6');">name</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">local_ver</tt> <tt class="py-op">==</tt> <tt id="link-40" class="py-name"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-40', 'version', 'link-9');">version</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">                <tt class="py-comment"># Nothing to do - same version</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">            <tt class="py-name">updates</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-41', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">            <tt class="py-name">updates</tt><tt class="py-op">[</tt><tt class="py-string">'capability_name_id'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-42', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">capability_name_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">            <tt class="py-name">updates</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-43', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">local_ver</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-keyword">continue</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-comment"># Have to delete it</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-name">deletes</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-44', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">deletes</tt><tt class="py-op">[</tt><tt class="py-string">'capability_name_id'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-45', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">capability_name_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-comment"># Everything else has to be inserted</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-46" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-46', 'name', 'link-6');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">hash</tt> <tt class="py-keyword">in</tt> <tt class="py-name">caps</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-47', 'items', 'link-47');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">inserts</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-48', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-name">inserts</tt><tt class="py-op">[</tt><tt class="py-string">'capability'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-49', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt id="link-50" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-50', 'name', 'link-6');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-name">inserts</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-51', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">hash</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt id="link-52" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-52', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"Deletes:"</tt><tt class="py-op">,</tt> <tt class="py-name">deletes</tt><tt class="py-op">)</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt id="link-53" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-53', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"Updates:"</tt><tt class="py-op">,</tt> <tt class="py-name">updates</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt id="link-54" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-54', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt> <tt class="py-string">"Inserts:"</tt><tt class="py-op">,</tt> <tt class="py-name">inserts</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">deletes</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-55" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-55', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-56', 'prepare', 'link-22');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-string">            delete from rhnClientCapability</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-string">            where server_id = :server_id</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-string">            and capability_name_id = :capability_name_id</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">        <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method server.rhnSQL.sql_base.Cursor.executemany()=server.rhnSQL.sql_base.Cursor-class.html#executemany"><a title="server.rhnSQL.sql_base.Cursor.executemany" class="py-name" href="#" onclick="return doclink('link-57', 'executemany', 'link-57');">executemany</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">deletes</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">updates</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-58" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-58', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-59', 'prepare', 'link-22');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-string">            update rhnClientCapability</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-string">            set version = :version</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-string">            where server_id = :server_id</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-string">            and capability_name_id = :capability_name_id</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="server.rhnSQL.sql_base.Cursor.executemany" class="py-name" href="#" onclick="return doclink('link-60', 'executemany', 'link-57');">executemany</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">updates</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">inserts</tt><tt class="py-op">[</tt><tt class="py-string">'server_id'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-61" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-61', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-62', 'prepare', 'link-22');">prepare</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-string">            insert into rhnClientCapability </tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-string">            (server_id, capability_name_id, version) </tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-string">            values (:server_id, LOOKUP_CLIENT_CAPABILITY(:capability), :version)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-string">        """</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-name">apply</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="server.rhnSQL.sql_base.Cursor.executemany" class="py-name" href="#" onclick="return doclink('link-63', 'executemany', 'link-57');">executemany</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">inserts</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-comment"># Commit work. This can be dangerous if there is previously uncommited</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-comment"># work</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt id="link-64" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-64', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Method server.importlib.backend.Backend.commit()=server.importlib.backend.Backend-class.html#commit,Method server.rhnKickstart.Kickstart.commit()=server.rhnKickstart.Kickstart-class.html#commit,Function server.rhnSQL.commit()=server.rhnSQL-module.html#commit,Method server.rhnSQL.driver_cx_Oracle.Database.commit()=server.rhnSQL.driver_cx_Oracle.Database-class.html#commit,Method server.rhnSQL.driver_postgresql.Database.commit()=server.rhnSQL.driver_postgresql.Database-class.html#commit,Method server.rhnSQL.sql_base.Database.commit()=server.rhnSQL.sql_base.Database-class.html#commit,Method server.rhnSQL.sql_table.Table.commit()=server.rhnSQL.sql_table.Table-class.html#commit"><a title="server.importlib.backend.Backend.commit
+server.rhnKickstart.Kickstart.commit
+server.rhnSQL.commit
+server.rhnSQL.driver_cx_Oracle.Database.commit
+server.rhnSQL.driver_postgresql.Database.commit
+server.rhnSQL.sql_base.Database.commit
+server.rhnSQL.sql_table.Table.commit" class="py-name" href="#" onclick="return doclink('link-65', 'commit', 'link-65');">commit</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"> </tt>
+<a name="set_server_capabilities"></a><div id="set_server_capabilities-def"><a name="L163"></a><tt class="py-lineno">163</tt> <a class="py-toggle" href="#" id="set_server_capabilities-toggle" onclick="return toggle('set_server_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#set_server_capabilities">set_server_capabilities</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="set_server_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="set_server_capabilities-expanded"><a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt id="link-66" class="py-name" targets="Function server.rhnCapability._set_server_capabilities()=server.rhnCapability-module.html#_set_server_capabilities"><a title="server.rhnCapability._set_server_capabilities" class="py-name" href="#" onclick="return doclink('link-66', '_set_server_capabilities', 'link-66');">_set_server_capabilities</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt id="link-67" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-67', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-68" class="py-name" targets="Class server.rhnSQL.sql_base.SQLError=server.rhnSQL.sql_base.SQLError-class.html"><a title="server.rhnSQL.sql_base.SQLError" class="py-name" href="#" onclick="return doclink('link-68', 'SQLError', 'link-68');">SQLError</a></tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">e</tt><tt class="py-op">.</tt><tt class="py-name">args</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">            <tt class="py-comment"># Not a unique constraint violation</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-comment"># Try again</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-name">ret</tt> <tt class="py-op">=</tt> <tt id="link-69" class="py-name"><a title="server.rhnCapability._set_server_capabilities" class="py-name" href="#" onclick="return doclink('link-69', '_set_server_capabilities', 'link-66');">_set_server_capabilities</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">ret</tt> </tt>
+</div><a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"> </tt>
+<a name="_set_server_capabilities"></a><div id="_set_server_capabilities-def"><a name="L174"></a><tt class="py-lineno">174</tt> <a class="py-toggle" href="#" id="_set_server_capabilities-toggle" onclick="return toggle('_set_server_capabilities');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.rhnCapability-module.html#_set_server_capabilities">_set_server_capabilities</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_set_server_capabilities-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_set_server_capabilities-expanded"><a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">    <tt class="py-comment"># XXX Will have to figure out how to define this</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">    <tt class="py-name">capabilities</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-string">'registration.register_osad'</tt>            <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-string">'registration.finish_message'</tt>           <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-string">'registration.remaining_subscriptions'</tt>  <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-string">'registration.update_contact_info'</tt>      <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-string">'registration.delta_packages'</tt>           <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-string">'registration.extended_update_support'</tt>  <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-string">'registration.smbios'</tt>                   <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">        <tt class="py-string">'applet.has_base_channel'</tt>               <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-string">'xmlrpc.login.extra_data'</tt>               <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">        <tt class="py-string">'rhncfg.content.base64_decode'</tt>          <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-string">'rhncfg.filetype.directory'</tt>             <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-string">'xmlrpc.packages.extended_profile'</tt>      <tt class="py-op">:</tt> <tt class="py-op">{</tt><tt class="py-string">'version'</tt> <tt class="py-op">:</tt> <tt class="py-string">'1-2'</tt><tt class="py-op">,</tt> <tt class="py-string">'value'</tt> <tt class="py-op">:</tt> <tt class="py-number">1</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">    <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-70" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-70', 'name', 'link-6');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">hashval</tt> <tt class="py-keyword">in</tt> <tt class="py-name">capabilities</tt><tt class="py-op">.</tt><tt id="link-71" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-71', 'items', 'link-47');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-72', 'append', 'link-41');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"%s(%s)=%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-73" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-73', 'name', 'link-6');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">hashval</tt><tt class="py-op">[</tt><tt class="py-string">'version'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">hashval</tt><tt class="py-op">[</tt><tt class="py-string">'value'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">    <tt id="link-74" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-74', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">"Setting capabilities"</tt><tt class="py-op">,</tt> <tt class="py-name">l</tt><tt class="py-op">)</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">    <tt id="link-75" class="py-name"><a title="common.rhnFlags" class="py-name" href="#" onclick="return doclink('link-75', 'rhnFlags', 'link-2');">rhnFlags</a></tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-76', 'get', 'link-20');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">"outputTransportOptions"</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-string">'X-RHN-Server-Capability'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">l</tt> </tt>
+</div><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:44 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

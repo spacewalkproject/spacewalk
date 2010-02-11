@@ -35,7 +35,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
-        <a href="satellite_tools.satComputePkgHeaders-module.html">Module&nbsp;satComputePkgHeaders</a> ::
+        <a href="satellite_tools.satComputePkgHeaders-module.html" onclick="show_private();">Module&nbsp;satComputePkgHeaders</a> ::
         Class&nbsp;Runner
       </span>
     </td>
@@ -192,29 +192,29 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channel_packages" class="summary-name" onclick="show_private();">_query_get_channel_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159637932; statement=
         select c.id, c.label
           from rhnChannel c,
                rhnChannelPackage cp
          where cp.package_id = :package_id
            and cp.channel_id = c.id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channels" class="summary-name" onclick="show_private();">_query_get_channels</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_channels" class="summary-name" onclick="show_private();">_query_get_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159637996; statement=
         select id, label from rhnChannel 
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_packages" class="summary-name" onclick="show_private();">_query_get_packages</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_get_packages" class="summary-name" onclick="show_private();">_query_get_packages</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159638028; statement=
         select cp.package_id, p.path, p.header_start, p.header_end
           from rhnChannelPackage cp,
                rhnPackage p
@@ -222,19 +222,19 @@
            and cp.package_id = p.id
            and p.path is not null
            and p.header_start = -1
-...">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+...">&lt;server.rhnSQL.sql_base.Statement instan<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_add_package_header_values" class="summary-name" onclick="show_private();">_query_add_package_header_values</a> = <code title="rhnSQL.Statement(&quot;&quot;&quot;
+        <a href="satellite_tools.satComputePkgHeaders.Runner-class.html#_query_add_package_header_values" class="summary-name" onclick="show_private();">_query_add_package_header_values</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at 159638060; statement=
         update rhnPackage 
            set header_start = :header_start,
                header_end = :header_end
          where id = :package_id
-    &quot;&quot;&quot;)">rhnSQL.Statement(<code class="variable-ellipsis">...</code></code>
+    ">&lt;server.rhnSQL.sql_base.Sta<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -268,13 +268,13 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159637932; statement=
         select c.id, c.label
           from rhnChannel c,
                rhnChannelPackage cp
          where cp.package_id = :package_id
            and cp.channel_id = c.id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -292,9 +292,9 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159637996; statement=
         select id, label from rhnChannel 
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -312,7 +312,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159638028; statement=
         select cp.package_id, p.path, p.header_start, p.header_end
           from rhnChannelPackage cp,
                rhnPackage p
@@ -338,12 +338,12 @@ rhnSQL.Statement(&quot;&quot;&quot;
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-rhnSQL.Statement(&quot;&quot;&quot;
+&lt;server.rhnSQL.sql_base.Statement instance at 159638060; statement=
         update rhnPackage 
            set header_start = :header_start,
                header_end = :header_end
          where id = :package_id
-    &quot;&quot;&quot;)
+    
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -373,7 +373,7 @@ rhnSQL.Statement(&quot;&quot;&quot;
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:11 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:34 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

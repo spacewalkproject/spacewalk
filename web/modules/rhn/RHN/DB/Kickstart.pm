@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -36,9 +36,16 @@ use RHN::DB;
 use RHN::Exception qw/throw/;
 
 use URI::URL;
-use RHN::TinyURL;
 
 use PXT::Utils;
+use PXT::Config ();
+use RHN::Kickstart::Include ();
+use RHN::Kickstart::Logvols ();
+use RHN::Kickstart::Partitions ();
+use RHN::Kickstart::Password ();
+use RHN::Kickstart::Raids ();
+use RHN::Kickstart::Volgroups ();
+use RHN::SessionSwap ();
 
 my %valid = (id => { default => 0 },
 	     org_id => { optional => 1 },
@@ -580,48 +587,6 @@ EOQ
   return $ks;
 }
 
-sub lookup_ks_by_system_ip {
-  return undef; # stub
-}
-
-sub lookup_ks_by_ip_in_range {
-  my $class = shift;
-  my %params = validate(@_, { org_id => { optional => 0 }, ip => { optional => 0 } });
-
-  my @ranges = RHN::Kickstart::IPRange->org_ranges_for_ip(%params);
-
-  my $best_fit;
-
-  foreach my $range (@ranges) {
-    $best_fit ||= $range;
-
-    $best_fit = $range if ($range->subset_of($best_fit));
-  }
-
-  return unless $best_fit;
-
-  return RHN::Kickstart->lookup(-id => $best_fit->ksid);
-}
-
-sub lookup_org_default {
-  my $class = shift;
-  my %params = validate(@_, { org_id => { optional => 0 } });
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT id FROM rhnKSData WHERE org_id = :org_id AND is_org_default = 'Y'
-EOQ
-
-  $sth->execute_h(org_id => $params{org_id});
-
-  my ($id) = $sth->fetchrow;
-  $sth->finish;
-
-  return unless $id;
-
-  return $class->lookup(-id => $id);
-}
-
 # set or get commands for this kickstart
 # set with a hashref, array, or RHN::Kickstart::Commands object
 sub commands {
@@ -743,21 +708,6 @@ sub pre {
   return ($pre ? $pre->as_string : '');
 }
 
-sub pre_helper {
-  my $self = shift;
-  my $method = shift;
-
-  my $pre = $self->SUPER::pre;
-
-  return ($pre ? $pre->$method(@_) : undef);
-}
-
-sub valid_pre_helpers {
-  my $self = shift;
-
-  return RHN::Kickstart::Pre::valid_helpers;
-}
-
 sub post {
   my $self = shift;
   my $val = shift;
@@ -798,48 +748,6 @@ sub nochroot_post {
   my $post = $self->SUPER::nochroot_post;
 
   return ($post ? $post->as_string : '');
-}
-
-sub nochroot_post_helper {
-  my $self = shift;
-  my $method = shift;
-
-  my $post = $self->SUPER::nochroot_post;
-
-  if ($post) {
-    if ($post->can($method)) {
-      return $post->$method(@_);
-    }
-    else {
-      return $post->choose_action($method, @_);
-    }
-  }
-
-  return;
-}
-
-sub post_helper {
-  my $self = shift;
-  my $method = shift;
-
-  my $post = $self->SUPER::post;
-
-  if ($post) {
-    if ($post->can($method)) {
-      return $post->$method(@_);
-    }
-    else {
-      return $post->choose_action($method, @_);
-    }
-  }
-
-  return;
-}
-
-sub valid_post_helpers {
-  my $self = shift;
-
-  return RHN::Kickstart::Post::valid_helpers;
 }
 
 sub delete_kickstart {
@@ -910,29 +818,6 @@ EOQ
   return;
 }
 
-sub remove_ip_range {
-  my $class = shift;
-  my $ksid = shift;
-  my $min = shift;
-  my $max = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query =<<EOQ;
-DELETE
-  FROM rhnKickstartIPRange KSIPR
- WHERE KSIPR.kickstart_id = :ksid
-   AND KSIPR.min = :min
-   AND KSIPR.max = :max
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute_h(ksid => $ksid, min => $min, max => $max);
-
-  $dbh->commit;
-
-  return;
-}
-
 sub kickstarts_for_org {
   my $class = shift;
   my $org_id = shift;
@@ -943,135 +828,6 @@ sub kickstarts_for_org {
   my $data = $ds->execute_query(-org_id => $org_id);
 
   return @{$data};
-}
-
-# change kickstart from one 'dist' to another, and interject the
-# session strings if present.  only works if 'url' command is like:
-# url --url http://rhn.webdev.redhat.com/kickstart/dist/ks-redhat-advanced-server-i386
-# An input of 'blinky' would change 'ks-redhat-advanced-server-i386'
-# to 'blinky' (or '/session/SOMESESSION/ks-redhat-blahblah' if a
-# session is present)
-
-sub change_dist {
-  my $self = shift;
-  my $dist = shift;
-  my $session_id = shift;
-
-  my $interjection = '';
-  if ($session_id) {
-    $interjection = join("/", "session", RHN::SessionSwap->encode_data($session_id), '');
-  }
-
-  return unless $self->commands and $self->commands->url;
-
-  my @url_data = @{$self->commands->url};
-  my $found = 0;
-
-  foreach my $arg (@url_data) {
-    if ($found) {
-      $arg =~ s<dist/(.*)/?><"dist/$interjection" . ($dist || $1)>e;
-    }
-
-    if ($arg eq '--url') {
-      $found = 1;
-    }
-  }
-
-  $self->commands->url(\@url_data);
-
-  return $dist;
-}
-
-sub change_url_host {
-  my $self = shift;
-  my $host = shift;
-
-  return unless $self->commands and $self->commands->url;
-
-  my @url_data = @{$self->commands->url};
-  my $found = 0;
-
-  foreach my $arg (@url_data) {
-    if ($found) {
-      $arg =~ s<(https?://)[^/]*><$1 . $host>e;
-    }
-
-    if ($arg eq '--url') {
-      $found = 1;
-    }
-  }
-
-  $self->commands->url(\@url_data);
-
-  return;
-}
-
-sub change_url {
-  my $self = shift;
-  my $new_url = shift;
-
-  throw "(missing_param) No url" unless $new_url;
-
-  return unless $self->commands and $self->commands->url;
-
-  my @url_data = @{$self->commands->url};
-  my $found = 0;
-
-  foreach my $arg (@url_data) {
-    if ($found) {
-      $arg =~ s|.*|$new_url|;
-
-    }
-
-    if ($arg eq '--url') {
-      $found = 1;
-    }
-  }
-
-  $self->commands->url(\@url_data);
-
-  return;
-}
-
-sub get_url_path {
-  my $self = shift;
-
-  return unless $self->commands and $self->commands->url;
-
-  my $path;
-  my $found = 0;
-
-  my @url_data = @{$self->commands->url};
-
-  foreach my $arg (@url_data) {
-    if ($found) {
-      $arg =~ m<https?://[^/]*(.*)>;
-      $path = $1;
-    }
-
-    if ($arg eq '--url') {
-      $found = 1;
-    }
-  }
-
-  return $path;
-}
-
-sub tinify_url {
-  my $self = shift;
-  my $expiration = shift;
-
-  if ($self->host) {
-    my $path = $self->get_url_path;
-
-    my ($ty) = RHN::TinyURL->tinify_path(-path => $path,
-				       -host => $self->host,
-				       -expiration => $expiration);
-
-    $self->change_url($ty);
-  }
-
-  return;
 }
 
 sub dist {
@@ -1146,64 +902,6 @@ EOQ
   return @{$data};
 }
 
-sub gpg_key_data {
-  my $self = shift;
-
-  my @keys = $self->crypto_keys;
-
-  return map { $_->{KEY} }
-    grep { $_->{LABEL} eq 'GPG' } @keys;
-}
-
-sub ssl_key_data {
-  my $self = shift;
-
-  my @keys = $self->crypto_keys;
-
-  return map { $_->{KEY} }
-    grep { $_->{LABEL} eq 'SSL' } @keys;
-}
-
-sub default_tree {
-  my $self = shift;
-
-  my $kstree_id = $self->default_kstree_id;
-
-  if ($kstree_id) {
-    return RHN::KSTree->lookup(-id => $kstree_id);
-  }
-
-  return;
-}
-sub get_channel_arch { 
-  my $self = shift;
-
-  my $channel_id  = $self->default_tree->channel_id;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT CA.label
-  FROM rhnChannel C, rhnChannelArch CA 
-  WHERE 1=1
-  AND C.id = :cid
-  AND C.channel_arch_id = CA.id
-EOQ
-
-  $sth->execute_h(cid => $channel_id);
-
-  my $row = $sth->fetchrow_hashref;
-  $sth->finish;
-
-  return $row->{'LABEL'};
-}
-
-sub installer_generation {
-  my $self = shift;
-
-  my $tree = $self->default_tree;
-
-  return $tree->install_type_label;
-}
 
 sub org_ks_ip_ranges {
   my $class = shift;
@@ -1257,53 +955,6 @@ sub generate_url {
   $url->path('/kickstart/ks/' . join('/', %url_data));
 
   return $url;
-}
-
-sub get_ip_url {
-  my $class = shift;
-  my $url = generate_url(@_, -mode => 'ip_range');
-
-  return $url->as_string;
-}
-
-sub get_regtokens {
-  my $self = shift;
-
-  my $ds = new RHN::DataSource::General(-mode => 'regtokens_for_kickstart_profile');
-  my $data = $ds->execute_full(-ksid => $self->id);
-
-  my @tokens = map { RHN::Token->lookup(-id => $_->{ID}) } @{$data};
-
-  return @tokens;
-}
-
-sub set_regtokens {
-  my $self = shift;
-  my @token_ids = @_;
-
-  my $dbh = RHN::DB->connect;
-  my $del_sth = $dbh->prepare(<<EOQ);
-DELETE
-  FROM rhnKickstartDefaultRegToken KDRT
- WHERE KDRT.kickstart_id = :ksid
-EOQ
-
-  $del_sth->execute_h(ksid => $self->id);
-
-  my $ins_sth = $dbh->prepare(<<EOQ);
-INSERT
-  INTO rhnKickstartDefaultRegToken
-       (kickstart_id, regtoken_id)
-VALUES (:ksid, :rtid)
-EOQ
-
-  foreach my $tid (@token_ids) {
-    $ins_sth->execute_h(ksid => $self->id, rtid => $tid);
-  }
-
-  $dbh->commit;
-
-  return;
 }
 
 1;

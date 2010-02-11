@@ -16,7 +16,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             constrained="true"/>
         <many-to-one name="locker" 
         			column="LOCKER_ID" 
-         			class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl" />
+				class="com.redhat.rhn.domain.user.legacy.UserImpl" />
         <property name="reason" column="REASON"  type="string" length="4000" />
         <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>

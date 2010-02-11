@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.importlib.mpmSource</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
+        Module&nbsp;mpmSource
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.importlib.mpmSource-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.importlib.mpmSource-module.html" onclick="show_private();">Module server.importlib.mpmSource</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># Converts headers to the intermediate format</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module server.importlib.headerSource=server.importlib.headerSource-module.html"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-0', 'headerSource', 'link-0');">headerSource</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Module server.importlib.importLib=server.importlib.importLib-module.html"><a title="server.importlib.importLib" class="py-name" href="#" onclick="return doclink('link-1', 'importLib', 'link-1');">importLib</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class server.importlib.importLib.SolarisPatchInfo=server.importlib.importLib.SolarisPatchInfo-class.html"><a title="server.importlib.importLib.SolarisPatchInfo" class="py-name" href="#" onclick="return doclink('link-2', 'SolarisPatchInfo', 'link-2');">SolarisPatchInfo</a></tt><tt class="py-op">,</tt> \ </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">                      <tt id="link-3" class="py-name" targets="Class server.importlib.importLib.SolarisPatchPackagesInfo=server.importlib.importLib.SolarisPatchPackagesInfo-class.html"><a title="server.importlib.importLib.SolarisPatchPackagesInfo" class="py-name" href="#" onclick="return doclink('link-3', 'SolarisPatchPackagesInfo', 'link-3');">SolarisPatchPackagesInfo</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Class server.importlib.importLib.SolarisPatchSetInfo=server.importlib.importLib.SolarisPatchSetInfo-class.html"><a title="server.importlib.importLib.SolarisPatchSetInfo" class="py-name" href="#" onclick="return doclink('link-4', 'SolarisPatchSetInfo', 'link-4');">SolarisPatchSetInfo</a></tt><tt class="py-op">,</tt> \ </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">                      <tt id="link-5" class="py-name" targets="Class server.importlib.importLib.SolarisPatchSetMember=server.importlib.importLib.SolarisPatchSetMember-class.html"><a title="server.importlib.importLib.SolarisPatchSetMember" class="py-name" href="#" onclick="return doclink('link-5', 'SolarisPatchSetMember', 'link-5');">SolarisPatchSetMember</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Class server.importlib.importLib.SolarisPackageInfo=server.importlib.importLib.SolarisPackageInfo-class.html"><a title="server.importlib.importLib.SolarisPackageInfo" class="py-name" href="#" onclick="return doclink('link-6', 'SolarisPackageInfo', 'link-6');">SolarisPackageInfo</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="mpmSolarisPatchInfo"></a><div id="mpmSolarisPatchInfo-def"><a name="L25"></a><tt class="py-lineno"> 25</tt> <a class="py-toggle" href="#" id="mpmSolarisPatchInfo-toggle" onclick="return toggle('mpmSolarisPatchInfo');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmSolarisPatchInfo-class.html">mpmSolarisPatchInfo</a><tt class="py-op">(</tt><tt class="py-base-class">SolarisPatchInfo</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmSolarisPatchInfo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmSolarisPatchInfo-expanded"><a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt id="link-7" class="py-name" targets="Variable satellite_tools.xmlSource.BaseItem.tagMap=satellite_tools.xmlSource.BaseItem-class.html#tagMap,Variable satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap=satellite_tools.xmlSource.BlacklistObsoleteItem-class.html#tagMap,Variable satellite_tools.xmlSource.BugItem.tagMap=satellite_tools.xmlSource.BugItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChangelogItem.tagMap=satellite_tools.xmlSource.ChangelogItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelErratumItem.tagMap=satellite_tools.xmlSource.ChannelErratumItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelFamilyItem.tagMap=satellite_tools.xmlSource.ChannelFamilyItem-class.html#tagMap,Variable satellite_tools.xmlSource.ChannelItem.tagMap=satellite_tools.xmlSource.ChannelItem-class.html#tagMap,Variable satellite_tools.xmlSource.ConflictsItem.tagMap=satellite_tools.xmlSource.ConflictsItem-class.html#tagMap,Variable satellite_tools.xmlSource.DistItem.tagMap=satellite_tools.xmlSource.DistItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErrataFileItem.tagMap=satellite_tools.xmlSource.ErrataFileItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErratumItem.tagMap=satellite_tools.xmlSource.ErratumItem-class.html#tagMap,Variable satellite_tools.xmlSource.ErrorItem.tagMap=satellite_tools.xmlSource.ErrorItem-class.html#tagMap,Variable satellite_tools.xmlSource.FileItem.tagMap=satellite_tools.xmlSource.FileItem-class.html#tagMap,Variable satellite_tools.xmlSource.IncompletePackageItem.tagMap=satellite_tools.xmlSource.IncompletePackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap=satellite_tools.xmlSource.IncompleteSourcePackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.KeywordItem.tagMap=satellite_tools.xmlSource.KeywordItem-class.html#tagMap,Variable satellite_tools.xmlSource.KickstartFileItem.tagMap=satellite_tools.xmlSource.KickstartFileItem-class.html#tagMap,Variable satellite_tools.xmlSource.KickstartableTreeItem.tagMap=satellite_tools.xmlSource.KickstartableTreeItem-class.html#tagMap,Variable satellite_tools.xmlSource.ObsoletesItem.tagMap=satellite_tools.xmlSource.ObsoletesItem-class.html#tagMap,Variable satellite_tools.xmlSource.PackageItem.tagMap=satellite_tools.xmlSource.PackageItem-class.html#tagMap,Variable satellite_tools.xmlSource.ProductNamesItem.tagMap=satellite_tools.xmlSource.ProductNamesItem-class.html#tagMap,Variable satellite_tools.xmlSource.ProvidesItem.tagMap=satellite_tools.xmlSource.ProvidesItem-class.html#tagMap,Variable satellite_tools.xmlSource.ReleaseItem.tagMap=satellite_tools.xmlSource.ReleaseItem-class.html#tagMap,Variable satellite_tools.xmlSource.RequiresItem.tagMap=satellite_tools.xmlSource.RequiresItem-class.html#tagMap,Variable satellite_tools.xmlSource.SourcePackageItem.tagMap=satellite_tools.xmlSource.SourcePackageItem-class.html#tagMap,Variable server.importlib.headerSource.rpmBinaryPackage.tagMap=server.importlib.headerSource.rpmBinaryPackage-class.html#tagMap,Variable server.importlib.headerSource.rpmChangeLog.tagMap=server.importlib.headerSource.rpmChangeLog-class.html#tagMap,Variable server.importlib.headerSource.rpmConflicts.tagMap=server.importlib.headerSource.rpmConflicts-class.html#tagMap,Variable server.importlib.headerSource.rpmFile.tagMap=server.importlib.headerSource.rpmFile-class.html#tagMap,Variable server.importlib.headerSource.rpmObsoletes.tagMap=server.importlib.headerSource.rpmObsoletes-class.html#tagMap,Variable server.importlib.headerSource.rpmPackage.tagMap=server.importlib.headerSource.rpmPackage-class.html#tagMap,Variable server.importlib.headerSource.rpmProvides.tagMap=server.importlib.headerSource.rpmProvides-class.html#tagMap,Variable server.importlib.headerSource.rpmRequires.tagMap=server.importlib.headerSource.rpmRequires-class.html#tagMap,Variable server.importlib.headerSource.rpmSourcePackage.tagMap=server.importlib.headerSource.rpmSourcePackage-class.html#tagMap,Variable server.importlib.mpmSource.mpmBinaryPackage.tagMap=server.importlib.mpmSource.mpmBinaryPackage-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap=server.importlib.mpmSource.mpmSolarisPackageInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchPackagesInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap=server.importlib.mpmSource.mpmSolarisPatchSetInfo-class.html#tagMap,Variable server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap=server.importlib.mpmSource.mpmSolarisPatchSetMember-class.html#tagMap"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-7', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">        <tt class="py-comment"># DB field -&gt; header field</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-string">'package_id'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-string">'solaris_release'</tt><tt class="py-op">:</tt><tt class="py-string">'solaris_rel'</tt><tt class="py-op">,</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt class="py-string">'sunos_release'</tt> <tt class="py-op">:</tt> <tt class="py-string">'sunos_rel'</tt><tt class="py-op">,</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-string">'patch_type'</tt>    <tt class="py-op">:</tt> <tt class="py-string">'patch_type'</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-string">'readme'</tt>        <tt class="py-op">:</tt> <tt class="py-string">'readme'</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-string">'patchinfo'</tt>     <tt class="py-op">:</tt> <tt class="py-string">'summary'</tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="mpmSolarisPatchPackagesInfo"></a><div id="mpmSolarisPatchPackagesInfo-def"><a name="L37"></a><tt class="py-lineno"> 37</tt> <a class="py-toggle" href="#" id="mpmSolarisPatchPackagesInfo-toggle" onclick="return toggle('mpmSolarisPatchPackagesInfo');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmSolarisPatchPackagesInfo-class.html">mpmSolarisPatchPackagesInfo</a><tt class="py-op">(</tt><tt class="py-base-class">SolarisPatchPackagesInfo</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmSolarisPatchPackagesInfo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmSolarisPatchPackagesInfo-expanded"><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt id="link-8" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-8', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-string">'patch_id'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-string">'package_nevra_id'</tt><tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="mpmSolarisPatchSetInfo"></a><div id="mpmSolarisPatchSetInfo-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="mpmSolarisPatchSetInfo-toggle" onclick="return toggle('mpmSolarisPatchSetInfo');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmSolarisPatchSetInfo-class.html">mpmSolarisPatchSetInfo</a><tt class="py-op">(</tt><tt class="py-base-class">SolarisPatchSetInfo</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmSolarisPatchSetInfo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmSolarisPatchSetInfo-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt id="link-9" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-9', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-string">'package_id'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-string">'readme'</tt>        <tt class="py-op">:</tt> <tt class="py-string">'readme'</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-string">'set_date'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'date'</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="mpmSolarisPatchSetMember"></a><div id="mpmSolarisPatchSetMember-def"><a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="mpmSolarisPatchSetMember-toggle" onclick="return toggle('mpmSolarisPatchSetMember');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmSolarisPatchSetMember-class.html">mpmSolarisPatchSetMember</a><tt class="py-op">(</tt><tt class="py-base-class">SolarisPatchSetMember</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmSolarisPatchSetMember-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmSolarisPatchSetMember-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt id="link-10" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-10', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-string">'patch_id'</tt>      <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-string">'patch_set_id'</tt>  <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-string">'patch_order'</tt>   <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="mpmSolarisPackageInfo"></a><div id="mpmSolarisPackageInfo-def"><a name="L60"></a><tt class="py-lineno"> 60</tt> <a class="py-toggle" href="#" id="mpmSolarisPackageInfo-toggle" onclick="return toggle('mpmSolarisPackageInfo');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmSolarisPackageInfo-class.html">mpmSolarisPackageInfo</a><tt class="py-op">(</tt><tt class="py-base-class">SolarisPackageInfo</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmSolarisPackageInfo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmSolarisPackageInfo-expanded"><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt id="link-11" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-11', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-string">'package_id'</tt>    <tt class="py-op">:</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-string">'category'</tt>      <tt class="py-op">:</tt> <tt class="py-string">'package_group'</tt><tt class="py-op">,</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-string">'pkginfo'</tt>       <tt class="py-op">:</tt> <tt class="py-string">'pkginfo'</tt><tt class="py-op">,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-string">'pkgmap'</tt>        <tt class="py-op">:</tt> <tt class="py-string">'pkgmap'</tt><tt class="py-op">,</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-string">'intonly'</tt>       <tt class="py-op">:</tt> <tt class="py-string">'intonly'</tt><tt class="py-op">,</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+</div><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage"></a><div id="mpmBinaryPackage-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage-toggle" onclick="return toggle('mpmBinaryPackage');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html">mpmBinaryPackage</a><tt class="py-op">(</tt><tt class="py-base-class">headerSource</tt><tt class="py-op">.</tt><tt class="py-base-class">rpmBinaryPackage</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mpmBinaryPackage-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt id="link-12" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-12', 'tagMap', 'link-7');">tagMap</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-13', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Class server.importlib.headerSource.rpmBinaryPackage=server.importlib.headerSource.rpmBinaryPackage-class.html"><a title="server.importlib.headerSource.rpmBinaryPackage" class="py-name" href="#" onclick="return doclink('link-14', 'rpmBinaryPackage', 'link-14');">rpmBinaryPackage</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-15', 'tagMap', 'link-7');">tagMap</a></tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-comment"># Remove already-mapped tags</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt id="link-16" class="py-name" targets="Variable server.importlib.mpmSource.mpmBinaryPackage._already_mapped=server.importlib.mpmSource.mpmBinaryPackage-class.html#_already_mapped"><a title="server.importlib.mpmSource.mpmBinaryPackage._already_mapped" class="py-name" href="#" onclick="return doclink('link-16', '_already_mapped', 'link-16');">_already_mapped</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-string">'rpm_version'</tt><tt class="py-op">,</tt> <tt class="py-string">'payload_size'</tt><tt class="py-op">,</tt> <tt class="py-string">'payload_format'</tt><tt class="py-op">,</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-string">'package_group'</tt><tt class="py-op">,</tt> <tt class="py-string">'build_time'</tt><tt class="py-op">,</tt> <tt class="py-string">'build_host'</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-op">]</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-17" class="py-name" targets="Variable server.importlib.mpmSource.mpmBinaryPackage.t=server.importlib.mpmSource.mpmBinaryPackage-class.html#t"><a title="server.importlib.mpmSource.mpmBinaryPackage.t" class="py-name" href="#" onclick="return doclink('link-17', 't', 'link-17');">t</a></tt> <tt class="py-keyword">in</tt> <tt id="link-18" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage._already_mapped" class="py-name" href="#" onclick="return doclink('link-18', '_already_mapped', 'link-16');">_already_mapped</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-19" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-19', 'tagMap', 'link-7');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-20', 'has_key', 'link-20');">has_key</a></tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage.t" class="py-name" href="#" onclick="return doclink('link-21', 't', 'link-17');">t</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-keyword">del</tt> <tt id="link-22" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-22', 'tagMap', 'link-7');">tagMap</a></tt><tt class="py-op">[</tt><tt id="link-23" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage.t" class="py-name" href="#" onclick="return doclink('link-23', 't', 'link-17');">t</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage.populate"></a><div id="mpmBinaryPackage.populate-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage.populate-toggle" onclick="return toggle('mpmBinaryPackage.populate');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#populate">populate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage.populate-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage.populate-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-comment"># call to base class method</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt id="link-24" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-24', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="server.importlib.headerSource.rpmBinaryPackage" class="py-name" href="#" onclick="return doclink('link-25', 'rpmBinaryPackage', 'link-14');">rpmBinaryPackage</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method satellite_tools.xmlSource.BaseChecksummedItem.populate()=satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate,Method satellite_tools.xmlSource.BaseItem.populate()=satellite_tools.xmlSource.BaseItem-class.html#populate,Method server.importlib.headerSource.rpmBinaryPackage.populate()=server.importlib.headerSource.rpmBinaryPackage-class.html#populate,Method server.importlib.headerSource.rpmChangeLog.populate()=server.importlib.headerSource.rpmChangeLog-class.html#populate,Method server.importlib.headerSource.rpmFile.populate()=server.importlib.headerSource.rpmFile-class.html#populate,Method server.importlib.headerSource.rpmPackage.populate()=server.importlib.headerSource.rpmPackage-class.html#populate,Method server.importlib.headerSource.rpmSourcePackage.populate()=server.importlib.headerSource.rpmSourcePackage-class.html#populate,Method server.importlib.importLib.Item.populate()=server.importlib.importLib.Item-class.html#populate,Method server.importlib.mpmSource.mpmBinaryPackage.populate()=server.importlib.mpmSource.mpmBinaryPackage-class.html#populate"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-26', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-27" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.header()=server.handlers.xmlrpc.up2date.Up2date-class.html#header"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-27', 'header', 'link-27');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-28" class="py-name" targets="Method spacewalk.common.rhn_rpm.RPM_Header.checksum_type()=spacewalk.common.rhn_rpm.RPM_Header-class.html#checksum_type"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-28', 'checksum_type', 'link-28');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-29" class="py-name" targets="Module spacewalk.common.checksum=spacewalk.common.checksum-module.html"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-29', 'checksum', 'link-29');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">,</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-30" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels()=satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper-class.html#channels"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-30', 'channels', 'link-30');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">srpm</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method common.rhnCache.Cache.get()=common.rhnCache.Cache-class.html#get,Method common.rhnCache.CompressedCache.get()=common.rhnCache.CompressedCache-class.html#get,Method common.rhnCache.NullCache.get()=common.rhnCache.NullCache-class.html#get,Method common.rhnCache.ObjectCache.get()=common.rhnCache.ObjectCache-class.html#get,Function common.rhnCache.get()=common.rhnCache-module.html#get,Method common.rhnConfig.RHNOptions.get()=common.rhnConfig.RHNOptions-class.html#get,Function common.rhnFlags.get()=common.rhnFlags-module.html#get,Function server.action_extra_data.up2date_config.get()=server.action_extra_data.up2date_config-module.html#get,Method server.handlers.xmlrpc.queue.Queue.get()=server.handlers.xmlrpc.queue.Queue-class.html#get,Method server.handlers.xmlrpc.up2date.Servers.get()=server.handlers.xmlrpc.up2date.Servers-class.html#get,Function server.rhnDatabaseCache.get()=server.rhnDatabaseCache-module.html#get,Method server.rhnSQL.sql_row.Row.get()=server.rhnSQL.sql_row.Row-class.html#get,Method server.rhnSQL.sql_table.Table.get()=server.rhnSQL.sql_table.Table-class.html#get,Function server.rhnServer.get()=server.rhnServer-module.html#get"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-31', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'source_rpm'</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">srpm</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'source_rpm'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-name">group</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-32', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'package_group'</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">group</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'package_group'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'NoGroup'</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">         </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-comment"># Solaris specific populations</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-33" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-33', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-34', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'package_type'</tt><tt class="py-op">,</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-string">"solaris"</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt class="py-name">group</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-35', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-36', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'package_group'</tt><tt class="py-op">,</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'header_start'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'header_end'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">group</tt> <tt class="py-op">==</tt> <tt class="py-string">'Patches'</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_patch_info()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_patch_info"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_patch_info" class="py-name" href="#" onclick="return doclink('link-37', '_populate_solaris_patch_info', 'link-37');">_populate_solaris_patch_info</a></tt><tt class="py-op">(</tt><tt id="link-38" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-38', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">group</tt> <tt class="py-op">==</tt> <tt class="py-string">'Patch Clusters'</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_patch_set_info()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_patch_set_info"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_patch_set_info" class="py-name" href="#" onclick="return doclink('link-39', '_populate_solaris_patch_set_info', 'link-39');">_populate_solaris_patch_set_info</a></tt><tt class="py-op">(</tt><tt id="link-40" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-40', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> <tt class="py-comment"># it's a solaris package</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_package_info()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_package_info"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_package_info" class="py-name" href="#" onclick="return doclink('link-41', '_populate_solaris_package_info', 'link-41');">_populate_solaris_package_info</a></tt><tt class="py-op">(</tt><tt id="link-42" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-42', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populateFiles"></a><div id="mpmBinaryPackage._populateFiles-def"><a name="L114"></a><tt class="py-lineno">114</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populateFiles-toggle" onclick="return toggle('mpmBinaryPackage._populateFiles');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateFiles">_populateFiles</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populateFiles-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populateFiles-expanded"><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">        <tt class="py-name">files</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">f</tt> <tt class="py-keyword">in</tt> <tt id="link-43" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-43', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-44', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'files'</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">            <tt class="py-name">fc</tt> <tt class="py-op">=</tt> <tt id="link-45" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-45', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Class server.importlib.headerSource.rpmFile=server.importlib.headerSource.rpmFile-class.html"><a title="server.importlib.headerSource.rpmFile" class="py-name" href="#" onclick="return doclink('link-46', 'rpmFile', 'link-46');">rpmFile</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">            <tt class="py-name">fc</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-47', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-name">files</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-48', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">fc</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'files'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">files</tt> </tt>
+</div><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populateDependencyInformation"></a><div id="mpmBinaryPackage._populateDependencyInformation-def"><a name="L122"></a><tt class="py-lineno">122</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populateDependencyInformation-toggle" onclick="return toggle('mpmBinaryPackage._populateDependencyInformation');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateDependencyInformation">_populateDependencyInformation</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populateDependencyInformation-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populateDependencyInformation-expanded"><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">mapping</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt>  </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">            <tt class="py-string">'provides'</tt>  <tt class="py-op">:</tt> <tt id="link-49" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-49', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name" targets="Class server.importlib.headerSource.rpmProvides=server.importlib.headerSource.rpmProvides-class.html"><a title="server.importlib.headerSource.rpmProvides" class="py-name" href="#" onclick="return doclink('link-50', 'rpmProvides', 'link-50');">rpmProvides</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">            <tt class="py-string">'requires'</tt>  <tt class="py-op">:</tt> <tt id="link-51" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-51', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Class server.importlib.headerSource.rpmRequires=server.importlib.headerSource.rpmRequires-class.html"><a title="server.importlib.headerSource.rpmRequires" class="py-name" href="#" onclick="return doclink('link-52', 'rpmRequires', 'link-52');">rpmRequires</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">            <tt class="py-string">'conflicts'</tt> <tt class="py-op">:</tt> <tt id="link-53" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-53', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name" targets="Class server.importlib.headerSource.rpmConflicts=server.importlib.headerSource.rpmConflicts-class.html"><a title="server.importlib.headerSource.rpmConflicts" class="py-name" href="#" onclick="return doclink('link-54', 'rpmConflicts', 'link-54');">rpmConflicts</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">            <tt class="py-string">'obsoletes'</tt> <tt class="py-op">:</tt> <tt id="link-55" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-55', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-56" class="py-name" targets="Class server.importlib.headerSource.rpmObsoletes=server.importlib.headerSource.rpmObsoletes-class.html"><a title="server.importlib.headerSource.rpmObsoletes" class="py-name" href="#" onclick="return doclink('link-56', 'rpmObsoletes', 'link-56');">rpmObsoletes</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-57" class="py-name" targets="Variable server.repomd.repository.k=server.repomd.repository-module.html#k"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-57', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">dclass</tt> <tt class="py-keyword">in</tt> <tt class="py-name">mapping</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method common.UserDictCase'.UserDictCase.items()=common.UserDictCase%27.UserDictCase-class.html#items,Method common.rhnConfig.RHNOptions.items()=common.rhnConfig.RHNOptions-class.html#items,Method rhn.UserDictCase.UserDictCase.items()=rhn.UserDictCase.UserDictCase-class.html#items"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-58', 'items', 'link-58');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">dinfo</tt> <tt class="py-keyword">in</tt> <tt id="link-59" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-59', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-60', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt id="link-61" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-61', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">                <tt class="py-name">finst</tt> <tt class="py-op">=</tt> <tt class="py-name">dclass</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">                <tt class="py-name">finst</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-62', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">dinfo</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">                <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-63', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">finst</tt><tt class="py-op">)</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">[</tt><tt id="link-64" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-64', 'k', 'link-57');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">l</tt> </tt>
+</div><a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populateChangeLog"></a><div id="mpmBinaryPackage._populateChangeLog-def"><a name="L137"></a><tt class="py-lineno">137</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populateChangeLog-toggle" onclick="return toggle('mpmBinaryPackage._populateChangeLog');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populateChangeLog">_populateChangeLog</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populateChangeLog-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populateChangeLog-expanded"><a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">l</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">cinfo</tt> <tt class="py-keyword">in</tt> <tt id="link-65" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-65', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-66" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-66', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'changelog'</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">            <tt class="py-name">cinst</tt> <tt class="py-op">=</tt> <tt id="link-67" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-67', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-68" class="py-name" targets="Class server.importlib.headerSource.rpmChangeLog=server.importlib.headerSource.rpmChangeLog-class.html"><a title="server.importlib.headerSource.rpmChangeLog" class="py-name" href="#" onclick="return doclink('link-68', 'rpmChangeLog', 'link-68');">rpmChangeLog</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-name">cinst</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-69', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt class="py-name">cinfo</tt><tt class="py-op">)</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">            <tt class="py-name">l</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-70', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">cinst</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'changelog'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">l</tt> </tt>
+</div><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populate_solaris_package_info"></a><div id="mpmBinaryPackage._populate_solaris_package_info-def"><a name="L145"></a><tt class="py-lineno">145</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populate_solaris_package_info-toggle" onclick="return toggle('mpmBinaryPackage._populate_solaris_package_info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_package_info">_populate_solaris_package_info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populate_solaris_package_info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populate_solaris_package_info-expanded"><a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-name">mapping</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">            <tt class="py-string">'solaris_package'</tt><tt class="py-op">:</tt> <tt id="link-71" class="py-name" targets="Class server.importlib.mpmSource.mpmSolarisPackageInfo=server.importlib.mpmSource.mpmSolarisPackageInfo-class.html"><a title="server.importlib.mpmSource.mpmSolarisPackageInfo" class="py-name" href="#" onclick="return doclink('link-71', 'mpmSolarisPackageInfo', 'link-71');">mpmSolarisPackageInfo</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-72" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-72', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">mapping</tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-73', 'items', 'link-58');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-74" class="py-name" targets="Method server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_tag()=server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_tag"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_tag" class="py-name" href="#" onclick="return doclink('link-74', '_populate_solaris_tag', 'link-74');">_populate_solaris_tag</a></tt><tt class="py-op">(</tt><tt id="link-75" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-75', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt><tt class="py-op">,</tt> <tt id="link-76" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-76', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populate_solaris_patch_info"></a><div id="mpmBinaryPackage._populate_solaris_patch_info-def"><a name="L152"></a><tt class="py-lineno">152</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populate_solaris_patch_info-toggle" onclick="return toggle('mpmBinaryPackage._populate_solaris_patch_info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_patch_info">_populate_solaris_patch_info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populate_solaris_patch_info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populate_solaris_patch_info-expanded"><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-name">mapping</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">            <tt class="py-string">'solaris_patch'</tt> <tt class="py-op">:</tt> <tt id="link-77" class="py-name" targets="Class server.importlib.mpmSource.mpmSolarisPatchInfo=server.importlib.mpmSource.mpmSolarisPatchInfo-class.html"><a title="server.importlib.mpmSource.mpmSolarisPatchInfo" class="py-name" href="#" onclick="return doclink('link-77', 'mpmSolarisPatchInfo', 'link-77');">mpmSolarisPatchInfo</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-78" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-78', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">mapping</tt><tt class="py-op">.</tt><tt id="link-79" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-79', 'items', 'link-58');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-80" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_tag" class="py-name" href="#" onclick="return doclink('link-80', '_populate_solaris_tag', 'link-74');">_populate_solaris_tag</a></tt><tt class="py-op">(</tt><tt id="link-81" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-81', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt><tt class="py-op">,</tt> <tt id="link-82" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-82', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">        <tt class="py-name">list_</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">pkg</tt> <tt class="py-keyword">in</tt> <tt id="link-83" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-83', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-84" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-84', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'packages'</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">            <tt class="py-comment"># mpmSolarisPatchPackagesInfo contains only info from the db, so </tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">            <tt class="py-comment"># I'll store tuples so that the info from the db can be retrieved</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">            <tt class="py-name">list_</tt><tt class="py-op">.</tt><tt id="link-85" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-85', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">pkg</tt><tt class="py-op">,</tt> <tt id="link-86" class="py-name" targets="Class server.importlib.mpmSource.mpmSolarisPatchPackagesInfo=server.importlib.mpmSource.mpmSolarisPatchPackagesInfo-class.html"><a title="server.importlib.mpmSource.mpmSolarisPatchPackagesInfo" class="py-name" href="#" onclick="return doclink('link-86', 'mpmSolarisPatchPackagesInfo', 'link-86');">mpmSolarisPatchPackagesInfo</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'solaris_patch_packages'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">list_</tt> </tt>
+</div><a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populate_solaris_patch_set_info"></a><div id="mpmBinaryPackage._populate_solaris_patch_set_info-def"><a name="L168"></a><tt class="py-lineno">168</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populate_solaris_patch_set_info-toggle" onclick="return toggle('mpmBinaryPackage._populate_solaris_patch_set_info');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_patch_set_info">_populate_solaris_patch_set_info</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populate_solaris_patch_set_info-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populate_solaris_patch_set_info-expanded"><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">        <tt class="py-name">mapping</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">            <tt class="py-string">'solaris_patch_set'</tt> <tt class="py-op">:</tt> <tt id="link-87" class="py-name" targets="Class server.importlib.mpmSource.mpmSolarisPatchSetInfo=server.importlib.mpmSource.mpmSolarisPatchSetInfo-class.html"><a title="server.importlib.mpmSource.mpmSolarisPatchSetInfo" class="py-name" href="#" onclick="return doclink('link-87', 'mpmSolarisPatchSetInfo', 'link-87');">mpmSolarisPatchSetInfo</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-88" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-88', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">mapping</tt><tt class="py-op">.</tt><tt id="link-89" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-89', 'items', 'link-58');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-90" class="py-name"><a title="server.importlib.mpmSource.mpmBinaryPackage._populate_solaris_tag" class="py-name" href="#" onclick="return doclink('link-90', '_populate_solaris_tag', 'link-74');">_populate_solaris_tag</a></tt><tt class="py-op">(</tt><tt id="link-91" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-91', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt><tt class="py-op">,</tt> <tt id="link-92" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-92', 'header', 'link-27');">header</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">             </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-name">list_</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-name">patch_list</tt> <tt class="py-op">=</tt> <tt id="link-93" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-93', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-94" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-94', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-string">'patches'</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">patch</tt> <tt class="py-keyword">in</tt> <tt class="py-name">patch_list</tt><tt class="py-op">:</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">            <tt class="py-name">member</tt> <tt class="py-op">=</tt> <tt id="link-95" class="py-name" targets="Class server.importlib.mpmSource.mpmSolarisPatchSetMember=server.importlib.mpmSource.mpmSolarisPatchSetMember-class.html"><a title="server.importlib.mpmSource.mpmSolarisPatchSetMember" class="py-name" href="#" onclick="return doclink('link-95', 'mpmSolarisPatchSetMember', 'link-95');">mpmSolarisPatchSetMember</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">            <tt class="py-name">member</tt><tt class="py-op">[</tt><tt class="py-string">'patch_order'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">patch</tt><tt class="py-op">[</tt><tt class="py-string">'patch_order'</tt><tt class="py-op">]</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">            <tt class="py-name">list_</tt><tt class="py-op">.</tt><tt id="link-96" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-96', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">patch</tt><tt class="py-op">,</tt> <tt class="py-name">member</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">             </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-string">'solaris_patch_set_members'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">list_</tt> </tt>
+</div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt>
+<a name="mpmBinaryPackage._populate_solaris_tag"></a><div id="mpmBinaryPackage._populate_solaris_tag-def"><a name="L186"></a><tt class="py-lineno">186</tt> <a class="py-toggle" href="#" id="mpmBinaryPackage._populate_solaris_tag-toggle" onclick="return toggle('mpmBinaryPackage._populate_solaris_tag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource.mpmBinaryPackage-class.html#_populate_solaris_tag">_populate_solaris_tag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">,</tt> <tt class="py-param">Class</tt><tt class="py-op">,</tt> <tt class="py-param">header</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mpmBinaryPackage._populate_solaris_tag-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="mpmBinaryPackage._populate_solaris_tag-expanded"><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-name">list_</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-97" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-97', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">tag</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt id="link-98" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-98', 'type', 'link-98');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">list_</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-99" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-99', 'type', 'link-98');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">        <tt class="py-name">obj</tt> <tt class="py-op">=</tt> <tt class="py-name">Class</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">        <tt id="link-100" class="py-name" targets="Method common.UserDictCase'.UserDictCase.dict()=common.UserDictCase%27.UserDictCase-class.html#dict,Method rhn.UserDictCase.UserDictCase.dict()=rhn.UserDictCase.UserDictCase-class.html#dict"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-100', 'dict', 'link-100');">dict</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-101" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-101', 'k', 'link-57');">k</a></tt><tt class="py-op">,</tt> <tt class="py-name">v</tt> <tt class="py-keyword">in</tt> <tt class="py-name">obj</tt><tt class="py-op">.</tt><tt id="link-102" class="py-name"><a title="satellite_tools.xmlSource.BaseItem.tagMap
+satellite_tools.xmlSource.BlacklistObsoleteItem.tagMap
+satellite_tools.xmlSource.BugItem.tagMap
+satellite_tools.xmlSource.ChangelogItem.tagMap
+satellite_tools.xmlSource.ChannelErratumItem.tagMap
+satellite_tools.xmlSource.ChannelFamilyItem.tagMap
+satellite_tools.xmlSource.ChannelItem.tagMap
+satellite_tools.xmlSource.ConflictsItem.tagMap
+satellite_tools.xmlSource.DistItem.tagMap
+satellite_tools.xmlSource.ErrataFileItem.tagMap
+satellite_tools.xmlSource.ErratumItem.tagMap
+satellite_tools.xmlSource.ErrorItem.tagMap
+satellite_tools.xmlSource.FileItem.tagMap
+satellite_tools.xmlSource.IncompletePackageItem.tagMap
+satellite_tools.xmlSource.IncompleteSourcePackageItem.tagMap
+satellite_tools.xmlSource.KeywordItem.tagMap
+satellite_tools.xmlSource.KickstartFileItem.tagMap
+satellite_tools.xmlSource.KickstartableTreeItem.tagMap
+satellite_tools.xmlSource.ObsoletesItem.tagMap
+satellite_tools.xmlSource.PackageItem.tagMap
+satellite_tools.xmlSource.ProductNamesItem.tagMap
+satellite_tools.xmlSource.ProvidesItem.tagMap
+satellite_tools.xmlSource.ReleaseItem.tagMap
+satellite_tools.xmlSource.RequiresItem.tagMap
+satellite_tools.xmlSource.SourcePackageItem.tagMap
+server.importlib.headerSource.rpmBinaryPackage.tagMap
+server.importlib.headerSource.rpmChangeLog.tagMap
+server.importlib.headerSource.rpmConflicts.tagMap
+server.importlib.headerSource.rpmFile.tagMap
+server.importlib.headerSource.rpmObsoletes.tagMap
+server.importlib.headerSource.rpmPackage.tagMap
+server.importlib.headerSource.rpmProvides.tagMap
+server.importlib.headerSource.rpmRequires.tagMap
+server.importlib.headerSource.rpmSourcePackage.tagMap
+server.importlib.mpmSource.mpmBinaryPackage.tagMap
+server.importlib.mpmSource.mpmSolarisPackageInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchPackagesInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetInfo.tagMap
+server.importlib.mpmSource.mpmSolarisPatchSetMember.tagMap" class="py-name" href="#" onclick="return doclink('link-102', 'tagMap', 'link-7');">tagMap</a></tt><tt class="py-op">.</tt><tt id="link-103" class="py-name"><a title="common.UserDictCase'.UserDictCase.items
+common.rhnConfig.RHNOptions.items
+rhn.UserDictCase.UserDictCase.items" class="py-name" href="#" onclick="return doclink('link-103', 'items', 'link-58');">items</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">            <tt id="link-104" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-104', 'dict', 'link-100');">dict</a></tt><tt class="py-op">[</tt><tt id="link-105" class="py-name"><a title="server.repomd.repository.k" class="py-name" href="#" onclick="return doclink('link-105', 'k', 'link-57');">k</a></tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-106" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-106', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt id="link-107" class="py-name"><a title="common.rhnCache.Cache.get
+common.rhnCache.CompressedCache.get
+common.rhnCache.NullCache.get
+common.rhnCache.ObjectCache.get
+common.rhnCache.get
+common.rhnConfig.RHNOptions.get
+common.rhnFlags.get
+server.action_extra_data.up2date_config.get
+server.handlers.xmlrpc.queue.Queue.get
+server.handlers.xmlrpc.up2date.Servers.get
+server.rhnDatabaseCache.get
+server.rhnSQL.sql_row.Row.get
+server.rhnSQL.sql_table.Table.get
+server.rhnServer.get" class="py-name" href="#" onclick="return doclink('link-107', 'get', 'link-31');">get</a></tt><tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">        <tt class="py-name">obj</tt><tt class="py-op">.</tt><tt id="link-108" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-108', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt id="link-109" class="py-name"><a title="common.UserDictCase'.UserDictCase.dict
+rhn.UserDictCase.UserDictCase.dict" class="py-name" href="#" onclick="return doclink('link-109', 'dict', 'link-100');">dict</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">        <tt class="py-name">list_</tt><tt class="py-op">.</tt><tt id="link-110" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-110', 'append', 'link-48');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">obj</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">list_</tt> </tt>
+</div></div><a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt class="py-comment"># top-level package object creation --------------------------------------</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"> </tt>
+<a name="create_package"></a><div id="create_package-def"><a name="L205"></a><tt class="py-lineno">205</tt> <a class="py-toggle" href="#" id="create_package-toggle" onclick="return toggle('create_package');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.importlib.mpmSource-module.html#create_package">create_package</a><tt class="py-op">(</tt><tt class="py-param">header</tt><tt class="py-op">,</tt> <tt class="py-param">size</tt><tt class="py-op">,</tt> <tt class="py-param">checksum_type</tt><tt class="py-op">,</tt> <tt class="py-param">checksum</tt><tt class="py-op">,</tt> <tt class="py-param">relpath</tt><tt class="py-op">,</tt> <tt class="py-param">org_id</tt><tt class="py-op">,</tt> <tt class="py-param">header_start</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">    <tt class="py-param">header_end</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">channels</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="create_package-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="create_package-expanded"><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-111" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-111', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">packaging</tt> <tt class="py-op">==</tt> <tt class="py-string">'rpm'</tt><tt class="py-op">:</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-112" class="py-name"><a title="server.importlib.headerSource" class="py-name" href="#" onclick="return doclink('link-112', 'headerSource', 'link-0');">headerSource</a></tt><tt class="py-op">.</tt><tt id="link-113" class="py-name" targets="Function server.importlib.headerSource.createPackage()=server.importlib.headerSource-module.html#createPackage"><a title="server.importlib.headerSource.createPackage" class="py-name" href="#" onclick="return doclink('link-113', 'createPackage', 'link-113');">createPackage</a></tt><tt class="py-op">(</tt><tt id="link-114" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-114', 'header', 'link-27');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-name">size</tt><tt class="py-op">,</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">            <tt id="link-115" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-115', 'checksum_type', 'link-28');">checksum_type</a></tt><tt class="py-op">=</tt><tt id="link-116" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-116', 'checksum_type', 'link-28');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-117" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-117', 'checksum', 'link-29');">checksum</a></tt><tt class="py-op">=</tt><tt id="link-118" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-118', 'checksum', 'link-29');">checksum</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">            <tt class="py-name">relpath</tt><tt class="py-op">=</tt><tt class="py-name">relpath</tt><tt class="py-op">,</tt> <tt class="py-name">org_id</tt><tt class="py-op">=</tt><tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt class="py-name">header_start</tt><tt class="py-op">=</tt><tt class="py-name">header_start</tt><tt class="py-op">,</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">            <tt class="py-name">header_end</tt><tt class="py-op">=</tt><tt class="py-name">header_end</tt><tt class="py-op">,</tt> <tt id="link-119" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-119', 'channels', 'link-30');">channels</a></tt><tt class="py-op">=</tt><tt id="link-120" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-120', 'channels', 'link-30');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-121" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-121', 'header', 'link-27');">header</a></tt><tt class="py-op">.</tt><tt class="py-name">is_source</tt><tt class="py-op">:</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">NotImplementedError</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">    <tt class="py-name">p</tt> <tt class="py-op">=</tt> <tt id="link-122" class="py-name" targets="Class server.importlib.mpmSource.mpmBinaryPackage=server.importlib.mpmSource.mpmBinaryPackage-class.html"><a title="server.importlib.mpmSource.mpmBinaryPackage" class="py-name" href="#" onclick="return doclink('link-122', 'mpmBinaryPackage', 'link-122');">mpmBinaryPackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">    <tt class="py-name">p</tt><tt class="py-op">.</tt><tt id="link-123" class="py-name"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-123', 'populate', 'link-26');">populate</a></tt><tt class="py-op">(</tt><tt id="link-124" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.header" class="py-name" href="#" onclick="return doclink('link-124', 'header', 'link-27');">header</a></tt><tt class="py-op">,</tt> <tt class="py-name">size</tt><tt class="py-op">=</tt><tt class="py-name">size</tt><tt class="py-op">,</tt> <tt id="link-125" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-125', 'checksum_type', 'link-28');">checksum_type</a></tt><tt class="py-op">=</tt><tt id="link-126" class="py-name"><a title="spacewalk.common.rhn_rpm.RPM_Header.checksum_type" class="py-name" href="#" onclick="return doclink('link-126', 'checksum_type', 'link-28');">checksum_type</a></tt><tt class="py-op">,</tt> <tt id="link-127" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-127', 'checksum', 'link-29');">checksum</a></tt><tt class="py-op">=</tt><tt id="link-128" class="py-name"><a title="spacewalk.common.checksum" class="py-name" href="#" onclick="return doclink('link-128', 'checksum', 'link-29');">checksum</a></tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">=</tt><tt class="py-name">relpath</tt><tt class="py-op">,</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-name">org_id</tt><tt class="py-op">=</tt><tt class="py-name">org_id</tt><tt class="py-op">,</tt> <tt id="link-129" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-129', 'channels', 'link-30');">channels</a></tt><tt class="py-op">=</tt><tt id="link-130" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.NonAuthenticatedDumper.channels" class="py-name" href="#" onclick="return doclink('link-130', 'channels', 'link-30');">channels</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">p</tt> </tt>
+</div><a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

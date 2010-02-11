@@ -55,7 +55,20 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class apacheHandler</h1><p class="nomargin-top"><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler">source&nbsp;code</a></span></p>
 <center>
-
+<center>  <map id="uml_class_diagram_for_server_a_7" name="uml_class_diagram_for_server_a_7">
+<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#getlang" title="And another lang function to produce the list of languages we&#39;re handling" alt="" coords="17,36,209,55"/>
+<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#logHandler" title="A dummy log function" alt="" coords="17,55,209,73"/>
+<area shape="rect" href="common.rhnApache%27.rhnApache-class.html#setlang" title="An entry point for setting the language for the current sesstion" alt="" coords="17,73,209,92"/>
+<area shape="rect" href="common.rhnApache%27.rhnApache-class.html" title="Shared rhnApache class: rhnApache classes in proxy and server inherit this class." alt="" coords="16,11,211,93"/>
+<area shape="rect" href="server.apacheHandler.apacheSession-class.html" title="a class that extends rhnApache with several support functions used by the main handler class." alt="" coords="64,123,163,155"/>
+<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#__init__" title="server.apacheHandler.apacheHandler.__init__" alt="" coords="17,209,209,228"/>
+<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#headerParserHandler" title="parse the request, init database and figure out what can we call" alt="" coords="17,228,209,247"/>
+<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#handler" title="main Apache handler" alt="" coords="17,247,209,265"/>
+<area shape="rect" href="server.apacheHandler.apacheHandler-class.html#cleanupHandler" title="Clean up stuff before we close down the session when we are called from &#160;apacheServer.Cleanup()" alt="" coords="17,265,209,284"/>
+<area shape="rect" href="server.apacheHandler.apacheHandler-class.html" title="main Apache XMLRPC point of entry for the server" alt="" coords="16,184,211,285"/>
+</map>
+  <img src="uml_class_diagram_for_server_a_7.png" alt='' usemap="#uml_class_diagram_for_server_a_7" ismap="ismap" class="graph-without-title" />
+</center>
 </center>
 <hr />
 <p>main Apache XMLRPC point of entry for the server</p>
@@ -83,7 +96,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.__init__">source&nbsp;code</a></span>
             
@@ -99,7 +112,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="headerParserHandler"></a><span class="summary-sig-name">headerParserHandler</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#headerParserHandler" class="summary-sig-name">headerParserHandler</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
       parse the request, init database and figure out what can we call</td>
           <td align="right" valign="top">
@@ -117,7 +130,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_init_request_processor"></a><span class="summary-sig-name">_init_request_processor</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#_init_request_processor" class="summary-sig-name" onclick="show_private();">_init_request_processor</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._init_request_processor">source&nbsp;code</a></span>
@@ -134,7 +147,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="_cleanup_request_processor"></a><span class="summary-sig-name">_cleanup_request_processor</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#_cleanup_request_processor" class="summary-sig-name" onclick="show_private();">_cleanup_request_processor</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Clean up the request processor</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._cleanup_request_processor">source&nbsp;code</a></span>
@@ -151,7 +164,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="handler"></a><span class="summary-sig-name">handler</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#handler" class="summary-sig-name">handler</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
       main Apache handler</td>
           <td align="right" valign="top">
@@ -169,7 +182,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="cleanupHandler"></a><span class="summary-sig-name">cleanupHandler</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="server.apacheHandler.apacheHandler-class.html#cleanupHandler" class="summary-sig-name">cleanupHandler</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">req</span>)</span><br />
       Clean up stuff before we close down the session when we are called 
       from apacheServer.Cleanup()</td>
@@ -180,6 +193,22 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.rhnApache%27.rhnApache-class.html">common.rhnApache'.rhnApache</a></code></b>:
+      <code><a href="common.rhnApache%27.rhnApache-class.html#getlang">getlang</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#logHandler">logHandler</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#setlang">setlang</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.rhnApache%27.rhnApache-class.html">common.rhnApache'.rhnApache</a></code></b> (private):
+      <code><a href="common.rhnApache%27.rhnApache-class.html#_setSessionToken" onclick="show_private();">_setSessionToken</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_client_info" onclick="show_private();">_set_client_info</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_lang" onclick="show_private();">_set_lang</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_other" onclick="show_private();">_set_other</a></code>,
+      <code><a href="common.rhnApache%27.rhnApache-class.html#_set_proxy_info" onclick="show_private();">_set_proxy_info</a></code>
+      </p></div>
     </td>
   </tr>
 </table>
@@ -208,6 +237,163 @@
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#__init__">common.rhnApache'.rhnApache.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="headerParserHandler"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">headerParserHandler</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">req</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.headerParserHandler">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>parse the request, init database and figure out what can we call</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#headerParserHandler">common.rhnApache'.rhnApache.headerParserHandler</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_init_request_processor"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_init_request_processor</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">req</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._init_request_processor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#_init_request_processor" onclick="show_private();">common.rhnApache'.rhnApache._init_request_processor</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_cleanup_request_processor"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_cleanup_request_processor</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler._cleanup_request_processor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clean up the request processor</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#_cleanup_request_processor" onclick="show_private();">common.rhnApache'.rhnApache._cleanup_request_processor</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="handler"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">handler</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">req</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.handler">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>main Apache handler</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#handler">common.rhnApache'.rhnApache.handler</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cleanupHandler"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cleanupHandler</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">req</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="server.apacheHandler-pysrc.html#apacheHandler.cleanupHandler">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Clean up stuff before we close down the session when we are called 
+  from apacheServer.Cleanup()</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="common.rhnApache%27.rhnApache-class.html#cleanupHandler">common.rhnApache'.rhnApache.cleanupHandler</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -231,7 +417,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 29 16:34:14 2009
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:36:43 2010
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

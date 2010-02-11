@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,7 +19,6 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
@@ -111,12 +110,10 @@ public class ChannelPackagesRemoveAction extends RhnAction {
 
 
     private void removePackages(User user, Channel chan, RhnSet set) {
-        for (Long id : set.getElementValues()) {
-            chan.removePackage(PackageFactory.lookupByIdAndUser(id, user), user);
-        }
-        List<Long> packList = new ArrayList<Long>();
-        packList.addAll(set.getElementValues());
-        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), packList);
+        List<Long> ids = new ArrayList<Long>();
+        ids.addAll(set.getElementValues());
+        ChannelManager.removePackages(chan, ids, user);
+        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), ids);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_remove");
     }
 

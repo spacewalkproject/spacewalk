@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        5.4.7
+Version:        5.4.10
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -34,7 +34,7 @@ package.
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
-Requires: rhn-virtualization-common
+Requires: rhn-virtualization-common = %{version}-%{release}
 Requires: /usr/sbin/crond
 
 %description host
@@ -140,6 +140,23 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.10-1
+- updated copyrights
+
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.9-1
+- 548812 - include host info in the virt. guests refresh (mzazrivec@redhat.com)
+- Methods __addElementValue and __addElementAttribute do not seem to be used anywhere, removing. (jpazdziora@redhat.com)
+- 548812 - proper support for VDSM in rhn-virtualization (mzazrivec@redhat.com)
+
+* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.8-1
+- 552271 - -host needs to require specific version of -common package
+- 546676 - blocking and nostate are always just running
+- 543980 - remove rhn-virtualization-guest script from Makefile
+- 543980 - get rid of rhn-virtualization-guest package
+- 543980 - remove scripts/rhn-virtualization-guest script
+- 543980 - remove report_uuid.py
+- 533283 - don't restart crond if it wasn't running before
+
 * Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 5.4.7-1
 - 529688 - correctly detect Xen host
 - 530583 - detect an installing config also with ks= parameter

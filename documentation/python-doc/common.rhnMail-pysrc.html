@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>common.rhnMail</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="common-module.html">Package&nbsp;common</a> ::
+        Module&nbsp;rhnMail
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="common.rhnMail-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="common.rhnMail-module.html" onclick="show_private();">Module common.rhnMail</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment"># this module implements the send mail support</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">string</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module common.rhnConfig=common.rhnConfig-module.html"><a title="common.rhnConfig" class="py-name" href="#" onclick="return doclink('link-0', 'rhnConfig', 'link-0');">rhnConfig</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Variable common.rhnConfig.CFG=common.rhnConfig-module.html#CFG,Variable server.rhnHandler'.CFG=server.rhnHandler%27-module.html#CFG"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-1', 'CFG', 'link-1');">CFG</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module common.rhnLog=common.rhnLog-module.html,Class common.rhnLog.rhnLog=common.rhnLog.rhnLog-class.html"><a title="common.rhnLog
+common.rhnLog.rhnLog" class="py-name" href="#" onclick="return doclink('link-2', 'rhnLog', 'link-2');">rhnLog</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Function _apache.log_error()=_apache-module.html#log_error,Function common.rhnLog.log_error()=common.rhnLog-module.html#log_error,Function satellite_tools.satComputePkgHeaders.log_error()=satellite_tools.satComputePkgHeaders-module.html#log_error"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-3', 'log_error', 'link-3');">log_error</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-comment"># check if the headers have the minimum required fields</tt> </tt>
+<a name="__check_headers"></a><div id="__check_headers-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="__check_headers-toggle" onclick="return toggle('__check_headers');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnMail-module.html#__check_headers">__check_headers</a><tt class="py-op">(</tt><tt class="py-param">h</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="__check_headers-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="__check_headers-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-4" class="py-name" targets="Variable satellite_tools.reposync.RepoSync.type=satellite_tools.reposync.RepoSync-class.html#type"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-4', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt id="link-5" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-5', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-keyword">not</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">,</tt> <tt class="py-string">"has_key"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-comment"># does not look like a dictionary</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method common.UserDictCase'.UserDictCase.has_key()=common.UserDictCase%27.UserDictCase-class.html#has_key,Method common.rhnCache.Cache.has_key()=common.rhnCache.Cache-class.html#has_key,Method common.rhnCache.CompressedCache.has_key()=common.rhnCache.CompressedCache-class.html#has_key,Method common.rhnCache.NullCache.has_key()=common.rhnCache.NullCache-class.html#has_key,Method common.rhnCache.ObjectCache.has_key()=common.rhnCache.ObjectCache-class.html#has_key,Function common.rhnCache.has_key()=common.rhnCache-module.html#has_key,Method common.rhnConfig.RHNOptions.has_key()=common.rhnConfig.RHNOptions-class.html#has_key,Method proxy.rhnProxyAuth.AuthLocalBackend.has_key()=proxy.rhnProxyAuth.AuthLocalBackend-class.html#has_key,Method rhn.UserDictCase.UserDictCase.has_key()=rhn.UserDictCase.UserDictCase-class.html#has_key,Method satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key()=satellite_tools.xmlDiskSource.ShortPackageDiskSource-class.html#has_key,Function server.rhnDatabaseCache.has_key()=server.rhnDatabaseCache-module.html#has_key,Method server.rhnSQL.sql_table.Table.has_key()=server.rhnSQL.sql_table.Table-class.html#has_key"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-6', 'has_key', 'link-6');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"Subject"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-string">"Subject"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">"RHN System Mail From %s"</tt> <tt class="py-op">%</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">uname</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="common.UserDictCase'.UserDictCase.has_key
+common.rhnCache.Cache.has_key
+common.rhnCache.CompressedCache.has_key
+common.rhnCache.NullCache.has_key
+common.rhnCache.ObjectCache.has_key
+common.rhnCache.has_key
+common.rhnConfig.RHNOptions.has_key
+proxy.rhnProxyAuth.AuthLocalBackend.has_key
+rhn.UserDictCase.UserDictCase.has_key
+satellite_tools.xmlDiskSource.ShortPackageDiskSource.has_key
+server.rhnDatabaseCache.has_key
+server.rhnSQL.sql_table.Table.has_key" class="py-name" href="#" onclick="return doclink('link-7', 'has_key', 'link-6');">has_key</a></tt><tt class="py-op">(</tt><tt class="py-string">"To"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="common.rhnConfig.CFG
+server.rhnHandler'.CFG" class="py-name" href="#" onclick="return doclink('link-8', 'CFG', 'link-1');">CFG</a></tt><tt class="py-op">.</tt><tt class="py-name">TRACEBACK_MAIL</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-string">"To"</tt><tt class="py-op">]</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-9" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-9', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-name">to</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt id="link-10" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-10', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name"><a title="satellite_tools.reposync.RepoSync.type" class="py-name" href="#" onclick="return doclink('link-11', 'type', 'link-4');">type</a></tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">to</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">to</tt><tt class="py-op">,</tt> <tt class="py-string">', '</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">[</tt><tt class="py-string">"To"</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">to</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">h</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-comment"># check the headers for sanity cases and send the mail</tt> </tt>
+<a name="send"></a><div id="send-def"><a name="L42"></a><tt class="py-lineno">42</tt> <a class="py-toggle" href="#" id="send-toggle" onclick="return toggle('send');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="common.rhnMail-module.html#send">send</a><tt class="py-op">(</tt><tt class="py-param">headers</tt><tt class="py-op">,</tt> <tt class="py-param">body</tt><tt class="py-op">,</tt> <tt class="py-param">sender</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">lazy</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="send-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="send-expanded"><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-name">headers</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name" targets="Function common.rhnMail.__check_headers()=common.rhnMail-module.html#__check_headers"><a title="common.rhnMail.__check_headers" class="py-name" href="#" onclick="return doclink('link-12', '__check_headers', 'link-12');">__check_headers</a></tt><tt class="py-op">(</tt><tt class="py-name">headers</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-name">sendmail</tt> <tt class="py-op">=</tt> <tt class="py-string">"/usr/sbin/sendmail"</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-name">cmds</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"sendmail"</tt><tt class="py-op">,</tt> <tt class="py-string">"-oi"</tt><tt class="py-op">,</tt> <tt class="py-string">"-t"</tt><tt class="py-op">]</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">sender</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt class="py-name">cmds</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-13', 'append', 'link-13');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"-f%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">sender</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">lazy</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-name">cmds</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-14', 'append', 'link-13');">append</a></tt><tt class="py-op">(</tt><tt class="py-string">"-ODeliveryMode=q"</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">         </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt id="link-15" class="py-name" targets="Method rhn.SSL.SSLSocket.read()=rhn.SSL.SSLSocket-class.html#read,Method rhn.connections.HTTPResponse.read()=rhn.connections.HTTPResponse-class.html#read,Method rhn.nonblocking.NonBlockingFile.read()=rhn.nonblocking.NonBlockingFile-class.html#read,Method rhn.transports.File.read()=rhn.transports.File-class.html#read,Method rhn.transports.Input.read()=rhn.transports.Input-class.html#read,Method server.wsgi.wsgiRequest.WsgiRequest.read()=server.wsgi.wsgiRequest.WsgiRequest-class.html#read"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-15', 'read', 'link-15');">read</a></tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name" targets="Method pygettext.TokenEater.write()=pygettext.TokenEater-class.html#write,Method rhn.SSL.SSLSocket.write()=rhn.SSL.SSLSocket-class.html#write,Method rhn.SmartIO.SmartIO.write()=rhn.SmartIO.SmartIO-class.html#write,Method rhn.nonblocking.NonBlockingFile.write()=rhn.nonblocking.NonBlockingFile-class.html#write,Method satellite_tools.disk_dumper.dumper.TeeStream.write()=satellite_tools.disk_dumper.dumper.TeeStream-class.html#write,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.write()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#write,Method server.handlers.app.rhn_mpm.MPM_Package.write()=server.handlers.app.rhn_mpm.MPM_Package-class.html#write,Method server.wsgi.wsgiRequest.WsgiRequest.write()=server.wsgi.wsgiRequest.WsgiRequest-class.html#write,Method spacewalk.common.rhn_mpm.MPM_Package.write()=spacewalk.common.rhn_mpm.MPM_Package-class.html#write"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-16', 'write', 'link-16');">write</a></tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">pipe</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-name">childpid</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">childpid</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> <tt class="py-comment"># fork failed</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt id="link-17" class="py-name"><a title="_apache.log_error
+common.rhnLog.log_error
+satellite_tools.satComputePkgHeaders.log_error" class="py-name" href="#" onclick="return doclink('link-17', 'log_error', 'link-3');">log_error</a></tt><tt class="py-op">(</tt><tt class="py-string">"ERROR: fork of sendmail process failed.\nAlert being sent:\n%s"</tt> <tt class="py-op">%</tt> <tt class="py-name">body</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">childpid</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-comment"># in the child</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">dup2</tt><tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-18', 'read', 'link-15');">read</a></tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method common.rhnCache.ClosingZipFile.close()=common.rhnCache.ClosingZipFile-class.html#close,Method common.rhnCache.LockedFile.close()=common.rhnCache.LockedFile-class.html#close,Method proxy.responseContext.ResponseContext.close()=proxy.responseContext.ResponseContext-class.html#close,Method rhn.SSL.SSLSocket.close()=rhn.SSL.SSLSocket-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.rpclib.Server.close()=rhn.rpclib.Server-class.html#close,Method rhn.transports.BaseOutput.close()=rhn.transports.BaseOutput-class.html#close,Method satellite_tools.connection.CompressedStream.close()=satellite_tools.connection.CompressedStream-class.html#close,Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.close()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#close,Method satellite_tools.disk_dumper.dumper.XML_DumperEx.close()=satellite_tools.disk_dumper.dumper.XML_DumperEx-class.html#close,Method satellite_tools.disk_dumper.iss.Dumper.close()=satellite_tools.disk_dumper.iss.Dumper-class.html#close,Method satellite_tools.disk_dumper.string_buffer.StringBuffer.close()=satellite_tools.disk_dumper.string_buffer.StringBuffer-class.html#close,Method satellite_tools.sync_handlers.ContainerHandler.close()=satellite_tools.sync_handlers.ContainerHandler-class.html#close,Method satellite_tools.xmlSource.BaseDispatchHandler.close()=satellite_tools.xmlSource.BaseDispatchHandler-class.html#close,Method server.rhnSQL.driver_cx_Oracle.Database.close()=server.rhnSQL.driver_cx_Oracle.Database-class.html#close,Method server.rhnSQL.sql_base.Database.close()=server.rhnSQL.sql_base.Database-class.html#close"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-19', 'close', 'link-19');">close</a></tt><tt class="py-op">(</tt><tt id="link-20" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-20', 'write', 'link-16');">write</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">execv</tt><tt class="py-op">(</tt><tt class="py-name">sendmail</tt><tt class="py-op">,</tt> <tt class="py-name">cmds</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-comment"># not reached</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">    <tt class="py-comment"># main process</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-21', 'close', 'link-19');">close</a></tt><tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="rhn.SSL.SSLSocket.read
+rhn.connections.HTTPResponse.read
+rhn.nonblocking.NonBlockingFile.read
+rhn.transports.File.read
+rhn.transports.Input.read
+server.wsgi.wsgiRequest.WsgiRequest.read" class="py-name" href="#" onclick="return doclink('link-22', 'read', 'link-15');">read</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-comment"># Now write the message out</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">    <tt id="link-23" class="py-name" targets="Method common.UserDictCase'.UserDictCase.keys()=common.UserDictCase%27.UserDictCase-class.html#keys,Method common.rhnConfig.RHNOptions.keys()=common.rhnConfig.RHNOptions-class.html#keys,Method rhn.UserDictCase.UserDictCase.keys()=rhn.UserDictCase.UserDictCase-class.html#keys,Method server.rhnSQL.sql_table.Table.keys()=server.rhnSQL.sql_table.Table-class.html#keys"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-23', 'keys', 'link-23');">keys</a></tt> <tt class="py-op">=</tt> <tt class="py-name">headers</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-24', 'keys', 'link-23');">keys</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt id="link-25" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-25', 'keys', 'link-23');">keys</a></tt><tt class="py-op">.</tt><tt class="py-name">sort</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">h</tt> <tt class="py-keyword">in</tt> <tt id="link-26" class="py-name"><a title="common.UserDictCase'.UserDictCase.keys
+common.rhnConfig.RHNOptions.keys
+rhn.UserDictCase.UserDictCase.keys
+server.rhnSQL.sql_table.Table.keys" class="py-name" href="#" onclick="return doclink('link-26', 'keys', 'link-23');">keys</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-27', 'write', 'link-16');">write</a></tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-28', 'write', 'link-16');">write</a></tt><tt class="py-op">,</tt> <tt class="py-string">"%s: %s\n"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">,</tt> <tt class="py-name">headers</tt><tt class="py-op">[</tt><tt class="py-name">h</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">    <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-29', 'write', 'link-16');">write</a></tt><tt class="py-op">(</tt><tt id="link-30" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-30', 'write', 'link-16');">write</a></tt><tt class="py-op">,</tt> <tt class="py-string">"\n%s\n"</tt> <tt class="py-op">%</tt> <tt class="py-name">body</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">    <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="common.rhnCache.ClosingZipFile.close
+common.rhnCache.LockedFile.close
+proxy.responseContext.ResponseContext.close
+rhn.SSL.SSLSocket.close
+rhn.rpclib.Server.close
+rhn.rpclib.Server.close
+rhn.transports.BaseOutput.close
+satellite_tools.connection.CompressedStream.close
+satellite_tools.disk_dumper.dumper.CachedQueryIterator.close
+satellite_tools.disk_dumper.dumper.XML_DumperEx.close
+satellite_tools.disk_dumper.iss.Dumper.close
+satellite_tools.disk_dumper.string_buffer.StringBuffer.close
+satellite_tools.sync_handlers.ContainerHandler.close
+satellite_tools.xmlSource.BaseDispatchHandler.close
+server.rhnSQL.driver_cx_Oracle.Database.close
+server.rhnSQL.sql_base.Database.close" class="py-name" href="#" onclick="return doclink('link-31', 'close', 'link-19');">close</a></tt><tt class="py-op">(</tt><tt id="link-32" class="py-name"><a title="pygettext.TokenEater.write
+rhn.SSL.SSLSocket.write
+rhn.SmartIO.SmartIO.write
+rhn.nonblocking.NonBlockingFile.write
+satellite_tools.disk_dumper.dumper.TeeStream.write
+satellite_tools.disk_dumper.string_buffer.StringBuffer.write
+server.handlers.app.rhn_mpm.MPM_Package.write
+server.wsgi.wsgiRequest.WsgiRequest.write
+spacewalk.common.rhn_mpm.MPM_Package.write" class="py-name" href="#" onclick="return doclink('link-32', 'write', 'link-16');">write</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">    <tt class="py-comment"># clean up</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">    <tt class="py-op">(</tt><tt class="py-name">pid</tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name" targets="Variable _apache.status=_apache-module.html#status,Variable satellite_tools.satComputePkgHeaders.status=satellite_tools.satComputePkgHeaders-module.html#status,Method server.importlib.importLib.Import.status()=server.importlib.importLib.Import-class.html#status"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-33', 'status', 'link-33');">status</a></tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">waitpid</tt><tt class="py-op">(</tt><tt class="py-name">childpid</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt>     </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-34" class="py-name"><a title="_apache.status
+satellite_tools.satComputePkgHeaders.status
+server.importlib.importLib.Import.status" class="py-name" href="#" onclick="return doclink('link-34', 'status', 'link-33');">status</a></tt> </tt>
+</div><a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:26 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

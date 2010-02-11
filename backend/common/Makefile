@@ -8,7 +8,6 @@ TOP     = ..
 # Specific stuff
 SUBDIR  = common
 FILES	=   __init__ \
-            rhn_fcntl \
             rhn_posix \
             rhn_timer \
             rhnApache \
@@ -17,7 +16,6 @@ FILES	=   __init__ \
             rhnException \
             rhnFlags \
             rhnLib \
-            rhnLockfile \
             rhnLog \
             rhnMail \
             rhnRepository \

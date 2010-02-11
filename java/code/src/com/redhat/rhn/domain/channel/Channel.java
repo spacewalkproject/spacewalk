@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,8 +52,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PUBLIC = "public";
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
-    private static final String CHECKSUM_SHA_1 = "sha1";
-    private static final String CHECKSUM_SHA_256 = "sha-256";
 
     private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
             .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
@@ -61,11 +59,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private static List<String> archesToSkipRepodata = new ArrayList<String>(Arrays
             .asList("channel-sparc-sun-solaris", "channel-i386-sun-solaris", 
                     "channel-sparc"));
-    private static List<String> sha1compatiblechannels = new ArrayList<String>(Arrays
-            .asList("5Server", "5Client"));
     private String baseDir;
     private ChannelArch channelArch;
-    private ChecksumType checksum;
+    private ChecksumType checksumType;
 
     private String description;
     private Date endOfLife;
@@ -169,15 +165,15 @@ public class Channel extends BaseDomainHelper implements Comparable {
     /**
      * @return Returns the channelChecksum.
      */
-    public ChecksumType getChecksum() {
-        return checksum;
+    public ChecksumType getChecksumType() {
+        return checksumType;
     }
 
     /**
-     * @param checksumIn The checksum to set.
+     * @param checksumTypeIn The checksum to set.
      */
-    public void setChecksum(ChecksumType checksumIn) {
-        this.checksum = checksumIn;
+    public void setChecksumType(ChecksumType checksumTypeIn) {
+        this.checksumType = checksumTypeIn;
     }
 
 
@@ -880,35 +876,12 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * If its RHEL-5 we use sha1 anything newer will be sha256.
      * @return checksumType
      */
-    public String getChecksumType() {
-        Channel toConsider = this;
+    public String getChecksumTypeLabel() {
         
-        while (toConsider.getParentChannel() != null) {
-            toConsider = toConsider.getParentChannel();
+        if ((checksumType == null) || (checksumType.getLabel() == null)) {
+            // each channel shall have set checksumType
+            return null;
         }
-        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
-        if (channelDist != null) {
-            String release = channelDist.getRelease();
-            // If channel or parent is RHEL-5 use sha1, else use sha256
-            if (sha1compatiblechannels.contains(release)) {
-                return CHECKSUM_SHA_1;
-            }
-        }
-        
-        // IF its custom use the one set at channel creation time
-        
-        if (toConsider.isCustom()) {
-            ChecksumType checksumOut = toConsider.getChecksum();
-            if ((checksumOut != null) && (checksumOut.getLabel() != null)) {
-                return checksumOut.getLabel();
-            }
-            else {
-                // default to sha1 if its not available in the db
-                return CHECKSUM_SHA_1;
-            }
-        }
-        
-        // default to sha256
-        return CHECKSUM_SHA_256;
+        return checksumType.getLabel();
     }
 }

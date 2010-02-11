@@ -1555,8 +1555,8 @@
 				<target>選擇了 {0} 部系統</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.copyright">
-				<source>Copyright &amp;#169; 2002-09 Red Hat, Inc. All rights reserved.</source>
-				<target>版權所有 &amp;#169; 2002-09 Red Hat, Inc. 保留所有權利。</target>
+				<source>Copyright &amp;#169; 2002-10 Red Hat, Inc. All rights reserved.</source>
+				<target>版權所有 &amp;#169; 2002-10 Red Hat, Inc. 保留所有權利。</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.legalStatement">
 				<source>Legal statement</source>

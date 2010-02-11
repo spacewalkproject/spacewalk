@@ -3,7 +3,6 @@
   <pxt-use class="Grail::Frame" />
   <pxt-use class="Sniglets::Lists" />
   <pxt-use class="Sniglets::ServerGroup" />
-  <pxt-use class="Sniglets::Probes" />
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 

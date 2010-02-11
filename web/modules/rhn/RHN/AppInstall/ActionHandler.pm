@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,9 +16,6 @@
 package RHN::AppInstall::ActionHandler;
 
 use strict;
-
-use RHN::Server;
-use RHN::User;
 
 use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
@@ -169,28 +166,6 @@ sub export_arguments {
   else {
     return %args_out;
   }
-}
-
-sub get_action_registry {
-  my $self = shift;
-
-  return %{$self->{action_registry}};
-}
-
-sub set_action_registry {
-  my $self = shift;
-  my %data;
-
-  if (ref $_[0] eq 'HASH') {
-    %data = %{$_[0]};
-  }
-  else {
-    %data = @_;
-  }
-
-  $self->{action_registry} = \%data;
-
-  return;
 }
 
 1;

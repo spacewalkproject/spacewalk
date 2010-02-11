@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,6 +16,11 @@
 use strict;
 
 package PXT::Handlers;
+
+use RHN::DB ();
+use PXT::Config ();
+use PXT::Handlers ();
+use PXT::Utils ();
 
 sub register_primary_tags {
   my $class = shift;
@@ -35,10 +40,7 @@ sub register_primary_tags {
 
   $parser->register_tag('pxt-profile' => \&pxt_profile_handler, 5000);
 
-  unless ($pxt->xml_request) {
-    $parser->register_tag('pxt-formvar' => \&pxt_formvar_handler, -500);
-  }
-
+  $parser->register_tag('pxt-formvar' => \&pxt_formvar_handler, -500);
 }
 
 sub register_secondary_tags {

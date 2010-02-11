@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,6 @@ sub register_tags {
   $pxt->register_tag('rhn-resubscribe-warning-ssm' => \&resubscribe_warning_ssm, 3);
 
 
-  $pxt->register_tag('rhn-sscd-base-channel-alteration' => \&sscd_base_channel_alteration);
   $pxt->register_tag('viewed_channel_name' => \&viewed_channel_name, -10);
 }
 
@@ -51,7 +50,6 @@ sub register_callbacks {
   my $pxt = shift;
 
   # sscd
-  $pxt->register_callback('rhn:sscd_change_base_channels_cb' => \&sscd_change_base_channels_cb);
   $pxt->register_callback('rhn:sscd_alter_channel_membership_cb' => \&sscd_alter_channel_membership_cb);
   $pxt->register_callback('rhn:globally_subscribable_cb' => \&globally_subscribable_cb);
 }
@@ -71,215 +69,6 @@ sub resubscribe_warning_ssm {
 }
 
 
-
-sub sscd_change_base_channels_cb {
-  my $pxt = shift;
-
-  my $set = new RHN::DB::Set 'system_list', $pxt->user->id;
-
-  my $count_proxies = $set->num_proxies_in_set();
-  my $count_sats = $set->num_satellites_in_set();
-
-  my $sats_or_proxies_in_set;
-
-  if ($count_proxies + $count_sats > 0 ) {
-    $sats_or_proxies_in_set = 1;
-  }
-
-  my @dest_values = grep { /desired_base_channel_from-/ } $pxt->param();
-
-  my @from_to;
-  my @to_defaults;
-
-  # all the non-default channel ids...
-  my %ids = map { $pxt->dirty_param($_) =~ m/\d/ ? ($_ => $pxt->dirty_param($_)) : () } @dest_values;
-
-  # make sure I'm allowed to see the destination channels (other than red hat default...)
-  die "no access to channels:  " . join(", ", values %ids) unless $pxt->user->verify_channel_access(values %ids);
-
-  my $will_be_ignored = 0;
-  my $orphan_destination;
-  foreach my $dest (@dest_values) {
-    my $from_id = (split( /[-]/, $dest))[-1];
-
-    # verification of values happened above...
-    my $to_id = $pxt->dirty_param($dest);
-
-    next unless $to_id;
-
-    # ignore __no_change__ and __default__ values for now...
-    if ($from_id == 0 and ($to_id ne '__no_change__')) {
-      $orphan_destination = $to_id;
-    }
-    elsif ($to_id =~ m/\d/) {
-      push @from_to, [ $from_id, $to_id ];
-    }
-    elsif ($to_id eq '__default__') {
-      push @to_defaults, $from_id;
-    }
-  }
-
-  my $subscribe_perms_error_msg = <<EOM;
-You no longer have subscription access to some of the channels you selected.<br />
-Please review your selections and try again.
-EOM
-
-  if (not $pxt->user->verify_channel_subscribe(map { $_->[1] } @from_to)) {
-    $pxt->push_message(local_alert => $subscribe_perms_error_msg);
-    $pxt->redirect("/network/systems/ssm/channels/base_channel_alteration.pxt");
-  }
-
-  my $ds = new RHN::DataSource::System (-mode => 'systems_in_set_with_no_base_channel');
-  my $systems_without_base_channel = $ds->execute_query(-user_id => $pxt->user->id);
-
-  my $base_not_found;
-  my $incompatible_base = 0;
-
-  my $transaction = RHN::DB->connect();
-
-  eval {
-    if (@{$systems_without_base_channel} and $orphan_destination) {
-      foreach my $sid (map { $_->{ID} } @{$systems_without_base_channel}) {
-	my $server = RHN::Server->lookup(-id => $sid);
-
-	# don't mess w/ satellites or proxies...
-	if ($server->is_satellite() or $server->is_proxy()) {
-	  next;
-	}
-
-	my $cid = $orphan_destination;
-	if ($cid eq '__default__') {
-	  $cid = $server->default_base_channel;
-	}
-
-	if ($cid) {
-
-	  if ($pxt->user->verify_channel_subscribe($cid) and $server->verify_channel_arch_compat($cid)) {
-	    $transaction = $server->subscribe_to_channel($cid, $transaction);
-	  }
-	  elsif (not $pxt->user->verify_channel_subscribe($cid)) {
-	    throw '(no_subscribe_permissions)';
-	  }
-	  else {
-	    $incompatible_base++;
-	  }
-	}
-	else {
-	  $base_not_found = 1;
-	}
-      }
-    }
-
-    RHN::ServerActions->system_set_change_base_channels($pxt->user->id,
-							\@to_defaults,
-							\@from_to,
-							$transaction);
-
-    # this probably snapshots some systems in the set that aren't needed.
-    # it'll be nice if and when snapshot_server is smart enough to not do anything
-    # if it's not needed...
-    RHN::Server->snapshot_set(-reason => "Base channel change",
-			      -set_label => 'system_list',
-			      -user_id => $pxt->user->id);
-  };
-
-  if ($@) {
-    my $E = $@;
-    if (ref $E and $E->is_rhn_exception('channel_family_no_subscriptions')) {
-      $transaction->rollback();
-      $pxt->push_message(local_alert => "This operation would exceed your allowed subscriptions in one or more channels; no changes made.");
-      $pxt->redirect('/network/systems/ssm/channels/base_channel_alteration.pxt');
-    }
-    elsif (ref $E and $E->is_rhn_exception('no_subscribe_permissions')) {  ### FIXME!!!!
-      # whole transaction borks?
-      $transaction->rollback();
-      $pxt->push_message(local_alert => $subscribe_perms_error_msg);
-      $pxt->redirect('/network/systems/ssm/channels/base_channel_alteration.pxt');
-    }
-    else {
-      $transaction->rollback();
-      throw $E;
-    }
-  }
-  else {
-    $transaction->commit();
-  }
-
-  my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
-  my @servers = $system_set->contents;
-
-  foreach my $sid (@servers) {
-    RHN::Server->schedule_errata_cache_update($pxt->user->org_id, $sid, 0);
-  }
-
-  # message to the user...
-  $pxt->push_message(site_info => "Channel changes submitted.");
-
-  $pxt->push_message(site_info => 'Note:  RHN Proxy and ' . PXT::Config->get("product_name") . ' systems may not be changed from their base channel.') if $sats_or_proxies_in_set;
-
-  $pxt->push_message(site_info => 'Note:  Some systems could not find their default Red Hat base channel and remain unaltered.') if $base_not_found;
-
-  $pxt->push_message(site_info => 'Note:  Some systems did not change channel subscription because the base channel selected was not compatible with their system architecture.') if $incompatible_base;
-
-  $pxt->redirect('/network/systems/ssm/channels/base_channel_alteration.pxt');
-}
-
-sub sscd_base_channel_alteration {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  my @system_set_base_channels = RHN::Server->system_set_base_channels($pxt->user->id);
-
-  my $ds = new RHN::DataSource::System (-mode => 'systems_in_set_with_no_base_channel');
-  my $systems_without_base_channel = $ds->execute_query(-user_id => $pxt->user->id);
-
-  if (@{$systems_without_base_channel}) {
-    unshift @system_set_base_channels, [ 0, '(none)', scalar @{$systems_without_base_channel} ];
-  }
-
-  $block =~ m{<base_channel>(.*?)</base_channel>}ism;
-  my $channel_block = $1;
-
-  my @subscribable_base_channels = RHN::Channel->user_subscribable_base_channels(user_id => $pxt->user->id,
-										 org_id => $pxt->user->org_id);
-
-  my $no_change_opt = ['No Change', '__no_change__', 1];
-  my $default_opt = [ 'Default RH Base Channel', '__default__', undef ];
-  my @base_channels = map { [ $_->[1], $_->[0] ] } @subscribable_base_channels;
-
-  my $channels = '';
-  foreach my $base_channel (@system_set_base_channels) {
-
-    my %current;
-
-    my @options = ($no_change_opt);
-
-    my $can_sub_ds = new RHN::DataSource::Channel(-mode => 'can_subscribe_to_default_in_set');
-    my $can_sub_results = $can_sub_ds->execute_full(-user_id => $pxt->user->id);
-    if (@$can_sub_results and $can_sub_results->[0]->{CHANNEL_ID}) {
-      push @options, $default_opt;
-    }
-
-    push @options, @base_channels;
-
-    my @filtered_options = grep { $_->[1] ne $base_channel->[0] } @options;
-    my $drop_down_box = PXT::HTML->select(-name => "desired_base_channel_from-" . $base_channel->[0],
-					  -options => \@filtered_options);
-
-    $current{base_channel_id} = $base_channel->[0];
-    $current{base_channel_name} = $base_channel->[1];
-    $current{system_count} = $base_channel->[2];
-    $current{drop_down_box} = $drop_down_box;
-
-    $channels .= PXT::Utils->perform_substitutions($channel_block, \%current);
-  }
-
-  $block =~ s{<base_channel>.*?</base_channel>}{$channels}ism;
-
-  return $block;
-}
 
 sub channel_gpg_key {
   my $pxt = shift;
@@ -557,11 +346,6 @@ sub viewed_channel_name {
 
   return '' unless $view_cid;
   $view_cid =~ s/^channel_//;
-
-  unless (PXT::Config->get('satellite')) {
-    throw sprintf("User '%d' has no access to channel '%d'.", $pxt->user->id, $view_cid)
-      unless $pxt->user->verify_channel_access($view_cid);
-  }
 
   my $channel = RHN::Channel->lookup(-id => $view_cid);
   my $name = $channel->name;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -141,6 +141,9 @@ public class ServerConfigHandler extends BaseHandler {
      *      #prop_desc("string","macro-end-delimiter",
      *                   "Config file macro end delimiter. Use null or empty string  
      *              to accept the default. (ignored if working with a directory)")
+     *      #prop_desc("string","selinux_ctx",
+     *                   "SeLinux context (optional)")
+     *
      *  #struct_end()
      * @xmlrpc.param #param("int","commitToLocal")
      *      #options()

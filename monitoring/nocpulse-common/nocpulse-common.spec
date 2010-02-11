@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.18
+Version:      2.1.19
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -65,6 +65,8 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 # change nocpulse user & group to system user & group if needed
 dirs="/home/nocpulse /opt/notification /opt/nocpulse /var/log/nocpulse /var/www/templates /var/tmp"
 
+# Fedora guys do not want this stuff
+%if ! 0%{?fedora}
 if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
 	if [ 0`id -g nocpulse` -ge 500 ]; then
 		groupmod -n nocpulse-old nocpulse
@@ -89,6 +91,8 @@ if [ -d /home/nocpulse -a 0`id -u nocpulse 2> /dev/null` -ge 500 ]; then
 		find $i -user $old_uid -exec chown nocpulse '{}' ';'
 	done
 fi
+%endif
+
 
 getent group %{package_name} >/dev/null || groupadd -r %{package_name}
 getent passwd %{package_name} >/dev/null || \
@@ -99,6 +103,8 @@ useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -s /bin/b
 getent group apache | grep nocpulse >/dev/null || usermod -G apache nocpulse
 
 %post
+# Fedora guys do not want this stuff
+%if ! 0%{?fedora}
 # migrate things from /home/nocpulse to /var/lib/nocpulse and /var/log/nocpulse
 if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; then
   # /var/lib/nocpulse is new homedir for nocpulse user
@@ -112,6 +118,7 @@ if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; th
   mv /home/nocpulse/var/archives/* \
      %{_var}/log/%{package_name} 2> /dev/null
 fi
+%endif
 
 if [ ! -f %{identity} ]
 then
@@ -136,6 +143,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 11 2010 Miroslav Suchý <msuchy@redhat.com> 2.1.19-1
+- Fedora guys do not want to have migration code in theirs spec
+ 
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.18-1
 - 476851 - removal of tables: rhn_db_environment, rhn_environment
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,7 +20,6 @@ use strict;
 use RHN::AppInstall::Process::Step;
 our @ISA = qw/RHN::AppInstall::Process::Step/;
 
-use RHN::Exception qw/throw/;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
@@ -40,21 +39,6 @@ sub get_url {
   my $self = shift;
 
   return $self->{url};
-}
-
-sub set_url {
-  my $self = shift;
-  my $url = shift;
-
-  $self->{url} = $url;
-
-  return;
-}
-
-sub get_save_session {
-  my $self = shift;
-
-  return $self->{save_session};
 }
 
 sub set_save_session {

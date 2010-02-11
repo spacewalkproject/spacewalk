@@ -1,10 +1,10 @@
 # Makefile for the backend directory
 #
 
-CODE_DIRS = handlers exporter
+CODE_DIRS = handlers
 
 SUBDIR      = satellite_exporter
-FILES       = __init__ constants satexport
+FILES       = __init__ satexport
 
 TOP     = ..
 

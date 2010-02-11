@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -183,7 +183,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
         handler.endElement("version");
 
         attr.clear();
-        attr.addAttribute("type", "md5");
+        attr.addAttribute("type", sanitize(pkgId, pkgDto.getChecksumType()));
         attr.addAttribute("pkgid", "YES");
         handler.startElement("checksum", attr);
         handler.addCharacters(sanitize(pkgId, pkgDto.getChecksum()));

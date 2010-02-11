@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,9 @@ use strict;
 use RHN::Exception qw/throw/;
 use Apache2::RequestUtil ();
 use PXT::Config;
+
+use RHN::Channel ();
+use RHN::Errata ();
 
 use Params::Validate qw/:all/;
 
@@ -227,12 +230,7 @@ sub verify_viewed_channel {
     $cid =~ tr/0-9//cd;
   }
 
-  if (PXT::Config->get('satellite')) {
-    return 0 unless $user->verify_channel_access(@channels);
-  }
-  else {
-    return 0 unless $user->verify_channel_admin(@channels);
-  }
+  return 0 unless $user->verify_channel_access(@channels);
 
   return 1;
 }

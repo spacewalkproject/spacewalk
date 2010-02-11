@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -511,7 +511,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ca);
         assertNotNull(c.getChannelArch());
         assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
-        assertEquals(c.getChecksumType(), "sha1");
+        assertEquals(c.getChecksumTypeLabel(), "sha1");
     }
     
     public void testCreateWithChecksum() throws Exception {
@@ -529,7 +529,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ca);
         assertNotNull(c.getChannelArch());
         assertEquals(ca.getLabel(), c.getChannelArch().getLabel());
-        assertEquals(c.getChecksumType(), "sha256");
+        assertEquals(c.getChecksumTypeLabel(), "sha256");
     }
     
     public void testCreateUnauthUser() {

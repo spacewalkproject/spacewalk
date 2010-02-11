@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -154,15 +154,7 @@ package Sniglets::Navi::Style::contentnav;
 use base qw/Sniglets::Navi::Style::ul/;
 
 sub recursive_type {
-  my $class = shift;
-  my $pxt = shift;
-
-  if ($pxt->browser_css_compliance > 0) {
-    return 'post-order';
-  }
-  else {
-    return "in-order";
-  }
+  return 'post-order';
 }
 
 sub pre_nav {
@@ -337,11 +329,7 @@ sub pre_nav {
   my $self = shift;
   my $pxt = shift;
 
-  if (PXT::Config->get('satellite')) {
-    return $pxt->include(-file => "/nav/styles/navbar_top_sat.txt");
-  }
-
-  return $pxt->include(-file => "/nav/styles/navbar_top.txt");
+  return $pxt->include(-file => "/nav/styles/navbar_top_sat.txt");
 }
 
 sub post_nav {

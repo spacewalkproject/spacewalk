@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -50,12 +50,12 @@ public class ClonedChannel extends Channel {
      * {@inheritDoc}
      */
     @Override
-    public ChecksumType getChecksum() {
-        if (super.getChecksum() == null) {
+    public ChecksumType getChecksumType() {
+        if (super.getChecksumType() == null) {
             // if the checksum type is not set use the
             //checksum of original channel instead.
-            setChecksum(getOriginal().getChecksum());
+            setChecksumType(getOriginal().getChecksumType());
         }
-        return super.getChecksum();
+        return super.getChecksumType();
     }
 }

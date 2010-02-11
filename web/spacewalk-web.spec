@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.2
+Version: 0.9.0
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -68,15 +68,6 @@ Dobby is collection of perl modules and scripts to administer an Oracle
 database.
 
 
-%package -n spacewalk-cypress
-Summary: Cypress, a collection of Grail applications for Red Hat Network
-Group: Applications/Internet
-Obsoletes: rhn-cypress < 5.3.0
-Provides: rhn-cypress = 5.3.0
-
-%description -n spacewalk-cypress
-Cypress is a collection of Components for Grail.
-
 %package -n spacewalk-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: spacewalk-base
@@ -117,15 +108,6 @@ Provides:  rhn-sniglets = 5.3.0
 This package contains the tag handlers for the PXT templates
 
 
-%package -n spacewalk-moon
-Group: Applications/Internet  
-Summary: The Moon library for manipulating and charting data
-Obsoletes: rhn-moon < 5.3.0
-Provides:  rhn-moon = 5.3.0
-
-%description -n spacewalk-moon
-Modules for loading, manipulating, and rendering graphed data.
-
 %prep
 %setup -q
 
@@ -159,7 +141,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
-%{perl_vendorlib}/RHN/API/
 %{perl_vendorlib}/RHN/Access.pm
 %{perl_vendorlib}/RHN/Access/
 %{perl_vendorlib}/RHN/Action.pm
@@ -169,21 +150,16 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/Channel.pm
 %{perl_vendorlib}/RHN/ChannelEditor.pm
 %{perl_vendorlib}/RHN/Cleansers.pm
-%{perl_vendorlib}/RHN/Command.pm
-%{perl_vendorlib}/RHN/CommandParameter.pm
 %{perl_vendorlib}/RHN/ConfigChannel.pm
-%{perl_vendorlib}/RHN/ConfigFile.pm
 %{perl_vendorlib}/RHN/ConfigRevision.pm
 %{perl_vendorlib}/RHN/ContactGroup.pm
 %{perl_vendorlib}/RHN/ContactMethod.pm
 %{perl_vendorlib}/RHN/CryptoKey.pm
 %{perl_vendorlib}/RHN/CustomInfoKey.pm
 %{perl_vendorlib}/RHN/DB/
-%{perl_vendorlib}/RHN/Daemon.pm
 %{perl_vendorlib}/RHN/DataSource.pm
 %{perl_vendorlib}/RHN/DataSource/
 %{perl_vendorlib}/RHN/Date.pm
-%{perl_vendorlib}/RHN/EmailAddress.pm
 %{perl_vendorlib}/RHN/Entitlements.pm
 %{perl_vendorlib}/RHN/Errata.pm
 %{perl_vendorlib}/RHN/ErrataEditor.pm
@@ -191,35 +167,27 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/FileList.pm
 %{perl_vendorlib}/RHN/Form.pm
 %{perl_vendorlib}/RHN/Form/
-%{perl_vendorlib}/RHN/Grail.pm
 %{perl_vendorlib}/RHN/I18N.pm
 %{perl_vendorlib}/RHN/KSTree.pm
 %{perl_vendorlib}/RHN/Kickstart.pm
 %{perl_vendorlib}/RHN/Kickstart/
 %{perl_vendorlib}/RHN/Mail.pm
 %{perl_vendorlib}/RHN/Manifest.pm
-%{perl_vendorlib}/RHN/MonitoringConfigMacro.pm
 %{perl_vendorlib}/RHN/Org.pm
 %{perl_vendorlib}/RHN/Package.pm
 %{perl_vendorlib}/RHN/Package/
 %{perl_vendorlib}/RHN/Postal.pm
-%{perl_vendorlib}/RHN/Probe.pm
-%{perl_vendorlib}/RHN/ProbeParam.pm
-%{perl_vendorlib}/RHN/Product.pm
 %{perl_vendorlib}/RHN/Profile.pm
 %{perl_vendorlib}/RHN/ProxyInstall.pm
 %{perl_vendorlib}/RHN/SCDB.pm
 %{perl_vendorlib}/RHN/SatCluster.pm
 %{perl_vendorlib}/RHN/SatInstall.pm
-%{perl_vendorlib}/RHN/SatNode.pm
 %{perl_vendorlib}/RHN/SatelliteCert.pm
 %{perl_vendorlib}/RHN/Scheduler.pm
-%{perl_vendorlib}/RHN/Search.pm
 %{perl_vendorlib}/RHN/SearchTypes.pm
 %{perl_vendorlib}/RHN/Server.pm
 %{perl_vendorlib}/RHN/ServerActions.pm
 %{perl_vendorlib}/RHN/ServerGroup.pm
-%{perl_vendorlib}/RHN/ServerMessage.pm
 %{perl_vendorlib}/RHN/ServerNotes.pm
 %{perl_vendorlib}/RHN/Session.pm
 %{perl_vendorlib}/RHN/Set.pm
@@ -229,34 +197,19 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/TSDB.pm
 %{perl_vendorlib}/RHN/Tag.pm
 %{perl_vendorlib}/RHN/TemplateString.pm
-%{perl_vendorlib}/RHN/TextMessage.pm
 %{perl_vendorlib}/RHN/TinyURL.pm
 %{perl_vendorlib}/RHN/Token.pm
-%{perl_vendorlib}/RHN/TokenGen/
 %{perl_vendorlib}/RHN/User.pm
 %{perl_vendorlib}/RHN/UserActions.pm
-%{perl_vendorlib}/RHN/UserGroup.pm
 %{perl_vendorlib}/RHN/Utils.pm
-%{_mandir}/man3/RHN::Command.3pm.gz
-%{_mandir}/man3/RHN::CommandParameter.3pm.gz
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::ContactMethod.3pm.gz
-%{_mandir}/man3/RHN::DB::Command.3pm.gz
-%{_mandir}/man3/RHN::DB::CommandParameter.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
 %{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
-%{_mandir}/man3/RHN::DB::MonitoringConfigMacro.3pm.gz
-%{_mandir}/man3/RHN::DB::Probe.3pm.gz
-%{_mandir}/man3/RHN::DB::ProbeParam.3pm.gz
 %{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
-%{_mandir}/man3/RHN::DB::SatNode.3pm.gz
 %{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
-%{_mandir}/man3/RHN::MonitoringConfigMacro.3pm.gz
-%{_mandir}/man3/RHN::Probe.3pm.gz
-%{_mandir}/man3/RHN::ProbeParam.3pm.gz
 %{_mandir}/man3/RHN::SCDB.3pm.gz
 %{_mandir}/man3/RHN::SatCluster.3pm.gz
-%{_mandir}/man3/RHN::SatNode.3pm.gz
 %{_mandir}/man3/RHN::Session.3pm.gz
 %{_mandir}/man3/RHN::TSDB.3pm.gz
 
@@ -269,11 +222,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/DB.pm
 %{perl_vendorlib}/PXT/Config.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
-
-%files -n spacewalk-cypress 
-%defattr(644,root,root,755)
-%{perl_vendorlib}/Cypress.pm
-%{perl_vendorlib}/Cypress/
 
 %files -n spacewalk-dobby
 %defattr(644,root,root,755)
@@ -301,11 +249,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/Sniglets.pm
 %{perl_vendorlib}/Sniglets/
 
-%files -n spacewalk-moon
-%defattr(644,root,root,755)
-%{perl_vendorlib}/Moon/
-%{_mandir}/man3/Moon*
-
 %files -n spacewalk-html
 %defattr(644,root,root,755)
 %{_var}/www/html/*
@@ -313,6 +256,51 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.14-1
+- updated copyrights
+- removed a lot of unused code
+
+* Tue Feb 02 2010 Jan Pazdziora 0.8.13-1
+- 549666 - link to the list of keys handled by the Java stack.
+- Removal of dead code.
+
+* Mon Feb 01 2010 Jan Pazdziora 0.8.11-1
+- Removed RSS unused code.
+- 492161 - removed web/html/errata.
+- Removed a lot of code made unused by above removals.
+
+* Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.10-1
+- No XMLRPC/SOAP processing in the web/Perl stack, 
+  removing. (jpazdziora@redhat.com)
+- 543879 - adding support to the proxy side to redirect to a url 
+  that will rewrite kickstarts with the proxy name for /cblr 
+  urls (jsherril@redhat.com)
+
+
+* Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
+- force correct UTF-8 in changelog
+- fixed directories and links listing in package detail
+- fixed email sending in pxt pages
+- added back RHN::Cleansers
+- removed dead code
+
+* Wed Jan 06 2010 Jan Pazdziora 0.8.8-1
+- Fixed the forgot_* emails.
+- More dead code removals.
+
+* Mon Jan 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.6-1
+- more dead code removed
+* Sat Dec 26 2009 Jan Pazdziora 0.8.5-1
+- more dead code removals
+
+* Tue Dec 22 2009 Jan Pazdziora 0.8.4-1
+- Removed more dead code, including spacewalk-cypress.
+
+* Mon Dec 21 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.8.3-1
+- removed a lot of dead code, including spacewalk-moon
+- modified to fit sha256 schema changes (michael.mraka@redhat.com)
+- adding channel.software.regenerateYumCache() api call (jsherril@redhat.com)
+
 * Tue Dec 15 2009 Jan Pazdziora 0.8.2-1
 - Removed dead code (PXT tags, xmlrpc, functions, modules).
 

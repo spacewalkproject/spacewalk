@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -50,20 +50,6 @@ sub is_valid_entitlement {
 }
 
 
-sub lookup_group_type_id {
-  my $class = shift;
-  my $entitlement = shift;
-
-  my @all = $class->valid_system_entitlements();
-  my ($match) = grep { $_->{LABEL} eq $entitlement } @all;
-
-  unless ($match) {
-    throw "(no_group_type) No server group type '$entitlement' found";
-  }
-
-  return $match->{ID};
-}
-
 sub entitlement_feature_map {
   my $class = shift;
 
@@ -78,26 +64,6 @@ sub entitlement_feature_map {
   }
 
   return %ret;
-}
-
-sub entitlement_grants_feature {
-  my $class = shift;
-  my $entitlement = shift;
-  my $feature = shift;
-
-  throw "$class->entitlement_grants_feature needs an entitlement and a feature"
-    unless ($entitlement and $feature);
-
-  my %entitlement_feature_map = $class->entitlement_feature_map();
-
-  throw "Unknown entitlement '$entitlement'"
-    unless exists $entitlement_feature_map{$entitlement};
-
-  my @feats = @{$entitlement_feature_map{$entitlement}};
-
-  return 1 if grep { $feature eq $_ } @feats;
-
-  return 0;
 }
 
 1;

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -27,8 +27,6 @@ use RHN::Kickstart::Session;
 use RHN::Utils;
 
 use RHN::Action;
-
-use Data::Dumper;
 
 our @ISA = qw/Sniglets::ListView::List/;
 
@@ -224,15 +222,6 @@ sub session_history_provider {
     }
 
   }
-
-  return (%ret);
-}
-
-sub crypto_key_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my %ret = $self->default_provider($pxt);
 
   return (%ret);
 }

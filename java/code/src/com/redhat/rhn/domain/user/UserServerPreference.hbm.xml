@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.user.UserServerPreference"
+        table="rhnUserServerprefs" >
+        <composite-id name="id" class="com.redhat.rhn.domain.user.UserServerPreferenceId">
+            <meta attribute="scope-set">protected</meta>
+            <key-property name="name"
+                          column="name"/>
+            <key-many-to-one name="user"
+                             class="com.redhat.rhn.domain.user.legacy.UserImpl"
+                             column="user_id"/>
+            <key-many-to-one name="server"
+                             class="com.redhat.rhn.domain.server.Server"
+                             column="server_id" />
+        </composite-id>
+        <property name="value" column="VALUE" not-null="true" type="string" length="1" />
+        <property name="created" column="CREATED" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="MODIFIED" not-null="true" type="timestamp" insert="false" update="false"/>
+    </class>
+</hibernate-mapping>

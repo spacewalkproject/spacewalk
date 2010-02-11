@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>satellite_tools.repo_plugins.yum_src</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="satellite_tools-module.html">Package&nbsp;satellite_tools</a> ::
+        <a href="satellite_tools.repo_plugins-module.html">Package&nbsp;repo_plugins</a> ::
+        Module&nbsp;yum_src
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="satellite_tools.repo_plugins.yum_src-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="satellite_tools.repo_plugins.yum_src-module.html">Module satellite_tools.repo_plugins.yum_src</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python -u</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">yum</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">shutil</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">yum</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Function server.action.rollback.config()=server.action.rollback-module.html#config,Function server.action_extra_data.rollback.config()=server.action_extra_data.rollback-module.html#config,Package server.handlers.config=server.handlers.config-module.html,Module server.wsgi.config=server.wsgi.config-module.html"><a title="server.action.rollback.config
+server.action_extra_data.rollback.config
+server.handlers.config
+server.wsgi.config" class="py-name" href="#" onclick="return doclink('link-0', 'config', 'link-0');">config</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package satellite_tools=satellite_tools-module.html"><a title="satellite_tools" class="py-name" href="#" onclick="return doclink('link-1', 'satellite_tools', 'link-1');">satellite_tools</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module satellite_tools.reposync=satellite_tools.reposync-module.html"><a title="satellite_tools.reposync" class="py-name" href="#" onclick="return doclink('link-2', 'reposync', 'link-2');">reposync</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class satellite_tools.reposync.ContentPackage=satellite_tools.reposync.ContentPackage-class.html"><a title="satellite_tools.reposync.ContentPackage" class="py-name" href="#" onclick="return doclink('link-3', 'ContentPackage', 'link-3');">ContentPackage</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="ContentSource"></a><div id="ContentSource-def"><a name="L21"></a><tt class="py-lineno">21</tt> <a class="py-toggle" href="#" id="ContentSource-toggle" onclick="return toggle('ContentSource');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html">ContentSource</a><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="ContentSource-expanded"><a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">    <tt id="link-4" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.url=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#url,Variable satellite_tools.reposync.RepoSync.url=satellite_tools.reposync.RepoSync-class.html#url,Variable satellite_tools.xmlWireSource.BaseWireSource.url=satellite_tools.xmlWireSource.BaseWireSource-class.html#url"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-4', 'url', 'link-4');">url</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.name=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-5', 'name', 'link-5');">name</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt id="link-6" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.repo=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#repo"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-6', 'repo', 'link-6');">repo</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt id="link-7" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#mirrorlist,Variable satellite_tools.reposync.RepoSync.mirrorlist=satellite_tools.reposync.RepoSync-class.html#mirrorlist"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist
+satellite_tools.reposync.RepoSync.mirrorlist" class="py-name" href="#" onclick="return doclink('link-7', 'mirrorlist', 'link-7');">mirrorlist</a></tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name" targets="Variable xmlrpclib.False=xmlrpclib-module.html#False"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-8', 'False', 'link-8');">False</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt id="link-9" class="py-name" targets="Variable satellite_tools.repo_plugins.yum_src.ContentSource.cache_dir=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#cache_dir"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.cache_dir" class="py-name" href="#" onclick="return doclink('link-9', 'cache_dir', 'link-9');">cache_dir</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'/var/cache/rhn/reposync/'</tt> </tt>
+<a name="ContentSource.__init__"></a><div id="ContentSource.__init__-def"><a name="L27"></a><tt class="py-lineno">27</tt> <a class="py-toggle" href="#" id="ContentSource.__init__-toggle" onclick="return toggle('ContentSource.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">url</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">mirrorlist</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ContentSource.__init__-expanded"><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-10', 'url', 'link-4');">url</a></tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-11', 'url', 'link-4');">url</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-12', 'name', 'link-5');">name</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-13', 'name', 'link-5');">name</a></tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method satellite_tools.repo_plugins.yum_src.ContentSource._clean_cache()=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#_clean_cache"><a title="satellite_tools.repo_plugins.yum_src.ContentSource._clean_cache" class="py-name" href="#" onclick="return doclink('link-14', '_clean_cache', 'link-14');">_clean_cache</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.cache_dir" class="py-name" href="#" onclick="return doclink('link-15', 'cache_dir', 'link-9');">cache_dir</a></tt> <tt class="py-op">+</tt> <tt id="link-16" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-16', 'name', 'link-5');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist
+satellite_tools.reposync.RepoSync.mirrorlist" class="py-name" href="#" onclick="return doclink('link-17', 'mirrorlist', 'link-7');">mirrorlist</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist
+satellite_tools.reposync.RepoSync.mirrorlist" class="py-name" href="#" onclick="return doclink('link-18', 'mirrorlist', 'link-7');">mirrorlist</a></tt> </tt>
+</div><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="ContentSource.list_packages"></a><div id="ContentSource.list_packages-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="ContentSource.list_packages-toggle" onclick="return toggle('ContentSource.list_packages');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html#list_packages">list_packages</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource.list_packages-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ContentSource.list_packages-expanded"><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-docstring">""" list packages"""</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt id="link-19" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-19', 'repo', 'link-6');">repo</a></tt> <tt class="py-op">=</tt> <tt class="py-name">yum</tt><tt class="py-op">.</tt><tt class="py-name">yumRepo</tt><tt class="py-op">.</tt><tt class="py-name">YumRepository</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-20', 'name', 'link-5');">name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-21', 'repo', 'link-6');">repo</a></tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-22', 'repo', 'link-6');">repo</a></tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt id="link-23" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-23', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Function proxy.broker.rhnRepository.cache()=proxy.broker.rhnRepository-module.html#cache"><a title="proxy.broker.rhnRepository.cache" class="py-name" href="#" onclick="return doclink('link-24', 'cache', 'link-24');">cache</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt id="link-25" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-25', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt class="py-name">metadata_expire</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist
+satellite_tools.reposync.RepoSync.mirrorlist" class="py-name" href="#" onclick="return doclink('link-26', 'mirrorlist', 'link-7');">mirrorlist</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">            <tt id="link-27" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-27', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.mirrorlist
+satellite_tools.reposync.RepoSync.mirrorlist" class="py-name" href="#" onclick="return doclink('link-28', 'mirrorlist', 'link-7');">mirrorlist</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-29', 'url', 'link-4');">url</a></tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">            <tt id="link-30" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-30', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt class="py-name">baseurl</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.url
+satellite_tools.reposync.RepoSync.url
+satellite_tools.xmlWireSource.BaseWireSource.url" class="py-name" href="#" onclick="return doclink('link-31', 'url', 'link-4');">url</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt id="link-32" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-32', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt class="py-name">basecachedir</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.cache_dir" class="py-name" href="#" onclick="return doclink('link-33', 'cache_dir', 'link-9');">cache_dir</a></tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt id="link-34" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-34', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt class="py-name">baseurlSetup</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt id="link-35" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-35', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Module setup=setup-module.html"><a title="setup" class="py-name" href="#" onclick="return doclink('link-36', 'setup', 'link-36');">setup</a></tt><tt class="py-op">(</tt><tt id="link-37" class="py-name"><a title="xmlrpclib.False" class="py-name" href="#" onclick="return doclink('link-37', 'False', 'link-8');">False</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-name">sack</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-38', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt class="py-name">getPackageSack</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-name">sack</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method satellite_tools.xmlSource.BaseChecksummedItem.populate()=satellite_tools.xmlSource.BaseChecksummedItem-class.html#populate,Method satellite_tools.xmlSource.BaseItem.populate()=satellite_tools.xmlSource.BaseItem-class.html#populate,Method server.importlib.headerSource.rpmBinaryPackage.populate()=server.importlib.headerSource.rpmBinaryPackage-class.html#populate,Method server.importlib.headerSource.rpmChangeLog.populate()=server.importlib.headerSource.rpmChangeLog-class.html#populate,Method server.importlib.headerSource.rpmFile.populate()=server.importlib.headerSource.rpmFile-class.html#populate,Method server.importlib.headerSource.rpmPackage.populate()=server.importlib.headerSource.rpmPackage-class.html#populate,Method server.importlib.headerSource.rpmSourcePackage.populate()=server.importlib.headerSource.rpmSourcePackage-class.html#populate,Method server.importlib.importLib.Item.populate()=server.importlib.importLib.Item-class.html#populate,Method server.importlib.mpmSource.mpmBinaryPackage.populate()=server.importlib.mpmSource.mpmBinaryPackage-class.html#populate"><a title="satellite_tools.xmlSource.BaseChecksummedItem.populate
+satellite_tools.xmlSource.BaseItem.populate
+server.importlib.headerSource.rpmBinaryPackage.populate
+server.importlib.headerSource.rpmChangeLog.populate
+server.importlib.headerSource.rpmFile.populate
+server.importlib.headerSource.rpmPackage.populate
+server.importlib.headerSource.rpmSourcePackage.populate
+server.importlib.importLib.Item.populate
+server.importlib.mpmSource.mpmBinaryPackage.populate" class="py-name" href="#" onclick="return doclink('link-39', 'populate', 'link-39');">populate</a></tt><tt class="py-op">(</tt><tt id="link-40" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-40', 'repo', 'link-6');">repo</a></tt><tt class="py-op">,</tt> <tt class="py-string">'metadata'</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt id="link-41" class="py-name" targets="Method proxy.pm.uploadLib.UploadClass.list()=proxy.pm.uploadLib.UploadClass-class.html#list,Method satellite_tools.xmlDiskSource.ChannelDiskSource.list()=satellite_tools.xmlDiskSource.ChannelDiskSource-class.html#list,Method server.handlers.xmlrpc.up2date.Servers.list()=server.handlers.xmlrpc.up2date.Servers-class.html#list"><a title="proxy.pm.uploadLib.UploadClass.list
+satellite_tools.xmlDiskSource.ChannelDiskSource.list
+server.handlers.xmlrpc.up2date.Servers.list" class="py-name" href="#" onclick="return doclink('link-41', 'list', 'link-41');">list</a></tt> <tt class="py-op">=</tt> <tt class="py-name">sack</tt><tt class="py-op">.</tt><tt class="py-name">returnPackages</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-name">to_return</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">pack</tt> <tt class="py-keyword">in</tt> <tt id="link-42" class="py-name"><a title="proxy.pm.uploadLib.UploadClass.list
+satellite_tools.xmlDiskSource.ChannelDiskSource.list
+server.handlers.xmlrpc.up2date.Servers.list" class="py-name" href="#" onclick="return doclink('link-42', 'list', 'link-41');">list</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">            <tt class="py-name">new_pack</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name"><a title="satellite_tools.reposync.ContentPackage" class="py-name" href="#" onclick="return doclink('link-43', 'ContentPackage', 'link-3');">ContentPackage</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt class="py-name">new_pack</tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method satellite_tools.reposync.ContentPackage.setNVREA()=satellite_tools.reposync.ContentPackage-class.html#setNVREA"><a title="satellite_tools.reposync.ContentPackage.setNVREA" class="py-name" href="#" onclick="return doclink('link-44', 'setNVREA', 'link-44');">setNVREA</a></tt><tt class="py-op">(</tt><tt class="py-name">pack</tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.name" class="py-name" href="#" onclick="return doclink('link-45', 'name', 'link-5');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">pack</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Variable satellite_tools.xmlSource.SatelliteDispatchHandler.version=satellite_tools.xmlSource.SatelliteDispatchHandler-class.html#version"><a title="satellite_tools.xmlSource.SatelliteDispatchHandler.version" class="py-name" href="#" onclick="return doclink('link-46', 'version', 'link-46');">version</a></tt><tt class="py-op">,</tt> <tt class="py-name">pack</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Method common.rhnLockfile.Lockfile.release()=common.rhnLockfile.Lockfile-class.html#release"><a title="common.rhnLockfile.Lockfile.release" class="py-name" href="#" onclick="return doclink('link-47', 'release', 'link-47');">release</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                              <tt class="py-name">pack</tt><tt class="py-op">.</tt><tt class="py-name">epoch</tt><tt class="py-op">,</tt> <tt class="py-name">pack</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Variable server.repomd.repository.arch=server.repomd.repository-module.html#arch"><a title="server.repomd.repository.arch" class="py-name" href="#" onclick="return doclink('link-48', 'arch', 'link-48');">arch</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt class="py-name">new_pack</tt><tt class="py-op">.</tt><tt class="py-name">unique_id</tt> <tt class="py-op">=</tt> <tt class="py-name">pack</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">cs</tt> <tt class="py-keyword">in</tt> <tt class="py-name">pack</tt><tt class="py-op">.</tt><tt class="py-name">checksums</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                <tt class="py-name">new_pack</tt><tt class="py-op">.</tt><tt class="py-name">checksums</tt><tt class="py-op">[</tt><tt class="py-name">cs</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">cs</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">            <tt class="py-name">to_return</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-49', 'append', 'link-49');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">new_pack</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">to_return</tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="ContentSource.get_package"></a><div id="ContentSource.get_package-def"><a name="L60"></a><tt class="py-lineno">60</tt> <a class="py-toggle" href="#" id="ContentSource.get_package-toggle" onclick="return toggle('ContentSource.get_package');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html#get_package">get_package</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">package</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource.get_package-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ContentSource.get_package-expanded"><a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-docstring">""" get package """</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt id="link-50" class="py-name" targets="Method common.rhnTB.SecurityList.check()=common.rhnTB.SecurityList-class.html#check,Method server.handlers.sat.auth.Authentication.check()=server.handlers.sat.auth.Authentication-class.html#check,Method server.rhnSQL.sql_base.Database.check()=server.rhnSQL.sql_base.Database-class.html#check,Method spacewalk.common.rhn_rpm.RPMTransaction.check()=spacewalk.common.rhn_rpm.RPMTransaction-class.html#check"><a title="common.rhnTB.SecurityList.check
+server.handlers.sat.auth.Authentication.check
+server.rhnSQL.sql_base.Database.check
+spacewalk.common.rhn_rpm.RPMTransaction.check" class="py-name" href="#" onclick="return doclink('link-50', 'check', 'link-50');">check</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name" targets="Method satellite_tools.repo_plugins.yum_src.ContentSource.verify_pkg()=satellite_tools.repo_plugins.yum_src.ContentSource-class.html#verify_pkg"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.verify_pkg" class="py-name" href="#" onclick="return doclink('link-51', 'verify_pkg', 'link-51');">verify_pkg</a></tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt id="link-52" class="py-name" targets="Method server.handlers.xmlrpc.up2date.Up2date.package()=server.handlers.xmlrpc.up2date.Up2date-class.html#package"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-52', 'package', 'link-52');">package</a></tt><tt class="py-op">.</tt><tt class="py-name">unique_id</tt> <tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="satellite_tools.repo_plugins.yum_src.ContentSource.repo" class="py-name" href="#" onclick="return doclink('link-53', 'repo', 'link-6');">repo</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name" targets="Method common.rhnRepository.Repository.getPackage()=common.rhnRepository.Repository-class.html#getPackage"><a title="common.rhnRepository.Repository.getPackage" class="py-name" href="#" onclick="return doclink('link-54', 'getPackage', 'link-54');">getPackage</a></tt><tt class="py-op">(</tt><tt id="link-55" class="py-name"><a title="server.handlers.xmlrpc.up2date.Up2date.package" class="py-name" href="#" onclick="return doclink('link-55', 'package', 'link-52');">package</a></tt><tt class="py-op">.</tt><tt class="py-name">unique_id</tt><tt class="py-op">,</tt> <tt class="py-name">checkfunc</tt><tt class="py-op">=</tt><tt id="link-56" class="py-name"><a title="common.rhnTB.SecurityList.check
+server.handlers.sat.auth.Authentication.check
+server.rhnSQL.sql_base.Database.check
+spacewalk.common.rhn_rpm.RPMTransaction.check" class="py-name" href="#" onclick="return doclink('link-56', 'check', 'link-50');">check</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="ContentSource.verify_pkg"></a><div id="ContentSource.verify_pkg-def"><a name="L65"></a><tt class="py-lineno">65</tt> <a class="py-toggle" href="#" id="ContentSource.verify_pkg-toggle" onclick="return toggle('ContentSource.verify_pkg');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html#verify_pkg">verify_pkg</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fo</tt><tt class="py-op">,</tt> <tt class="py-param">pkg</tt><tt class="py-op">,</tt> <tt class="py-param">fail</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource.verify_pkg-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ContentSource.verify_pkg-expanded"><a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">pkg</tt><tt class="py-op">.</tt><tt class="py-name">verifyLocalPkg</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt>
+<a name="ContentSource._clean_cache"></a><div id="ContentSource._clean_cache-def"><a name="L68"></a><tt class="py-lineno">68</tt> <a class="py-toggle" href="#" id="ContentSource._clean_cache-toggle" onclick="return toggle('ContentSource._clean_cache');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="satellite_tools.repo_plugins.yum_src.ContentSource-class.html#_clean_cache">_clean_cache</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">directory</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ContentSource._clean_cache-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ContentSource._clean_cache-expanded"><a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">        <tt class="py-name">shutil</tt><tt class="py-op">.</tt><tt class="py-name">rmtree</tt><tt class="py-op">(</tt><tt class="py-name">directory</tt><tt class="py-op">,</tt> <tt id="link-57" class="py-name" targets="Variable xmlrpclib.True=xmlrpclib-module.html#True"><a title="xmlrpclib.True" class="py-name" href="#" onclick="return doclink('link-57', 'True', 'link-57');">True</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:29 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

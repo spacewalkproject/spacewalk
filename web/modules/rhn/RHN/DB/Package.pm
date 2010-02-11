@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,7 +17,6 @@ package RHN::DB::Package;
 
 
 use strict;
-use Data::Dumper;
 use Carp;
 use RHN::DB;
 use RHN::DB::TableClass;
@@ -29,6 +28,8 @@ Params::Validate::validation_options(strip_leading => "-");
 use RHN::Package::SolarisPackage;
 use RHN::Package::SolarisPatch;
 use RHN::Package::SolarisPatchSet;
+use RHN::Package ();
+use RHN::User ();
 
 my @pkg_fields = qw/
 		    id org_id name_id evr_id package_arch_id package_group rpm_version description
@@ -143,15 +144,6 @@ EOQ
   return @ret;
 }
 
-sub package_names_by_provide {
-  my $class = shift;
-  my %params = validate(@_, {org_id => 1, cap_name => 1});
-
-  my $ds = new RHN::DataSource::Package(-mode => 'name_by_provide');
-
-  return $ds->execute_query(-org_id => $params{org_id}, -cap_name => $params{cap_name});
-}
-
 sub package_set_channels {
   my $class = shift;
   my $set_label = shift;
@@ -180,69 +172,6 @@ EOQ
   }
 
   return @ret;
-}
-
-#grab channel names for package id.
-sub package_channel_names {
-  my $class = shift;
-  my $pid = shift;
-  my $org_id = shift;
-
-  return unless $pid;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-  SELECT AC.channel_name
-    FROM rhnChannelPackage CP, rhnAvailableChannels AC
-   WHERE AC.org_id = ?
-     AND CP.package_id = ?
-     AND AC.channel_id = CP.channel_id
-ORDER BY UPPER(AC.channel_name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id, $pid);
-
-  my @ret;
-
-  while (my ($data) = $sth->fetchrow) {
-    push @ret, $data;
-  }
-
-  unless (@ret) {
-    @ret = ('&nbsp');
-  }
-
-  return @ret;
-
-}
-
-sub source_rpm {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $query;
-  my $sth;
-
-  $query = <<EOQ;
-SELECT  SR.name
-  FROM  rhnSourceRPM SR
- WHERE  SR.id = ?
-EOQ
-
-#  warn "source rpm query:\n$query\n".$self->source_rpm_id;
-
-  $sth = $dbh->prepare($query);
-  $sth->execute($self->source_rpm_id);
-
-  my @columns;
-  my $ret;
-  if(@columns = $sth->fetchrow) {
-    $ret = $columns[0];
-  }
-  $sth->finish;
-  return $ret;
 }
 
 sub change_log {
@@ -383,7 +312,6 @@ EOQ
   while(@columns = $sth->fetchrow) {
     push @ret, [ @columns ];
   }
-  use Data::Dumper;
   return @ret;
 }
 
@@ -598,17 +526,6 @@ sub blank_package {
   bless { }, shift;
 }
 
-sub create_package {
-  my $class = shift;
-  my $package = $class->blank_package;
-  $package->{__id__} = -1;
-  return $package;
-}
-
-sub package_fields {
-  return @pkg_fields;
-}
-
 sub arch_fields {
   return @arch_fields;
 }
@@ -667,357 +584,6 @@ foreach my $field ($tc->method_names) {
   croak $@ if($@);
 }
 
-sub package_list_overview {
-  my $class = shift;
-  my %params = @_;
-
-  my ($user_id, $lower, $upper, $total_rows, $view_mode, $mode_params, $like, $alphabar) =
-    map {$params{'-'.$_}} qw/user_id lower upper total_rows view_mode mode_params like alphabar/;
-  my $query;
-  my @res;
-  my @row;
-
-  my $i = 1;
-  $$total_rows = 0;
-
-  my $dbh = RHN::DB->connect;
-
-  if ($view_mode eq 'set') {
-    $query = <<EOQ;
-SELECT
-	  PN.name, PE.evr.as_vre_simple(), PN.id || '|' || PE.id
-FROM
-	  rhnPackageName PN,
-          rhnPackageEVR PE,
-          rhnSet S
-WHERE	  S.label = ?
-AND       S.user_id = ?
-AND	  S.element = PN.id
-AND	  S.element_two = PE.id
-ORDER BY  UPPER(PN.name)
-EOQ
-  }
-  elsif ($view_mode eq 'channel') {
-    $query = <<EOQ;
-SELECT
-          PN.name, CPO.evr.as_vre_simple(), PN.id || '|' || LOOKUP_EVR(CPO.evr.epoch, CPO.evr.version, CPO.evr.release)
-FROM
-          rhnPackageName PN,
-          rhnChannelPackageOverview CPO
-WHERE
-          CPO.channel_id = ?
-      AND PN.id = CPO.name_id
-ORDER BY  UPPER(PN.name)
-EOQ
-  }
-  elsif ($view_mode eq 'channel_name_search') {
-    $query = <<EOQ;
-SELECT
-          PN.name, CPO.evr.as_vre_simple(), PN.id || '|' || LOOKUP_EVR(CPO.evr.epoch, CPO.evr.version, CPO.evr.release)
-FROM
-          rhnPackageName PN,
-          rhnChannelPackageOverview CPO
-WHERE
-          CPO.channel_id = ?
-      AND PN.id = CPO.name_id
-      AND UPPER(PN.name) LIKE UPPER(?)
-ORDER BY  UPPER(PN.name)
-EOQ
-  }
-  elsif ($view_mode eq 'name_search') {
-    $query = <<EOQ;
-SELECT
-          PN.name, CPO.evr.as_vre_simple(), PN.id || '|' || LOOKUP_EVR(CPO.evr.epoch, CPO.evr.version, CPO.evr.release)
-FROM
-          rhnPackageName PN,
-          rhnChannelPackageOverview CPO
-WHERE
-          CPO.channel_id = ?
-      AND PN.id = CPO.name_id
-      AND UPPER(name) LIKE UPPER(?)
-ORDER BY  UPPER(name)
-EOQ
-  }
-  elsif ($view_mode eq 'install_action') {
-    $query = <<EOQ;
-SELECT
-          PN.name, PE.evr.as_vre_simple(), PN.id || '|' || PE.id
-FROM
-          rhnPackageName PN,
-          rhnPackageEVR PE,
-          rhnActionPackage AP
-WHERE
-          AP.action_id = ?
-      AND PN.id = AP.name_id
-      AND PE.id = AP.evr_id
-ORDER BY  UPPER(name)
-EOQ
-  }
-  elsif ($view_mode eq 'removal_action') {
-    $query = <<EOQ;
-SELECT
-          PN.name, PE.evr.as_vre_simple(), PN.id || '|' || PE.id
-FROM
-          rhnPackageName PN,
-          rhnPackageEVR PE,
-          rhnActionPackage AP
-WHERE
-          AP.action_id = ?
-      AND PN.id = AP.name_id
-      AND PE.id = AP.evr_id
-ORDER BY  UPPER(name)
-EOQ
-  }
-  elsif ($view_mode eq 'any_channel') {
-    $query = <<EOQ;
-  SELECT PN.name, PE.evr.as_vre_simple(), P.id
-    FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P
-   WHERE P.org_id = ?
-     AND PN.id = P.name_id
-     AND PE.id = P.evr_id
-ORDER BY UPPER(PN.name)
-EOQ
-  }
-  elsif ($view_mode eq 'no_channels') {
-    $query = <<EOQ;
-  SELECT PN.name, PE.evr.as_vre_simple(), P.id
-    FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P
-   WHERE P.org_id = ?
-     AND PN.id = P.name_id
-     AND PE.id = P.evr_id
-     AND NOT EXISTS (SELECT 1
-                       FROM rhnChannelPackage CP
-		      WHERE P.id = CP.package_id)
-ORDER BY UPPER(PN.name)
-EOQ
-  }
-  elsif ($view_mode eq 'view_channel') {
-    $query = <<EOQ;
-  SELECT PN.name, PE.evr.as_vre_simple(), P.id
-    FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P, rhnChannelPackage CP
-   WHERE CP.channel_id = ?
-     AND P.id = CP.package_id
-     AND PN.id = P.name_id
-     AND PE.id = P.evr_id
-ORDER BY UPPER(PN.name)
-EOQ
-  }
-  else {
-    croak "No supported view_mode specified, view_mode == $view_mode";
-  }
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute(@$mode_params, $like ? "%$like%" : ());
-
-  my $lastalpha = '';
-  while (@row = $sth->fetchrow) {
-    my $alpha = lc(substr $row[0], 0, 1);
-    if ($alpha ne $lastalpha) {
-      $alphabar->{$alpha} = $i;
-      $lastalpha = $alpha;
-    }
-
-    if ($i <= $upper and $i >= $lower) {
-      push @res, [ @row ];
-    }
-    $$total_rows++;
-    $i++;
-  }
-
-  return @res;
-}
-
-sub packages_available_to_server {
-  my $class = shift;
-  my $sid = shift;
-  my $like = shift;
-
-  my $query;
-  my @res;
-  my @row;
-
-# TODO:  convert the hideous formatting of these queries
-
-  if (defined $like and $like ne '') {
-    $query = <<EOQ;
-select
-        pn.name,
-        full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch),
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)
-from (
-    select
-        p.name_id name_id,
-        max(pe.evr) evr
-    from
-        rhnPackageEVR PE,
-        rhnPackage P,
-        rhnChannelPackage CP,
-        rhnServerChannel SC
-    where
-        sc.server_id = ?
-    and sc.channel_id = cp.channel_id
-    and cp.package_id = p.id
-    and p.evr_id = pe.id
-    group by
-        p.name_id
-    ) full_list,
-   rhnPackageName pn
-where
-    full_list.name_id = pn.id
-    and full_list.name_id NOT IN (SELECT SP.name_id
-                                    FROM rhnServerPackage SP
-                                   WHERE SP.server_id = ? )
-    and UPPER(PN.name) like UPPER(?)
-order by
-   UPPER(pn.name)
-EOQ
-  }
-  else {
-    $query = <<EOQ;
-select
-        pn.name,
-        full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch),
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)
-from (
-    select
-        p.name_id name_id,
-        max(pe.evr) evr
-    from
-        rhnPackageEVR PE,
-        rhnPackage P,
-        rhnChannelPackage CP,
-        rhnServerChannel SC
-    where
-        sc.server_id = ?
-    and sc.channel_id = cp.channel_id
-    and cp.package_id = p.id
-    and p.evr_id = pe.id
-    group by
-        p.name_id
-    ) full_list,
-   rhnPackageName pn
-where
-    full_list.name_id = pn.id
-    and full_list.name_id NOT IN (SELECT SP.name_id
-                                    FROM rhnServerPackage SP
-                                   WHERE SP.server_id = ? )
-order by
-   UPPER(pn.name)
-EOQ
-  }
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute($sid, $sid, $like ? "%$like%" : ());
-
-  while (my @row = $sth->fetchrow) {
-    push @res, [ @row ];
-  }
-
-  return @res;
-}
-
-sub available_package_arches {
-  my $class = shift;
-  my $org_id = shift;
-  my $set = shift;
-  my $cid = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  my $filter_str = '';
-  my $channel_str = '';
-
-  my $org = RHN::Org->lookup(-id => $org_id);
-
-  my %addl_params = (org_id => $org_id);
-
-  if ($org->server_count > 0) {
-    $filter_str = <<EOQ;
-
-   AND 
-        EXISTS (
-               SELECT 1
-                 FROM rhnServer S
-                WHERE S.org_id = :org_id
-                  AND EXISTS (
-                              SELECT 1
-                                FROM rhnServerPackageArchCompat SPAC
-                               WHERE SPAC.server_arch_id = S.server_arch_id
-                                 AND SPAC.package_arch_id = P.package_arch_id
-                             )
-                )
-
-
-EOQ
-  }
-
-  if ($cid) {
-    $channel_str = 'AND CP.channel_id = :cid';
-    $addl_params{cid} = $cid;
-  }
-
-  $sth = $dbh->prepare(<<EOS);
-SELECT P.id, PA.name, PN.name || '-' || PEVR.evr.as_vre_simple(), P.path
-  FROM rhnPackageArch PA,
-       rhnPackageName PN,
-       rhnPackageEVR PEVR,
-       rhnPackage P
-  WHERE P.id = :id
-  AND P.name_id = PN.id
-  AND P.evr_id = PEVR.id
-  AND EXISTS (
-	       SELECT 1
-		 FROM rhnChannelPackage CP,
-		      rhnChannelPermissions CPerm
-		WHERE CPerm.org_id = :org_id
-		  AND CPerm.channel_id = CP.channel_id
-		  AND CP.package_id = P.id
-                  $channel_str
-	      )
-   $filter_str
-   AND PA.id = P.package_arch_id
-EOS
-
-  my @ret;
-  foreach my $evr ($set->contents) {
-    $sth->execute_h(id => $evr, %addl_params);
-
-    my @arches;
-    my $package_name = '';
-    while (my ($id, $arch, $pkg_name, $path) = $sth->fetchrow) {
-      $package_name = $pkg_name;
-      push @arches, [ $id, $arch, $path ];
-    }
-
-    push @ret, [ $package_name, [ @arches ] ];
-  }
-
-  return @ret;
-}
-
-sub source_rpm_path {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth;
-
-  if (defined $self->org_id) {
-    $sth = $dbh->prepare("SELECT PS.path, PS.package_size FROM rhnPackageSource PS WHERE PS.org_id = ? AND PS.source_rpm_id = ?");
-    $sth->execute($self->org_id, $self->source_rpm_id);
-  }
-  else {
-    $sth = $dbh->prepare("SELECT PS.path, PS.package_size FROM rhnPackageSource PS WHERE PS.org_id IS NULL AND PS.source_rpm_id = ?");
-    $sth->execute($self->source_rpm_id);
-  }
-
-  my ($path, $size) = $sth->fetchrow;
-  $sth->finish;
-
-  return ($path, $size);
-}
-
 sub obsoleting_packages {
   my $class = shift;
   my $package_id = shift;
@@ -1062,114 +628,6 @@ EOS
   }
 
   return @ret;
-}
-
-sub system_set_server_package_names {
-  my $class = shift;
-  my %params = @_;
-
-  my ($user_id, $lower, $upper, $total_rows, $all_ids) =
-    map {$params{'-'.$_}} qw/user_id lower upper total_rows all_ids/;
-
-  my @res;
-  my $row;
-
-  my $i = 1;
-  $$total_rows = 0;
-
-
-  my $dbh = RHN::DB->connect;
-
-  # the 1 just makes life easier come pagination time, since we do a bit of post processing...
-  my $query = <<EOQ;
-SELECT PN.id id, PN.name name, COUNT(SP.server_id) num_systems
-  FROM  rhnPackageName PN, rhnServerPackage SP, rhnSet S
- WHERE  S.user_id = ?
-   AND  S.label = 'system_list'
-   AND  S.element = SP.server_id
-   AND  SP.name_id = PN.id
-GROUP BY PN.id, PN.name
-ORDER BY UPPER(PN.name)
-EOQ
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($user_id);
-
-  my @ret;
-  my @ids;
-  while ($row = $sth->fetchrow_hashref) {
-    if ($all_ids) {
-      push @ids, $row->{ID};
-    }
-
-    if ($i <= $upper and $i >= $lower) {
-      push @ret, $row;
-    }
-    $$total_rows++;
-    $i++;
-  }
-
-  return (data => \@ret, ids =>\@ids);
-}
-
-
-sub delta_canonical_lists {
-  my $class = shift;
-  my $s1 = shift;
-  my $s2 = shift;
-
-  my %s1_names;
-  my %s2_names;
-
-  foreach my $pkg (@$s1) {
-    $s1_names{$pkg->[0]} = $pkg;
-  }
-
-  foreach my $pkg (@$s2) {
-    $s2_names{$pkg->[0]} = $pkg;
-  }
-
-  my @names;
-  @names = keys %s1_names;
-
-  foreach my $name (keys %s2_names) {
-    push @names, $name
-      unless exists $s1_names{$name};
-  }
-
-  my @data = map { 
-    ({ name_id => $_,
-       name => $s1_names{$_}->[1] || $s2_names{$_}->[1],
-       s1 => { evr_id  => $s1_names{$_}->[2],
-	       evr     => $s1_names{$_}->[3],
-	       epoch   => $s1_names{$_}->[4],
-	       version => $s1_names{$_}->[5],
-	       release => $s1_names{$_}->[6]
-	     },
-       s2 => { evr_id  => $s2_names{$_}->[2],
-	       evr     => $s2_names{$_}->[3],
-	       epoch   => $s2_names{$_}->[4],
-	       version => $s2_names{$_}->[5],
-	       release => $s2_names{$_}->[6]
-	     },
-       comparison => 0
-     }) } @names;
-
-  my @ret;
-  foreach my $row (@data) {
-    my $p1 = $s1_names{$row->{name_id}};
-    my $p2 = $s2_names{$row->{name_id}};
-
-    push @ret, $row
-      unless $p1->[2] and $p2->[2] and
-	$p1->[2] == $p2->[2];
-
-    $row->{comparison} = $class->vercmp($row->{s1}->{epoch}, $row->{s1}->{version}, $row->{s1}->{release},
-					$row->{s2}->{epoch}, $row->{s2}->{version}, $row->{s2}->{release})
-      if $row->{s1}->{evr} and $row->{s2}->{evr};
-  }
-
-  return \@ret;
 }
 
 sub delta_canonical_lists_hashref {
@@ -1268,49 +726,6 @@ sub vercmp {
 }
 
 
-sub target_systems_in_set {
-  my $self = shift;
-  my %params = @_;
-
-  my ($org_id, $user_id) =
-    map { $params{"-" . $_} } qw/org_id user_id/;
-
-
-  my $rhn_class = '';
-  $rhn_class = 'RHN.' unless PXT::Config->get('satellite');
-
-  my $query = <<EOQ;
-SELECT	S.id
-  FROM  rhnPackage P, rhnChannelPackage CP, rhnServerChannel SC, rhnServer S
- WHERE  S.org_id = ?
-   AND  S.id IN (SELECT element FROM rhnSet WHERE user_id = ? AND label = 'system_list')
-   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = ? AND USP.server_id = S.id)
-   AND  EXISTS (SELECT 1 FROM rhnEntitledServers ES WHERE ES.id = S.id)
-   AND  SC.server_id = S.id
-   AND  SC.channel_id = CP.channel_id
-   AND  CP.package_id = ?
-   AND  CP.package_id = P.id
-   AND  NVL((SELECT MAX(PE.evr)
-           FROM rhnServerPackage SP, rhnPackageEvr PE
-          WHERE SP.name_id = P.name_id
-            AND SP.server_id = S.id
-            AND SP.evr_id = PE.id), ${rhn_class}EVR_T(NULL, 0, 0))
-        <
-        (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)
-EOQ
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id, $user_id, $user_id, $self->id);
-
-  my @ret;
-  while (my $row = $sth->fetchrow) {
-      push @ret,  $row ;
-  }
-
-  return @ret;
-}
-
 sub org_permission_check {
   my $class = shift;
   my $pid = shift;
@@ -1349,32 +764,29 @@ sub delete_packages_from_set {
   my $lock_sth = RHN::User->lock_web_contact(-transaction => $dbh, -uid => $user_id);
   my $sth;
 
-  if (PXT::Config->get('satellite')) {
-    $sth = $dbh->prepare(<<EOQ);
+  $sth = $dbh->prepare(<<EOQ);
 SELECT P.path
   FROM rhnPackage P
  WHERE P.id IN(SELECT S.element FROM rhnSet S WHERE S.user_id = :user_id and S.label = :label)
    AND NOT EXISTS(SELECT 1 FROM rhnPackageFileDeleteQueue PFDQ WHERE PFDQ.path = P.path)
 EOQ
 
-    $sth->execute_h(user_id => $user_id, label => $set_label);
+  $sth->execute_h(user_id => $user_id, label => $set_label);
 
-    my @paths;
+  my @paths;
 
-    while (my ($path) = $sth->fetchrow) {
-      push @paths, $path;
-    }
+  while (my ($path) = $sth->fetchrow) {
+    push @paths, $path;
+  }
 
-    $sth = $dbh->prepare(<<EOQ);
+  $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnPackageFileDeleteQueue (path)
 VALUES (:path)
 EOQ
 
-    foreach my $path (@paths) {
-      $sth->execute_h(path => $path);
-    }
-
+  foreach my $path (@paths) {
+    $sth->execute_h(path => $path);
   }
 
   my $query = 'delete from %s where package_id IN(SELECT S.element FROM rhnSet S WHERE S.user_id = :user_id AND S.label = :label)';
@@ -1478,14 +890,6 @@ EOQ
 
   return @archs;
 
-}
-
-sub lookup_package_name_id {
-  my $class = shift;
-  my $name = shift;
-
-  my $dbh = RHN::DB->connect;
-  return $dbh->call_function('lookup_package_name', $name);
 }
 
 sub is_package_in_channel {
@@ -1676,23 +1080,6 @@ EOQ
   $sth->finish;
 
   return $name;
-}
-
-sub download_link_type {
-  my $self = shift;
-
-  my $arch_type_label = $self->arch_type_label();
-
-  my %download_type_map = ( rpm => 'Package',
-			    'sysv-solaris' => 'Package',
-			    'tar' => 'Tar file',
-			    'solaris-patch' => 'Patch',
-			    'solaris-patch-cluster' => 'Patch Cluster',
-			  );
-
-  my $ret = $download_type_map{$arch_type_label} || 'File';
-
-  return $ret;
 }
 
 sub package_type_capable {

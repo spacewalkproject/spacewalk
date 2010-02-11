@@ -15,7 +15,6 @@
 
 use strict;
 package Dobby::Files;
-use RHN::DB;
 use Digest::MD5;
 use Compress::Zlib;
 use File::Basename qw/basename/;

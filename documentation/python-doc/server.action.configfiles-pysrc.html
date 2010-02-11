@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.action.configfiles</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.action-module.html">Package&nbsp;action</a> ::
+        Module&nbsp;configfiles
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.action.configfiles-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="server.action.configfiles-module.html">Module server.action.configfiles</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (c) 2008--2009 Red Hat, Inc.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># This software is licensed to you under the GNU General Public License,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># version 2 (GPLv2). There is NO WARRANTY for this software, express or</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># implied, including the implied warranties of MERCHANTABILITY or FITNESS</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># along with this software; if not, see</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># Red Hat trademarks are not licensed under GPLv2. No permission is</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># granted to use or replicate Red Hat trademarks that are incorporated</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in this software or its documentation. </tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># config file-related queuing functions</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package common=common-module.html,Package spacewalk.common=spacewalk.common-module.html"><a title="common
+spacewalk.common" class="py-name" href="#" onclick="return doclink('link-0', 'common', 'link-0');">common</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function common.rhnLog.log_debug()=common.rhnLog-module.html#log_debug"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-1', 'log_debug', 'link-1');">log_debug</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Package server=server-module.html"><a title="server" class="py-name" href="#" onclick="return doclink('link-2', 'server', 'link-2');">server</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package server.rhnSQL=server.rhnSQL-module.html"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-3', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">,</tt> <tt id="link-4" class="py-name" targets="Package server.rhnServer=server.rhnServer-module.html"><a title="server.rhnServer" class="py-name" href="#" onclick="return doclink('link-4', 'rhnServer', 'link-4');">rhnServer</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-5', 'server', 'link-2');">server</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module server.configFilesHandler=server.configFilesHandler-module.html"><a title="server.configFilesHandler" class="py-name" href="#" onclick="return doclink('link-6', 'configFilesHandler', 'link-6');">configFilesHandler</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Function server.configFilesHandler.format_file_results()=server.configFilesHandler-module.html#format_file_results"><a title="server.configFilesHandler.format_file_results" class="py-name" href="#" onclick="return doclink('link-7', 'format_file_results', 'link-7');">format_file_results</a></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-8" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-8', 'server', 'link-2');">server</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Package server.config_common=server.config_common-module.html"><a title="server.config_common" class="py-name" href="#" onclick="return doclink('link-9', 'config_common', 'link-9');">config_common</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Module server.config_common.templated_document=server.config_common.templated_document-module.html"><a title="server.config_common.templated_document" class="py-name" href="#" onclick="return doclink('link-10', 'templated_document', 'link-10');">templated_document</a></tt> <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Function server.config_common.templated_document.var_interp_prep()=server.config_common.templated_document-module.html#var_interp_prep"><a title="server.config_common.templated_document.var_interp_prep" class="py-name" href="#" onclick="return doclink('link-11', 'var_interp_prep', 'link-11');">var_interp_prep</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># the "exposed" functions</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt id="link-12" class="py-name" targets="Variable server.action.activation.__rhnexport__=server.action.activation-module.html#__rhnexport__,Variable server.action.configfiles.__rhnexport__=server.action.configfiles-module.html#__rhnexport__,Variable server.action.errata.__rhnexport__=server.action.errata-module.html#__rhnexport__,Variable server.action.hardware.__rhnexport__=server.action.hardware-module.html#__rhnexport__,Variable server.action.kickstart.__rhnexport__=server.action.kickstart-module.html#__rhnexport__,Variable server.action.kickstart_guest.__rhnexport__=server.action.kickstart_guest-module.html#__rhnexport__,Variable server.action.kickstart_host.__rhnexport__=server.action.kickstart_host-module.html#__rhnexport__,Variable server.action.packages.__rhnexport__=server.action.packages-module.html#__rhnexport__,Variable server.action.reboot.__rhnexport__=server.action.reboot-module.html#__rhnexport__,Variable server.action.rhn_applet.__rhnexport__=server.action.rhn_applet-module.html#__rhnexport__,Variable server.action.rhnsd.__rhnexport__=server.action.rhnsd-module.html#__rhnexport__,Variable server.action.rollback.__rhnexport__=server.action.rollback-module.html#__rhnexport__,Variable server.action.script.__rhnexport__=server.action.script-module.html#__rhnexport__,Variable server.action.solarispkgs.__rhnexport__=server.action.solarispkgs-module.html#__rhnexport__,Variable server.action.virt.__rhnexport__=server.action.virt-module.html#__rhnexport__,Variable server.action_extra_data.configfiles.__rhnexport__=server.action_extra_data.configfiles-module.html#__rhnexport__,Variable server.action_extra_data.errata.__rhnexport__=server.action_extra_data.errata-module.html#__rhnexport__,Variable server.action_extra_data.hardware.__rhnexport__=server.action_extra_data.hardware-module.html#__rhnexport__,Variable server.action_extra_data.kickstart.__rhnexport__=server.action_extra_data.kickstart-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_guest.__rhnexport__=server.action_extra_data.kickstart_guest-module.html#__rhnexport__,Variable server.action_extra_data.kickstart_host.__rhnexport__=server.action_extra_data.kickstart_host-module.html#__rhnexport__,Variable server.action_extra_data.packages.__rhnexport__=server.action_extra_data.packages-module.html#__rhnexport__,Variable server.action_extra_data.reboot.__rhnexport__=server.action_extra_data.reboot-module.html#__rhnexport__,Variable server.action_extra_data.rhn_applet.__rhnexport__=server.action_extra_data.rhn_applet-module.html#__rhnexport__,Variable server.action_extra_data.rhnsd.__rhnexport__=server.action_extra_data.rhnsd-module.html#__rhnexport__,Variable server.action_extra_data.rollback.__rhnexport__=server.action_extra_data.rollback-module.html#__rhnexport__,Variable server.action_extra_data.script.__rhnexport__=server.action_extra_data.script-module.html#__rhnexport__,Variable server.action_extra_data.solarispkgs.__rhnexport__=server.action_extra_data.solarispkgs-module.html#__rhnexport__,Variable server.action_extra_data.up2date_config.__rhnexport__=server.action_extra_data.up2date_config-module.html#__rhnexport__,Variable server.action_extra_data.virt.__rhnexport__=server.action_extra_data.virt-module.html#__rhnexport__"><a title="server.action.activation.__rhnexport__
+server.action.configfiles.__rhnexport__
+server.action.errata.__rhnexport__
+server.action.hardware.__rhnexport__
+server.action.kickstart.__rhnexport__
+server.action.kickstart_guest.__rhnexport__
+server.action.kickstart_host.__rhnexport__
+server.action.packages.__rhnexport__
+server.action.reboot.__rhnexport__
+server.action.rhn_applet.__rhnexport__
+server.action.rhnsd.__rhnexport__
+server.action.rollback.__rhnexport__
+server.action.script.__rhnexport__
+server.action.solarispkgs.__rhnexport__
+server.action.virt.__rhnexport__
+server.action_extra_data.configfiles.__rhnexport__
+server.action_extra_data.errata.__rhnexport__
+server.action_extra_data.hardware.__rhnexport__
+server.action_extra_data.kickstart.__rhnexport__
+server.action_extra_data.kickstart_guest.__rhnexport__
+server.action_extra_data.kickstart_host.__rhnexport__
+server.action_extra_data.packages.__rhnexport__
+server.action_extra_data.reboot.__rhnexport__
+server.action_extra_data.rhn_applet.__rhnexport__
+server.action_extra_data.rhnsd.__rhnexport__
+server.action_extra_data.rollback.__rhnexport__
+server.action_extra_data.script.__rhnexport__
+server.action_extra_data.solarispkgs.__rhnexport__
+server.action_extra_data.up2date_config.__rhnexport__
+server.action_extra_data.virt.__rhnexport__" class="py-name" href="#" onclick="return doclink('link-12', '__rhnexport__', 'link-12');">__rhnexport__</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'upload'</tt><tt class="py-op">,</tt> <tt class="py-string">'deploy'</tt><tt class="py-op">,</tt> <tt class="py-string">'verify'</tt><tt class="py-op">,</tt> <tt class="py-string">'diff'</tt><tt class="py-op">,</tt> <tt class="py-string">'mtime_upload'</tt><tt class="py-op">]</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable server.action.configfiles._query_upload_files=server.action.configfiles-module.html#_query_upload_files"><a title="server.action.configfiles._query_upload_files" class="py-name" href="#" onclick="return doclink('link-13', '_query_upload_files', 'link-13');">_query_upload_files</a></tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-14', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Class server.rhnSQL.sql_base.Statement=server.rhnSQL.sql_base.Statement-class.html"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-15', 'Statement', 'link-15');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-string">    select cfn.path</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-string">      from rhnActionConfigFileName acfn, rhnConfigFileName cfn</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-string">     where acfn.server_id = :server_id</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-string">       and acfn.action_id = :action_id</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-string">       and acfn.config_file_name_id = cfn.id</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable server.action.configfiles._query_mtime_upload_info=server.action.configfiles-module.html#_query_mtime_upload_info"><a title="server.action.configfiles._query_mtime_upload_info" class="py-name" href="#" onclick="return doclink('link-16', '_query_mtime_upload_info', 'link-16');">_query_mtime_upload_info</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-17', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-18', 'Statement', 'link-15');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-string">    select TO_CHAR(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-string">           TO_CHAR(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-string">           TO_CHAR(sysdate, 'YYYY-MM-DD HH24:MI:SS') as now,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-string">           import_contents</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-string">      from rhnActionConfigDate</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-string">     where action_id = :action_id</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt id="link-19" class="py-name" targets="Variable server.action.configfiles._query_mtime_upload_paths=server.action.configfiles-module.html#_query_mtime_upload_paths"><a title="server.action.configfiles._query_mtime_upload_paths" class="py-name" href="#" onclick="return doclink('link-19', '_query_mtime_upload_paths', 'link-19');">_query_mtime_upload_paths</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-20', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-21', 'Statement', 'link-15');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-string">    select file_name,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-string">           file_type</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-string">      from rhnActionConfigDateFile</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-string">     where action_id = :action_id</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="mtime_upload"></a><div id="mtime_upload-def"><a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="mtime_upload-toggle" onclick="return toggle('mtime_upload');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#mtime_upload">mtime_upload</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mtime_upload-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="mtime_upload-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt id="link-22" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-22', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt id="link-23" class="py-name" targets="Method satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data()=satellite_exporter.handlers.non_auth_dumper.ContainerWriter-class.html#data,Method satellite_tools.exporter.xmlWriter.XMLWriter.data()=satellite_tools.exporter.xmlWriter.XMLWriter-class.html#data"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-23', 'data', 'link-23');">data</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-24', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method server.rhnSQL.driver_cx_Oracle.Database.prepare()=server.rhnSQL.driver_cx_Oracle.Database-class.html#prepare,Method server.rhnSQL.driver_postgresql.Database.prepare()=server.rhnSQL.driver_postgresql.Database-class.html#prepare,Function server.rhnSQL.prepare()=server.rhnSQL-module.html#prepare,Method server.rhnSQL.sql_base.Cursor.prepare()=server.rhnSQL.sql_base.Cursor-class.html#prepare,Method server.rhnSQL.sql_base.Database.prepare()=server.rhnSQL.sql_base.Database-class.html#prepare"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-25', 'prepare', 'link-25');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="server.action.configfiles._query_mtime_upload_info" class="py-name" href="#" onclick="return doclink('link-26', '_query_mtime_upload_info', 'link-16');">_query_mtime_upload_info</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.DatabaseStatement.execute()=satellite_tools.disk_dumper.dumper.DatabaseStatement-class.html#execute,Method server.rhnSQL.driver_cx_Oracle.Database.execute()=server.rhnSQL.driver_cx_Oracle.Database-class.html#execute,Function server.rhnSQL.execute()=server.rhnSQL-module.html#execute,Method server.rhnSQL.sql_base.Cursor.execute()=server.rhnSQL.sql_base.Cursor-class.html#execute"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-27', 'execute', 'link-27');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.CachedQueryIterator-class.html#fetchone_dict,Method satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict()=satellite_tools.disk_dumper.dumper.QueryIterator-class.html#fetchone_dict,Method satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict()=satellite_tools.exporter.exportLib.ArrayIterator-class.html#fetchone_dict,Method server.rhnSQL.sql_base.Cursor.fetchone_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchone_dict"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-28', 'fetchone_dict', 'link-28');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'start_date'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">mktime</tt><tt class="py-op">(</tt><tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">strptime</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'start_date'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'%Y-%m-%d %H:%M:%S'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'now'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">mktime</tt><tt class="py-op">(</tt><tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">strptime</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'now'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'%Y-%m-%d %H:%M:%S'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'end_date'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'end_date'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">mktime</tt><tt class="py-op">(</tt><tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">strptime</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'end_date'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-string">'%Y-%m-%d %H:%M:%S'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'end_date'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">''</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt id="link-29" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-29', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'info'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">info</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt id="link-30" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-30', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'search'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt id="link-31" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-31', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'ignore'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-32" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-32', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-33', 'prepare', 'link-25');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-34" class="py-name"><a title="server.action.configfiles._query_mtime_upload_paths" class="py-name" href="#" onclick="return doclink('link-34', '_query_mtime_upload_paths', 'link-19');">_query_mtime_upload_paths</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-35', 'execute', 'link-27');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-36', 'fetchone_dict', 'link-28');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'file_type'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'W'</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt id="link-37" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-37', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'search'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Method server.importlib.importLib.Collection.append()=server.importlib.importLib.Collection-class.html#append"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-38', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'file_name'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'file_type'</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'B'</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt id="link-39" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-39', 'data', 'link-23');">data</a></tt><tt class="py-op">[</tt><tt class="py-string">'ignore'</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-40', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-string">'file_name'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">    <tt id="link-41" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-41', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-string">'data'</tt><tt class="py-op">,</tt> <tt id="link-42" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-42', 'data', 'link-23');">data</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">     </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">action_id</tt><tt class="py-op">,</tt> <tt id="link-43" class="py-name"><a title="satellite_exporter.handlers.non_auth_dumper.ContainerWriter.data
+satellite_tools.exporter.xmlWriter.XMLWriter.data" class="py-name" href="#" onclick="return doclink('link-43', 'data', 'link-23');">data</a></tt> </tt>
+</div><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="upload"></a><div id="upload-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="upload-toggle" onclick="return toggle('upload');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#upload">upload</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="upload-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="upload-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt id="link-44" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-44', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-45" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-45', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-46', 'prepare', 'link-25');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-47" class="py-name"><a title="server.action.configfiles._query_upload_files" class="py-name" href="#" onclick="return doclink('link-47', '_query_upload_files', 'link-13');">_query_upload_files</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-48', 'execute', 'link-27');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">,</tt> <tt class="py-name">server_id</tt><tt class="py-op">=</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt class="py-name">files</tt> <tt class="py-op">=</tt> <tt class="py-name">map</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">[</tt><tt class="py-string">'path'</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name" targets="Method server.rhnSQL.sql_base.Cursor.fetchall_dict()=server.rhnSQL.sql_base.Cursor-class.html#fetchall_dict"><a title="server.rhnSQL.sql_base.Cursor.fetchall_dict" class="py-name" href="#" onclick="return doclink('link-49', 'fetchall_dict', 'link-49');">fetchall_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">action_id</tt><tt class="py-op">,</tt> <tt class="py-name">files</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="deploy"></a><div id="deploy-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="deploy-toggle" onclick="return toggle('deploy');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#deploy">deploy</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="deploy-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="deploy-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt id="link-50" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-50', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-51" class="py-name" targets="Function server.action.configfiles._get_files()=server.action.configfiles-module.html#_get_files,Method server.repomd.view.PrimaryView._get_files()=server.repomd.view.PrimaryView-class.html#_get_files,Method server.rhnKickstart.Kickstart._get_files()=server.rhnKickstart.Kickstart-class.html#_get_files"><a title="server.action.configfiles._get_files
+server.repomd.view.PrimaryView._get_files
+server.rhnKickstart.Kickstart._get_files" class="py-name" href="#" onclick="return doclink('link-51', '_get_files', 'link-51');">_get_files</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="verify"></a><div id="verify-def"><a name="L105"></a><tt class="py-lineno">105</tt> <a class="py-toggle" href="#" id="verify-toggle" onclick="return toggle('verify');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#verify">verify</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="verify-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="verify-expanded"><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt id="link-52" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-52', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-53" class="py-name"><a title="server.action.configfiles._get_files
+server.repomd.view.PrimaryView._get_files
+server.rhnKickstart.Kickstart._get_files" class="py-name" href="#" onclick="return doclink('link-53', '_get_files', 'link-51');">_get_files</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="diff"></a><div id="diff-def"><a name="L109"></a><tt class="py-lineno">109</tt> <a class="py-toggle" href="#" id="diff-toggle" onclick="return toggle('diff');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#diff">diff</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="diff-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="diff-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt id="link-54" class="py-name"><a title="common.rhnLog.log_debug" class="py-name" href="#" onclick="return doclink('link-54', 'log_debug', 'link-1');">log_debug</a></tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-55" class="py-name"><a title="server.action.configfiles._get_files
+server.repomd.view.PrimaryView._get_files
+server.rhnKickstart.Kickstart._get_files" class="py-name" href="#" onclick="return doclink('link-55', '_get_files', 'link-51');">_get_files</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">,</tt> <tt class="py-name">action_id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt id="link-56" class="py-name" targets="Variable server.action.configfiles._query_get_files=server.action.configfiles-module.html#_query_get_files"><a title="server.action.configfiles._query_get_files" class="py-name" href="#" onclick="return doclink('link-56', '_query_get_files', 'link-56');">_query_get_files</a></tt> <tt class="py-op">=</tt> <tt id="link-57" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-57', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-58" class="py-name"><a title="server.rhnSQL.sql_base.Statement" class="py-name" href="#" onclick="return doclink('link-58', 'Statement', 'link-15');">Statement</a></tt><tt class="py-op">(</tt><tt class="py-string">"""</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-string">    select cfn.path,</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-string">           cc.label config_channel,</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-string">           ccont.contents file_contents,</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-string">           ccont.is_binary is_binary,</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-string">           c.checksum_type,</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-string">           c.checksum,</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-string">           cr.delim_start,</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-string">           cr.delim_end,</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-string">           cr.revision,</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-string">           ci.username,</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-string">           ci.groupname,</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-string">           ci.filemode,</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-string">           cft.label,</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-string">           ci.selinux_ctx</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-string">      from </tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigFileState cfs,</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigContent ccont,</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-string">           rhnChecksumView c,</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigChannel cc,</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigFileName cfn,</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigInfo ci,</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigFile cf,</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigRevision cr,</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-string">           rhnConfigFileType cft,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-string">           rhnActionConfigRevision acr</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-string">     where acr.server_id = :server_id</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-string">       and acr.action_id = :action_id</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-string">       and acr.config_revision_id = cr.id</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-string">       and cr.config_file_id = cf.id</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-string">       and cr.config_info_id = ci.id</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-string">       and cf.config_file_name_id = cfn.id</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-string">       and cf.config_channel_id = cc.id</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-string">       and cf.state_id = cfs.id</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-string">       and cfs.label = 'alive'</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-string">       and cr.config_content_id = ccont.id</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-string">       and cr.config_file_type_id = cft.id</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-string">       and ccont.checksum_id = c.id</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-string">"""</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"> </tt>
+<a name="_get_files"></a><div id="_get_files-def"><a name="L153"></a><tt class="py-lineno">153</tt> <a class="py-toggle" href="#" id="_get_files-toggle" onclick="return toggle('_get_files');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="server.action.configfiles-module.html#_get_files">_get_files</a><tt class="py-op">(</tt><tt class="py-param">server_id</tt><tt class="py-op">,</tt> <tt class="py-param">action_id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_get_files-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_get_files-expanded"><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt id="link-59" class="py-name"><a title="server.rhnSQL" class="py-name" href="#" onclick="return doclink('link-59', 'rhnSQL', 'link-3');">rhnSQL</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="server.rhnSQL.driver_cx_Oracle.Database.prepare
+server.rhnSQL.driver_postgresql.Database.prepare
+server.rhnSQL.prepare
+server.rhnSQL.sql_base.Cursor.prepare
+server.rhnSQL.sql_base.Database.prepare" class="py-name" href="#" onclick="return doclink('link-60', 'prepare', 'link-25');">prepare</a></tt><tt class="py-op">(</tt><tt id="link-61" class="py-name"><a title="server.action.configfiles._query_get_files" class="py-name" href="#" onclick="return doclink('link-61', '_query_get_files', 'link-56');">_query_get_files</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="satellite_tools.disk_dumper.dumper.DatabaseStatement.execute
+server.rhnSQL.driver_cx_Oracle.Database.execute
+server.rhnSQL.execute
+server.rhnSQL.sql_base.Cursor.execute" class="py-name" href="#" onclick="return doclink('link-62', 'execute', 'link-27');">execute</a></tt><tt class="py-op">(</tt><tt class="py-name">action_id</tt><tt class="py-op">=</tt><tt class="py-name">action_id</tt><tt class="py-op">,</tt> <tt class="py-name">server_id</tt><tt class="py-op">=</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt id="link-63" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-63', 'server', 'link-2');">server</a></tt> <tt class="py-op">=</tt> <tt id="link-64" class="py-name"><a title="server.rhnServer" class="py-name" href="#" onclick="return doclink('link-64', 'rhnServer', 'link-4');">rhnServer</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Function server.rhnServer.search()=server.rhnServer-module.html#search,Function server.rhnUser.search()=server.rhnUser-module.html#search"><a title="server.rhnServer.search
+server.rhnUser.search" class="py-name" href="#" onclick="return doclink('link-65', 'search', 'link-65');">search</a></tt><tt class="py-op">(</tt><tt class="py-name">server_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt id="link-66" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-66', 'server', 'link-2');">server</a></tt> <tt class="py-op">=</tt> <tt id="link-67" class="py-name"><a title="server.config_common.templated_document.var_interp_prep" class="py-name" href="#" onclick="return doclink('link-67', 'var_interp_prep', 'link-11');">var_interp_prep</a></tt><tt class="py-op">(</tt><tt id="link-68" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-68', 'server', 'link-2');">server</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">     </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-name">files</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt class="py-keyword">while</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-name">row</tt> <tt class="py-op">=</tt> <tt class="py-name">h</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="satellite_tools.disk_dumper.dumper.CachedQueryIterator.fetchone_dict
+satellite_tools.disk_dumper.dumper.QueryIterator.fetchone_dict
+satellite_tools.exporter.exportLib.ArrayIterator.fetchone_dict
+server.rhnSQL.sql_base.Cursor.fetchone_dict" class="py-name" href="#" onclick="return doclink('link-69', 'fetchone_dict', 'link-28');">fetchone_dict</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">            <tt class="py-keyword">break</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-name">files</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="server.importlib.importLib.Collection.append" class="py-name" href="#" onclick="return doclink('link-70', 'append', 'link-38');">append</a></tt><tt class="py-op">(</tt><tt id="link-71" class="py-name"><a title="server.configFilesHandler.format_file_results" class="py-name" href="#" onclick="return doclink('link-71', 'format_file_results', 'link-7');">format_file_results</a></tt><tt class="py-op">(</tt><tt class="py-name">row</tt><tt class="py-op">,</tt> <tt id="link-72" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-72', 'server', 'link-2');">server</a></tt><tt class="py-op">=</tt><tt id="link-73" class="py-name"><a title="server" class="py-name" href="#" onclick="return doclink('link-73', 'server', 'link-2');">server</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-string">'files'</tt>         <tt class="py-op">:</tt> <tt class="py-name">files</tt><tt class="py-op">,</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Jan 22 11:37:36 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

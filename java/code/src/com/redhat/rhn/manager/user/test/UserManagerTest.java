@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Red Hat, Inc.
+ * Copyright (c) 2009--2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,7 +47,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -393,30 +392,7 @@ public class UserManagerTest extends RhnBaseTestCase {
                 .getTimeZone("America/Phoenix")));
         assertTrue(((RhnTimeZone)lst.get(4)).getOlsonName().equals("America/Phoenix"));
     }
-    
-    public void testSystemsInSet() throws Exception {
-        User usr = UserTestUtils.findNewUser("testUser", "testOrg");
-        RhnSet newrs = RhnSetManager.createSet(usr.getId(), "test_systems_list", 
-                SetCleanup.NOOP);
-        
-        for (int i = 0; i < 5; i++) {
-            Server mySystem = ServerFactoryTest.createTestServer(usr);
-            newrs.addElement(mySystem.getId());
-        }
-        
-        RhnSetManager.store(newrs);
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-        pc.setPageSize(5);
-        DataResult dr = UserManager.systemsInSet(usr, "test_systems_list", pc);
-        assertEquals(dr.size(), 5);
-        assertTrue(dr.iterator().hasNext());
-        
-        HashMap m = (HashMap)(dr.iterator().next());
-        assertTrue(m.containsKey("name"));
-        assertTrue(m.containsKey("system_overview"));
-    }
-   
+
    public void testUsersInSet() throws Exception {
        User user = UserTestUtils.findNewUser("testUser", "testOrg");
        RhnSet set = RhnSetManager.createSet(user.getId(), "test_user_list", 

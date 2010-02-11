@@ -1,10 +1,18 @@
 #
-# Copyright (c) 1999-2002 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999--2010 Red Hat Inc.
 #
-# Author: Preston Brown <pbrown@redhat.com>
-#         Adrian Likins <alikins@redhat.com>
-#         Cristian Gafton <gafton@redhat.com>
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
 # This thing gets the hardware configuraion out of a system
 """Used to read hardware info from kudzu, /proc, etc"""
 from socket import gethostname
@@ -93,8 +101,6 @@ PCI_CLASS_SERIAL_USB =          3
 PCI_CLASS_SERIAL_FIBER =        4
 PCI_CLASS_SERIAL_SMBUS =        5
 
-
-
 # Some systems don't have the _locale module installed
 try:
     import locale
@@ -105,6 +111,18 @@ except ImportError:
 _dmi_data           = None
 _dmi_not_available  = 0
 
+def dmi_warnings():
+    if not hasattr(dmidecode, 'get_warnings'):
+        return None
+
+    return dmidecode.get_warnings()
+
+dmi_warn = dmi_warnings()
+if dmi_warn:
+    dmidecode.clear_warnings()
+    log = up2dateLog.initLog()
+    log.log_debug("Warnings collected during dmidecode import: %s" % dmi_warn)
+
 def _initialize_dmi_data():
     """ Initialize _dmi_data unless it already exist and returns it """
     global _dmi_data, _dmi_not_available
@@ -114,13 +132,21 @@ def _initialize_dmi_data():
             return None
         else :
             dmixml = dmidecode.dmidecodeXML()
-            dmixml = dmixml.SetResultType(dmidecode.DMIXML_DOC)
+            dmixml.SetResultType(dmidecode.DMIXML_DOC)
             # Get all the DMI data and prepare a XPath context
             try:
                 data = dmixml.QuerySection('all')
+                dmi_warn = dmi_warnings()
+                if dmi_warn:
+                    dmidecode.clear_warnings()
+                    log = up2dateLog.initLog()
+                    log.log_debug("dmidecode warnings: " % dmi_warn)
             except:
                 # DMI decode FAIL, this can happend e.g in PV guest
                 _dmi_not_available = 1
+                dmi_warn = dmi_warnings()
+                if dmi_warn:
+                    dmidecode.clear_warnings()
                 return None
             _dmi_data = data.xpathNewContext();
     return _dmi_data
@@ -150,7 +176,12 @@ def dmi_system_uuid():
     """ Return UUID from dmidecode system information.
         If this value could not be fetch, returns empty string.
     """
-    return get_dmi_data('/dmidecode/SystemInfo/SystemUUID')
+    # if guest was created manualy it can have empty UUID, in this
+    # case dmidecode set attribute unavailable to 1
+    uuid = get_dmi_data("/dmidecode/SystemInfo/SystemUUID[not(@unavailable='1')]")
+    if not uuid:
+        uuid = ''
+    return uuid
 
 # read_hal()
 # 
@@ -924,25 +955,29 @@ def get_hal_system_and_smbios():
     system_and_smbios = {}
 
     for key in props:
-        if key.startswith('system') or key.startswith('smbios'):
-            system_and_smbios[key] = props[key]
+        if key.startswith('system'):
+            system_and_smbios[unicode(key)] = unicode(props[key])
 
+    system_and_smbios.update(get_smbios())
     return system_and_smbios
 
-def get_hal_smbios():
-    try:
-        computer = get_hal_computer()
-        props = computer.GetAllProperties()
-    except:
-        log = up2dateLog.initLog()
-        msg = "Error reading smbios information: %s\n" % (sys.exc_type)
-        log.log_debug(msg)
+def get_smbios():
+    """ Returns dictionary with values we are interested for.
+        For historical reason it is in format, which use HAL.
+        Currently in dictionary are keys:
+        smbios.system.uuid, smbios.bios.vendor, smbios.system.serial,
+        smbios.system.manufacturer.
+    """
+    _initialize_dmi_data()
+    if _dmi_not_available:
         return {}
-    smbios = {}
-    for key in props:
-        if key.startswith('smbios'):
-            smbios[str(key)] = props[str(key)]
-    return smbios
+    else:
+        return {
+            'smbios.system.uuid': dmi_system_uuid(),
+            'smbios.bios.vendor': get_dmi_data('/dmidecode/BIOSinfo/Vendor'),
+            'smbios.system.serial': get_dmi_data('/dmidecode/SystemInfo/SerialNumber'),
+            'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
+        }
 
 def check_hal_dbus_status():
     # check if hal and messagebus are running, if not warn the user

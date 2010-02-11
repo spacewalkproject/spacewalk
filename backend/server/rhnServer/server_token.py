@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,7 +18,6 @@
 import string
 
 from cStringIO import StringIO
-from sets import Set
 
 from common import rhnFlags
 from common import rhnFault, rhnException, log_error, log_debug
@@ -135,7 +134,7 @@ def token_channels(server, server_arch, tokens_obj):
     subscribe_channel = rhnSQL.Procedure("rhn_channel.subscribe_server")
     # Use a set here to ensure uniqueness of the
     # channel family ids used in the loop below.
-    channel_family_ids = Set()
+    channel_family_ids = set()
 	
     for c in filter(lambda a: a["parent_channel"], chash.values()):
         # make sure this channel has the right parent
@@ -400,16 +399,16 @@ def token_config_channels(server, tokens_obj):
 
     config_channels = []
     config_channels_hash = {}
-    no_deployment = 0
+    deployment = 0
     for token in tokens_obj.tokens:
         channels = _get_token_config_channels(token['token_id'])
         # Check every token used and if any of them are set to not deploy configs
         # then we won't deploy configs for any config channels the system is subscribed to
         deploy_configs = token['deploy_configs']
         log_debug(2, "token_id: ", token['token_id'], " deploy_configs: ", deploy_configs)
-	if deploy_configs == 'N':
-            log_debug(2, "At least one token set to not deploy config files, so deploying none")
-            no_deployment = 1
+	if deploy_configs == 'Y':
+            log_debug(2, "At least one token set to deploy config files")
+            deployment = 1
         for c in channels:
             config_channel_id = c['config_channel_id']
             if tokens_obj.forget_rereg_token:
@@ -426,29 +425,27 @@ def token_config_channels(server, tokens_obj):
             config_channels_hash[config_channel_id] = None
 
     ret = []
-    if not config_channels:
-        return ret
+    if config_channels:
+        h = rhnSQL.prepare(_query_set_server_config_channels)
 
-    h = rhnSQL.prepare(_query_set_server_config_channels)
+        h.execute_bulk({
+            'server_id'        : [server_id] * len(config_channels),
+            'config_channel_id': map(lambda c: c['config_channel_id'],
+                  config_channels),
+            'position'         : map(lambda c: c['position'], config_channels),
+            })
 
-    h.execute_bulk({
-        'server_id'        : [server_id] * len(config_channels),
-        'config_channel_id': map(lambda c: c['config_channel_id'], 
-            config_channels),
-        'position'         : map(lambda c: c['position'], config_channels),
-        })
-
-    for channel in config_channels:
-        msg = "Subscribed to config channel %s" % channel['name']
-        log_debug(4, msg)
-        ret.append(msg)
+        for channel in config_channels:
+            msg = "Subscribed to config channel %s" % channel['name']
+            log_debug(4, msg)
+            ret.append(msg)
     
     # Now that we have the server subscribed to config channels, 
     # determine if we have to deploy the files too
     # Don't pass tokens_obj, we only need the token that provided the config
     # channels in the first place
-    if not no_deployment:
-        log_debug(2, "All tokens have deploy_configs == Y, deploying configs")
+    if deployment:
+        log_debug(2, "At least one token has deploy_configs == Y, deploying configs")
         deploy_configs_if_needed(server)
 
     rhnSQL.commit()
@@ -461,11 +458,19 @@ _query_server_token_used = rhnSQL.Statement("""
     values (:server_id, :token_id)
 """)
 
+_query_check_server_uses_token = rhnSQL.Statement("""
+    select 1 from rhnServerTokenRegs
+    where server_id = :server_id
+    and token_id = :token_id
+""")
+
 def server_used_token(server_id, token_id):
-    h = rhnSQL.prepare(_query_server_token_used)
+    h = rhnSQL.prepare(_query_check_server_uses_token)
     h.execute(server_id=server_id, token_id=token_id)
-
-
+    ret = h.fetchone_dict()
+    if not ret:
+        h = rhnSQL.prepare(_query_server_token_used)
+        h.execute(server_id=server_id, token_id=token_id)
 
 _query_check_token_limits = rhnSQL.Statement("""
     select
@@ -693,9 +698,6 @@ class ReRegistrationActivationToken(ReRegistrationToken):
         ReRegistrationToken.entitle(self, server_id, history, virt_type)
 
 
-
-def sortAndUniqEntitlements(entitlements):
-    pass
 
 def _fetch_token_from_cursor(cursor):
     # Fetches a token from a prepared and executed cursor
