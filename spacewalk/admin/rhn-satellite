@@ -30,8 +30,16 @@ if [ -x /etc/init.d/oracle-xe ]; then
    DB_SERVICE="oracle-xe"
 fi
 
+if [ -x /etc/init.d/tomcat5 ]; then
+   TOMCAT="tomcat5"
+fi
 
-SERVICES="jabberd $DB_SERVICE osa-dispatcher tomcat5 httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
+if [ -x /etc/init.d/tomcat6 ]; then
+   TOMCAT="tomcat6"
+fi
+
+
+SERVICES="jabberd $DB_SERVICE osa-dispatcher $TOMCAT httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 
 . /etc/init.d/functions
 
