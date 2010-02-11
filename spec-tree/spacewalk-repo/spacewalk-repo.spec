@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
-Version: 0.8
+Version: 0.9
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk-client.repo
 
 %changelog
+* Thu Feb 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.9-1
+- pointed to Spacewalk 0.9 repo
+
 * Thu Feb 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.8-1
 - pointed to Spacewalk 0.8 repo
 
