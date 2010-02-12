@@ -43,7 +43,6 @@ REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
 cachedOrgs = None
-cachedAvailableSubscriptions = None
 
 import config
 cfg = config.initUp2dateConfig()
@@ -564,7 +563,7 @@ def getRemainingSubscriptions(username, password):
     log.log_debug('Server returned %s' % subs)
     return subs
 
-def getAvailableSubscriptions(username, password, useCache=False):
+def getAvailableSubscriptions(username, password):
     """Higher level and more convenient version of getRemainingSubscriptions.
     
     Precondition: getCaps() was called.
@@ -577,7 +576,7 @@ def getAvailableSubscriptions(username, password, useCache=False):
     probably others
     
     """
-    global cachedAvailableSubscriptions
+    availableSubscriptions = None
     
     log.log_debug('Calling getAvailableSubscriptions')
 
@@ -586,16 +585,15 @@ def getAvailableSubscriptions(username, password, useCache=False):
                   "registration.remaining_subscriptions call which is needed."
         raise up2dateErrors.ServerCapabilityError(message)
     
-    if cachedAvailableSubscriptions is None or useCache is False:
-        try:
-            cachedAvailableSubscriptions = \
+    try:
+        availableSubscriptions = \
                     getRemainingSubscriptions(username, password)
-        except up2dateErrors.NoBaseChannelError, e:
-            cachedAvailableSubscriptions = 0
-            log.log_debug('NoBaseChannelError raised.')
+    except up2dateErrors.NoBaseChannelError, e:
+        availableSubscriptions = 0
+        log.log_debug('NoBaseChannelError raised.')
     log.log_debug('Returning %s available subscriptions.' % 
-                  cachedAvailableSubscriptions)
-    return cachedAvailableSubscriptions
+                  availableSubscriptions)
+    return availableSubscriptions
 
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()

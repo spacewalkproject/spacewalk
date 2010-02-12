@@ -1705,9 +1705,6 @@ def autoActivateNumbersOnce():
     there was an error. If this call is made more than once, every call after 
     the first will return (None, None).
     
-    After activating the numbers, it will refresh the cached available 
-    subscriptions used by rhnreg.getAvailableSubscriptions.
-    
     If something is activated, the resulting reg num will be stored so it will
     be used when creating the system profile (for child channels). A number
     from disk takes precedence over hardware info if both are activated.
@@ -1776,14 +1773,6 @@ def autoActivateNumbersOnce():
         else:
             regNum = registrationNumber
         
-        # Call getAvailableSubscriptions to refresh its cache
-        rhnreg.getAvailableSubscriptions(username, password)
-        ##            log.log_me("It looks like the EN was successfully activated"
-        ##                       " but there still aren't any available "
-        ##                       "entitlements in the account. Maybe there's a "
-        ##                       "delay with them activating, so we'll continue "
-        ##                       "with registration and hope they show up later "
-        ##                       "and apply to this profile.")
     return (activateRegNumResult, activateHWResult)
 
 
