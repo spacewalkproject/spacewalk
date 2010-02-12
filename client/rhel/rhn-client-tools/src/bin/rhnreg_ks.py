@@ -56,8 +56,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Specify a file to use as the ssl CA cert")),
         self.optparser.add_option("--activationkey", action="store",
             help=_("Specify an activation key")),
-        self.optparser.add_option("--subscription", action="store",
-            help=_("Specify a installation number to use")),
         self.optparser.add_option("--use-eus-channel", action="store_true",
             help=_("Subscribe this system to the EUS channel tied to the system's redhat-release")),
         self.optparser.add_option("--contactinfo", action="store_true",
@@ -115,8 +113,6 @@ class RegisterKsCli(rhncli.RhnCli):
             profilename = RegisterKsCli.__generateProfileName(hardwareList)
 
         other = {}
-        if self.options.subscription:
-            other['registrationNumber'] = self.options.subscription
         if self.options.systemorgid:
             other['org_id'] = self.options.systemorgid
 
