@@ -33,9 +33,6 @@ from transports import File
 
 MAX_REDIRECTIONS = 5
 
-# save the original handler in case of redirect
-send_handler = None
-
 #
 # Function used to split host information in an URL per RFC 2396
 # handle full hostname like user:passwd@host:port
@@ -329,8 +326,8 @@ class Server:
 
             if redirect_response:
                 self._transport.add_header('X-RHN-Redirect', '0')
-                if send_handler:
-                    self._transport.add_header('X-RHN-Path', send_handler)
+                if self.send_handler:
+                    self._transport.add_header('X-RHN-Path', self.send_handler)
 
             request = self._req_body(params, methodname)
 
@@ -512,10 +509,10 @@ class GETServer(Server):
         self._orig_handler = self._handler
         # Download resumption
         self.set_range(offset=None, amount=None)
+        # referer, which redirect us to new handler
+        self.send_handler=None
 
     def _req_body(self, params, methodname):
-        global send_handler
-        
         if not params or len(params) < 1:
             raise Exception("Required parameter channel not found")
         # Strip the multiple / from the handler
@@ -525,7 +522,7 @@ class GETServer(Server):
         self._handler = '/' + '/'.join(hndl)
 
         #save the constructed handler in case of redirect
-        send_handler = self._handler
+        self.send_handler = self._handler
         
         # Add headers
         #override the handler to replace /XMLRPC with pkg path
