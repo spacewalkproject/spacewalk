@@ -43,10 +43,10 @@ def check_ipv6(n):
     except:
         return False
 
-#
-# Function used to split host information in an URL per RFC 2396
-# handle full hostname like user:passwd@host:port
 def split_host(hoststring):
+    """ Function used to split host information in an URL per RFC 2396
+        handle full hostname like user:passwd@host:port
+    """
     l = hoststring.split('@', 1)
     host = None
     port = None
@@ -315,7 +315,8 @@ class Server:
             self._handler = "/RPC2"
 
     def _request(self, methodname, params):
-        # call a method on the remote server
+        """ Call a method on the remote server 
+            we can handle redirections. """
         # the loop is used to handle redirections
         redirect_response = 0
         retry = 0
@@ -612,8 +613,9 @@ def getHeaderValues(headers, name):
             headers.getallmatchingheaders(name))
 
 class _Method:
-    # some magic to bind an XML-RPC method to an RPC server.
-    # supports "nested" methods (e.g. examples.getStateName)
+    """ some magic to bind an XML-RPC method to an RPC server.
+        supports "nested" methods (e.g. examples.getStateName)
+    """
     def __init__(self, send, name):
         self._send = send
         self._name = name
@@ -661,7 +663,7 @@ class SlicingMethod(_Method):
         
 
 def reportError(headers):
-    # Reports the error from the headers
+    """ Reports the error from the headers. """
     errcode = 0
     errmsg = ""
     s = "X-RHN-Fault-Code"
