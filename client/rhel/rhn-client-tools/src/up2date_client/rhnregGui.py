@@ -805,11 +805,8 @@ def chooseChannelShouldBeShown():
     # First and foremost, does the server support eus?
     if rhnreg.server_supports_eus():
     
-        global username, password, oragnization
-        other = {}
-        if organization is not None:
-            other['org_id'] = organization
-            
+        global username, password
+
         channels = rhnreg.getAvailableChannels(username, password)
 
         channels = channels['channels']
@@ -840,11 +837,8 @@ class ChooseChannelPage:
         
     def chooseChannelPagePrepare(self):
     
-        global username, password, organization
-        other = {}
-        if organization is not None:
-            other['org_id'] = organization
-            
+        global username, password
+
         self.eus_channels = rhnreg.getAvailableChannels(username, password)
 
         self.channels = self.eus_channels['channels']
