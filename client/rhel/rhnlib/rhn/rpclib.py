@@ -19,6 +19,8 @@ __version__ = "$Revision$"
 
 import transports
 import urllib
+import socket
+import re
 
 from types import ListType, TupleType
 
@@ -33,12 +35,17 @@ from transports import File
 
 MAX_REDIRECTIONS = 5
 
+def check_ipv6(n):
+    """ Returns true if n is IPv6 address, false otherwise. """
+    try:
+        socket.inet_pton(socket.AF_INET6, n)
+        return True
+    except:
+        return False
+
 #
 # Function used to split host information in an URL per RFC 2396
 # handle full hostname like user:passwd@host:port
-#
-# TODO: check IPv6 numerical IPs it may break
-#
 def split_host(hoststring):
     l = hoststring.split('@', 1)
     host = None
@@ -57,10 +64,19 @@ def split_host(hoststring):
         hostport = l[0]
 
     # Now parse hostport
-    arr = hostport.split(':', 1)
-    host = arr[0]
-    if len(arr) == 2:
-        port = arr[1]
+    if hostport[0] == '[':
+        # IPv6 with port
+        host, port = re.split('(?<=\]):', ip_port, 1)
+        host = host.lstrip('[').rstrip(']')
+    elif check_ipv6(hostport):
+        # just IPv6
+        host = hostport
+    else:
+        # IPv4
+        arr = hostport.split(':', 1)
+        host = arr[0]
+        if len(arr) == 2:
+            port = arr[1]
         
     return (host, port, user, passwd)
 
