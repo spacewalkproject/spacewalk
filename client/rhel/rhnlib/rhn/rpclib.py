@@ -150,21 +150,7 @@ class Server:
         self._username = username
         self._password = password
 
-        # get the url
-        type, uri = urllib.splittype(uri)
-        if type is None:
-            raise MalformedURIError, "missing protocol in uri"
-        # with a real uri passed in, uri will now contain "//hostname..." so we 
-        # need at least 3 chars for it to maybe be ok...
-        if len(uri) < 3 or uri[0:2] != "//": 
-            raise MalformedURIError
-        type = type.lower()
-        self._type = type
-        if type not in ("http", "https"):
-            raise IOError, "unsupported XML-RPC protocol"
-        self._host, self._handler = urllib.splithost(uri)
-        if not self._handler:
-            self._handler = "/RPC2"
+        self._reset_host_handler_and_type()
 
         if transport is None:
             self._allow_redirect = 1
@@ -287,6 +273,26 @@ class Server:
             return headers['Accept-Ranges']
         return None
 
+    def _reset_host_handler_and_type(self):
+        """ Reset the attributes:
+            self._host, self._handler, self._type
+            according the value of self._uri.
+        """
+        # get the url
+        type, uri = urllib.splittype(self._uri)
+        if type is None:
+            raise MalformedURIError, "missing protocol in uri"
+        # with a real uri passed in, uri will now contain "//hostname..." so we
+        # need at least 3 chars for it to maybe be ok...
+        if len(uri) < 3 or uri[0:2] != "//":
+            raise MalformedURIError
+        self._type = type.lower()
+        if self._type not in ("http", "https"):
+            raise IOError, "unsupported XML-RPC protocol"
+        self._host, self._handler = urllib.splithost(uri)
+        if not self._handler:
+            self._handler = "/RPC2"
+
     def _request(self, methodname, params):
         # call a method on the remote server
         # the loop is used to handle redirections
@@ -296,6 +302,8 @@ class Server:
         rpc_version = __version__
         if len(__version__.split()) > 1:
             rpc_version = __version__.split()[1]
+
+        self._reset_host_handler_and_type()
 
         while 1:
             if retry >= MAX_REDIRECTIONS:
@@ -340,8 +348,8 @@ class Server:
             retry += 1
             if save_response == 200:
                 # reset _host and _handler for next request
-                type, uri = urllib.splittype(self._uri)
-                self._host, self._handler = urllib.splithost(uri)
+                #type, uri = urllib.splittype(self._uri)
+                #self._host, self._handler = urllib.splithost(uri)
                 # exit redirects loop and return response
                 break
             elif save_response in (301, 302):
