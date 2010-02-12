@@ -147,6 +147,11 @@ class Server:
         self._username = username
         self._password = password
 
+        if len(__version__.split()) > 1:
+            self.rpc_version = __version__.split()[1]
+        else:
+            self.rpc_version = __version__
+
         self._reset_host_handler_and_type()
 
         if transport is None:
@@ -299,10 +304,6 @@ class Server:
         redirect_response = 0
         retry = 0
 
-        rpc_version = __version__
-        if len(__version__.split()) > 1:
-            rpc_version = __version__.split()[1]
-
         self._reset_host_handler_and_type()
 
         while 1:
@@ -317,7 +318,7 @@ class Server:
 
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
-                rpc_version)
+                self.rpc_version)
             # identify the capability set of this client to the server
             self._transport.set_header("X-Client-Version", 1)
             
