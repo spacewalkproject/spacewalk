@@ -346,14 +346,14 @@ class Server:
             if save_response == 200:
                 # exit redirects loop and return response
                 break
-            elif save_response in (301, 302):
-                self._redirected = self._transport.redirected()
-                self.use_handler_path = 0
-                redirect_response = 1
-            else:
+            elif save_response not in (301, 302):
                 # Retry pkg fetch
                  self.use_handler_path = 1
                  continue
+            # rest of loop is run only if we are redirected (301, 302)
+            self._redirected = self._transport.redirected()
+            self.use_handler_path = 0
+            redirect_response = 1
 
             if not self._allow_redirect:
                 raise InvalidRedirectionError("Redirects not allowed")
