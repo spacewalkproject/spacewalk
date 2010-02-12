@@ -397,7 +397,6 @@ class Server:
                 for certfile in self._trusted_cert_files:
                     self._transport.add_trusted_cert(certfile)
             # Then restart the loop to try the new entry point.
-            continue
 
         if isinstance(response, transports.File):
             # Just return the file
