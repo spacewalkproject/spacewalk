@@ -68,6 +68,9 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     public static final String REV_EDITABLE      = "editable";
     public static final String REV_DISPLAYABLE   = "displayable";
     public static final String REV_TOOLARGE      = "toolarge";
+    public static final String REV_NUMBER        = "revnum";
+
+
     
     public static final String DEFAULT_CONFIG_DELIM_START = "{|";
     public static final String DEFAULT_CONFIG_DELIM_END = "|}";
@@ -313,6 +316,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
         data.setOwner(getString(REV_UID));
         data.setPermissions(getString(REV_PERMS));
         data.setSelinuxCtx(getString(REV_SELINUX_CTX));
+        data.setRevNumber(getString(REV_NUMBER));
         data.setType(extractFileType());
         return data;
     }

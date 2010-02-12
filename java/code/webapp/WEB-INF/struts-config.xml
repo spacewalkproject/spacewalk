@@ -899,6 +899,7 @@
       <form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
 	  <form-property name="contents"       type="java.lang.String"/>
 	  <form-property name="filetype"       type="java.lang.String" />
+	  <form-property name="revnum"         type="java.lang.String" />
 	  <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
     </form-bean>

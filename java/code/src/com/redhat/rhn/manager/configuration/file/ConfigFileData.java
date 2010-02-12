@@ -52,6 +52,7 @@ public abstract class ConfigFileData {
     private String selinuxCtx;
     private String macroStart;
     private String macroEnd;
+    private String revNumber;
     
     private ConfigFileType type;
     
@@ -399,5 +400,21 @@ public abstract class ConfigFileData {
                 append("isBinary", isBinary()).                
                 append("Size:", getContentSize());
         return builder.toString();
+    }
+
+
+    /**
+     * @return Returns the revNumber.
+     */
+    public String getRevNumber() {
+        return revNumber;
+    }
+
+
+    /**
+     * @param revNumberIn The revNumber to set.
+     */
+    public void setRevNumber(String revNumberIn) {
+        this.revNumber = revNumberIn;
     }
  }
