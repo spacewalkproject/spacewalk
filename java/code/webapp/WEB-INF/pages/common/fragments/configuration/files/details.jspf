@@ -109,4 +109,13 @@
     </c:choose>
   </td>
 </tr>
+<tr>
+<rhn:require acl="config_channel_editable(${channel.id})"
+                       mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+  <th> <bean:message key="filedetails.details.jspf.revnum"/> </th>
+  <td>
+	<html:text property="revnum" size="4" value="${revision.revision + 1}"/>
+  </td>
+  </rhn:require>
+</tr>
 </table>

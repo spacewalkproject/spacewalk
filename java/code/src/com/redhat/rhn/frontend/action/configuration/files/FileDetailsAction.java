@@ -54,6 +54,7 @@ public class FileDetailsAction extends RhnAction {
     public static final String LAST_USER         = "lastUser";
     public static final String LAST_USER_ID      = "lastUserId";
     public static final String TOOLARGE          = "toolarge";
+    public static final String REV_NUM           = "revnum";
     
     public static final String VALIDATION_XSD =
         "/com/redhat/rhn/frontend/action/configuration/validation/configFileForm.xsd";
@@ -144,6 +145,8 @@ public class FileDetailsAction extends RhnAction {
                 StringUtil.categorizeTime(cr.getConfigContent().
                                                     getModified().getTime(),
                         StringUtil.WEEKS_UNITS));
+        request.setAttribute(REV_NUM,
+                cr.getConfigFile().getLatestConfigRevision().getRevision() + 1);
         
         User lastUser = cr.getChangedBy();
         if (lastUser != null) {

@@ -8454,6 +8454,12 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channeltarget.success">
         <source>Subscribed {0} system(s) to {1}.</source>
      </trans-unit>
+     <trans-unit id="error.config.revnum.too-old">
+        <source>The specified revision number must be greater than the current revision number.</source>
+     </trans-unit>
+     <trans-unit id="error.config.revnum.invalid">
+        <source>Please specify a valid revision number.</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>
 The following is a list of errors gathered while Spacewalk attempts to 

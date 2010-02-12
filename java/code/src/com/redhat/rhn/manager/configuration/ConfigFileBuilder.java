@@ -26,6 +26,8 @@ import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.file.ConfigFileData;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 
 
@@ -108,6 +110,15 @@ public class ConfigFileBuilder {
         return makeNewRevision(user, cff, cf, true);
     }
 
+
+    private ConfigRevision makeNewRevision(User user, ConfigFileData form,
+            ConfigFile cf, boolean onCreate, Long revNum) {
+        ConfigRevision rev = makeNewRevision(user, form, cf, onCreate);
+        rev.setRevision(revNum);
+        ConfigurationFactory.saveNewConfigRevision(rev);
+        return rev;
+    }
+
     /**
      * Creates a new New config revision of a config file using the passed in data. 
      * @param user the logged in user
@@ -141,6 +152,10 @@ public class ConfigFileBuilder {
         revision.setConfigFile(cf);
         revision.setDelimStart(form.getMacroStart());
         revision.setDelimEnd(form.getMacroEnd());
+        if (!StringUtils.isEmpty(form.getRevNumber())) {
+            revision.setRevision(Long.parseLong(form.getRevNumber()));
+        }
+
 
         // Committing the revision commits the file for us (which commits the
         // Channel, so everybody's pointers get updated...)
@@ -175,6 +190,23 @@ public class ConfigFileBuilder {
             throw new ValidatorException(result);
         }
         else {
+            try {
+               Long l = Long.parseLong(form.getRevNumber());
+               if (l.longValue() <= file.getLatestConfigRevision().getRevision()) {
+                   result = new ValidatorResult();
+                   result.addError(new ValidatorError("error.config.revnum.too-old",
+                           form.getPath()));
+                   throw new ValidatorException(result);
+               }
+            }
+            catch (NumberFormatException nfe) {
+                result = new ValidatorResult();
+                result.addError(new ValidatorError("error.config.revnum.invalid",
+                        form.getPath()));
+                throw new ValidatorException(result);
+            }
+
+
             form.validate(false);    
         }
 
