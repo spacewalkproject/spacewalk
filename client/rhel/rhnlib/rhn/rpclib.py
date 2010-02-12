@@ -96,10 +96,7 @@ class MalformedURIError(IOError):
     pass
 
 
-# This is a cut-and-paste of xmlrpclib.ServerProxy, with the data members made
-# protected instead of private
-# It also adds support for changing the way the request is made (XMLRPC or
-# GET)
+# Originaly taken from xmlrpclib.ServerProxy, now changed most of the code
 class Server:
     """uri [,options] -> a logical connection to an XML-RPC server
 
