@@ -339,6 +339,10 @@ class Server:
             self._redirected = None
             retry += 1
             if save_response == 200:
+                # reset _host and _handler for next request
+                type, uri = urllib.splittype(self._uri)
+                self._host, self._handler = urllib.splithost(uri)
+                # exit redirects loop and return response
                 break
             elif save_response in (301, 302):
                 self._redirected = self._transport.redirected()
