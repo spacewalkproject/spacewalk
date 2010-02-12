@@ -44,7 +44,6 @@ REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
 cachedOrgs = None
 cachedAvailableSubscriptions = None
-cachedAvailableChannels = None
 
 import config
 cfg = config.initUp2dateConfig()
@@ -408,29 +407,27 @@ def registerSystem(username = None, password = None,
 
     
       
-def getAvailableChannels(username, password, other, useCache = False):
-                         
-    global cachedAvailableChannels
-    
+def getAvailableChannels(username, password, other):
     s = rhnserver.RhnServer()
     server_arch = up2dateUtils.getArch()
     server_version = up2dateUtils.getVersion()
     server_release = up2dateUtils.getRelease()
     
-    if cachedAvailableChannels is None or useCache == False:
-        try:
-	    cachedAvailableChannels = rpcServer.doCall(
-	                          s.registration.available_eus_channels,
+    availableChannels = None
+
+    try:
+        availableChannels = rpcServer.doCall(
+                                  s.registration.available_eus_channels,
                                                  username, password,
                                                  server_arch, server_version, 
                                                  server_release)
-	except rpclib.Fault, f:
-            if f.faultCode == 99:
-                raise up2dateErrors.DelayError(f.faultString)
-            else:
-                raise
+    except rpclib.Fault, f:
+        if f.faultCode == 99:
+            raise up2dateErrors.DelayError(f.faultString)
+        else:
+            raise
     
-    return cachedAvailableChannels
+    return availableChannels
 
 
 
