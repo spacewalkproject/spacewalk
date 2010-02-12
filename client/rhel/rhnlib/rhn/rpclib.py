@@ -382,29 +382,22 @@ class Server:
             if not self._handler:
                 self._handler = "/RPC2"
 
-            if save_response == 302:
-                redirect_response = 1
+            # Create a new transport for the redirected service and
+            # set up the parameters on the new transport
+            del self._transport
+            self._transport = self.default_transport(typ, self._proxy,
+                                     self._username, self._password)
+            self.set_progress_callback(self._progressCallback)
+            self.set_refresh_callback(self._refreshCallback)
+            self.set_buffer_size(self._bufferSize)
+            self.setlang(self._lang)
 
-                #
-                # Create a new transport for the redirected service and
-                # set up the parameters on the new transport
-                #
-                del self._transport
-                self._transport = self.default_transport(typ, self._proxy,
-                                         self._username, self._password)
-                self.set_progress_callback(self._progressCallback)
-                self.set_refresh_callback(self._refreshCallback)
-                self.set_buffer_size(self._bufferSize)
-                self.setlang(self._lang)
-
-                if self._trusted_cert_files != [] and \
-                    hasattr(self._transport, "add_trusted_cert"):
-                    for certfile in self._trusted_cert_files:
-                        self._transport.add_trusted_cert(certfile)
-                #
-                # Then restart the loop to try the new entry point.
-                #
-                continue
+            if self._trusted_cert_files != [] and \
+                hasattr(self._transport, "add_trusted_cert"):
+                for certfile in self._trusted_cert_files:
+                    self._transport.add_trusted_cert(certfile)
+            # Then restart the loop to try the new entry point.
+            continue
 
         if isinstance(response, transports.File):
             # Just return the file
