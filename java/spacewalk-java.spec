@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.4
+Version: 0.9.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -304,6 +304,18 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 15 2010 Justin Sherrill <jsherril@redhat.com> 0.9.5-1
+- changing new rev number to be one more than latest, not one more than current
+  (jsherril@redhat.com)
+-  510100 - adding the ability to set a config file to a certain revision
+  (jsherril@redhat.com)
+- making timezone still null errors a bit quieter.  Maybe once we really add
+  all the timezones we can really do a warning (jsherril@redhat.com)
+- Automatic commit of package [spacewalk-java] release [0.9.4-1].
+  (jsherril@redhat.com)
+- fixing rhn.xml for tomcat6 (jsherril@redhat.com)
+- 562881 - new api calls introduced (tlestach@redhat.com)
+
 * Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.4-1
 - adding snippet api unit tests (jsherril@redhat.com)
 
