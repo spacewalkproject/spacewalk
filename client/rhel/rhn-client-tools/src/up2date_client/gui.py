@@ -44,15 +44,15 @@ import rhnregGui
 
 
 
-class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage, 
-                rhnregGui.ChooseOrgPage, rhnregGui.ActivateSubscriptionPage, 
-                rhnregGui.ReviewSubscriptionPage, rhnregGui.CreateProfilePage, 
+class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
+                rhnregGui.ChooseOrgPage, rhnregGui.ActivateSubscriptionPage,
+                rhnregGui.ReviewSubscriptionPage, rhnregGui.CreateProfilePage,
                 rhnregGui.ProvideCertificatePage, rhnregGui.FinishPage,
                 rhnregGui.ChooseChannelPage):
 
     def __init__(self):
         self.cfg = config.initUp2dateConfig()
-        
+
         if cfg['development']:
             gladeFile = "../../data/gui.glade"
         else:
@@ -85,7 +85,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onFinishPagePrepare" : self.onFinishPagePrepare,
               "onFinishPageFinish" : self.onFinishPageFinish,
         } )
-        
+
         rhnregGui.StartPage.__init__(self)
         rhnregGui.ChooseServerPage.__init__(self)
         rhnregGui.LoginPage.__init__(self)
@@ -96,7 +96,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         rhnregGui.ReviewSubscriptionPage.__init__(self)
         rhnregGui.ProvideCertificatePage.__init__(self)
         rhnregGui.FinishPage.__init__(self)
-        
+
         # Pack all the pages into the empty druid screens
         contents = self.startPageVbox()
         container = self.xml.get_widget("startPageVbox")
@@ -128,19 +128,19 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         contents = self.finishPageVbox()
         container = self.xml.get_widget("finishPageVbox")
         container.pack_start(contents, True)
-        
+
         self.initProfile = False
         self.oemInfo = {}
         self.productInfo = {}
         self.showedChooseOrgPage = False
         self.showedActivateSubscriptionPage = False
-        
+
         self.druid = self.xml.get_widget("druid")
         self.mainWin = self.xml.get_widget("mainWin")
         self.mainWin.connect("delete-event", gtk.main_quit)
         self.mainWin.connect("hide", gtk.main_quit)
-        
-        # It's better to get widgets in advance so bugs don't hide in get_widget 
+
+        # It's better to get widgets in advance so bugs don't hide in get_widget
         # calls that only get executed periodically.
         self.startPage = self.xml.get_widget("startPage")
         self.chooseServerPage = self.xml.get_widget("chooseServerPage")
@@ -154,9 +154,9 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.reviewSubscriptionPage = \
             self.xml.get_widget("reviewSubscriptionPage")
         self.finishPage = self.xml.get_widget("finishPage")
-        
+
         # Set up cursor changing functions. Overriding functions that aren't in
-        # classes like this could be called a hack, but I think it's the best 
+        # classes like this could be called a hack, but I think it's the best
         # we can do with the current overall setup and isn't too bad.
         def mySetBusyCursor():
             cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
@@ -170,7 +170,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
                 gtk.main_iteration(False)
         rhnregGui.setBusyCursor = mySetBusyCursor
         rhnregGui.setArrowCursor = mySetArrowCursor
-        
+
         self.mainWin.show_all()
         # Druid doesn't signal prepare to the first page when starting up
         self.onStartPagePrepare(None, None, manualPrepare=True)
@@ -207,16 +207,16 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             dialog = rhnregGui.AlreadyRegisteredDialog()
             if dialog.rc == 0:
                 sys.exit(0)
-    
+
     def onStartPageNext(self, page, dummy):
         self.druid.set_buttons_sensitive(True, True, True, False)
-    
-    
+
+
     def onChooseServerPagePrepare(self, page, dummy):
         self.chooseServerPage.emit_stop_by_name("prepare")
         self.mainWin.set_title(_("Registering for software updates"))
         self.chooseServerPagePrepare()
-    
+
     def onChooseServerPageNext(self, page, dummy):
         try:
             ret = self.chooseServerPageApply()
@@ -226,13 +226,13 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
                 up2dateErrors.SSLCertificateFileNotFound):
             self.druid.set_page(self.provideCertificatePage)
         return True
-    
-    
+
+
     def onLoginPagePrepare(self, page, dummy):
         self.loginPage.emit_stop_by_name("prepare")
         self.loginXml.get_widget("loginUserEntry").grab_focus()
         self.loginPagePrepare()
-    
+
     def onLoginPageNext(self, page, dummy):
         """This must manually switch pages because another function calls it to
         advance the druid. It returns True to inform the druid of this.
@@ -240,17 +240,17 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         ret = self.loginPageVerify()
         if ret:
             return ret
-        
+
         ret = self.loginPageApply()
         if ret:
             return ret
-        
+
         self.goToPageAfterLogin()
         return True
 
 
     def goToPageAfterLogin(self):
-        """This function is used by the create new account dialog so it doesn't 
+        """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
         self.showedChooseOrgPage = False
@@ -263,12 +263,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.druid.set_page(self.chooseChannelPage)
         else:
             self.druid.set_page(self.createProfilePage)
-    
-    
+
+
     def onChooseOrgPagePrepare(self, page, dummy):
         self.showedChooseOrgPage = True
         self.chooseOrgPagePrepare(useCachedOrgs=True)
-    
+
     def onChooseOrgPageNext(self, page, dummy):
         self.chooseOrgPageApply()
         if rhnregGui.activateSubscriptionShouldBeShown():
@@ -276,11 +276,11 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         else:
             self.druid.set_page(self.createProfilePage)
         return True
-    
+
     def onActivateSubscriptionPagePrepare(self, page, dummy):
         self.showedActivateSubscriptionPage = True
         self.activateSubscriptionPagePrepare()
-    
+
     def onActivateSubscriptionPageBack(self, page, dummy):
         if self.showedChooseOrgPage:
             self.druid.set_page(self.chooseOrgPage)
@@ -297,7 +297,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         status = self.activateSubscriptionPageApply()
         if status is True:
             return True
-    
+
     def onChooseChannelPageBack(self, page, dummy):
         if self.showedActivateSubscriptionPage == True:
             self.druid.set_page(self.activateSubscriptionPage)
@@ -305,7 +305,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.druid.set_page(self.chooseOrgPage)
         else:
             self.druid.set_page(self.loginPage)
-        
+
         return True
 
     def onChooseChannelPageNext(self, page, dummy):
@@ -319,17 +319,17 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         else:
             self.druid.set_page(self.createProfilePage)
             return True
-        
+
     def onChooseChannelPagePrepare(self, page, dummy):
         self.chooseChannelPagePrepare()
         self.druid.set_buttons_sensitive(True, True, True, False)
         self.chooseChannelPage.emit_stop_by_name("prepare")
-        
+
     def onCreateProfilePagePrepare(self, page, dummy):
         self.createProfilePagePrepare()
         self.druid.set_buttons_sensitive(False, True, False, False)
         self.createProfilePage.emit_stop_by_name("prepare")
-    
+
     def onCreateProfilePageNext(self, page, dummy):
         ret = self.createProfilePageVerify()
         if ret:
@@ -337,18 +337,18 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         ret = self.createProfilePageApply()
         if ret:
             return ret
-    
-    
+
+
     def onReviewSubscriptionPagePrepare(self, page, dummy):
         self.reviewSubscriptionPagePrepare()
         self.druid.set_buttons_sensitive(False, True, False, False)
         self.reviewSubscriptionPage.emit_stop_by_name("prepare")
-    
+
     def onReviewSubscriptionPageNext(self, page, dummy):
         self.druid.set_page(self.finishPage)
         return True
-    
-    
+
+
 ##    def onRegFinishPagePrepare(self, page, dummy):
 ##        # Disable the next button and enable the finish one
 ##        self.druid.set_buttons_sensitive(False, False, False, False)
@@ -366,8 +366,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 ##        page = self.xml.get_widget("regFinishPage")
 ##
 ##        page.set_title(titleText)
-##        # TODO These cases used to be different when this wasn't the end of the 
-##        # druid (I think only one changed the buttons). Figure out if we still 
+##        # TODO These cases used to be different when this wasn't the end of the
+##        # druid (I think only one changed the buttons). Figure out if we still
 ##        # need to do something different based on returnCode
 ##        if returnCode == 1:
 ##            buffer = gtk.TextBuffer(None)
@@ -377,14 +377,14 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 ##            buffer = gtk.TextBuffer(None)
 ##            buffer.set_text(messageText)
 ##            textArea.set_buffer(buffer)
-##    
-##    def onFinishPageFinish(self, page, dummy=None): 	 
+##
+##    def onFinishPageFinish(self, page, dummy=None):
 ##        gtk.main_quit()
-    
+
     def onProvideCertificatePageBack(self, page=None, dummy=None):
         self.druid.set_page(self.chooseServerPage)
         return True
-    
+
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
         if status == 0:
@@ -397,8 +397,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             assert status == 2
             pass
         return True
-    
-    
+
+
     def onFinishPagePrepare(self, page=None, dummy=None):
         self.druid.set_buttons_sensitive(False, False, False, False)
         self.druid.set_show_finish(True)
@@ -415,7 +415,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.mainWin.set_title(title)
         self.finishPage.set_title(title)
 
-    def onFinishPageFinish(self, page, dummy=None): 	 
+    def onFinishPageFinish(self, page, dummy=None):
         gtk.main_quit()
 
 
@@ -437,7 +437,7 @@ def main():
     gui = Gui()
     gtk.main()
 
-    
+
 if __name__ == "__main__":
     try:
         main()
