@@ -22,8 +22,6 @@ import socket
 import os
 import sys
 import string
-import types
-
 import config
 
 import ethtool
@@ -33,7 +31,6 @@ from haltree import HalTree, HalDevice
 
 import dbus
 import dmidecode
-import libxml2
 import up2dateLog
 
 #PCI DEVICE DEFINES
