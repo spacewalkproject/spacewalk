@@ -249,7 +249,7 @@ Create everything as well as unlimited activation key for every channel:
                                       base_channel_label, e.faultString))
                 continue
 
-        for child_channel_label in child_channels[base_channel_label]:
+        for child_channel_label in sorted(child_channels[base_channel_label]):
             child_info = channels[child_channel_label]
             if options.verbose:
                 sys.stdout.write("* Child channel '%s' - creating...\n" % child_info['name'])
