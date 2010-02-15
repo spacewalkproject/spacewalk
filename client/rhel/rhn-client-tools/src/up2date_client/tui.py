@@ -1390,10 +1390,9 @@ class Tui:
                                            hardwareInfo)
                 if activateHWResult.getStatus() == \
                    rhnreg.ActivationResult.ACTIVATED_NOW:
-                    self.read_reg_num_hw = \
+                    self.other['registration_number'] = \
                         activateHWResult.getRegistrationNumber()
-                    self.other['registration_number'] = self.read_reg_num_hw
-                    rhnreg.writeRegNum(self.read_reg_num_hw)
+                    rhnreg.writeRegNum(self.other['registration_number'])
                     self.activated_now = 1
             except up2dateErrors.NotEntitlingError:
                 log.log_debug('There are are no entitlements associated '
