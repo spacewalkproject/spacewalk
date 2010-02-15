@@ -136,13 +136,6 @@ if __name__ == "__main__":
                 channel = setup_channel(section, arch)
                 channels.update(channel)
 
-# FIXME debug
-    for (k,v) in channels.items():
-        print k
-        for (kk, vv) in v.items():
-            print "  ", kk, "=", vv
-# /FIXME debug
-
     # list of base_channels to create
     base_channels  = {}
     # list of child_channels for given base_channel
