@@ -158,9 +158,16 @@ if __name__ == "__main__":
     for (base_channel_label, create_channel) in sorted(base_channels.items()):
 
         if key == None:
-            client, key = connect(options.user, options.password, options.server)
-            user_info = client.user.getDetails(key, options.user)
-            org_id = user_info['org_id']
+            try:
+                client, key = connect(options.user, options.password, options.server)
+                user_info = client.user.getDetails(key, options.user)
+                org_id = user_info['org_id']
+            except xmlrpclib.Fault, e:
+                if e.faultCode == 2951:
+                    sys.stderr.write("Either the password or username is incorrect.\n")
+                    sys.exit(2)
+                else:
+                   raise e
 
         activationkey = None
         if create_channel:
