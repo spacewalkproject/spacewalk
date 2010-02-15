@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -38,15 +39,19 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "label")
  *      #prop("string", "arch_name")
  *      #prop("string", "summary")
- *      #prop("string",  "description")
+ *      #prop("string", "description")
+ *      #prop("string", "checksum_label")
  *      #prop("string", "maintainer_name")
  *      #prop("string", "maintainer_email")
  *      #prop("string", "maintainer_phone")
  *      #prop("string", "support_policy")
- *      #prop("string",  "gpg_key_url")
- *      #prop("string",  "gpg_key_id")
- *      #prop("string",  "gpg_key_fp")
- *      #prop("string",  "end_of_life")
+ *      #prop("string", "gpg_key_url")
+ *      #prop("string", "gpg_key_id")
+ *      #prop("string", "gpg_key_fp")
+ *      #prop("string", "yumrepo_source_url")
+ *      #prop("string", "yumrepo_label")
+ *      #prop("dateTime.iso8601", "yumrepo_last_sync")
+ *      #prop("string", "end_of_life")
  *      #prop("string", "parent_channel_label")
  *  #struct_end()
  *       
@@ -77,7 +82,7 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("summary", StringUtils.defaultString(c.getSummary()));
         helper.add("description",
                 StringUtils.defaultString(c.getDescription()));
-        
+        helper.add("checksum_label", c.getChecksumTypeLabel());
         helper.add("maintainer_name", c.getMaintainerName());
         helper.add("maintainer_email", c.getMaintainerEmail());
         helper.add("maintainer_phone", c.getMaintainerPhone());
@@ -89,6 +94,23 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
                 StringUtils.defaultString(c.getGPGKeyId()));
         helper.add("gpg_key_fp",
                 StringUtils.defaultString(c.getGPGKeyFp()));
+
+        if (c.getContentSources().isEmpty()) {
+            helper.add("yumrepo_source_url", "");
+            helper.add("yumrepo_label", "");
+            helper.add("yumrepo_last_sync", "");
+        }
+        else {
+            ContentSource cs = c.getContentSources().iterator().next();
+            helper.add("yumrepo_source_url", cs.getSourceUrl());
+            helper.add("yumrepo_label", cs.getLabel());
+            if (cs.getLastSynced() != null) {
+                helper.add("yumrepo_last_sync", cs.getLastSynced());
+            }
+            else {
+                helper.add("yumrepo_last_sync", "");
+            }
+        }
 
         if (c.getEndOfLife() != null) {
             helper.add("end_of_life", c.getEndOfLife().toString());
