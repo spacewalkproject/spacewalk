@@ -30,7 +30,6 @@ import rhnreg, hardware
 import up2dateErrors
 import up2dateUtils
 import rpmUtils
-import rpcServer
 import up2dateLog
 import config
 import up2dateAuth
