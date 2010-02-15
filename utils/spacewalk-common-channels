@@ -135,8 +135,8 @@ Create everything as well as unlimited activation key for every channel:
         channel_list = config.sections()
         if channel_list:
             for channel in sorted(channel_list):
-                print " %-20s %s" % (channel + ":",
-                        "i386, x86_64") # FIXME: list of archs
+                channel_archs = config.get(channel, 'archs')
+                print " %-20s %s" % (channel + ":", channel_archs)
         else:
             print " [no channel available]"
         sys.exit(0)
