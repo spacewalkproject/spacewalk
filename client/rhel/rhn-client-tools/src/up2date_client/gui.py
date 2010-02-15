@@ -37,7 +37,6 @@ _ = gettext.gettext
 
 import up2dateErrors
 import config
-import up2dateUtils
 import rhnreg
 import messageWindow
 
