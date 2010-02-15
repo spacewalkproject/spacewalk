@@ -40,7 +40,6 @@ import gtk.glade
 import gobject
 import sys
 import os
-import stat
 import gettext
 _ = gettext.gettext
 gettext.textdomain("rhn-client-tools")
