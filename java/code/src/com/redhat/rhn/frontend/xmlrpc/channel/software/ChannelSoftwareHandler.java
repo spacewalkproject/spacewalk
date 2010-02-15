@@ -26,6 +26,7 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
@@ -37,6 +38,7 @@ import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
@@ -61,6 +63,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -561,7 +564,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #options_end()
      * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this 
      *              channel, an empty string if it does not have one")
-     * @xmlrpc.param #param_desc("string", "checksumtype", "checksum type for this channel,
+     * @xmlrpc.param #param_desc("string", "checksumType", "checksum type for this channel,
      *              used for yum repository metadata generation")
      *      #options()
      *          #item_desc ("sha1", "Offers widest compatibility  with clients")
@@ -569,13 +572,21 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                        only with newer clients: Fedora 11 and newer,
      *                        or Enterprise Linux 6 and newer.")
      *      #options_end()
+     * @xmlrpc.param #param_desc("string", "gpgKeyUrl", "GPG key URL")
+     * @xmlrpc.param #param_desc("string", "gpgKeyId", "GPG key ID")
+     * @xmlrpc.param #param_desc("string", "gpgKeyFingerprint", "GPG key Fingerprint")
+     * @xmlrpc.param #param_desc("string", "yumrepoUrl", "Associated Yum Repository URL")
+     * @xmlrpc.param #param_desc("string", "yumrepoLabel", "Associated Yum Repository Label")
+     * @xmlrpc.param #param_desc("boolean", "syncYumRepo", "Sync Yum Repository")
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
     public int create(String sessionKey, String label, String name,
-            String summary, String archLabel, String parentlabel, String checksumtype)
+            String summary, String archLabel, String parentLabel, String checksumType,
+            String gpgKeyUrl, String gpgKeyId, String gpgKeyFingerprint,
+            String yumrepoUrl, String yumrepoLabel, Boolean syncYumrepo)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
-        
+
         User user = getLoggedInUser(sessionKey);
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionCheckFailureException();
@@ -585,11 +596,84 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setLabel(label);
         ccc.setName(name);
         ccc.setSummary(summary);
-        ccc.setParentLabel(parentlabel);
+        ccc.setParentLabel(parentLabel);
         ccc.setUser(user);
-        ccc.setChecksum(checksumtype);
+        ccc.setChecksum(checksumType);
+        ccc.setGpgKeyUrl(gpgKeyUrl);
+        ccc.setGpgKeyId(gpgKeyId);
+        ccc.setGpgKeyFp(gpgKeyFingerprint);
+        ccc.setYumUrl(yumrepoUrl);
+        ccc.setRepoLabel(yumrepoLabel);
+        ccc.setSyncRepo(syncYumrepo);
 
         return (ccc.create() != null) ? 1 : 0;
+    }
+
+    /**
+     * Creates a software channel, parent_channel_label can be empty string
+     * @param sessionKey WebSession containing User information.
+     * @param label Channel label to be created
+     * @param name Name of Channel
+     * @param summary Channel Summary
+     * @param archLabel Architecture label
+     * @param parentlabel Parent Channel label (may be null)
+     * @param checksumtype checksum type for this channel
+     * @return 1 if creation of channel succeeds.
+     * @since 10.9
+     * @throws PermissionCheckFailureException  thrown if user does not have
+     * permission to create the channel.
+     * @throws InvalidChannelNameException thrown if given name is in use or
+     * otherwise, invalid.
+     * @throws InvalidChannelLabelException throw if given label is in use or
+     * otherwise, invalid.
+     * @throws InvalidParentChannelException thrown if parent label is for a
+     * channel that is not a base channel.
+     *
+     * @xmlrpc.doc Creates a software channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "label of the new channel")
+     * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
+     * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
+     * @xmlrpc.param #param_desc("string", "archLabel",
+     *              "the label of the architecture the channel corresponds to")
+     *      #options()
+     *          #item_desc ("channel-ia32", "For 32 bit channel architecture")
+     *          #item_desc ("channel-ia64", "For 64 bit channel architecture")
+     *          #item_desc ("channel-sparc", "For Sparc channel architecture")
+     *          #item_desc ("channel-alpha", "For Alpha channel architecture")
+     *          #item_desc ("channel-s390", "For s390 channel architecture")
+     *          #item_desc ("channel-s390x", "For s390x  channel architecture")
+     *          #item_desc ("channel-iSeries", "For i-Series channel architecture")
+     *          #item_desc ("channel-pSeries", "For p-Series channel architecture")
+     *          #item_desc ("channel-x86_64", "For x86_64 channel architecture")
+     *          #item_desc ("channel-ppc", "For PPC channel architecture")
+     *          #item_desc ("channel-sparc-sun-solaris",
+     *                                  "For Sparc Solaris channel architecture")
+     *          #item_desc ("channel-i386-sun-solaris",
+     *                                  "For i386 Solaris channel architecture")
+     *      #options_end()
+     * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this
+     *              channel, an empty string if it does not have one")
+     * @xmlrpc.param #param_desc("string", "checksumType", "checksum type for this channel,
+     *              used for yum repository metadata generation")
+     *      #options()
+     *          #item_desc ("sha1", "Offers widest compatibility  with clients")
+     *          #item_desc ("sha256", "Offers highest security, but is compatible
+     *                        only with newer clients: Fedora 11 and newer,
+     *                        or Enterprise Linux 6 and newer.")
+     *      #options_end()
+     * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
+     */
+
+    public int create(String sessionKey, String label, String name,
+            String summary, String archLabel, String parentLabel, String checksumType)
+        throws PermissionCheckFailureException, InvalidChannelLabelException,
+               InvalidChannelNameException, InvalidParentChannelException {
+
+        return create(sessionKey, label, name,
+                summary, archLabel, parentLabel, checksumType,
+                null, null, null,
+                null, null, Boolean.FALSE);
     }
     
     /**
@@ -638,11 +722,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
     public int create(String sessionKey, String label, String name,
-            String summary, String archLabel, String parentlabel)
+            String summary, String archLabel, String parentLabel)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
-        return create(sessionKey, label, name, summary, archLabel, parentlabel, "sha1");
+        return create(sessionKey, label, name, summary, archLabel, parentLabel, "sha1");
     }
 
     /**
