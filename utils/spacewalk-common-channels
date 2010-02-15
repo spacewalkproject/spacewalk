@@ -92,7 +92,9 @@ if __name__ == "__main__":
         Option("-u", "--user", help="username", default=DEFAULT_USER),
         Option("-p", "--password", help="password", default=DEFAULT_PASSWORD),
         Option("-s", "--server", help="your spacewalk server", default=DEFAULT_SERVER),
-        Option("-k", "--keys", help="activation key limit (unlimited/number)"),
+        Option("-k", "--keys", help="activation key usage limit - 'unlimited' or number\n"
+                         + "(default: options is not set and activation keys are not created at all)",
+                         dest="key_limit"),
         Option("-n", "--dry-run", help="perform a trial run with no changes made",
                          action="store_true"),
         Option("-a", "--archs", help="list of architectures"),
@@ -163,7 +165,7 @@ if __name__ == "__main__":
                 user_info = client.user.getDetails(key, options.user)
                 org_id = user_info['org_id']
             except xmlrpclib.Fault, e:
-                if e.faultCode == 2951:
+                if e.faultCode == 2950:
                     sys.stderr.write("Either the password or username is incorrect.\n")
                     sys.exit(2)
                 else:
@@ -191,18 +193,19 @@ if __name__ == "__main__":
                                           base_info['label'], e.faultString))
                         continue
 
-            if options.keys is not None:
+            if options.key_limit is not None:
                 if options.verbose:
                     sys.stdout.write("* Activation key '%s' - creating...\n" % (
                                         base_info['label']))
                 if not options.dry_run:
                     # create activation key
-                    if options.keys == 'unlimited':
+                    if options.key_limit == 'unlimited':
                         ak_args = (key, base_info['activationkey'], base_info['name'],
                                         base_info['label'], [], False)
                     else:
                         ak_args = (key, base_info['activationkey'], base_info['name'], 
-                                        base_info['label'], int(options.keys), [], False)
+                                        base_info['label'], int(options.key_limit),
+                                        [], False)
                     try:
                         client.activationkey.create(*ak_args)
                         activationkey = "%s-%s" % (org_id, base_info['activationkey'])
@@ -246,7 +249,7 @@ if __name__ == "__main__":
                         sys.stderr.write("ERROR: %s: %s\n" % (
                                           child_info['label'], e.faultString))
 
-            if options.keys is not None:
+            if options.key_limit is not None:
                 if activationkey:
                     if options.verbose:
                         sys.stdout.write("** Activation key '%s' - adding child channel...\n" % (
