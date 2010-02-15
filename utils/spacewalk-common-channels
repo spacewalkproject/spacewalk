@@ -47,6 +47,11 @@ channel_arch = {
 
 SPLIT_PATTERN = '[ ,]+'
 
+# extend OptionParser not to reformat epilog
+class xOptionParser(OptionParser):
+    def format_epilog(self, formatter):
+        return "\n\n" + self.epilog
+
 def connect(user, password, server):
     server_url = "http://%s/rpc/api" % server
 
@@ -86,6 +91,23 @@ def setup_channel(section, arch):
 if __name__ == "__main__":
     # options parsing
     usage = "usage: %prog [options] <channel1 glob> [<channel2 glob> ... ]"
+    epilog = """Examples:
+
+Create Fedora 12 channel, its child channels and activation key limited to 10 servers:
+    %(prog)s -u admin -p pass -k 10 'fedora12*'
+
+Create Centos 5 with child channels only on x86_64:
+    %(prog)s -u admin -p pass -a x86_64 'centos5*'
+
+Create only Centos 4 base channels for intel archs:
+    %(prog)s -u admin -p pass -a i386,x86_64 'centos4'
+
+Create Spacewalk client child channel for every (suitable) defined base channel:
+    %(prog)s -u admin -p pass 'spacewalk-client*'
+
+Create everything as well as unlimited activation key for every channel:
+    %(prog)s -u admin -p pass -k unlimited '*'
+\n""" % {'prog': sys.argv[0]}
 
     option_list = [
         Option("-c", "--config", help="configuration file", default=DEFAULT_CONFIG),
@@ -103,7 +125,7 @@ if __name__ == "__main__":
                          action="store_true"),
         ]
 
-    parser = OptionParser(usage=usage, option_list=option_list, description="")
+    parser = xOptionParser(usage=usage, epilog=epilog, option_list=option_list)
     (options, args) = parser.parse_args()
     config = ConfigParser.ConfigParser()
     config.read(options.config)
