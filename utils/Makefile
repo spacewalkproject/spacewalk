@@ -20,7 +20,7 @@ BINDIR	= /usr/bin
 MANDIR	?= /usr/man
 CONFDIR = /etc/rhn
 
-EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
+EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR) $(CONFDIR)
 
 include Makefile.defs
 

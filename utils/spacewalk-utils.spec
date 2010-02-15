@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%config %{_sysconfdir}/spacewalk-common-channels.ini
+%config %{_sysconfdir}/rhn/spacewalk-common-channels.ini
 %attr(755,root,root) %{_bindir}/*
 %dir %{rhnroot}/utils
 %{rhnroot}/utils/__init__.py*
