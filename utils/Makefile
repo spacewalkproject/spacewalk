@@ -7,7 +7,9 @@ NAME := spacewalk-utils
 SUBDIR  = utils
 
 FILES	= __init__ systemSnapshot migrateSystemProfile
-SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata scr.cgi
+SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
+	  scr.cgi spacewalk-common-channels
+CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
@@ -16,6 +18,7 @@ MANS	= $(patsubst %.sgml,%.8,$(SGMLS) )
 
 BINDIR	= /usr/bin
 MANDIR	?= /usr/man
+CONFDIR = /etc/rhn
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
 
@@ -32,6 +35,8 @@ all	:: $(MANS)
 	pod2man --section=8 spacewalk-api spacewalk-api.8
 install :: $(MANS) $(PREFIX)/$(MANDIR)
 	$(INSTALL_DATA) $(MANS) spacewalk-api.8* $(PREFIX)/$(MANDIR)/man8
+install :: $(CONFIGS) $(PREFIX)/$(CONFDIR)
+	$(INSTALL_DATA) $(CONFIGS) $(PREFIX)/$(CONFDIR)
 endif
 
 %.new : %
