@@ -17,7 +17,7 @@ FILES	= __init__ connection constants diskImportLib messages \
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
-          spacewalk-repo-sync
+          spacewalk-repo-sync spacewalk-remove-channel
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
