@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.9.0
+Version: 0.9.1
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Feb 16 2010 Justin Sherrill <jsherril@redhat.com> 0.9.1-1
+- changing rhn-satellite service script to support tomcat6
+  (jsherril@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
 * Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - rebuild for spacewalk 0.8
 
