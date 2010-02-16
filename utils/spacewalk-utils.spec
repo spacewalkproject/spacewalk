@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.9.2
+Version:	0.9.3
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- fixed of spacewalk-common-channels
+
 * Mon Feb 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
 - added spacewalk-common-channels utility
 
