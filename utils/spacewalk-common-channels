@@ -67,7 +67,7 @@ def connect(user, password, server):
 
 def add_channels(channels, section, arch):
     base_channels = ['']
-    optional  = ['activationkey']
+    optional  = ['activationkey', 'base_channel_activationkey']
     mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
 
     if config.has_option(section, 'base_channels'):
@@ -80,6 +80,9 @@ def add_channels(channels, section, arch):
         channel = { 'base_channel': config.get(section, 'base_channel')}
 
         if base_channel:
+            if channel['base_channel'] not in channels:
+                # there isn't such base channel so skip also child
+                continue
             # set base channel values so they can be used as macros
             for (k,v) in channels[channel['base_channel']].items():
                 config.set(section, 'base_channel_' + k, v)
@@ -203,7 +206,6 @@ Create everything as well as unlimited activation key for every channel:
                 else:
                    raise e
 
-        activationkey = None
         if create_channel:
             base_info = channels[base_channel_label]
             if options.verbose:
@@ -240,13 +242,9 @@ Create everything as well as unlimited activation key for every channel:
                                         [], False)
                     try:
                         client.activationkey.create(*ak_args)
-                        activationkey = "%s-%s" % (org_id, base_info['activationkey'])
                     except xmlrpclib.Fault, e:
                         sys.stderr.write("ERROR: %s: %s\n" % (
                                           base_info['label'], e.faultString))
-                else:
-                    # set this in dry run 
-                    activationkey = base_info['activationkey']
         else:
             # check whether channel exists
             try:
@@ -282,7 +280,10 @@ Create everything as well as unlimited activation key for every channel:
                                           child_info['label'], e.faultString))
 
             if options.key_limit is not None:
-                if activationkey:
+                if ('base_channel_activationkey' in child_info
+                    and child_info['base_channel_activationkey']):
+                    activationkey = "%s-%s" % (
+                                org_id, child_info['base_channel_activationkey'])
                     if options.verbose:
                         sys.stdout.write("** Activation key '%s' - adding child channel...\n" % (
                                              activationkey))
