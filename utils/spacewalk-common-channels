@@ -65,8 +65,7 @@ def connect(user, password, server):
     key      = client.auth.login(user, password)
     return client, key
 
-def setup_channel(section, arch):
-    channels = {}
+def add_channels(channels, section, arch):
     base_channels = ['']
     optional  = ['activationkey']
     mandatory = ['label', 'name', 'summary', 'checksum', 'arch', 'base_channel']
@@ -86,7 +85,6 @@ def setup_channel(section, arch):
         for k in mandatory:
             channel[k] = config.get(section, k)
         channels[channel['label']] = channel
-    return channels
 
 if __name__ == "__main__":
     # options parsing
@@ -157,8 +155,7 @@ Create everything as well as unlimited activation key for every channel:
                 # filter out archs not set on commandline
                 archs = filter(lambda a: a in options.archs, archs)
             for arch in archs:
-                channel = setup_channel(section, arch)
-                channels.update(channel)
+                add_channels(channels, section, arch)
 
     # list of base_channels to create
     base_channels  = {}
