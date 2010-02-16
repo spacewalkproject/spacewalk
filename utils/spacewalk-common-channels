@@ -68,7 +68,7 @@ def connect(user, password, server):
 def add_channels(channels, section, arch):
     base_channels = ['']
     optional  = ['activationkey']
-    mandatory = ['label', 'name', 'summary', 'checksum', 'arch', 'base_channel']
+    mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
 
     if config.has_option(section, 'base_channels'):
         base_channels = re.split(SPLIT_PATTERN, config.get(section, 'base_channels', 1))
@@ -76,8 +76,13 @@ def add_channels(channels, section, arch):
     config.set(section, 'arch', arch)
     config.set(section, 'section', section)
     for base_channel in base_channels:
-        channel = {}
         config.set(section, 'base_channel', base_channel)
+        channel = { 'base_channel': config.get(section, 'base_channel')}
+
+        if base_channel:
+            # set base channel values so they can be used as macros
+            for (k,v) in channels[channel['base_channel']].items():
+                config.set(section, 'base_channel_' + k, v)
 
         for k in optional:
             if config.has_option(section,k):
@@ -147,33 +152,41 @@ Create everything as well as unlimited activation key for every channel:
     client = None
     channels = {}
 
-    # read matching channels from config and sort them, base channels first
-    for pattern in args:
-        for section in fnmatch.filter(config.sections(), pattern):
-            archs = re.split(SPLIT_PATTERN, config.get(section, 'archs'))
-            if options.archs:
-                # filter out archs not set on commandline
-                archs = filter(lambda a: a in options.archs, archs)
-            for arch in archs:
-                add_channels(channels, section, arch)
+    sections = []
+    # sort base channels first and child last
+    for section in config.sections():
+        if config.has_option(section, 'base_channels'): # child
+            sections.append(section)
+        else:                                           # base
+            sections.insert(0,section)
+    for section in sections:
+        archs = re.split(SPLIT_PATTERN, config.get(section, 'archs'))
+        if options.archs:
+            # filter out archs not set on commandline
+            archs = filter(lambda a: a in options.archs, archs)
+        for arch in archs:
+            add_channels(channels, section, arch)
 
-    # list of base_channels to create
+    # list of base_channels to deal with
     base_channels  = {}
     # list of child_channels for given base_channel
     child_channels = {}
-    for (name, attr) in channels.items():
-        if attr['base_channel']:
-            if attr['base_channel'] not in base_channels:
-                base_channels[attr['base_channel']] = False
-            if attr['base_channel'] in child_channels:
-                child_channels[attr['base_channel']].append(name)
+    # filter out non-matching channels
+    for pattern in args:
+        for name in fnmatch.filter(channels.keys(), pattern):
+            attr = channels[name]
+            if attr['base_channel']:
+                if attr['base_channel'] not in base_channels:
+                    base_channels[attr['base_channel']] = False
+                if attr['base_channel'] in child_channels:
+                    child_channels[attr['base_channel']].append(name)
+                else:
+                    child_channels[attr['base_channel']] = [name]
             else:
-                child_channels[attr['base_channel']] = [name]
-        else:
-            # this channel is base channel
-            base_channels[name] = True
-            if name not in child_channels:
-                child_channels[name] = []
+                # this channel is base channel
+                base_channels[name] = True
+                if name not in child_channels:
+                    child_channels[name] = []
 
 
     for (base_channel_label, create_channel) in sorted(base_channels.items()):
@@ -276,7 +289,7 @@ Create everything as well as unlimited activation key for every channel:
                     if not options.dry_run:
                         try:
                             client.activationkey.addChildChannels(key, activationkey,
-                                                                   child_info['label'])
+                                                                   [child_info['label']])
                         except xmlrpclib.Fault, e:
                             sys.stderr.write("ERROR: %s: %s\n" % (
                                           child_info['label'], e.faultString))
