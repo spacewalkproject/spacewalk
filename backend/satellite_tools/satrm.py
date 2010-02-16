@@ -20,21 +20,26 @@
 import sys
 import string
 import os
+
+from progress_bar import ProgressBar
 from optparse import Option, OptionParser
+
+
+_LIBPATH = "/usr/share/rhn"
+# add to the path if need be
+if _LIBPATH not in sys.path:
+    sys.path.append(_LIBPATH)
+
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
-
-UNSUPPORTED_WARN = """
-NOTE: This method is not maintained or supported by Red Hat but can be
-used if necessary precautions are taken. A database backup before removal
-is recommended.
-"""
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
         help="Increase verbosity"),
     Option("-c", "--channel",       action="append", 
         help="Delete this channel (can be present multiple times)"),
+    Option("-u", "--unsubscribe",   action="store_true",
+        help="Unsubscribe systems registered to the specificed channels"),
     Option(      "--force",         action="store_true",
         help="Remove the channel packages from any other channels too"),
     Option(      "--justdb",        action="store_true",
@@ -93,8 +98,12 @@ def main():
                     channel, subch)
                 return -1
                 
-    # Are we attempting to remove a parent channel while there are still
-    # references 
+    if __serverCheck(channels.keys(), options.unsubscribe):
+        return -1
+
+    if __kickstartCheck(channels.keys()):
+        return -1
+
 
     try:
         delete_channels(channels.keys(), force=options.force,
@@ -104,6 +113,102 @@ def main():
         raise
     rhnSQL.commit()
     return 0
+
+def __serverCheck(labels, unsubscribe):
+    sql = """
+        select distinct S.org_id, S.id, S.name
+        from rhnChannel c inner join 
+             rhnServerChannel sc on c.id = sc.channel_id inner join
+             rhnServer s on s.id = sc.server_id
+        where c.label in (%s)
+    """
+    params, bind_params = _bind_many(labels)
+    bind_params = string.join(bind_params, ', ')
+    h = rhnSQL.prepare(sql % (bind_params))
+    apply(h.execute, (), params)
+    list = h.fetchall_dict()
+    if not list:
+        return 0
+
+
+    if unsubscribe:
+        return  __unsubscribeServers(labels)
+
+    print("The following systems are subscribed to one or more of the specified channels:\n")
+
+    print 'org_id'.ljust(8),
+    print 'id'.ljust(14),
+    print('name')
+    print ("-"*32)
+    for map in list:
+        print str(map['org_id']).ljust(8),
+        print str(map['id']).ljust(14),
+        print(map['name'])
+
+    return len(list) 
+
+
+def __unsubscribeServers(labels):
+    sql = """
+        select distinct sc.server_id as server_id, C.id as channel_id, c.parent_channel
+        from rhnChannel c inner join 
+             rhnServerChannel sc on c.id = sc.channel_id 
+        where c.label in (%s) order by C.parent_channel
+    """
+    params, bind_params = _bind_many(labels)
+    bind_params = string.join(bind_params, ', ')
+    h = rhnSQL.prepare(sql % (bind_params))
+    apply(h.execute, (), params)
+    list = h.fetchall_dict()
+    
+    print("Unsubscribing systems (" + str(len(list)) + "):")
+    pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete\n',
+                finalSize=len(list), finalBarLength=40, stream=sys.stdout)
+    pb.printAll(1)
+
+    for i in list:
+        __unbsubscribeServer(i['server_id'], i['channel_id'])
+        pb.addTo(1)
+        pb.printIncrement()
+    pb.printComplete()
+
+  
+def __unbsubscribeServer(server_id, channel_id):
+    sql = """
+         call rhn_channel.unsubscribe_server(:server_id, :channel_id)
+    """
+    h = rhnSQL.prepare(sql)
+    h.execute(server_id=server_id, channel_id=channel_id)
+ 
+
+def __kickstartCheck(labels):
+    sql = """
+        select K.org_id, K.label
+        from rhnKSData K inner join 
+             rhnKickstartDefaults KD on KD.kickstart_id = K.id inner join
+             rhnKickstartableTree KT on KT.id = KD.kstree_id inner join
+             rhnChannel c on c.id = KT.channel_id
+        where c.label in (%s)
+    """
+    params, bind_params = _bind_many(labels)
+    bind_params = string.join(bind_params, ', ')
+    h = rhnSQL.prepare(sql % (bind_params))
+    apply(h.execute, (), params)
+    list = h.fetchall_dict()
+   
+    if not list:
+        return 0
+ 
+    print("The following kickstarts are associated with one of the specified channels. " +
+               "Please remove these or change their associated base channel.\n")
+    print('org_id'.ljust(8)),
+    print('label')
+    print("-"*20) 
+    for map in list:
+        print str(map['org_id']).ljust(8),
+        print(map['label'])
+
+    return len(list)
 
 
 def __listChannels():
@@ -195,7 +300,6 @@ def delete_channels(channelLabels, force=0, justdb=0):
         ['rhnChannelPackage', 'channel_id'],
         ['rhnDistChannelMap', 'channel_id'],
         ['rhnRegTokenChannels', 'channel_id'],
-        ['rhnServerChannel', 'channel_id'],
         ['rhnServerProfile', 'base_channel'],
         ['rhnKickstartableTree', 'channel_id'],
         ['rhnChannel', 'id'],
@@ -285,6 +389,21 @@ def _delete_srpms(srcPackageIds):
 def _delete_rpms(packageIds):
     if not packageIds:
         return
+    group = 300 
+    toDel = packageIds[:]
+    print "Deleting package metadata (" + str(len(toDel)) + "):"
+    pb = ProgressBar(prompt='Removing:         ', endTag=' - complete',
+                finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
+    pb.printAll(1)
+
+    while len(toDel) > 0:
+        _delete_rpm_group(toDel[:group])
+        del toDel[:group]
+        pb.addTo(group)
+        pb.printIncrement()
+    pb.printComplete()
+
+def _delete_rpm_group(packageIds):
 
     references = [
         'rhnChannelPackage', 
@@ -310,6 +429,7 @@ def _delete_rpms(packageIds):
         log_debug(2, "DELETED package id %s" % str(packageIds))
     else:
         log_error("No such package id %s" % str(packageIds))
+    rhnSQL.commit()
 
 def _delete_files(relpaths):
     for relpath in relpaths:
@@ -320,8 +440,7 @@ def _delete_files(relpaths):
         try:
             os.unlink(path)
         except OSError:
-            print "Error unlinking %s; rolling back" % path
-            raise
+            log_debug(1,  "Error unlinking %s;" % path)
 
 def _bind_many(l):
     h = {}
@@ -361,5 +480,7 @@ if __name__ == '__main__':
         raise
     except Exception, e:
         sys.stderr.write("\nERROR: unhandled exception occurred: (%s).\n" % e)
+        import traceback
+        traceback.print_exc()
         sys.exit(-1)
 
