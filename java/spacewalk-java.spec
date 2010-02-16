@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.6
+Version: 0.9.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -308,6 +308,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 16 2010 Justin Sherrill <jsherril@redhat.com> 0.9.7-1
+- fixing issue with conflict between javamail package and classpathx-mail
+  (which provides javamail as a provides).  The fedora 12 build was building
+  against the javamail package which broke the deployment when it wasnt
+  installed (jsherril@redhat.com)
+
 * Mon Feb 15 2010 Justin Sherrill <jsherril@redhat.com> 0.9.6-1
 - changing new rev number to be one more than latest, not one more than current
   (jsherril@redhat.com)
