@@ -556,7 +556,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-schema-stats
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
-%attr(750,root,root) %{_bindir}/rhn-remove-channel*
+%attr(750,root,root) %{_bindir}/spacewalk-remove-channel*
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
