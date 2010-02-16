@@ -74,7 +74,11 @@ BuildRequires: ant-nodeps
 BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
+%if  0%{?rhel} && 0%{?rhel} < 5
 BuildRequires: javamail
+%else
+BuildRequires: classpathx-mail
+%endif
 BuildRequires: jsp
 
 # Sadly I need these to symlink the jars properly.
