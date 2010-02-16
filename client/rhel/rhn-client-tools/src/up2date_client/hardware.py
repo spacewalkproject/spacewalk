@@ -973,7 +973,8 @@ def get_smbios():
             'smbios.system.uuid': dmi_system_uuid(),
             'smbios.bios.vendor': get_dmi_data('/dmidecode/BIOSinfo/Vendor'),
             'smbios.system.serial': get_dmi_data('/dmidecode/SystemInfo/SerialNumber'),
-            'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
+            'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer'),
+            'smbios.system.product': get_dmi_data('/dmidecode/SystemInfo/ProductName'),
         }
 
 def check_hal_dbus_status():
