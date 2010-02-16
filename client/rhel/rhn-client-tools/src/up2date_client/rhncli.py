@@ -26,7 +26,6 @@ _ = gettext.gettext
 sys.path.append("/usr/share/rhn/")
 
 from up2date_client import config
-from up2date_client import rpcServer
 from up2date_client import up2dateAuth
 from up2date_client import up2dateErrors
 from up2date_client import up2dateLog
