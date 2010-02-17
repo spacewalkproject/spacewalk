@@ -1,0 +1,119 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNCHANRM "Spacewalk Channel Removal tool" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spaceawlk-remove-channel</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.5.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spaceawlk-remove-channel</command></RefName>
+<RefPurpose>
+Removes a channel from an RHN Satellite or Spacewalk server.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spaceawlk-remove-channel</command>
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
+        <arg>--mount-point=<replaceable>CHANNEL_LABEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+         <arg>-u</arg> <arg>--unsubscribe</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l</arg>
+        <arg>--list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--justdb</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg> <arg>--verbose</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--force</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The <emphasis>spacewalk-channel-remove</emphasis> completely removes
+    channels (even Red Hat supplied ones) from a RHN Satellite or Spacewalk server.
+</para>
+<para>
+    By default systems are not unsubscribed from the specified channel(s).  If systems
+    are currently subcribed, they will be listed.  To unsubscribe these systems, simply
+    use the --unsubscribe option.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list</term>
+        <listitem>
+            <para>List all channels on the satellite.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u, --unsubscribe</term>
+        <listitem>
+            <para>Unsubscribe any systems subscribed to the specified channels.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--justdb</term>
+        <listitem>
+            <para>Don't remove any files from the file system.  Instead only delete metadata from the database.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c<replaceable>CHANNEL</replaceable>,
+            --channel=<replaceable>CHANNEL</replaceable></term>
+        <listitem>
+            <para>Delete the channel with the specified label.  May be used multiple times to specify multiple channels.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force</term>
+        <listitem>
+            <para>Delete packages from the satellite even if the package is in more channels than what is specified. (Not Recommended)</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>spacewalk-remove-channel --list</command></member>
+        <member><command>spacewalk-remove-channel --channel=rhel-i386-as-3</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Justin Sherrill <email>jsherril@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
+<!--
+vim: sw=4
+-->

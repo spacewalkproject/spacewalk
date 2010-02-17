@@ -72,7 +72,11 @@ def main():
 
     dict_label, dict_parents = __listChannels()
     if options.list:
+        lbls = []
         for c in dict_label.keys():
+            lbls.append(c)
+        lbls.sort()
+        for c in lbls:
             print c
         return
 
@@ -294,6 +298,7 @@ def delete_channels(channelLabels, force=0, justdb=0):
 
     tables = [
         ['rhnErrataFileChannel', 'channel_id'],
+        ['rhnErrataNotificationQueue', 'channel_id'],
         ['rhnChannelErrata', 'channel_id'],
         ['rhnChannelFamilyMembers', 'channel_id'],
         ['rhnChannelPackage', 'channel_id'],
