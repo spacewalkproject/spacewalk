@@ -161,7 +161,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/rpmUtils.*
 %{_datadir}/rhn/up2date_client/rhnPackageInfo.*
 %{_datadir}/rhn/up2date_client/rhnChannel.*
-%{_datadir}/rhn/up2date_client/rhnErrata.*
 %{_datadir}/rhn/up2date_client/rhnHardware.*
 %{_datadir}/rhn/up2date_client/transaction.*
 %{_datadir}/rhn/up2date_client/clientCaps.*

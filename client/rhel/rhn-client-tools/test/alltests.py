@@ -24,7 +24,6 @@ import testByteRangeRpcServer
 import testClientCaps
 import testConfig
 import testRhnChannel
-import testRhnErrata
 import testRpcServer
 import testRpmUtils
 import testSSLSocketTimeout
@@ -43,7 +42,6 @@ def suite():
         testClientCaps.suite(),
         testConfig.suite(),
         testRhnChannel.suite(),
-        testRhnErrata.suite(),
         testRpcServer.suite(),
         testRpmUtils.suite(),
         testSSLSocketTimeout.suite(),
