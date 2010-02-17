@@ -31,7 +31,7 @@ import testSSLSocketTimeout
 import testTransactions
 import testUp2dateAuth
 import testUp2dateUtils
-import testrhnregGui
+### import testrhnregGui
 
 from unittest import TestSuite
 
@@ -49,7 +49,7 @@ def suite():
         testTransactions.suite(),
         testUp2dateAuth.suite(),
         testUp2dateUtils.suite(),
-        testrhnregGui.suite(),
+###        testrhnregGui.suite(),
 ##        haltreetests.suite()
     ))
 
