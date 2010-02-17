@@ -21,7 +21,6 @@ import sys
 import string
 import os
 
-from progress_bar import ProgressBar
 from optparse import Option, OptionParser
 
 
@@ -30,6 +29,7 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
+from satellite_tools.progress_bar import ProgressBar
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
 
@@ -50,7 +50,6 @@ options_table = [
 
 
 def main():
-    print UNSUPPORTED_WARN
 
     global options_table
     parser = OptionParser(option_list=options_table)
