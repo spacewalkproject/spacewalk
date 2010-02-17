@@ -406,7 +406,7 @@ def registerSystem(username = None, password = None,
 
     
       
-def getAvailableChannels(username, password, other):
+def getAvailableChannels(username, password):
     s = rhnserver.RhnServer()
     server_arch = up2dateUtils.getArch()
     server_version = up2dateUtils.getVersion()

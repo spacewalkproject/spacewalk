@@ -136,8 +136,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 sys.exit(-1)
             
             channels = rhnreg.getAvailableChannels(self.options.username,
-                                                   self.options.password,
-                                                   other)
+                                                   self.options.password)
             other['channel'] = channels['default_channel']
 
         try:

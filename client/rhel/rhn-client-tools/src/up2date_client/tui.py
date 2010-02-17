@@ -598,7 +598,7 @@ class OSReleaseWindow:
         toplevel.add(self.channelList, 0, 5)
 
         self.available_channels = rhnreg.getAvailableChannels(
-	                self.tui.userName, self.tui.password, self.tui.other)
+	                self.tui.userName, self.tui.password)
 
         for key, value in self.available_channels['channels'].items():
             if key in self.available_channels['receiving_updates']:
@@ -1468,7 +1468,7 @@ class Tui:
 
                 if win.name == 'OSReleaseWindow':
                     channels = rhnreg.getAvailableChannels(self.userName, 
-                               self.password, self.other)
+                               self.password)
                     # If user is not entitled to eus channels or 
                     # if no eus channels are available skip the
                     # choose channel screen

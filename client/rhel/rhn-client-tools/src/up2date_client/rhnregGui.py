@@ -810,8 +810,7 @@ def chooseChannelShouldBeShown():
         if organization is not None:
             other['org_id'] = organization
             
-        channels = rhnreg.getAvailableChannels(username, password,
-                                                    other)
+        channels = rhnreg.getAvailableChannels(username, password)
 
         channels = channels['channels']
 
@@ -846,9 +845,8 @@ class ChooseChannelPage:
         if organization is not None:
             other['org_id'] = organization
             
-        self.eus_channels = rhnreg.getAvailableChannels(username, password,
-                                                    other)
-                                                    
+        self.eus_channels = rhnreg.getAvailableChannels(username, password)
+
         self.channels = self.eus_channels['channels']
         self.receiving_updates = self.eus_channels['receiving_updates']
         
