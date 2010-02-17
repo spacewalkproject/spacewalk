@@ -310,6 +310,8 @@ def process_sha256_packages():
         pb.printIncrement()
 
         old_abs_path = os.path.join(CFG.MOUNT_POINT, package['path'])
+        if debug and verbose:
+            Log.writeMessage("Processing package: %s" % old_abs_path)
         temp_file = open(old_abs_path, 'rb')
         header, payload_stream, header_start, header_end = \
                 rhnPackageUpload.load_package(temp_file)
