@@ -525,12 +525,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param archLabel Architecture label
      * @param parentLabel Parent Channel label (may be null)
      * @param checksumType checksum type for this channel
-     * @param gpgKeyUrl GPG key URL
-     * @param gpgKeyId GPG key ID
-     * @param gpgKeyFingerprint GPG key Fingerprint
-     * @param yumrepoUrl Associated Yum Repository URL
-     * @param yumrepoLabel Associated Yum Repository Label
-     * @param syncYumrepo Sync Yum Repository
+     * @param gpgKey a map consisting of
+     *      <li>string url</li>
+     *      <li>string id</li>
+     *      <li>string fingerprint</li>
+     * @param yumRepo a map consisting of
+     *      <li>string url</li>
+     *      <li>string label</li>
+     *      <li>boolean sync</li>
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
@@ -575,19 +577,23 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *                        only with newer clients: Fedora 11 and newer,
      *                        or Enterprise Linux 6 and newer.")
      *      #options_end()
-     * @xmlrpc.param #param_desc("string", "gpgKeyUrl", "GPG key URL")
-     * @xmlrpc.param #param_desc("string", "gpgKeyId", "GPG key ID")
-     * @xmlrpc.param #param_desc("string", "gpgKeyFingerprint", "GPG key Fingerprint")
-     * @xmlrpc.param #param_desc("string", "yumrepoUrl", "Associated Yum Repository URL")
-     * @xmlrpc.param #param_desc("string", "yumrepoLabel", "Associated Yum
-     *                                                         Repository Label")
-     * @xmlrpc.param #param_desc("boolean", "syncYumRepo", "Sync Yum Repository")
+     * @xmlrpc.param
+     *      #struct("gpgKey")
+     *          #prop_desc("string", "url", "GPG key URL")
+     *          #prop_desc("string", "id", "GPG key ID")
+     *          #prop_desc("string", "fingerprint", "GPG key Fingerprint")
+     *      #struct_end()
+     * @xmlrpc.param
+     *      #struct("yumRepo")
+     *          #prop_desc("string", "url", "Associated Yum Repository URL")
+     *          #prop_desc("string", "label", "Associated Yum Repository Label")
+     *          #prop_desc("boolean", "sync", "Sync Yum Repository")
+     *      #struct_end()
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
     public int create(String sessionKey, String label, String name,
             String summary, String archLabel, String parentLabel, String checksumType,
-            String gpgKeyUrl, String gpgKeyId, String gpgKeyFingerprint,
-            String yumrepoUrl, String yumrepoLabel, Boolean syncYumrepo)
+            Map gpgKey, Map yumRepo)
         throws PermissionCheckFailureException, InvalidChannelLabelException,
                InvalidChannelNameException, InvalidParentChannelException {
 
@@ -603,12 +609,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setParentLabel(parentLabel);
         ccc.setUser(user);
         ccc.setChecksum(checksumType);
-        ccc.setGpgKeyUrl(gpgKeyUrl);
-        ccc.setGpgKeyId(gpgKeyId);
-        ccc.setGpgKeyFp(gpgKeyFingerprint);
-        ccc.setYumUrl(yumrepoUrl);
-        ccc.setRepoLabel(yumrepoLabel);
-        ccc.setSyncRepo(syncYumrepo);
+        ccc.setGpgKeyUrl((String)gpgKey.get("url"));
+        ccc.setGpgKeyId((String)gpgKey.get("id"));
+        ccc.setGpgKeyFp((String)gpgKey.get("fingerprint"));
+        ccc.setYumUrl((String)yumRepo.get("url"));
+        ccc.setRepoLabel((String)yumRepo.get("label"));
+        ccc.setSyncRepo(BooleanUtils.toBoolean((Boolean) yumRepo.get("sync")));
 
         return (ccc.create() != null) ? 1 : 0;
     }
@@ -676,8 +682,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         return create(sessionKey, label, name,
                 summary, archLabel, parentLabel, checksumType,
-                null, null, null,
-                null, null, Boolean.FALSE);
+                new HashMap(), new HashMap());
     }
     
     /**
