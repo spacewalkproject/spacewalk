@@ -127,7 +127,6 @@ make -f Makefile.rhn-client-tools test
 # some info about mirrors
 %doc doc/ChangeLog 
 %doc doc/mirrors.txt 
-%doc doc/fedora-core-1 
 %doc doc/updates-released
 %doc doc/AUTHORS
 %doc doc/LICENSE
