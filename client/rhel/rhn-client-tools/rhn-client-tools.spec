@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.1
+Version: 0.9.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -235,7 +235,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
-* Wed Feb 17 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.1-1
+* Wed Feb 17 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.2-1
 - 564491 - package should be noarch
 
 * Fri Feb  5 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.12-1
