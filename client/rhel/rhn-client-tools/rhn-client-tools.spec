@@ -126,7 +126,6 @@ make -f Makefile.rhn-client-tools test
 # some info about mirrors
 %doc doc/ChangeLog 
 %doc doc/mirrors.txt 
-%doc doc/updates-released
 %doc doc/AUTHORS
 %doc doc/LICENSE
 %{_mandir}/man8/rhn-profile-sync.8*
