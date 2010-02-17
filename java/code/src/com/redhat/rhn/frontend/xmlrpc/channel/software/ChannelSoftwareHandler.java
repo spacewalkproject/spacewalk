@@ -26,7 +26,6 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
@@ -38,7 +37,6 @@ import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
@@ -63,7 +61,6 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
-import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -526,8 +523,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param name Name of Channel
      * @param summary Channel Summary
      * @param archLabel Architecture label
-     * @param parentlabel Parent Channel label (may be null)
-     * @param checksumtype checksum type for this channel
+     * @param parentLabel Parent Channel label (may be null)
+     * @param checksumType checksum type for this channel
+     * @param gpgKeyUrl GPG key URL
+     * @param gpgKeyId GPG key ID
+     * @param gpgKeyFingerprint GPG key Fingerprint
+     * @param yumrepoUrl Associated Yum Repository URL
+     * @param yumrepoLabel Associated Yum Repository Label
+     * @param syncYumrepo Sync Yum Repository
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
@@ -576,7 +579,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "gpgKeyId", "GPG key ID")
      * @xmlrpc.param #param_desc("string", "gpgKeyFingerprint", "GPG key Fingerprint")
      * @xmlrpc.param #param_desc("string", "yumrepoUrl", "Associated Yum Repository URL")
-     * @xmlrpc.param #param_desc("string", "yumrepoLabel", "Associated Yum Repository Label")
+     * @xmlrpc.param #param_desc("string", "yumrepoLabel", "Associated Yum
+     *                                                         Repository Label")
      * @xmlrpc.param #param_desc("boolean", "syncYumRepo", "Sync Yum Repository")
      * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
      */
@@ -616,8 +620,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param name Name of Channel
      * @param summary Channel Summary
      * @param archLabel Architecture label
-     * @param parentlabel Parent Channel label (may be null)
-     * @param checksumtype checksum type for this channel
+     * @param parentLabel Parent Channel label (may be null)
+     * @param checksumType checksum type for this channel
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
@@ -683,7 +687,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param name Name of Channel
      * @param summary Channel Summary
      * @param archLabel Architecture label
-     * @param parentlabel Parent Channel label (may be null)
+     * @param parentLabel Parent Channel label (may be null)
      * @return 1 if creation of channel succeeds.
      * @throws PermissionCheckFailureException  thrown if user does not have
      * permission to create the channel.
