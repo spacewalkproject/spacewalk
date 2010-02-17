@@ -32,6 +32,15 @@ BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
 
+# The following BuildRequires are for check only
+%if 0%{?fedora} >= 12
+BuildRequires: python-coverage
+BuildRequires: rhnlib
+# python-setuptools can be removed when 556290 gets fixed
+BuildRequires: python-setuptools
+BuildRequires: rpm-python
+%endif
+
 %description
 Red Hat Network Client Tools provides programs and libraries to allow your
 system to receive software updates from Red Hat Network or Spacewalk.
@@ -107,6 +116,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if 0%{?fedora} >= 12
+%check
+
+make -f Makefile.rhn-client-tools test
+%endif
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
