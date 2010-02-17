@@ -31,6 +31,7 @@ import testSSLSocketTimeout
 import testTransactions
 import testUp2dateAuth
 import testUp2dateUtils
+import haltreetests
 ### import testrhnregGui
 
 from unittest import TestSuite
@@ -43,14 +44,14 @@ def suite():
         testConfig.suite(),
         testRhnChannel.suite(),
         testRhnErrata.suite(),
-##        testRpcServer.suite(),
+        testRpcServer.suite(),
         testRpmUtils.suite(),
         testSSLSocketTimeout.suite(),
         testTransactions.suite(),
         testUp2dateAuth.suite(),
         testUp2dateUtils.suite(),
 ###        testrhnregGui.suite(),
-##        haltreetests.suite()
+        haltreetests.suite()
     ))
 
 if __name__ == "__main__":
