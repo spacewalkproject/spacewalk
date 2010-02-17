@@ -6,7 +6,7 @@
 <refentry>
 
 <RefMeta>
-<RefEntryTitle>spaceawlk-remove-channel</RefEntryTitle><manvolnum>8</manvolnum>
+<RefEntryTitle>spacewalk-remove-channel</RefEntryTitle><manvolnum>8</manvolnum>
 <RefMiscInfo>Version 3.5.0</RefMiscInfo>
 </RefMeta>
 
