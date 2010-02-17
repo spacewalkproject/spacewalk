@@ -20,7 +20,7 @@
 import sys
 import string
 import os
-
+import shutil
 from optparse import Option, OptionParser
 
 
@@ -314,6 +314,16 @@ def delete_channels(channelLabels, force=0, justdb=0):
         log_debug(3, "Processing table %s" % table)
         h = rhnSQL.prepare(query % (table, field))
         h.executemany(channel_id=channel_ids)
+
+    __deleteRepoData(channelLabels)
+
+
+def __deleteRepoData(labels):
+    dir = '/var/cache/' + CFG.repomd_path_prefix
+    for label in labels:
+        if os.path.isdir(dir + '/' + label):
+            shutil.rmtree(dir + '/' + label)
+
 
 def list_packages(channelLabels, sources=0, force=0):
     "List the source ids for the channels"
