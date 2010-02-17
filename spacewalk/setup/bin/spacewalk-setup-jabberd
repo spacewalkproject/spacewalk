@@ -14,7 +14,6 @@
 # in this software or its documentation.
 #
 
-use Spacewalk::Setup;
 use Sys::Hostname;
 use Getopt::Long;
 
@@ -49,7 +48,7 @@ if ($macros) {
 
 foreach my $basename ('c2s', 's2s', 'sm') {
 	my $configfile = "/etc/jabberd/$basename.xml";
-	my $template = Spacewalk::Setup::SHARED_DIR . "/jabberd/$basename.xsl";
+	my $template = "/usr/share/spacewalk/setup/jabberd/$basename.xsl";
 
 	{
 		local $/ = undef;
@@ -59,7 +58,7 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 		my $original = <F>;
 		close F;
 
-		print Spacewalk::Setup::loc("Calling /usr/bin/xsltproc $template $configfile...\n") if $verbose;
+		print "Calling /usr/bin/xsltproc $template $configfile...\n" if $verbose;
 		my $transformed = `/usr/bin/xsltproc $template $configfile`;
 		die "There was an error running xsltproc\n" if $?;
 
@@ -68,7 +67,7 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 		}
 
 		if ($transformed ne $original) {
-			print Spacewalk::Setup::loc("$configfile has been backed up to $configfile-swsave\n") if $verbose;
+			print "$configfile has been backed up to $configfile-swsave\n" if $verbose;
 			system('cp', '-p', '--backup=numbered', $configfile, "$configfile-swsave");
 
 			my @statistics = stat($configfile);
@@ -81,7 +80,7 @@ foreach my $basename ('c2s', 's2s', 'sm') {
 			chmod 0640, $configfile;
 		}
  		elsif ($verbose) {
-			print Spacewalk::Setup::loc(" No changes were made\n");
+			print " No changes were made\n";
 		}
 	}
 
