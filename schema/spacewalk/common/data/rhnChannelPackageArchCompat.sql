@@ -37,6 +37,14 @@ values (LOOKUP_CHANNEL_ARCH('channel-ia32'), LOOKUP_PACKAGE_ARCH('src'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ia32'), LOOKUP_PACKAGE_ARCH('athlon'));
 
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia32-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia32-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia32-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ia64'), LOOKUP_PACKAGE_ARCH('noarch'));
@@ -59,6 +67,18 @@ values (LOOKUP_CHANNEL_ARCH('channel-ia64'), LOOKUP_PACKAGE_ARCH('ia64'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ia64'), LOOKUP_PACKAGE_ARCH('src'));
 
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia64-deb'), LOOKUP_PACKAGE_ARCH('ia64-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-ia64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_PACKAGE_ARCH('noarch'));
@@ -75,6 +95,15 @@ values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_PACKAGE_ARCH('sparc64'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc'), LOOKUP_PACKAGE_ARCH('src'));
 
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-sparc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-sparc-deb'), LOOKUP_PACKAGE_ARCH('sparc-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-sparc-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-alpha'), LOOKUP_PACKAGE_ARCH('noarch'));
@@ -88,6 +117,15 @@ values (LOOKUP_CHANNEL_ARCH('channel-alpha'), LOOKUP_PACKAGE_ARCH('alphaev6'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-alpha'), LOOKUP_PACKAGE_ARCH('src'));
 
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-alpha-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-alpha-deb'), LOOKUP_PACKAGE_ARCH('alpha-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-alpha-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-s390'), LOOKUP_PACKAGE_ARCH('noarch'));
@@ -97,6 +135,15 @@ values (LOOKUP_CHANNEL_ARCH('channel-s390'), LOOKUP_PACKAGE_ARCH('s390'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-s390'), LOOKUP_PACKAGE_ARCH('src'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-s390-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-s390-deb'), LOOKUP_PACKAGE_ARCH('s390-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-s390-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
@@ -171,6 +218,18 @@ values (LOOKUP_CHANNEL_ARCH('channel-x86_64'), LOOKUP_PACKAGE_ARCH('x86_64'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-x86_64'), LOOKUP_PACKAGE_ARCH('src'));
 
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('noarch'));
@@ -189,6 +248,33 @@ values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('ppc64pseries'))
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-ppc'), LOOKUP_PACKAGE_ARCH('src'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'), LOOKUP_PACKAGE_ARCH('powerpc-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_PACKAGE_ARCH('arm-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-arm-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-mips-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-mips-deb'), LOOKUP_PACKAGE_ARCH('mips-deb'));
+
+insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
+values (LOOKUP_CHANNEL_ARCH('channel-mips-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'));

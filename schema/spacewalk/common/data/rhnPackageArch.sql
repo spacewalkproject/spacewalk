@@ -95,6 +95,29 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'noarch-solaris-patch-cluster', 'noarch-solaris-patch-cluster', lookup_arch_type('sysv-solaris'));
 
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'all-deb', 'all-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'i386-deb', 'i386-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'alpha-deb', 'alpha-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'ia64-deb', 'ia64-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'sparc-deb', 'sparc-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'src-deb', 'src-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 's390-deb', 's390-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'powerpc-deb', 'powerpc-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'arm-deb', 'arm-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'mips-deb', 'mips-deb', lookup_arch_type('deb'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'amd64-deb', 'AMD64-deb', lookup_arch_type('deb'));
+
 commit;
 
 --
