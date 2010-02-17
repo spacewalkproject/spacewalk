@@ -7,9 +7,8 @@ Name: rhn-client-tools
 Version: 0.9.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-%if 0%{?suse_version: %{suse_version} > 1000} 
-%{!?suse_version:1}
 BuildArch: noarch
+%if 0%{?suse_version}
 BuildRequires: update-desktop-files
 %endif
 
