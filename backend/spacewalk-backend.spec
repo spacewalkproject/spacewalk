@@ -598,7 +598,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-debug.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
-
+%{_mandir}/man8/spacewalk-remove-channel.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
