@@ -732,9 +732,7 @@ def findHostByRoute():
             port = int(port)
 
         try:
-            # RHEL3 doesn't let you set a timeout, see #164660
-            if hasattr(s, "settimeout"):
-                s.settimeout(5)
+            s.settimeout(5)
             s.connect((server, port))
             (intf, port) = s.getsockname()
             hostname = socket.gethostbyaddr(intf)[0]
