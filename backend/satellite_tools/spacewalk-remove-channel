@@ -314,8 +314,8 @@ def delete_channels(channelLabels, force=0, justdb=0):
         log_debug(3, "Processing table %s" % table)
         h = rhnSQL.prepare(query % (table, field))
         h.executemany(channel_id=channel_ids)
-
-    __deleteRepoData(channelLabels)
+    if not justdb:
+        __deleteRepoData(channelLabels)
 
 
 def __deleteRepoData(labels):
