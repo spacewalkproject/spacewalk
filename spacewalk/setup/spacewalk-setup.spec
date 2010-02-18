@@ -27,15 +27,12 @@ Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
 Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
-Requires:       jabberd
 Requires:       /usr/bin/gpg
-Requires:       libxslt
-
+Requires:       spacewalk-setup-jabberd
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
 setup tasks, re-installation, and upgrades.
-
 
 %prep
 %setup -q
