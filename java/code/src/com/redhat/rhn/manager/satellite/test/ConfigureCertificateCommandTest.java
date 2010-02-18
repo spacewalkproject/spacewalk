@@ -30,8 +30,10 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
     private ConfigureCertificateCommand cmd;
     
     public void testCreateCommand() throws Exception {
-        String originalConfigParent = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
-        String originalConfigDisconnected = Config.get().getString(ConfigDefaults.DISCONNECTED);
+        String originalConfigParent =
+                        Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        String originalConfigDisconnected =
+                        Config.get().getString(ConfigDefaults.DISCONNECTED);
 
         Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
                 "satellite.webqa.redhat.com");
@@ -59,13 +61,16 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
             Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "");
         }
         else {
-            Config.get().setBoolean(ConfigDefaults.DISCONNECTED, originalConfigDisconnected);
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED,
+                                                originalConfigDisconnected);
         }
     }
     
     public void testCreateCommandIgnoreMismatch() throws Exception {
-        String originalConfigParent = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
-        String originalConfigDisconnected = Config.get().getString(ConfigDefaults.DISCONNECTED);
+        String originalConfigParent =
+                        Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        String originalConfigDisconnected =
+                        Config.get().getString(ConfigDefaults.DISCONNECTED);
 
         Config.get().setString(ConfigDefaults.SATELLITE_PARENT,
                 "satellite.webqa.redhat.com");
@@ -96,7 +101,8 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
             Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "");
         }
         else {
-            Config.get().setBoolean(ConfigDefaults.DISCONNECTED, originalConfigDisconnected);
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED,
+                                                originalConfigDisconnected);
         }
     }
     
