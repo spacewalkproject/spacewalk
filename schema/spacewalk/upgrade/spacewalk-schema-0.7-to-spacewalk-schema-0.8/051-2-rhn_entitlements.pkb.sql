@@ -7,10 +7,10 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 --
@@ -72,13 +72,13 @@ is
             where org_id = 1
               and channel_family_id = channel_sub.channel_family_id;
         end loop;
-        
+
         update rhnPrivateChannelFamily
         set max_members = 0
         where org_id = org_id_in;
 
     end remove_org_entitlements;
- 
+
 	function entitlement_grants_service (
 	    entitlement_in in varchar2,
 	    service_level_in in varchar2
@@ -101,7 +101,7 @@ is
 				return 1;
 			end if;
 		elsif service_level_in = 'updates' then
-			return 1;			
+			return 1;
 		else
 			return 0;
 		end if;
@@ -123,7 +123,7 @@ is
 			return sg.server_group_id;
 		end loop;
 		return rhn_entitlements.create_entitlement_group(
-				org_id_in, 
+				org_id_in,
 				type_label_in
 			);
 	end lookup_entitlement_group;
@@ -151,11 +151,11 @@ is
 		return sg_id_val;
 	end create_entitlement_group;
 
-   function can_entitle_server ( 
-        server_id_in in number, 
-        type_label_in in varchar2 ) 
+   function can_entitle_server (
+        server_id_in in number,
+        type_label_in in varchar2 )
    return number is
-      cursor addon_servergroups (base_label_in in varchar2, 
+      cursor addon_servergroups (base_label_in in varchar2,
                                  addon_label_in in varchar2) is
          select
             addon_id
@@ -254,7 +254,7 @@ is
 
       if type_label_in_is_base = 'N' then
          rhn_exception.raise_exception ( 'invalid_entitlement' );
-      elsif rhn_entitlements.find_compatible_sg ( server_id_in, 
+      elsif rhn_entitlements.find_compatible_sg ( server_id_in,
                                                   type_label_in, sgid ) then
          return 1;
       else
@@ -282,17 +282,17 @@ is
             and sg.group_type = sgt.id
             and ssgac.server_group_type = sgt.id
             and ssgac.server_arch_id = s.server_arch_id
-            and not exists ( 
+            and not exists (
                      select 1
                       from rhnServerGroupMembers sgm
-                     where sgm.server_group_id = sg.id 
+                     where sgm.server_group_id = sg.id
                        and sgm.server_id = s.id);
 
-         
+
    begin
       for servergroup in servergroups loop
          sgid_out := servergroup.id;
-         return true;      
+         return true;
       end loop;
 
       --no servergroup found
@@ -318,7 +318,7 @@ is
             when no_data_found then
               is_virt := 0;
           end;
-      
+
       if is_virt = 0 and (type_label_in = 'virtualization_host' or
                           type_label_in = 'virtualization_host_platform') then
 
@@ -327,9 +327,9 @@ is
 
 
 
-      if rhn_entitlements.can_entitle_server(server_id_in, 
+      if rhn_entitlements.can_entitle_server(server_id_in,
                                              type_label_in) = 1 then
-         if rhn_entitlements.find_compatible_sg (server_id_in, 
+         if rhn_entitlements.find_compatible_sg (server_id_in,
                                                  type_label_in, sgid) then
             insert into rhnServerHistory ( id, server_id, summary, details )
             values ( rhn_event_id_seq.nextval, server_id_in,
@@ -338,9 +338,9 @@ is
                        when 'enterprise_entitled' then 'Management'
                        when 'sw_mgr_entitled' then 'Update'
                        when 'provisioning_entitled' then 'Provisioning'
-                       when 'monitoring_entitled' then 'Monitoring'  
+                       when 'monitoring_entitled' then 'Monitoring'
                        when 'virtualization_host' then 'Virtualization'
-                       when 'virtualization_host_platform' then 
+                       when 'virtualization_host_platform' then
                             'Virtualization Platform' end  );
 
             rhn_server.insert_into_servergroup (server_id_in, sgid);
@@ -381,17 +381,17 @@ is
         end;
 
 		select	sg.id, sgt.is_base
-  		into	group_id, type_is_base
-  		from	rhnServerGroupType sgt,
-   			rhnServerGroup sg,
-  				rhnServerGroupMembers sgm,
-  				rhnServer s
-  		where	s.id = server_id_in
-  			and s.id = sgm.server_id
-  			and sgm.server_group_id = sg.id
-  			and sg.org_id = s.org_id
-  			and sgt.label = type_label_in
-  			and sgt.id = sg.group_type;
+		into	group_id, type_is_base
+		from	rhnServerGroupType sgt,
+			rhnServerGroup sg,
+				rhnServerGroupMembers sgm,
+				rhnServer s
+		where	s.id = server_id_in
+			and s.id = sgm.server_id
+			and sgm.server_group_id = sg.id
+			and sg.org_id = s.org_id
+			and sgt.label = type_label_in
+			and sgt.id = sg.group_type;
 
       if ( type_is_base = 'Y' ) then
          -- unentitle_server should handle everything, don't really need to do anything else special here
@@ -407,7 +407,7 @@ is
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then 
+                    when 'virtualization_host_platform' then
                          'Virtualization Platforrm' end  );
 
          rhn_server.delete_from_servergroup(server_id_in, group_id);
@@ -421,7 +421,7 @@ is
                             WHERE host_id = server_id_in);
            DELETE /*+index(time_series time_series_probe_id_idx)*/
              FROM time_series
-            WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1, 
+            WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1,
                         (INSTR(o_id, '-', INSTR(o_id, '-') + 1) - INSTR(o_id, '-')) - 1)
               IN (SELECT to_char(probe_id)
                     FROM rhn_check_probe
@@ -438,12 +438,12 @@ is
          end if;
       end if;
 
-  		exception
-  		when no_data_found then
-  				rhn_exception.raise_exception('invalid_server_group_member');	
+		exception
+		when no_data_found then
+				rhn_exception.raise_exception('invalid_server_group_member');
       end;
 
- 	end remove_server_entitlement;
+	end remove_server_entitlement;
 
 
    procedure unentitle_server (server_id_in in number) is
@@ -459,7 +459,7 @@ is
             and sg.group_type = sgt.id
             and sgm.server_group_id = sg.id
             and sgm.server_id = s.id;
-            
+
      is_virt number := 0;
 
    begin
@@ -485,10 +485,10 @@ is
                     when 'provisioning_entitled' then 'Provisioning'
                     when 'monitoring_entitled' then 'Monitoring'
                     when 'virtualization_host' then 'Virtualization'
-                    when 'virtualization_host_platform' then 
+                    when 'virtualization_host_platform' then
                          'Virtualization Platform' end  );
-  
-         rhn_server.delete_from_servergroup(server_id_in, 
+
+         rhn_server.delete_from_servergroup(server_id_in,
                                             servergroup.server_group_id );
       end loop;
 
@@ -502,11 +502,11 @@ is
     -- *******************************************************************
     -- PROCEDURE: repoll_virt_guest_entitlements
     --
-    --   Whenever we add/remove a virtualization_host* entitlement from 
+    --   Whenever we add/remove a virtualization_host* entitlement from
     --   a host, we can call this procedure to update what type of slots
-    --   the guests are consuming.  
-    -- 
-    --   If you're removing the entitlement, it's 
+    --   the guests are consuming.
+    --
+    --   If you're removing the entitlement, it's
     --   possible the guests will become unentitled if you don't have enough
     --   physical slots to cover them.
     --
@@ -518,7 +518,7 @@ is
     is
 
         -- All channel families associated with the guests of server_id_in
-        cursor families is 
+        cursor families is
             select distinct cfs.channel_family_id
             from
                 rhnChannelFamilyServers cfs,
@@ -526,7 +526,7 @@ is
             where
                 vi.host_system_id = server_id_in
                 and vi.virtual_system_id = cfs.server_id;
-        
+
         -- All of server group types associated with the guests of
         -- server_id_in
         cursor group_types is
@@ -559,7 +559,7 @@ is
                     and cfm.channel_family_id = family_id_in
                 order by sc.modified desc
                 )
-            where rownum <= quantity_in;                
+            where rownum <= quantity_in;
 
         -- Virtual servers from a certain family belonging to a speicifc
         -- host that are consuming physical system slots over the limit.
@@ -578,8 +578,8 @@ is
                     and sg.group_type = group_type_in
                 order by sgm.modified desc
                 )
-            where rownum <= quantity_in;                
-        
+            where rownum <= quantity_in;
+
         org_id_val number;
         max_members_val number;
         current_members_calc number;
@@ -595,7 +595,7 @@ is
         -- deal w/ channel entitlements first ...
         for family in families loop
             -- get the current (physical) members of the family
-            current_members_calc := 
+            current_members_calc :=
                 rhn_channel.channel_family_current_members(family.channel_family_id,
                                                            org_id_val); -- fixed transposed args
 
@@ -613,12 +613,12 @@ is
                 -- hm, i don't think max_members - current_members_calc yielding a negative number
                 -- will work w/ rownum, swaping 'em in the body of this if...
                 for virt_server in virt_servers_cfam(family.channel_family_id,
-                                current_members_calc - max_members_val) loop 
+                                current_members_calc - max_members_val) loop
 
                     rhn_channel.unsubscribe_server_from_family(
                                 virt_server.virtual_system_id,
                                 family.channel_family_id);
-                end loop;                               
+                end loop;
 
                 -- if we're still over the limit, which would be odd,
                 -- just prune the group to max_members
@@ -631,7 +631,7 @@ is
                     set_family_count(org_id_val,
                                      family.channel_family_id,
                                      max_members_val);
-                end if; 
+                end if;
 
            end if;
 
@@ -645,7 +645,7 @@ is
 
         for a_group_type in group_types loop
           -- get the current *physical* members of the system entitlement type for the org...
-          -- 
+          --
           -- unlike channel families, it appears the standard rhnServerGroup.max_members represents
           -- *physical* slots, vs physical+virt ... boy that's confusing...
 
@@ -660,7 +660,7 @@ is
             from rhnServerEntitlementPhysical sep
            where sep.server_group_id = sg_id
              and sep.server_group_type_id = a_group_type.group_type;
-          
+
           if current_members_calc > max_members_val then
             -- A virtualization_host* ent must have been removed, and we're over the limit, so unsubscribe guests
             for virt_server in virt_servers_sgt(a_group_type.group_type,
@@ -706,7 +706,7 @@ is
          ent_array ents_array;
 
 	begin
-      
+
       ent_array := ents_array();
 
 		for sg in server_groups loop
@@ -738,7 +738,7 @@ is
 			where	ugt.label = role_label_in
 				and ug.org_id = org_id_in
 				and ugt.id = ug.group_type;
-				
+
 		type ents_v is varray(10) of rhnOrgEntitlementType.label%TYPE;
 		ents_to_process ents_v;
 		cursor ents(ent_label_in in varchar2) is
@@ -758,7 +758,7 @@ is
 		roles_to_process := roles_v();
 		-- a bit kludgy, but only for 3.4 really.  Certainly no
 		-- worse than the old code...
-		if service_label_in = 'enterprise' or 
+		if service_label_in = 'enterprise' or
            service_label_in = 'management' then
 			ents_to_process.extend;
 			ents_to_process(ents_to_process.count) := 'sw_mgr_enterprise';
@@ -805,7 +805,7 @@ is
 			roles_to_process(roles_to_process.count) := 'config_admin';
         elsif service_label_in = 'virtualization_platform' then
 			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform'; 
+			ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform';
 			roles_to_process.extend;
 			roles_to_process(roles_to_process.count) := 'config_admin';
 	elsif service_label_in = 'nonlinux' then
@@ -1000,12 +1000,12 @@ is
 
 			for sg in servergroups loop
 				remove_server_entitlement(sg.server_id, sg.label);
-            
-            select is_base 
+
+            select is_base
             into type_is_base
             from rhnServerGroupType sgt
             where sgt.id = sg.group_type_id;
- 
+
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
@@ -1023,7 +1023,7 @@ is
     -- Moves system entitlements from from_org_id_in to to_org_id_in.
     -- Can raise not_enough_entitlements_in_base_org if from_org_id_in
     -- does not have enough entitlements to cover the move.
-    -- Takes care of unentitling systems if necessary by calling 
+    -- Takes care of unentitling systems if necessary by calling
     -- set_group_count
     -- *******************************************************************
     procedure assign_system_entitlement(
@@ -1066,7 +1066,7 @@ is
             when NO_DATA_FOUND then
                 to_org_prev_ent_count := 0;
         end;
-	
+
         begin
             select id
             into group_type
@@ -1079,11 +1079,11 @@ is
         end;
 
         new_ent_count := prev_ent_count - quantity_in;
-	
+
         if prev_ent_count > new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
         end if;
-	
+
         if new_ent_count < 0 then
             rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
@@ -1099,9 +1099,9 @@ is
                                          'S',
                                          group_type,
                                          new_quantity);
-        
+
         -- Create or delete the entries in rhnOrgEntitlementType
-        if group_label_in = 'enterprise_entitled' then 
+        if group_label_in = 'enterprise_entitled' then
             if new_quantity > 0 then
                 set_customer_enterprise(to_org_id_in);
             else
@@ -1133,7 +1133,7 @@ is
     -- Moves channel entitlements from from_org_id_in to to_org_id_in.
     -- Can raise not_enough_entitlements_in_base_org if from_org_id_in
     -- does not have enough entitlements to cover the move.
-    -- Takes care of unentitling systems if necessary by calling 
+    -- Takes care of unentitling systems if necessary by calling
     -- set_family_count
     -- *******************************************************************
     procedure assign_channel_entitlement(
@@ -1163,7 +1163,7 @@ is
                 rhn_exception.raise_exception(
                               'not_enough_entitlements_in_base_org');
         end;
-	
+
         begin
             select max_members
             into to_org_prev_ent_count
@@ -1176,7 +1176,7 @@ is
             when NO_DATA_FOUND then
                 to_org_prev_ent_count := 0;
         end;
-	
+
 
         begin
             select id
@@ -1187,14 +1187,14 @@ is
             when NO_DATA_FOUND then
                 rhn_exception.raise_exception(
                               'invalid_channel_family');
-        end;                              
+        end;
 
         new_ent_count := prev_ent_count - quantity_in;
-	
+
 	if prev_ent_count > new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
 	end if;
-	
+
 
         if new_ent_count < 0 then
             rhn_exception.raise_exception(
@@ -1215,9 +1215,9 @@ is
     -- PROCEDURE: activate_system_entitlement
     --
     -- Sets the values in rhnServerGroup for a given rhnServerGroupType.
-    -- 
+    --
     -- Calls: set_group_count to update, prune, or create the group.
-    -- Called by: the code that activates a satellite cert. 
+    -- Called by: the code that activates a satellite cert.
     --
     -- Raises not_enough_entitlements_in_base_org if all entitlements
     -- in the org are used so the free entitlements would not cover
@@ -1229,8 +1229,8 @@ is
         quantity_in in number
     )
     is
-        prev_ent_count number; 
-        prev_ent_count_sum number; 
+        prev_ent_count number;
+        prev_ent_count_sum number;
         group_type number;
     begin
 
@@ -1286,7 +1286,7 @@ is
     --
     -- Calls: set_family_count to update, prune, or create the family
     --        permission bucket.
-    -- Called by: the code that activates a satellite cert. 
+    -- Called by: the code that activates a satellite cert.
     --
     -- Raises not_enough_entitlements_in_base_org if there are not enough
     -- entitlements in the org to cover the difference when you are
@@ -1301,8 +1301,8 @@ is
         quantity_in in number
     )
     is
-        prev_ent_count number; 
-        prev_ent_count_sum number; 
+        prev_ent_count number;
+        prev_ent_count_sum number;
         cfam_id number;
     begin
 
@@ -1330,7 +1330,7 @@ is
             when NO_DATA_FOUND then
                 rhn_exception.raise_exception(
                               'invalid_channel_family');
-        end;                              
+        end;
 
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the count in that one org,
@@ -1413,7 +1413,7 @@ is
 
     -- *******************************************************************
     -- PROCEDURE: prune_family
-    -- Unsubscribes servers consuming physical slots from the channel family 
+    -- Unsubscribes servers consuming physical slots from the channel family
     --   that are over the org's limit.
     -- Called by: set_family_count, prune_everything
     -- *******************************************************************
@@ -1439,7 +1439,7 @@ is
 						from	(
 							select	rs.id					server_id,
 									rcfm.modified			time
-							from	
+							from
 									rhnServerChannel		rsc,
 									rhnChannelFamilyMembers	rcfm,
                                     rhnServer				rs
@@ -1455,7 +1455,7 @@ is
                                     select 1
                                     from rhnChannelFamilyServerPhysical cfsp
                                     where cfsp.server_id = rs.id
-                                    and cfsp.channel_family_id = 
+                                    and cfsp.channel_family_id =
                                         channel_family_id_in
                                     )
 							order by time asc
@@ -1481,7 +1481,7 @@ is
 		end loop;
                 rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
 	end prune_family;
-		
+
 	procedure set_family_count (
 		customer_id_in in number,
 		channel_family_id_in in number,
@@ -1518,7 +1518,7 @@ is
 						and channel_family_id = channel_family_id_in;
 				return;
 			end loop;
-			
+
 			insert into rhnPrivateChannelFamily (
 					channel_family_id, org_id, max_members, current_members
 				) values (
@@ -1612,7 +1612,7 @@ is
 					ug.max_members 			quantity
 			from	rhnUserGroup			ug
 			where	ug.org_id = customer_id_in
-			union ( 
+			union (
 			-- all the channel families we have perms to
 			select	cfp.channel_family_id	id,
 					'C'						type,
@@ -1672,7 +1672,7 @@ is
                         select 1
                         from rhnVirtualInstance vi
                         where vi.virtual_system_id = s.id
-                    )                        
+                    )
 			order by s.modified desc;
 		channel_id number;
 	begin
