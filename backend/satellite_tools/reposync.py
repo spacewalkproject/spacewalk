@@ -26,6 +26,7 @@ from server.importlib.packageImport import ChannelPackageSubscription
 
 
 default_log_location = '/var/log/rhn/reposync/'
+default_hash = 'sha256'
 
 class RepoSync:
    
@@ -46,10 +47,10 @@ class RepoSync:
         (options, args) = self.process_args()
 
         log_filename = 'reposync.log'
-        if options.channel_label and options.label:
+        if options.channel_label:
             date = time.localtime()
             datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
-            log_filename = options.channel_label + '-' + options.label + '-' +  datestr + '.log'
+            log_filename = options.channel_label + '-' +  datestr + '.log'
            
         rhnLog.initLOG(default_log_location + log_filename)
         #os.fchown isn't in 2.4 :/
@@ -67,8 +68,7 @@ class RepoSync:
             quit = True
             self.error_msg("--channel must be specified")
         if not options.label:
-            quit = True
-            self.error_msg("--label must be specified")
+            self.error_msg("--label is obsoleted")
         if options.mirror:
             self.error_msg("--mirrorlist is obsoleted; mirrorlist is recognized automatically")
 
@@ -83,7 +83,7 @@ class RepoSync:
         self.url = options.url
         self.channel_label = options.channel_label
         self.fail = options.fail
-        self.repo_label = options.label
+        self.repo_label = self.short_hash(self.url)
         self.quiet = options.quiet
         self.channel = self.load_channel()
 
@@ -100,7 +100,7 @@ class RepoSync:
         self.parser.add_option('-u', '--url', action='store', dest='url', help='The url to sync')
         self.parser.add_option('-c', '--channel', action='store', dest='channel_label', help='The label of the channel to sync packages to')
         self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported')
-        self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
+        self.parser.add_option('-l', '--label', action='store_true', dest='label', help='Ignored; for compatibility with old versions')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
         self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Ignored; for compatibility with old versions. Mirrorlist is recognized automatically.")
@@ -217,6 +217,9 @@ class RepoSync:
 
     def log_msg(self, message):
         rhnLog.log_clean(0, message)
+
+    def short_hash(self, str):
+        return hashlib.new(default_hash, str).hexdigest()[0:8]
 
 class ContentPackage:
 
