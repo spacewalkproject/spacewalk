@@ -38,7 +38,6 @@ class RepoSync:
     fail = False
     repo_label = None
     quiet = False
-    mirrorlist = False
 
     def main(self):
         initCFG('server')
@@ -70,6 +69,8 @@ class RepoSync:
         if not options.label:
             quit = True
             self.error_msg("--label must be specified")
+        if options.mirror:
+            self.error_msg("--mirrorlist is obsoleted; mirrorlist is recognized automatically")
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
@@ -83,7 +84,6 @@ class RepoSync:
         self.channel_label = options.channel_label
         self.fail = options.fail
         self.repo_label = options.label
-        self.mirrorlist = options.mirror
         self.quiet = options.quiet
         self.channel = self.load_channel()
 
@@ -91,7 +91,7 @@ class RepoSync:
             print "Channel does not exist or is not custom"
             sys.exit(1)
 
-        self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label, self.mirrorlist)
+        self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
         self.print_msg("Sync complete")
 
@@ -103,7 +103,7 @@ class RepoSync:
         self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
-        self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Treat --url as a mirror list (may not be supported by all content sources)")
+        self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Ignored; for compatibility with old versions. Mirrorlist is recognized automatically.")
         return self.parser.parse_args()
 
     def load_plugin(self):
