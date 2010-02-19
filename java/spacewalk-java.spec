@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.7
+Version: 0.9.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -308,6 +308,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 19 2010 Tomas Lestach <tlestach@redhat.com> 0.9.8-1
+- 566434 - manage base entitlements with system.add/removeEntitlements API call
+  (tlestach@redhat.com)
+- combine several API call params to a single Map parameter
+  (tlestach@redhat.com)
+
 * Tue Feb 16 2010 Justin Sherrill <jsherril@redhat.com> 0.9.7-1
 - fixing issue with conflict between javamail package and classpathx-mail
   (which provides javamail as a provides).  The fedora 12 build was building
