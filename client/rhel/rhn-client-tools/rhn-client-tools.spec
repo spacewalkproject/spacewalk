@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.2
+Version: 0.9.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -235,6 +235,10 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Feb 19 2010 Jan Pazdziora 0.9.3-1
+- Move the logging of XMLRPC calls down to up2date_client/rpcServer
+- Cleanup of unused code
+
 * Wed Feb 17 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.2-1
 - 564491 - package should be noarch
 
