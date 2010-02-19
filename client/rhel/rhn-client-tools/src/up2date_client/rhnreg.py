@@ -475,7 +475,6 @@ def registerSystem2(username = None, password = None,
                                                         activationKey,
                                                         other)
     else:
-        log.log_debug("Calling xmlrpc registration.new_system_user_pass.")
         info = s.registration.new_system_user_pass(profileName,
                                                    up2dateUtils.getOSRelease(),
                                                    up2dateUtils.getVersion(),
@@ -531,8 +530,6 @@ def getRemainingSubscriptions(username, password):
     #bz: 442694
     release = up2dateUtils.getVersion()
     version = up2dateUtils.getRelease()
-    log.log_debug('Calling xmlrpc registration.remaining_subscriptions')
-        
 
     virt_uuid, virt_type = get_virt_info()
     if virt_uuid is not None:
@@ -709,7 +706,6 @@ def activateRegistrationNumber(username, password, registrationNumber,
         Communication errors, etc
     
     """
-    log.log_debug('Calling xmlrpc activate_registration_number.')
     server = rhnserver.RhnServer()
 ##    if server.capabilities.hasCapability(
 ##       'registration.activate_subscription_number'):
@@ -754,7 +750,6 @@ def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
     """
 ##    import pprint
 ##    pprint.pprint(hardwareInfo)
-    log.log_debug('Calling xmlrpc activate_hardware_info.')
     
     other = {}
     if orgId:
