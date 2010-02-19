@@ -3343,8 +3343,22 @@ public class SystemHandler extends BaseHandler {
                         EntitlementManager.VIRTUALIZATION_ENTITLED)) {
             throw new InvalidEntitlementException();
         }
+
+        List addOnEnts = new LinkedList(entitlements);
+        // first process base entitlements
+        for (Entitlement en : EntitlementManager.getBaseEntitlements()) {
+            if (addOnEnts.contains(en.getLabel())) {
+                addOnEnts.remove(en.getLabel());
+                server.setBaseEntitlement(en);
+            }
+        }
         
-        for (Iterator it = entitlements.iterator(); it.hasNext();) {
+        // put a more intelligible exception
+        if ((server.getBaseEntitlement() == null) && (!addOnEnts.isEmpty())) {
+            throw new InvalidEntitlementException("Base entitlement missing");
+        }
+
+        for (Iterator it = addOnEnts.iterator(); it.hasNext();) {
             
             Entitlement ent = EntitlementManager.getByName((String)it.next()); 
 
@@ -3397,11 +3411,23 @@ public class SystemHandler extends BaseHandler {
             
             validateEntitlements(entitlements);
             
+            List<Entitlement> baseEnts = new LinkedList();
+
             for (Iterator it = entitlements.iterator(); it.hasNext();) {
-                Entitlement ent = EntitlementManager.getByName((String)it.next()); 
+                Entitlement ent = EntitlementManager.getByName((String)it.next());
+                if (ent.isBase()) {
+                    baseEnts.add(ent);
+                    continue;
+                }
                 SystemManager.removeServerEntitlement(server.getId(), ent);
             }
-            
+
+            // process base entitlements at the end
+            if (!baseEnts.isEmpty()) {
+                // means unentile the whole system
+                SystemManager.removeAllServerEntitlements(server.getId());
+            }
+
             return 1;
     }
     

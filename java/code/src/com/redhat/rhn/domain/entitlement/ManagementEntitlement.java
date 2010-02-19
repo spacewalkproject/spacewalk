@@ -43,4 +43,12 @@ public class ManagementEntitlement extends Entitlement {
     public boolean isBase() {
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSatelliteEntitlement() {
+        return true;
+    }
 }

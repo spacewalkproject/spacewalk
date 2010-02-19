@@ -311,7 +311,7 @@ public class BaseHandler implements XmlRpcInvocationHandler {
         }
         for (String e : entitlements) {
             Entitlement ent = EntitlementManager.getByName(e);
-            if (ent == null || ent.isBase()) {
+            if ((ent == null) || (!ent.isSatelliteEntitlement())) {
                 throw new InvalidEntitlementException();
             }
         }

@@ -53,6 +53,14 @@ public class InvalidEntitlementException extends FaultException  {
         // begin member variable initialization
     }
 
+    /**
+     * Constructor
+     * @param string more detailed exception message
+     */
+    public InvalidEntitlementException(String string) {
+        super(-212, "noSuchEntitlement", string);
+    }
+
     /////////////////////////
     // Getters/Setters
     /////////////////////////
