@@ -15,7 +15,6 @@ import up2dateErrors
 import rhnserver
 import rpmUtils
 import up2dateLog
-import rpcServer
 import urlparse
 import rhnreg_constants
 import hardware
@@ -415,8 +414,7 @@ def getAvailableChannels(username, password):
     availableChannels = None
 
     try:
-        availableChannels = rpcServer.doCall(
-                                  s.registration.available_eus_channels,
+        availableChannels = s.registration.available_eus_channels(
                                                  username, password,
                                                  server_arch, server_version, 
                                                  server_release)
