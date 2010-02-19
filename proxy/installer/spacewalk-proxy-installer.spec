@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 0.9.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -87,6 +87,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Fri Feb 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- 558628 - fixed configure-proxy script
+- 558628 - made /cblr rewrites work over SSL
+
 * Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - 543879 - adding support to the proxy side to redirect to a url 
   that will rewrite kickstarts with the proxy name for /cblr 
