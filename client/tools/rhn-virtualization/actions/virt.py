@@ -15,11 +15,7 @@
 
 import sys
 sys.path.append("/usr/share/rhn/")
-from up2date_client import up2dateAuth
-from up2date_client import up2dateErrors
-from up2date_client import rpcServer
 from virtualization import support, errors
-from rhn import rpclib
 
 __rhnexport__ = [
     'refresh',
