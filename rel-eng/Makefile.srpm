@@ -11,7 +11,8 @@ ifdef X_RPMBUILD_DIR
 X_RPMBUILD_DIR_OPTS = --define "_sourcedir $(CURDIR)" \
 		--define "_builddir $(X_RPMBUILD_DIR)/BUILD" \
 		--define "_srcrpmdir $(X_RPMBUILD_DIR)" \
-		--define "_rpmdir $(X_RPMBUILD_DIR)"
+		--define "_rpmdir $(X_RPMBUILD_DIR)" \
+		--define "_source_filedigest_algorithm md5"
 
 # The COMMIT parameter is used when we want to make tar.gz / .src.rpm
 # from any commit we like (including HEAD). In that case thou, the
