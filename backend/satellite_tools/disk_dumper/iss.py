@@ -200,6 +200,20 @@ class Dumper(dumper.XML_Dumper):
                         raise ISSError("Error: Channel %s not found." % ids, "")
                     
                 self.channel_ids = self.channel_ids + ch_info
+
+            # For list of channel families, we want to also list those relevant for channels
+            # that are already on disk, so that we do not lose those families with
+            # "incremental" dumps. So we will gather list of channel ids for channels already
+            # in dump.
+            self.channel_ids_for_families = []
+            channel_labels_for_families = self.fm.filemap['channels'].list()
+            print "Appending channels %s" % ( channel_labels_for_families )
+            for ids in channel_labels_for_families:
+                ch_data.execute(label=ids)
+                ch_info = ch_data.fetchall_dict()
+                if ch_info:
+                    self.channel_ids_for_families = self.channel_ids_for_families + ch_info
+
         except ISSError:
             #Don't want calls to sys.exit to show up as a "bad" error.
             raise
