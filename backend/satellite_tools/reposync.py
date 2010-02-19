@@ -59,8 +59,21 @@ class RepoSync:
 
         quit = False
         if not options.url:
-            quit = True
-            self.error_msg("--url must be specified")
+            if options.channel_label:
+                h = rhnSQL.prepare("""select s.source_url
+                                      from rhnChannelContentSource s,
+                                           rhnChannel c
+                                     where c.id = s.channel_id
+                                       and c.label = :label""")
+                h.execute(label=options.channel_label)
+                source_urls = h.fetchall_dict() or []
+                if source_urls:
+                    self.url = source_urls[0]['source_url']
+                else:
+                    quit = True
+                    self.error_msg("Channel has no URL associated")
+        else:
+            self.url = options.url
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
@@ -77,7 +90,6 @@ class RepoSync:
             sys.exit(1)
 
         self.type = options.type
-        self.url = options.url
         self.channel_label = options.channel_label
         self.fail = options.fail
         self.repo_label = self.short_hash(self.url)
