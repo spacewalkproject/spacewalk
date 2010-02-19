@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 0.9.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -621,6 +621,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- added repo deletion to channel remove script
+- added spacewalk-remove-channel
+- added mechanism for updating existing sha256 packages
+- 562644 - added class to emulate mod_python's mp_table
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.43-1
 - updated copyrights
 - 479911 - removing duplicate rewrites and consolidating to a single location
