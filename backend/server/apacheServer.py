@@ -14,7 +14,7 @@
 #
 
 # global module imports
-from server import apache
+from common import apache
 
 # common module imports
 from common import CFG, initCFG, log_setreq, initLOG, Traceback

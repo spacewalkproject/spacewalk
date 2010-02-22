@@ -17,7 +17,7 @@
 
 import time
 import xmlrpclib
-from server import apache
+from common import apache
 
 from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags

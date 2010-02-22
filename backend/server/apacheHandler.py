@@ -18,7 +18,7 @@ import time
 import string
 
 # global module imports
-from server import apache
+from common import apache
 
 # common module imports
 from common import rhnApache, rhnTB
