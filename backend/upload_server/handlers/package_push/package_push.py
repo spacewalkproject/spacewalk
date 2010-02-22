@@ -22,7 +22,7 @@
 import os
 import base64
 import string
-from server import apache
+from common import apache
 from rhn import rpclib
 
 from common import CFG, log_debug, log_error, rhnFault, rhnFlags

@@ -16,7 +16,7 @@
 #
 
 import string
-from server import apache
+from common import apache
 
 import rhnSession
 
