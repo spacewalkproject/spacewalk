@@ -47,10 +47,11 @@ channel_arch = {
 
 SPLIT_PATTERN = '[ ,]+'
 
-# extend OptionParser not to reformat epilog
+# extend OptionParser to print examples
 class xOptionParser(OptionParser):
-    def format_epilog(self, formatter):
-        return "\n\n" + self.epilog
+    def print_help(self):
+        OptionParser.print_help(self)
+        print "\n\n" + self.examples
 
 def connect(user, password, server):
     server_url = "http://%s/rpc/api" % server
@@ -97,7 +98,7 @@ def add_channels(channels, section, arch):
 if __name__ == "__main__":
     # options parsing
     usage = "usage: %prog [options] <channel1 glob> [<channel2 glob> ... ]"
-    epilog = """Examples:
+    examples = """Examples:
 
 Create Fedora 12 channel, its child channels and activation key limited to 10 servers:
     %(prog)s -u admin -p pass -k 10 'fedora12*'
@@ -131,7 +132,8 @@ Create everything as well as unlimited activation key for every channel:
                          action="store_true"),
         ]
 
-    parser = xOptionParser(usage=usage, epilog=epilog, option_list=option_list)
+    parser = xOptionParser(usage=usage, option_list=option_list)
+    parser.examples = examples
     (options, args) = parser.parse_args()
     config = ConfigParser.ConfigParser()
     config.read(options.config)
