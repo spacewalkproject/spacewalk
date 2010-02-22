@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.29
+Version: 5.9.30
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -239,6 +239,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Feb 22 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.30-1
+- fixed missing Requires: python-hashlib
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.29-1
 - updated copyrights
 
