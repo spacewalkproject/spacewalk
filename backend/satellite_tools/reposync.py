@@ -14,6 +14,7 @@
 # in this software or its documentation. 
 #
 import sys, os, time, grp
+import hashlib
 from optparse import OptionParser
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
 from common import CFG, initCFG, rhnLog, fetchTraceback
@@ -77,7 +78,7 @@ class RepoSync:
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
-        if not options.label:
+        if options.label:
             self.error_msg("--label is obsoleted")
         if options.mirror:
             self.error_msg("--mirrorlist is obsoleted; mirrorlist is recognized automatically")
