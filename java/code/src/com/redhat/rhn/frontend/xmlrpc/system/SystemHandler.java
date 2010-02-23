@@ -4164,11 +4164,12 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype
      *      #struct("System kickstart variables")
      *          #prop_desc("boolean" "netboot" "netboot enabled")
-     *          #prop_desc("array" "kickstart variables")
-     *              #array()
+     *          #prop_array_begin("kickstart variables")
+     *              #struct("kickstart variable")
      *                  #prop("string", "key")
      *                  #prop("string or int", "value")
-     *              #array_end()
+     *              #struct_end()
+     *          #prop_array_end()
      *      #struct_end()
      */
     public Map getVariables(String sessionKey, Integer serverId) {
@@ -4215,10 +4216,12 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("boolean","netboot")
-     * @xmlrpc.param #param("array",  "kickstart variables")
+     * @xmlrpc.param
      *      #array()
-     *          #prop("string", "key")
-     *          #prop("string or int", "value")
+     *          #struct("kickstart variable")
+     *              #prop("string", "key")
+     *              #prop("string or int", "value")
+     *          #struct_end()
      *      #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
