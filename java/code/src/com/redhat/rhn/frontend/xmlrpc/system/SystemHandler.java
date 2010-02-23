@@ -84,6 +84,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotEnoughEntitlementsException;
@@ -4189,6 +4190,9 @@ public class SystemHandler extends BaseHandler {
 
         SystemRecord rec = SystemRecord.lookupById(
                 CobblerXMLRPCHelper.getConnection(loggedInUser), server.getCobblerId());
+        if (rec == null) {
+            throw new NoSuchCobblerSystemRecordException();
+        }
 
         Map vars = new HashMap();
         vars.put("netboot", rec.isNetbootEnabled());
@@ -4238,6 +4242,9 @@ public class SystemHandler extends BaseHandler {
 
         SystemRecord rec = SystemRecord.lookupById(
                 CobblerXMLRPCHelper.getConnection(loggedInUser), server.getCobblerId());
+        if (rec == null) {
+            throw new NoSuchCobblerSystemRecordException();
+        }
 
         rec.enableNetboot(netboot);
         rec.setKsMeta(variables);
