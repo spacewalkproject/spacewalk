@@ -4251,6 +4251,8 @@ public class SystemHandler extends BaseHandler {
 
         rec.enableNetboot(netboot);
         rec.setKsMeta(variables);
+        rec.save();
+
         return 1;
     }
 }

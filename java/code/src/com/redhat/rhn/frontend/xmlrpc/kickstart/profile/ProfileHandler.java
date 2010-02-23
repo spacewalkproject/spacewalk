@@ -52,6 +52,8 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
+import org.cobbler.Profile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -1039,7 +1041,10 @@ public class ProfileHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
 
-        ksData.getCobblerObject(loggedInUser).setKsMeta(variables);
+        Profile profile = ksData.getCobblerObject(loggedInUser);
+        profile.setKsMeta(variables);
+        profile.save();
+
         return 1;
     }
 }
