@@ -109,14 +109,8 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     protected SystemRecord lookupExisting() {
         log.debug("lookupExisting called.");
 
-        SystemRecord rec = SystemRecord.lookupByName(
+        return SystemRecord.lookupByName(
                 CobblerXMLRPCHelper.getConnection(user), getCobblerSystemRecordName());
-        if (rec == null) {
-            return null;
-        }
-        else {
-            return rec;
-        }
     }
 
     
