@@ -98,7 +98,7 @@ Removes a channel from an RHN Satellite or Spacewalk server.
     <varlistentry>
         <term>-p, --skip-packages</term>
         <listitem>
-            <para>Do not remove the package metadata or the files on teh filesystem.</para>
+            <para>Do not remove the package metadata or the files from the filesystem.</para>
         </listitem>
     </varlistentry>
 </variablelist>
