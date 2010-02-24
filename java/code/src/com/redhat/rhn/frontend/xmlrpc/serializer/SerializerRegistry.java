@@ -65,6 +65,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(SystemOverviewSerializer.class);    
         SERIALIZER_CLASSES.add(UserSerializer.class);
         SERIALIZER_CLASSES.add(KickstartTreeSerializer.class);
+        SERIALIZER_CLASSES.add(KickstartTreeDetailSerializer.class);
         SERIALIZER_CLASSES.add(BigDecimalSerializer.class);
         SERIALIZER_CLASSES.add(ConfigRevisionSerializer.class);
         SERIALIZER_CLASSES.add(ConfigChannelSerializer.class);

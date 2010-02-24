@@ -247,12 +247,12 @@ public class KickstartableTree extends BaseDomainHelper {
 
     /**
      * Basically returns the actual basepath
-     * we need this method becasue the
+     * we need this method because the
      * database stores rhn/.... as basepath for redhat channels
      * and actual path for non redhat channels... 
      * @return the actual basepath.
      */
-    private  String getAbsolutePath() {
+    public  String getAbsolutePath() {
         if (isRhnTree()) {
             //redhat channel append the mount point to 
             //base path...

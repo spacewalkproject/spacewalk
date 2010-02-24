@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartableTreeDetail;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -49,9 +50,9 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "treeLabel", "Label of kickstartable tree to
      * search.")
-     * @xmlrpc.returntype $KickstartTreeSerializer
+     * @xmlrpc.returntype $KickstartTreeDetailSerializer
      */
-    public KickstartableTree getDetails(String sessionKey, String treeLabel) {
+    public KickstartableTreeDetail getDetails(String sessionKey, String treeLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
 
@@ -60,7 +61,7 @@ public class KickstartTreeHandler extends BaseHandler {
             throw new InvalidChannelLabelException();
         }
 
-        return tree;
+        return new KickstartableTreeDetail(tree);
     }
 
     /**
