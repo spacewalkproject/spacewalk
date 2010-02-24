@@ -36,16 +36,18 @@ from server import rhnSQL
 options_table = [
     Option("-v", "--verbose",       action="count", 
         help="Increase verbosity"),
+    Option("-l", "--list",          action="store_true",
+        help="List defined channels and exit"),
     Option("-c", "--channel",       action="append", 
         help="Delete this channel (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
         help="Unsubscribe systems registered to the specificed channels"),
-    Option(      "--force",         action="store_true",
-        help="Remove the channel packages from any other channels too"),
     Option(      "--justdb",        action="store_true",
         help="Delete only from the database, do not remove files from disk"),
-    Option("-l", "--list",          action="store_true", 
-        help="List defined channels and exit"),
+    Option(      "--force",         action="store_true",
+        help="Remove the channel packages from any other channels too (Not Recommended)"),
+    Option("-p", "--skip-packages", action="store_true",
+        help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
 ]
 
 
@@ -110,7 +112,7 @@ def main():
 
     try:
         delete_channels(channels.keys(), force=options.force,
-            justdb=options.justdb)
+            justdb=options.justdb, skip_packages=options.skip_packages)
     except:
         rhnSQL.rollback()
         raise
@@ -238,7 +240,7 @@ def __listChannels():
     return labels, parents
 
 
-def delete_channels(channelLabels, force=0, justdb=0):
+def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
     # Get the package ids
     if not channelLabels:
         return 
@@ -248,10 +250,11 @@ def delete_channels(channelLabels, force=0, justdb=0):
     srpms_ids = list_packages(channelLabels, force=force, sources=1)
     srpms_paths = _get_package_paths(srpms_ids, sources=1)
 
-    _delete_srpms(srpms_ids)
-    _delete_rpms(rpms_ids)
+    if not skip_packages:
+        _delete_srpms(srpms_ids)
+        _delete_rpms(rpms_ids)
 
-    if not justdb:
+    if not justdb and not skip_packages:
         _delete_files(rpms_paths + srpms_paths)
 
     # Get the channel ids
