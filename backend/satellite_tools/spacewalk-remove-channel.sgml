@@ -95,6 +95,12 @@ Removes a channel from an RHN Satellite or Spacewalk server.
             <para>Delete packages from the satellite even if the package is in more channels than what is specified. (Not Recommended)</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>-p, --skip-packages</term>
+        <listitem>
+            <para>Do not remove the package metadata or the files on teh filesystem.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
