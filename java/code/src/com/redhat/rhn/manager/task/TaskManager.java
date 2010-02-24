@@ -17,9 +17,12 @@ package com.redhat.rhn.manager.task;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -65,5 +68,19 @@ public class TaskManager {
         }
         return null;
     }
+    
+    /**
+     *  Get the channel package list for a channel
+     * @param channel channel info
+     * @return the iterator
+     */
+    public static Iterator getChannelPackageDtoIterator(Channel channel) {
+        SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES);
+        Map params = new HashMap();
+        params.put("channel_id", channel.getId());
+        return m.execute(params).iterator();
+    }
+    
 
 }

@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
@@ -46,15 +47,21 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.taskomatic.task.repomd.SimpleAttributesImpl;
+import com.redhat.rhn.taskomatic.task.repomd.SimpleContentHandler;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -693,4 +700,56 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
                              numPackagesAfterDelete);
                 
     }
+    
+    
+    protected SimpleContentHandler getTemporaryHandler(OutputStream st) {
+        OutputFormat of = new OutputFormat();
+        of.setPreserveSpace(true);
+        of.setOmitXMLDeclaration(true);
+        XMLSerializer tmpSerial = new XMLSerializer(st, of);
+        SimpleContentHandler tmpHandler = new SimpleContentHandler(tmpSerial);
+        return tmpHandler;        
+    }
+    
+    
+    public void testXml() throws Exception {
+        
+        OutputStream st = new ByteArrayOutputStream();
+        SimpleContentHandler tmpHandler = getTemporaryHandler(st);
+        
+        
+        SimpleAttributesImpl attr = new SimpleAttributesImpl();
+        attr.addAttribute("type", "rpm");
+        tmpHandler.startDocument();
+        
+        tmpHandler.startElement("package", attr);
+        
+        SimpleAttributesImpl secattr = new SimpleAttributesImpl();
+        attr.addAttribute("bar", "&>><<");
+        tmpHandler.startElement("foo", secattr);
+        tmpHandler.addCharacters("&&&&");
+        tmpHandler.endElement("foo");
+        
+        tmpHandler.endElement("package");
+        tmpHandler.endDocument();
+        
+        //st.flush();
+        String test = st.toString();
+        System.out.println(test); 
+        
+        Package p = PackageTest.createTestPackage();
+        PackageManager.updateRepoPrimary(p.getId(), test);
+        DataResult dr = PackageManager.getRepoData(p.getId());
+        PackageDto dto = (PackageDto) dr.get(0);
+        String prim = dto.getPrimaryXml();
+        String other = dto.getOtherXml();
+        assertEquals(prim, test);
+        
+        
+    }
+    
+
+    
+
+    
 }

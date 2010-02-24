@@ -1872,5 +1872,48 @@ ORDER BY P.package_arch_id DESC
          AND s.label = :set_label
    </query>
 </mode>
+
+<write-mode name="insert_primary_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set primary = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="insert_filelist_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set filelist = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="insert_other_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set other = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="create_repo_entry">
+   <query params="pid">
+	insert into rhnPackageRepodata (package_id) 
+     (select :pid as id 
+         from dual 
+         where not exists (select package_id from rhnPackageRepodata where package_id = :pid))
+   </query>
+</write-mode>
+
+
+<mode name="lookup_repodata" class="com.redhat.rhn.frontend.dto.PackageDto">
+  <query params="pid">
+SELECT 
+     P.package_id AS id, p.primary as primary_xml, p.other as other_xml, p.filelist as filelist_xml
+    from rhnPackageRepoData p
+     where p.package_id = :pid   
+  </query>
+</mode>
    
 </datasource_modes>

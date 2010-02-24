@@ -558,12 +558,14 @@ FROM
          p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
-         cs.checksum, cs.checksum_type as checksumtype
+         cs.checksum, cs.checksum_type as checksumtype,
+         prd.primary as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
     FROM
          rhnChannelPackage cp,
          rhnPackage p
             LEFT OUTER JOIN rhnPackageGroup pg ON p.package_group = pg.id
-            LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id,
+            LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id
+            LEFT JOIN rhnPackageRepodata prd ON prd.package_id = p.id,
          rhnPackageName pn,
          rhnPackageEvr pevr,
          rhnPackageArch pa,
@@ -581,8 +583,9 @@ FROM
 
 <mode name="repomdgenerator_capability_files">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
-    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT /*first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
+    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap, 
+         rhnChannelPackage chpkg 
     WHERE
           chpkg.package_id = pkgf.package_id
       AND pkgf.capability_id = pkgcap.id
@@ -593,8 +596,9 @@ FROM
 
 <mode name="repomdgenerator_capability_provides">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT  /*first_rows*/  chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
@@ -605,8 +609,9 @@ FROM
 
 <mode name="repomdgenerator_capability_requires">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT  /*first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
@@ -617,8 +622,9 @@ FROM
 
 <mode name="repomdgenerator_capability_conflicts">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT  /*first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg 
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
@@ -629,8 +635,9 @@ FROM
 
 <mode name="repomdgenerator_capability_obsoletes">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT /*first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg 
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
@@ -641,7 +648,7 @@ FROM
 
 <mode name="repomdgenerator_package_changelog">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkglog.time, pkglog.name as author, pkglog.text
+  SELECT /*first_rows*/ chpkg.package_id, pkglog.time, pkglog.name as author, pkglog.text
     FROM rhnPackageChangeLog pkglog, rhnChannelPackage chpkg
     WHERE
           chpkg.package_id = pkglog.package_id

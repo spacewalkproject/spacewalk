@@ -14,12 +14,14 @@
  */
 package com.redhat.rhn.manager.rhnpackage;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.util.CompressionUtil;
 import com.redhat.rhn.common.util.RpmVersionComparator;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
@@ -1311,4 +1313,68 @@ public class PackageManager extends BaseManager {
         return result;
     }
     
+    private static void createRepoEntry(Long packageId) {
+        Map params = new HashMap();
+        params.put("pid", packageId);
+        WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
+                "create_repo_entry");
+        writeMode.executeUpdate(params);
+    }
+    
+    private static void updateRepoEntry(Long packageId, String xml, String type) {
+        if (!ConfigDefaults.get().useDBRepodata()) {
+            return;
+        }
+        
+        createRepoEntry(packageId);
+        Map params = new HashMap();
+        params.put("pid", packageId);
+        byte[] blob = CompressionUtil.gzipCompress(xml);
+        params.put("xml", blob);
+        WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
+                "insert_" + type + "_xml");
+        writeMode.executeUpdate(params);
+    }
+    
+    /**
+     * Update the primary XML for a package
+     * @param packageId the package id
+     * @param primaryXml the raw xml
+     */
+    public static void updateRepoPrimary(Long packageId, String primaryXml) {
+        updateRepoEntry(packageId, primaryXml, "primary");
+    }
+    
+    /**
+     * 
+     * @param packageId the package id
+     * @param filelistXml the raw xml
+     */
+    public static void updateRepoFileList(Long packageId, String filelistXml) {
+        updateRepoEntry(packageId, filelistXml, "filelist");
+    }
+    
+    /**
+     * 
+     * @param packageId the package id
+     * @param otherXml the raw xml
+     */
+    public static void updateRepoOther(Long packageId, String otherXml) {
+        updateRepoEntry(packageId, otherXml, "other");
+    }
+    
+    
+    /**
+     * utility method for getting the repodata for a package
+     * @param packageId the package id
+     * @return A list of package dto objects
+     */
+    public static DataResult getRepoData(Long packageId) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "lookup_repodata");
+        Map params = new HashMap();
+        params.put("pid", packageId);
+        
+        DataResult result = m.execute(params);
+        return result;
+    }
 }

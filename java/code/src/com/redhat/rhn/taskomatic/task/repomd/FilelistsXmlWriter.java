@@ -15,12 +15,18 @@
 
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
+import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Iterator;
 
@@ -50,7 +56,7 @@ public class FilelistsXmlWriter extends RepomdWriter {
     public String getFilelistsXml(Channel channel) throws Exception {
         begin(channel);
 
-        Iterator iter = getChannelPackageDtoIterator(channel);
+        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
         while (iter.hasNext()) {
             addPackage((PackageDto) iter.next());
         }
@@ -101,9 +107,28 @@ public class FilelistsXmlWriter extends RepomdWriter {
      */
     public void addPackage(PackageDto pkgDto) {
         try {
-            addPackageBoilerplate(handler, pkgDto);
-            addPackageFiles(pkgDto);
-            handler.endElement("package");
+            String xml = pkgDto.getFilelistXml();
+            if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
+                if (xml != null) {
+                    handler.addCharacters(xml);
+                    return;
+                }
+            }
+            
+            OutputStream st = new ByteArrayOutputStream();
+            SimpleContentHandler tmpHandler = getTemporaryHandler(st);
+            
+            tmpHandler.startDocument();
+            addPackageBoilerplate(tmpHandler, pkgDto);
+            addPackageFiles(pkgDto, tmpHandler);
+            tmpHandler.endElement("package");
+            tmpHandler.endDocument();
+            
+            String pkg =  st.toString();
+            PackageManager.updateRepoFileList(pkgDto.getId(), pkg);
+            handler.addCharacters(pkg);
+            
+            
         }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
@@ -116,10 +141,11 @@ public class FilelistsXmlWriter extends RepomdWriter {
      * @param pkgId package Id info
      * @throws SAXException sax exception
      */
-    private void addPackageFiles(PackageDto pkgDto) throws SAXException {
+    private void addPackageFiles(PackageDto pkgDto, 
+            SimpleContentHandler localHandler) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
         while (filelistIterator.hasNextForPackage(pkgId)) {
-            handler.addElementWithCharacters("file", sanitize(pkgId,
+            localHandler.addElementWithCharacters("file", sanitize(pkgId,
                     filelistIterator.getString("name")));
         }
     }

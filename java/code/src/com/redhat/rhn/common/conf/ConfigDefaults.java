@@ -150,6 +150,7 @@ public class ConfigDefaults {
     public static final String SPACEWALK_REPOSYNC_PATH = "spacewalk_reposync_path";
     public static final String SPACEWALK_REPOSYNC_LOG_PATH = "spacewalk_reposync_logpath";
     public static final String NON_REFERER_URLS = "non_referer_urls";
+    public static final String USE_DB_REPODATA = "user_db_repodata";
 
 
     private ConfigDefaults() {
@@ -433,5 +434,14 @@ public class ConfigDefaults {
         return false;
     }
     
-    
+    /**
+     * Return true if you are to use/save repodata into the DB
+     * @return true or false
+     */
+    public boolean useDBRepodata() {
+        if (Config.get().getString(USE_DB_REPODATA) == null) {
+            return true;
+        }
+        return Config.get().getBoolean(USE_DB_REPODATA);
+    }
 }

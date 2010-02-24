@@ -14,12 +14,9 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -28,10 +25,8 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * 
@@ -62,9 +57,11 @@ public abstract class RepomdWriter {
 
         OutputFormat of = new OutputFormat();
         of.setPreserveSpace(true);
-
-        XMLSerializer serializer = new XMLSerializer(writer, of);
-
+        
+        //We use an unescaping serializer because we'll be appending xml
+        XMLSerializer serializer = new UnescapingXmlSerializer(writer, of);
+        
+        
         try {
             handler = new SimpleContentHandler(serializer.asContentHandler());
         }
@@ -79,18 +76,17 @@ public abstract class RepomdWriter {
         }
     }
 
-    /**
-     * 
-     * @param channel channel info
-     * @return
-     */
-    protected static Iterator getChannelPackageDtoIterator(Channel channel) {
-        SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES);
-        Map params = new HashMap();
-        params.put("channel_id", channel.getId());
-        return m.execute(params).iterator();
+
+    protected SimpleContentHandler getTemporaryHandler(OutputStream st) {
+        OutputFormat of = new OutputFormat();
+        of.setPreserveSpace(true);
+        of.setOmitXMLDeclaration(true);
+        XMLSerializer tmpSerial = new XMLSerializer(st, of);
+        SimpleContentHandler tmpHandler = new SimpleContentHandler(tmpSerial);
+        return tmpHandler;        
     }
+    
+    
 
     /**
      * 
@@ -152,6 +148,7 @@ public abstract class RepomdWriter {
         }
         return StringUtils.replaceChars(input, CONTROL_CHARS, CONTROL_CHARS_REPLACEMENT);
     }
+    
 
     /**
      * 

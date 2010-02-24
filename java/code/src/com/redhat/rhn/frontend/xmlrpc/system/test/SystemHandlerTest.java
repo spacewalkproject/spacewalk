@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.xmlrpc.system.test;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -104,6 +106,7 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.taskomatic.task.repomd.RepositoryWriter;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -2160,4 +2163,13 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(proxy2.getId(), ((ServerPath) results[1]).getId());
         assertEquals(proxy2.getName(), ((ServerPath) results[1]).getHostname());
     }
+    
+    
+    public void testTesT() {
+        
+        RepositoryWriter w = new RepositoryWriter("rhn/repodata/", "/var/cache/");
+        w.writeRepomdFiles(ChannelFactory.lookupByLabel("rhel-s390x-server-5"));
+        
+    }
+    
 }
