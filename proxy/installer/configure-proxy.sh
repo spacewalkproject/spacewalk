@@ -349,8 +349,7 @@ fi
 SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100 / 1024)}')
 
 ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
+/usr/bin/spacewalk-setup-jabberd --macros "hostname:$HOSTNAME"
 sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
         < $DIR/squid.conf  > $SQUID_DIR/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \

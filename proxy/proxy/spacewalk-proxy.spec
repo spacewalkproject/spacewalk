@@ -37,7 +37,7 @@ Requires: %{name}-html
 %else
 Requires: spacewalk-proxy-selinux
 %endif
-Requires: jabberd
+Requires: jabberd spacewalk-setup-jabberd
 Requires: httpd
 Requires: sos
 Requires(preun): initscripts

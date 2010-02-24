@@ -53,8 +53,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
-install -m 644 c2s.xml $RPM_BUILD_ROOT%{defaultdir}
-install -m 644 sm.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
@@ -72,8 +70,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %dir %{defaultdir}
-%{defaultdir}/c2s.xml
-%{defaultdir}/sm.xml
 %{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
