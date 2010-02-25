@@ -24,6 +24,7 @@ import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -120,6 +121,9 @@ public class PrimaryXmlWriter extends RepomdWriter {
      */
     public void addPackage(PackageDto pkgDto) {
         try {
+            StopWatch sw = new StopWatch();
+            sw.start();
+            
             
             String xml = pkgDto.getPrimaryXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
@@ -129,6 +133,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
                     return;
                 }
             }
+            System.out.println("  -1    " + sw.getTime());
             
             ByteArrayOutputStream st = new ByteArrayOutputStream();
             SimpleContentHandler tmpHandler = getTemporaryHandler(st);
@@ -145,11 +150,13 @@ public class PrimaryXmlWriter extends RepomdWriter {
             tmpHandler.endElement("package");
             tmpHandler.endDocument();
             
-            
+            System.out.println("  -2    " + sw.getTime());
             String pkg =  st.toString();
-            
+            System.out.println("  -3    " + sw.getTime());
             PackageManager.updateRepoPrimary(pkgDto.getId(), pkg);
+            System.out.println("  -4    " + sw.getTime());
             handler.addCharacters(pkg);
+            System.out.println("  -5    " + sw.getTime());
             
         }
         catch (SAXException e) {
