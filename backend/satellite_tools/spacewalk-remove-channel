@@ -53,6 +53,10 @@ options_table = [
 
 def main():
 
+    if os.getuid() != 0:
+        sys.stderr.write('ERROR: must be root to execute\n')
+        sys.exit(8)
+
     global options_table
     parser = OptionParser(option_list=options_table)
 
