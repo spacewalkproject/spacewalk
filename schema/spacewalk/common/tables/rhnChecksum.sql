@@ -28,6 +28,8 @@ rhnChecksum
         enable row movement
 ;
 
-CREATE INDEX rhnChecksum_chsum_idx on rhnChecksum(checksum);
+alter table rhnChecksum add constraint rhnChecksum_chsum_uq
+        unique (checksum, checksum_type_id)
+        using index tablespace [[32m_tbs]];
 
 CREATE SEQUENCE rhnChecksum_seq;
