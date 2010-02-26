@@ -1334,29 +1334,15 @@ public class PackageManager extends BaseManager {
         if (!ConfigDefaults.get().useDBRepodata()) {
             return;
         }
-        StopWatch sw = new StopWatch();
-        sw.start();
-       
-        System.out.println("   *2 " + sw.getTime());
+        
         Map params = new HashMap();
         params.put("pid", packageId);
         byte[] bytes = CompressionUtil.gzipCompress(xml);
         
-
-            
-      //  BufferedInputStream blob = new BufferedInputStream(new ByteArrayInputStream(bytes));
-  
-        
-        System.out.println("   *3 " + sw.getTime());
         params.put("xml", bytes);
         WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
                 "insert_" + type + "_xml");
         writeMode.executeUpdate(params);
-        
-        
-        System.out.println("   *4 " + sw.getTime());
-    
-
     }
     
     /**

@@ -22,6 +22,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
@@ -81,6 +82,9 @@ public class ChannelRepodataWorker implements QueueWorker {
             if (!isChannelLabelAlreadyInProcess()) {
                 markInProgress();
                 populateQueueEntryDetails();
+                
+                
+                
                 Channel channelToProcess = ChannelFactory
                         .lookupByLabel(channelLabelToProcess);
                 // if the channelExists in the db still

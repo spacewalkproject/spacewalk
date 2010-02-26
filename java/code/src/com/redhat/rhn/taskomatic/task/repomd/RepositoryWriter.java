@@ -99,8 +99,8 @@ public class RepositoryWriter {
         sw.start();
         
         log.info("Generating new repository metatada for channel '" +
-                channel.getLabel() + "' " + channel.getPackages().size() +
-                " packages, " + channel.getErratas().size() + " updates");
+                channel.getLabel() + "' " + channel.getPackageCount() +
+                " packages, " + channel.getErrataCount() + " updates");
         String prefix = mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator;
 
@@ -170,11 +170,8 @@ public class RepositoryWriter {
             log.fatal(sw.getTime());
             PackageDto pkgDto = (PackageDto) iter.next();
             primary.addPackage(pkgDto);
-            log.fatal("  " + sw.getTime());
             filelists.addPackage(pkgDto);
-            log.fatal("  " + sw.getTime());
             other.addPackage(pkgDto);
-            log.fatal("  " + sw.getTime());
             try {
                 primaryFile.flush();
                 filelistsFile.flush();
@@ -197,6 +194,8 @@ public class RepositoryWriter {
             throw new RepomdRuntimeException(e);
         }
 
+        log.fatal("- " + sw.getTime());
+        
         RepomdIndexData primaryData = new RepomdIndexData(primaryFile
                 .getCompressedChecksum(),
                 primaryFile.getUncompressedChecksum(), channel
@@ -211,10 +210,13 @@ public class RepositoryWriter {
         log.info("Starting updateinfo generation for '" + channel.getLabel() +
                 '"');
         log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
+        log.fatal("-0 " + sw.getTime());
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
                 checksumAlgo);
 
+        log.fatal("-1 " + sw.getTime());
         RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
+        log.fatal("-2 " + sw.getTime());
         
         //Set the type so yum can read and perform checksum
         primaryData.setType(checksumLabel);
@@ -378,8 +380,8 @@ public class RepositoryWriter {
      */
     private RepomdIndexData generateUpdateinfo(Channel channel, String prefix, 
             String checksumtypeIn) {
-
-        if (channel.getErratas().size() == 0) {
+        
+        if (channel.getErrataCount() == 0) {
             return null;
         }
 

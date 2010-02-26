@@ -104,8 +104,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/common");
         attr.addAttribute("xmlns:rpm", "http://linux.duke.edu/metadata/rpm");
-        attr.addAttribute("packages", Integer.toString(channel.getPackages()
-                .size()));
+        attr.addAttribute("packages", Integer.toString(channel.getPackageCount()));
 
         try {
             handler.startElement("metadata", attr);
@@ -120,11 +119,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
-        try {
-            StopWatch sw = new StopWatch();
-            sw.start();
-            
-            
+        try {            
             String xml = pkgDto.getPrimaryXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
                 
@@ -150,9 +145,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
             tmpHandler.endDocument();
 
             String pkg =  st.toString();
-            System.out.println("  -    " + sw.getTime());
             PackageManager.updateRepoPrimary(pkgDto.getId(), pkg);
-            System.out.println("  -    " + sw.getTime());
             handler.addCharacters(pkg);
             
         }

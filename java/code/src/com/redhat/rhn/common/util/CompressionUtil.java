@@ -51,7 +51,7 @@ public class CompressionUtil {
             return null;
         }
     }
-    
+
     /**
      * unzip some gzip compressed data
      * @param bytes the data to uncompress

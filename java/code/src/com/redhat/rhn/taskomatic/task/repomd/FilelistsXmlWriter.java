@@ -91,8 +91,7 @@ public class FilelistsXmlWriter extends RepomdWriter {
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_FILES);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/filelists");
-        attr.addAttribute("packages", Integer.toString(channel.getPackages()
-                .size()));
+        attr.addAttribute("packages", Integer.toString(channel.getPackageCount()));
 
         try {
             handler.startElement("filelists", attr);
@@ -108,8 +107,6 @@ public class FilelistsXmlWriter extends RepomdWriter {
      */
     public void addPackage(PackageDto pkgDto) {
         try {
-            StopWatch sw = new StopWatch();
-            sw.start();
             String xml = pkgDto.getFilelistXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
                 if (xml != null) {
@@ -128,9 +125,7 @@ public class FilelistsXmlWriter extends RepomdWriter {
             tmpHandler.endDocument();
             
             String pkg =  st.toString();
-            System.out.println("    ----    " + sw.getTime());
             PackageManager.updateRepoFileList(pkgDto.getId(), pkg);
-            System.out.println("    ----    " + sw.getTime());
             handler.addCharacters(pkg);
             
             

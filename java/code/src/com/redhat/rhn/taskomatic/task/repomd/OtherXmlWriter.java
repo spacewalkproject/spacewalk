@@ -78,8 +78,7 @@ public class OtherXmlWriter extends RepomdWriter {
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/other");
-        attr.addAttribute("packages", Integer.toString(channel.getPackages()
-                .size()));
+        attr.addAttribute("packages", Integer.toString(channel.getPackageCount()));
 
         try {
             handler.startElement("otherdata", attr);
@@ -107,8 +106,7 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
-        StopWatch sw = new StopWatch();
-        sw.start();
+
         try {
             String xml = pkgDto.getOtherXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
@@ -128,9 +126,7 @@ public class OtherXmlWriter extends RepomdWriter {
             tmpHandler.endDocument();
             
             String pkg =  st.toString();
-            System.out.println("    ----    " + sw.getTime());
             PackageManager.updateRepoOther(pkgDto.getId(), pkg);
-            System.out.println("    ----    " + sw.getTime());
             handler.addCharacters(pkg);
             
         }

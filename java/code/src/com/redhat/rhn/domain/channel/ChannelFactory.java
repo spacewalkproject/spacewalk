@@ -658,6 +658,14 @@ public class ChannelFactory extends HibernateFactory {
         return (Integer)singleton.lookupObjectByNamedQuery
                                 ("Channel.getPackageCount", params);
     }    
+    
+    public static int getErrataCount(Channel channel) {
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+        return (Integer)singleton.lookupObjectByNamedQuery
+                                ("Channel.getErrataCount", params);
+    }    
+    
     /**
      * Find the original packages that were part of a channel.  This list 
      *      includes only those packages that have not had errata released for them.
