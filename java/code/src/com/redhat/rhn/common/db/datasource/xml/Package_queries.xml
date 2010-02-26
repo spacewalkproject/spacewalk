@@ -1897,12 +1897,12 @@ ORDER BY P.package_arch_id DESC
    </query>
 </write-mode>
 
-<write-mode name="create_repo_entry">
-   <query params="pid">
+<write-mode name="create_repo_entrys">
+   <query params="cid">
 	insert into rhnPackageRepodata (package_id) 
-     (select :pid as id 
-         from dual 
-         where not exists (select package_id from rhnPackageRepodata where package_id = :pid))
+		(select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
+			where cp.channel_id = :cid 
+			  and rd.package_id is null)
    </query>
 </write-mode>
 

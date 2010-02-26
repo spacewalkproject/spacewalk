@@ -133,7 +133,6 @@ public class PrimaryXmlWriter extends RepomdWriter {
                     return;
                 }
             }
-            System.out.println("  -1    " + sw.getTime());
             
             ByteArrayOutputStream st = new ByteArrayOutputStream();
             SimpleContentHandler tmpHandler = getTemporaryHandler(st);
@@ -149,14 +148,12 @@ public class PrimaryXmlWriter extends RepomdWriter {
             addPackageFormatDetails(pkgDto, tmpHandler);
             tmpHandler.endElement("package");
             tmpHandler.endDocument();
-            
-            System.out.println("  -2    " + sw.getTime());
+
             String pkg =  st.toString();
-            System.out.println("  -3    " + sw.getTime());
+            System.out.println("  -    " + sw.getTime());
             PackageManager.updateRepoPrimary(pkgDto.getId(), pkg);
-            System.out.println("  -4    " + sw.getTime());
+            System.out.println("  -    " + sw.getTime());
             handler.addCharacters(pkg);
-            System.out.println("  -5    " + sw.getTime());
             
         }
         catch (SAXException e) {

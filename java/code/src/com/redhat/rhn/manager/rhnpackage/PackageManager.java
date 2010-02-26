@@ -45,11 +45,20 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import oracle.jdbc.OracleConnection;
+import oracle.sql.BLOB;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.jdbc.ConnectionManager;
+import org.hibernate.lob.BlobImpl;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1313,11 +1322,11 @@ public class PackageManager extends BaseManager {
         return result;
     }
     
-    private static void createRepoEntry(Long packageId) {
+    public static void createRepoEntrys(Long cid) {
         Map params = new HashMap();
-        params.put("pid", packageId);
+        params.put("cid", cid);
         WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
-                "create_repo_entry");
+                "create_repo_entrys");
         writeMode.executeUpdate(params);
     }
     
@@ -1325,15 +1334,29 @@ public class PackageManager extends BaseManager {
         if (!ConfigDefaults.get().useDBRepodata()) {
             return;
         }
-        
-        createRepoEntry(packageId);
+        StopWatch sw = new StopWatch();
+        sw.start();
+       
+        System.out.println("   *2 " + sw.getTime());
         Map params = new HashMap();
         params.put("pid", packageId);
-        byte[] blob = CompressionUtil.gzipCompress(xml);
-        params.put("xml", blob);
+        byte[] bytes = CompressionUtil.gzipCompress(xml);
+        
+
+            
+      //  BufferedInputStream blob = new BufferedInputStream(new ByteArrayInputStream(bytes));
+  
+        
+        System.out.println("   *3 " + sw.getTime());
+        params.put("xml", bytes);
         WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
                 "insert_" + type + "_xml");
         writeMode.executeUpdate(params);
+        
+        
+        System.out.println("   *4 " + sw.getTime());
+    
+
     }
     
     /**

@@ -20,6 +20,8 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
 
 import org.apache.commons.lang.time.StopWatch;
@@ -90,6 +92,9 @@ public class RepositoryWriter {
      * @param channel channelinfo for repomd file creation
      */
     public void writeRepomdFiles(Channel channel) {
+        
+        PackageManager.createRepoEntrys(channel.getId());
+        
         StopWatch sw = new StopWatch();
         sw.start();
         

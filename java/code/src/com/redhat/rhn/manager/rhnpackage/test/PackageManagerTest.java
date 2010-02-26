@@ -748,7 +748,11 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         
     }
     
-
+    public void testFoo() {
+        
+        
+        PackageManager.createRepoEntrys(102L);
+    }
     
 
     

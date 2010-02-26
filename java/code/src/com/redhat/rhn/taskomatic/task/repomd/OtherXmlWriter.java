@@ -22,6 +22,7 @@ import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
@@ -106,6 +107,8 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
+        StopWatch sw = new StopWatch();
+        sw.start();
         try {
             String xml = pkgDto.getOtherXml();
             if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
@@ -125,7 +128,9 @@ public class OtherXmlWriter extends RepomdWriter {
             tmpHandler.endDocument();
             
             String pkg =  st.toString();
+            System.out.println("    ----    " + sw.getTime());
             PackageManager.updateRepoOther(pkgDto.getId(), pkg);
+            System.out.println("    ----    " + sw.getTime());
             handler.addCharacters(pkg);
             
         }
