@@ -24,7 +24,6 @@ import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 

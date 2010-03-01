@@ -45,20 +45,11 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import oracle.jdbc.OracleConnection;
-import oracle.sql.BLOB;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.jdbc.ConnectionManager;
-import org.hibernate.lob.BlobImpl;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1322,6 +1313,10 @@ public class PackageManager extends BaseManager {
         return result;
     }
     
+    /**
+     * Create all repoentries for a channel's packages if needed
+     * @param cid the channel id
+     */
     public static void createRepoEntrys(Long cid) {
         Map params = new HashMap();
         params.put("cid", cid);

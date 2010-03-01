@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -712,7 +713,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     }
     
     
-    public void testXml() throws Exception {
+    public void testRepodata() throws Exception {
         
         OutputStream st = new ByteArrayOutputStream();
         SimpleContentHandler tmpHandler = getTemporaryHandler(st);
@@ -738,6 +739,12 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         System.out.println(test); 
         
         Package p = PackageTest.createTestPackage();
+        Channel c = ChannelFactoryTest.createTestChannel();
+        c.addPackage(p);
+        ChannelFactory.save(c);
+        
+        PackageManager.createRepoEntrys(c.getId());
+        
         PackageManager.updateRepoPrimary(p.getId(), test);
         DataResult dr = PackageManager.getRepoData(p.getId());
         PackageDto dto = (PackageDto) dr.get(0);
@@ -746,14 +753,5 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         assertEquals(prim, test);
         
         
-    }
-    
-    public void testFoo() {
-        
-        
-        PackageManager.createRepoEntrys(102L);
-    }
-    
-
-    
+    }    
 }

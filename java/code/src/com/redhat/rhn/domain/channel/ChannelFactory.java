@@ -659,6 +659,11 @@ public class ChannelFactory extends HibernateFactory {
                                 ("Channel.getPackageCount", params);
     }    
     
+    /**
+     * Get the errata count for a channel
+     * @param channel the channel
+     * @return the errata count as an int
+     */
     public static int getErrataCount(Channel channel) {
         Map params = new HashMap();
         params.put("cid", channel.getId());

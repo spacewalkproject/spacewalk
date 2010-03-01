@@ -20,11 +20,9 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.frontend.dto.PackageDto;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
 
-import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedWriter;
@@ -95,9 +93,6 @@ public class RepositoryWriter {
         
         PackageManager.createRepoEntrys(channel.getId());
         
-        StopWatch sw = new StopWatch();
-        sw.start();
-        
         log.info("Generating new repository metatada for channel '" +
                 channel.getLabel() + "' " + channel.getPackageCount() +
                 " packages, " + channel.getErrataCount() + " updates");
@@ -158,16 +153,12 @@ public class RepositoryWriter {
         OtherXmlWriter other = new OtherXmlWriter(otherBufferedWriter);
         Date start = new Date();
         
-        log.fatal("PrimaryBegin: " + sw.getTime());
         primary.begin(channel);
-        log.fatal("filelists: " + sw.getTime());
         filelists.begin(channel);
-        log.fatal("other: " + sw.getTime());
         other.begin(channel);
         
         Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
         while (iter.hasNext()) {
-            log.fatal(sw.getTime());
             PackageDto pkgDto = (PackageDto) iter.next();
             primary.addPackage(pkgDto);
             filelists.addPackage(pkgDto);
@@ -184,7 +175,6 @@ public class RepositoryWriter {
         primary.end();
         filelists.end();
         other.end();
-        log.fatal("AfterEnd: " + sw.getTime());
         try {
             primaryBufferedWriter.close();
             filelistsBufferedWriter.close();
@@ -193,8 +183,6 @@ public class RepositoryWriter {
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
-
-        log.fatal("- " + sw.getTime());
         
         RepomdIndexData primaryData = new RepomdIndexData(primaryFile
                 .getCompressedChecksum(),
@@ -210,14 +198,11 @@ public class RepositoryWriter {
         log.info("Starting updateinfo generation for '" + channel.getLabel() +
                 '"');
         log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
-        log.fatal("-0 " + sw.getTime());
         RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
                 checksumAlgo);
 
-        log.fatal("-1 " + sw.getTime());
         RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
-        log.fatal("-2 " + sw.getTime());
-        
+
         //Set the type so yum can read and perform checksum
         primaryData.setType(checksumLabel);
         filelistsData.setType(checksumLabel);
