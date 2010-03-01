@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.manager.configuration;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 
@@ -112,7 +114,9 @@ public class ConfigurationValidation {
                 }
                 
                 // Arg-content must be word, whitespace values, or hyphens
-                if (args != null && !args.trim().matches("[\\w\\s-]*")) {
+                String regex = Config.get().getString(
+                        ConfigDefaults.CONFIG_MACRO_ARGUMENT_REGEX, "[\\w\\s-:]*"); 
+                if (args != null && !args.trim().matches(regex)) {
                     result.addError(new ValidatorError(
                                 "configmanager.filedetails.content.bad-arg-content", 
                                 name.trim(), args.trim()));                    
