@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.3
+Version: 0.9.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -235,6 +235,10 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Mon Mar 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- added new CA key valid until 2020
+- 567901 - fix input of user name
+
 * Fri Feb 19 2010 Jan Pazdziora 0.9.3-1
 - Move the logging of XMLRPC calls down to up2date_client/rpcServer
 - Cleanup of unused code
