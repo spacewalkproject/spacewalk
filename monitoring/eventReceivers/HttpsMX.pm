@@ -3,7 +3,10 @@ package NOCpulse::HttpsMX;
 
 use strict;
 use CGI;
+use NOCpulse::Config;
 
+my $cfg = new NOCpulse::Config;
+my $target_email = $cfg->get('gritch', 'targetEmail');
 
 sub handler {
     
@@ -28,7 +31,7 @@ sub handler {
     my $err;
     if ($sendmail) {
 	$ENV{'PATH'} = '';
-	open(MAIL, "|$sendmail -f HTTPS-MX -t") or $err="Couldn't spawn $sendmail: $!";
+	open(MAIL, "|$sendmail -f $target_email -t") or $err="Couldn't spawn $sendmail: $!";
 	print MAIL "To: $recip\n";
 	print MAIL "Subject: $subject\n";
 	print MAIL "\n";
