@@ -1,27 +1,17 @@
-
 package NOCpulse::HttpsMX;
 
 use strict;
 use CGI;
 use NOCpulse::Config;
+use Mail::Send;
+use Mail::Mailer;
 
 my $cfg = new NOCpulse::Config;
 my $target_email = $cfg->get('gritch', 'targetEmail');
 
 sub handler {
-    
     my $request = shift;
     $request->content_type('text/html');
-    
-    my $sendmail;
-    my $sendmail_candidate;
-    foreach $sendmail_candidate ('/usr/lib/sendmail', '/usr/sbin/sendmail') {
-	if ( -x $sendmail_candidate ) {
-	    $sendmail = $sendmail_candidate;
-	    last;
-	}
-    }
-    
     my $q = CGI->new($request->args());
     
     my $recip     = $q->param('to');
@@ -29,18 +19,12 @@ sub handler {
     my $body      = $q->param('body');
     
     my $err;
-    if ($sendmail) {
-	$ENV{'PATH'} = '';
-	open(MAIL, "|$sendmail -f $target_email -t") or $err="Couldn't spawn $sendmail: $!";
-	print MAIL "To: $recip\n";
-	print MAIL "Subject: $subject\n";
-	print MAIL "\n";
-	print MAIL "$body\n";
-	close(MAIL);
-	
-    }
-    else {
-	
+    if (Mail::Mailer::is_exe('sendmail')) {
+	my $msg = Mail::Send->new(Subject => $subject, To => $recip, From => $target_email);
+	my $fh = $msg->open('sendmail');
+	print $fh $body;
+	$fh->close or $err= "couldn't send whole message: $!";
+    } else {
 	# Couldn't find sendmail -- fall back to /bin/mail
 	$subject =~ tr/'//d; # '
 	open(MAIL, "|/bin/mail -s '$subject' $recip") 
@@ -51,6 +35,7 @@ sub handler {
     
     if ($err) {
 	# do something with $err
+	print STDERR "$err\n";
 	return 500;
     }
     else {
