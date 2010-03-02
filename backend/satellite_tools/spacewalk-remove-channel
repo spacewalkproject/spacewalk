@@ -29,6 +29,7 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
+from rhn import rhnLockfile
 from satellite_tools.progress_bar import ProgressBar
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
@@ -41,7 +42,7 @@ options_table = [
     Option("-c", "--channel",       action="append", 
         help="Delete this channel (can be present multiple times)"),
     Option("-u", "--unsubscribe",   action="store_true",
-        help="Unsubscribe systems registered to the specificed channels"),
+        help="Unsubscribe systems registered to the specified channels"),
     Option(      "--justdb",        action="store_true",
         help="Delete only from the database, do not remove files from disk"),
     Option(      "--force",         action="store_true",
@@ -50,12 +51,20 @@ options_table = [
         help="Do not remove package metadata or packages from the filesystem (Not Recommended)"),
 ]
 
+LOCK = None
 
 def main():
+    global LOCK
 
     if os.getuid() != 0:
         sys.stderr.write('ERROR: must be root to execute\n')
         sys.exit(8)
+
+    try:
+        LOCK = rhnLockfile.Lockfile('/var/run/satellite-sync.pid')
+    except rhnLockfile.LockfileLockedException:
+        systemExit(1, "ERROR: either another instance of spacewalk-remove-channel is running, or a satellite-sync is currently taking place.")
+
 
     global options_table
     parser = OptionParser(option_list=options_table)
@@ -121,6 +130,7 @@ def main():
         rhnSQL.rollback()
         raise
     rhnSQL.commit()
+    releaseLOCK()
     return 0
 
 def __serverCheck(labels, unsubscribe):
@@ -143,7 +153,9 @@ def __serverCheck(labels, unsubscribe):
     if unsubscribe:
         return  __unsubscribeServers(labels)
 
-    print("The following systems are subscribed to one or more of the specified channels:\n")
+    print("\nCurrently there are systems subscribed to one or more of the specified channels.")
+    print("If you would like to automatically unsubscribe these systems, simply use the --unusbscribe flag.\n")
+    print("The following systems were found to be subscribed:")
 
     print 'org_id'.ljust(8),
     print 'id'.ljust(14),
@@ -159,9 +171,9 @@ def __serverCheck(labels, unsubscribe):
 
 def __unsubscribeServers(labels):
     sql = """
-        select distinct sc.server_id as server_id, C.id as channel_id, c.parent_channel
+        select distinct sc.server_id as server_id, C.id as channel_id, c.parent_channel, c.label
         from rhnChannel c inner join 
-             rhnServerChannel sc on c.id = sc.channel_id 
+             rhnServerChannel sc on c.id = sc.channel_id
         where c.label in (%s) order by C.parent_channel
     """
     params, bind_params = _bind_many(labels)
@@ -169,9 +181,21 @@ def __unsubscribeServers(labels):
     h = rhnSQL.prepare(sql % (bind_params))
     apply(h.execute, (), params)
     list = h.fetchall_dict()
+
+    channel_counts = {}
+    for i in list:
+        if channel_counts.has_key(i['label']):
+            channel_counts[i['label']] = channel_counts[i['label']] + 1
+        else:
+            channel_counts[i['label']] = 1
+    print("\nThe following channels will have their systems unsubscibed:")
+    channel_list = channel_counts.keys()
+    channel_list.sort()
+    for i in channel_list:
+        print(i.ljust(40)),
+        print(str(channel_counts[i]).ljust(8))
     
-    print("Unsubscribing systems (" + str(len(list)) + "):")
-    pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete\n',
+    pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
                 finalSize=len(list), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
@@ -313,6 +337,7 @@ def delete_channels(channelLabels, force=0, justdb=0, skip_packages=0):
         ['rhnRegTokenChannels', 'channel_id'],
         ['rhnServerProfile', 'base_channel'],
         ['rhnKickstartableTree', 'channel_id'],
+        ['rhnReleaseChannelMap', 'channel_id'],
         ['rhnChannel', 'id'],
     ]
     
@@ -490,16 +515,27 @@ def _get_package_paths(package_ids, sources=0):
 
     return pdict.keys()
 
+
+
+def releaseLOCK():
+    global LOCK
+    if LOCK:
+        LOCK.release()
+
+
+
 if __name__ == '__main__':
     try:
         sys.exit(main() or 0)
     except KeyboardInterrupt:
         sys.stderr.write("\nUser interrupted process.\n")
+        releaseLOCK()
         sys.exit(0)
     except SystemExit:
         # Normal exit
         raise
     except Exception, e:
+        releaseLOCK()
         sys.stderr.write("\nERROR: unhandled exception occurred: (%s).\n" % e)
         import traceback
         traceback.print_exc()
