@@ -29,8 +29,3 @@ CREATE TABLE rhnPackageRepodata
                     DEFAULT (sysdate) NOT NULL
 )
 ;
-
-CREATE UNIQUE INDEX rhn_pkey_rd_pk_uq
-    ON rhnPackageKeyAssociation (package_id, key_id)
-    TABLESPACE [[64k_tbs]];
-
