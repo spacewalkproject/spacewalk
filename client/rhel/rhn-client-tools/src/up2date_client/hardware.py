@@ -887,18 +887,16 @@ def read_dmi():
     if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64"):
         return dmidict
 
-    computer = get_hal_computer()
-
     # System Information 
-    vendor = get_device_property(computer, "system.hardware.vendor")
+    vendor = dmi_vendor();
     if vendor:
         dmidict["vendor"] = vendor
         
-    product = get_device_property(computer, "system.hardware.product")
+    product = get_dmi_data('/dmidecode/SystemInfo/ProductName')
     if product:
         dmidict["product"] = product
         
-    version = get_device_property(computer, "system.hardware.version")
+    version = get_dmi_data('/dmidecode/SystemInfo/Version')
     if version:
         system = product + " " + version
         dmidict["system"] = system
@@ -907,23 +905,23 @@ def read_dmi():
     dmidict["board"] = get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
 
     # Bios Information    
-    vendor = get_device_property(computer, "system.firmware.vendor")
+    vendor = get_dmi_data('/dmidecode/BIOSInfo/Vendor')
     if vendor:
         dmidict["bios_vendor"] = vendor
-    version = get_device_property(computer, "system.firmware.version")
+    version = get_dmi_data('/dmidecode/BIOSInfo/Version')
     if version:
         dmidict["bios_version"] = version
-    release = get_device_property(computer, "system.firmware.release_date")
+    release = get_dmi_data('/dmidecode/BIOSInfo/ReleaseDate')
     if release:
         dmidict["bios_release"] = release
 
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
-    chassis_serial = get_dmi_data('/dmidecode/SystemInfo/SerialNumber')
+    chassis_serial = get_dmi_data('/dmidecode/ChassisInfo/SerialNumber')
     chassis_tag = get_dmi_data('/dmidecode/ChassisInfo/AssetTag')
     board_serial = get_dmi_data('/dmidecode/BaseBoardInfo/SerialNumber')
     
-    system_serial = get_device_property(computer, "smbios.system.serial")
+    system_serial = get_dmi_data('/dmidecode/SystemInfo/SerialNumber')
     
     dmidict["asset"] = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
                                                      "chassis", chassis_tag,
@@ -969,7 +967,7 @@ def get_smbios():
     else:
         return {
             'smbios.system.uuid': dmi_system_uuid(),
-            'smbios.bios.vendor': get_dmi_data('/dmidecode/BIOSinfo/Vendor'),
+            'smbios.bios.vendor': dmi_vendor(),
             'smbios.system.serial': get_dmi_data('/dmidecode/SystemInfo/SerialNumber'),
             'smbios.system.manufacturer': get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer'),
             'smbios.system.product': get_dmi_data('/dmidecode/SystemInfo/ProductName'),
