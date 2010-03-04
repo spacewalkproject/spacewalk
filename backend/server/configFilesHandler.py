@@ -222,12 +222,12 @@ class ConfigFilesHandler(rhnHandler):
         return result
 
     _query_content_lookup = rhnSQL.Statement("""
-        select id, c.checksum_type, c.checksum, file_size, contents, is_binary
-          from rhnConfigContent, rhnChecksumView c
-         where c.checksum = :checksum
-           and c.checksum_type = :checksum_type
+        select cc.id, cv.checksum_type, cv.checksum, file_size, contents, is_binary
+          from rhnConfigContent cc, rhnChecksumView cv
+         where cv.checksum = :checksum
+           and cv.checksum_type = :checksum_type
            and file_size = :file_size
-           and checksum_id = c.id
+           and checksum_id = cv.id
     """)
 
     _query_insert_content = rhnSQL.Statement("""
