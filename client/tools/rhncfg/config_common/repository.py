@@ -28,10 +28,10 @@ import utils
 from rhn_log import log_debug, die
 #from rhn_rpc import rpclib
 try:
-    from selinux import getfilecon
+    from selinux import lgetfilecon
 except:
     # on rhel4 we do not support selinux
-    def getfilecon(path):
+    def lgetfilecon(path):
         return [0, ''];
 
 
@@ -132,7 +132,9 @@ class Repository:
             ret['group'] = gr_name
             self._gid_cache[gid] = gr_name
 
-        ret['selinux_ctx'] = getfilecon(path)[1]
+        ret['selinux_ctx'] = lgetfilecon(path)[1]
+        if ret['selinux_ctx'] == None:
+            ret['selinux_ctx'] = ''
 
         return ret
 

@@ -91,9 +91,11 @@ class FileProcessor:
         result = ''
 
         cur_sectx = lgetfilecon(path)[1]
+        if cur_sectx == None:
+            cur_sectx = ''
         if file_struct.has_key('selinux_ctx'):
             if cur_sectx != file_struct['selinux_ctx']:
-                sectx_result = "SELinux contexts differ!  Current context: %s\n" % cur_sectx
+                sectx_result = "SELinux contexts differ!  Current: %s, expected: %s\n" % (cur_sectx, file_struct['selinux_ctx'])
 
         if file_struct['filetype'] == 'symlink':
             try:
