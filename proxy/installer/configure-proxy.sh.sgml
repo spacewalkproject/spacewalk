@@ -185,6 +185,13 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--start-services=START</term>
+        <listitem>
+            <para>1 or Y to start all services after configuration. This is default.</para>
+            <para>0 or N to not start services after configuration.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--traceback-email=TRACEBACK_EMAIL</term>
         <listitem>
             <para>Email to which tracebacks should be sent.</para>
@@ -314,6 +321,13 @@ provide a required response, default answer is used.</para>
         <term>SSL_PASSWORD</term>
         <listitem>
            <para>Password to be used for SSL CA certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>START_SERVICES</term>
+        <listitem>
+           <para>1 or Y to start all services after configuration. This is default.</para>
+           <para>0 or N to not start services after configuration.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

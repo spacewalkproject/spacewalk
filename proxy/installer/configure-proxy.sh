@@ -62,6 +62,9 @@ options:
             Password to be used for SSL CA certificate.
   --ssl-state=SSL_STATE
 			State to be used in SSL certificate.
+  --start-services=1
+			1 or Y to start all services after configuration. This is default.
+			0 or N to not start services after configuration.
   --traceback-email=TRACEBACK_EMAIL
             Email to which tracebacks should be sent.
   --use-ssl=USE_SSL
@@ -105,6 +108,7 @@ while [ $# -ge 1 ]; do
 			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
+			--start-services=*) START_SERVICES=$(echo $1 | cut -d= -f2-);;
 			*) echo Error: Invalid option $1
     esac
     shift
@@ -284,6 +288,10 @@ if [ $? -eq 0 ]; then
     echo "Package rhn-apache present - assuming upgrade:"
     echo "Force removal of /etc/httpd/conf/httpd.conf - backed up to /etc/httpd/conf/httpd.conf.rpmsave"
     mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.rpmsave
+fi
+
+if [ -x /usr/sbin/rhn-proxy ]; then
+	/usr/sbin/rhn-proxy stop
 fi
 
 $YUM_OR_UPDATE spacewalk-proxy-management
@@ -484,5 +492,12 @@ for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 
   /sbin/chkconfig --level 345 $service on 
 done
-/usr/sbin/rhn-proxy restart
 
+# default is 1
+START_SERVICES=$(yes_no ${START_SERVICES:-1})
+if [ "$START_SERVICES" = "1" ]; then
+    /usr/sbin/rhn-proxy restart
+else
+	echo Skipping start of services.
+	echo Use "/usr/sbin/rhn-proxy start" to manualy start proxy.
+fi
