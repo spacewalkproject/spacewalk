@@ -63,7 +63,8 @@ def main():
     try:
         LOCK = rhnLockfile.Lockfile('/var/run/satellite-sync.pid')
     except rhnLockfile.LockfileLockedException:
-        systemExit(1, "ERROR: either another instance of spacewalk-remove-channel is running, or a satellite-sync is currently taking place.")
+        print("ERROR: Either another instance of spacewalk-remove-channel is running, or a satellite-sync is currently taking place.")
+        sys.exit(-1)
 
 
     global options_table
