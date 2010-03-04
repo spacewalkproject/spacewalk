@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
@@ -1362,14 +1363,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean deleteGuest(VirtualInstance guest) {
-        boolean deleted = removeGuest(guest);
-        log.debug("deleteGuest.deleted? " + deleted);
-         // only remove the host from the virtual instance if it belongs to this server
-        if (deleted) {
-            guest.deleteGuestSystem();
-        }
-        
-        return deleted;
+        guest.deleteGuestSystem();
+        return removeGuest(guest);
     }
     
     /**
