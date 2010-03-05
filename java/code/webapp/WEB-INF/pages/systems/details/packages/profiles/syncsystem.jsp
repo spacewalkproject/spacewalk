@@ -14,16 +14,14 @@
     <bean:message key="schedulesync.jsp.profilesync" />
 </h2>
 
-<html:form method="POST" action="/systems/details/packages/profiles/SyncSystemsSubmit">
+<rl:listset name="compareListSet">
     <div class="page-summary">
         <bean:message key="schedulesync.jsp.pagesummary"
                       arg0="${requestScope.system.name}"
                       arg1="${requestScope.system1.name}" />
     </div>
 
-    <rl:listset name="compareListSet">
-    <rl:list dataset="pageList"
-        width="100%"        
+    <rl:list width="100%"
         name="compareList"
         styleclass="list"
         emptykey="schedulesync.jsp.nopackagesselected">
@@ -74,8 +72,7 @@
     <html:hidden property="sid_1" value="${param.sid_1}" />
     <html:hidden property="set_label" value="packages_for_system_sync" />
     
-    </rl:listset>
+</rl:listset>
     
-</html:form>
 </body>
 </html>

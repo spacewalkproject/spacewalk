@@ -3801,6 +3801,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncSystemsSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/syncsystem.jsp"/>
+        <forward name="sync"
+                 path="/systems/details/packages/profiles/SyncSystemsSubmit.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/SyncSystemsSubmit"
