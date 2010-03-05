@@ -421,7 +421,11 @@ sub errata_migration_provider {
   my %clone_map;   # need a map to find the appropriate pre-existing errata for each Red Hat errata.
 
   foreach my $owned_errata (@owned_errata) {
+    warn($owned_errata->{FROM_ERRATA_ID});
+    #push the original id
     push @{$clone_map{$owned_errata->{FROM_ERRATA_ID}}}, $owned_errata;
+    #also push the clone's id (in case we clone a cloned channel)
+    push @{$clone_map{$owned_errata->{ID}}}, $owned_errata;
   }
 
   foreach my $e_data (@{$errata_data}) {
