@@ -29,7 +29,11 @@ _LIBPATH = "/usr/share/rhn"
 if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
-from rhn import rhnLockfile
+try:
+    from rhn import rhnLockfile    #new place for rhnLockFile
+except:
+    from common import rhnLockFile #old place for rhnLockFile
+
 from satellite_tools.progress_bar import ProgressBar
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
