@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
-import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
@@ -60,20 +59,13 @@ public class MissingPackageAction extends BaseProfilesAction {
             Set pkgIdCombos, String option) {
         
         PackageAction pa = null;
-        Long time = requestContext.getParamAsLong("date");
-        Date earliest;
-        if (time == null) {
-            earliest = new Date();
-        }
-        else {
-            earliest = new Date(time.longValue());
-        }
+        Date time = new Date(requestContext.getParamAsLong("time"));
         
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
             
             pa = ProfileManager.syncToProfile(requestContext.getCurrentUser(), sid,
-                    prid, pkgIdCombos, option, earliest);
+                    prid, pkgIdCombos, option, time);
             
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
@@ -92,7 +84,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         else if (isSystemSync(requestContext)) {
             Long sid1 = requestContext.getRequiredParam("sid_1");
             pa = ProfileManager.syncToSystem(requestContext.getCurrentUser(), sid,
-                    sid1, pkgIdCombos, option, earliest);
+                    sid1, pkgIdCombos, option, time);
             
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
@@ -131,7 +123,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         Long sid = new RequestContext(request).getRequiredParam("sid");
         Map params = new HashMap();
         params.put("sid", sid);
-        return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
+        return getStrutsDelegate().forwardParams(mapping.findForward("showprofile"),
                 params);
     }
     
@@ -148,24 +140,16 @@ public class MissingPackageAction extends BaseProfilesAction {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        RequestContext rctx = new RequestContext(request);
-        Long sid = new RequestContext(request).getRequiredParam("sid");
-        //Long prid = RhnHelper.getParamAsLong(request, "prid", true);
+        RequestContext context = new RequestContext(request);
+        Long sid = context.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
                 getDecl(sid));
         Map params = new HashMap();
         params.put("sid", sid);
-     
-        try {
-            syncToVictim(rctx, sid, pkgIdCombos, ProfileManager.OPTION_REMOVE);
-            
-            return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
-                    params);
-        }
-        catch (MissingPackagesException mpe) {
-            return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
-                    params);
-        }
+
+        syncToVictim(context, sid, pkgIdCombos, ProfileManager.OPTION_REMOVE);
+        return getStrutsDelegate().forwardParams(mapping.findForward("showprofile"),
+                    params);        
     }
     
     /**
@@ -183,22 +167,15 @@ public class MissingPackageAction extends BaseProfilesAction {
             HttpServletResponse response) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
                 getDecl(sid));
         Map params = new HashMap();
         params.put("sid", sid);
         
-        try {
-            syncToVictim(requestContext, sid, pkgIdCombos, 
-                    ProfileManager.OPTION_SUBSCRIBE);
-
-            return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
-                    params);
-        }
-        catch (MissingPackagesException mpe) {
-            return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
-                    params);
-        }
+        syncToVictim(requestContext, sid, pkgIdCombos,
+                ProfileManager.OPTION_SUBSCRIBE);
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward("showprofile"), params);
     }
 
     /**

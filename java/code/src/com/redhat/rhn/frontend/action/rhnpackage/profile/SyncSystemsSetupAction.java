@@ -31,6 +31,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SyncSystemsSetupAction extends RhnAction implements Listable {
     
-    private static final String DATA_SET = "pageList";
     private static final CompareSystemSetupAction DECL_ACTION = 
         new CompareSystemSetupAction();
     
@@ -67,25 +67,26 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
         helper.execute();
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
-        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
+        getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
 
         if (requestContext.wasDispatched("schedulesync.jsp.schedulesync")) {
+            Date time = getStrutsDelegate().readDatePicker(dynaForm, "date",
+                    DatePicker.YEAR_RANGE_POSITIVE);
             Map syncParam = new HashMap();
             syncParam.put(RequestContext.SID, sid);
             syncParam.put(RequestContext.SID1, sid1);
             syncParam.put(RequestContext.DISPATCH,
                     request.getParameter(RequestContext.DISPATCH));
+            syncParam.put("time", time.getTime());
             return getStrutsDelegate().forwardParams(mapping.findForward("sync"),
                     syncParam);
         }
 
-        request.setAttribute("date", picker);
         request.setAttribute("system", server);
         request.setAttribute("system1", server1);
 
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                request.getParameterMap());
+        return mapping.findForward("default");
     }
     
     /**

@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
-import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
 import com.redhat.rhn.domain.user.User;
@@ -26,7 +25,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,7 +43,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SyncProfilesAction extends BaseProfilesAction {
     
     private static Logger log = Logger.getLogger(SyncProfilesAction.class);
-    private static final String DATA_SET = "pageList";
     private static final CompareProfileSetupAction DECL_ACTION = 
         new CompareProfileSetupAction();
     
@@ -67,11 +64,7 @@ public class SyncProfilesAction extends BaseProfilesAction {
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long prid = requestContext.getRequiredParam(RequestContext.PRID);
-        
-        //get the earliest time this action should be performed from the form
-        DynaActionForm form = (DynaActionForm) formIn;
-        Date earliest = getStrutsDelegate().readDatePicker(form, "date",
-                DatePicker.YEAR_RANGE_POSITIVE);
+        Date time = new Date(requestContext.getRequiredParam("time"));
 
         if (log.isDebugEnabled()) {
             log.debug("Calling syncToProfile");
@@ -82,7 +75,7 @@ public class SyncProfilesAction extends BaseProfilesAction {
                     getDecl(sid));
 
             PackageAction pa = ProfileManager.syncToProfile(user, sid, prid, 
-                    pkgIdCombos, null, earliest);
+                    pkgIdCombos, null, time);
             
             if (pa != null) {
                
@@ -108,6 +101,7 @@ public class SyncProfilesAction extends BaseProfilesAction {
             Map params = new HashMap();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.PRID, prid);
+            params.put("time", new Long(time.getTime()));
             return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                     params);
         }
@@ -116,7 +110,7 @@ public class SyncProfilesAction extends BaseProfilesAction {
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.PRID, prid);
             params.put("sync", "profile");
-            params.put("date", new Long(earliest.getTime()));
+            params.put("time", new Long(time.getTime()));
             return getStrutsDelegate().forwardParams(mapping.findForward("missing"),
                     params);
         }
@@ -130,7 +124,10 @@ public class SyncProfilesAction extends BaseProfilesAction {
         map.put("schedulesync.jsp.schedulesync", "scheduleSync");
         return map;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     protected String getDecl(Long sid) {
         return DECL_ACTION.getDecl(sid);
     }

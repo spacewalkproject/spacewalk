@@ -3772,6 +3772,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncProfilesSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/syncprofile.jsp"/>
+        <forward name="sync"
+                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do"
+                 redirect="true"/>
     </action>
 
     <action path="/systems/details/packages/profiles/SyncProfilesSubmit"
@@ -3832,6 +3835,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.MissingPackageSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/missingpkgs.jsp"/>
+        <forward name="submit"
+                 path="/systems/details/packages/profiles/MissingPackageSubmit.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/MissingPackageSubmit"
@@ -3840,15 +3846,10 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.MissingPackageAction"
         parameter="dispatch">
         <forward name="default"
-                 path="/systems/details/packages/profiles/MissingPackages"
-                 redirect="true" />
-        <forward name="newprofile"
+                 path="/WEB-INF/pages/systems/details/packages/profiles/missingpkgs.jsp" />
+        <forward name="showprofile"
                  path="/systems/details/packages/profiles/ShowProfiles.do"
                  redirect="true" />
-        <forward name="removepackages"
-                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do" />
-        <forward name="subscribechannels"
-                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do" />
     </action>
     
 

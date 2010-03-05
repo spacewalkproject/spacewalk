@@ -22,7 +22,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -31,6 +32,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +45,8 @@ import javax.servlet.http.HttpServletResponse;
  * SyncProfilesSetupAction
  * @version $Rev$
  */
-public class SyncProfilesSetupAction extends RhnAction {
+public class SyncProfilesSetupAction extends RhnAction implements Listable {
 
-    private static final String DATA_SET = "pageList";
     private static final CompareProfileSetupAction DECL_ACTION = 
         new CompareProfileSetupAction();
 
@@ -61,40 +65,43 @@ public class SyncProfilesSetupAction extends RhnAction {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Profile profile = ProfileManager.lookupByIdAndOrg(prid, user.getOrg());
 
-        DataResult itemsToBeSynced = getDataResult(request, user);
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
-        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
+        getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
 
-        request.setAttribute("date", picker); 
+        if (requestContext.wasDispatched("schedulesync.jsp.schedulesync")) {
+            Date time = getStrutsDelegate().readDatePicker(dynaForm, "date",
+                    DatePicker.YEAR_RANGE_POSITIVE);
+            Map syncParam = new HashMap();
+            syncParam.put(RequestContext.SID, sid);
+            syncParam.put(RequestContext.PRID, prid);
+            syncParam.put(RequestContext.DISPATCH,
+                    request.getParameter(RequestContext.DISPATCH));
+            syncParam.put("time", time.getTime());
+            return getStrutsDelegate().forwardParams(mapping.findForward("sync"),
+                    syncParam);
+        }
+
         request.setAttribute("system", server);
         request.setAttribute("profilename", profile.getName());
-        requestContext.copyParamToAttributes(RequestContext.SID);
-        requestContext.copyParamToAttributes(RequestContext.PRID);
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?sid=" + sid + "&prid=" + prid);  
-        request.setAttribute(DATA_SET, itemsToBeSynced);        
-        
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());
     }
 
     /**
      * Get the page list for this action
-     * @param request HttpServletRequest
-     * @param user Logged in user
-     * @param pc PageControl
+     * @param context RequestContext
      * @return list of packages prepared for synchronization
      */
-    protected DataResult getDataResult(HttpServletRequest request, User user) {
-        
-        RequestContext requestContext = new RequestContext(request);
+    public List getResult(RequestContext context) {
+        Long sid = context.getRequiredParam("sid");
+        Long prid = context.getRequiredParam("prid");
+        User user = context.getLoggedInUser();
 
-        Long sid = requestContext.getRequiredParam("sid");
-        Long prid = requestContext.getRequiredParam("prid");
-
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(), 
                 getDecl(sid));
 
         DataResult dr = ProfileManager.prepareSyncToProfile(sid, prid,
