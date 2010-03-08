@@ -6,7 +6,7 @@ use Getopt::Long;
 
 use POSIX qw/strftime/;
 use RHN::SatelliteCert;
-use RHN::CertUtils;
+use Term::ReadKey;
 use RHN::DataSource::Channel;
 
 my $filename;
@@ -22,6 +22,22 @@ my $resign;
 my $dsn;
 my $generation = 2;
 
+sub passphrase_prompt {
+  my $passphrase;
+
+  while (not $passphrase) {
+    local $| = 1;
+    ReadMode('noecho');
+    print "Passphrase: ";
+    $passphrase = ReadLine(0);
+    chomp $passphrase;
+    print "\n";
+  }
+  ReadMode('normal');
+
+  return $passphrase;
+}
+
 GetOptions("output=s" => \$filename, "orgid=n" => \$org_id, 
 	   "owner=s" => \$owner, "signer=s" => \$signer, 
            "no-passphrase" => \$no_passphrase,
@@ -36,7 +52,7 @@ $filename = $resign if $resign and not $filename;
 die "Usage: $0 --dsn <dsn> --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]"
   unless $filename && $signer && $dsn && ($resign || ($expires && $slots && $owner));
 
-my $passphrase = $no_passphrase ? undef : RHN::CertUtils->passphrase_prompt;
+my $passphrase = $no_passphrase ? undef : passphrase_prompt();
 
 my $cert;
 if ($resign) {
