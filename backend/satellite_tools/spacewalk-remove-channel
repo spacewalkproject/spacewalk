@@ -30,9 +30,9 @@ if _LIBPATH not in sys.path:
     sys.path.append(_LIBPATH)
 
 try:
-    from rhn import rhnLockfile    #new place for rhnLockFile
+    from rhn import rhnLockfile    #new place for rhnLockfile
 except:
-    from common import rhnLockFile #old place for rhnLockFile
+    from common import rhnLockfile #old place for rhnLockfile
 
 from satellite_tools.progress_bar import ProgressBar
 from common import CFG, initCFG, initLOG, log_debug, log_error
