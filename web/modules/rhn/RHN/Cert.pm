@@ -20,7 +20,7 @@ package RHN::Cert;
 use XML::LibXML;
 use IO::File;
 use File::Temp;
-
+use IPC::Open3;
 use RHN::Exception qw/throw/;
 
 sub new {
