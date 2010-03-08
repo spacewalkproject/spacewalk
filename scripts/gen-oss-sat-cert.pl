@@ -8,6 +8,7 @@ use POSIX qw/strftime/;
 use RHN::SatelliteCert;
 use Term::ReadKey;
 use RHN::DataSource::Channel;
+use Date::Parse;
 
 my $filename;
 my $owner;
