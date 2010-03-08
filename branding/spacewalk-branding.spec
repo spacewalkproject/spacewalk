@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.9.2
+Version:    0.9.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- 486430 - changed organization name in default cert
+
 * Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
 - updating branding package for tomcat6 (jsherril@redhat.com)
 - let's start Spacewalk 0.9 (michael.mraka@redhat.com)
