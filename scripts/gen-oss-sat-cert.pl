@@ -20,7 +20,6 @@ my ($slots, $provisioning_slots);
 my %channel_families;
 my $sat_version = 1.0;
 my $resign;
-my $dsn;
 my $generation = 2;
 
 sub passphrase_prompt {
@@ -44,14 +43,13 @@ GetOptions("output=s" => \$filename, "orgid=n" => \$org_id,
            "no-passphrase" => \$no_passphrase,
 	   "expires=s" => \$expires, "slots=n" => \$slots, "provisioning-slots=n" => \$provisioning_slots,
 	   "channel-family=n" => \%channel_families,
-	   "dsn=s" => \$dsn,
 	   "generation=s" => \$generation,
 	   "resign=s" => \$resign, "satellite-version=s" => \$sat_version);
 
 $filename = $resign if $resign and not $filename;
 
-die "Usage: $0 --dsn <dsn> --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]"
-  unless $filename && $signer && $dsn && ($resign || ($expires && $slots && $owner));
+die "Usage: $0 --orgid <org_id> --owner <owner_name> --signer <signer> --no-passphrase --output <dest> --expires <when> --slots <num> [ --provisioning-slots <num> ] [ --channel-family label=n ] [ --satellite-version X.Y ]"
+  unless $filename && $signer && ($resign || ($expires && $slots && $owner));
 
 my $passphrase = $no_passphrase ? undef : passphrase_prompt();
 
@@ -93,7 +91,7 @@ else {
 
 $cert->set_field("satellite-version" => $sat_version) if $sat_version != 1.0;
 
-my $ds = new RHN::DataSource::Channel(-dsn => $dsn, -mode => 'all_rh_channel_families_insecure');
+my $ds = new RHN::DataSource::Channel(-mode => 'all_rh_channel_families_insecure');
 my $results = $ds->execute_query;
 
 my %seen_families;
