@@ -161,11 +161,11 @@ sub check_signature {
 
   my ( $data_fh, $data_file ) = File::Temp::tempfile();
   print $data_fh $data;
-  close $data_fh
+  close $data_fh;
 
   my ( $sig_fh, $sig_file ) = File::Temp::tempfile();
   print $sig_fh $signature;
-  close $sig_fh
+  close $sig_fh;
 
   system("gpg --verify -q --keyring $keyring $sig_file $data_file");
 
@@ -187,7 +187,7 @@ sub compute_signature {
 
   my ( $data_fh, $data_file ) = File::Temp::tempfile();
   print $data_fh $data;
-  close $data_fh
+  close $data_fh;
 
   my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
          qw|gpg -q --batch --yes --passphrase-fd 0 --sign --detach-sign --armor
