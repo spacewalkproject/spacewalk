@@ -170,6 +170,35 @@ sub check_signature {
   return ($retval == 0) ? 1 : 0;
 }
 
+sub compute_signature {
+  my $self = shift;
+  my $passphrase = shift;
+  my $signer = shift;
+
+  $self->check_required_fields;
+
+  my $data = $self->as_checksum_string;
+
+  my ( $data_fh, $data_file ) = File::Temp::tempfile(UNLINK => 0);
+  print $data_fh $data;
+
+  my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
+         qw|gpg -q --batch --yes --passphrase-fd 0 --sign --detach-sign --armor
+                -o /dev/stdout --local-user|, $signer, $data_file) or return;
+  print $wfh $passphrase;
+  close $wfh;
+  my $out;
+  {
+  local $/ = undef;
+  $out = <$rfh>;
+  }
+  close $rfh;
+
+  waitpid $pid, 0;
+
+  return $out;
+}
+
 sub set_required_fields {
   my $self = shift;
   my @fields = @_;
