@@ -165,7 +165,7 @@ sub check_signature {
   my ( $sig_fh, $sig_file ) = File::Temp::tempfile(UNLINK => 1);
   print $sig_fh $signature;
 
-  system("gpgv -q --keyring $keyring $sig_file $data_file");
+  system("gpg --verify -q --keyring $keyring $sig_file $data_file");
   my $retval = $? >> 8;
   return ($retval == 0) ? 1 : 0;
 }
