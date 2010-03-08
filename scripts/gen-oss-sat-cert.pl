@@ -116,7 +116,7 @@ my ($new_signature, $new_cert) = RHN::SatelliteCert->parse_cert($cert_text);
 my $result = $new_cert->check_signature($new_signature,
                                         PXT::Config->get("gpg_keyring"));
 my $retval = 0;
-if ($result == 0) {
+if ($result) {
   print "Signatures validation succeeded.\n"
 }
 else {

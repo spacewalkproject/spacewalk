@@ -159,13 +159,19 @@ sub check_signature {
   $self->check_required_fields;
   my $data = $self->as_checksum_string;
 
-  my ( $data_fh, $data_file ) = File::Temp::tempfile(UNLINK => 1);
+  my ( $data_fh, $data_file ) = File::Temp::tempfile();
   print $data_fh $data;
+  close $data_fh
 
-  my ( $sig_fh, $sig_file ) = File::Temp::tempfile(UNLINK => 1);
+  my ( $sig_fh, $sig_file ) = File::Temp::tempfile();
   print $sig_fh $signature;
+  close $sig_fh
 
   system("gpg --verify -q --keyring $keyring $sig_file $data_file");
+
+  unlink $data_file;
+  unlink $sig_file;
+
   my $retval = $? >> 8;
   return ($retval == 0) ? 1 : 0;
 }
