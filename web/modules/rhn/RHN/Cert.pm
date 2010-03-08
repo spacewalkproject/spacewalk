@@ -185,14 +185,16 @@ sub compute_signature {
 
   my $data = $self->as_checksum_string;
 
-  my ( $data_fh, $data_file ) = File::Temp::tempfile(UNLINK => 0);
+  my ( $data_fh, $data_file ) = File::Temp::tempfile();
   print $data_fh $data;
+  close $data_fh
 
   my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
          qw|gpg -q --batch --yes --passphrase-fd 0 --sign --detach-sign --armor
                 -o /dev/stdout --local-user|, $signer, $data_file) or return;
   print $wfh $passphrase;
   close $wfh;
+
   my $out;
   {
   local $/ = undef;
@@ -201,6 +203,7 @@ sub compute_signature {
   close $rfh;
 
   waitpid $pid, 0;
+  unlink $data_file;
 
   return $out;
 }
