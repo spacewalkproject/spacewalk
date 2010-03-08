@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.6
+Version: 0.9.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -622,6 +622,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.7-1
+- fixed import to work with satellites running older versions of rhnLib
+- 568371 - fix an ORA-00918 on config file import
+- fixed error ihandling for spacewalk-channel-remove
+- 570176 - disable caching the channel info during export
+- spacewalk-remove-channel script enhancements
+- 569233 - exit with error value upon error
+
 * Wed Feb 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.6-1
 - fixed missing require
 - fixed dates in rhn-satellite-exporter
