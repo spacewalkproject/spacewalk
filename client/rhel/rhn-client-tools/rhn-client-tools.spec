@@ -19,7 +19,11 @@ Requires: python-ethtool
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python
+%if 0%{?fedora} > 12 || 0%{?rhel} > 5
+Requires: python-gudev
+%else
 Requires: hal >= 0.5.8.1-52
+%endif
 Requires: newt
 Requires: python-dmidecode
 Requires: libxml2-python

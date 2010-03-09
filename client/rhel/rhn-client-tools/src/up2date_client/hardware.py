@@ -27,12 +27,17 @@ import config
 import ethtool
 import gettext
 _ = gettext.gettext
-from haltree import HalTree, HalDevice
 
 import dbus
 import dmidecode
 import up2dateLog
-from hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
+
+try: # F13 and EL6
+    from hardware_gudev import get_devices
+    using_gudev = 1
+except ImportError:
+    from hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
+    using_gudev = 0
 
 # Some systems don't have the _locale module installed
 try:
@@ -615,8 +620,11 @@ def read_dmi():
 
 def get_hal_system_and_smbios():
     try:
-        computer = get_hal_computer()
-        props = computer.GetAllProperties()
+        if using_gudev:
+            props = get_computer_info()
+        else: 
+            computer = get_hal_computer()
+            props = computer.GetAllProperties()
     except:
         log = up2dateLog.initLog()
         msg = "Error reading system and smbios information: %s\n" % (sys.exc_type)
@@ -655,28 +663,31 @@ def get_smbios():
 
 # this one reads it all
 def Hardware():
-    hal_status, dbus_status = check_hal_dbus_status()
-    hwdaemon = 1
-    if hal_status or dbus_status:
-        # if status != 0 haldaemon or messagebus service not running. 
-        # set flag and dont try probing hardware and DMI info
-        # and warn the user.
-        log = up2dateLog.initLog()
-        msg = "Warning: haldaemon or messagebus service not running. Cannot probe hardware and DMI information.\n"
-        log.log_me(msg)
-        hwdaemon = 0
-    allhw = []
-
-    if hwdaemon:
-        try:
-            ret = read_hal()
-            if ret: 
-                allhw = ret
-        except:
-            # bz253596 : Logging Dbus Error messages instead of printing on stdout
+    if using_gudev:
+        allhw = get_devices()
+    else:
+        hal_status, dbus_status = check_hal_dbus_status()
+        hwdaemon = 1
+        if hal_status or dbus_status:
+            # if status != 0 haldaemon or messagebus service not running. 
+            # set flag and dont try probing hardware and DMI info
+            # and warn the user.
             log = up2dateLog.initLog()
-            msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+            msg = "Warning: haldaemon or messagebus service not running. Cannot probe hardware and DMI information.\n"
             log.log_me(msg)
+            hwdaemon = 0
+        allhw = []
+
+        if hwdaemon:
+            try:
+                ret = read_hal()
+                if ret: 
+                    allhw = ret
+            except:
+                # bz253596 : Logging Dbus Error messages instead of printing on stdout
+                log = up2dateLog.initLog()
+                msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+                log.log_me(msg)
         
     # all others return individual arrays
 
