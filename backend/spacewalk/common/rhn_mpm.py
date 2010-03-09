@@ -22,6 +22,9 @@ from rhn.rpclib import xmlrpclib
 import struct
 
 from types import ListType, TupleType, DictType
+from rhnConfig import CFG
+
+MPM_CHECKSUM_TYPE = CFG.MPM_CHECKSUM_TYPE
 
 def labelCompare(l1, l2):
     try:
@@ -107,6 +110,9 @@ class MPM_Header:
 
     def is_signed(self):
         return 0
+
+    def checksum_type(self):
+        return MPM_CHECKSUM_TYPE
 
 class InvalidPackageError(Exception):
     pass
