@@ -108,7 +108,7 @@ class rpmPackage(IncompletePackage):
             # Strip trailing slashes
             path = "%s/%s" % (sanitizePath(relpath), os.path.basename(f_path))
         checksum_type = header.checksum_type()
-        checksum = getFileChecksum(header.checksum_type(), file=f_obj)
+        checksum = getFileChecksum(header.checksum_type(), file=payload_stream)
         self.populate(header, size, checksum_type, checksum, path, org_id,
                  header_start, header_end, channels)
 

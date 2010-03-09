@@ -116,7 +116,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         # Sanity check - removed, the package path can no longer be determined 
         # without the header
         checksum_type = header.checksum_type()
-        checksum = getFileChecksum(checksum_type, file=temp_stream)
+        checksum = getFileChecksum(checksum_type, file=payload_stream)
         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
             header, org_id=self.org_id, checksum_type=checksum_type, checksum=checksum)
         self.package_path = os.path.join(CFG.MOUNT_POINT,
