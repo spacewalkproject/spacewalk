@@ -159,7 +159,7 @@ def __serverCheck(labels, unsubscribe):
         return  __unsubscribeServers(labels)
 
     print("\nCurrently there are systems subscribed to one or more of the specified channels.")
-    print("If you would like to automatically unsubscribe these systems, simply use the --unusbscribe flag.\n")
+    print("If you would like to automatically unsubscribe these systems, simply use the --unsubscribe flag.\n")
     print("The following systems were found to be subscribed:")
 
     print 'org_id'.ljust(8),
@@ -193,7 +193,7 @@ def __unsubscribeServers(labels):
             channel_counts[i['label']] = channel_counts[i['label']] + 1
         else:
             channel_counts[i['label']] = 1
-    print("\nThe following channels will have their systems unsubscibed:")
+    print("\nThe following channels will have their systems unsubscribed:")
     channel_list = channel_counts.keys()
     channel_list.sort()
     for i in channel_list:
