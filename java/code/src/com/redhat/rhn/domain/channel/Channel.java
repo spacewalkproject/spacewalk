@@ -387,7 +387,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * @return Returns the set of packages for this channel.
      */
     public Set getPackages() {
-        log.warn("Channel.getPackages() called, very inefficient operation proceeding");
         return packages;
     }
 
