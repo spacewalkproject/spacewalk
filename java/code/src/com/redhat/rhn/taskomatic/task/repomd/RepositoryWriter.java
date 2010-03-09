@@ -122,7 +122,7 @@ public class RepositoryWriter {
         }
         // translate sha1 to sha for xml repo files
         String checksumLabel = this.checksumtype;
-        if (checksumLabel == "sha1") {
+        if (checksumLabel.equals("sha1")) {
             checksumLabel = "sha";
         }
         
