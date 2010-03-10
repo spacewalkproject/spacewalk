@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.7
+Version: 0.9.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -622,6 +622,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 10 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.8-1
+- 571365 - fixed solaris mpm packages import
+- spacewalk-remove-channel improvements
+
 * Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.7-1
 - fixed import to work with satellites running older versions of rhnLib
 - 568371 - fix an ORA-00918 on config file import
