@@ -1362,8 +1362,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean deleteGuest(VirtualInstance guest) {
-        guest.deleteGuestSystem();
-        return removeGuest(guest);
+        if (canDeleteGuest(guest)) {
+            guest.deleteGuestSystem();
+            return removeGuest(guest);
+        }
+        return false;
+    }
+    
+    private boolean canDeleteGuest(VirtualInstance guest) {
+        for (VirtualInstance g : guests) {
+            if (g.getId().equals(guest.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -1374,10 +1386,9 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean removeGuest(VirtualInstance guest) {
-        
         boolean deleted = false;
-        for (Iterator it = guests.iterator(); it.hasNext();) {
-            VirtualInstance g = (VirtualInstance)it.next();
+        for (Iterator<VirtualInstance> it = guests.iterator(); it.hasNext();) {
+            VirtualInstance g = it.next();
             if (g.getId().equals(guest.getId())) {
                 guest.setHostSystem(null);
                 
@@ -1389,6 +1400,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         
         return deleted;
     }
+
     
     /**
      * Return the virtual instance that owns this server when the server is a virtual guest.
