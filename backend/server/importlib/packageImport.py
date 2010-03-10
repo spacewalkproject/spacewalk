@@ -397,12 +397,10 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[(pkgDict['checksum_type'], pkgDict['checksum'])] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
         self.backend.lookupEVRs(evrs)
-        self.backend.lookupChecksums(checksums)
         self.backend.lookupPackageNames(names)
         self.backend.lookupPackageArches(archs)
 
@@ -446,11 +444,9 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[(patchDict['checksum_type'], patchDict['checksum'])] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
-        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageNames(names)
 
         nevras = {}
