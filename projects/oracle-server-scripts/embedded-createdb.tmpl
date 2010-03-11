@@ -30,9 +30,11 @@ create database
     sysaux datafile
         'RHNORA_DATA_PATH()/sysaux.dbf' size RHNORA_SPACE(500)M reuse
     smallfile undo tablespace undo_tbs datafile
-        'RHNORA_DATA_PATH()/undo_01.dbf' size RHNORA_SPACE(500)M reuse
+        'RHNORA_DATA_PATH()/undo_01.dbf' size RHNORA_SPACE(500)M reuse,
+        'RHNORA_DATA_PATH()/undo_02.dbf' size RHNORA_SPACE(500)M reuse
     smallfile default temporary tablespace temp_tbs tempfile
-        'RHNORA_DATA_PATH()/temp_01.dbf' size RHNORA_SPACE(250)M reuse
+        'RHNORA_DATA_PATH()/temp_01.dbf' size RHNORA_SPACE(500)M reuse,
+        'RHNORA_DATA_PATH()/temp_02.dbf' size RHNORA_SPACE(500)M reuse
     logfile
     group 10 (
         'RHNORA_DATA_PATH()/redo_1001.log',
