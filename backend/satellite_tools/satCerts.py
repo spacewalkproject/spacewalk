@@ -319,8 +319,7 @@ _query_latest_version = rhnSQL.Statement("""
     ORDER BY CASE WHEN version IS NULL
         THEN 0 
         ELSE version
-    END, version
-    DESC
+    END DESC
 """)
 def retrieve_db_cert(label='rhn-satellite-cert'):
     h = rhnSQL.prepare(_query_latest_version)
