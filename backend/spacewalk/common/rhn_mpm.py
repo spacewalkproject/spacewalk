@@ -22,7 +22,7 @@ from rhn.rpclib import xmlrpclib
 import struct
 
 from types import ListType, TupleType, DictType
-from rhnConfig import CFG
+from common.rhnConfig import CFG
 
 MPM_CHECKSUM_TYPE = CFG.MPM_CHECKSUM_TYPE
 
