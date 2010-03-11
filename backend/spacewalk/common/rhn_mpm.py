@@ -22,8 +22,10 @@ from rhn.rpclib import xmlrpclib
 import struct
 
 from types import ListType, TupleType, DictType
+from common import initCFG
 from common.rhnConfig import CFG
 
+initCFG('server')
 MPM_CHECKSUM_TYPE = CFG.MPM_CHECKSUM_TYPE
 
 def labelCompare(l1, l2):
