@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.9.2
+Version:        0.9.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Mar 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- fixed misplaced column in index
+
 * Tue Mar 09 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
 - 568293 - don't allow duplicated rows in rhnChecksum
 - added constraints to rhnReleaseChannelMap
