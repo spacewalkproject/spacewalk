@@ -17,6 +17,8 @@
 CREATE TABLE rhnPackageRepodata
 (
     package_id  NUMBER NOT NULL
+                    CONSTRAINT rhnPackageRepodata_pk
+                        PRIMARY KEY
                     CONSTRAINT rhn_pkey_rd_pid_fk
                         REFERENCES rhnPackage (id)
                         ON DELETE CASCADE,
@@ -29,8 +31,4 @@ CREATE TABLE rhnPackageRepodata
                     DEFAULT (sysdate) NOT NULL
 )
 ;
-
-CREATE UNIQUE INDEX rhn_pkey_rd_pk_uq
-    ON rhnPackageKeyAssociation (package_id, key_id)
-    TABLESPACE [[64k_tbs]];
 
