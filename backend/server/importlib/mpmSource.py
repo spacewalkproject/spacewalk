@@ -126,12 +126,22 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
             'conflicts' : headerSource.rpmConflicts,
             'obsoletes' : headerSource.rpmObsoletes,
         }
+
         for k, dclass in mapping.items():
+            unique_deps = []
             l = []
             for dinfo in header.get(k, []):
-                finst = dclass()
-                finst.populate(dinfo)
-                l.append(finst)
+                hash = dinfo
+                if not len(hash['name']):
+                    continue 
+                dep_nv = (hash['name'], hash['version'], hash['flags'])
+                if dep_nv not in unique_deps:
+                    unique_deps.append(dep_nv)
+                    finst = dclass()
+                    finst.populate(dinfo)
+                    l.append(finst)
+                else:
+                    continue
             self[k] = l
 
     def _populateChangeLog(self, header):
