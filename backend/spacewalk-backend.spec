@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.47
+Version: 0.8.48
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -621,6 +621,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 12 2010 Justin Sherrill <jsherril@redhat.com> 0.8.48-1
+- let mpm_checksum_type be a constant for now (michael.mraka@redhat.com)
+- fixing cfg issue with rhn_mpm.py (jsherril@redhat.com)
+- fixing import (jsherril@redhat.com)
+- 571365 - solaris packages don't contain an internal checksum
+  (michael.mraka@redhat.com)
+- 571365 - defined checksum type we use for mpm packages
+  (michael.mraka@redhat.com)
+- 571365 - compute checksum from payload not from package
+  (michael.mraka@redhat.com)
+
 * Mon Feb 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.47-1
 - fixed proxy issue caused by move to mod_wsgi
 
