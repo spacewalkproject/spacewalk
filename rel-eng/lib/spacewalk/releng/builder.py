@@ -54,6 +54,11 @@ class Builder(object):
         self.offline=offline
         self.no_cleanup = False
 
+        # Override global configurations using local configurations
+        for section in pkg_config.sections():
+            for options in pkg_config.options(section):
+                self.global_config.set(section, options, pkg_config.get(section, options))
+
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
 
