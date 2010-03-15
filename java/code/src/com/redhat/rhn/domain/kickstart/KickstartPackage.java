@@ -41,7 +41,7 @@ public class KickstartPackage
 
     /**
      * @param ksDataIn identifies kickstart
-     * @param packageNameIn PackageName to be assciated
+     * @param packageNameIn PackageName to be associated
      */
     public KickstartPackage(KickstartData ksDataIn, PackageName packageNameIn) {
         super();
@@ -49,6 +49,18 @@ public class KickstartPackage
         this.packageName = packageNameIn;
         this.position = 0L;
     }
+    
+
+    /**
+     * @param ksDataIn identifies kickstart
+     * @param packageNameIn PackageName to be associated
+     * @param posIn position the package Name is in the kickstart package list
+     */
+    public KickstartPackage(KickstartData ksDataIn, PackageName packageNameIn, Long posIn) {
+        this(ksDataIn, packageNameIn);
+        this.position = posIn;        
+    }
+
 
     /**
      * @return Returns the position.

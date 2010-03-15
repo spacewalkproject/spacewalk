@@ -211,16 +211,16 @@ public class KickstartBuilder {
         }
         
         Set<KickstartPackage> ksPackagesSet = new TreeSet<KickstartPackage>();
-
+        Long pos = new Long(0);
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
             String currentLine = (String)it.next();
             if (currentLine.startsWith("#") || currentLine.startsWith("%packages") || 
                     currentLine.equals("")) {
                 continue;
             }
-            
+            pos++;
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(currentLine);
-            ksPackagesSet.add(new KickstartPackage(ksData, pn));
+            ksPackagesSet.add(new KickstartPackage(ksData, pn, pos));
         }
         
         ksData.getKsPackages().addAll(ksPackagesSet);

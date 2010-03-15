@@ -90,9 +90,12 @@ public class SoftwareHandler extends BaseHandler {
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         packages.clear();
+        KickstartFactory.saveKickstartData(ksdata);
+        Long pos = new Long(packages.size()); // position package in list
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            packages.add(new KickstartPackage(ksdata, pn));
+            pos++;
+            packages.add(new KickstartPackage(ksdata, pn, pos));
         }
         KickstartFactory.saveKickstartData(ksdata);
         return 1;
@@ -121,10 +124,12 @@ public class SoftwareHandler extends BaseHandler {
         checkKickstartPerms(user);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
         Set<KickstartPackage> packages = ksdata.getKsPackages();
+        Long pos = new Long(packages.size()); // position package in list
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            KickstartPackage kp = new KickstartPackage(ksdata, pn);
-            if (!packages.contains(kp)) {
+            pos++;
+            KickstartPackage kp = new KickstartPackage(ksdata, pn, pos);            
+            if (!ksdata.hasKsPackage(kp.getPackageName())) {
                 packages.add(kp);
             }
         }

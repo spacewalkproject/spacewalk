@@ -77,7 +77,7 @@ public class SoftwareHandlerTest extends BaseHandlerTestCase {
         packages.add("gcc");
         
         int result = handler.appendToSoftwareList(adminKey, ksProfile.getLabel(), packages);
-
+          
         assertEquals(1, result);
         assertEquals(numPackagesInitial + packages.size(), 
                 ksProfile.getKsPackages().size());

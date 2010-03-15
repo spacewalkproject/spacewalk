@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
@@ -474,6 +475,20 @@ public class KickstartData {
             // remove from collection
             iter.remove();
         }
+    }
+    
+    /**
+     * 
+     * @param pName Package name to check if Kickstart Data contains
+     * @return if package name is in this kickstart data
+     */
+    public boolean hasKsPackage(PackageName pName) {
+        for (KickstartPackage pack : ksPackages) {                
+            if (pName.equals(pack.getPackageName())) {
+                return true;
+            }
+        }       
+        return false;
     }
 
     /**
