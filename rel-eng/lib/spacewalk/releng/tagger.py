@@ -40,7 +40,7 @@ class VersionTagger(object):
     def __init__(self, global_config=None, keep_version=False):
         self.git_root = find_git_root()
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-        self.global_config = global_config
+        self.config = global_config
 
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()
@@ -254,8 +254,8 @@ class VersionTagger(object):
 
         suffix = ""
         # If global config specifies a tag suffix, use it:
-        if self.global_config.has_option("globalconfig", "tag_suffix"):
-            suffix = self.global_config.get("globalconfig", "tag_suffix")
+        if self.config.has_option("globalconfig", "tag_suffix"):
+            suffix = self.config.get("globalconfig", "tag_suffix")
 
         new_version_w_suffix = "%s%s" % (new_version, suffix)
         # Write out our package metadata:
@@ -342,8 +342,8 @@ class VersionTagger(object):
         """ Returns the actual tag we'll be creating. """
         suffix = ""
         # If global config specifies a tag suffix, use it:
-        if self.global_config.has_option("globalconfig", "tag_suffix"):
-            suffix = self.global_config.get("globalconfig", "tag_suffix")
+        if self.config.has_option("globalconfig", "tag_suffix"):
+            suffix = self.config.get("globalconfig", "tag_suffix")
         return "%s-%s%s" % (self.project_name, new_version, suffix)
 
 
