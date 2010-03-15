@@ -19,7 +19,7 @@ package RHN::Cert;
 
 use XML::LibXML;
 use IO::File;
-use File::Temp;
+use File::Temp ();
 use IPC::Open3;
 use RHN::Exception qw/throw/;
 
@@ -159,18 +159,15 @@ sub check_signature {
   $self->check_required_fields;
   my $data = $self->as_checksum_string;
 
-  my ( $data_fh, $data_file ) = File::Temp::tempfile();
-  print $data_fh $data;
-  close $data_fh;
+  my $data_file = new File::Temp(UNLINK => 1);
+  print $data_file $data;
+  $data_file->close();
 
-  my ( $sig_fh, $sig_file ) = File::Temp::tempfile();
-  print $sig_fh $signature;
-  close $sig_fh;
+  my $sig_file = new File::Temp(UNLINK => 1);
+  print $sig_file $signature;
+  $sig_file->close();
 
-  system("gpg --verify -q --keyring $keyring $sig_file $data_file");
-
-  unlink $data_file;
-  unlink $sig_file;
+  system('gpg', '--verify', '-q', '--keyring', $keyring, $sig_file->filename(), $data_file->filename());
 
   my $retval = $? >> 8;
   return ($retval == 0) ? 1 : 0;
@@ -185,13 +182,13 @@ sub compute_signature {
 
   my $data = $self->as_checksum_string;
 
-  my ( $data_fh, $data_file ) = File::Temp::tempfile();
-  print $data_fh $data;
-  close $data_fh;
+  my $data_file = new File::Temp(UNLINK => 1);
+  print $data_file $data;
+  $data_file->close();
 
   my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
          qw|gpg -q --batch --yes --passphrase-fd 0 --sign --detach-sign --armor
-                -o /dev/stdout --local-user|, $signer, $data_file) or return;
+                -o /dev/stdout --local-user|, $signer, $data_file->filename()) or return;
   print $wfh $passphrase;
   close $wfh;
 
@@ -203,7 +200,6 @@ sub compute_signature {
   close $rfh;
 
   waitpid $pid, 0;
-  unlink $data_file;
 
   return $out;
 }
