@@ -15,7 +15,7 @@
 import gudev
 import glib
 
-def get_devices:
+def get_devices():
     """ Returns list of dictionaries with keys for every device in system
         (values are provide as example):
         'bus' : 'pci'
@@ -38,7 +38,7 @@ def get_devices:
             'driver':   device.get_driver(),
             'pciType':  _clasify_pci_type(subsystem),
             'detached': '0', # always zero?
-            'class':    _clasify_class(device)
+            'class':    _clasify_class(device),
             'desc':     _get_device_desc(device),
         }
         if subsystem == 'block':
@@ -46,7 +46,7 @@ def get_devices:
         result.append(result_item)
     return result_item
 
-def get_computer_info:
+def get_computer_info():
     """ Return dictionaries with keys (values are provided as example):
         'system.formfactor': 'unknown'
         'system.kernel.version': '2.6.18-128.1.6.el5xen'
