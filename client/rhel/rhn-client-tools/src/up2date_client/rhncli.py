@@ -42,8 +42,6 @@ from up2date_client import up2dateErrors
 from up2date_client import up2dateLog
 from up2date_client import up2dateUtils
 
-cfg = config.initUp2dateConfig()
-
 _optionsTable = [
     Option("-v", "--verbose", action="count", default=0,
         help=_("Show additional output")),
@@ -110,7 +108,7 @@ class RhnCli(object):
         RhnCli.__setDebugLevel(self.options.verbose)
 
         # see if were running as root
-        if os.geteuid() != 0 and not cfg['development']:
+        if os.geteuid() != 0:
             rootWarningMsg = _("You must be root to run %s") % sys.argv[0]
             self._warning_dialog(rootWarningMsg)
             sys.exit(1)

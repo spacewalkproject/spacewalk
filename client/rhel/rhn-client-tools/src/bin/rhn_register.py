@@ -2,7 +2,7 @@
 #
 # Red Hat Network registration tool
 # Adapted from wrapper.py
-# Copyright (c) 1999-2006 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPL.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
@@ -15,14 +15,6 @@ import os
 
 import gettext
 _ = gettext.gettext
-
-if "--development" in sys.argv:
-    sys.path.append("../")
-    from up2date_client import config
-    cfg = config.initUp2dateConfig()
-    cfg['development'] = True
-    cfg['debug'] = 2
-    sys.argv.remove("--development")
 
 sys.path.append("/usr/share/rhn/")
 

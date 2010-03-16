@@ -63,10 +63,7 @@ import rhnreg_constants
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 
-if cfg['development']:
-    gladefile = "../../data/rh_register.glade"
-else:
-    gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
+gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
 
 # we need to carry these values between screen, so stash at module scope
 username = None

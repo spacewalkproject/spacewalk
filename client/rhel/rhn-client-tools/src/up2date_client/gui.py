@@ -1,6 +1,6 @@
 #
 # GUI for Update Agent
-# Copyright (c) 1999-2006 Red Hat, Inc.  Distributed under GPL.
+# Copyright (c) 1999-2010 Red Hat, Inc.  Distributed under GPL.
 #
 # Authors:
 #    Preston Brown <pbrown@redhat.com>
@@ -10,15 +10,13 @@
 import os
 import sys
 import warnings
-import config
-cfg = config.initUp2dateConfig()
 
-if not cfg['development']:
-    # well, not pretty, but we use the same code on different
-    # versions of python, so to avoid special casing, just
-    # turn off deprecation warnings to avoid offending delicate
-    # users eyes #142750, #142589, etc
-    warnings.filterwarnings("ignore", "",DeprecationWarning)
+# well, not pretty, but we use the same code on different
+# versions of python, so to avoid special casing, just
+# turn off deprecation warnings to avoid offending delicate
+# users eyes #142750, #142589, etc
+warnings.filterwarnings("ignore", "",DeprecationWarning)
+
 import gtk
 import gtk.glade
 
@@ -53,10 +51,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def __init__(self):
         self.cfg = config.initUp2dateConfig()
 
-        if cfg['development']:
-            gladeFile = "../../data/gui.glade"
-        else:
-            gladeFile = "/usr/share/rhn/up2date_client/gui.glade"
+        gladeFile = "/usr/share/rhn/up2date_client/gui.glade"
         self.xml = gtk.glade.XML(gladeFile, "mainWin", domain="rhn-client-tools")
         self.xml.signal_autoconnect (
             { "onDruidCancel" : self.onDruidCancel,
@@ -430,7 +425,7 @@ def errorWindow(msg):
 def main():
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-    if os.geteuid() != 0 and not cfg['development']:
+    if os.geteuid() != 0:
         rootWarning()
         sys.exit(1)
 

@@ -1530,18 +1530,10 @@ def main():
     if len(sys.argv) > 1:
         if sys.argv[1] == "-t" or sys.argv[1] == "--test":
             test = 1
-    # cfg['development'] is the newer and hopefully better way to run in 
-    # development mode
-    if cfg['development']:
-        cfg['debug'] = 2
-        # Disable logging to terminal because tui will be there. I hope setting
-        # this to false doesn't break anything.
-        cfg['isatty'] = False
-        cfg['debugtofile'] = True
-    
+
     screen = snack.SnackScreen()
 
-    if geteuid() != 0 and not test and not cfg['development']:
+    if geteuid() != 0 and not test:
         FatalErrorWindow(screen, _("You must run the RHN registration program as root."))
 
 
