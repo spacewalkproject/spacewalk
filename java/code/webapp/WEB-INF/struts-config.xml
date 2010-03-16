@@ -679,7 +679,7 @@
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        
-        
+
       <form-bean name="kickstartVariableForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="variables" type="java.lang.String" />
@@ -843,7 +843,7 @@
 		</form-bean>
 		
         <form-bean name="channelEditForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.action.channel.manage.ChannelNameForm">
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="dispatch" type="java.lang.String" />
             <form-property name="deny" type="java.lang.String" />
