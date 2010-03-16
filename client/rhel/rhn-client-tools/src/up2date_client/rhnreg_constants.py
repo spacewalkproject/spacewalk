@@ -10,8 +10,7 @@
 import gettext
 _ = gettext.gettext
 
-COPYRIGHT_TEXT        = _("Copyright © 2006  Red Hat, Inc. All rights "
-                          "reserved.")
+COPYRIGHT_TEXT        = _("Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 
 # Connect Window
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
