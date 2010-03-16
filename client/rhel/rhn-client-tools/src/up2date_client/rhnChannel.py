@@ -13,10 +13,6 @@ _ = gettext.gettext
 
 
 
-global channel_blacklist
-channel_blacklist = []
-
-
 # FIXME?
 # change this so it doesnt import sourceConfig, but
 # instead sourcesConfig imports rhnChannel (and repoDirector)

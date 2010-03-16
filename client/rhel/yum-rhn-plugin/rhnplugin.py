@@ -153,8 +153,7 @@ def init_hook(conduit):
     enablegroups = conduit.getConf().enablegroups
 
     for channel in svrChannels:
-        if channel['label'] not in rhnChannel.channel_blacklist \
-           and channel['version']:
+        if channel['version']:
             repo = RhnRepo(channel)
             repo.basecachedir = cachedir
             repo.gpgcheck = gpgcheck
