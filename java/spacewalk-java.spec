@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.8
+Version: 0.9.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -308,6 +308,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.9-1
+- 568958 - package removal and verify
+- 516048 - syncing java stack with perl stack on channel naming convention
+- 510383 - Create/Update user commands use the max_user_len and min_user_len values
+- 574065 - shared channel couldnt properly be used as a distros channel
+- fixed syntax highliging in editarea textareas
+- 510383 - fixes on the UI side for password length issue 
+- 572277 - package profile sync
+- added an API function: errata.listUnpublishedErrata
+- 559551 - ISE fixed for SyncSystems.do
+- making Channel.getPackages() much more verbose
+- 570560 - fixing misleading channel creation warning message
+- 514554 - adding back the ability to delete virt guests
+- 529962 - nav not showing the current tab
+- 531122 - <<inherit>> would appear within system records when modifying activation key
+- 493176 - kickstart.tree.getDetails
+- 562881 - save cobbler object after setting kickstart variables
+- 562881 - cobbler system record check
+
 * Fri Feb 19 2010 Tomas Lestach <tlestach@redhat.com> 0.9.8-1
 - 566434 - manage base entitlements with system.add/removeEntitlements API call
   (tlestach@redhat.com)
