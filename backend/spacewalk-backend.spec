@@ -572,6 +572,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
+%{rhnroot}/satellite_tools/updateSignatures.py*
 %{rhnroot}/satellite_tools/reposync.py*
 %{rhnroot}/satellite_tools/constants.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper

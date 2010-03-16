@@ -12,7 +12,7 @@ FILES	= __init__ connection constants diskImportLib messages \
             sync_handlers rhn-entitlement-report\
             syncLib SequenceServer xmlDiskDumper xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages reposync 
+            satComputePkgHeaders updatePackages reposync updateSignatures
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
