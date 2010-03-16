@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.manager.user;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
@@ -150,6 +150,12 @@ public class CreateUserCommand {
             errors.add(new ValidatorError("error.addr_invalid", "null"));
             return;
         }
+
+        // Make email is not over the max length
+        if (user.getEmail().length() > UserDefaults.get().getMaxEmailLength()) {
+            errors.add(new ValidatorError("error.maxemail"));
+            return;
+        }
         
         // Make sure set email is valid
         try {
@@ -164,7 +170,7 @@ public class CreateUserCommand {
      * Private helper method to validate the user's login. Puts errors into the errors List.
      */
     private void validateLogin() {
-        int max = Config.get().getInt("max_user_len");
+        int max = UserDefaults.get().getMaxUserLength();
         if (user == null) {
             errors.add(new ValidatorError("error.minlogin", "null"));
             return;
@@ -174,9 +180,9 @@ public class CreateUserCommand {
          * Check for login minimum length
          * Since login.getBytes().length >= login.length(), just check for min length
          */
-        if (login.length() < Config.get().getInt("min_user_len")) {
+        if (login.length() < UserDefaults.get().getMinUserLength()) {
             errors.add(new ValidatorError("error.minlogin", 
-                               Config.get().getString("min_user_len")));
+                                    UserDefaults.get().getMinUserLength()));
             return;
         }
         /*
@@ -235,8 +241,10 @@ public class CreateUserCommand {
      * @param passwordIn The password to check.
      */
     private void validatePassword(String passwordIn) {
-        if (passwordIn == null || passwordIn.length() < 5) {
-            passwordErrors.add(new ValidatorError("error.minpassword", "5"));
+        if (passwordIn == null || passwordIn.length() < 
+                                UserDefaults.get().getMinPasswordLength()) {
+            passwordErrors.add(new ValidatorError("error.minpassword", 
+                                    UserDefaults.get().getMinPasswordLength()));
         }
 
         // Newlines and tab characters can slip through the API much easier than the UI:
@@ -244,7 +252,7 @@ public class CreateUserCommand {
             passwordErrors.add(new ValidatorError("error.invalidpasswordcharacters"));
         }
 
-        else if (passwordIn.length() > 64) {
+        else if (passwordIn.length() > UserDefaults.get().getMaxPasswordLength()) {
             passwordErrors.add(new ValidatorError("error.maxpassword", 
                                                   user.getPassword()));
         }
