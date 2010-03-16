@@ -169,18 +169,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         labels.add("redhat-rhn-proxy-as-i386-2.1");
         List children = ChannelFactory.getChildChannelsByLabels(base, labels);
         assertNotEmpty("List is empty", children);
-    }
-    
-    public void testChannelArches() {
-        List arches = ChannelFactory.getChannelArchitectures();
-        assertNotNull(arches);
-        assertNotEmpty(arches);
-        assertEquals(12, arches.size());
-        for (Iterator itr = arches.iterator(); itr.hasNext();) {
-            Object o = itr.next();
-            assertEquals(ChannelArch.class, o.getClass());
-        }
-    }
+    }    
     
     public void testLookupByLabel() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
