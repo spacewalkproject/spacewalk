@@ -68,7 +68,8 @@ def connect(user, password, server):
 
 def add_channels(channels, section, arch):
     base_channels = ['']
-    optional  = ['activationkey', 'base_channel_activationkey']
+    optional  = ['activationkey', 'base_channel_activationkey', 'gpgkey_url',
+                 'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url']
     mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
 
     if config.has_option(section, 'base_channels'):
@@ -91,6 +92,8 @@ def add_channels(channels, section, arch):
         for k in optional:
             if config.has_option(section,k):
                 channel[k] = config.get(section, k)
+            else:
+                channel[k] = ''
         for k in mandatory:
             channel[k] = config.get(section, k)
         channels[channel['label']] = channel
@@ -222,7 +225,13 @@ Create everything as well as unlimited activation key for every channel:
                     # create base channel
                     client.channel.software.create(key,
                         base_info['label'], base_info['name'], base_info['summary'],
-                        channel_arch[base_info['arch']], '', base_info['checksum'])
+                        channel_arch[base_info['arch']], '', base_info['checksum'],
+                        { 'url': base_info['gpgkey_url'],
+                          'id' : base_info['gpgkey_id'],
+                          'fingerprint': base_info['gpgkey_fingerprint']},
+                        { 'url': base_info['yumrepo_url'],
+                          'label': 'X',
+                          'sync': False})
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
@@ -275,7 +284,13 @@ Create everything as well as unlimited activation key for every channel:
                     client.channel.software.create(key,
                             child_info['label'], child_info['name'], child_info['summary'],
                             channel_arch[child_info['arch']], base_channel_label,
-                            child_info['checksum'])
+                            child_info['checksum'],
+                            { 'url': child_info['gpgkey_url'],
+                              'id' : child_info['gpgkey_id'],
+                              'fingerprint': child_info['gpgkey_fingerprint']},
+                            { 'url': child_info['yumrepo_url'],
+                              'label': 'X',
+                              'sync': False})
                 except xmlrpclib.Fault, e:
                     if e.faultCode != 1200: # ignore if channel exists
                         sys.stderr.write("ERROR: %s: %s\n" % (
