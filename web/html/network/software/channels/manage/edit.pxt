@@ -36,6 +36,7 @@
 
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
+
     <pxt-form method="POST">
       <table class="details">
 <rhn-require acl_mixins="RHN::Access::Channel" acl="not channel_exists();formvar_exists(clone_from)">
