@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.9
+Version: 0.9.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -623,6 +623,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.10-1
+- 568958 - package removal and verify
+- 573140 - solaris packages with duplicate requires
+
 * Fri Mar 12 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.9-1
 - Fixed constraint violation when satellite had multiple certs
 - 558502 - fixed ordering issue in reprovisioning
