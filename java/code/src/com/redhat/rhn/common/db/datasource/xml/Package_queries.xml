@@ -450,7 +450,7 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
 
 <mode name="packages_from_server_set" class="com.redhat.rhn.frontend.dto.SsmRemovePackageListItem">
   <query params="user_id, set_label">
-SELECT   PN.ID || '|' || PE.ID || '|' || PA.ID AS id_combo,
+SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,
          PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
          PA.label AS arch,
          X.num_systems AS num_systems
@@ -471,7 +471,7 @@ SELECT   PN.ID || '|' || PE.ID || '|' || PA.ID AS id_combo,
                    SP.package_arch_id) X
    WHERE PE.ID = X.evr_id
      AND PN.ID = X.name_id
-     AND PA.ID = X.package_arch_id
+     AND PA.ID (+) = X.package_arch_id
 ORDER BY UPPER (PN.NAME)
   </query>
 </mode>

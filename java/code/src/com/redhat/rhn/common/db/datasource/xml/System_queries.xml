@@ -590,7 +590,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 	   AND  SP.server_id in (select element from rhnSet  where label = :set_label and user_id = :user_id)
 	   AND  SP.name_id = ST2.element
 	   AND  SP.evr_id = ST2.element_two
-	   AND  SP.package_arch_id = ST2.element_three
+	   AND  (SP.package_arch_id  = ST2.element_three  OR (SP.package_arch_id is null and ST2.element_three is null))
 	   AND  SP.server_id = S.id
 	ORDER BY UPPER(S.name), S.id
    </query>
@@ -603,7 +603,11 @@ SELECT  DISTINCT SP.server_id id,
         SP.name_id || '|' || SP.evr_id || '|' || SP.package_arch_id AS ID_COMBO
   FROM  rhnServerPackage SP
  WHERE  SP.server_id IN (%s)
-    AND  exists (select 1 from rhnSet where user_id = :user_id and label = :package_set_label and element = SP.name_id and element_two = SP.evr_id and element_three = SP.package_arch_id)
+    AND  exists (select 1 from rhnSet 
+          where user_id = :user_id and label = :package_set_label 
+            and element = SP.name_id 
+            and element_two = SP.evr_id 
+            and (element_three = SP.package_arch_id or (element_three is null and SP.package_arch_id is null)))
     </elaborator>
 </mode>
 
@@ -621,7 +625,7 @@ SELECT  DISTINCT SP.server_id id,
    AND  SP.name_id = PN.id
    AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
-   AND  SP.package_arch_id = PA.id
+   AND  SP.package_arch_id = PA.id (+)
    </elaborator>
 </mode>
 

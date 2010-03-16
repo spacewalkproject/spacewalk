@@ -43,7 +43,7 @@ _query_action_verify_packages = rhnSQL.Statement("""
      where ap.action_id = :actionid
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
-       and ap.package_arch_id = pa.id
+       and ap.package_arch_id = pa.id (+)
 """)
 def verify(serverId, actionId):
     log_debug(3)
@@ -63,8 +63,7 @@ def verify(serverId, actionId):
                          package['version'],
                          package['release'],
                          package['epoch'] or '',
-                         package['arch']])
-
+                         package['arch'] or ''])
     log_debug(4, packages)
     return packages
 
