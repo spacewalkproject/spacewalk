@@ -81,13 +81,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[SELECT  {c.*} 
                    FROM  rhnChannel {c},
                          rhnChannelCloned c_1_,
-                         rhnChannelFamilyMembers cfm,
-                         rhnChannelFamily cf,
-                         rhnOrgChannelFamilyPermissions cfp
-				   WHERE c.id = cfm.channel_id AND
+                         rhnAvailableChannels cfp
+				   WHERE c.id = cfp.channel_id AND
 				         c.id = c_1_.original_id (+) AND
-                         cfm.channel_family_id = cf.id AND
-                         cfp.channel_family_id = cf.id AND
                          cfp.org_id = :org_id]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
