@@ -152,7 +152,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/__init__.*
 %{_datadir}/rhn/up2date_client/config.*
 %{_datadir}/rhn/up2date_client/haltree.*
-%{_datadir}/rhn/up2date_client/hardware.*
+%{_datadir}/rhn/up2date_client/hardware*
 %{_datadir}/rhn/up2date_client/up2dateUtils.*
 %{_datadir}/rhn/up2date_client/up2dateLog.*
 %{_datadir}/rhn/up2date_client/up2dateErrors.*
