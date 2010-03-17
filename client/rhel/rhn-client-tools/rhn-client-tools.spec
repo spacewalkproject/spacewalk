@@ -21,6 +21,8 @@ Requires: sh-utils
 Requires: dbus-python
 %if 0%{?fedora} > 12 || 0%{?rhel} > 5
 Requires: python-gudev
+Requires: usbutils
+Requires: pciutils
 %else
 Requires: hal >= 0.5.8.1-52
 %endif
