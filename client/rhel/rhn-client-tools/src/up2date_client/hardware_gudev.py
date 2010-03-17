@@ -217,8 +217,11 @@ def _clasify_class(device):
             sub_class == PCI_CLASS_BRIDGE_PCMCIA or sub_class == PCI_CLASS_BRIDGE_CARDBUS ):
             return 'SOCKET'
 
-    # CDROM, HD, FLOPPY, TAPE
-    pass #FIXME
+    if subsystem == 'block':
+        if device.has_property('ID_CDROM'):
+            return 'CDROM'
+        else:
+            return 'HD' #FIXME had to distinguis HD, FLOPY, TAPE and flash disks
 
     # PRINTER
     pass  #FIXME
