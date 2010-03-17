@@ -31,8 +31,6 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
                           " * Your Red Hat Login & password\n"
                           " * The location of a Red Hat Network Satellite "
                           "or Proxy (optional)\n\n")
-START_REGISTER_TEXT_H = _("If you do not have a Red Hat Login, this "
-                          "assistant will allow you to create one.")
 
 # Why Register Window
 WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
@@ -81,14 +79,12 @@ CONFIRM_QUIT_TXT       = _("Are you sure you don't want to connect your system t
                            "your system to Red Hat Network.\n\n"
                            "Tip: Red Hat values your privacy: http://www.redhat.com/legal/privacy_statement.html")
 CONTINUE_REGISTERING   = _("Take me back to the setup process.")
-REGISTER_LATER         = _("No thanks.  I'll connect later.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
 REGISTER_WINDOW   = _("Setting up software updates")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
-NEW_LOGIN         = _("Create a New Login ...")
 HOSTED_LOGIN      = _("Red Hat Login:")
 LOGIN             = _("Login:")
 PASSWORD          = _("Password:")
@@ -96,37 +92,13 @@ LOGIN_TIP         = _("Tip: Forgot your login or password?  Contact your "
                       "Satellite's Organization Administrator.")
 USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
-PASSWORD_MISMATCH = _("The two passwords you entered don't match.  "
-                      "Please re-type your passwords.")
 
 # Product Window
-PRODUCT_WINDOW         = _("Create a new Red Hat login")
-PRODUCT_WINDOW_PROMPT  = _("Fill in the form below to create a new Red Hat "
-                          "login for use with Red Hat Network (http://rhn.redhat.com/).  "
-                          "Required information is marked with a '*':")
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
 HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? " 
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
-HOSTED_LOGIN_ENTRY     = _("*Desired Login:")
-HOSTED_LOGIN_ENTRY_TIP = _("Examples: user@domain.com")
-HOSTED_PASSWORD_ENTRY  = _("*Desired Password:")
-PASSWORD_VERIFY        = _("*Confirm Password:")
 EMAIL                  = _("*Email Address:")
-COMPANY_TIP            = _("Tip: Leave blank if not with a company.")
-PRIVACY_TIP            = _("Tip: Red Hat values your privacy.  "
-                           "View our privacy policy at: "
-                           "http://")
-
-FIRST_NAME_REQD        = _("Please enter your first name.")
-LAST_NAME_REQD         = _("Please enter your last name.")
-EMAIL_ADDR_REQD        = _("Please enter your email address.")
-EMAIL_ADDR_VERIFY      = _("Please enter a valid email address.")
-COUNTRY_REQD           = _("Please enter your country.")
-LOGIN_TOO_SHORT        = _("Please enter a longer login.")
-PASSWORD_TOO_SHORT     = _("Please enter a longer password.")
-PASSWORD_TOO_LONG      = _("Please enter a shorter password.")
-
 
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
@@ -137,7 +109,6 @@ ORG_SELECT_PROMPT = _("Your login, %s, is associated with multiple "
                       "organizations.  You will need to select an organization to connect this "
                       "system to.")
 ORG_PROMPT        = _("Organization:")                      
-ORG_REQUIRED      = _("You must select an organization.")
 
 # Subscription window.
 SUBSCRIPTION_WINDOW     = _("Access a subscription")
@@ -166,14 +137,6 @@ SEND_WINDOW             = _("We are finished collecting information for the Syst
 
 # Finish Window
 FINISH_WINDOW           = _("Finish setting up software updates")
-FINISH_WINDOW_TEXT      = _("Congratulations, you have successfully completed software updates "
-                            "set up for this system.\n\n"
-                            "Your system is now ready to receive the software updates that will keep "
-                            "it secure and supported.\n\n"
-                            "You'll know when software updates are available when a package icon appears "
-                            "in the notification area of you desktop (usually in the upper-right corner.) "
-                            "Clicking on this icon, when available, will guide you through applying any "
-                            "updates that are available.")
 FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "command line to get the latest "
                             "software updates from Red Hat Network. You will need to run this "
@@ -309,12 +272,6 @@ HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Network Server.\n\n
                                "This system will not be able to successfully receive software updates "
                                "from Red Hat without connecting to a Red Hat Network server")
 
-SATELLITE_CONNECTION_ERROR = _("We can't contact the Red Hat Network Server.\n\n"
-                               "Double check the location provided - is '%s' correct?\n"
-                               "If not, you can correct it and try again.\n\n"
-                               "Make sure that the network connection on this system is operational.\n\n"
-                               "This system will not be able to successfully receive software updates "
-                               "from Red Hat without connecting to a Red Hat Network server")
 BASECHANNELERROR           = _("Architecture: %s, OS Release: %s, OS "
                                "Version: %s")
 SERVER_TOO_OLD             = _("This server doesn't support functionality "
