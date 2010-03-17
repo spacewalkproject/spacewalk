@@ -1458,7 +1458,7 @@ class Tui:
                 # Don't offer group selection screen if the user is not 
                 # a member of multiple groups.
                 log.log_debug("index is %s" % index)
-                log.log_debug("win.name is %s, hasMutlipleGroups is %s" % \
+                log.log_debug("win.name is %s, hasMultipleOrgs is %s" % \
                               (win.name, self.hasMultipleOrgs))
                 
                 if win.name == 'OrgGroupWindow':
