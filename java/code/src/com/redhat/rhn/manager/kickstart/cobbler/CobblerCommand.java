@@ -123,7 +123,7 @@ public abstract class CobblerCommand {
      * @return the cobbler name.
      */
     public static String makeCobblerName(String label, Org org) {
-        String sep = ConfigDefaults.get().getCobblerNameSeperator();
+        String sep = ConfigDefaults.get().getCobblerNameSeparator();
         label = label.replace(' ', '_').replaceAll("[^a-zA-Z0-9_-]", "");
 
         if (org == null) {

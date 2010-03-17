@@ -136,7 +136,7 @@ public class ConfigDefaults {
     public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
-    private static final String COBBLER_NAME_SEPERATOR = "cobbler.name.seperator";
+    private static final String COBBLER_NAME_SEPARATOR = "cobbler.name.separator";
     
     public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
     public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
@@ -452,8 +452,8 @@ public class ConfigDefaults {
      *  defaults to ':'
      * @return the seperator
      */
-    public String getCobblerNameSeperator() {
-        return Config.get().getString(COBBLER_NAME_SEPERATOR, ":");
+    public String getCobblerNameSeparator() {
+        return Config.get().getString(COBBLER_NAME_SEPARATOR, ":");
 
     }
 
