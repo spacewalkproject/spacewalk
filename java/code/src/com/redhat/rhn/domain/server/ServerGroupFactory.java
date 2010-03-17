@@ -256,8 +256,9 @@ public class ServerGroupFactory extends HibernateFactory {
      * @return list of EntitlementServerGroup objects that are associated to 
      *                      the server.
      */
-    public static List listEntitlementGroups(Server s) {        
-        return listServerGroups(s, "ServerGroup.lookupEntitlementGroups");
+    public static List<EntitlementServerGroup> listEntitlementGroups(Server s) {
+        return (List<EntitlementServerGroup>)
+                    listServerGroups(s, "ServerGroup.lookupEntitlementGroupsByServer");
     }    
 
     /**
@@ -268,13 +269,12 @@ public class ServerGroupFactory extends HibernateFactory {
      */
     public static List<ManagedServerGroup> listManagedGroups(Server s) {        
         return (List<ManagedServerGroup>)listServerGroups(s, 
-                "ServerGroup.lookupManagedGroups"); 
+                "ServerGroup.lookupManagedGroupsByServer"); 
     }   
     
     private static List listServerGroups(Server s, String queryName) {
         Map params = new HashMap();
-        params.put("sid", s.getId());
-        params.put("org_id", s.getOrg().getId());
+        params.put("id", s.getId());
         return  SINGLETON.listObjectsByNamedQuery(queryName, params);
     }
 
@@ -284,8 +284,9 @@ public class ServerGroupFactory extends HibernateFactory {
      * @return list of EntitlementServerGroup objects that are associated to 
      *                      the org.
      */
-    public static List listEntitlementGroups(Org org) {        
-        return listServerGroups(org, "ServerGroup.lookupEntitlementGroupsByOrg");
+    public static List<EntitlementServerGroup> listEntitlementGroups(Org org) {        
+        return (List<EntitlementServerGroup>)listServerGroups(org,
+                            "ServerGroup.lookupEntitlementGroupsByOrg");
     }    
 
     /**
@@ -294,11 +295,12 @@ public class ServerGroupFactory extends HibernateFactory {
      * @return list of ManagedServerGroup objects that are associated to 
      *                      the org.
      */
-    public static List listManagedGroups(Org org) {        
-        return listServerGroups(org, "ServerGroup.lookupManagedGroupsByOrg"); 
+    public static List<ManagedServerGroup> listManagedGroups(Org org) {        
+        return (List<ManagedServerGroup>)listServerGroups(org, 
+                                "ServerGroup.lookupManagedGroupsByOrg"); 
     }   
     
-    private static List listServerGroups(Org org, String queryName) {
+    private static List<? extends ServerGroup> listServerGroups(Org org, String queryName) {
         Map params = new HashMap();
         params.put("org", org);
         return  SINGLETON.listObjectsByNamedQuery(queryName, params);

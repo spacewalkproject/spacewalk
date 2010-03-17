@@ -59,6 +59,7 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
+import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -96,6 +97,29 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         assertNotNull(server.getId());
     }
     
+    public void testListConfigEnabledSystems() throws Exception {
+        User user = UserTestUtils.findNewUser("testuser", "testorg");
+        //Only Config Admins can use this manager function.
+        //Making the user a config admin will also automatically
+        UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
+        UserTestUtils.addProvisioning(user.getOrg());
+        
+        //That is not enough though, the user must also have a server that is
+        //a member of the config channel and have access to the server as well.
+        Server s = ServerFactoryTest.createTestServer(user, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        ConfigTestUtils.giveConfigCapabilities(s);
+        List<Server> systems = ServerFactory.listConfigEnabledSystems();
+        assertNotNull(systems);
+        assertTrue(systems.contains(s));
+    }
+
+    public void testServerGroupMembers() throws Exception {
+        User user = UserTestUtils.findNewUser("testuser", "testorg");
+        Server s = createTestServer(user);
+        assertNotNull(s.getEntitledGroups());
+        assertTrue(s.getEntitledGroups().size() > 0);
+    }
     
     public void aTestChannels() throws Exception {
         System.out.println(

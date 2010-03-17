@@ -114,6 +114,14 @@ public class ServerGroupTest extends RhnBaseTestCase {
         params.put("type_id", type.getId());
         m.executeUpdate(params);
         return (EntitlementServerGroup) TestUtils.reload(sg);
-    }    
+    }
+    
+    public void testGetServerGroupTypeFeatures() throws Exception {
+        Org org1 = UserTestUtils.findNewOrg("testOrg");
+        assertTrue(org1.getEntitledServerGroups().size() > 0);
+        assertNotNull(org1.getEntitledServerGroups().get(0).getGroupType().getFeatures());
+        assertTrue(org1.getEntitledServerGroups().get(0).getGroupType().
+                                                        getFeatures().size() > 0);
+    }
     
 }

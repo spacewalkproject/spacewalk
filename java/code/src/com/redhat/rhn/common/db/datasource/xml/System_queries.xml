@@ -18,7 +18,6 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
 </mode>
 
-
 <mode name="virtual_hosts_for_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
   SELECT  DISTINCT S.id,
@@ -423,20 +422,6 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   <elaborator name="is_virtual_guest" />
   <elaborator name="is_virtual_host" />
 </mode>
-
-<mode name="all_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
-  <query>
-  SELECT  DISTINCT S.id, 1 as selectable,
-          S.name AS SERVER_NAME,
-          (SELECT 1
-             FROM rhnServerFeaturesView SFV
-            WHERE SFV.server_id = S.id
-              AND SFV.label = 'ftr_system_grouping') AS selectable
-    FROM  rhnServer S
-  </query>
-  <elaborator name="system_overview" />
-</mode>
-
 
 <mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="available_to_user_with_errata" />

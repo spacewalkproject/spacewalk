@@ -141,29 +141,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	           ]]>
     </sql-query>
 
-    <sql-query name="ServerGroup.lookupEntitlementGroups">
-        <![CDATA[select {sg.*}
-						from rhnServerGroup sg	
-						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
-                  where 
-	               		sgm.server_id = :sid
-	              		and sg.org_id = :org_id
-	              		and sg.group_type is not null
-	              		]]>
-	        <return alias="sg" class="com.redhat.rhn.domain.server.EntitlementServerGroup"/>
-    </sql-query>
+    
+	<query name="ServerGroup.lookupEntitlementGroupsByServer">
+        <![CDATA[select sg 
+        			from com.redhat.rhn.domain.server.Server as s 
+        				inner join s.groups as sg
+        			where s.id = :id  and (sg.groupType is not null)]]>
+    </query>
 
-    <sql-query name="ServerGroup.lookupManagedGroups">
-        <![CDATA[select {sg.*}
-						from rhnServerGroup sg	
-						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
-                  where 
-	               		sgm.server_id = :sid
-	              		and sg.org_id = :org_id
-	              		and sg.group_type is null
-	              		]]>
-	        <return alias="sg" class="com.redhat.rhn.domain.server.ManagedServerGroup"/>
-    </sql-query>
+	<query name="ServerGroup.lookupManagedGroupsByServer">
+        <![CDATA[select sg 
+        			from com.redhat.rhn.domain.server.Server as s 
+        				inner join s.groups as sg
+        			where s.id = :id  and (sg.groupType is null)]]>
+    </query>
     
     <query name="ServerGroup.lookupEntitlementGroupsByOrg">
         <![CDATA[from com.redhat.rhn.domain.server.EntitlementServerGroup as s where

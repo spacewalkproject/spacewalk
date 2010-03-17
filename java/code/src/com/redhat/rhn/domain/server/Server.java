@@ -109,6 +109,40 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set history;
     private Set packages;
     private ProxyInfo proxyInfo;
+    private Set<? extends ServerGroup> groups;
+    private Set<Capability> capabilities;
+
+    /**
+     * @return Returns the capabilities.
+     */
+    public Set<Capability> getCapabilities() {
+        return capabilities;
+    }
+
+
+    
+    /**
+     * @param capabilitiesIn The capabilities to set.
+     */
+    public void setCapabilities(Set<Capability> capabilitiesIn) {
+        capabilities = capabilitiesIn;
+    }
+    
+    
+    /**
+     * @return Returns the groups.
+     */
+    protected Set<? extends ServerGroup> getGroups() {
+        return groups;
+    }
+
+    
+    /**
+     * @param groupsIn The groups to set.
+     */
+    protected void setGroups(Set<? extends ServerGroup> groupsIn) {
+        groups = groupsIn;
+    }
 
     /**
      * @return the proxyInfo
@@ -656,7 +690,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * The set of ServerGroup(s) that this Server is a member of
      * @return Returns the serverGroups.
      */
-    public List getEntitledGroups() {
+    public List<EntitlementServerGroup> getEntitledGroups() {
         return ServerGroupFactory.listEntitlementGroups(this);
     }
 

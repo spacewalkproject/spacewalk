@@ -88,6 +88,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         	<one-to-many class="com.redhat.rhn.domain.server.VirtualInstance"/>
         </set>
         
+		<set name="groups" table="rhnServerGroupMembers" inverse="true" lazy="true">
+			<key column="server_id"/>
+			<many-to-many column="server_group_id" class="com.redhat.rhn.domain.server.ServerGroup"/>
+		</set>
+
+		<set name="capabilities" table="rhnClientCapability" inverse="true" lazy="true">
+			<key column="server_id"/>
+			<many-to-many column="CAPABILITY_NAME_ID" class="com.redhat.rhn.domain.server.Capability"/>
+		</set>
+		       
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
             column="org_id" lazy="proxy"/>
 
@@ -191,7 +201,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         				from com.redhat.rhn.domain.server.Server as s 
         				where s.id in (:sids) and s.serverArch.archType.label = 'sysv-solaris']]>
     </query>    
-    
+
+     <query name="Server.listConfigEnabledSystems">
+        <![CDATA[ select s 
+        			 from com.redhat.rhn.domain.server.Server as s
+        				 inner join s.groups as sg
+        				 inner join sg.groupType.features as f
+        				 inner join s.capabilities as c
+        				where (sg.groupType is not null) and f.label='ftr_config' and c.name like 'configfiles%']]>
+    </query>
 
     <sql-query name="Server.findVirtPlatformHostsByOrg">
         <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 

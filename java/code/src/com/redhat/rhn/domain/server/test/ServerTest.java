@@ -52,7 +52,6 @@ public class ServerTest extends BaseTestCaseWithUser {
         s.getServerInfo().setCheckin(pcal.getTime());
         assertFalse(s.isInactive());
     }
-
     
     public void testSetBaseEntitlement() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);

@@ -37,6 +37,7 @@ import org.hibernate.Session;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -567,6 +568,16 @@ public class ServerFactory extends HibernateFactory {
         return servers;
     }
 
+    /**
+     * Returns a global multi org spanning list of
+     * servers that are config enabled.
+     * Basically used by taskomatic.
+     * @return a list of config enabled systems
+     */
+    public static List<Server> listConfigEnabledSystems() {
+        return (List<Server>) singleton.listObjectsByNamedQuery(
+                        "Server.listConfigEnabledSystems", Collections.EMPTY_MAP);
+    }    
     /**
      * List snapshots associated with a server.
      *

@@ -15,7 +15,7 @@
 
 package com.redhat.rhn.frontend.action.token.groups;
 
-import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.token.BaseListAction;
@@ -73,9 +73,9 @@ public class ListRemoveGroupsAction extends BaseListAction {
     }
 
     /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
+    public List<ManagedServerGroup> getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
-        List<ServerGroup> groups = new LinkedList(key.getServerGroups());
+        List<ManagedServerGroup> groups = new LinkedList(key.getServerGroups());
         AddGroupsAction.setupAccessMap(context, groups);
         return groups;
     }

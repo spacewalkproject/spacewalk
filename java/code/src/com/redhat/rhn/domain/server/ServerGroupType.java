@@ -16,6 +16,9 @@ package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.AbstractLabelNameHelper;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Class that represents the rhnServerGroupType table.
  * 
@@ -24,6 +27,7 @@ import com.redhat.rhn.domain.AbstractLabelNameHelper;
 public class ServerGroupType extends AbstractLabelNameHelper {
     private char permanent;
     private char isBaseChar;
+    private Set<Feature> features = new HashSet<Feature>();
     
     /**
      * @return Returns the isBase.
@@ -57,5 +61,17 @@ public class ServerGroupType extends AbstractLabelNameHelper {
         this.permanent = permanentIn;
     }
     
+    /**
+     * @return Returns the features.
+     */
+    public Set<Feature> getFeatures() {
+        return features;
+    }
     
+    /**
+     * @param featuresIn The features to set.
+     */
+    public void setFeatures(Set<Feature> featuresIn) {
+        features = featuresIn;
+    }
 }
