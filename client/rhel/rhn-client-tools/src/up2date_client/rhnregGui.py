@@ -1783,13 +1783,8 @@ def validateCaps():
     
     """
     setBusyCursor()
-    if rhnreg.serverSupportsRhelFiveCalls():
-        setArrowCursor()
-        return False
-    else:
-        setArrowCursor()
-        errorWindow(rhnreg_constants.SERVER_TOO_OLD)
-        return True
+    setArrowCursor()
+    return False
 
 
 def setBusyCursor():

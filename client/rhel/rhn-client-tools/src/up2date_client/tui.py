@@ -146,15 +146,6 @@ class ConnectWindow:
             
         self.screen.popWindow()
 
-        # Next, test for RHEL 5 compatibility.
-        if rhnreg.serverSupportsRhelFiveCalls():
-            pass
-        else:
-            FatalErrorWindow(self.screen, 
-                             _("The server you are attempting "
-                               "to register against does not support this "
-                               "version of the client."))
-
         # Just return next, although the user wouldn't have actually pressed
         # anything.
         return "next"

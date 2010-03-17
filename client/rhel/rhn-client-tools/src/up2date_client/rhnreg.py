@@ -847,34 +847,6 @@ def getPossibleOrgs(username, password, useCache=False):
     return cachedOrgs
 
 
-def serverSupportsRhelFiveCalls():
-    """This checks for the new calls we added for rhel 5, some of which 
-    are required, such as the new system registration calls. I don't know how 
-    this will work long term, but for now we wanna put this into a build that 
-    people will probably try to use against servers that don't support the new 
-    stuff.
-    TODO List calls here.
-    
-    Returns True or False.
-    
-    """
-    # This is a hack. 
-    # TODO Call new_system_user_pass instead of getPossibleOrg so it works on sats.
-    # TODO Make this use nice capabilities infrastructure or something.
-    # We only check for get_possible_orgs but we're really also checking for the
-    # other calls that were added at the same time.
-    try:
-        getPossibleOrgs('sdthzdthz233drgdth', 'ztedhzdth2zdbz')
-    except up2dateErrors.ValidationError:
-        return True
-    except up2dateErrors.UnknownMethodException:
-        pass
-    except:
-        log.log_me("An unexcepted error was raised while checking to see if the"
-                   " server supports the required calls:")
-        log.log_exception(*sys.exc_info())
-    return False
-
 def spawnRhnCheckForUI():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
         from subprocess import Popen, PIPE
