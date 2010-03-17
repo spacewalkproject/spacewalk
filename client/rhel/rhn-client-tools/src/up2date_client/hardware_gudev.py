@@ -213,7 +213,7 @@ def _get_device_desc(device):
                 device.get_property('ID_MODEL_ID') )
     from subprocess import PIPE, Popen
     if command:
-        return subprocess.Popen(command, stdout=subprocess.PIPE, shell=True).stdout.read()
+        return Popen(command, stdout=PIPE, shell=True).stdout.read()
     else:
         return ''
 
