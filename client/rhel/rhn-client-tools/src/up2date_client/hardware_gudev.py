@@ -44,6 +44,8 @@ def get_devices():
         }
         if subsystem == 'block':
             result_item['device'] = device.get_name()
+        if result_item['driver'] is None:
+            result_item['driver'] = 'unknown'
         result.append(result_item)
     return result
 
