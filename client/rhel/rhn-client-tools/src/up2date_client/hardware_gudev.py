@@ -148,13 +148,15 @@ def _clasify_class(device):
         elif sub_class == PCI_CLASS_INPUT_MOUSE:
             return 'MOUSE'
     # usb
-    id_serial = device.get_property('ID_SERIAL').lower()
-    # KEYBOARD <-- do this before mouse, some keyboards have built-in mice
-    if 'keyboard' in id_serial:
-        return 'KEYBOARD'
-    # MOUSE
-    if 'mouse' in id_serial:
-        return 'MOUSE'
+    id_serial = device.get_property('ID_SERIAL')
+    if id_serial:
+        id_serial = id_serial.lower()
+        # KEYBOARD <-- do this before mouse, some keyboards have built-in mice
+        if 'keyboard' in id_serial:
+            return 'KEYBOARD'
+        # MOUSE
+        if 'mouse' in id_serial:
+            return 'MOUSE'
 
     if base_class:      # PCI Devices
         if base_class == PCI_BASE_CLASS_INPUT:
