@@ -405,6 +405,9 @@ def populateChannelFamilies(options):
     if options.no_ssl:
         args.extend(['--no-ssl'])
 
+    if options.dump_version:
+        args.extend(['--dump-version', options.dump_version])
+
     ## database string for that satellite-sync
     #if options.db:
     #    args.extend(['--db', options.db])
@@ -467,6 +470,7 @@ def processCommandline():
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version mismatch of existing and new certificate.'),
         Option('-v','--verbose', action='count',      help='be verbose (accumulable: -vvv means "be *really* verbose").'),
+        Option(     '--dump-version', action='store', help="requested version of XML dump"),
               ]
 
     options, args = OptionParser(option_list=options).parse_args()
