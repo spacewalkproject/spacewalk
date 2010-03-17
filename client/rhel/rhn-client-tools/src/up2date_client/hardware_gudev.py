@@ -14,6 +14,7 @@
 
 import gudev
 import glib
+import os
 
 def get_devices():
     """ Returns list of dictionaries with keys for every device in system
@@ -53,7 +54,14 @@ def get_computer_info():
             'system.kernel.machine': 'i686'
         'system.kernel.name': 'Linux'
     """
-    pass #FIXME
+    #FIXME do we need to add smbios information?
+    uname = os.uname()
+    result = {
+        'system.kernel.name': uname[0],
+        'system.kernel.version': uname[2],
+        'system.kernel.machine': uname[4],
+    }
+    return result
 
 #PCI DEVICE DEFINES
 # These are taken from pci_ids.h in the linux kernel source and used to
