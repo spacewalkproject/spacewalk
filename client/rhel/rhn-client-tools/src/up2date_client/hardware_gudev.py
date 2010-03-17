@@ -45,7 +45,7 @@ def get_devices():
         if subsystem == 'block':
             result_item['device'] = device.get_name()
         result.append(result_item)
-    return result_item
+    return result
 
 def get_computer_info():
     """ Return dictionaries with keys (values are provided as example):
