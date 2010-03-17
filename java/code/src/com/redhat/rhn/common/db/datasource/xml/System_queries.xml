@@ -426,7 +426,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
 
 <mode name="all_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query>
-  SELECT  DISTINCT S.id, 1 as selectable
+  SELECT  DISTINCT S.id, 1 as selectable,
           S.name AS SERVER_NAME,
           (SELECT 1
              FROM rhnServerFeaturesView SFV
