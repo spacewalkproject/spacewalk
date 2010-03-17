@@ -30,7 +30,7 @@ def get_devices():
     # listen to uevents on all subsystems
     client = gudev.Client([""])
     # FIX ME - change to None to list all devices once it is fixed in gudev
-    devices = client.query_by_subsystem("pci")
+    devices = client.query_by_subsystem("pci") + client.query_by_subsystem("usb") + client.query_by_subsystem("block") + client.query_by_subsystem("ccw")
     result = []
     for device in devices:
         subsystem = device.get_subsystem()
