@@ -241,7 +241,8 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the cobblerDistroName
      */
     public String getCobblerXenDistroName() {
-        return CobblerCommand.makeCobblerName(getLabel() + ":xen", getOrg());
+        String sep = ConfigDefaults.get().getCobblerNameSeperator();
+        return CobblerCommand.makeCobblerName(getLabel() + sep + "xen", getOrg());
     }    
 
 
