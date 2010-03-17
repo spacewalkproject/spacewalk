@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000-2006 Red Hat, Inc.
+# Copyright (c) 2000-2010 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>
@@ -129,9 +129,8 @@ PASSWORD_TOO_SHORT     = _("Please enter a longer password.")
 PASSWORD_TOO_LONG      = _("Please enter a shorter password.")
 
 
-SYSTEM_ALREADY_REGISTERED = _("It appears this system has attempted to register to the Red Hat Network.\n"
-                              "The system may already be set up for software updates.\n\n"
-                              "Are you sure you would like to continue?")
+SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
+SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 # Org selection window.
 ORG_SELECT        = _("Select Organization")

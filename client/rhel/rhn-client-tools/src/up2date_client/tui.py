@@ -1550,11 +1550,11 @@ def main():
 
         if snack.ButtonChoiceWindow(screen, 
                                     _("System software updates already set up"),
-                                    SYSTEM_ALREADY_REGISTERED + 
-                                    _("\n\nRed Hat Network Location: ") + 
-                                    oldserver +
-                                    _("\nRHN Login: ") + oldUsername +
-                                    _("\nSystem ID: ") + oldsystemId,
+                                    SYSTEM_ALREADY_REGISTERED + "\n\n"
+                                    + _("Red Hat Network Location:") + " " + oldserver + "\n"
+                                    + _("Login:") + " " + oldUsername + "\n"
+                                    + _("System ID:") + " " + oldsystemId + "\n\n"
+                                    + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
                                     buttons = [YES_CONT, NO_CANCEL],
                                     width = 75,
                                     ) == string.lower(NO_CANCEL):
