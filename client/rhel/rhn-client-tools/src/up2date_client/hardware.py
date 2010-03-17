@@ -718,17 +718,16 @@ def Hardware():
     # really anything useful we could do at this point
     # and its been trouble prone enough 
 
-    if hwdaemon:
-        # minimal DMI info
-        try:
-            ret = read_dmi()
-            if ret:
-                allhw.append(ret)
-        except:
-            # bz253596 : Logging Dbus Error messages instead of printing on stdout
-            log = up2dateLog.initLog()
-            msg = "Error reading DMI information: %s\n" % (sys.exc_type)
-            log.log_me(msg)
+    # minimal DMI info
+    try:
+        ret = read_dmi()
+        if ret:
+            allhw.append(ret)
+    except:
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
         
     try:
         ret = read_installinfo()
