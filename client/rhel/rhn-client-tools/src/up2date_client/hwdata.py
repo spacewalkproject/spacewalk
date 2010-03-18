@@ -70,6 +70,7 @@ class PCI:
         """ Return description of vendor. Parameter is two byte code in hexa.
             If vendor is unknown None is returned.
         """
+        vendor = vendor.lower()
         if self.cache:
             if PCI.devices.has_key(vendor):
                 return PCI.devices[vendor][0]
@@ -82,6 +83,8 @@ class PCI:
         """ Return description of device. Parameters are two byte code variables in hexa.
             If device is unknown None is returned.
         """
+        vendor = vendor.lower()
+        device = device.lower()
         if self.cache:
             if PCI.devices.has_key(vendor):
                 if PCI.devices[vendor][1].has_key(device):
