@@ -75,8 +75,7 @@ CONFIRM_QUIT_TXT       = _("Are you sure you don't want to connect your system t
                            "Stay in compliance with your subscription agreement and manage subscriptions for systems "
                            "connected to your account at http://rhn.redhat.com/.\n\n"
                            "You will not be able to take advantage of these subscription privileges without connecting "
-                           "your system to Red Hat Network.\n\n"
-                           "Tip: Red Hat values your privacy: http://www.redhat.com/legal/privacy_statement.html")
+                           "your system to Red Hat Network.\n")
 CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")
 

@@ -57,7 +57,7 @@ def WarningWindow(screen, errmsg):
     
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
-                             CONFIRM_QUIT_TXT,
+                             CONFIRM_QUIT_TXT + "\n" + WHY_REGISTER_TIP,
                              [CONTINUE_REGISTERING, REGISTER_LATER2],
                              width = 70)
 
