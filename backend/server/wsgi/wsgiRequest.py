@@ -64,7 +64,6 @@ class WsgiRequest:
         if len(self.status) == 0 or self.status == None:
             self.status = "200"
         elif self.status.startswith("500"):
-            log_debug(1, self.status)
             for i in self.err_headers_out.items():
                 self.headers_out.add(i[0], i[1])
 
