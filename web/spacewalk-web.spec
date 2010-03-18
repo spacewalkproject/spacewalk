@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.4
+Version: 0.9.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 18 2010 Jan Pazdziora 0.9.5-1
+- 568958 - fixing issue where package removal and verify could not be scheduled
+  or would not work for systems that do not upload arch information
+  (jsherril@redhat.com)
+- 516048 - syncing java stack with perl stack on channel naming convention
+  (shughes@redhat.com)
+- 529371 - use the OO interface to File::Temp, make it UNLINK
+
 * Wed Mar 10 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
 - fixed typos
 
