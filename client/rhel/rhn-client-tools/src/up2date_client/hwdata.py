@@ -18,6 +18,7 @@
 class PCI:
     """ Interace to pci.ids from hwdata package """
     filename = '/usr/share/hwdata/pci.ids'
+    devices = None
 
     def __init__(self, filename=None):
         """ Load pci.ids from file to internal data structure.
@@ -29,10 +30,10 @@ class PCI:
             self.filename = PCI.filename
         self.cache = 1
 
-        if self.cache:
+        if self.cache and not PCI.devices:
             # parse pci.ids
             pcirec = {}
-            self.devices = {}
+            PCI.devices = {}
             for line in open(self.filename).readlines():
                 l = line.split()
                 if line.startswith('#'):
@@ -49,29 +50,29 @@ class PCI:
                         subsystem_name = ' '.join(l[2:])
                     else:
                         subsystem_name = ''
-                    if not self.devices.has_key(subvendor):
-                        self.devices[subvendor] = [vendor_name, {subdevice: subsystem_name}]
+                    if not PCI.devices.has_key(subvendor):
+                        PCI.devices[subvendor] = [vendor_name, {subdevice: subsystem_name}]
                     else: # this should not happen
-                            self.devices[subvendor][1][subdevice] = subsystem_name
+                            PCI.devices[subvendor][1][subdevice] = subsystem_name
                 elif line.startswith('\t'):
                     device = l[0].lower()
                     device_name = ' '.join(l[1:])
-                    self.devices[vendor][1][device] = device_name
+                    PCI.devices[vendor][1][device] = device_name
                 else:
                     vendor = l[0].lower()
                     vendor_name = ' '.join(l[1:])
-                    if not self.devices.has_key(vendor):
-                        self.devices[vendor] = [vendor_name, {}]
+                    if not PCI.devices.has_key(vendor):
+                        PCI.devices[vendor] = [vendor_name, {}]
                     else: # this should not happen
-                        self.devices[vendor][0] = vendor_name
+                        PCI.devices[vendor][0] = vendor_name
 
     def get_vendor(self, vendor):
         """ Return description of vendor. Parameter is two byte code in hexa.
             If vendor is unknown None is returned.
         """
         if self.cache:
-            if self.devices.has_key(vendor):
-                return self.devices[vendor][0]
+            if PCI.devices.has_key(vendor):
+                return PCI.devices[vendor][0]
             else:
                 return None
         else:
@@ -82,9 +83,9 @@ class PCI:
             If device is unknown None is returned.
         """
         if self.cache:
-            if self.devices.has_key(vendor):
-                if self.devices[vendor][1].has_key(device):
-                    return self.devices[vendor][1][device]
+            if PCI.devices.has_key(vendor):
+                if PCI.devices[vendor][1].has_key(device):
+                    return PCI.devices[vendor][1][device]
                 else:
                     return None
             else:
