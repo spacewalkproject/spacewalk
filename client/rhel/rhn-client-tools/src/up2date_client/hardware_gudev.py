@@ -63,6 +63,13 @@ def get_devices():
             # result_item['prop2'] = ''
         if result_item['driver'] is None:
             result_item['driver'] = 'unknown'
+        if subsystem == 'pci':
+            pci_class = device.get_property('PCI_ID')
+            if pci_class:
+                (result_item['prop1'], result_item['prop2']) = pci_class.split(':')
+            pci_subsys = device.get_property('PCI_SUBSYS_ID')
+            if pci_subsys:
+                (result_item['prop3'], result_item['prop4']) = pci_subsys.split(':')
         if device.has_property('ID_BUS') and device.get_property('ID_BUS') == 'scsi':
             path = device.get_property('ID_PATH')
             m = re.search('.*-scsi-(\d+):(\d+):(\d+):(\d+)', path)
