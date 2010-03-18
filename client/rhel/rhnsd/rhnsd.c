@@ -604,6 +604,7 @@ static int parse_systemid_path(char* systemid_path, int systemid_path_length)
         }
         fclose(config_file);
     }
+    regfree(&re_systemIdPath);
     return ret;
 }
 
