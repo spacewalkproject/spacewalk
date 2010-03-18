@@ -60,21 +60,9 @@ TERMS_AND_CONDS_WINDOW = _("Review the Red Hat Network Terms And Conditions")
 
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software update setup unsuccessful")
-CONFIRM_QUIT_TXT       = _("Are you sure you don't want to connect your system to Red Hat Network? "
-                           "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n\n"
-                           "Security & Updates:\n"
-                           "Receive the latest software updates, including security updates, keeping this Red Hat "
-                           "Enterprise Linux system updated and secure.\n\n"
-                           "Downloads & Upgrades:\n"
-                           "Download installation images for Red Hat Enterprise Linux releases, including "
-                           "new releases.\n\n"
-                           "Support:\n"
-                           "Access to the technical support experts at Red Hat or Red Hat's partners for help "
-                           "with any issues you might encounter with this system.\n\n"
-                           "Compliance:\n"
-                           "Stay in compliance with your subscription agreement and manage subscriptions for systems "
-                           "connected to your account at http://rhn.redhat.com/.\n\n"
-                           "You will not be able to take advantage of these subscription privileges without connecting "
+CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Network? "
+                           "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n")
+CONFIRM_QUIT_WILLNOT       = _("You will not be able to take advantage of these subscription privileges without connecting "
                            "your system to Red Hat Network.\n")
 CONTINUE_REGISTERING   = _("Take me back to the setup process.")
 REGISTER_LATER2        = _("I'll register later.")

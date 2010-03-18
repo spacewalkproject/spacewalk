@@ -57,7 +57,17 @@ def WarningWindow(screen, errmsg):
     
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
-                             CONFIRM_QUIT_TXT + "\n" + WHY_REGISTER_TIP,
+                             CONFIRM_QUIT_SURE + "\n" + \
+                             WHY_REGISTER_SEC  + "\n" + \
+                             WHY_REGISTER_SEC_TXT + "\n\n" + \
+                             WHY_REGISTER_DLD + "\n" + \
+                             WHY_REGISTER_DLD_TXT + "\n\n" + \
+                             WHY_REGISTER_SUPP + "\n" + \
+                             WHY_REGISTER_SUPP_TXT + "\n\n" + \
+                             WHY_REGISTER_COMP + "\n" + \
+                             WHY_REGISTER_COMP_TXT + "\n\n" + \
+                             CONFIRM_QUIT_WILLNOT + "\n" + \
+                             WHY_REGISTER_TIP,
                              [CONTINUE_REGISTERING, REGISTER_LATER2],
                              width = 70)
 
