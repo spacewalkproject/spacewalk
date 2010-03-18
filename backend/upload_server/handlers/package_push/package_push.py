@@ -139,6 +139,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
             return self._send_package_diff(req, diff_level, package_dict)
 
         # Everything went fine
+        rhnSQL.commit()
         reply = "All OK"
         req.headers_out['Content-Length'] = str(len(reply))
         req.send_http_header()
