@@ -18,6 +18,8 @@
 
 import socket
 from common import log_debug
+import httplib
+
 
 class WsgiRequest:
 
@@ -57,10 +59,16 @@ class WsgiRequest:
     def send_http_header(self, status=None):
         self.sent_header = 1
 
-        if len(self.status) == 0 or self.status == None:
-            self.status = "200 OK"
         if status is not None:
             self.status = str(status)
+        if len(self.status) == 0 or self.status == None:
+            self.status = "200"
+        elif self.status.startswith("500"):
+            log_debug(1, self.status)
+            for i in self.err_headers_out.items():
+                self.headers_out.add(i[0], i[1])
+
+        self.status = self.status + " " +  httplib.responses[int(self.status)]
 
         if len(self.content_type) > 0:
            self.headers_out['Content-Type'] = self.content_type
