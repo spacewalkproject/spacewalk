@@ -44,6 +44,22 @@ def get_devices():
         }
         if subsystem == 'block':
             result_item['device'] = device.get_name()
+            if device.get_devtype() == 'partition':
+                # do not report partitions, just whole disks
+                continue
+            if device.get_property('DM_NAME'):
+                # LVM device
+                continue
+            if device.get_property('MAJOR') == '1':
+                # ram device
+                continue
+            if device.get_property('MAJOR') == '7':
+                # character devices for virtual console terminals
+                continue
+            # This is interpreted as Physical. But what to do with it?
+            # result_item['prop1'] = ''
+            # This is interpreted as Logical. But what to do with it?
+            # result_item['prop2'] = ''
         if result_item['driver'] is None:
             result_item['driver'] = 'unknown'
         result.append(result_item)
@@ -221,6 +237,11 @@ def _get_device_desc(device):
     elif subsystem == 'usb':
         command = "lsusb -d %s:%s" % ( device.get_property('ID_VENDOR_ID'),
                 device.get_property('ID_MODEL_ID') )
+    elif subsystem == 'block':
+        desc = device.get_property('ID_MODEL')
+        if desc is None:
+            desc = ''
+        return desc
     from subprocess import PIPE, Popen
     if command:
         return Popen(command, stdout=PIPE, shell=True).stdout.read()
