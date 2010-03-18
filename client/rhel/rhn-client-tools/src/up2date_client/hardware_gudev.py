@@ -234,6 +234,8 @@ def _clasify_class(device):
             return 'CDROM'
         else:
             return 'HD' #FIXME had to distinguis HD, FLOPY, TAPE and flash disks
+    elif subsystem == 'sound':
+        return 'AUDIO'
 
     # PRINTER
     pass  #FIXME
@@ -253,7 +255,7 @@ def _get_device_desc(device):
     if subsystem == 'pci':
         (vendor_id, device_id) = device.get_property('PCI_ID').split(':')
         pci = PCI()
-        result = pci.get_device(vendor_id, device_id)
+        result = pci.get_vendor(vendor_id) + '|' + pci.get_device(vendor_id, device_id)
     elif subsystem == 'usb':
         command = "lsusb -d %s:%s" % ( device.get_property('ID_VENDOR_ID'),
                 device.get_property('ID_MODEL_ID') )
