@@ -15,6 +15,7 @@
 import gudev
 import glib
 import os
+import re
 
 def get_devices():
     """ Returns list of dictionaries with keys for every device in system
@@ -62,6 +63,13 @@ def get_devices():
             # result_item['prop2'] = ''
         if result_item['driver'] is None:
             result_item['driver'] = 'unknown'
+        if device.has_property('ID_BUS') and device.get_property('ID_BUS') == 'scsi':
+            path = device.get_property('ID_PATH')
+            m = re.search('.*-scsi-(\d+):(\d+):(\d+):(\d+)', path)
+            result_item['prop1'] = m.group(1) # DEV_HOST
+            result_item['prop2'] = m.group(2) # DEV_ID
+            result_item['prop3'] = m.group(3) # DEV_CHANNEL
+            result_item['prop4'] = m.group(4) # DEV_LUN
         result.append(result_item)
     return result
 
