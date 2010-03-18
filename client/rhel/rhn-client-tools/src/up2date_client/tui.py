@@ -234,44 +234,6 @@ class WhyRegisterWindow:
         return button
     
 
-class PrivacyWindow:
-
-    def __init__(self, screen, tui):
-        self.name = "PrivacyWindow"
-        self.screen = screen
-        self.tui = tui
-        size = snack._snack.size()
-        toplevel = snack.GridForm(screen, PRIVACY_WINDOW,
-                                  1, 2)
-
-        try:
-            tb = snack.Textbox(size[0]-10, size[1]-14, rhnreg.privacyText(), 1)
-        except up2dateErrors.CommunicationError, e:
-            FatalErrorWindow(screen, e.errmsg)
-
-        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
-
-        self.bb = snack.ButtonBar(screen,
-                                  [(NEXT, "next"),
-                                   (BACK, "back"),
-                                   (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 1, growx = 1)
-        self.g = toplevel
-
-
-    def saveResults(self):
-        pass
-
-    def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
-        self.screen.refresh()
-        result = self.g.runOnce()
-        button = self.bb.buttonPressed(result)
-
-        if result == "F12":
-            return "next"
-        return button
-
 class TermsAndConditionsWindow:
     def __init__(self, screen, tui):
         self.name = "TermsAndConditionsWindow"

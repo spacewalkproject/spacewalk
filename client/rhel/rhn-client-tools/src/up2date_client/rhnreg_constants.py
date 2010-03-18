@@ -56,7 +56,6 @@ WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
 BACK_REGISTER         = _("Take me back to the setup process.")
 
 # Privacy Window
-PRIVACY_WINDOW         = _("Step 1: Review the Red Hat Privacy Statement")
 TERMS_AND_CONDS_WINDOW = _("Review the Red Hat Network Terms And Conditions")
 
 # Confirm Quit Window
