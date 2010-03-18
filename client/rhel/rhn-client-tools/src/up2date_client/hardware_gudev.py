@@ -249,22 +249,20 @@ def _get_device_desc(device):
     """ Return human readable description of device. """
     subsystem = device.get_subsystem()
     command = None
+    result = None
     if subsystem == 'pci':
         (vendor_id, device_id) = device.get_property('PCI_ID').split(':')
         pci = PCI()
-        return pci.get_device(vendor_id, device_id)
-        #command = "lspci -d %s" % device.get_property('PCI_ID')
+        result = pci.get_device(vendor_id, device_id)
     elif subsystem == 'usb':
         command = "lsusb -d %s:%s" % ( device.get_property('ID_VENDOR_ID'),
                 device.get_property('ID_MODEL_ID') )
+        from subprocess import PIPE, Popen
+        result = Popen(command, stdout=PIPE, shell=True).stdout.read()
     elif subsystem == 'block':
-        desc = device.get_property('ID_MODEL')
-        if desc is None:
-            desc = ''
-        return desc
-    from subprocess import PIPE, Popen
-    if command:
-        return Popen(command, stdout=PIPE, shell=True).stdout.read()
+        result = device.get_property('ID_MODEL')
+    if result:
+        return result
     else:
         return ''
 
