@@ -16,7 +16,8 @@ import gudev
 import glib
 import os
 import re
-import hwdata
+
+from hwdata import PCI
 
 def get_devices():
     """ Returns list of dictionaries with keys for every device in system
