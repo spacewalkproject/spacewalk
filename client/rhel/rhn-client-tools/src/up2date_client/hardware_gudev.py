@@ -16,6 +16,7 @@ import gudev
 import glib
 import os
 import re
+import hwdata
 
 def get_devices():
     """ Returns list of dictionaries with keys for every device in system
@@ -248,7 +249,10 @@ def _get_device_desc(device):
     subsystem = device.get_subsystem()
     command = None
     if subsystem == 'pci':
-        command = "lspci -d %s" % device.get_property('PCI_ID')
+        (vendor_id, device_id) = device.get_property('PCI_ID').split(':')
+        pci = PCI()
+        return pci.get_device(vendor_id, device_id)
+        #command = "lspci -d %s" % device.get_property('PCI_ID')
     elif subsystem == 'usb':
         command = "lsusb -d %s:%s" % ( device.get_property('ID_VENDOR_ID'),
                 device.get_property('ID_MODEL_ID') )
