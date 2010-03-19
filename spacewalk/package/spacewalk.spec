@@ -1,4 +1,4 @@
-%define release_name Bowling
+%define release_name Smile
 
 Name:           spacewalk
 Version:        0.9.0
@@ -136,7 +136,8 @@ Solaris machines.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
-echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
+SW_REL=$(echo %{version} | awk -F. '{print $1"."$2}')
+echo "Spacewalk release $SW_REL (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
 install -d $RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d
 for i in oracle postgresql ; do
         cat <<EOF >$RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d/$i-backend.conf
