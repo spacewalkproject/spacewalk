@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.2
+Version: 4.9.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri Mar 19 2010 Jan Pazdziora 4.9.3-1
+- Check return value of regcomp, fix a memory leak (Joshua Roys)
+
 * Wed Feb 10 2010 Miroslav Suchý <msuchy@redhat.com> 4.9.2-1
 - Pass version define to the compiler (Jan Pazdziora)
 - 533895 - if init script is run user return code 4
