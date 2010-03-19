@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -162,6 +162,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- modified Spacewalk 0.9 release name
+
 * Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - droped spacewalk-cypress from Requires
 - removed spacewalk-moon (sub)package as it is not used anywhere
