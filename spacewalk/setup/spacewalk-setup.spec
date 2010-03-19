@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -103,6 +103,10 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- let's smile in Spacewalk 0.9
+- 566124 - spacewalk-setup-jabberd splited from spacewalk-setup
+
 * Mon Dec  7 2009 Miroslav Suchy <msuchy@redhat.com> 0.8.1-1
 - change spinning patter to bowling
 
