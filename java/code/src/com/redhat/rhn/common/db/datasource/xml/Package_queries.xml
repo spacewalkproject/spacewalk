@@ -1259,14 +1259,17 @@ SELECT P.id AS id,
        NVL(PE.release, ' ') as release,
        NVL(PE.epoch, ' ') as epoch,
        PA.label AS arch_label,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified,
+       CV.checksum as checksum,
+       CV.checksum_type as checksum_type
   FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
+       rhnChannelPackage CP, rhnChecksumView CV
  WHERE CP.channel_id = :cid
    AND CP.package_id = P.id
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
+   AND P.checksum_id = CV.id
 ORDER BY UPPER(name)
   </query>
 </mode>
