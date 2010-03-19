@@ -6405,11 +6405,26 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
     <trans-unit id="removeconfirm.jsp.runremotecommand">
-<source>Run Remote Command</source>
+<source>Add Remote Command To Package Removal</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
       </context-group>
     </trans-unit>
+    <trans-unit id="installconfirm.jsp.runremotecommand">
+<source>Add Remote Command To Package Install</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
+      </context-group>
+    </trans-unit>
+
+    <trans-unit id="upgradeconfirm.jsp.runremotecommand">
+<source>Add Remote Command To Package Upgrade</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
+      </context-group>
+    </trans-unit>
+    
+    
     <!-- PROBE EDIT PAGE -->
 
     <trans-unit id="probeedit.jsp.editprobe">
@@ -6708,20 +6723,20 @@ value for this entitlement, excluding the default organization's consumption.</s
     </trans-unit>
     
     <trans-unit id="scheduleremote.jsp.schedulepackageremoval">
-<source>Schedule Package Removal</source>
+<source>Confirm Remote Command and Schedule Package Removal</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
       </context-group>
     </trans-unit>
 
     <trans-unit id="scheduleremote.jsp.schedulepackageupgrade">
-<source>Schedule Package Upgrade</source>
+<source>Confirm Remote Command and Schedule Package Upgrade</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
       </context-group>
     </trans-unit>
     <trans-unit id="scheduleremote.jsp.schedulepackageinstall">
-<source>Schedule Package Install</source>
+<source>Confirm Remote Command and Schedule Package Install</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/ScheduleRemoteCommand.do</context>
       </context-group>
@@ -7153,18 +7168,42 @@ value for this entitlement, excluding the default organization's consumption.</s
       </context-group>
     </trans-unit>
 
-    <trans-unit id="message.remotecommandbefore">
-<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package Remove action.</source>
+    <trans-unit id="message.remotecommandbefore.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package remove action.</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
       </context-group>
     </trans-unit>
-    <trans-unit id="message.remotecommandafter">
-<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package Remove action.</source>
+    <trans-unit id="message.remotecommandafter.remove">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package remove action.</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
       </context-group>
     </trans-unit>
+    <trans-unit id="message.remotecommandbefore.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    </trans-unit>
+    <trans-unit id="message.remotecommandafter.install">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package install action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    </trans-unit>
+    <trans-unit id="message.remotecommandbefore.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;before&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    </trans-unit>
+    <trans-unit id="message.remotecommandafter.upgrade">
+<source>The remote command action was scheduled to run &lt;strong&gt;after&lt;/strong&gt; the package upgrade action.</source>
+      <context-group name="ctx">
+        <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
+      </context-group>
+    </trans-unit>   
     <trans-unit id="installpkgs.jsp.installpackages">
 <source>Install Selected Packages</source>
         <context-group name="ctx">
@@ -7175,12 +7214,6 @@ value for this entitlement, excluding the default organization's consumption.</s
 <source>Confirm Package Install</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/InstallPackageConfirm.do</context>
-      </context-group>
-    </trans-unit>
-    <trans-unit id="installconfirm.jsp.runremotecommand">
-<source>Run Remote Command</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/details/packages/InstallConfirm.do</context>
       </context-group>
     </trans-unit>
 

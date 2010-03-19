@@ -44,11 +44,7 @@
     <tr>
       <th><bean:message key="scheduleremote.jsp.nosoonerthan" />:</th>
       <td>
-        <img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="confirm.jsp.selection"/>"
-             title="<bean:message key="confirm.jsp.selection"/>"/>
-        <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-          <jsp:param name="widget" value="date"/>
-        </jsp:include>
+      		${requestScope.scheduledDate}
       </td>
     </tr>
   </table>
@@ -58,6 +54,13 @@
 <html:hidden property="sid" value="${param.sid}" />
 <html:hidden property="mode" value="${param.mode}" />
 <html:hidden property="submitted" value="true" />
+    <html:hidden property="use_date" />
+    <html:hidden property="date_year" />
+    <html:hidden property="date_month" />
+    <html:hidden property="date_day" />
+    <html:hidden property="date_hour" />
+    <html:hidden property="date_minute" />
+    <html:hidden property="date_am_pm" />
 
   <div align="right">
     <hr />

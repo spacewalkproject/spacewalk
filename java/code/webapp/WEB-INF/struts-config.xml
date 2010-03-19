@@ -2617,6 +2617,9 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
+        <forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
         
     <action path="/systems/details/packages/VerifyPackages"
@@ -2639,7 +2642,7 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
-                 redirect="true" />
+                 redirect="true" />                
     </action>
     
     <action path="/systems/details/packages/PackageList"
@@ -2663,6 +2666,9 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
+		<forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
 
    <action path="/systems/details/packages/UpgradableList"
@@ -2685,7 +2691,10 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
          <forward name="confirm"
                   path="/systems/details/packages/Packages.do"
-                  redirect="true"/>                 
+                  redirect="true"/>
+        <forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
     
     <action path="/systems/details/packages/ScheduleRemoteCommand"
