@@ -256,7 +256,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         form.set("mode", request.getParameter("mode"));
         getStrutsDelegate().prepopulateDatePicker(request, 
                             form, "date", DatePicker.YEAR_RANGE_POSITIVE);
-        Date date = getStrutsDelegate().readDatePicker( 
+        Date date = getStrutsDelegate().readDatePicker(
                 form, "date", DatePicker.YEAR_RANGE_POSITIVE);
         
         request.setAttribute("scheduledDate", 
