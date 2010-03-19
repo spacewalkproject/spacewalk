@@ -42,7 +42,7 @@ Defaults = {
                            0),
     'networkRetries'    : ("Number of attempts to make at network "\
                            "connections before giving up",
-                           5),
+                           1),
     'sslCACert'         : ("The CA cert used to verify the ssl server",
                            "/usr/share/rhn/RHNS-CA-CERT"),
     'noReboot'          : ("Disable the reboot action",
