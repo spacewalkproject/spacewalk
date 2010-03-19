@@ -169,7 +169,7 @@ class Server:
 
         if transport is None:
             self._allow_redirect = 1
-            transport = self.default_transport(type, proxy, username, password)
+            transport = self.default_transport(self._type, proxy, username, password)
         else:
             #
             # dont allow redirect on unknow transports, that should be
