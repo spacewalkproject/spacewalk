@@ -583,8 +583,11 @@ static int parse_systemid_path(char* systemid_path, int systemid_path_length)
     FILE* config_file;
     regex_t re_systemIdPath;
     regmatch_t submatch[SYSTEMID_NMATCH];
+    const char *regex = "^[[:space:]]*systemIdPath[[:space:]]*=[[:space:]]*([[:print:]]+)";
 
-    regcomp(&re_systemIdPath,"^[[:space:]]*systemIdPath[[:space:]]*=[[:space:]]*([[:print:]]+)", REG_EXTENDED);
+    if (regcomp(&re_systemIdPath, regex, REG_EXTENDED) != 0)
+        return ret;
+
     if (NULL != (config_file = fopen(RHN_UP2DATE, "r") ))
     {
         char line[MAX_CONFIG_LINE_SIZE];
