@@ -2,14 +2,13 @@
 #
 # @@PROG@@     This shell script starts the @@PROG@@ daemon
 #
-# chkconfig: 2345 81 04
+# chkconfig: - 81 04
 # description: @@PROG@@ is a daemon used by the Spacewalk
 #
 ### BEGIN INIT INFO
 # Provides: @@PROG@@
 # Required-Start: $local_fs $network
 # Required-Stop: $local_fs $network
-# Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: This shell script starts the @@PROG@@ daemon
 # Description:       @@PROG@@ is a daemon used by the Spacewalk
