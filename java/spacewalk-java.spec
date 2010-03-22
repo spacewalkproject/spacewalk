@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.9
+Version: 0.9.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -308,6 +308,14 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 22 2010 Tomas Lestach <tlestach@redhat.com> 0.9.10-1
+- 575796 - make system.get_name API call faster (tlestach@redhat.com)
+- 529359 - attempting to fix issue where solaris packages couldnt be installed,
+  may break unit test, we will see (jsherril@redhat.com)
+- 529359 - Fix for this error (paji@redhat.com)
+- Basically removed the listAllSystems call in SystemManager (paji@redhat.com)
+- 574197 - making cobbler name seperator configurable (jsherril@redhat.com)
+
 * Wed Mar 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.9-1
 - 568958 - package removal and verify
 - 516048 - syncing java stack with perl stack on channel naming convention
