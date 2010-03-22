@@ -17,7 +17,7 @@ import glib
 import os
 import re
 
-from hwdata import PCI
+from hwdata import PCI, USB
 
 def get_devices():
     """ Returns list of dictionaries with keys for every device in system
@@ -257,10 +257,10 @@ def _get_device_desc(device):
         pci = PCI()
         result = pci.get_vendor(vendor_id) + '|' + pci.get_device(vendor_id, device_id)
     elif subsystem == 'usb':
-        command = "lsusb -d %s:%s" % ( device.get_property('ID_VENDOR_ID'),
-                device.get_property('ID_MODEL_ID') )
-        from subprocess import PIPE, Popen
-        result = Popen(command, stdout=PIPE, shell=True).stdout.read()
+        vendor_id = device.get_property('ID_VENDOR_ID')
+        if vendor_id:
+            usb = USB()
+            result = usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID'))
     elif subsystem == 'block':
         result = device.get_property('ID_MODEL')
     if result:
