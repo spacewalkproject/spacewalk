@@ -2188,28 +2188,27 @@ public class SystemHandler extends BaseHandler {
      * Get system name and last check in information for the given system ID.
      * @param sessionKey of user making call
      * @param serverId of the server
-     * @return Object[]  Integer Array containing system Ids with the given name
+     * @return Map containing server id, name and last checkin date
      * 
      * @xmlrpc.doc Get system name and last check in information for the given system ID.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("string", "serverId") 
+     * @xmlrpc.param #param("string", "serverId")
      * @xmlrpc.returntype 
-     *     $SystemOverviewSerializer
+     *  #struct("name info")
+     *      #prop_desc("int", "id", "Server id")
+     *      #prop_desc("string", "name", "Server name")
+     *      #prop_desc("dateTime.iso8601", "last_checkin", "Last time server
+     *              successfully checked in")
+     *  #struct_end()
      */
-    public SystemOverview getName(String sessionKey, Integer serverId) {
-
+    public Map getName(String sessionKey, Integer serverId) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        List<SystemOverview> dr = UserManager.visibleSystemsAsDto(loggedInUser);
-        SystemOverview result = new SystemOverview();
- 
-        for (SystemOverview system : dr) {
-            if (system.getId().equals(new Long(serverId))) {
-                result = system;
-                // we can stop searching since server ids are unique
-                break;
-            }
-        }
-        return result;
+        Server server = lookupServer(loggedInUser, serverId);
+        Map name = new HashMap();
+        name.put("id", server.getId());
+        name.put("name", server.getName());
+        name.put("last_checkin", server.getLastCheckin());
+        return name;
     }
 
     /**
