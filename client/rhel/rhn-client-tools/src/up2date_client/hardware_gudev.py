@@ -261,6 +261,13 @@ def _get_device_desc(device):
         if vendor_id:
             usb = USB()
             result = usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID'))
+        elif device.get_devtype() == 'usb_interface':
+            if device.get_driver() == 'usbhid':
+                result = 'USB HID Interface'
+            elif device.get_driver() == 'hub':
+                result = 'USB Hub Interface'
+            else:
+                result = 'USB Interface'
     elif subsystem == 'block':
         result = device.get_property('ID_MODEL')
     if result:
