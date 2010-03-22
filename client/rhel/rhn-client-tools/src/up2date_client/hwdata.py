@@ -27,19 +27,19 @@ class USB:
         if filename:
             self.filename = filename
         else:
-            self.filename = PCI.filename
+            self.filename = USB.filename
         self.cache = 1
 
         if self.cache and not USB.devices:
             # parse usb.ids
-            usbrec = {}
             USB.devices = {}
             for line in open(self.filename).readlines():
                 l = line.split()
                 if line.startswith('#'):
-                    continue
-                elif line.starswith('# List of known device classes, subclasses and protocols'):
-                    break # end of database of devices, rest is protocols, types etc.
+                    if line.startswith('# List of known device classes, subclasses and protocols'):
+                        break # end of database of devices, rest is protocols, types etc.
+                    else:
+                        continue
                 elif len(l) == 0:
                     continue
                 elif line.startswith('\t\t'):
@@ -83,7 +83,7 @@ class USB:
         if self.cache:
             if USB.devices.has_key(vendor):
                 if USB.devices[vendor][1].has_key(device):
-                    return USB.devices[vendor][1][device]
+                    return USB.devices[vendor][1][device][0]
                 else:
                     return None
             else:
