@@ -76,10 +76,11 @@ class rpmPackage(IncompletePackage):
         self['header_start'] = header_start
         self['header_end'] = header_end
         self['last_modified'] = localtime(time.time())
-        if self['sigmd5']:
-            self['sigchecksum_type'] = 'md5'
-            self['sigchecksum'] = self['sigmd5']
-        del(self['sigmd5'])
+        if 'sigmd5' in self:
+           if self['sigmd5']:
+               self['sigchecksum_type'] = 'md5'
+               self['sigchecksum'] = self['sigmd5']
+           del(self['sigmd5'])
 
         # Fix some of the information up
         vendor = self['vendor']
