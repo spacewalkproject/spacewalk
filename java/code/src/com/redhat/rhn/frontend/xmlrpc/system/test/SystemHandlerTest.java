@@ -1040,10 +1040,15 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(server.getName(), (String)name.get("name"));
         assertNotNull(name.get("last_checkin"));
 
-        Map invalid = handler.getName(adminKey, 10001234);
-        assertTrue(null != invalid);
-        assertNull(invalid.get("id"));
-        assertNull(invalid.get("name"));
+        try {
+            Map invalid = handler.getName(adminKey, 10001234);
+            assertTrue(null != invalid);
+            assertNull(invalid.get("id"));
+            assertNull(invalid.get("name"));
+        }
+        catch (NoSuchSystemException e) {
+            // expected
+        }
     }
     
     public void testGetRegistrationDate() throws Exception {
