@@ -181,7 +181,7 @@ def _clasify_class(device):
 
     # network devices
     if base_class == PCI_BASE_CLASS_NETWORK:
-        return 'NETWORK'
+        return 'OTHER' # if set as 'NETWORK' it will not display in HW tab
 
     # input devices
     # pci
