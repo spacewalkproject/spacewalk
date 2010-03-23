@@ -33,7 +33,7 @@ def get_devices():
     # listen to uevents on all subsystems
     client = gudev.Client([""])
     # FIX ME - change to None to list all devices once it is fixed in gudev
-    devices = client.query_by_subsystem("pci") + client.query_by_subsystem("usb") + client.query_by_subsystem("block") + client.query_by_subsystem("ccw")
+    devices = client.query_by_subsystem("pci") + client.query_by_subsystem("usb") + client.query_by_subsystem("block") + client.query_by_subsystem("ccw") + client.query_by_subsystem("scsi")
     result = []
     for device in devices:
         subsystem = device.get_subsystem()
@@ -79,6 +79,11 @@ def get_devices():
             result_item['prop2'] = m.group(2) # DEV_ID
             result_item['prop3'] = m.group(3) # DEV_CHANNEL
             result_item['prop4'] = m.group(4) # DEV_LUN
+        if subsystem =='scsi':
+            if device.get_devtype =='scsi_device':
+                type = _get_scsi_dev_type(device)
+
+
         result.append(result_item)
     return result
 
@@ -237,6 +242,17 @@ def _clasify_class(device):
     elif subsystem == 'sound':
         return 'AUDIO'
 
+    if subsystem =='scsi':
+        if device.get_devtype =='scsi_device':
+            type = _get_scsi_dev_type(device)
+            if type == 0 or type == 14:
+                return 'HD'
+            elif type == 1:
+                return 'TAPE'
+            elif type == 5:
+                return 'CDROM'
+            else:
+                return 'OTHER'
     # PRINTER
     pass  #FIXME
 
@@ -293,3 +309,12 @@ def _parse_pci_class(pci_class):
     else:
         return (pci_class[-6:-4], pci_class[-4:-2])
 
+def _get_scsi_dev_type(device):
+    """ Return SCSI type of device in raw format as presented in /sys/...devpath../type """
+    try:
+        f = open("%s/type" % device.get_sysfs_path(), 'r')
+    except IOError:
+        return -1
+    result = f.readline()
+    f.close()
+    return result
