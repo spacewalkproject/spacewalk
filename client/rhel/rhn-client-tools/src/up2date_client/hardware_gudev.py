@@ -250,12 +250,12 @@ def _clasify_class(device):
 
     if subsystem =='scsi':
         if device.get_devtype =='scsi_device':
-            type = _get_scsi_dev_type(device)
-            if type == 0 or type == 14:
+            dev_type = _get_scsi_dev_type(device)
+            if dev_type == 0 or dev_type == 14:
                 return 'HD'
-            elif type == 1:
+            elif dev_type == 1:
                 return 'TAPE'
-            elif type == 5:
+            elif dev_type == 5:
                 return 'CDROM'
             else:
                 return 'OTHER'
