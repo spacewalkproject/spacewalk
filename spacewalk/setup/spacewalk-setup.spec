@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/*
 
 %changelog
+* Tue Mar 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
+- fixed packaging conflicts
+
 * Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
 - let's smile in Spacewalk 0.9
 - 566124 - spacewalk-setup-jabberd splited from spacewalk-setup
