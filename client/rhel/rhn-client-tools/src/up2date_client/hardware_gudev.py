@@ -45,6 +45,8 @@ def get_devices():
             'class':    _clasify_class(device),
             'desc':     _get_device_desc(device),
         }
+        if result_item['driver'] is None:
+            result_item['driver'] = 'unknown'
         if subsystem == 'block':
             if device.has_property('ID_BUS'):
                 result_item['bus'] = device.get_property('ID_BUS')
@@ -65,15 +67,22 @@ def get_devices():
             # result_item['prop1'] = ''
             # This is interpreted as Logical. But what to do with it?
             # result_item['prop2'] = ''
-        if result_item['driver'] is None:
-            result_item['driver'] = 'unknown'
-        if subsystem == 'pci':
+        elif subsystem == 'pci':
             pci_class = device.get_property('PCI_ID')
             if pci_class:
                 (result_item['prop1'], result_item['prop2']) = pci_class.split(':')
             pci_subsys = device.get_property('PCI_SUBSYS_ID')
             if pci_subsys:
                 (result_item['prop3'], result_item['prop4']) = pci_subsys.split(':')
+        elif subsystem =='scsi':
+            if device.get_devtype =='scsi_device':
+                type = _get_scsi_dev_type(device)
+        elif subsystem == 'usb':
+           if device.has_property('ID_VENDOR_ID'):
+                result_item['prop1'] = device.get_property('ID_VENDOR_ID')
+           if device.has_property('ID_MODEL_ID'):
+                result_item['prop2'] = device.get_property('ID_MODEL_ID')
+
         if device.has_property('ID_BUS') and device.get_property('ID_BUS') == 'scsi':
             path = device.get_property('ID_PATH')
             m = re.search('.*-scsi-(\d+):(\d+):(\d+):(\d+)', path)
@@ -81,14 +90,6 @@ def get_devices():
             result_item['prop2'] = m.group(2) # DEV_ID
             result_item['prop3'] = m.group(3) # DEV_CHANNEL
             result_item['prop4'] = m.group(4) # DEV_LUN
-        if subsystem =='scsi':
-            if device.get_devtype =='scsi_device':
-                type = _get_scsi_dev_type(device)
-        if subsystem == 'usb':
-           if device.has_property('ID_VENDOR_ID'):
-                result_item['prop1'] = device.get_property('ID_VENDOR_ID')
-           if device.has_property('ID_MODEL_ID'):
-                result_item['prop2'] = device.get_property('ID_MODEL_ID')
 
         result.append(result_item)
     return result
