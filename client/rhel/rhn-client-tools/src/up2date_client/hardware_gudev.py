@@ -74,9 +74,6 @@ def get_devices():
             pci_subsys = device.get_property('PCI_SUBSYS_ID')
             if pci_subsys:
                 (result_item['prop3'], result_item['prop4']) = pci_subsys.split(':')
-        elif subsystem =='scsi':
-            if device.get_devtype =='scsi_device':
-                type = _get_scsi_dev_type(device)
         elif subsystem == 'usb':
            if device.has_property('ID_VENDOR_ID'):
                 result_item['prop1'] = device.get_property('ID_VENDOR_ID')
