@@ -33,6 +33,7 @@ make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 %{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
+ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %dir %{rhnroot}
+%{_sbindir}/spacewalk-service
 %{_sbindir}/rhn-satellite
 %{_initrddir}/rhn-satellite
 %{_bindir}/validate-sat-cert.pl
