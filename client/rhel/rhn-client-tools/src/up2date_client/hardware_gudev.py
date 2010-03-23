@@ -83,7 +83,6 @@ def get_devices():
             if device.get_devtype =='scsi_device':
                 type = _get_scsi_dev_type(device)
 
-
         result.append(result_item)
     return result
 
@@ -94,7 +93,6 @@ def get_computer_info():
             'system.kernel.machine': 'i686'
         'system.kernel.name': 'Linux'
     """
-    #FIXME do we need to add smbios information?
     uname = os.uname()
     result = {
         'system.kernel.name': uname[0],
@@ -221,6 +219,8 @@ def _clasify_class(device):
                 return 'SCSI'
             elif sub_class == PCI_CLASS_STORAGE_RAID:
                 return 'RAID'
+            elif sub_class == PCI_CLASS_STORAGE_FLOPPY:
+                return 'FLOPPY'
         elif base_class == PCI_BASE_CLASS_COMMUNICATION and sub_class == PCI_CLASS_COMMUNICATION_MODEM:
             return 'MODEM'
         elif base_class == PCI_BASE_CLASS_INPUT and sub_class == PCI_CLASS_INPUT_SCANNER:
@@ -235,10 +235,11 @@ def _clasify_class(device):
             return 'SOCKET'
 
     if subsystem == 'block':
-        if device.has_property('ID_CDROM'):
+        if device.has_property('ID_CDROM') or (
+            device.has_property('ID_TYPE') and device.get_property('ID_TYPE') == 'cd'):
             return 'CDROM'
         else:
-            return 'HD' #FIXME had to distinguis HD, FLOPY, TAPE and flash disks
+            return 'HD'
     elif subsystem == 'sound':
         return 'AUDIO'
 
