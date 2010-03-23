@@ -255,12 +255,12 @@ def _get_device_desc(device):
     if subsystem == 'pci':
         (vendor_id, device_id) = device.get_property('PCI_ID').split(':')
         pci = PCI()
-        result = pci.get_vendor(vendor_id) + '|' + pci.get_device(vendor_id, device_id)
+        result = "%s|%s" % (pci.get_vendor(vendor_id) + '|' + pci.get_device(vendor_id, device_id))
     elif subsystem == 'usb':
         vendor_id = device.get_property('ID_VENDOR_ID')
         if vendor_id:
             usb = USB()
-            result = usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID'))
+            result = "%s|%s" % (usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID')))
         elif device.get_devtype() == 'usb_interface':
             if device.get_driver() == 'usbhid':
                 result = 'USB HID Interface'
@@ -273,7 +273,7 @@ def _get_device_desc(device):
             # left pad it with 0 to 4 digits
             vendor_id = '%.4x' % int(vendor_id, 16)
             model_id = '%.4x' % int(model_id, 16)
-            result = usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID'))
+            result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, device.get_property('ID_MODEL_ID')))
     elif subsystem == 'block':
         result = device.get_property('ID_MODEL')
     if result:
