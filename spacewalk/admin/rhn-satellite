@@ -149,6 +149,31 @@ ensure_httpd_down() {
     return 0
 }
 
+OPTS=$(getopt --longoptions=exclude: -n ${0##*/} -- e: "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$OPTS"
+
+while true ; do
+    case "$1" in
+        -e|--exclude)
+            EXCLUDE=$2
+            shift
+            SERVICES=$(while read -d " " service ; do echo ${service/$EXCLUDE}; done <<<$SERVICES)
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error!" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
 case "$1" in
     start)
 	start
