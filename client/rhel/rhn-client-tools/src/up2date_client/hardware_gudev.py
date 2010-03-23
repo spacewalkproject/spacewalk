@@ -268,6 +268,12 @@ def _get_device_desc(device):
                 result = 'USB Hub Interface'
             else:
                 result = 'USB Interface'
+        elif device.get_devtype() == 'usb_device' and device.get_property('PRODUCT'):
+            (vendor_id, model_id) = device.get_property('product').split('/')[:2]
+            # left pad it with 0 to 4 digits
+            vendor_id = '%.4x' % int(vendor_id, 16)
+            model_id = '%.4x' % int(model_id, 16)
+            result = usb.get_vendor(vendor_id) + '|' + usb.get_device(vendor_id, device.get_property('ID_MODEL_ID'))
     elif subsystem == 'block':
         result = device.get_property('ID_MODEL')
     if result:
