@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.5
+Version: 0.9.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -240,6 +240,9 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue Mar 23 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.6-1
+- 564352 - try to get from udev as much hw info as possible
+
 * Mon Mar 22 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.5-1
 - 564352 - use gudev instead of hal if gudev is present
 
