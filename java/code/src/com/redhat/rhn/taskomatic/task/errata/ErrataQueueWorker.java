@@ -50,7 +50,7 @@ class ErrataQueueWorker implements QueueWorker {
     private Long orgId;
     private TaskQueue parentQueue;
     
-    ErrataQueueWorker(Map row, Logger parentLogger) {
+    !(Map row, Logger parentLogger) {
         channelId = (Long) row.get("channel_id");
         errataId = (Long) row.get("errata_id");
         orgId = (Long) row.get("org_id");
@@ -170,8 +170,7 @@ class ErrataQueueWorker implements QueueWorker {
             for (Iterator iter = results.iterator(); iter.hasNext();) {
                 Map row = (Map) iter.next();
                 Long serverId = (Long) row.get("server_id");
-                Long tmp = (Long) row.get("org_id");
-                Long convertedOrgId = new Long(tmp.longValue());
+                Long convertedOrgId = (Long) row.get("org_id");
                 if (orgId == null) {
                     org = OrgFactory.lookupById(convertedOrgId);
                 }
