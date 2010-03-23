@@ -3269,7 +3269,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	  <child>
 	    <widget class="GtkLabel" id="label125">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">&lt;small&gt;&lt;b&gt;Tip:&lt;/b&gt; Red Hat values your privacy.&lt;/small&gt;</property>
+	      <property name="label" translatable="yes" context="yes">&lt;small&gt;&lt;b&gt;Tip:&lt;/b&gt; Red Hat values your privacy: http://www.redhat.com/legal/privacy_statement.html.&lt;/small&gt;</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3283,22 +3283,6 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="width_chars">-1</property>
 	      <property name="single_line_mode">False</property>
 	      <property name="angle">0</property>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkButton" id="privacyButton">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Red Hat Privacy Statement</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>

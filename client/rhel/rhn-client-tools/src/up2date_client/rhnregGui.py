@@ -1313,7 +1313,6 @@ class WhyRegisterDialog:
         self.whyRegisterXml.signal_autoconnect({
             "onBackToRegistrationButtonClicked" : self.finish,
         })
-        self.whyRegisterXml.get_widget("privacyButton").connect("clicked", self.showPrivacyDialog)
     
     def finish(self, button):
         self.dlg.hide()
