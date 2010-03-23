@@ -533,9 +533,6 @@ class LoginPage:
         setArrowCursor()
         return False
     
-    def showPrivacyDialog(self, button):
-        PrivacyDialog()
-
 
 def activateSubscriptionShouldBeShown():
     """If we activate an EN from disk and/or hardware info (eg asset tag) and 
@@ -1319,47 +1316,6 @@ class WhyRegisterDialog:
         self.rc = 1 # What does this do? Is it needed?
 
     
-    def showPrivacyDialog(self, button):
-        PrivacyDialog()
-
-class PrivacyDialog:
-    def __init__(self):
-        self.privXml = gtk.glade.XML(
-            gladefile,
-            "privacyDialog", domain="rhn-client-tools")
-        self.dlg = self.privXml.get_widget("privacyDialog")
-
-        self.privXml.get_widget("okButton").connect("clicked", self.finish)
-        
-        privacyArea = self.privXml.get_widget("privacyArea")
-        socket.setdefaulttimeout(5)
-        # see bz #165157
-
-        try:
-            text = callAndFilterExceptions(
-                    rhnreg.privacyText,
-                    [socket.timeout, up2dateErrors.CommunicationError],
-                    _("There was an error retrieving the privacy statement.")
-            )
-            if text is None:
-                text = ""
-        except (socket.timeout, up2dateErrors.CommunicationError), error:
-            self.dlg.hide()
-            messageWindow.ErrorDialog(_("Unable to access the server. Please "
-                "check your network settings."), parent=self.dlg)
-            log.log_me(error)
-            return None
-            
-        textBuffer = gtk.TextBuffer(None)
-        textBuffer.set_text(text)
-        privacyArea.set_buffer(textBuffer)
-
-
-    def finish(self, button):
-        self.dlg.hide()
-        self.rc = 1
-
-
 class HardwareDialog:
     def __init__(self):
         self.hwXml = gtk.glade.XML(
