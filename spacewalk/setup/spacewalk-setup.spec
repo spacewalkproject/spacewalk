@@ -65,13 +65,8 @@ install -m 0644 share/ssl.conf.6 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
-install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/jabberd
 install -m 0755 share/upgrade/* %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
-install -m 0644 share/jabberd/* %{buildroot}/%{_datadir}/spacewalk/setup/jabberd/
-
-# jabberd ssl cert location
-install -d -m 755 %{buildroot}/%{_sysconfdir}/pki/spacewalk/jabberd
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
@@ -94,13 +89,10 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
-%{_bindir}/spacewalk-setup-jabberd
 %{_bindir}/spacewalk-make-mount-points
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-%dir %{_sysconfdir}/pki/spacewalk
-%dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
 * Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
