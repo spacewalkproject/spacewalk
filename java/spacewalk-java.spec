@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.11
+Version: 0.9.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -308,7 +308,7 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
-* Tue Mar 23 2010 Justin Sherrill <jsherril@redhat.com> 0.9.11-1
+* Tue Mar 23 2010 Justin Sherrill <jsherril@redhat.com> 0.9.12-1
 - updating README (jsherril@redhat.com)
 - test case fix for SystemHandlerTest (tlestach@redhat.com)
 
