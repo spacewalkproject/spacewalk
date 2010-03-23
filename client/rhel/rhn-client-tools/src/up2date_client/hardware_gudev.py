@@ -261,6 +261,9 @@ def _clasify_class(device):
     if m:
         return 'PRINTER'
 
+    if subsystem == 'scsi':
+        return 'SCSI'
+
     # Catchall for specific devices, only do this after all the others
     if subsystem == 'pci' or subsystem == 'usb':
         return 'OTHER'
