@@ -84,6 +84,11 @@ def get_devices():
         if subsystem =='scsi':
             if device.get_devtype =='scsi_device':
                 type = _get_scsi_dev_type(device)
+        if subsystem == 'usb':
+           if device.has_property('ID_VENDOR_ID'):
+                result_item['prop1'] = device.get_property('ID_VENDOR_ID')
+           if device.has_property('ID_MODEL_ID'):
+                result_item['prop2'] = device.get_property('ID_MODEL_ID')
 
         result.append(result_item)
     return result
