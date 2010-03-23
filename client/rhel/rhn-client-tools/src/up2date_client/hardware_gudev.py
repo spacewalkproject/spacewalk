@@ -46,6 +46,8 @@ def get_devices():
             'desc':     _get_device_desc(device),
         }
         if subsystem == 'block':
+            if device.has_property('ID_BUS'):
+                result_item['bus'] = device.get_property('ID_BUS')
             result_item['device'] = device.get_name()
             if device.get_devtype() == 'partition':
                 # do not report partitions, just whole disks
