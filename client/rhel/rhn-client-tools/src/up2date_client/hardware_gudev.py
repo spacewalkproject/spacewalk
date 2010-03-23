@@ -254,7 +254,9 @@ def _clasify_class(device):
             else:
                 return 'OTHER'
     # PRINTER
-    pass  #FIXME
+    m = re.search('.*/lp\d+$', device.get_sysfs_path())
+    if m:
+        return 'PRINTER'
 
     # Catchall for specific devices, only do this after all the others
     if subsystem == 'pci' or subsystem == 'usb':
