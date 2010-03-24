@@ -37,6 +37,7 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-el
 Requires: jakarta-commons-io
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
@@ -77,6 +78,7 @@ BuildRequires: tanukiwrapper
 %if  0%{?rhel} && 0%{?rhel} < 5
 BuildRequires: javamail
 %else
+Requires: classpathx-mail
 BuildRequires: classpathx-mail
 %endif
 BuildRequires: jsp
