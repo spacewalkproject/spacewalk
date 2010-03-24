@@ -378,9 +378,6 @@ class ChooseServerPage:
             dialog.run()
             return True
 
-        if validateCaps() is True: # There was an error
-            return True
-        
         return False
 
 
@@ -1275,9 +1272,6 @@ class ProvideCertificatePage:
                 errorWindow(_("There was an SSL error. This could be because the file you picked was not a certificate file."))
                 return ERROR_WAS_HANDLED
 
-            if validateCaps() is True: # There was an error
-                return SERVER_TOO_OLD
-            
             return CERT_INSTALLED
             
         except IOError, e:
@@ -1774,17 +1768,6 @@ def hasBaseChannelAndUpdates():
     """
     global _hasBaseChannelAndUpdates
     return _hasBaseChannelAndUpdates
-
-
-def validateCaps():
-    """If the server doesn't support the needed capabilities, informs the user
-    and returns True. If it does, returns False. This is kinda backwards, but I 
-    wanted it to work the same way as most of the other calls.
-    
-    """
-    setBusyCursor()
-    setArrowCursor()
-    return False
 
 
 def setBusyCursor():
