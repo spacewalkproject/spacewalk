@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.10
+Version: 0.9.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.11-1
+- fixed Requires for tomcat6
+- test case fix for SystemHandlerTest
+
 * Mon Mar 22 2010 Tomas Lestach <tlestach@redhat.com> 0.9.10-1
 - 575796 - make system.get_name API call faster (tlestach@redhat.com)
 - 529359 - attempting to fix issue where solaris packages couldnt be installed,
