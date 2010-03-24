@@ -418,27 +418,6 @@ class InfoWindow:
                 if valid == 0:
                     continue
                 
-                # Now that we have username, look up the groups for that user
-                # if we're going against hosted.
-                if self.tui.serverType == 'hosted':
-                    orgs = rhnreg.PossibleOrgs()
-                    orgs = tui_call_wrapper(self.screen, 
-                                            rhnreg.getPossibleOrgs, 
-                                            self.userNameEntry.value(),
-                                            self.passwordEntry.value())
-
-                    if orgs == None or orgs == 0:
-                        valid = 0
-                        continue
-                    
-                    self.tui.orgs = orgs.getOrgs()
-                    self.tui.default_org = orgs.getDefaultOrg()
-
-                    if len(self.tui.orgs) > 1:
-                        self.tui.hasMultipleOrgs = 1
-                        
-                    self.tui.other['org_id'] = self.tui.default_org
-
             else:
                 break
 
