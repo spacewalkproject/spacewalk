@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.9.3
+Version:    0.9.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,6 +80,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- resigning spacewalk cert
+- 516048 - syncing java stack with perl stack on channel naming convention
+
 * Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
 - 486430 - changed organization name in default cert
 
