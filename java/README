@@ -1,7 +1,7 @@
 This tree contains the Spacewalk Java-based web component. It contains the
 web ui, business and database layer.
 
-Makefile      - NO LONGER USED, use tito available in fedora
+Makefile      - NO LONGER USED, use tito
 build.xml     - The master ant build script to compile and setup the Java stack
 buildconf     - Contains build configuration files
 code          - This contains all of the Java code
