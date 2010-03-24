@@ -154,7 +154,8 @@ while true ; do
         -e|--exclude)
             EXCLUDE=$2
             shift
-            SERVICES=$(while read -d " " service ; do echo ${service/$EXCLUDE}; done <<<$SERVICES)
+            # the space in "$SERVICE " is intentional, don't remove it 
+            SERVICES=$(while read -d " " service ; do echo ${service/$EXCLUDE}; done <<<"$SERVICES ")
             ;;
         -l|--level)
             LEVEL="--level $2"
