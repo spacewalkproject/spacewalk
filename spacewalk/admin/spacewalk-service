@@ -87,14 +87,14 @@ chkconfig() {
 }
 
 turn_on() {
-   echo "Enabling rhn-satellite services..."
+   echo "Enabling spacewalk services..."
    chkconfig on
    echo "Done"
    return 0
 }
 
 turn_off() {
-   echo "Disabling rhn-satellite services..."
+   echo "Disabling spacewalk services..."
    chkconfig off
    echo "Done"
    return 0
@@ -102,7 +102,7 @@ turn_off() {
 
 
 start() {
-        echo "Starting rhn-satellite..."
+        echo "Starting spacewalk services..."
 	forward_services start
 	echo "Done."
 
@@ -111,7 +111,7 @@ start() {
 }
 
 stop() {
-        echo "Shutting down rhn-satellite..."
+        echo "Shutting down spacewalk services..."
 	reverse_services stop
 	echo "Done."
 
@@ -192,7 +192,7 @@ case "$1" in
         start
         ;;
     *)
-        echo "Usage: rhn-satellite {start|stop|status|reload|restart|enable|disable}"
+        echo "Usage: $(basename $0) {start|stop|status|reload|restart|enable|disable}"
         exit 1
         ;;
 esac
