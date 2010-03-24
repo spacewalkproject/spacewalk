@@ -424,85 +424,6 @@ class InfoWindow:
         self.screen.popWindow()
         return button
     
-class OrgGroupWindow:
-
-    def __init__(self, screen, tui):
-        self.name = "OrgGroupWindow"
-        self.screen = screen
-        self.tui = tui
-        self.size = snack._snack.size()
-        
-
-        toplevel = snack.GridForm(screen, ORG_SELECT, 1, 4)
-        tb = snack.Textbox(self.size[0]-10, self.size[1]-15, 
-                           ORG_SELECT_PROMPT % self.tui.userName + "\n\n",
-                           wrap = 1)
-                           
-        toplevel.add(tb, 0, 0, anchorLeft = 1)    
-        
-        label = snack.Label(ORG_PROMPT)
-        toplevel.add(label, 0, 1, anchorLeft = 1)    
-        
-        buttonlist = []
-        
-        if self.tui.orgs != None:
-            for org_group_id, org_group_label in self.tui.orgs.items():
-                if org_group_id == self.tui.default_org:
-                    buttonlist.append((org_group_label, org_group_id, 1))
-                else:
-                    buttonlist.append((org_group_label, org_group_id, 0))
-
-        self.org_group_select_list = snack.RadioBar(self.screen, buttonlist)
-        toplevel.add(self.org_group_select_list, 0, 2)
-    
-        self.g = toplevel
-        
-        # BUTTON BAR
-        self.bb = snack.ButtonBar(screen,
-                                  [(NEXT, "next"),
-                                   (BACK, "back"),
-                                   (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 3, padding = (0, 1, 0, 0),
-                     growx = 1)        
-        
-    def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
-        self.tui.saw_org_window = 1
-        self.screen.refresh()
-        valid = 0
-        while not valid:
-            result = self.g.run()
-            button = self.bb.buttonPressed(result)
-
-            if result == "F12":
-                button = "next"
-
-            if button == "next":
-                valid = self.validateFields()
-            else:
-                break
-
-            if button == "next":
-                valid = self.validateFields()
-            else:
-                break
-
-        self.screen.popWindow()
-        return button        
-        
-    def validateFields(self):
-        if self.org_group_select_list.getSelection() != None:
-            return 1
-        else:
-            return 0
-
-
-    def saveResults(self):
-        self.tui.other['org_id'] = self.org_group_select_list.getSelection()
-        log.log_debug('Set org_id as %s' % self.tui.other['org_id'])
-        return 1
-
-    
 class OSReleaseWindow:
 
     def __init__(self, screen, tui):
@@ -1403,11 +1324,6 @@ class Tui:
                 log.log_debug("win.name is %s, hasMultipleOrgs is %s" % \
                               (win.name, self.hasMultipleOrgs))
                 
-                if win.name == 'OrgGroupWindow':
-                    if not self.hasMultipleOrgs:
-                        index = index + 1
-                        continue
-
                 if win.name == 'OSReleaseWindow':
                     channels = rhnreg.getAvailableChannels(self.userName, 
                                self.password)
