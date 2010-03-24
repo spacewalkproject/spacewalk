@@ -99,6 +99,12 @@ turn_off() {
    return 0
 }
 
+list() {
+   echo "Listing spacewalk services..."
+   chkconfig --list
+   echo "Done"
+   return 0
+}
 
 start() {
         echo "Starting spacewalk services..."
@@ -178,6 +184,9 @@ case "$1" in
         ;;
     disable)
         turn_off $LEVEL
+        ;;
+    list)
+        list
         ;;
     status)
 	status
