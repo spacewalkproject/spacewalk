@@ -1112,9 +1112,6 @@ class Tui:
         self.size = snack._snack.size()
         self.drawFrame()
         self.alreadyRegistered = 0
-        self.hasMultipleOrgs = 0
-        self.orgs = None
-        self.default_org = None
         try:
             self.serverType = rhnreg.getServerType()
         except up2dateErrors.InvalidProtocolError:
@@ -1321,8 +1318,6 @@ class Tui:
                 # Don't offer group selection screen if the user is not 
                 # a member of multiple groups.
                 log.log_debug("index is %s" % index)
-                log.log_debug("win.name is %s, hasMultipleOrgs is %s" % \
-                              (win.name, self.hasMultipleOrgs))
                 
                 if win.name == 'OSReleaseWindow':
                     channels = rhnreg.getAvailableChannels(self.userName, 
