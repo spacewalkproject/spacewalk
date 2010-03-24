@@ -108,7 +108,7 @@ def dmi_vendor():
     """ Return Vendor from dmidecode bios information.
         If this value could not be fetch, returns empty string.
     """
-    return get_dmi_data('/dmidecode/BIOSInfo/Vendor')
+    return get_dmi_data('/dmidecode/BIOSinfo/Vendor')
 
 def dmi_system_uuid():
     """ Return UUID from dmidecode system information.
@@ -587,13 +587,13 @@ def read_dmi():
     dmidict["board"] = get_dmi_data('/dmidecode/BaseBoardInfo/Manufacturer')
 
     # Bios Information    
-    vendor = get_dmi_data('/dmidecode/BIOSInfo/Vendor')
+    vendor = get_dmi_data('/dmidecode/BIOSinfo/Vendor')
     if vendor:
         dmidict["bios_vendor"] = vendor
-    version = get_dmi_data('/dmidecode/BIOSInfo/Version')
+    version = get_dmi_data('/dmidecode/BIOSIinfo/Version')
     if version:
         dmidict["bios_version"] = version
-    release = get_dmi_data('/dmidecode/BIOSInfo/ReleaseDate')
+    release = get_dmi_data('/dmidecode/BIOSinfo/ReleaseDate')
     if release:
         dmidict["bios_release"] = release
 
