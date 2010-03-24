@@ -34,6 +34,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "version")
  *      #prop("string", "release")
  *      #prop("string", "epoch")
+ *      #prop("string", "checksum")
+ *      #prop("string", "checksum_type")
  *      #prop("int", "id")
  *      #prop("string", "arch_label")
  *      #prop("string", "last_modified_date")
