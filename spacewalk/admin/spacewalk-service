@@ -71,12 +71,11 @@ reverse_services() {
 }
 
 chkconfig() {
-    ACTION="$1"
     RET=0
     E_STAT=0
     for service in $SERVICES; do
         if [ -e /etc/init.d/$service ]; then
-            /sbin/chkconfig $service $ACTION
+            /sbin/chkconfig $service "$@"
             E_STAT=$?
         fi
         if [ $E_STAT -ne 0 ]; then
@@ -88,14 +87,14 @@ chkconfig() {
 
 turn_on() {
    echo "Enabling spacewalk services..."
-   chkconfig on
+   chkconfig on "$@"
    echo "Done"
    return 0
 }
 
 turn_off() {
    echo "Disabling spacewalk services..."
-   chkconfig off
+   chkconfig off "$@"
    echo "Done"
    return 0
 }
@@ -138,7 +137,7 @@ ensure_httpd_down() {
     return 0
 }
 
-OPTS=$(getopt --longoptions=exclude: -n ${0##*/} -- e: "$@")
+OPTS=$(getopt --longoptions=exclude:,level: -n ${0##*/} -- e:l: "$@")
 
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 
@@ -150,6 +149,10 @@ while true ; do
             EXCLUDE=$2
             shift
             SERVICES=$(while read -d " " service ; do echo ${service/$EXCLUDE}; done <<<$SERVICES)
+            ;;
+        -l|--level)
+            LEVEL="--level $2"
+            shift
             ;;
         --)
             shift
@@ -171,10 +174,10 @@ case "$1" in
 	stop
         ;;
     enable)
-        turn_on
+        turn_on $LEVEL
         ;;
     disable)
-        turn_off
+        turn_off $LEVEL
         ;;
     status)
 	status
