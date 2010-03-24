@@ -1122,7 +1122,6 @@ class Tui:
             ConnectWindow,
             StartWindow,
             InfoWindow,
-            OrgGroupWindow,
             OSReleaseWindow,
             HardwareWindow,
             PackagesWindow,
