@@ -13,13 +13,6 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-#
-# $Id$
-
-# /etc/rc.d/init.d/rhn-satellite
-#   chkconfig: - 74 26
-#   description: start and stop the RHN Satellite Service
-
 
 
 if [ -x /etc/init.d/oracle ]; then
