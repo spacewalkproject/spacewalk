@@ -1146,13 +1146,7 @@ class Tui:
 
         if hardwareInfo is not None:
             try:
-                # Only send up org_id if it exists.
-                if self.other.has_key('org_id'):
-                    activateHWResult = rhnreg.activateHardwareInfo(
-                                           self.userName, self.password, 
-                                           hardwareInfo, self.other['org_id'])
-                else:
-                    activateHWResult = rhnreg.activateHardwareInfo(
+                activateHWResult = rhnreg.activateHardwareInfo(
                                            self.userName, self.password, 
                                            hardwareInfo)
                 if activateHWResult.getStatus() == \
