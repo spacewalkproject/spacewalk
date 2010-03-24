@@ -105,8 +105,6 @@ start() {
         echo "Starting spacewalk services..."
 	forward_services start
 	echo "Done."
-
-        touch /var/lock/subsys/rhn-satellite
         return 0
 }
 
@@ -114,8 +112,6 @@ stop() {
         echo "Shutting down spacewalk services..."
 	reverse_services stop
 	echo "Done."
-
-        rm -f /var/lock/subsys/rhn-satellite
         return 0
 }
 
