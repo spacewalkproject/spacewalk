@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 0.9.1
+Version: 0.9.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar 25 2010 Jan Pazdziora 0.9.2-1
+- channel_blacklist seems to be never used, removing
+
 * Tue Feb 23 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.1-1
 - rebuild for rhel6
 
