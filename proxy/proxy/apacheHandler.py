@@ -23,7 +23,7 @@ import base64
 import string
 from rhnConstants import *
 from rhn import rpclib, connections
-from mod_python import apache
+from common import apache
 
 ## common imports
 from common import rhnApache, rhnFlags, log_debug, log_error, CFG, \

@@ -23,7 +23,7 @@ from types import ListType, TupleType
 
 ## global imports
 from rhn import connections
-from mod_python import apache
+from common import apache
 from rhn.SSL import TimeoutException
 
 ## common imports
