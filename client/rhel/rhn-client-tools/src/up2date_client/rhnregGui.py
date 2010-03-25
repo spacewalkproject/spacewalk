@@ -326,7 +326,7 @@ class ChooseServerPage:
         # Try to contact the server to see if we have a good cert
         try:
             setBusyCursor()
-            rhnreg.privacyText()
+            rhnreg.welcomeText()
             setArrowCursor()
         except up2dateErrors.SSLCertificateVerifyFailedError:
             setArrowCursor()
@@ -1169,7 +1169,7 @@ class ProvideCertificatePage:
             up2dateConfig.save()
             # Take the new cert for a spin
             try:
-                rhnreg.privacyText()
+                rhnreg.welcomeText()
             except up2dateErrors.SSLCertificateVerifyFailedError:
                 server_url = up2dateConfig['serverURL']
                 #TODO: we could point the user to grab the cert from /pub if its sat

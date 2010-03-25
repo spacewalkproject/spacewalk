@@ -260,12 +260,6 @@ def welcomeText():
     return s.registration.welcome_message()
     
 
-def privacyText():
-    s = rhnserver.RhnServer()
-
-    return s.registration.privacy_statement()
-
-
 def finishMessage(systemId):
     s = rhnserver.RhnServer()
     return  s.registration.finish_message(systemId)
