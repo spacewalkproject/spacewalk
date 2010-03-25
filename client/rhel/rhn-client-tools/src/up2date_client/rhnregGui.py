@@ -326,7 +326,9 @@ class ChooseServerPage:
         # Try to contact the server to see if we have a good cert
         try:
             setBusyCursor()
-            rhnreg.welcomeText()
+            # get the caps info before we show the activastion page which needs the
+            # caps. _but_ we need to do this after we configure the network...
+            rhnreg.getCaps()
             setArrowCursor()
         except up2dateErrors.SSLCertificateVerifyFailedError:
             setArrowCursor()
@@ -494,9 +496,6 @@ class LoginPage:
         """Returns False if everything's ok, True if there was a problem."""
         try:
             setBusyCursor()
-            # get the caps info before we show the activastion page which needs the
-            # caps. _but_ we need to do this after we configure the network...
-            rhnreg.getCaps()
             self.alreadyRegistered = 1
             self.alreadyRegistered = rhnreg.reserveUser(self.loginUname.get_text(),
                                                         self.loginPw.get_text())
