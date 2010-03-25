@@ -89,13 +89,6 @@ EMAIL                  = _("*Email Address:")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
-# Org selection window.
-ORG_SELECT        = _("Select Organization")
-ORG_SELECT_PROMPT = _("Your login, %s, is associated with multiple "
-                      "organizations.  You will need to select an organization to connect this "
-                      "system to.")
-ORG_PROMPT        = _("Organization:")                      
-
 # Subscription window.
 SUBSCRIPTION_WINDOW     = _("Access a subscription")
 SUBSCRIPTION_INTRO      = _("Your system will need to access a subscription. "
