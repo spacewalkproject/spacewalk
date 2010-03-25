@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.9.2
+Version: 0.9.3
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Mar 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- updated proxy installer to squid 3.X
+
 * Thu Mar  4 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.2-1
 - 570431 - add option --start-services
 
