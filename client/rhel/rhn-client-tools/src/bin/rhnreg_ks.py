@@ -89,13 +89,6 @@ class RegisterKsCli(rhncli.RhnCli):
 
         rhnreg.getCaps()
         
-        if not self.options.activationkey:
-            # reserve the username
-            ret = rhnreg.reserveUser(self.options.username,
-                self.options.password)
-            rhnreg.registerUser(self.options.username, self.options.password,
-                self.options.email)
-
         if not self.options.nopackages:
             getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
