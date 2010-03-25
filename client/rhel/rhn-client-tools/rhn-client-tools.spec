@@ -221,7 +221,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/firstboot/modules/rhn_choose_server_gui.*
 %{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
 %{_datadir}/firstboot/modules/rhn_create_profile_gui.*
-%{_datadir}/firstboot/modules/rhn_choose_org_gui.*
 %{_datadir}/firstboot/modules/rhn_review_gui.*
 %{_datadir}/firstboot/modules/rhn_finish_gui.*
 
