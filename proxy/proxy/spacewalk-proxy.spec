@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.9.0
+Version: 0.9.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -298,6 +298,10 @@ fi
 
 
 %changelog
+* Thu Mar 25 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.1-1
+- 566124 - do not distribute jabber configuration file
+- user spacewalk-setup-jabberd to configure jabberd
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
 - updated copyrights
 
