@@ -21,6 +21,6 @@ FILES		= __init__ \
                   rhnSession rhnUser rhnVirtualization taskomatic
 SUBDIRS		= rhnSQL rhnServer action \
 			  handlers importlib action_extra_data \
-			  config_common repomd wsgi
+			  config_common repomd
 
 include $(TOP)/Makefile.defs

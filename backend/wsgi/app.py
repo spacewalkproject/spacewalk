@@ -14,7 +14,7 @@
 #
 #
 
-from server.wsgi import wsgiHandler
+from wsgi import wsgiHandler
 
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "non_auth_dumper", "server.satexport.internal", type='exporter')
+    return wsgiHandler.handle(environ, start_response, "app","server.app")

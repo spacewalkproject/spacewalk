@@ -14,7 +14,7 @@
 #
 #
 
-from server.wsgi import wsgiHandler
+from wsgi import wsgiHandler
 
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "config_mgmt","server.config-management-tool")
+    return wsgiHandler.handle(environ, start_response, "applet","server.applet")

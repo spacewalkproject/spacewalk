@@ -15,7 +15,7 @@
 #
 
 
-from server.wsgi import wsgiRequest
+from wsgi import wsgiRequest
 from server import apacheServer
 from server import apacheUploadServer
 from satellite_exporter import satexport

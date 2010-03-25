@@ -259,7 +259,7 @@ export PYTHON_MODULE_VERSION=%{version}
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
-rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/server/wsgi
+rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/wsgi
 %else
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
 %endif
@@ -324,6 +324,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
+# wsgi stuff
+%if !( 0%{?rhel} && 0%{?rhel} < 6)
+%dir %{rhnroot}/wsgi
+%{rhnroot}/wsgi/wsgiHandler.py*
+%{rhnroot}/wsgi/wsgiRequest.py*
+%endif
 
 %files sql
 %defattr(-,root,root)
@@ -403,20 +409,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 %else
 # wsgi stuff
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
-%dir %{rhnroot}/server/wsgi
-%{rhnroot}/server/wsgi/__init__.py*
-%{rhnroot}/server/wsgi/app.py*
-%{rhnroot}/server/wsgi/applet.py*
-%{rhnroot}/server/wsgi/config.py*
-%{rhnroot}/server/wsgi/config_tool.py*
-%{rhnroot}/server/wsgi/package_push.py*
-%{rhnroot}/server/wsgi/package_upload.py*
-%{rhnroot}/server/wsgi/sat.py*
-%{rhnroot}/server/wsgi/sat_dump.py*
-%{rhnroot}/server/wsgi/wsgiHandler.py*
-%{rhnroot}/server/wsgi/wsgiRequest.py*
-%{rhnroot}/server/wsgi/xmlrpc.py*
-%{rhnroot}/server/wsgi/xp.py*
+%{rhnroot}/wsgi/__init__.py*
+%{rhnroot}/wsgi/app.py*
+%{rhnroot}/wsgi/applet.py*
+%{rhnroot}/wsgi/config.py*
+%{rhnroot}/wsgi/config_tool.py*
+%{rhnroot}/wsgi/package_push.py*
+%{rhnroot}/wsgi/package_upload.py*
+%{rhnroot}/wsgi/sat.py*
+%{rhnroot}/wsgi/sat_dump.py*
+%{rhnroot}/wsgi/xmlrpc.py*
+%{rhnroot}/wsgi/xp.py*
 %endif
 
 # logs and other stuff

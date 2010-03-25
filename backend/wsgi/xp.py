@@ -14,7 +14,8 @@
 #
 #
 
-from server.wsgi import wsgiHandler
+
+from wsgi import wsgiHandler
 
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "package","server.upload.package", type="upload")
+    return wsgiHandler.handle(environ, start_response, "xp","server.xp")
