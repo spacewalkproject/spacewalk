@@ -414,7 +414,7 @@ sub errata_migration_provider {
     sort { ( ($tcache{$b->{CREATED}} ||= str2time($b->{CREATED}))     # order by timestamp, cached, newest
 	     <=>                                                      # first, so the oldest cloned errata
 	     ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
-	   || ( $a->{ADVISORY_NAME} cmp $b->{ADVISORY_NAME} ) }                 # a timestamp, order alphabetically
+	   || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
       grep { exists $_->{RELATIONSHIP} and $_->{RELATIONSHIP} eq 'cloned_from' } # filter out non-cloned errata
 	(@{$published_owned_errata}, @{$unpublished_owned_errata});
 
