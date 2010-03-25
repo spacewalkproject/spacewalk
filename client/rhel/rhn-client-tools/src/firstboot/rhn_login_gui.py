@@ -113,9 +113,7 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
             if ret:
                 return None
         
-        if rhnregGui.chooseOrgShouldBeShown():
-            self.parent.setPage("rhn_choose_org_gui")
-        elif rhnregGui.activateSubscriptionShouldBeShown():
+        if rhnregGui.activateSubscriptionShouldBeShown():
             self.parent.setPage("rhn_activate_gui")
         else:
             self.parent.setPage('rhn_create_profile_gui')

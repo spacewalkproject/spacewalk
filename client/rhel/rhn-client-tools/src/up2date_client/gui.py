@@ -250,9 +250,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """
         self.showedChooseOrgPage = False
         self.showedActivateSubscriptionPage = False
-        if rhnregGui.chooseOrgShouldBeShown():
-            self.druid.set_page(self.chooseOrgPage)
-        elif rhnregGui.activateSubscriptionShouldBeShown():
+        if rhnregGui.activateSubscriptionShouldBeShown():
             self.druid.set_page(self.activateSubscriptionPage)
         elif rhnregGui.chooseChannelShouldBeShown():
             self.druid.set_page(self.chooseChannelPage)
