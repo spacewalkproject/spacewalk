@@ -101,29 +101,6 @@
       </child>
 
       <child>
-	<widget class="GnomeDruidPageStandard" id="chooseOrgPage">
-	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Select organization</property>
-	  <property name="logo">shadowman-round-48.png</property>
-	  <signal name="next" handler="onChooseOrgPageNext"/>
-	  <signal name="prepare" handler="onChooseOrgPagePrepare"/>
-
-	  <child internal-child="vbox">
-	    <widget class="GtkVBox" id="chooseOrgPageVbox">
-	      <property name="border_width">16</property>
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">6</property>
-
-	      <child>
-		<placeholder/>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-      </child>
-
-      <child>
 	<widget class="GnomeDruidPageStandard" id="activateSubscriptionPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Access a subscription</property>
