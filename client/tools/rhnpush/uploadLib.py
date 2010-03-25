@@ -97,15 +97,23 @@ class UploadClass:
         self.ca_chain = None
 
     def setProxy(self):
-        self.proxy = None
+        if self.options.proxy is None or self.options.proxy is '':
+            self.proxy = None
+        else:
+            self.proxy = "http://%s" % self.options.proxy
 
     def setForce(self):
         self.force = None
 
     def setServer(self):
-        self.warn(1, "Connecting to %s" % self.url)
         # set the proxy
         self.setProxy()
+
+        if self.proxy is None:
+            self.warn(1, "Connecting to %s" % self.url)
+        else:
+            self.warn(1, "Connecting to %s (via proxy '%s')" % (self.url, self.proxy))
+
         # set the CA chain
         self.setCAchain()
         # set the proxy username and password
