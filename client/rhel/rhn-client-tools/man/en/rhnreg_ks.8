@@ -44,10 +44,6 @@ can be an existing Red Hat Network username, or a new username.
 The password associated with the username specified with the \fB--username\fR
 option. This is an unencrypted password.
 .br
-.IP "\fB--email\fP"
-The email address associated with the username specified with the \fB--username\fR
-option. 
-.br
 .IP "\fB--activationkey\fP"
 Specify/use a serial number to associate with the system. This is
 optional, but activation keys can really simplify the registration
@@ -112,7 +108,7 @@ Register a new system to Red Hat Network:
 
 .RS
 .nf
-rhnreg_ks --profilename "example_profile_name" --username "someexampleuser" --email "someexampleuser@example.com" --password "foobar"
+rhnreg_ks --profilename "example_profile_name" --username "someexampleuser" --password "foobar"
 .fi
 .RE
 
@@ -120,7 +116,7 @@ Register a new system to Red Hat Network with contact info:
 
 .RS
 .nf
-rhnreg_ks --profilename "example_profile_name" --username "someexampleuser" --email "someexampleuser@example.com" --password "foobar" --contactinfo < contactinfo
+rhnreg_ks --profilename "example_profile_name" --username "someexampleuser" --password "foobar" --contactinfo < contactinfo
 
 where the file "contactinfo" contains data in the format:
 

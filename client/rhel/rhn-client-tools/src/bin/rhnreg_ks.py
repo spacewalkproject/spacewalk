@@ -46,8 +46,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Specify a username")),
         self.optparser.add_option("--password", action="store",
             help=_("Specify a password")),
-        self.optparser.add_option("--email", action="store",
-            help=_("Specify an email address")),
         self.optparser.add_option("--systemorgid", action="store",
             help=_("Specify an organizational id for this system")),
         self.optparser.add_option("--serverUrl", action="store",
