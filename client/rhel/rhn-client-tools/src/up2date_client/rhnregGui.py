@@ -537,19 +537,6 @@ class LoginPage:
         PrivacyDialog()
 
 
-def chooseOrgShouldBeShown():
-    """Decides whether we should show the choose org page or not.
-    
-    Returns True if we're talking to hosted and the user belongs to at least 2
-    orgs. If an error occurs, it is logged and True returned. Returns False 
-    otherwise.
-    
-    This is a loose function because it's difficult to use it in firstboot 
-    where we want to without a hack if it's in ChooseOrgPage.
-    
-    """
-    return False
-
 class ChooseOrgPage:
     def __init__(self):
         self.chooseOrgXml = gtk.glade.XML(gladefile,
