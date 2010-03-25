@@ -41,8 +41,6 @@ REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 # REG_NUM_FILE is the new rhel 5 number.
 REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
-cachedOrgs = None
-
 import config
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
@@ -820,32 +818,6 @@ class PossibleOrgs:
         if self._default is None:
             raise NoDefaultError()
         return self._default
-
-def getPossibleOrgs(username, password, useCache=False):
-    """Gets the orgs the user belongs to and the default one.
-    
-    If useCache is set to true it will not talk to the server and will return 
-    the values from the most recent non-cached call. If there is nothing cached, 
-    it will get the current value from the server.
-    
-    Returns a PossibleOrgs.
-    
-    Can raise:
-    * up2dateErrors2.UnknownMethodException if called on a server that doesn't 
-      support the necessary xmlrpc (satellites won't, at least for now)
-    * The usual 'communication with a server' exceptions
-    
-    """
-    global cachedOrgs
-    if useCache and cachedOrgs is not None:
-        return cachedOrgs
-    s = rhnserver.RhnServer()
-    orgsFromServer = s.registration.get_possible_orgs(username, password)
-    cachedOrgs = PossibleOrgs()
-    cachedOrgs.setOrgs(orgsFromServer['orgs'])
-    cachedOrgs.setDefaultOrg(orgsFromServer['default_org'])
-    return cachedOrgs
-
 
 def spawnRhnCheckForUI():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
