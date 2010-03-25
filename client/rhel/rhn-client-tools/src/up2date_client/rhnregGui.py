@@ -537,57 +537,6 @@ class LoginPage:
         PrivacyDialog()
 
 
-class ChooseOrgPage:
-    def __init__(self):
-        self.chooseOrgXml = gtk.glade.XML(gladefile,
-                                          "chooseOrgWindowVbox",
-                                          domain="rhn-client-tools")
-        # self.orgsList will have the org id in the 0th column and the 
-        # org name in the 1st column.
-        self.orgsList = gtk.ListStore(gobject.TYPE_INT, gobject.TYPE_STRING)
-        self.orgsComboBox = self.chooseOrgXml.get_widget("orgsComboBox")
-        self.orgsComboBox.set_model(self.orgsList)
-        cell = gtk.CellRendererText()
-        self.orgsComboBox.pack_start(cell, True)
-        self.orgsComboBox.add_attribute(cell, 'text', 1)  
-        self.useCachedOrgs = False
-    
-    def chooseOrgPageVbox(self):
-        return self.chooseOrgXml.get_widget("chooseOrgWindowVbox")
-    
-    def chooseOrgPagePrepare(self, useCachedOrgs=False):
-        """The loose function chooseOrgShouldBeShown() should be used to find
-        out if this page should be shown or not.
-        
-        """
-        # TODO add support for args to callAndFilterExceptions and pass 
-        # useCachedOrgs as an arg
-        self.useCachedOrgs = useCachedOrgs
-        callAndFilterExceptions(
-                self._chooseOrgPagePrepare,
-                [], 
-                _("There was an error while getting the list of organizations.")
-        )
-    
-    def _chooseOrgPagePrepare(self):
-        """Functionality for chooseOrgPagePrepare but might raise exceptions."""
-        global username, password
-        setBusyCursor()
-        possibleOrgs = rhnreg.getPossibleOrgs(username, password, 
-                                               self.useCachedOrgs)
-        setArrowCursor()
-        self.orgsList.clear()
-        for orgId, orgName in possibleOrgs.getOrgs().items():
-            row = self.orgsList.append([orgId, orgName])
-            if orgId == possibleOrgs.getDefaultOrg():
-                self.orgsComboBox.set_active_iter(row)
-    
-    def chooseOrgPageApply(self):
-        global organization
-        activeIndex = self.orgsComboBox.get_active()
-        organization = self.orgsList[activeIndex][0]
-
-
 def activateSubscriptionShouldBeShown():
     """If we activate an EN from disk and/or hardware info (eg asset tag) and 
     one of them provides an entitlement for the base channel the system needs 
