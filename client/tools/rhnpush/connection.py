@@ -102,8 +102,8 @@ class BaseConnection:
 class PackageUpload:
     header_prefix = "X-RHN-Upload"
     user_agent = "rhn-package-upload"
-    def __init__(self, url):
-        self.connection = BaseConnection(url)
+    def __init__(self, url, proxy=None):
+        self.connection = BaseConnection(url, proxy)
         self.headers = {}
         self.package_name = None
         self.package_epoch = None
