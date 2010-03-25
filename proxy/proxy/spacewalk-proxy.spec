@@ -69,7 +69,11 @@ Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: httpd
 Requires: mod_ssl
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
 Requires(post): %{name}-common
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
@@ -109,7 +113,11 @@ between an Spacewalk Proxy Server and parent Spacewalk server.
 Group:   Applications/Internet
 Summary: Modules shared by Spacewalk Proxy components
 Requires: mod_ssl
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
 Obsoletes: rhns-proxy-common < 5.3.0
