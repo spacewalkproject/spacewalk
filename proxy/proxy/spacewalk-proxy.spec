@@ -165,6 +165,12 @@ install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
+%if  0%{?rhel} && 0%{?rhel} < 6
+rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
+%else
+rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-python.conf
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -277,7 +283,11 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%if  0%{?rhel} && 0%{?rhel} < 6
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
+%else
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%endif
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
