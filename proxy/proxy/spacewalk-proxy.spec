@@ -241,7 +241,6 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
-%attr(640,root,apache) %config(noreplace) %{httpdconf}/proxy_broker.conf
 
 %files redirect
 %defattr(-,root,root)
@@ -254,7 +253,6 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
-%attr(640,root,apache) %config(noreplace) %{httpdconf}/proxy_redirect.conf
 
 %files common
 %defattr(-,root,root)
@@ -278,7 +276,8 @@ fi
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn_proxy.conf
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
