@@ -769,56 +769,6 @@ def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
         raise up2dateErrors.CommunicationError(message)
 
 
-# TODO Move the PossibleOrg stuff to a seperate file
-class PossibleOrgsError(Exception):
-    pass
-class InvalidDefaultError(PossibleOrgsError):
-    pass
-class NoDefaultError(PossibleOrgsError):
-    pass
-
-class PossibleOrgs:
-    def __init__(self):
-        self._orgs = {}
-        self._default = None
-    
-    def setOrgs(self, orgsDict):
-        """orgsDict must be a dict of org ids (as ints or strings that contain 
-        ints) to org names (as strings).
-        
-        """
-        self._orgs = {}
-        for id, name in orgsDict.items():
-            self._orgs[int(id)] = name
-        self._default = None
-    
-    def setDefaultOrg(self, orgId):
-        """Must refer to org that's already been added. Can be an int or string
-        containing an int.
-        
-        """
-        if int(orgId) not in self._orgs.keys():
-            raise InvalidDefaultError("Tried to set default org to %s. Valid "
-                                      "values are %s" % (orgId, self._orgs.keys()))
-        self._default = int(orgId)
-    
-    def getOrgs(self):
-        """Returns a dict of org ids (ints) to org names (strings). Can return
-        an empty dict.
-        
-        """
-        return self._orgs
-    
-    def getDefaultOrg(self):
-        """Returns the org id (int) of the default org.
-        Raises NoDefaultError if setDefaultOrg was never called or wasn't called
-        after setOrgs.
-        
-        """
-        if self._default is None:
-            raise NoDefaultError()
-        return self._default
-
 def spawnRhnCheckForUI():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
         from subprocess import Popen, PIPE
