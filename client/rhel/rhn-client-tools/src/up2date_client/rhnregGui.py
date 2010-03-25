@@ -548,21 +548,7 @@ def chooseOrgShouldBeShown():
     where we want to without a hack if it's in ChooseOrgPage.
     
     """
-    global organization
-    organization = None
-    try:
-        setBusyCursor()
-        possibleOrgs = rhnreg.getPossibleOrgs(username, password)
-        setArrowCursor()
-        if len(possibleOrgs.getOrgs()) < 2:
-            return False
-    except:
-        setArrowCursor()
-        log.log_me("There was an exception while trying to get the list of orgs"
-                   " to determine whether or not to show the choose org screen:")
-        log.log_exception(*sys.exc_info())
-        return False
-    return True
+    return False
 
 class ChooseOrgPage:
     def __init__(self):
