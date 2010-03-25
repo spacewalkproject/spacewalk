@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.12
+Version: 0.9.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -626,6 +626,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.13-1
+- moved mod_wsgi stuff from spacewalk-backend-server to spacewalk-backend
+- added tomcat6 to satelite-debug
+
 * Mon Mar 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.12-1
 - 571413 - fixed source rpackage push
 - fixing wsgi error handling
