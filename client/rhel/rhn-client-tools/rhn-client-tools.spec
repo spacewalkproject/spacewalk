@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.6
+Version: 0.9.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -239,6 +239,15 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu Mar 25 2010 Jan Pazdziora 0.9.7-1
+- Code cleanup.
+- 575127 - fix typo in dmidecode key (msuchy@redhat.com)
+- Changing the default networkRetries from 5 to 1 (so no retries).
+- do not use reserved word type (msuchy@redhat.com)
+- remove dead code (msuchy@redhat.com)
+- group test on subsystem together, to create more readable code
+  (msuchy@redhat.com)
+
 * Tue Mar 23 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.6-1
 - 564352 - try to get from udev as much hw info as possible
 
