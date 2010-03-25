@@ -357,8 +357,13 @@ SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100
 
 ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
 /usr/bin/spacewalk-setup-jabberd --macros "hostname:$HOSTNAME"
-sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
-        < $DIR/squid.conf  > $SQUID_DIR/squid.conf
+SQUID_REWRITE="s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g;"
+SQUID_VER_MAJOR=$(squid -v | awk -F'[ .]' '/Version/ {print $4}')
+if [ $SQUID_VER_MAJOR -ge 3 ] ; then
+    # squid 3.X has acl 'all' built-in
+    SQUID_REWRITE="$SQUID_REWRITE s/^acl all.*//;"
+fi
+sed "$SQUID_REWRITE" < $DIR/squid.conf  > $SQUID_DIR/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
 	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
 	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
