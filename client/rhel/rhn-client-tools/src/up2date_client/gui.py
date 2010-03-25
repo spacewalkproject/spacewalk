@@ -43,7 +43,7 @@ import rhnregGui
 
 
 class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
-                rhnregGui.ChooseOrgPage, rhnregGui.ActivateSubscriptionPage,
+                rhnregGui.ActivateSubscriptionPage,
                 rhnregGui.ReviewSubscriptionPage, rhnregGui.CreateProfilePage,
                 rhnregGui.ProvideCertificatePage, rhnregGui.FinishPage,
                 rhnregGui.ChooseChannelPage):
@@ -61,8 +61,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onChooseServerPageNext" : self.onChooseServerPageNext,
               "onLoginPagePrepare" : self.onLoginPagePrepare,
               "onLoginPageNext" : self.onLoginPageNext,
-              "onChooseOrgPagePrepare" : self.onChooseOrgPagePrepare,
-              "onChooseOrgPageNext" : self.onChooseOrgPageNext,
               "onActivateSubscriptionPagePrepare" : self.onActivateSubscriptionPagePrepare,
               "onActivateSubscriptionPageBack" : self.onActivateSubscriptionPageBack,
               "onActivateSubscriptionPageNext" : self.onActivateSubscriptionPageNext,
@@ -84,7 +82,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         rhnregGui.StartPage.__init__(self)
         rhnregGui.ChooseServerPage.__init__(self)
         rhnregGui.LoginPage.__init__(self)
-        rhnregGui.ChooseOrgPage.__init__(self)
         rhnregGui.ActivateSubscriptionPage.__init__(self)
         rhnregGui.ChooseChannelPage.__init__(self)
         rhnregGui.CreateProfilePage.__init__(self)
@@ -101,9 +98,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         container.pack_start(contents, True)
         contents = self.loginPageVbox()
         container = self.xml.get_widget("loginPageVbox")
-        container.pack_start(contents, True)
-        contents = self.chooseOrgPageVbox()
-        container = self.xml.get_widget("chooseOrgPageVbox")
         container.pack_start(contents, True)
         contents = self.activateSubscriptionPageVbox()
         container = self.xml.get_widget("linkToSubscriptionPageVbox")
@@ -127,7 +121,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.initProfile = False
         self.oemInfo = {}
         self.productInfo = {}
-        self.showedChooseOrgPage = False
         self.showedActivateSubscriptionPage = False
 
         self.druid = self.xml.get_widget("druid")
@@ -142,7 +135,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.provideCertificatePage = self.xml.get_widget("provideCertificatePage")
         self.activateSubscriptionPage = \
                                 self.xml.get_widget("activateSubscriptionPage")
-        self.chooseOrgPage = self.xml.get_widget("chooseOrgPage")
         self.loginPage = self.xml.get_widget("loginPage")
         self.chooseChannelPage = self.xml.get_widget("chooseChannelPage")
         self.createProfilePage = self.xml.get_widget("createProfilePage")
@@ -248,7 +240,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
-        self.showedChooseOrgPage = False
         self.showedActivateSubscriptionPage = False
         if rhnregGui.activateSubscriptionShouldBeShown():
             self.druid.set_page(self.activateSubscriptionPage)
@@ -258,27 +249,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.druid.set_page(self.createProfilePage)
 
 
-    def onChooseOrgPagePrepare(self, page, dummy):
-        self.showedChooseOrgPage = True
-        self.chooseOrgPagePrepare(useCachedOrgs=True)
-
-    def onChooseOrgPageNext(self, page, dummy):
-        self.chooseOrgPageApply()
-        if rhnregGui.activateSubscriptionShouldBeShown():
-            self.druid.set_page(self.activateSubscriptionPage)
-        else:
-            self.druid.set_page(self.createProfilePage)
-        return True
-
     def onActivateSubscriptionPagePrepare(self, page, dummy):
         self.showedActivateSubscriptionPage = True
         self.activateSubscriptionPagePrepare()
 
     def onActivateSubscriptionPageBack(self, page, dummy):
-        if self.showedChooseOrgPage:
-            self.druid.set_page(self.chooseOrgPage)
-        else:
-            self.druid.set_page(self.loginPage)
+        self.druid.set_page(self.loginPage)
         return True
 
     def onActivateSubscriptionPageNext(self, page, dummy):
@@ -294,8 +270,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onChooseChannelPageBack(self, page, dummy):
         if self.showedActivateSubscriptionPage == True:
             self.druid.set_page(self.activateSubscriptionPage)
-        elif self.showedChooseOrgPage == True:
-            self.druid.set_page(self.chooseOrgPage)
         else:
             self.druid.set_page(self.loginPage)
 
