@@ -327,6 +327,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # wsgi stuff
 %if !( 0%{?rhel} && 0%{?rhel} < 6)
 %dir %{rhnroot}/wsgi
+%{rhnroot}/wsgi/__init__.py*
 %{rhnroot}/wsgi/wsgiHandler.py*
 %{rhnroot}/wsgi/wsgiRequest.py*
 %endif
@@ -409,7 +410,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %else
 # wsgi stuff
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
-%{rhnroot}/wsgi/__init__.py*
 %{rhnroot}/wsgi/app.py*
 %{rhnroot}/wsgi/applet.py*
 %{rhnroot}/wsgi/config.py*
