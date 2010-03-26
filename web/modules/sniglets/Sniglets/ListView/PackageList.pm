@@ -1541,15 +1541,19 @@ sub profile_comparison_provider {
   foreach my $row (@$delta) {
     if ($row->{S1}->{EVR_ID} and not $row->{S2}->{EVR_ID}) {
       $row->{RPM_COMPARISON} = "$other_name only";
+      $row->{ARCH} = $row->{S1}->{ARCH};
     }
     elsif ($row->{S2}->{EVR_ID} and not $row->{S1}->{EVR_ID}) {
       $row->{RPM_COMPARISON} = "This system only";
+      $row->{ARCH} = $row->{S2}->{ARCH};
     }
     elsif ($row->{COMPARISON} < 0) {
       $row->{RPM_COMPARISON} = "This system newer";
+      $row->{ARCH} = $row->{S2}->{ARCH};
     }
     elsif ($row->{COMPARISON} > 0) {
       $row->{RPM_COMPARISON} = "$other_name newer";
+      $row->{ARCH} = $row->{S1}->{ARCH};
     }
     $row->{SYSTEM_PACKAGE_EVR} = $row->{S2}->{EVR} || '&#160;';
     $row->{PROFILE_PACKAGE_EVR} = $row->{S1}->{EVR} || '&#160;';
@@ -1605,20 +1609,23 @@ sub snapshot_comparison_provider {
   foreach my $row (@$delta) {
     if ($row->{S1}->{EVR_ID} and not $row->{S2}->{EVR_ID}) {
       $row->{RPM_COMPARISON} = "$snapshot_label only";
+      $row->{ARCH} = $row->{S1}->{ARCH};
     }
     elsif ($row->{S2}->{EVR_ID} and not $row->{S1}->{EVR_ID}) {
       $row->{RPM_COMPARISON} = "Current profile only";
+      $row->{ARCH} = $row->{S2}->{ARCH};
     }
     elsif ($row->{COMPARISON} < 0) {
       $row->{RPM_COMPARISON} = "Current profile newer";
+      $row->{ARCH} = $row->{S2}->{ARCH};
     }
     elsif ($row->{COMPARISON} > 0) {
       $row->{RPM_COMPARISON} = "$snapshot_label newer";
+      $row->{ARCH} = $row->{S1}->{ARCH};
     }
     $row->{CURRENT_PACKAGE_EVR} = $row->{S2}->{EVR} || '&#160;';
     $row->{SNAPSHOT_PACKAGE_EVR} = $row->{S1}->{EVR} || '&#160;';
-
-    $row->{ID} = $row->{NAME_ID};
+    $row->{SNAPSHOT_PACKAGE_EVR} = $row->{S1}->{EVR} || '&#160;';
   }
 
   $delta = [ sort { lc $a->{NAME} cmp lc $b->{NAME} } @{$delta} ];

@@ -639,11 +639,11 @@ sub delta_canonical_lists_hashref {
   my %s2_names;
 
   foreach my $pkg (@$s1) {
-    $s1_names{$pkg->{NAME_ID}} = $pkg;
+    $s1_names{$pkg->{NAME_ID}."|".$pkg->{ARCH}} = $pkg;
   }
 
   foreach my $pkg (@$s2) {
-    $s2_names{$pkg->{NAME_ID}} = $pkg;
+    $s2_names{$pkg->{NAME_ID}."|".$pkg->{ARCH}} = $pkg;
   }
 
   my @names;
@@ -662,14 +662,16 @@ sub delta_canonical_lists_hashref {
 	       EPOCH   => $s1_names{$_}->{EPOCH},
 	       ERRATA  => $s1_names{$_}->{ERRATA},
 	       VERSION => $s1_names{$_}->{VERSION},
-	       RELEASE => $s1_names{$_}->{RELEASE}
+	       RELEASE => $s1_names{$_}->{RELEASE},
+         ARCH    => $s1_names{$_}->{ARCH},
 	     },
        S2 => { EVR_ID  => $s2_names{$_}->{EVR_ID},
 	       EVR     => $s2_names{$_}->{EVR},
 	       EPOCH   => $s2_names{$_}->{EPOCH},
 	       ERRATA  => $s2_names{$_}->{ERRATA},
 	       VERSION => $s2_names{$_}->{VERSION},
-	       RELEASE => $s2_names{$_}->{RELEASE}
+	       RELEASE => $s2_names{$_}->{RELEASE},
+         ARCH    => $s2_names{$_}->{ARCH},
 	     },
        COMPARISON => 0
      }) } @names;

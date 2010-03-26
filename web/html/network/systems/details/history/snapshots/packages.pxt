@@ -44,9 +44,10 @@ Snapshot - RPM Packages</h2>
     </formvars>
 
     <column name="Package" label="name" align="left" width="40%" sort_by="1"/>
-    <column name="Current Version" label="current_package_evr" align="center" width="15%" />
-    <column name="Snapshot Version" label="snapshot_package_evr" align="center" width="15%" />
-    <column name="Difference" label="rpm_comparison" align="left" width="30%" />
+    <column name="Architecture" label="arch" align="left" width="10%" />
+    <column name="Current Version" label="current_package_evr" align="center" width="10%" />
+    <column name="Snapshot Version" label="snapshot_package_evr" align="center" width="10%" />
+    <column name="Difference" label="rpm_comparison" align="left" width="20%" />
 </rhn-listview>
 
 
