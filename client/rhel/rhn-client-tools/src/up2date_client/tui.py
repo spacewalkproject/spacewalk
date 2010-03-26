@@ -235,45 +235,6 @@ class WhyRegisterWindow:
         return button
     
 
-class TermsAndConditionsWindow:
-    def __init__(self, screen, tui):
-        self.name = "TermsAndConditionsWindow"
-        self.screen = screen
-        self.tui = tui
-        size = snack._snack.size()
-        toplevel = snack.GridForm(screen, TERMS_AND_CONDS_WINDOW,
-                                  1, 2)
-
-        try:
-            text = """ \n\n\n This is a sample Terms and Conditions. \n\n\n"""
-            print "#FIXME"
-            # text  = rhnreg.termsAndConditions()
-            tb = snack.Textbox(size[0]-10, size[1]-14, text, 1)
-        except up2dateErrors.CommunicationError, e:
-            FatalErrorWindow(screen, e.errmsg)
-
-        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
-
-        self.bb = snack.ButtonBar(screen,
-                                  [(NEXT, "next"),
-                                   (BACK, "back"),
-                                   (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 1, growx = 1)
-        self.g = toplevel
-        
-    def saveResults(self):
-        pass
-
-    def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
-        self.screen.refresh()
-        result = self.g.runOnce()
-        button = self.bb.buttonPressed(result)
-
-        if result == "F12":
-            return "next"
-        return button
-    
 class InfoWindow:
 
     def __init__(self, screen, tui):
