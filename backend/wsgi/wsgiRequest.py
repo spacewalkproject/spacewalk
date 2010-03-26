@@ -28,7 +28,7 @@ class WsgiRequest:
         self.headers_in = env
         self.path_info = env['PATH_INFO']
         self.start_response = start_response
-        self.unparsed_uri = env['REQUEST_URI']
+        self.uri = self.unparsed_uri = env['REQUEST_URI']
         self.server = WsgiServer(env['SERVER_NAME'], env['SERVER_PORT'])
         self.connection = WsgiConnection(env['REMOTE_ADDR'])
         self.options = {}

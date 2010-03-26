@@ -325,9 +325,12 @@ class SharedHandler:
         # Put the headers into the output connection object
         http_connection = self.responseContext.getConnection()
         for (k, vals) in hdrs.items():
-            if string.lower(k) == 'host':
-                # Filtering this header, the connection object takes care of
-                # it
+            if string.lower(k) in ['content_length', 'content_type']:
+               # mod_wsgi modifies incoming headers so we have to transform them back
+               k = k.replace('_','-')
+            if not (string.lower(k)[:2] == 'x-' or
+                    string.lower(k) in ['content-length', 'user-agent', 'content-type']):
+                # filter out header we don't want to send
                 continue
             if type(vals) not in (ListType, TupleType):
                 vals = [vals]
