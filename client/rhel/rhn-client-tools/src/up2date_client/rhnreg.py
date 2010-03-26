@@ -588,7 +588,7 @@ def sendHardware(systemId, hardwareList):
    
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
-    if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
+    if not cfg['supportsExtendedPackageProfile'] == 2:
         # for older satellites and hosted - convert to old format
         packageList = convertPackagesFromHashToList(packageList)
     s.registration.add_packages(systemId, packageList)
