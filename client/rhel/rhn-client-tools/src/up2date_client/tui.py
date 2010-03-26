@@ -50,11 +50,6 @@ def RecoverableErrorWindow(screen, errmsg):
     snack.ButtonChoiceWindow(screen, RECOVERABLE_ERROR, "%s" % errmsg,
                              [OK])
 
-def WarningWindow(screen, errmsg):
-    snack.ButtonChoiceWindow(screen, WARNING, "%s" % errmsg,
-                             [OK])
-    screen.finish()
-    
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
                              CONFIRM_QUIT_SURE + "\n" + \
