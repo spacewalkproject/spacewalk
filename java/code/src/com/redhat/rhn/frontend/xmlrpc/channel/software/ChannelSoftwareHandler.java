@@ -1987,4 +1987,32 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
     }
 
+    /**
+     * List the children of a channel
+     * @param sessionKey the session key
+     * @param channelLabel the channel label
+     * @return list of channel id's and labels
+     *
+     * @xmlrpc.doc List the children of a channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the channel")
+     * @xmlrpc.returntype
+     *      #array()
+     *          string
+     *          string
+     *      #array_end()
+     *
+     */
+
+    public List<Channel> listChildren(String sessionKey, String channelLabel) {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+
+//        DataResult dr = ChannelFactory.getAccessibleChildChannels(chan, loggedInUser);
+//        return dr.toArray();
+        return ChannelFactory.getAccessibleChildChannels(chan, loggedInUser);
+    }
+
 }
