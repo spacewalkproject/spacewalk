@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.12
+Version: 0.9.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,20 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 26 2010 Justin Sherrill <jsherril@redhat.com> 0.9.13-1
+- 576301, 576314 - fixing issues where auto-apply of errata was applying even
+  for systems that did not need the errata and was being scheduled multiple
+  times for systems (once for every channel that contained that errata)
+  (jsherril@redhat.com)
+- changing cobbler call to use automated user since it could go through
+  taskomatic (jsherril@redhat.com)
+- API to list API (tlestach@redhat.com)
+- 559693 - fixing apidoc (tlestach@redhat.com)
+- 559693 - allow channel.software.listAllPackages to return the checksum
+  (colin.coe@gmail.com)
+- added packages no more automaticaly required in tomcat6
+  (michael.mraka@redhat.com)
+
 * Fri Mar 26 2010 Tomas Lestach <tlestach@redhat.com> 0.9.12-1
 - API to list API (tlestach@redhat.com)
 - 559693 - fixing apidoc (tlestach@redhat.com)
