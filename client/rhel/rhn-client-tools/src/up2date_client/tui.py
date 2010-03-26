@@ -393,6 +393,12 @@ class OSReleaseWindow:
             log.log_debug("Server does not support EUS, skipping OSReleaseWindow")
             raise WindowSkipException()
 
+        self.available_channels = rhnreg.getAvailableChannels(
+	                tui.userName, tui.password)
+        if len(self.available_channels['channels']) < 1:
+            log.log_debug("No available EUS channels, skipping OSReleaseWindow")
+            raise WindowSkipException()
+
         self.name = "OSReleaseWindow"
         self.screen = screen
         self.tui = tui
@@ -425,9 +431,6 @@ class OSReleaseWindow:
         self.channelList = snack.Listbox(self.size[1]-22, 1, 
 	                         width = self.size[0]-10)
         toplevel.add(self.channelList, 0, 5)
-
-        self.available_channels = rhnreg.getAvailableChannels(
-	                self.tui.userName, self.tui.password)
 
         for key, value in self.available_channels['channels'].items():
             if key in self.available_channels['receiving_updates']:
@@ -1286,17 +1289,6 @@ class Tui:
                 # a member of multiple groups.
                 log.log_debug("index is %s" % index)
                 
-                if win.name == 'OSReleaseWindow':
-                    channels = rhnreg.getAvailableChannels(self.userName, 
-                               self.password)
-                    # If user is not entitled to eus channels or 
-                    # if no eus channels are available skip the
-                    # choose channel screen
-                    channels = channels['channels']
-                    if not rhnreg.server_supports_eus() or len(channels) < 1:
-                        index = index + 1
-                        continue
-
                 result = win.run()
 
                 if result == "back":
