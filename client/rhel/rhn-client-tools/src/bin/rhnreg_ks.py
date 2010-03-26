@@ -136,7 +136,8 @@ class RegisterKsCli(rhncli.RhnCli):
                     self.options.password, profilename, other = other)
         except (up2dateErrors.AuthenticationTicketError,
                 up2dateErrors.RhnUuidUniquenessError,
-                up2dateErrors.CommunicationError), e:
+                up2dateErrors.CommunicationError,
+                up2dateErrors.AuthenticationOrAccountCreationError), e:
             print "%s" % e.errmsg
             sys.exit(1)
  
