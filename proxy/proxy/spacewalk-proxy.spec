@@ -167,6 +167,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
 %if  0%{?rhel} && 0%{?rhel} < 6
 rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
+rm -rfv $RPM_BUILD_ROOT%{rhnroot}/wsgi/
 %else
 rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-python.conf
 %endif
@@ -287,6 +288,8 @@ fi
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
 %else
 %attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%{rhnroot}/wsgi/xmlrpc.py*
+%{rhnroot}/wsgi/xmlrpc_redirect.py*
 %endif
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
