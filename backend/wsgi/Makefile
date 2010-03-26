@@ -1,6 +1,6 @@
 # Makefile for the wsgi module
 
-TOP    = ../..
+TOP    = ..
 
 SUBDIR = wsgi
 
