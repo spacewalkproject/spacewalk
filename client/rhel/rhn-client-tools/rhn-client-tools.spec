@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.7
+Version: 0.9.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -239,6 +239,11 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Mar 26 2010 Jan Pazdziora 0.9.8-1
+- Check the capability in cfg (uses cached value).
+- Remove --email and --subscription options from rhnreg_ks.
+- No longer use rhnreg.reserveUser nor rhnreg.registerUser in rhnreg_ks.
+
 * Thu Mar 25 2010 Jan Pazdziora 0.9.7-1
 - Code cleanup.
 - 575127 - fix typo in dmidecode key (msuchy@redhat.com)
