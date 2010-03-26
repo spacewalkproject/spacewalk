@@ -1197,7 +1197,6 @@ class Tui:
         self.read_reg_num = None
 
         self.saw_sub_window = 0
-        self.saw_org_window = 0
 
     def _activate_IN_on_disk(self, inst_num):
         # Activate the #
@@ -1339,9 +1338,6 @@ class Tui:
                         # If we saw the sub window, go back 1
                         if self.saw_sub_window == 1:
                             index = index - 1
-                        # Else, if we saw the org window, go back 2
-                        elif self.saw_org_window == 1:
-                            index = index - 2
                         # Else, we must not have seen either go back 3
                         else:
                             index = index - 4
@@ -1349,9 +1345,6 @@ class Tui:
                     elif win.name == 'OSReleaseWindow':
                         if self.saw_sub_window == 1:
                             index = index - 1
-                        # Else, if we saw the org window, go back 2
-                        elif self.saw_org_window == 1:
-                            index = index - 2
                         # Else, we must not have seen either go back 3
                         else:
                             index = index - 3                        
