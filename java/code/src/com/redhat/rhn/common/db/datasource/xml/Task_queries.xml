@@ -146,14 +146,12 @@ SELECT DISTINCT
     
     
 <mode name="errataqueue_find_autoupdate_servers">
-  <query params="errata_id">
+  <query params="errata_id, channel_id">
 SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
-  FROM rhnServer S
- WHERE EXISTS (SELECT 1 FROM rhnChannelErrata CE, rhnServerChannel SC
-                       WHERE CE.errata_id = :errata_id
-                         AND SC.channel_id = CE.channel_id
-                         AND SC.server_id = S.id)
+  FROM rhnServer S inner join rhnServerChannel SC on S.id = SC.server_id
+ WHERE SC.channel_id = :channel_id and 
+ 			EXISTS (SELECT 1 FROM rhnServerNeededView SNV where SNV.server_id = S.id and SNV.errata_id = :errata_id)
  AND EXISTS 
    (SELECT 1 FROM rhnServerFeaturesView SFV WHERE 
     SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')

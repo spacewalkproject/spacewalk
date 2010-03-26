@@ -21,6 +21,8 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionStatus;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
@@ -64,7 +66,14 @@ class ErrataQueueWorker implements QueueWorker {
             ActionStatus queuedStatus = lookupQueuedStatus();
             try {
                 Errata errata = loadErrata();
-                scheduleAutoUpdates(errata, queuedStatus);
+                Channel channel = ChannelFactory.lookupById(channelId);
+                if (errata == null || channel == null) {
+                    logger.error("Either errata or channel is null, " +
+                    		"skipping ErrataQueue. (" + errataId + ", " + channelId + ")");
+                }
+                else {
+                    scheduleAutoUpdates(errata, queuedStatus, channel);    
+                }
             }
             catch (Exception e) {
                 logger.error("Errata: " + errataId + ", Org Id: " + orgId, e);
@@ -140,7 +149,7 @@ class ErrataQueueWorker implements QueueWorker {
     }
         
     private void scheduleAutoUpdates(Errata errata, 
-                ActionStatus queuedStatus) throws Exception {
+                ActionStatus queuedStatus, Channel chan) throws Exception {
         logger.debug("Scheduling auto updates for " + errata.getAdvisoryName() + "(" + 
                 errata.getId() + ")");
         String desc = errata.getAdvisory() + " - " + errata.getSynopsis();
@@ -149,6 +158,7 @@ class ErrataQueueWorker implements QueueWorker {
             SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                     TaskConstants.TASK_QUERY_ERRATA_QUEUE_FIND_AUTOUPDATE_SERVERS);
             Map params = new HashMap();
+            params.put("channel_id", chan.getId());
             params.put("errata_id", errata.getId());
             List results = select.execute(params);
             if (results == null || results.size() == 0) {
