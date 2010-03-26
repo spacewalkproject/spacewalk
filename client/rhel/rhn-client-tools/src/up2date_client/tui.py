@@ -1364,9 +1364,6 @@ class Tui:
                     if ConfirmQuitWindow(self.screen) == 1:
                         return
                     
-                    # if we returned from the window, increment the index
-                    # index = index + 1
-                    
                 elif result == "next":
                     index = index + 1
                     win.saveResults()
