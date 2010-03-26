@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.11
+Version: 0.9.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 26 2010 Tomas Lestach <tlestach@redhat.com> 0.9.12-1
+- API to list API (tlestach@redhat.com)
+- 559693 - fixing apidoc (tlestach@redhat.com)
+- 559693 - allow channel.software.listAllPackages to return the checksum
+  (colin.coe@gmail.com)
+
 * Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.11-1
 - fixed Requires for tomcat6
 - test case fix for SystemHandlerTest
