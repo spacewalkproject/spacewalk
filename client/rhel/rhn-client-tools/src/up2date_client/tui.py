@@ -802,7 +802,7 @@ class FinishWindow:
 
         # send the data
         try:
-            rhnreg.registerUser(tui.userName, tui.password, tui.email)
+            rhnreg.registerUser(tui.userName, tui.password)
         except up2dateErrors.CommunicationError, e:
             FatalErrorWindow(self.screen, _("Problem registering login name:\n") + e.errmsg)
         except:
@@ -1126,7 +1126,6 @@ class Tui:
     def initResults(self):
         self.userName = ""
         self.password = ""
-        self.email = ""
 
         self.oemInfo = {}
         self.productInfo = {
