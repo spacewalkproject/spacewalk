@@ -46,10 +46,6 @@ def FatalErrorWindow(screen, errmsg):
     screen.finish()
     sys.exit(1)
     
-def RecoverableErrorWindow(screen, errmsg):
-    snack.ButtonChoiceWindow(screen, RECOVERABLE_ERROR, "%s" % errmsg,
-                             [OK])
-
 def ConfirmQuitWindow(screen):
     button = snack.ButtonChoiceWindow(screen, CONFIRM_QUIT,
                              CONFIRM_QUIT_SURE + "\n" + \
