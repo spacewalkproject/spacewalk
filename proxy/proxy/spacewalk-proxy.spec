@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.9.2
+Version: 0.9.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -319,7 +319,7 @@ fi
 
 
 %changelog
-* Mon Mar 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
+* Mon Mar 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
 - modified to use mod_wsgi on Fedora 11 and 12
 
 * Thu Mar 25 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.1-1
