@@ -248,76 +248,51 @@ class InfoWindow:
         size = snack._snack.size()
 
         toplevel = snack.GridForm(screen, REGISTER_WINDOW, 1, 12)
- 
+
         # Satellite
         if self.tui.serverType == 'satellite':
-            label = snack.Textbox(size[0]-10, 3,
-                                  LOGIN_PROMPT % self.server, 
-                                  scroll = 0, wrap = 1)
-            toplevel.add(label, 0, 0, anchorLeft = 1)
-
-            grid = snack.Grid(2, 3)
-
-            label = snack.Label(LOGIN) 
-            grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
-                          anchorRight = 1)
-
-            self.userNameEntry = snack.Entry(20)
-            self.userNameEntry.set(tui.userName)
-            grid.setField(self.userNameEntry, 1, 0, anchorLeft = 1)
-
-            label = snack.Label(PASSWORD)
-            grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
-                          anchorRight = 1)
-
-            try:
-                self.passwordEntry = snack.Entry(20, password = 1)
-            except TypeError:
-                self.passwordEntry = snack.Entry(20, hidden = 1)
-            self.passwordEntry.set(tui.password)
-            grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
-
-            toplevel.add(grid, 0, 3)
-
-            label = snack.TextboxReflowed(size[0]-10, LOGIN_TIP)
-            toplevel.add(label, 0, 4, anchorLeft=1)
-
-            # BUTTON BAR
-            self.bb = snack.ButtonBar(screen,
-                                      [(NEXT, "next"),
-                                       (BACK, "back"),
-                                       (CANCEL, "cancel")])
+            login_prompt = LOGIN_PROMPT % self.server
+            login_label = LOGIN
+            login_tip = LOGIN_TIP
 
         # Hosted
         else:
-            label = snack.TextboxReflowed(size[0]-10,HOSTED_LOGIN_PROMPT)
-            toplevel.add(label, 0, 0, anchorLeft = 1)
+            login_prompt = HOSTED_LOGIN_PROMPT
+            login_label = HOSTED_LOGIN
+            login_tip = HOSTED_LOGIN_TIP
 
-            grid = snack.Grid(2, 3)
 
-            label = snack.Label(HOSTED_LOGIN)
-            grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
+        label = snack.Textbox(size[0]-10, 3,
+                                  login_prompt,
+                                  scroll = 0, wrap = 1)
+
+        toplevel.add(label, 0, 0, anchorLeft = 1)
+
+        grid = snack.Grid(2, 3)
+
+        label = snack.Label(login_label)
+        grid.setField(label, 0, 0, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
-            self.userNameEntry = snack.Entry(20)
-            self.userNameEntry.set(tui.userName)
-            grid.setField(self.userNameEntry, 1, 0, anchorLeft = 1)
+        self.userNameEntry = snack.Entry(20)
+        self.userNameEntry.set(tui.userName)
+        grid.setField(self.userNameEntry, 1, 0, anchorLeft = 1)
 
-            label = snack.Label(PASSWORD)
-            grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
+        label = snack.Label(PASSWORD)
+        grid.setField(label, 0, 1, padding = (0, 0, 1, 0),
                           anchorRight = 1)
 
-            try:
-                self.passwordEntry = snack.Entry(20, password = 1)
-            except TypeError:
-                self.passwordEntry = snack.Entry(20, hidden = 1)
-            self.passwordEntry.set(tui.password)
-            grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
+        try:
+            self.passwordEntry = snack.Entry(20, password = 1)
+        except TypeError:
+            self.passwordEntry = snack.Entry(20, hidden = 1)
+        self.passwordEntry.set(tui.password)
+        grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
 
-            toplevel.add(grid, 0, 3)
-            
-            label = snack.TextboxReflowed(size[0]-10, HOSTED_LOGIN_TIP)
-            toplevel.add(label, 0, 4, anchorLeft=1)
+        toplevel.add(grid, 0, 3)
+
+        label = snack.TextboxReflowed(size[0]-10, login_tip)
+        toplevel.add(label, 0, 4, anchorLeft=1)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
