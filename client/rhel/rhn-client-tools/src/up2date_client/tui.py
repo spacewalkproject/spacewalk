@@ -92,6 +92,11 @@ def tui_call_wrapper(screen, func, *params):
         
     return results
 
+class WindowSkipException:
+
+    def __init__(self):
+        pass
+
 class ConnectWindow:
 
     def __init__(self, screen, tui):
@@ -383,6 +388,11 @@ class InfoWindow:
 class OSReleaseWindow:
 
     def __init__(self, screen, tui):
+
+        if not rhnreg.server_supports_eus():
+            log.log_debug("Server does not support EUS, skipping OSReleaseWindow")
+            raise WindowSkipException()
+
         self.name = "OSReleaseWindow"
         self.screen = screen
         self.tui = tui
@@ -1256,19 +1266,22 @@ class Tui:
         log.log_debug("Running %s" % self.__class__.__name__)
         self.initResults()
         
+        direction = "forward"
+
         try:
             index = 0
             while index < len(self.windows):
 
-                # check if we support eus before calling the instance
-                if self.windows[index].__name__ == 'OSReleaseWindow':
-                    if not rhnreg.server_supports_eus():
-                        log.log_debug("skipping osrelease window")
+                win = None
+                try:
+                    win = self.windows[index](self.screen, self)
+                except WindowSkipException:
+                    if direction == "forward":
                         index = index + 1
-                        continue
+                    else:
+                        index = index - 1
+                    continue
 
-                win = self.windows[index](self.screen, self)
-                    
                 # Don't offer group selection screen if the user is not 
                 # a member of multiple groups.
                 log.log_debug("index is %s" % index)
@@ -1306,6 +1319,8 @@ class Tui:
                             index = index - 3                        
                     else:
                         index = index - 1
+
+                    direction = "backward"
                 elif result == "cancel":
                     log.log_debug("Caught a cancel request")
                     
@@ -1316,6 +1331,7 @@ class Tui:
                 elif result == "next":
                     index = index + 1
                     win.saveResults()
+                    direction = "forward"
 
         finally:
             self.screen.finish()
