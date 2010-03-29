@@ -17,4 +17,6 @@
 from wsgi import wsgiHandler
 
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "broker","proxy.broker", "proxy")
+    return wsgiHandler.handle(environ, start_response,
+                              "broker", "proxy.broker",
+                              "proxy.apacheServer")

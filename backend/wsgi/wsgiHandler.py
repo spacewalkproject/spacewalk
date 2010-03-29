@@ -19,7 +19,7 @@ from wsgi import wsgiRequest
 
 from common import log_debug
 
-def handle(environ, start_response, server, component_type, type="normal"):
+def handle(environ, start_response, server, component_type, type="server.apacheServer"):
     #wsgi seems to capitalize incoming headers and add HTTP- to the front :/
     # so we strip out the first 5 letters, and transform it into what we want.
     replacements = {'_':'-', 'Rhn':'RHN', 'Md5Sum':'MD5sum', 'Xml':'XML'}
@@ -64,18 +64,6 @@ def handle(environ, start_response, server, component_type, type="normal"):
     return req.output
 
 def get_handle(type, name, init=0):
-    if type == 'upload':
-        from server import apacheUploadServer
-        return apacheUploadServer.HandlerWrap(name)
-    #the sat export module doesn't provide a nice server module
-    elif type == 'exporter':
-        from satellite_exporter import satexport
-        return satexport.HandlerWrap(name)
-    elif type == 'proxy':
-        from proxy import apacheServer
-        return apacheServer.HandlerWrap(name, init=init)
-    else:
-        from server import apacheServer
-        return apacheServer.HandlerWrap(name, init=init)
-
+    handler_module = __import__(type, globals(), locals(), ['HandlerWrap'])
+    return handler_module.HandlerWrap(name, init)
 

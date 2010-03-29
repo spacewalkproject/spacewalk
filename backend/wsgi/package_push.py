@@ -17,4 +17,6 @@
 from wsgi import wsgiHandler
 
 def application(environ, start_response):
-    return wsgiHandler.handle(environ, start_response, "package_push","server.upload.package-push", type="upload")
+    return wsgiHandler.handle(environ, start_response,
+                              "package_push", "server.upload.package-push",
+                              "server.apacheUploadServer")
