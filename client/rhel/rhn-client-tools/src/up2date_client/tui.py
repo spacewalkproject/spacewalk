@@ -1132,31 +1132,6 @@ class Tui:
 
         self.saw_sub_window = 0
 
-    def _activate_IN_on_disk(self, inst_num):
-        # Activate the #
-        # Only send up org_id if it exists.
-        try:
-            if self.other.has_key('org_id'):
-                self.activate_result = \
-                             rhnreg.activateRegistrationNumber(
-                             self.userName, self.password, 
-                             inst_num,
-                             self.other['org_id'])
-            else:
-                self.activate_result = \
-                             rhnreg.activateRegistrationNumber(
-                             self.userName, self.password, 
-                             inst_num)
-
-            if self.activate_result.getStatus() == \
-               rhnreg.ActivationResult.ACTIVATED_NOW:
-                self.activated_now = 1
-
-        except up2dateErrors.InvalidRegistrationNumberError:
-            self.invalid_num_on_disk = 1
-        except up2dateErrors.NotEntitlingError:
-            self.non_entitling_num_on_disk = 1
- 
     def _activate_hardware(self):
 
         # Read the asset code from the hardware.
