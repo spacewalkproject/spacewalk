@@ -70,7 +70,7 @@ def get_handle(type, name, init=0):
     #the sat export module doesn't provide a nice server module
     elif type == 'exporter':
         from satellite_exporter import satexport
-        return getattr(satexport, name)
+        return satexport.HandlerWrap(name)
     elif type == 'proxy':
         from proxy import apacheServer
         return apacheServer.HandlerWrap(name, init=init)
