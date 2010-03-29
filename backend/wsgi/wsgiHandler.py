@@ -16,9 +16,6 @@
 
 
 from wsgi import wsgiRequest
-from server import apacheServer
-from server import apacheUploadServer
-from satellite_exporter import satexport
 
 from common import log_debug
 
@@ -68,11 +65,17 @@ def handle(environ, start_response, server, component_type, type="normal"):
 
 def get_handle(type, name, init=0):
     if type == 'upload':
+        from server import apacheUploadServer
         return apacheUploadServer.UploadHandlerWrap(name)
     #the sat export module doesn't provide a nice server module
     elif type == 'exporter':
+        from satellite_exporter import satexport
         return getattr(satexport, name)
+    elif type == 'proxy':
+        from proxy import apacheServer
+        return apacheServer.HandlerWrap(name, init=init)
     else:
+        from server import apacheServer
         return apacheServer.HandlerWrap(name, init=init)
 
 
