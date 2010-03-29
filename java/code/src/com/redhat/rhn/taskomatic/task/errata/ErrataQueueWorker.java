@@ -69,7 +69,7 @@ class ErrataQueueWorker implements QueueWorker {
                 Channel channel = ChannelFactory.lookupById(channelId);
                 if (errata == null || channel == null) {
                     logger.error("Either errata or channel is null, " +
-                    		"skipping ErrataQueue. (" + errataId + ", " + channelId + ")");
+                            "skipping ErrataQueue. (" + errataId + ", " + channelId + ")");
                 }
                 else {
                     scheduleAutoUpdates(errata, queuedStatus, channel);    
