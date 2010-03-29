@@ -921,55 +921,7 @@ class ReviewWindow:
     
         # Build up the review_window_text based on the data in self.reg_info
         review_window_text = REVIEW_WINDOW_PROMPT + "\n\n"
-        
-        if self.tui.other['registration_number'] and \
-           not self.tui.non_entitling_num_on_disk and \
-           not self.tui.invalid_num_on_disk:
-            review_window_text += SUBSCRIPTIONS + "\n"
 
-            # Test if we successfully activated an installation number
-            if self.tui.activate_result.getStatus() == \
-               rhnreg.ActivationResult.ACTIVATED_NOW:
-                
-                # Say we activated the #, and what it activated.
-                review_window_text += SUB_NUM % \
-                                      self.tui.other['registration_number'] + "\n\n"
-
-                channels = self.tui.activate_result.getChannelsActivated()
-                system_slots = self.tui.activate_result.getSystemSlotsActivated()
-                log.log_debug('channels is %s' % channels)
-                log.log_debug('slots is %s' % system_slots)
-
-                seen = 0
-                text = ""
-                for channel in channels.keys():
-                    seen = 1
-                    text += channel + _(", quantity:") + \
-                            str(channels[channel]) + "\n"
-
-                for system_slot in system_slots.keys():
-                    seen = 1
-                    text += system_slot + _(", quantity:") + \
-                            str(system_slots[system_slot]) + "\n"
-
-                if seen:
-                    review_window_text += SUB_NUM_RESULT + "\n\n"
-                    review_window_text += text + "\n\n"
-
-            # This is the case where we read the num from disk and it was
-            # already activated.
-            elif self.tui.activate_result.getStatus() == \
-                 rhnreg.ActivationResult.ALREADY_USED and \
-                 self.tui.read_reg_num:
-                  review_window_text += INST_NUM_ON_DISK + "\n\n"
-
-        elif self.tui.read_reg_num and len(self.tui.read_reg_num) > 0 and \
-             not self.tui.non_entitling_num_on_disk and \
-             not self.tui.invalid_num_on_disk:
-            # If we get here, it means we read a # off disk, but it wasn't a
-            # valid num
-            review_window_text += INST_NUM_ON_DISK_NA + "\n\n"
-            
         # Create and add the text for what channels the system was
         # subscribed to.
         if len(self.reg_info['channels']) > 0:
