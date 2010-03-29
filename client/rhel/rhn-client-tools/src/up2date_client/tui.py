@@ -800,18 +800,6 @@ class FinishWindow:
         self.pwin.draw()
         self.screen.refresh()
 
-        # send the data
-        try:
-            rhnreg.registerUser(tui.userName, tui.password)
-        except up2dateErrors.CommunicationError, e:
-            FatalErrorWindow(self.screen, _("Problem registering login name:\n") + e.errmsg)
-        except:
-            log.log_exception(*sys.exc_info())
-            FatalErrorWindow(self.screen, _("Problem registering login name."))
-
-        self.setScale(1, 5)
-
-
         reg_info = None
         try:
             # reg_info dict contains: 'system_id', 'channels', 
@@ -849,7 +837,7 @@ class FinishWindow:
             FatalErrorWindow(self.screen, 
                              _("Problem writing out system id to disk."))
 
-        self.setScale(2, 5)
+        self.setScale(1, 4)
 
         # include the info from the oeminfo file as well
         self.oemInfo = rhnreg.getOemInfo()
@@ -881,7 +869,7 @@ class FinishWindow:
                     log.log_exception(*sys.exc_info())
                     FatalErrorWindow(self.screen, _("Problem registering personal information"))
 
-        self.setScale(3, 5)
+        self.setScale(2, 4)
 
         # maybe upload hardware profile
         if tui.includeHardware:
@@ -895,7 +883,7 @@ class FinishWindow:
                 FatalErrorWindow(self.screen,
                                  _("Problem sending hardware profile."))
 
-        self.setScale(4, 5)
+        self.setScale(3, 4)
 
         # build up package list if necessary
         if tui.includePackages:
@@ -914,7 +902,7 @@ class FinishWindow:
             FatalErrorWindow(self.screen, e)
 
         rhnreg.spawnRhnCheckForUI() 
-        self.setScale(5, 5)
+        self.setScale(4, 4)
         
         # Review Window
         rw = ReviewWindow(self.screen, self.tui, reg_info)
