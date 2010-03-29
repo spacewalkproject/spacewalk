@@ -1059,30 +1059,17 @@ class Tui:
             "country" : "",
            }
 
-        self.activate_result = {}           
-        self.invalid_num_on_disk = 0
         self.other = {} 
         self.other['registration_number'] = ''
         
         self.profileName = ""
         self.includeHardware = 1
-        self.hostname = ""
-        self.ip = ""
-        self.cpu = ""
-        self.speed = 0
-        self.ram = ""
-        self.os_release = ""
-        self.activated_now = 0
-        self.non_entitling_num_on_disk = 0
         
         self.limited_updates_button = 1
         self.all_updates_button = 0
         self.includePackages = 0
         self.packageList = []
         self.selectedPackages = []
-        self.read_reg_num = None
-
-        self.saw_sub_window = 0
 
     def _activate_hardware(self):
 
@@ -1106,7 +1093,6 @@ class Tui:
                     self.other['registration_number'] = \
                         activateHWResult.getRegistrationNumber()
                     rhnreg.writeHWCode(self.other['registration_number'])
-                    self.activated_now = 1
             except up2dateErrors.NotEntitlingError:
                 log.log_debug('There are are no entitlements associated '
                               'with this hardware.')
