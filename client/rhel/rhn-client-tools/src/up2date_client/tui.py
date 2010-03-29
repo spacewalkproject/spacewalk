@@ -1292,27 +1292,11 @@ class Tui:
                 result = win.run()
 
                 if result == "back":
-
-                    # hardware window
-                    if win.name == 'HardwareWindow': # and self.alreadyRegistered:
-
-                        # If we saw the sub window, go back 1
-                        if self.saw_sub_window == 1:
-                            index = index - 1
-                        # Else, we must not have seen either go back 3
-                        else:
-                            index = index - 4
-
-                    elif win.name == 'OSReleaseWindow':
-                        if self.saw_sub_window == 1:
-                            index = index - 1
-                        # Else, we must not have seen either go back 3
-                        else:
-                            index = index - 3                        
-                    else:
+                    if index > 0:
                         index = index - 1
 
                     direction = "backward"
+
                 elif result == "cancel":
                     log.log_debug("Caught a cancel request")
                     
