@@ -777,6 +777,9 @@ class FinishWindow:
 
         reg_info = None
         try:
+            if self.tui.serverType == 'hosted':
+                self.tui._activate_hardware()
+
             # reg_info dict contains: 'system_id', 'channels', 
             # 'failed_channels', 'slots', 'failed_slots'
             log.log_debug('other is %s' % str(self.tui.other))
@@ -1189,44 +1192,6 @@ class Tui:
             except up2dateErrors.InvalidRegistrationNumberError:
                 log.log_debug('The hardware id was not recognized as valid.')
 
-    def _show_subscription_window(self):
-
-        if self.serverType == 'hosted':
-            self._activate_hardware()
-
-        # Read the IN # off disk.
-        self.read_reg_num = rhnreg.readRegNum()
-        if self.read_reg_num != None and len(self.read_reg_num) > 0:
-            if self.serverType == 'hosted':
-                self._activate_IN_on_disk(self.read_reg_num)
-            else:
-                self.non_entitling_num_on_disk = 1
-            # Save the read reg num as the installation number for this
-            # registration.
-            self.other['registration_number'] = self.read_reg_num
-
-        log.log_debug('server type is %s' % self.serverType)
-
-        # Don't show the subscription window if we have
-        # subscriptions available.
-        try: 
-            subs = rhnreg.getRemainingSubscriptions(self.userName,
-                self.password)
-        except up2dateErrors.NoBaseChannelError, e:
-            subs = 0
-
-        log.log_debug('subs is %s' % subs)
-
-        # -1 is infinite
-        if int(subs) != 0:
-            log.log_debug('we still have subscriptions %s' % str(subs))
-
-            # bz442930 : Should allow registration when login and password is changed
-            return False
-        else:
-            return True
-
-        
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
         self.initResults()
