@@ -55,9 +55,6 @@ WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
                           "http://www.redhat.com/legal/privacy_statement.html")
 BACK_REGISTER         = _("Take me back to the setup process.")
 
-# Privacy Window
-TERMS_AND_CONDS_WINDOW = _("Review the Red Hat Network Terms And Conditions")
-
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software update setup unsuccessful")
 CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Network? "
@@ -89,24 +86,6 @@ EMAIL                  = _("*Email Address:")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
-# Subscription window.
-SUBSCRIPTION_WINDOW     = _("Access a subscription")
-SUBSCRIPTION_INTRO      = _("Your system will need to access a subscription. "
-                            "This will allow you to keep your system updated, secure, and supported.")
-SUBSCRIPTION_INFO       = _("You have no active subscriptions available in your "
-                            "account.  You will need to do one of the following to create an active " 
-                            "subscription in your account before this system can connect to "
-                            "Red Hat Network:")
-SUBSCRIPTION_CHOICE1    = _("Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-                            "Your RHN > Subscription Management > System Entitlements.")
-SUBSCRIPTION_CHOICE2    = _("Purchase an additional Red Hat Enterprise Linux subscription at "
-                            "http://www.redhat.com/store/.")
-SUBSCRIPTION_CHOICE3    = _("Activate a new subscription with an installation number:")
-SUBSCRIPTION_CHOICE3_ALT    = _("You have already activated this "
-                                "installation number during this registration.")
-ENTITLEMENT_NUM_PROMPT  = _("Installation Number:")
-ENTITLEMENT_NUM_EXAMPLE = _("Example: XXXX-XXXX-XXXX-XXXX")
-
 # Send Window
 SEND_WINDOW             = _("We are finished collecting information for the System Profile.\n\n"
                             "Press \"Next\" to send this System Profile to Red Hat Network.  "
@@ -129,7 +108,6 @@ FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
 # Review Window
 REVIEW_WINDOW           = _("Review system subscription details")
 REVIEW_WINDOW_PROMPT    = _("Please review the subscription details below:")
-SUBSCRIPTIONS           = _("Subscriptions Activated:")
 SUB_NUM                 = _("The installation number %s was activated during "
                             "this system's initial connection to Red Hat Network.")
 SUB_NUM_RESULT          = _("Subscriptions have been activated for the following "
@@ -234,15 +212,9 @@ INST_NUM_ON_DISK        = _("A subscription-activating installation number was f
                             "active subscription slots available in the rhn account instead. You may wish "
                             "to contact Red Hat customer service regarding this issue: "
                             "http://www.redhat.com/apps/support/")
-INST_NUM_ON_DISK_NA     = _("A installation number was found on disk, but we " +
-                            "were not able to activate it (An unknown error occurred.) We used existing " +
-                            "active subscription slots available in the rhn account instead. You may wish " +
-                            "to contact Red Hat customer service regarding this issue: " +
-                            "http://www.redhat.com/apps/support/")
 
 # Error Messages.
 FATAL_ERROR                = _("Fatal Error")
-RECOVERABLE_ERROR          = _("Error")
 WARNING                    = _("Warning")
 HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Network Server.\n\n"
                                "Double check the location provided - is '%s' correct?\n"
