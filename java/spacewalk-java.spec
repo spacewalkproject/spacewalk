@@ -281,7 +281,7 @@ fi
 %config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 %{realcobsnippetsdir}/spacewalk
-%attr(755, apache, root) %{_var}/satellite/systemlogs
+%attr(755, tomcat, root) %{_var}/satellite/systemlogs
 %ghost %attr(644, tomcat, root) %{_var}/satellite/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic

@@ -108,14 +108,8 @@ print Spacewalk::Setup::loc("* Performing initial configuration.\n");
 my $config_opts = populate_initial_configs(\%opts, \%answers);
 mkdir_mount_points($config_opts->{'mount_point'},
 	$config_opts->{'mount_point'} . '/redhat',
-	$config_opts->{'mount_point'} . '/systemlogs',
 	$config_opts->{'kickstart_mount_point'});
 setup_sudoers(\%opts, \%answers);
-
-my $aurev_fn = $config_opts->{'mount_point'} . '/systemlogs/audit-review.log';
-qx(touch $aurev_fn);
-qx(chown tomcat $aurev_fn);
-qx(chattr +a $aurev_fn);
 
 print Spacewalk::Setup::loc("* Activating $product_name.\n");
 load_satellite_certificate(\%opts, \%answers);
