@@ -46,18 +46,6 @@ cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 
 
-def validateEmail(email):
-    ret = 1
-
-    if len(email) < 6:
-        ret = 0
-    if not email.find("@") > 0:
-        ret = 0
-    if not email.find(".") > 0:
-        ret = 0
-
-    return ret
-
 def startRhnsd():
     # successful registration.  Try to start rhnsd if it isn't running.
     if os.access("/usr/sbin/rhnsd", os.R_OK|os.X_OK):
