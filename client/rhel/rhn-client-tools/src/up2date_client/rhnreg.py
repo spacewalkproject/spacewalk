@@ -41,6 +41,8 @@ REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
 # REG_NUM_FILE is the new rhel 5 number.
 REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
+HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
+
 import config
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
@@ -133,6 +135,10 @@ def writeSystemId(systemId):
         removeSystemRegisterRemindFile()
     
     return res
+
+def writeHWCode(hw_activation_code):
+    """Returns True if the write is successful or False if it fails."""
+    return _write_secure_file(HW_CODE_FILE, hw_activation_code + '\n')
 
 def writeRegNum(regNum):
     """Returns True if the write is successful or False if it fails."""

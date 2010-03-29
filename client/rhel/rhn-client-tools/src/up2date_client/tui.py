@@ -1184,7 +1184,7 @@ class Tui:
                    rhnreg.ActivationResult.ACTIVATED_NOW:
                     self.other['registration_number'] = \
                         activateHWResult.getRegistrationNumber()
-                    rhnreg.writeRegNum(self.other['registration_number'])
+                    rhnreg.writeHWCode(self.other['registration_number'])
                     self.activated_now = 1
             except up2dateErrors.NotEntitlingError:
                 log.log_debug('There are are no entitlements associated '
