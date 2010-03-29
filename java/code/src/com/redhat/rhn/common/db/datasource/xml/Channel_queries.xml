@@ -1155,7 +1155,7 @@ GROUP BY C.id, C.name
 
 <mode name="channel_errata_packages" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="eid, cid">
-  SELECT  P.id, CS.checksum, CS.checksum_type checksumType,
+  SELECT  P.id, CS.checksum, CS.checksum_type checksum_type,
 	   PN.name || '-' || PE.version
 	       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)
 	       || '-' || PA.label name
