@@ -1285,8 +1285,6 @@ class Tui:
                         index = index - 1
                     continue
 
-                # Don't offer group selection screen if the user is not 
-                # a member of multiple groups.
                 log.log_debug("index is %s" % index)
                 
                 result = win.run()
