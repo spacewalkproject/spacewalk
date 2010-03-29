@@ -24,7 +24,7 @@ from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnFlags
 from server import apacheServer, rhnImport
 
-class UploadHandlerWrap(apacheServer.HandlerWrap):
+class HandlerWrap(apacheServer.HandlerWrap):
     def get_handler_factory(self, req):
         return UploadHandler
 
@@ -146,7 +146,7 @@ Error Class Info: %s
         string.rstrip(exception.arrayText))
 
 ### Instantiate external entry points:
-HeaderParserHandler = UploadHandlerWrap("headerParserHandler", init=1)
-Handler             = UploadHandlerWrap("handler")
-CleanupHandler      = UploadHandlerWrap("cleanupHandler")
-LogHandler          = UploadHandlerWrap("logHandler")
+HeaderParserHandler = HandlerWrap("headerParserHandler", init=1)
+Handler             = HandlerWrap("handler")
+CleanupHandler      = HandlerWrap("cleanupHandler")
+LogHandler          = HandlerWrap("logHandler")

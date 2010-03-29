@@ -66,7 +66,7 @@ def handle(environ, start_response, server, component_type, type="normal"):
 def get_handle(type, name, init=0):
     if type == 'upload':
         from server import apacheUploadServer
-        return apacheUploadServer.UploadHandlerWrap(name)
+        return apacheUploadServer.HandlerWrap(name)
     #the sat export module doesn't provide a nice server module
     elif type == 'exporter':
         from satellite_exporter import satexport
