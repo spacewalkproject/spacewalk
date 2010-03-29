@@ -279,13 +279,9 @@ def reserveUser(username, password):
     return s.registration.reserve_user(username, password)
 
 
-def registerUser(username, password, email = None):
+def registerUser(username, password):
     s = rhnserver.RhnServer()
-
-    if not email == None:
-        s.registration.new_user(username, password, email)
-    else:
-        s.registration.new_user(username, password)
+    s.registration.new_user(username, password)
 
 
 class RegistrationResult:
