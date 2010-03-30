@@ -638,7 +638,6 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
-            <form-property name="pwdChanged" type="java.lang.String" />
         </form-bean>                                                
 
         <form-bean name="kickstartScriptForm"

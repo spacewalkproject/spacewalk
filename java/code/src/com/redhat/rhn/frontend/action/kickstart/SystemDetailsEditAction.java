@@ -50,7 +50,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemDetailsEditAction extends RhnAction {
 
     public static final String SE_LINUX_PARAM = "selinuxMode";
-    private static final String PWD_CHANGED_PARAM = "pwdChanged";
 
     /**
      * {@inheritDoc}
@@ -121,11 +120,6 @@ public class SystemDetailsEditAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         KickstartData ksdata = lookupKickstart(ctx, dynaForm);
         request.setAttribute("ksdata", ksdata);
-        
-        if (StringUtils.isBlank(dynaForm.getString(PWD_CHANGED_PARAM))) {
-            dynaForm.set("rootPassword", null);
-            dynaForm.set("rootPasswordConfirm", null);
-        }        
 
         try {
             transferEdits(dynaForm, ksdata, ctx);
@@ -199,9 +193,9 @@ public class SystemDetailsEditAction extends RhnAction {
 
     private void transferRootPasswordEdits(DynaActionForm form,
             SystemDetailsCommand command) {
-        if (!StringUtils.isBlank(form.getString(PWD_CHANGED_PARAM))) {
-            String rootPw = form.getString("rootPassword");
-            String rootPwConfirm = form.getString("rootPasswordConfirm");
+        String rootPw = form.getString("rootPassword");
+        String rootPwConfirm = form.getString("rootPasswordConfirm");
+        if (!StringUtils.isBlank(rootPw) || !StringUtils.isBlank(rootPwConfirm)) {
             command.updateRootPassword(rootPw, rootPwConfirm);
         }
     }

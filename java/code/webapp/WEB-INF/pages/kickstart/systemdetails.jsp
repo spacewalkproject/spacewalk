@@ -23,11 +23,6 @@
 			toEnable.value = toDisable.value;
 			toDisable.value = "";
 		}
-		
-		function flagPassword() {
-		   var pwdChanged = document.getElementById("pwdChanged");
-		   pwdChanged.value = "true";
-		}
 
         // Workaround for apparent Firefox bug. See Red Hat Bugzilla #459411.
         function init() {
@@ -61,7 +56,6 @@ boolean staticIfDisabled = Boolean.valueOf(
   <html:form method="post" action="/kickstart/SystemDetailsEdit.do">
     <html:hidden property="ksid" />
     <html:hidden property="submitted" />
-    <html:hidden property="pwdChanged" styleId="pwdChanged" />
     <h2><bean:message key="kickstart.systemdetails.jsp.header1"/></h2>
     <c:if test="${not ksdata.legacyKickstart}">
       <h2><bean:message key="kickstart.systemdetails.jsp.header2"/></h2>
@@ -95,11 +89,11 @@ boolean staticIfDisabled = Boolean.valueOf(
     <table class="details">
       <tr>
         <th><bean:message key="kickstart.root.password.jsp.label" />:</th>
-        <td><html:password property="rootPassword" maxlength="32" size="32" onchange="flagPassword(); return true;"/></td>
+        <td><html:password property="rootPassword" maxlength="32" size="32" redisplay="false"/></td>
       </tr>
       <tr>
         <th><bean:message key="kickstart.root.password.verify.jsp.label" />:</th>
-        <td><html:password property="rootPasswordConfirm" maxlength="32" size="32" onchange="flagPassword(); return true;"/></td>
+        <td><html:password property="rootPasswordConfirm" maxlength="32" size="32" redisplay="false"/></td>
       </tr>      
       <tr>
         <td align="right" colspan="2">
