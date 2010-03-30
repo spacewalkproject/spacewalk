@@ -290,7 +290,7 @@ class InfoWindow:
         
         size = snack._snack.size()
 
-        toplevel = snack.GridForm(screen, REGISTER_WINDOW, 1, 12)
+        toplevel = snack.GridForm(screen, REGISTER_WINDOW, 1, 4)
 
         # Satellite
         if self.tui.serverType == 'satellite':
@@ -332,10 +332,10 @@ class InfoWindow:
         self.passwordEntry.set(tui.password)
         grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
 
-        toplevel.add(grid, 0, 3)
+        toplevel.add(grid, 0, 1)
 
         label = snack.TextboxReflowed(size[0]-10, login_tip)
-        toplevel.add(label, 0, 4, anchorLeft=1)
+        toplevel.add(label, 0, 2, anchorLeft=1)
 
         # BUTTON BAR
         self.bb = snack.ButtonBar(screen,
@@ -343,7 +343,7 @@ class InfoWindow:
                                    (BACK, "back"),
                                    (CANCEL, "cancel")])
 
-        toplevel.add(self.bb, 0, 8, padding = (0, 1, 0, 0),
+        toplevel.add(self.bb, 0, 3, padding = (0, 1, 0, 0),
                  growx = 1)
 
 
