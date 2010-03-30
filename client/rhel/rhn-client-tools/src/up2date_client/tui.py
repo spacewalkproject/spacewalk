@@ -425,12 +425,12 @@ class OSReleaseWindow:
         self.selectChannel = False
  
         toplevel = snack.GridForm(self.screen, 
-	                 _("Select Operating System Release"), 1, 10)
+	                 _("Select Operating System Release"), 1, 7)
         self.g = toplevel
 
         self.ostext = snack.TextboxReflowed(self.size[0]-10, 
 	                    _("Operating System version:"))
-        toplevel.add(self.ostext, 0, 1, anchorLeft = 1)
+        toplevel.add(self.ostext, 0, 0, anchorLeft = 1)
         optiontext1 = _("Limited Updates Only")
 
         if self.tui.limited_updates_button:
@@ -440,15 +440,15 @@ class OSReleaseWindow:
             self.limited_updates_button = snack.SingleRadioButton(optiontext1,
                                                 None)
 
-        toplevel.add(self.limited_updates_button, 0, 2, padding = (0, 1, 0, 1),
+        toplevel.add(self.limited_updates_button, 0, 1, padding = (0, 1, 0, 1),
                      anchorLeft = 1)
 
         self.sublabel = snack.Label(_(" Minor Release: "))
-        toplevel.add(self.sublabel, 0, 4, anchorLeft = 1)
+        toplevel.add(self.sublabel, 0, 2, anchorLeft = 1)
 
         self.channelList = snack.Listbox(self.size[1]-22, 1, 
 	                         width = self.size[0]-10)
-        toplevel.add(self.channelList, 0, 5)
+        toplevel.add(self.channelList, 0, 3)
 
         for key, value in self.available_channels['channels'].items():
             if key in self.available_channels['receiving_updates']:
@@ -456,7 +456,7 @@ class OSReleaseWindow:
             self.channelList.append(" " + value, key)
 
         self.tip = snack.TextboxReflowed(self.size[0]-10, CHANNEL_PAGE_TIP)
-        toplevel.add(self.tip, 0, 6, anchorLeft = 1)
+        toplevel.add(self.tip, 0, 4, anchorLeft = 1)
 
         optiontext2 = _("All available updates")
 
@@ -467,7 +467,7 @@ class OSReleaseWindow:
             self.all_updates_button = snack.SingleRadioButton(optiontext2, 
                                             self.limited_updates_button)
             
-        toplevel.add(self.all_updates_button, 0, 7, padding = (0, 0, 0, 1),
+        toplevel.add(self.all_updates_button, 0, 5, padding = (0, 0, 0, 1),
                      anchorLeft = 1)
 
         #self.warning = snack.TextboxReflowed(self.size[0]-10, 
@@ -479,7 +479,7 @@ class OSReleaseWindow:
                           [(NEXT, "next"),
                            (BACK, "back"),
                            (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 9, growx = 1)
+        toplevel.add(self.bb, 0, 6, growx = 1)
 
         self.screen.refresh()
 
