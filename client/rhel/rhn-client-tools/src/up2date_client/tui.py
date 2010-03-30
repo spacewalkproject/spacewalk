@@ -953,10 +953,6 @@ class FinishWindow:
 
         self.g = toplevel
 
-        # Review Window
-        rw = ReviewWindow(self.screen, self.tui, self.tui.reg_info)
-        rw_results = rw.run()
-
     def saveResults(self):
         pass
 
@@ -972,11 +968,11 @@ class FinishWindow:
 
 class ReviewWindow:
 
-    def __init__(self, screen, tui, reg_info):
+    def __init__(self, screen, tui):
         self.name = "ReviewWindow"
         self.screen = screen
         self.tui = tui
-        self.reg_info = reg_info
+        self.reg_info = tui.reg_info
         size = snack._snack.size()
         
         toplevel = snack.GridForm(screen, REVIEW_WINDOW, 1, 2)
@@ -1035,7 +1031,7 @@ class ReviewWindow:
         toplevel.add(self.review_window, 0, 0, padding = (0, 1, 0, 0))
         
         # BUTTON BAR
-        self.bb = snack.ButtonBar(screen, [(OK, "ok")])
+        self.bb = snack.ButtonBar(screen, [(OK, "next")])
         toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
                      growx = 1)
 
@@ -1050,7 +1046,7 @@ class ReviewWindow:
         button = self.bb.buttonPressed(result)
 
         if result == "F12":
-            return "ok"
+            return "next"
             
         return button    
     
@@ -1078,6 +1074,7 @@ class Tui:
             PackagesWindow,
             SendWindow,
             SendingWindow,
+            ReviewWindow,
             FinishWindow
             ]
 
