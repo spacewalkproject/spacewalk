@@ -564,7 +564,7 @@ class HardwareWindow:
         tui.hardware = hardware.Hardware()
         
         toplevel = snack.GridForm(screen, _("Register a System Profile - Hardware"),
-                                  1, 8)
+                                  1, 7)
 
         text = snack.TextboxReflowed(70, _("A Profile Name is a descriptive name that you choose to identify this System Profile on the Red Hat Network web pages. Optionally, include a computer serial or identification number."))
 
