@@ -788,33 +788,23 @@ class SendWindow:
             return "next"
         return button
 
-class FinishWindow:
+class SendingWindow:
 
     def __init__(self, screen, tui):
-        self.name = "FinishWindow"
         self.screen = screen
         self.tui = tui
+        self.name = "SendingWindow"
         size = snack._snack.size()
-        
-        toplevel = snack.GridForm(screen, FINISH_WINDOW,
-                                  1, 2)
-
-        text = snack.TextboxReflowed(size[0]-11, FINISH_WINDOW_TEXT_TUI)
-        toplevel.add(text, 0, 0)
-        
-        # BUTTON BAR
-        self.bb = snack.ButtonBar(screen,
-                                  [(_("Finish"), "next")])
-        toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
-                     growx = 1)
-
-        self.g = toplevel
 
         self.pwin = snack.GridForm(screen, _("Sending Profile to Red Hat Network"),
                                    1, 1)
 
         self.scale = snack.Scale(40, 100)
         self.pwin.add(self.scale, 0, 0)
+
+    def run(self):
+        log.log_debug("Running %s" % self.__class__.__name__)
+
         self.pwin.draw()
         self.screen.refresh()
 
@@ -827,8 +817,8 @@ class FinishWindow:
             # 'failed_channels', 'slots', 'failed_slots'
             log.log_debug('other is %s' % str(self.tui.other))
 
-            reg_info = rhnreg.registerSystem2(tui.userName, tui.password,
-                                             tui.profileName, 
+            reg_info = rhnreg.registerSystem2(self.tui.userName, self.tui.password,
+                                             self.tui.profileName, 
                                              other = self.tui.other)
             reg_info = reg_info.rawDict
             
@@ -868,7 +858,7 @@ class FinishWindow:
             # send product registration information
             if rhnreg.cfg['supportsUpdateContactInfo']:
                 try:
-                    rhnreg.updateContactInfo(tui.userName, tui.password,  self.tui.productInfo)
+                    rhnreg.updateContactInfo(self.tui.userName, self.tui.password,  self.tui.productInfo)
                 except up2dateErrors.CommunicationError, e:
                     FatalErrorWindow(self.screen, _("Problem registering personal information:\n") + e.errmsg)
                 except:
@@ -893,9 +883,9 @@ class FinishWindow:
         self.setScale(2, 4)
 
         # maybe upload hardware profile
-        if tui.includeHardware:
+        if self.tui.includeHardware:
             try:
-                rhnreg.sendHardware(systemId, tui.hardware)
+                rhnreg.sendHardware(systemId, self.tui.hardware)
             except up2dateErrors.CommunicationError, e:
                 FatalErrorWindow(self.screen,
                                  _("Problem sending hardware profile:\n") + e.errmsg)
@@ -907,9 +897,9 @@ class FinishWindow:
         self.setScale(3, 4)
 
         # build up package list if necessary
-        if tui.includePackages:
+        if self.tui.includePackages:
             try:
-                rhnreg.sendPackages(systemId, tui.selectedPackages)
+                rhnreg.sendPackages(systemId, self.tui.selectedPackages)
             except up2dateErrors.CommunicationError, e:
                 FatalErrorWindow(self.screen, _("Problem sending package list:\n") + e.errmsg)
             except:
@@ -924,19 +914,48 @@ class FinishWindow:
 
         rhnreg.spawnRhnCheckForUI() 
         self.setScale(4, 4)
-        
-        # Review Window
-        rw = ReviewWindow(self.screen, self.tui, reg_info)
-        rw_results = rw.run()
 
         # Pop the pwin (Progress bar window)
         self.screen.popWindow()
+
+        self.tui.reg_info = reg_info
+
+        return "next"
+
+    def saveResults(self):
+        pass
 
     def setScale(self, amount, total):
         self.scale.set(int(((amount * 1.0)/ total) * 100))
         self.pwin.draw()
         self.screen.refresh()
 
+
+class FinishWindow:
+
+    def __init__(self, screen, tui):
+        self.name = "FinishWindow"
+        self.screen = screen
+        self.tui = tui
+        size = snack._snack.size()
+
+        toplevel = snack.GridForm(screen, FINISH_WINDOW,
+                                  1, 2)
+
+        text = snack.TextboxReflowed(size[0]-11, FINISH_WINDOW_TEXT_TUI)
+        toplevel.add(text, 0, 0)
+
+        # BUTTON BAR
+        self.bb = snack.ButtonBar(screen,
+                                  [(_("Finish"), "next")])
+        toplevel.add(self.bb, 0, 1, padding = (0, 1, 0, 0),
+                     growx = 1)
+
+        self.g = toplevel
+
+        # Review Window
+        rw = ReviewWindow(self.screen, self.tui, self.tui.reg_info)
+        rw_results = rw.run()
 
     def saveResults(self):
         pass
@@ -1058,6 +1077,7 @@ class Tui:
             HardwareWindow,
             PackagesWindow,
             SendWindow,
+            SendingWindow,
             FinishWindow
             ]
 
