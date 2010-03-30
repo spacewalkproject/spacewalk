@@ -677,24 +677,24 @@ class PackagesWindow:
         self.tui = tui
         size = snack._snack.size()
         toplevel = snack.GridForm(screen, _("Register a System Profile - Packages"),
-                                  1, 7)
+                                  1, 5)
         self.g = toplevel
 
 
         text = snack.TextboxReflowed(size[0]-10, _("RPM information is important to determine what updated software packages are relevant to this system."))
 
-        toplevel.add(text, 0, 1, anchorLeft = 1)
+        toplevel.add(text, 0, 0, anchorLeft = 1)
 
         self.packagesButton = snack.Checkbox(_("Include RPM packages installed on this system in my System Profile"), 1)
-        toplevel.add(self.packagesButton, 0, 2, padding = (0, 1, 0, 1),
+        toplevel.add(self.packagesButton, 0, 1, padding = (0, 1, 0, 1),
                      anchorLeft = 1)
 
         label = snack.Label(_("You may deselect individual packages by unchecking them below."))
-        toplevel.add(label, 0, 3, anchorLeft = 1)
+        toplevel.add(label, 0, 2, anchorLeft = 1)
 
         #self.packageList = snack.Listbox(size[1]-18, 1, width = size[0]-10)
         self.packageList = snack.CheckboxTree(size[1]-18, 1)
-        toplevel.add(self.packageList, 0, 4)
+        toplevel.add(self.packageList, 0, 3)
 
         # do we need to read the packages from disk?
         if tui.packageList == []:
@@ -723,7 +723,7 @@ class PackagesWindow:
                                   [(NEXT, "next"),
                                    (BACK, "back"),
                                    (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 5, padding = (0, 1, 0, 0),
+        toplevel.add(self.bb, 0, 4, padding = (0, 1, 0, 0),
                      growx = 1)
 
 
