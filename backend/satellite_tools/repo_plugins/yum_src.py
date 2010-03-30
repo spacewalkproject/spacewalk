@@ -15,8 +15,18 @@
 #
 import yum
 import shutil
+import sys
 from yum import config
 from satellite_tools.reposync import ContentPackage
+
+class YumWarnings:
+    def write(self, s):
+        pass
+    def disable(self):
+        self.saved_stdout = sys.stdout
+        sys.stdout = self
+    def restore(self):
+        sys.stdout = self.saved_stdout
 
 class ContentSource:
     url = None
@@ -34,12 +44,15 @@ class ContentSource:
         self.repo = repo
         repo.cache = 0
         repo.metadata_expire = 0
-        if self.mirrorlist:
-            repo.mirrorlist = self.url
-        else:
-            repo.baseurl = [self.url]
+        repo.mirrorlist = self.url
+        repo.baseurl = [self.url]
         repo.basecachedir = self.cache_dir
+
+        warnings = YumWarnings()
+        warnings.disable()
         repo.baseurlSetup()
+        warnings.restore()
+
         repo.setup(False)
         sack = repo.getPackageSack()
         sack.populate(repo, 'metadata', None, 0)
