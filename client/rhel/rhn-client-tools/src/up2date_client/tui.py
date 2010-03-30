@@ -392,11 +392,8 @@ class InfoWindow:
                 button = "next"
 
             if button == "next":
-
                 valid = self.validateFields()
-                if valid == 0:
-                    continue
-                
+
             else:
                 break
 
