@@ -93,6 +93,53 @@ class WindowSkipException:
     def __init__(self):
         pass
 
+class AlreadyRegisteredWindow:
+
+    def __init__(self, screen, tui):
+
+        if not rhnreg.registered() or tui.test:
+            raise WindowSkipException()
+
+        self.name = "AlreadyRegisteredWindow"
+        self.screen = screen
+        self.tui = tui
+        size = snack._snack.size()
+
+        systemIdXml = rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())
+        oldUsername = systemIdXml[0][0]['username']
+        oldsystemId = systemIdXml[0][0]['system_id']
+
+        toplevel = snack.GridForm(self.screen, _("System software updates already set up"), 1, 2)
+        tb = snack.Textbox(size[0]-30, size[1]-20,
+                            SYSTEM_ALREADY_REGISTERED + "\n\n"
+                            + _("Red Hat Network Location:") + " " + self.tui.serverURL + "\n"
+                            + _("Login:") + " " + oldUsername + "\n"
+                            + _("System ID:") + " " + oldsystemId + "\n\n"
+                            + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
+                            1, 1)
+        toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
+
+        self.bb = snack.ButtonBar(self.screen,
+                                  [(YES_CONT, "next"),
+                                   (NO_CANCEL, "exit")])
+        toplevel.add(self.bb, 0, 1, growx = 1)
+
+        self.g = toplevel
+
+    def saveResults(self):
+            pass
+
+    def run(self):
+        log.log_debug("Running %s" % self.__class__.__name__)
+
+        result = self.g.runOnce()
+        button = self.bb.buttonPressed(result)
+
+        if result == "F12":
+            return "next"
+
+        return button
+
 class ConnectWindow:
 
     def __init__(self, screen, tui):
@@ -990,8 +1037,9 @@ class ReviewWindow:
     
 class Tui:
 
-    def __init__(self, screen):
+    def __init__(self, screen, test):
         self.screen = screen
+        self.test = test
         self.size = snack._snack.size()
         self.drawFrame()
         self.alreadyRegistered = 0
@@ -1002,6 +1050,7 @@ class Tui:
                                      "Only https and http are allowed."))
 
         self.windows = [
+            AlreadyRegisteredWindow,
             ConnectWindow,
             StartWindow,
             InfoWindow,
@@ -1118,12 +1167,16 @@ class Tui:
                 log.log_debug("index is %s" % index)
                 
                 result = win.run()
+                log.log_debug("Result %s" % result)
 
                 if result == "back":
                     if index > 0:
                         index = index - 1
 
                     direction = "backward"
+
+                elif result == "exit":
+                    return
 
                 elif result == "cancel":
                     log.log_debug("Caught a cancel request")
@@ -1154,33 +1207,7 @@ def main():
     if geteuid() != 0 and not test:
         FatalErrorWindow(screen, _("You must run the RHN registration program as root."))
 
-
-    if rhnreg.registered() and not test:
-
-
-        systemIdXml = rpclib.xmlrpclib.loads(up2dateAuth.getSystemId())
-        oldUsername = systemIdXml[0][0]['username']
-        oldsystemId = systemIdXml[0][0]['system_id']
-        if type(cfg['serverURL']) == type([]):
-            oldserver = cfg['serverURL'][0]
-        else:
-            oldserver = cfg['serverURL']
-
-        if snack.ButtonChoiceWindow(screen, 
-                                    _("System software updates already set up"),
-                                    SYSTEM_ALREADY_REGISTERED + "\n\n"
-                                    + _("Red Hat Network Location:") + " " + oldserver + "\n"
-                                    + _("Login:") + " " + oldUsername + "\n"
-                                    + _("System ID:") + " " + oldsystemId + "\n\n"
-                                    + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
-                                    buttons = [YES_CONT, NO_CANCEL],
-                                    width = 75,
-                                    ) == string.lower(NO_CANCEL):
-            
-            screen.finish()
-            sys.exit(1)
-        
-    tui = Tui(screen)
+    tui = Tui(screen, test)
     tui.run()
 
     
