@@ -18,18 +18,6 @@ import shutil
 from yum import config
 from satellite_tools.reposync import ContentPackage
 
-class UrlIsNotMirror(Exception):
-    pass
-
-class SpacewalkYumRepository(yum.yumRepo.YumRepository):
-    def _readMirrorList(self, fo, url=None):
-       retval = yum.yumRepo.YumRepository._readMirrorList(self, fo, url)
-       # passed repo url as mirrorlist
-       if (len(retval[0]) == len(retval[1])
-           and retval[1][0][0:2] == '<!'):
-          raise UrlIsNotMirror
-       return retval
-
 class ContentSource:
     url = None
     name = None
@@ -42,21 +30,15 @@ class ContentSource:
 
     def list_packages(self):
         """ list packages"""
-        repo = SpacewalkYumRepository(self.name)
+        repo = yum.yumRepo.YumRepository(self.name)
         self.repo = repo
         repo.cache = 0
         repo.metadata_expire = 0
-        repo.basecachedir = self.cache_dir
-
-        try: # try if url is mirrorlist
+        if self.mirrorlist:
             repo.mirrorlist = self.url
-            repo.baseurlSetup()
-        except UrlIsNotMirror, e:
-            # well, not a mirrorlist, just plain repo
-            repo.mirrorlist = None
+        else:
             repo.baseurl = [self.url]
-            repo.baseurlSetup()
-
+        repo.basecachedir = self.cache_dir
         repo.baseurlSetup()
         repo.setup(False)
         sack = repo.getPackageSack()
