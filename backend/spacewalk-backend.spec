@@ -220,7 +220,11 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 1.4.3
-Requires: rhnlib  >= 2.5.20
+%if 0%{?rhel} && 0%{?rhel} < 5
+Requires: rhnlib  >= 2.1.4-14
+%else
+Requires: rhnlib  >= 2.5.22
+%endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
