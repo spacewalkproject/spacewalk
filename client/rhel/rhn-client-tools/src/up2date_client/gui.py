@@ -168,7 +168,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onStartPagePrepare(self, page, dummy, manualPrepare=False):
         if not manualPrepare:
             self.startPage.emit_stop_by_name("prepare")
-        self.mainWin.set_title(_("Registering for software updates"))
         self.druid.set_buttons_sensitive(False, True, True, False)
         if rhnreg.registered() and not self.already_registered_already_shown:
             # Dialog constructor returns when dialog closes
@@ -183,7 +182,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onChooseServerPagePrepare(self, page, dummy):
         self.chooseServerPage.emit_stop_by_name("prepare")
-        self.mainWin.set_title(_("Registering for software updates"))
         self.chooseServerPagePrepare()
 
     def onChooseServerPageNext(self, page, dummy):
