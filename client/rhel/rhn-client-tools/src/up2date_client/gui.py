@@ -115,6 +115,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.oemInfo = {}
         self.productInfo = {}
         self.showedActivateSubscriptionPage = False
+        self.already_registered_already_shown = False
 
         self.druid = self.xml.get_widget("druid")
         self.mainWin = self.xml.get_widget("mainWin")
@@ -182,11 +183,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.startPage.emit_stop_by_name("prepare")
         self.mainWin.set_title(_("Registering for software updates"))
         self.druid.set_buttons_sensitive(False, True, True, False)
-        if rhnreg.registered():
+        if rhnreg.registered() and not self.already_registered_already_shown:
             # Dialog constructor returns when dialog closes
             dialog = rhnregGui.AlreadyRegisteredDialog()
             if dialog.rc == 0:
                 sys.exit(0)
+            self.already_registered_already_shown = True
 
     def onStartPageNext(self, page, dummy):
         self.druid.set_buttons_sensitive(True, True, True, False)
