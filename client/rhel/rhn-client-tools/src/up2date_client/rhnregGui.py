@@ -511,23 +511,6 @@ class LoginPage:
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
         
-        # I don't know why we call registerUser when logging in an existing 
-        # user, but the code did this. There was a comment which might have been
-        # referring to this which said "legacy cruft". Maybe some old sat needs
-        # this?
-        try:
-            rhnreg.registerUser(username, password)
-            log.log_me("Registered login info.")
-        except up2dateErrors.CommunicationError, e:
-            setArrowCursor()
-            errorWindow(_("There was a problem logging in:\n%s") % 
-                                      e.errmsg)
-            return True
-        except:
-            setArrowCursor()
-            errorWindow(_("There was problem logging in."))
-            return True
-        
         setArrowCursor()
         return False
     
