@@ -33,11 +33,13 @@ SELECT ugm.user_id
 
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.UserOverview">
   <query params="user_id, set_label">
-  SELECT  DISTINCT WC.id, WC.login_uc
-    FROM  web_contact WC, rhnSet ST
+  SELECT  DISTINCT WC.id, WC.login_uc,UI.last_logged_in
+  
+    FROM  web_contact WC 
+    	inner join rhnSet ST on ST.element = WC.id
+	    inner join rhnUserInfo UI on UI.user_id = wc.id
    WHERE  ST.user_id = :user_id
      AND  ST.label = :set_label
-     AND  ST.element = WC.id
 ORDER BY  WC.login_uc
   </query>
   <elaborator name="users_in_org_overview" />
@@ -48,8 +50,10 @@ ORDER BY  WC.login_uc
 SELECT wc.id AS ID,
        wc.login,
        wc.login_uc,
-       wc.org_id
+       wc.org_id,
+       UI.last_logged_in
   FROM web_contact wc
+	  inner join rhnUserInfo UI on UI.user_id = wc.id
  WHERE wc.org_id = :org_id
 ORDER BY wc.login_uc
   </query>
@@ -107,8 +111,10 @@ ORDER BY  UPPER(user_login), UIOO.user_id
   <query params="org_id">
 SELECT wce.id AS ID,
        wce.login,
-       wce.login_uc
-  FROM rhnWebContactEnabled wce
+       wce.login_uc,
+       UI.last_logged_in
+  FROM rhnWebContactEnabled wce 
+  	inner join rhnUserInfo UI on UI.user_id = wce.id
  WHERE wce.org_id = :org_id
 ORDER BY wce.login_uc
   </query>
@@ -119,9 +125,14 @@ ORDER BY wce.login_uc
   <query params="org_id">
 SELECT wcd.id AS ID,
        wcd.login,
-       wcd.login_uc
+       wcd.login_uc,
+     (select max(wccl_exists.date_completed)
+            from rhnWebContactChangeLog   wccl_exists
+              where wcd.id= wccl_exists.web_contact_id) as change_date,
+	  UI.last_logged_in
   FROM rhnWebContactDisabled wcd
- WHERE wcd.org_id = :org_id
+  		inner join rhnUserInfo UI on UI.user_id = wcd.id
+  WHERE wcd.org_id = :org_id
 ORDER BY wcd.login_uc
   </query>
   <elaborator params="">

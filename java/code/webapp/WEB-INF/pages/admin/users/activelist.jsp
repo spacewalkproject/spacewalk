@@ -56,6 +56,7 @@
 	           
 	<!-- Last logged in column -->
 	<rl:column attr="lastLoggedIn" 
+			   sortattr="lastLoggedInDate"
 	           bound="true" 
 	           sortable="true" 
 	           headerkey="userdetails.jsp.lastsign" 

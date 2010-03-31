@@ -45,12 +45,20 @@ public class UserOverview extends BaseDto {
     /**
      * @return Returns the changeDate.
      */
-    public String getChangeDate() {
+    public String getChangeDateString() {
         if (changeDate == null) {
             return "";
         }
         return LocalizationService.getInstance().formatDate(changeDate);
     }
+    
+    /**
+     * @return Returns the changeDate.
+     */
+    public Date getChangeDate() {
+        return changeDate;
+    }    
+    
     /**
      * @return Returns the changedByFirstName.
      */
@@ -175,6 +183,14 @@ public class UserOverview extends BaseDto {
         return LocalizationService.getInstance().formatDate(lastLoggedIn);
     }
 
+    /**
+     * get the last logged in time
+     * @return the last logged in time
+     */
+    public Date getLastLoggedInDate() {
+        return lastLoggedIn;
+    }
+    
     /**
      * Set the id
      * @param i the id to set.
