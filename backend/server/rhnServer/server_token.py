@@ -370,18 +370,20 @@ def _get_token_config_channels(token_id):
     return h.fetchall_dict() or []
    
 _query_current_config_channels = rhnSQL.Statement("""
-    select server_id, config_channel_id
+    select config_channel_id
       from rhnServerConfigChannel
+       where server_id = :server_id
+           and position is not null
 """)
 
-def _get_current_config_channels():
+def _get_current_config_channels(server_id):
     h = rhnSQL.prepare(_query_current_config_channels)
-    h.execute()
+    h.execute(server_id = server_id)
 
     current_ch = h.fetchall_dict() or []
     data = []
     for curr in current_ch:
-        data.append((curr['server_id'],curr['config_channel_id']))
+        data.append(curr['config_channel_id'])
     return data
 
  
@@ -400,29 +402,28 @@ def token_config_channels(server, tokens_obj):
     config_channels = []
     config_channels_hash = {}
     deployment = 0
+    current_channels = []
+    if tokens_obj.forget_rereg_token:
+        current_channels = _get_current_config_channels(server_id)
+
     for token in tokens_obj.tokens:
         channels = _get_token_config_channels(token['token_id'])
         # Check every token used and if any of them are set to not deploy configs
         # then we won't deploy configs for any config channels the system is subscribed to
         deploy_configs = token['deploy_configs']
         log_debug(2, "token_id: ", token['token_id'], " deploy_configs: ", deploy_configs)
-	if deploy_configs == 'Y':
+        if deploy_configs == 'Y':
             log_debug(2, "At least one token set to deploy config files")
             deployment = 1
         for c in channels:
             config_channel_id = c['config_channel_id']
-            if tokens_obj.forget_rereg_token:
-               current_channels = _get_current_config_channels()
-               if (server_id, c['config_channel_id']) in current_channels:
-                   continue 
-            if config_channels_hash.has_key(config_channel_id):
-                # Already added
-                continue
-            position = len(config_channels) + 1
-            # Update the position in the queue
-            c['position'] = position
-            config_channels.append(c)
-            config_channels_hash[config_channel_id] = None
+            if not c['config_channel_id']  in current_channels and\
+                        not config_channels_hash.has_key(config_channel_id):
+                position = len(current_channels) + len(config_channels) + 1
+                # Update the position in the queue
+                c['position'] = position
+                config_channels.append(c)
+                config_channels_hash[config_channel_id] = None
 
     ret = []
     if config_channels:
