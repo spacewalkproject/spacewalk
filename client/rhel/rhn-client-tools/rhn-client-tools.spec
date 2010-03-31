@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.9
+Version: 0.9.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -239,6 +239,10 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed Mar 31 2010 Jan Pazdziora 0.9.10-1
+- Code cleanup.
+- Remove installation number activation.
+
 * Mon Mar 29 2010 Jan Pazdziora 0.9.9-1
 - Code cleanup.
 - Add back invocation of _activate_hardware, for hosted.
