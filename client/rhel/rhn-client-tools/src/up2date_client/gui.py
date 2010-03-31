@@ -9,13 +9,6 @@
 
 import os
 import sys
-import warnings
-
-# well, not pretty, but we use the same code on different
-# versions of python, so to avoid special casing, just
-# turn off deprecation warnings to avoid offending delicate
-# users eyes #142750, #142589, etc
-warnings.filterwarnings("ignore", "",DeprecationWarning)
 
 import gtk
 import gtk.glade
