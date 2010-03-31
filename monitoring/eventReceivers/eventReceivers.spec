@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.13
+Version:      2.20.14
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -42,6 +42,10 @@ install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 2.20.14-1
+- do not care about sending email, transfer the worries to perl-MailTools
+- 569745 - send email using address set in targetEmail
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.13-1
 - 499568 - correctly detect if we are sub-request
 
