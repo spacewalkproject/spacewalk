@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.13
+Version: 0.9.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 31 2010 Justin Sherrill <jsherril@redhat.com> 0.9.14-1
+- 531122 - fixing issue where system records created with cobbler would not use
+  all the correct activation keys once keys were changed from a profile
+  (jsherril@redhat.com)
+- 522497 - Fixed a ks system details bug (paji@redhat.com)
+- Remove audit review cruft from spacewalk-setup (joshua.roys@gtri.gatech.edu)
+
 * Fri Mar 26 2010 Justin Sherrill <jsherril@redhat.com> 0.9.13-1
 - 576301, 576314 - fixing issues where auto-apply of errata was applying even
   for systems that did not need the errata and was being scheduled multiple
