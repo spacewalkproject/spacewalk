@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -270,8 +271,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return String name of cobbler system record. 
      */
     public String getCobblerSystemRecordName() {
+        String sep = ConfigDefaults.get().getCobblerNameSeparator();
         String name = this.server.getName().replace(' ', '_');
-        return name + ":" +
+        name = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_-]", "");
+        return name + sep +
             this.server.getOrg().getId();
     }
     
