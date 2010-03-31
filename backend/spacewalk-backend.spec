@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.17
+Version: 0.9.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -630,6 +630,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 31 2010 Partha Aji <paji@redhat.com> 0.9.18-1
+- 575867 - Fixed a registration issue where config channels 
+  in reactivation key +  activation key combination got ranked 
+  the same value causing all sorts of errors. (paji@redhat.com)
+- 175155 - require specific version of rhnlib (msuchy@redhat.com)
+
 * Tue Mar 30 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.17-1
 - 577668 - fixed spacewalk-repo-sync behaviour for ftp and file
 
