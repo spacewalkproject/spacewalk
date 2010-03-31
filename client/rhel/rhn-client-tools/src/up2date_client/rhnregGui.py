@@ -31,7 +31,6 @@ a module with a class that inherits FirstBootGuiWindow.)
 """
 
 import urlparse
-import socket
 import gtk
 # Need to import gtk.glade to make this file work alone even though we always 
 # access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff 
