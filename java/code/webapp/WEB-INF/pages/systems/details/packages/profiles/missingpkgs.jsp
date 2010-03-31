@@ -25,7 +25,7 @@
         styleclass="list">
         
         <rl:column headerkey="missingpkgs.jsp.package" bound="false">
-            ${current.name}
+            ${current.actionTargetNevra}
         </rl:column>
 
         <rl:column headerkey="missingpkgs.jsp.channels" bound="false">

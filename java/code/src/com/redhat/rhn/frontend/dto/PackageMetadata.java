@@ -244,6 +244,23 @@ public class PackageMetadata extends BaseDto implements Comparable {
     }
 
     /**
+     * Returns the arch of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     * @return the arch of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     */
+    public String getArch() {
+        if (system != null) {
+            return system.getArch();
+        }
+        else if (other != null) {
+            return other.getArch();
+        }
+
+        return null;
+    }
+
+    /**
      * Returns the epoch of the Package, if both the system and
      * other PackageListItem are null, returns null.
      * @return the epoch of the Package, if both the system and
@@ -325,6 +342,18 @@ public class PackageMetadata extends BaseDto implements Comparable {
     }
 
     /**
+     * @return Returns target Nevra to be displayed on webui
+     */
+    public String getActionTargetNevra() {
+        if (comparison == KEY_THIS_ONLY) {
+            return system.getNevra();
+        }
+        else {
+            return other.getNevra();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public Long getId() {
@@ -372,6 +401,14 @@ public class PackageMetadata extends BaseDto implements Comparable {
                   .append(getArchId());
         }
         return result.toString();
+    }
+
+    /**
+     * Returns a unique id (nameId x archId) for HashMap
+     * @return a map id
+     */
+    public String getMapHash() {
+        return "" + getNameId() + "|" + getArchId();
     }
 
     /**

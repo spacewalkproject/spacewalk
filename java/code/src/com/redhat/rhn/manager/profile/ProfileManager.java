@@ -410,12 +410,13 @@ public class ProfileManager extends BaseManager {
             // This is so we can have a List containing each package
             // by name.  Used for when we have multiple revs of the same
             // package, kernel-2.1, kernel-2.2, kernel-2.3 etc..
-            List list = (List) packages.get(item.getNameId());
+            String mapId = item.getMapHash();
+            List list = (List) packages.get(mapId);
             if (list == null) {
                 list = new LinkedList();
             }
             list.add(item);
-            packages.put(item.getNameId(), list);
+            packages.put(mapId, list);
         }
         return packages;
     }
@@ -1105,8 +1106,13 @@ public class ProfileManager extends BaseManager {
             PackageMetadata pm = (PackageMetadata) itr.next();
             // retrieve the packages with the same name that exist w/in channels
             List<PackageListItem> pkgsInChannel = (List<PackageListItem>)
-                    pkgsInChannelsByNameId.get(pm.getNameId());
+                    pkgsInChannelsByNameId.get(pm.getMapHash());
             
+            if (pm.getComparisonAsInt() == PackageMetadata.KEY_THIS_ONLY) {
+                // makes no sense to check whether missing
+                continue;
+            }
+
             // attempt to locate a package from pkgsInChannel that has the same nvre
             // as the pkg to be synced
             boolean foundMatch = false;

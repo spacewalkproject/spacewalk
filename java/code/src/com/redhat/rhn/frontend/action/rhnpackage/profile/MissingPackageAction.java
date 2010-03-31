@@ -42,8 +42,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MissingPackageAction extends BaseProfilesAction {
     
-    private static final CompareProfileSetupAction DECL_ACTION = 
+    private static final CompareProfileSetupAction DECL_PROFILE_ACTION =
         new CompareProfileSetupAction();
+    private static final CompareSystemSetupAction DECL_SYSTEM_ACTION =
+        new CompareSystemSetupAction();
 
     private boolean isSystemSync(RequestContext rctx) {
         String s = rctx.getParam("sync", true);
@@ -143,7 +145,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         RequestContext context = new RequestContext(request);
         Long sid = context.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
-                getDecl(sid));
+                getDecl(context, sid));
         Map params = new HashMap();
         params.put("sid", sid);
 
@@ -168,7 +170,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
-                getDecl(sid));
+                getDecl(requestContext, sid));
         Map params = new HashMap();
         params.put("sid", sid);
         
@@ -186,7 +188,7 @@ public class MissingPackageAction extends BaseProfilesAction {
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, getDecl(sid));
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, getDecl(requestContext, sid));
         
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
@@ -215,7 +217,12 @@ public class MissingPackageAction extends BaseProfilesAction {
         return map;
     }  
     
-    protected String getDecl(Long sid) {
-        return DECL_ACTION.getDecl(sid);
+    protected String getDecl(RequestContext context, Long sid) {
+        if (isSystemSync(context)) {
+            return DECL_SYSTEM_ACTION.getDecl(sid);
+        }
+        else {
+            return DECL_PROFILE_ACTION.getDecl(sid);
+        }
     }
 }

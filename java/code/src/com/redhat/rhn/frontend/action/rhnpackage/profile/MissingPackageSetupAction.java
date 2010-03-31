@@ -40,9 +40,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MissingPackageSetupAction extends RhnAction implements Listable {
     
-    private static final CompareProfileSetupAction DECL_PROFILE_ACTION = 
+    private static final CompareProfileSetupAction DECL_PROFILE_ACTION =
         new CompareProfileSetupAction();
-    private static final CompareSystemSetupAction DECL_SYSTEM_ACTION = 
+    private static final CompareSystemSetupAction DECL_SYSTEM_ACTION =
         new CompareSystemSetupAction();
 
     /** {@inheritDoc} */
