@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.6
+Version: 0.9.7
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.7-1
+- 576907 - make SystemSnapshots aware of multiarch packages
+
 * Thu Mar 25 2010 Justin Sherrill <jsherril@redhat.com> 0.9.6-1
 - 528170 - fixing issue where cloning a channel with cloned errata would select
   clones of the cloned errata to pull into the new channel if they existed,
