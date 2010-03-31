@@ -225,7 +225,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
-        if rhnregGui.chooseChannelShouldBeShown():
+        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
             self.druid.set_page(self.chooseChannelPage)
         else:
             self.druid.set_page(self.createProfilePage)

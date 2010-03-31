@@ -524,30 +524,6 @@ class ConfirmAllUpdatesDialog:
         self.dialog.destroy()
 
         
-def chooseChannelShouldBeShown():
-    '''
-    Returns True if the choose channel window should be shown, else
-    returns False.
-    '''
-    
-    # First and foremost, we should try to activate hardware
-    try_to_activate_hardware()
-
-    # Second and foremost, does the server support eus?
-    if rhnreg.server_supports_eus():
-    
-        global username, password
-
-        channels = rhnreg.getAvailableChannels(username, password)
-
-        channels = channels['channels']
-
-        if len(channels) > 0:
-            return True
-    else:
-        return False
-        
-        
 class ChooseChannelPage:
     def __init__(self):
         self.chooseChannelXml = gtk.glade.XML(gladefile,
@@ -570,7 +546,7 @@ class ChooseChannelPage:
     
         global username, password
 
-        self.eus_channels = rhnreg.getAvailableChannels(username, password)
+        # The self.eus_channels was populated in chooseChannelShouldBeShown
 
         self.channels = self.eus_channels['channels']
         self.receiving_updates = self.eus_channels['receiving_updates']
@@ -616,6 +592,28 @@ class ChooseChannelPage:
         else:
             self.chose_all_updates = True
         
+    def chooseChannelShouldBeShown(self):
+        '''
+        Returns True if the choose channel window should be shown, else
+        returns False.
+        '''
+
+        # First and foremost, we should try to activate hardware
+        try_to_activate_hardware()
+
+        # Second and foremost, does the server support eus?
+        if rhnreg.server_supports_eus():
+
+            global username, password
+
+            self.eus_channels = rhnreg.getAvailableChannels(username, password)
+
+            if len(self.eus_channels['channels']) > 0:
+                return True
+        else:
+            return False
+
+
 class CreateProfilePage:
     def __init__(self):
         self.createProfileXml = gtk.glade.XML(gladefile,
