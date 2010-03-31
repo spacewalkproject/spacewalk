@@ -60,8 +60,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onCreateProfilePageNext" : self.onCreateProfilePageNext,
               "onReviewSubscriptionPagePrepare" : self.onReviewSubscriptionPagePrepare,
               "onReviewSubscriptionPageNext" : self.onReviewSubscriptionPageNext,
-##              "onRegFinishPagePrepare" : self.onRegFinishPagePrepare,
-##              "onRegFinishPageFinish" : self.onFinishPageFinish,
               "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
               "onProvideCertificatePageNext" : self.onProvideCertificatePageNext,
               "onFinishPagePrepare" : self.onFinishPagePrepare,
@@ -273,38 +271,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.druid.set_page(self.finishPage)
         return True
 
-
-##    def onRegFinishPagePrepare(self, page, dummy):
-##        # Disable the next button and enable the finish one
-##        self.druid.set_buttons_sensitive(False, False, False, False)
-##        self.druid.set_show_finish(True)
-##        self.druid.finish.set_label (_("_Finish"))
-##        self.xml.get_widget("regFinishPage").emit_stop_by_name("prepare")
-##        self.xml.get_widget("mainWin").set_title(_("Finish registering for software updates"))
-##        try:
-##            ret = rhnreg.finishMessage(self.systemId)
-##        except up2dateErrors.Error:
-##            ret = (0, "", "")
-##        (returnCode, titleText, messageText) = ret[:3]
-##
-##        textArea = self.xml.get_widget("regFinishTextView")
-##        page = self.xml.get_widget("regFinishPage")
-##
-##        page.set_title(titleText)
-##        # TODO These cases used to be different when this wasn't the end of the
-##        # druid (I think only one changed the buttons). Figure out if we still
-##        # need to do something different based on returnCode
-##        if returnCode == 1:
-##            buffer = gtk.TextBuffer(None)
-##            buffer.set_text(messageText)
-##            textArea.set_buffer(buffer)
-##        if returnCode == -1:
-##            buffer = gtk.TextBuffer(None)
-##            buffer.set_text(messageText)
-##            textArea.set_buffer(buffer)
-##
-##    def onFinishPageFinish(self, page, dummy=None):
-##        gtk.main_quit()
 
     def onProvideCertificatePageBack(self, page=None, dummy=None):
         self.druid.set_page(self.chooseServerPage)
