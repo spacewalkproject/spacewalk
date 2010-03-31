@@ -404,6 +404,14 @@ class OSReleaseWindow:
 
     def __init__(self, screen, tui):
 
+        self.tui = tui
+        # As OSReleaseWindow seems to be the next window which gets tried
+        # after InfoWindow has verified the login and password, we
+        # can try to activate the hardware asset code here, before
+        # available_eus_channels gets called.
+        if self.tui.serverType == 'hosted':
+            self.tui._activate_hardware()
+
         if not rhnreg.server_supports_eus():
             log.log_debug("Server does not support EUS, skipping OSReleaseWindow")
             raise WindowSkipException()
@@ -416,7 +424,6 @@ class OSReleaseWindow:
 
         self.name = "OSReleaseWindow"
         self.screen = screen
-        self.tui = tui
         self.size = snack._snack.size()          
 
         self.selectChannel = False
@@ -807,9 +814,6 @@ class SendingWindow:
 
         reg_info = None
         try:
-            if self.tui.serverType == 'hosted':
-                self.tui._activate_hardware()
-
             # reg_info dict contains: 'system_id', 'channels', 
             # 'failed_channels', 'slots', 'failed_slots'
             log.log_debug('other is %s' % str(self.tui.other))
