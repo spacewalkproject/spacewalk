@@ -556,7 +556,7 @@ FROM
          p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
-         cs.checksum, cs.checksum_type as checksumtype,
+         cs.checksum, cs.checksum_type as checksum_type,
          prd.primary as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
     FROM
          rhnChannelPackage cp,
