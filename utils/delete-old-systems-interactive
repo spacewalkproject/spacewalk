@@ -9,12 +9,6 @@ use Frontier::Client;
 my $idle_time;
 my ($host, $username) = ( 'localhost', 'admin' );
 my $passwd;
-my $passwdfile = "/etc/rhn/$username-password";
-open PASSWD, $passwdfile or die "Error reading password file [$passwdfile]: $!\n";
-$passwd = <PASSWD>;
-chomp $passwd;
-close PASSWD;
-
 my $force;
 
 Getopt::Long::GetOptions(
@@ -27,6 +21,14 @@ Getopt::Long::GetOptions(
 
 if (not defined $idle_time) {
 	die "Need --idle parameter\n";
+}
+
+if (not defined $passwd) {
+        my $passwdfile = "/etc/rhn/$username-password";
+        open PASSWD, $passwdfile or die "Error reading password file [$passwdfile]: $!\n";
+        $passwd = <PASSWD>;
+        chomp $passwd;
+        close PASSWD;
 }
 
 my ($t, $w) = ($idle_time =~ /^(\d+)(\D)$/);
