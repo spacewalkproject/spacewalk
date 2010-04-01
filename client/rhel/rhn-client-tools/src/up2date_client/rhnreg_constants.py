@@ -251,7 +251,7 @@ NONENTITLING_NUMBER        = _("The installation number you provided "
 
 SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate File</span></b>\n\n"
                                "The certificate you provided, <b>%s</b>, is not compatible with "
-                               " the Red Hat Network server at <b>%s</b>.You may want to double-check"
+                               " the Red Hat Network server at <b>%s</b>. You may want to double-check"
                                " that you have provided a valid certificate file."
                                " Are you sure you have provided the correct certificate, and that" 
                                " the certificate file has not been corrupted?\n\n"
