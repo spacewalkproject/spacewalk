@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.9.5
+Version:	0.9.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 01 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.6-1
+- add script delete-old-systems-interactive
+
 * Tue Mar 16 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.5-1
 - added repo urls and gpg keys to spacewalk-common-channel.ini
 
