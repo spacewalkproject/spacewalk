@@ -8,7 +8,7 @@ SUBDIR  = utils
 
 FILES	= __init__ systemSnapshot migrateSystemProfile
 SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
-	  scr.cgi spacewalk-common-channels
+	  scr.cgi spacewalk-common-channels delete-old-systems-interactive
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)

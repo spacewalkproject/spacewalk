@@ -1,0 +1,101 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings FATAL => 'all';
+
+use Getopt::Long ();
+use Frontier::Client;
+
+my $idle_time;
+my ($host, $username) = ( 'localhost', 'admin' );
+my $passwd;
+my $passwdfile = "/etc/rhn/$username-password";
+open PASSWD, $passwdfile or die "Error reading password file [$passwdfile]: $!\n";
+$passwd = <PASSWD>;
+chomp $passwd;
+close PASSWD;
+
+my $force;
+
+Getopt::Long::GetOptions(
+	'idle=s' => \$idle_time,
+	'host=s' => \$host,
+	'username=s' => \$username,
+	'password=s' => \$passwd,
+	'force' => \$force,
+);
+
+if (not defined $idle_time) {
+	die "Need --idle parameter\n";
+}
+
+my ($t, $w) = ($idle_time =~ /^(\d+)(\D)$/);
+
+if (not defined $w) {
+	$t = $idle_time;
+	$w = 'd';
+}
+if ($w eq 'm') { $idle_time = $t * 60; }
+elsif ($w eq 'h') { $idle_time = $t * 60 * 60; }
+elsif ($w eq 'd') { $idle_time = $t * 60 * 60 * 24; }
+elsif ($w eq 'w') { $idle_time = $t * 60 * 60 * 24 * 7; }
+else {
+	die "Unknown idle parameter [$idle_time]\n";
+}
+
+my $not_before = time - $idle_time;
+my ($sec, $min, $h, $d, $m, $y) = gmtime($not_before);
+my $cutoff = sprintf '%04d%02d%02dT%02d:%02d:%02d',
+				$y + 1900,$m + 1, $d, $h, $min, $sec;
+print "Lookup on [$host] systems with last checkin before [$cutoff] GMT\n";
+
+my $client = new Frontier::Client(url => "http://$host/rpc/api", debug=>0);
+my $session = $client->call('auth.login', $username, $passwd)
+	or die "Failed to login to [$host]\n";
+
+my $systems = $client->call('system.list_user_systems', $session);
+$systems = [
+	sort { $a->{last_checkin} cmp $b->{last_checkin} }
+	map { if (ref $_->{last_checkin}) {
+		$_->{last_checkin} = $_->{last_checkin}->value
+	} else {
+		$_->{last_checkin} =~ s/-//g;
+	}; $_;} @$systems
+];
+
+my $delete = 0;
+my $total = @$systems;
+$cutoff =~ s/-//g;
+$cutoff =~ tr/T/ /;
+for (my $i = 0; $i < @$systems; $i++) {
+	my $sys = $systems->[$i];
+	my $sys_date = $sys->{last_checkin};
+	if (not $sys_date =~ / /) {
+		$sys_date .= ' 23:59:59';
+	}
+	print "System [$sys->{name}] id [$sys->{id}] last checking [$sys->{last_checkin}] ";
+	if ($sys_date lt $cutoff) {
+		print " -> delete";
+		$delete ++;
+	} else {
+		splice @$systems, $i, 1;
+		$i--;
+	}
+	print "\n";
+}
+if (not $delete ) {
+	print "Total systems [$total], none idle\n";
+	exit;
+}
+if (not $force) {
+	print "Total systems [$total], would delete [$delete]\n";
+	exit;
+}
+
+print "Total systems [$total], will delete [$delete]\n";
+
+if (not $client->call('system.delete_systems', $session, [map $_->{id}, @$systems ])) {
+	print "Error deleting system [sys->{id}]\n";
+} else {
+	print "All systems deleted\n";
+}
