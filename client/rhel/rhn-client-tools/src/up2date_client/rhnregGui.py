@@ -1075,8 +1075,7 @@ class ProvideCertificatePage:
                                                 "provideCertificateWindowVbox",
                                                 domain="rhn-client-tools")
         
-        # set server url at runtime
-        self.setUrlInWidget()
+        self.orig_cert_label_template = self.provideCertificateXml.get_widget("SecurityCertLabel").get_text()
 
     def provideCertificatePageVbox(self):
         return self.provideCertificateXml.get_widget("provideCertificateWindowVbox")
@@ -1086,9 +1085,7 @@ class ProvideCertificatePage:
         sets the security cert label's server url at runtime 
         """
         securityCertlabel = self.provideCertificateXml.get_widget("SecurityCertLabel")
-        text = securityCertlabel.get_text()
-        text = text % cfg['serverURL'] 
-        securityCertlabel.set_text(text)
+        securityCertlabel.set_text(self.orig_cert_label_template % cfg['serverURL'])
 
     def provideCertificatePageApply(self):
         """If the 'I have a cert' radio button is selected, this function will 
