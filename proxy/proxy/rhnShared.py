@@ -366,7 +366,7 @@ class SharedHandler:
     def _determineHTTPBodySize(self, headers):
         """ This routine attempts to determine the size of an HTTP body by searching
             the headers for a "Content-Length" field.  The size is returned, if
-            found, otherwise 0 is returned.
+            found, otherwise -1 is returned.
         """
 
         # Get the size of the body
@@ -375,9 +375,9 @@ class SharedHandler:
             try:
                 size = int(headers[rhnConstants.HEADER_CONTENT_LENGTH])
             except ValueError:
-                size = 0
+                size = -1
         else:
-            size = 0
+            size = -1
 
         return size
 
@@ -420,7 +420,8 @@ class SharedHandler:
 
         # Now fill in the bytes if need be.
 
-        if size > 0:
+        # read content if there is some or the size is unknown
+        if size > 0 or size == -1:
             buf = fromResponse.read(CFG.BUFFER_SIZE)
             while buf:
                 try:
