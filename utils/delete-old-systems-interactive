@@ -99,3 +99,66 @@ if (not $client->call('system.delete_systems', $session, [map $_->{id}, @$system
 } else {
 	print "All systems deleted\n";
 }
+
+=pod
+
+=head1 NAME
+
+delete-old-systems-interactive - delete inactive systems from Spacewalk server.
+
+=head1 SYNOPSIS
+
+delete-old-systems-interactive [OPTIONS] --idle time_delta
+
+=head1 DESCRIPTION
+
+delete-old-systems-interactive - will use Spacewalk API to determine when each registred system checked in
+last time and optionaly will delete systems which have been inactive for time_delta.
+
+This script will list all registred systems and their last check in. And will if none system is idle more
+then time_delta, it will write summary:
+
+ Total systems [127], none idle
+
+If some systems are idle more then time_delta, you will get summary like:
+
+ Total systems [127], would delete [51]
+
+None system is deleted by default, unless you specify --force option.
+
+=head1 OPTIONS
+
+--idle time_delta
+        Search for system, which are inactive for more then time_delta.
+        If only number is specified, it is interpreted as days. You can use suffixes m (for minutes),
+        h (hours), d (days) and w (weeks). E.g. "--idle 10" and "--idle 10d" is the same and means
+        ten days, "--idle 2w" means two weeks.
+
+--host host
+        Hostname of you Spacewalk server. If not set, localhost is used by default.
+
+--username login
+        Your username. By default "admin".
+
+--password pass
+        Your password. If not specified on command line, then it is read from /etc/rhn/$username-password
+
+--force
+        If specified, then idle systems are deleted.
+
+=head1 EXAMPLES
+
+  delete-old-systems-interactive --server=spacewalk.com --idle 30d
+
+=head1 AUTHOR
+
+Miroslav Suchy <msuchy@redhat.com>,
+Jan Pazdziora <jpazdziora@redhat.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2009 Red Hat, Inc.
+Released under GNU General Public License, version 2 (GPLv2).
+
+=cut
+
