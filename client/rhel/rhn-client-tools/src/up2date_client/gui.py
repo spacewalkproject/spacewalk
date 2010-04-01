@@ -285,12 +285,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onChooseChannelPagePrepare(self, page, dummy):
         self.chooseChannelPagePrepare()
-        self.druid.set_buttons_sensitive(True, True, True, False)
         self.chooseChannelPage.emit_stop_by_name("prepare")
 
     def onCreateProfilePagePrepare(self, page, dummy):
         self.createProfilePagePrepare()
-        self.druid.set_buttons_sensitive(False, True, False, False)
         self.createProfilePage.emit_stop_by_name("prepare")
 
     def onCreateProfilePageNext(self, page, dummy):
