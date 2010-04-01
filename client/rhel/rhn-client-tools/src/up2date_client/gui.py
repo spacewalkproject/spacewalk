@@ -371,7 +371,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             title = _("Finish setting up software updates")
         else:
             self.druid.finish.set_label(_("_Exit software update setup"))
-            title = _("software updates setup unsuccessful")
+            title = _("Software updates setup unsuccessful")
         self.finishPagePrepare()
         self.mainWin.set_title(title)
         self.finishPage.set_title(title)
