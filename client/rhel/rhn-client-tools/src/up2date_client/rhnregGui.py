@@ -301,8 +301,7 @@ class ChooseServerPage:
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
             serverType = 'hosted'
         else:
-            customServer = self.chooseServerXml.get_widget(
-                                'satelliteServerEntry').get_text()
+            customServer = self.customServerEntry.get_text()
             try:
                 customServer = rhnreg.makeNiceServerUrl(customServer)
             except up2dateErrors.InvalidProtocolError:
