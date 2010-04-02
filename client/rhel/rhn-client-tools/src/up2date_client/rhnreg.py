@@ -116,11 +116,11 @@ def _write_secure_file(secure_file, file_contents):
             return False
     
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, 0600)
-    regNumFile = os.fdopen(fd, 'w')
+    fd_file = os.fdopen(fd, 'w')
     try:
-        regNumFile.write(file_contents)
+        fd_file.write(file_contents)
     finally:
-        regNumFile.close()
+        fd_file.close()
     
     return True
 
