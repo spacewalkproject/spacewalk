@@ -68,9 +68,6 @@ gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
 username = None
 password = None
 email = ""
-# organization will be set to a string which is the org id to use. It should be 
-# None if the server doesn't support multi-orgs, or to use the default org.
-organization = None
 newAccount = None # Should be assigned True or False
 productInfo = None
 hw_activation_code = None
