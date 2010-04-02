@@ -496,50 +496,6 @@ def sat_supports_virt_guest_registration():
         return False
     
             
-def getRemainingSubscriptions(username, password):
-
-    s = rhnserver.RhnServer()
-    server_type = getServerType()
-    
-    # The only point of this function is to determine if we should show the
-    # Activate a Subscription screen, which we never do in satellite.
-    if server_type == 'satellite':
-        return 1
-
-    arch = up2dateUtils.getArch()
-    #Intentionally swapping, release/version so it is more in tune
-    #with the perspective of release/version used by RHN Hosted.
-    #bz: 442694
-    release = up2dateUtils.getVersion()
-    version = up2dateUtils.getRelease()
-
-    virt_uuid, virt_type = get_virt_info()
-    if virt_uuid is not None:
-        log.log_debug('Sending up virt_uuid: %s' % str(virt_uuid))
-    else:
-        virt_uuid = ""
-
-    # If we've gotten this far, we're definitely looking at hosted.
-    # Hosted will have to support the sending of the release, and optionally,
-    # the virt_uuid.
-
-    if cfg['supportsSMBIOS']:
-        smbios = hardware.get_smbios()
-        subs = s.registration.remaining_subscriptions(username, password, 
-                                                      arch,
-                                                      release,
-                                                      virt_uuid,
-                                                      smbios)
-    else:
-        subs = s.registration.remaining_subscriptions(username, password, 
-                                                      arch,
-                                                      release,
-                                                      virt_uuid)
-
-
-    log.log_debug('Server returned %s' % subs)
-    return subs
-
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
     s.registration.add_hw_profile(systemId, hardwareList)
