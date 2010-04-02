@@ -214,7 +214,6 @@ make -f Makefile.rhn-client-tools test
 
 # firstboot is smart enough now to skip these modules
 # if the modules say to
-%{_datadir}/firstboot/modules/rhn_activate_gui.*
 %{_datadir}/firstboot/modules/rhn_login_gui.*
 %{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
 %{_datadir}/firstboot/modules/rhn_start_gui.*

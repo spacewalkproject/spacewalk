@@ -3,7 +3,7 @@
 # $Id$
 
 MODULES		= rhn_login_gui \
-		  rhn_activate_gui rhn_register_firstboot_gui_window \
+		  rhn_register_firstboot_gui_window \
 		  rhn_start_gui rhn_choose_server_gui \
 		  rhn_provide_certificate_gui rhn_create_profile_gui \
 		  rhn_review_gui rhn_finish_gui
