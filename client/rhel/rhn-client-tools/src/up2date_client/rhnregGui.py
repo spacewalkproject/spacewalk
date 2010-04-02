@@ -514,52 +514,6 @@ class LoginPage:
         return False
     
 
-def activateSubscriptionShouldBeShown():
-    """If we activate an EN from disk and/or hardware info (eg asset tag) and 
-    one of them provides an entitlement for the base channel the system needs 
-    OR they have at least one available entitlement of the type the system 
-    needs, then we skip the activation screen (return False).
-    
-    This is a loose function because it's difficult to use it in firstboot 
-    where we want to without a hack if it's in ActivateSubscriptionPage.
-    
-    """
-    try:
-        setBusyCursor()
-        
-        # We have to call autoActivateNumbersOnce for satellite b/c it reads 
-        # and stores the IN # on disk, which we need.
-        registrationNumberStatus, oemNumberStatus = autoActivateNumbersOnce()
-        # Go ahead and return False if we're satellite.
-        if rhnreg.getServerType() == 'satellite':
-            return False
-        
-        # We should only skip the screen based on available subs (not 
-        # autoactivation) if we pass through any time after the first. That's 
-        # implemented by autoActivateNumbersOnce returning None, None on any 
-        # call after the first.
-        if registrationNumberStatus and \
-           registrationNumberStatus.getStatus() == ActivationResult.ACTIVATED_NOW:# and \
-           # TODO up2dateUtils.getOSRelease() in registrationNumberStatus[ActivationResult.RELEASE]:
-           return False
-        if oemNumberStatus and \
-           oemNumberStatus.getStatus() == ActivationResult.ACTIVATED_NOW:# and \
-           # TODO up2dateUtils.getOSRelease() in oemNumberStatus[ActivationResult.RELEASE]:
-           return False
-        availableSubs = rhnreg.getAvailableSubscriptions(username, password)
-
-        # I use != instead of > because -1 == infinite
-        if int(availableSubs) != 0: 
-            return False
-    except up2dateErrors.Error:
-        setArrowCursor()
-        log.log_me("There was an error while trying to figure out if we should "
-                   "skip the activation screen, so we'll show it. Error info:")
-        log.log_exception(*sys.exc_info())
-    setArrowCursor()
-    return True
-
-
 class ActivateSubscriptionPage:
     """The screen that allows activation a installation number.
     
