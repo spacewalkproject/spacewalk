@@ -772,7 +772,6 @@ class CreateProfilePage:
             pwin.hide()
             errorWindow(_("The installation number [ %s ] provided is not a valid installation number. Please go back to the previous screen and fix it." %
                                               other['registration_number']))
-##            self.regNumEntry.grab_focus()
             return True
         except up2dateErrors.ActivationKeyUsageLimitError, e:
             pwin.hide()
