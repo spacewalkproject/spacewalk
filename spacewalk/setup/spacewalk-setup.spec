@@ -75,6 +75,9 @@ install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/set
 install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/upgrade-db-10g.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 
+# create a directory for misc. Spacewalk things
+install -d -m 755 %{buildroot}/%{_var}/spacewalk
+
 
 %check
 make test
@@ -93,6 +96,7 @@ rm -rf %{buildroot}
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
+%attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
 * Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1

@@ -11,6 +11,8 @@
 /usr/sbin/rhn-sat-restart-silent gen_context(system_u:object_r:spacewalk_initrc_exec_t,s0)
 /var/satellite(/.*)? gen_context(system_u:object_r:spacewalk_data_t,s0)
 
+/var/spacewalk(/.*)? gen_context(system_u:object_r:spacewalk_data_t,s0)
+
 /var/cache/rhn(/.*)? gen_context(system_u:object_r:spacewalk_cache_t,s0)
 /var/cache/rhn/satsync(/.*)? gen_context(system_u:object_r:var_t,s0)
 

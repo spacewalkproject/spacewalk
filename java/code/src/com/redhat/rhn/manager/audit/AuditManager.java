@@ -49,7 +49,7 @@ public class AuditManager /* extends BaseManager */ {
     }
 
     private static String logDirStr = Config.get().getString("web.audit.logdir", 
-            "/var/satellite/systemlogs");
+            "/var/spacewalk/systemlogs");
     private static File logDir = new File(logDirStr);
     private static File reviewFile = new File(logDirStr + "/audit-review.log");
 
