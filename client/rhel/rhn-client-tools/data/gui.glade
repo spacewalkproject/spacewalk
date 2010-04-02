@@ -101,30 +101,6 @@
       </child>
 
       <child>
-	<widget class="GnomeDruidPageStandard" id="activateSubscriptionPage">
-	  <property name="visible">True</property>
-	  <property name="title" translatable="yes">Access a subscription</property>
-	  <property name="logo">shadowman-round-48.png</property>
-	  <signal name="next" handler="onActivateSubscriptionPageNext"/>
-	  <signal name="back" handler="onActivateSubscriptionPageBack"/>
-	  <signal name="prepare" handler="onActivateSubscriptionPagePrepare"/>
-
-	  <child internal-child="vbox">
-	    <widget class="GtkVBox" id="linkToSubscriptionPageVbox">
-	      <property name="border_width">16</property>
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">6</property>
-
-	      <child>
-		<placeholder/>
-	      </child>
-	    </widget>
-	  </child>
-	</widget>
-      </child>
-
-      <child>
 	<widget class="GnomeDruidPageStandard" id="chooseChannelPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Select operating system release</property>
