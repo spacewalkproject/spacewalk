@@ -697,11 +697,7 @@ def chooseChannelShouldBeShown():
     global hw_activation_code
     
     # First and foremost, we should try to activate hardware
-    if serverType == 'hosted':
-        # ... but only on hosted
-        setBusyCursor()
-        hw_activation_code = rhnreg._activate_hardware(username, password)
-        setArrowCursor()
+    try_to_activate_hardware()
 
     # Second and foremost, does the server support eus?
     if rhnreg.server_supports_eus():
@@ -1620,6 +1616,12 @@ def autoActivateNumbersOnce():
         
     return (activateRegNumResult, activateHWResult)
 
+def try_to_activate_hardware():
+    if serverType == 'hosted':
+        # hardware asset codes only make sense on hosted
+        setBusyCursor()
+        hw_activation_code = rhnreg._activate_hardware(username, password)
+        setArrowCursor()
 
 def hasBaseChannelAndUpdates():
     """Returns a bool indicating whether the system has registered, subscribed 

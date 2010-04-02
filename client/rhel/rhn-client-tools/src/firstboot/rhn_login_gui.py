@@ -112,11 +112,11 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
                     self.parent.setPage("rhn_finish_gui")
             if ret:
                 return None
-        
-        if rhnregGui.activateSubscriptionShouldBeShown():
-            self.parent.setPage("rhn_activate_gui")
-        else:
-            self.parent.setPage('rhn_create_profile_gui')
+
+        # We should try to activate hardware, even if no EUS in firstboot
+        rhnregGui.try_to_activate_hardware()
+
+        self.parent.setPage('rhn_create_profile_gui')
         return True
     
     def goToPageAfterLogin(self):
