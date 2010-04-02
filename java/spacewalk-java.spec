@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.14
+Version: 0.9.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,17 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 02 2010 Tomas Lestach <tlestach@redhat.com> 0.9.15-1
+- 576907 - supporting multilib packages for syncing systems/profiles
+  (tlestach@redhat.com)
+- fixing taskomatic problem (tlestach@redhat.com)
+- 577074 - Fix to remove invalid characters from a cobbler system record name
+  (paji@redhat.com)
+- 574594 - Fixed date based sorting issues on 4 User List pages.
+  (paji@redhat.com)
+- 577224 - Fixed an issue where when cloning KS profiles variables were not
+  getting copied (paji@redhat.com)
+
 * Wed Mar 31 2010 Justin Sherrill <jsherril@redhat.com> 0.9.14-1
 - 531122 - fixing issue where system records created with cobbler would not use
   all the correct activation keys once keys were changed from a profile
