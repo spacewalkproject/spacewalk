@@ -113,23 +113,6 @@ class ReviewLog:
     def getTextBuffer(self):
         return self._text
     
-    def foundRegNumButCouldntActivate(self):
-        self.addBoldText(_("Notice"))
-        self.addText(rhnreg_constants.INST_NUM_ON_DISK)
-        self.addText('') # adds newline
-    
-    def autoActivatedRegistrationNumber(self, registrationNumber, 
-                                        activationResult):
-        self.addBoldText(_("Automatic Subscription Activation"))
-        text = rhnreg_constants.SUB_NUM % registrationNumber
-        text = text + ' ' + rhnreg_constants.SUB_NUM_RESULT
-        self.addText(text)
-        for channel, quantity in activationResult.getChannelsActivated().items():
-            self.addBulletedText("%s (%s)" % (channel, quantity))
-        for service, quantity in activationResult.getSystemSlotsActivated().items():
-            self.addBulletedText("%s (%s)" % (service, quantity))
-        self.addText('') # adds newline
-    
     def autoActivatedHardwareInfo(self, activationResult):
         self.addBoldText(_("Automatic Subscription Activation"))
         text = rhnreg_constants.SUB_NUM % activationResult.getRegistrationNumber()
