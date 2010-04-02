@@ -67,7 +67,6 @@ gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
 # we need to carry these values between screen, so stash at module scope
 username = None
 password = None
-email = ""
 newAccount = None # Should be assigned True or False
 productInfo = None
 hw_activation_code = None
@@ -725,7 +724,7 @@ class CreateProfilePage:
         pwin = progress.Progress()
         pwin.setLabel(_("Sending your profile information to Red Hat Network.  Please wait."))
         self.systemId = None
-        global newAccount, email, username, password, hw_activation_code, \
+        global newAccount, username, password, hw_activation_code, \
                _hasBaseChannelAndUpdates, chosen_channel
         other = {}
         if hw_activation_code:
