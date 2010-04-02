@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.12
+Version: 0.9.13
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -238,6 +238,9 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Apr 02 2010 Jan Pazdziora 0.9.13-1
+- Fixes to previous cleanup.
+
 * Fri Apr 02 2010 Jan Pazdziora 0.9.12-1
 - Code cleanup.
 - Remove the installation number support in GUI.
