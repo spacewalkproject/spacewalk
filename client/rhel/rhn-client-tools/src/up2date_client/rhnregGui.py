@@ -73,7 +73,7 @@ email = ""
 organization = None
 newAccount = None # Should be assigned True or False
 productInfo = None
-regNum = None
+hw_activation_code = None
 serverType = None
 chosen_channel = None
 
@@ -694,8 +694,16 @@ def chooseChannelShouldBeShown():
     Returns True if the choose channel window should be shown, else
     returns False.
     '''
+    global hw_activation_code
     
-    # First and foremost, does the server support eus?
+    # First and foremost, we should try to activate hardware
+    if serverType == 'hosted':
+        # ... but only on hosted
+        setBusyCursor()
+        hw_activation_code = rhnreg._activate_hardware(username, password)
+        setArrowCursor()
+
+    # Second and foremost, does the server support eus?
     if rhnreg.server_supports_eus():
     
         global username, password
@@ -892,11 +900,11 @@ class CreateProfilePage:
         pwin = progress.Progress()
         pwin.setLabel(_("Sending your profile information to Red Hat Network.  Please wait."))
         self.systemId = None
-        global newAccount, email, username, password, regNum, \
+        global newAccount, email, username, password, hw_activation_code, \
                _hasBaseChannelAndUpdates, chosen_channel
         other = {}
-        if regNum:
-            other['registration_number'] = regNum
+        if hw_activation_code:
+            other['registration_number'] = hw_activation_code
         if chosen_channel is not None:
             other['channel'] = chosen_channel
 
