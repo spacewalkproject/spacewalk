@@ -540,38 +540,6 @@ def getRemainingSubscriptions(username, password):
     log.log_debug('Server returned %s' % subs)
     return subs
 
-def getAvailableSubscriptions(username, password):
-    """Higher level and more convenient version of getRemainingSubscriptions.
-    
-    Precondition: getCaps() was called.
-    
-    Returns: -1 for inifinite subscriptions.
-    
-    Raises:
-    * up2dateErrors.ServerCapabilityError
-    * up2dateErrors.ValidationError
-    probably others
-    
-    """
-    availableSubscriptions = None
-    
-    log.log_debug('Calling getAvailableSubscriptions')
-
-    if cfg['supportsRemainingSubscriptions'] is None:
-        message = "The server doesn't support the " \
-                  "registration.remaining_subscriptions call which is needed."
-        raise up2dateErrors.ServerCapabilityError(message)
-    
-    try:
-        availableSubscriptions = \
-                    getRemainingSubscriptions(username, password)
-    except up2dateErrors.NoBaseChannelError, e:
-        availableSubscriptions = 0
-        log.log_debug('NoBaseChannelError raised.')
-    log.log_debug('Returning %s available subscriptions.' % 
-                  availableSubscriptions)
-    return availableSubscriptions
-
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
     s.registration.add_hw_profile(systemId, hardwareList)
