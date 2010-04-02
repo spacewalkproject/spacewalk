@@ -977,7 +977,7 @@ class ProvideCertificatePage:
             up2dateConfig.save()
             # Take the new cert for a spin
             try:
-                rhnreg.welcomeText()
+                rhnreg.getCaps()
             except up2dateErrors.SSLCertificateVerifyFailedError:
                 server_url = up2dateConfig['serverURL']
                 #TODO: we could point the user to grab the cert from /pub if its sat
