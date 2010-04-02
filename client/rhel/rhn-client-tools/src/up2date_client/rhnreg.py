@@ -718,6 +718,32 @@ def activateRegistrationNumber(username, password, registrationNumber,
                    " an installation number." % statusCode
         raise up2dateErrors.CommunicationError(message)
 
+def _activate_hardware(login, password):
+
+    # Read the asset code from the hardware.
+    activateHWResult = None
+    hardwareInfo = None
+    hw_activation_code = None
+    try:
+        hardwareInfo = hardware.get_hal_system_and_smbios()
+    except:
+        log.log_me("There was an error while reading the hardware "
+                   "info from the bios. Traceback:\n")
+        log.log_exception(*sys.exc_info())
+
+    if hardwareInfo is not None:
+        try:
+            activateHWResult = activateHardwareInfo(
+                                       login, password, hardwareInfo)
+            if activateHWResult.getStatus() == ActivationResult.ACTIVATED_NOW:
+                hw_activation_code = activateHWResult.getRegistrationNumber()
+                writeHWCode(hw_activation_code)
+        except up2dateErrors.NotEntitlingError:
+            log.log_debug('There are are no entitlements associated '
+                          'with this hardware.')
+        except up2dateErrors.InvalidRegistrationNumberError:
+            log.log_debug('The hardware id was not recognized as valid.')
+    return hw_activation_code
 
 def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
     """Tries to activate an entitlement linked to the hardware info that we

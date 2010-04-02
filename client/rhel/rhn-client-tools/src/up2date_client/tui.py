@@ -410,7 +410,9 @@ class OSReleaseWindow:
         # can try to activate the hardware asset code here, before
         # available_eus_channels gets called.
         if self.tui.serverType == 'hosted':
-            self.tui._activate_hardware()
+            hw_activation_code = rhnreg._activate_hardware(self.tui.userName, self.tui.password)
+            if hw_activation_code != None:
+                self.tui.other['registration_number'] = hw_activation_code
 
         if not rhnreg.server_supports_eus():
             log.log_debug("Server does not support EUS, skipping OSReleaseWindow")
@@ -1133,34 +1135,6 @@ class Tui:
         self.includePackages = 0
         self.packageList = []
         self.selectedPackages = []
-
-    def _activate_hardware(self):
-
-        # Read the asset code from the hardware.
-        activateHWResult = None
-        hardwareInfo = None
-        try:
-            hardwareInfo = hardware.get_hal_system_and_smbios()
-        except:
-            log.log_me("There was an error while reading the hardware "
-                       "info from the bios. Traceback:\n")
-            log.log_exception(*sys.exc_info())
-
-        if hardwareInfo is not None:
-            try:
-                activateHWResult = rhnreg.activateHardwareInfo(
-                                           self.userName, self.password, 
-                                           hardwareInfo)
-                if activateHWResult.getStatus() == \
-                   rhnreg.ActivationResult.ACTIVATED_NOW:
-                    self.other['registration_number'] = \
-                        activateHWResult.getRegistrationNumber()
-                    rhnreg.writeHWCode(self.other['registration_number'])
-            except up2dateErrors.NotEntitlingError:
-                log.log_debug('There are are no entitlements associated '
-                              'with this hardware.')
-            except up2dateErrors.InvalidRegistrationNumberError:
-                log.log_debug('The hardware id was not recognized as valid.')
 
     def run(self):
         log.log_debug("Running %s" % self.__class__.__name__)
