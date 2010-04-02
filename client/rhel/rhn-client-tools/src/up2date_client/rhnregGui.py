@@ -694,7 +694,6 @@ def chooseChannelShouldBeShown():
     Returns True if the choose channel window should be shown, else
     returns False.
     '''
-    global hw_activation_code
     
     # First and foremost, we should try to activate hardware
     try_to_activate_hardware()
@@ -1617,10 +1616,13 @@ def autoActivateNumbersOnce():
     return (activateRegNumResult, activateHWResult)
 
 def try_to_activate_hardware():
+    global hw_activation_code
     if serverType == 'hosted':
         # hardware asset codes only make sense on hosted
         setBusyCursor()
-        hw_activation_code = rhnreg._activate_hardware(username, password)
+        code = rhnreg._activate_hardware(username, password)
+        if code != None:
+            hw_activation_code = code
         setArrowCursor()
 
 def hasBaseChannelAndUpdates():
