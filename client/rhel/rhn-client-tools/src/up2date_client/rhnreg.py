@@ -38,8 +38,6 @@ _ = gettext.gettext
 #SYSID_DIR = /tmp
 SYSID_DIR = "/etc/sysconfig/rhn"
 REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
-# REG_NUM_FILE is the new rhel 5 number.
-REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
 HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
 
@@ -139,34 +137,6 @@ def writeSystemId(systemId):
 def writeHWCode(hw_activation_code):
     """Returns True if the write is successful or False if it fails."""
     return _write_secure_file(HW_CODE_FILE, hw_activation_code + '\n')
-
-def writeRegNum(regNum):
-    """Returns True if the write is successful or False if it fails."""
-    file_contents = regNum + '\n'
-    return _write_secure_file(REG_NUM_FILE, file_contents)
-
-def readRegNum():
-    """
-    Returns the first line of the reg num file without the trailing newline
-    or None if the file doesn't exist.
-    
-    Can raise IOError if the file exists but there's an error reading it.
-    
-    TODO If we wind up with a nice class for reg nums / install nums it would be
-    cool to return one of those.
-    
-    New in RHEL 5.
-    
-    """
-    if not os.access(REG_NUM_FILE, os.F_OK):
-        return None
-    # There's a race condition here, but it doesn't really matter
-    regNumFile = open(REG_NUM_FILE)
-    try:
-        line = regNumFile.readline()
-    finally:
-        regNumFile.close()
-    return line.strip()
 
 def get_virt_info():
     """
