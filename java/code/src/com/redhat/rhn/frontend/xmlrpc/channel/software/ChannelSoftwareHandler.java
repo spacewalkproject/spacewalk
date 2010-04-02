@@ -1998,21 +1998,16 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the channel")
      * @xmlrpc.returntype
      *      #array()
-     *          string
-     *          string
+     *              $ChannelSerializer
      *      #array_end()
-     *
      */
 
-    public List<Channel> listChildren(String sessionKey, String channelLabel) {
+    public Object[] listChildren(String sessionKey, String channelLabel) {
         // Get Logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        channelAdminPermCheck(loggedInUser);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
 
-//        DataResult dr = ChannelFactory.getAccessibleChildChannels(chan, loggedInUser);
-//        return dr.toArray();
-        return ChannelFactory.getAccessibleChildChannels(chan, loggedInUser);
+        return ChannelFactory.getAccessibleChildChannels(chan, loggedInUser).toArray();
     }
 
 }
