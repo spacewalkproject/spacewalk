@@ -207,11 +207,6 @@ ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "
                             "about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
                             "Universal Default activation key: %s")
-INST_NUM_ON_DISK        = _("A subscription-activating installation number was found on disk, but we "
-                            "were not able to activate it (An unknown error occurred.) We used existing "
-                            "active subscription slots available in the rhn account instead. You may wish "
-                            "to contact Red Hat customer service regarding this issue: "
-                            "http://www.redhat.com/apps/support/")
 
 # Error Messages.
 FATAL_ERROR                = _("Fatal Error")
@@ -229,24 +224,6 @@ SERVER_TOO_OLD             = _("This server doesn't support functionality "
                                "needed by this version of the software update"
                                " setup client. Please try again with a newer "
                                "server.")
-INVALID_NUMBER             = _("The installation number you have provided "
-                               "(%s) is "
-                               "invalid.\n\nPlease check the number and try "
-                               "again or try another option listed on the "
-                               "'Access a Subscription' screen.")
-ALREADY_USED_NUMBER        = _("The installation number you provided is "
-                               "valid but was already activated and the subscriptions "
-                               "have already been used by systems in your "
-                               "organization or is not usable for this system."
-                               "\n\nPlease try a different "
-                               "number or try another option listed on the "
-                               "'Access a Subscription' screen.")
-NONENTITLING_NUMBER        = _("The installation number you provided "
-                               "does not have subscriptions associated with "
-                               "it.\n\n"
-                               "Please try a different number or try another "
-                               "option listed in the 'Access a Subscription' "
-                               "screen.")
 
 
 SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate File</span></b>\n\n"
