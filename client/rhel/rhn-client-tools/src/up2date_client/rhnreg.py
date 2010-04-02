@@ -569,49 +569,6 @@ class ActivationResult:
         """Returns a dict- the key/value pairs are label/quantity."""
         return self._systemSlots
 
-def activateRegistrationNumber(username, password, registrationNumber, 
-                               orgId=None):
-    """Tries to activate a registration/entitlement number.
-    
-    Returns an ActivationResult.
-    Can raise:
-        InvalidRegistrationNumberError
-        Entitlement number is not entitling - ValidationError TODO change to 
-                                              something else so if they type 
-                                              one in we can give better feedback
-        Communication errors, etc
-    
-    """
-    server = rhnserver.RhnServer()
-##    if server.capabilities.hasCapability(
-##       'registration.activate_subscription_number'):
-##        # TODO Make xmlrpc call
-##        pass
-##    else:
-##        # TODO
-##        pass
-
-    other = {}
-    if orgId:
-        other = {'org_id': orgId}
-    
-    result = server.registration.activate_registration_number(username, password, registrationNumber, other)
-    statusCode = result['status_code']
-    regNum = result['registration_number']
-    channels = result['channels']
-    system_slots = result['system_slots']
-    log.log_debug('Server returned status code %s' % statusCode)
-    if statusCode == 0:
-        return ActivationResult(ActivationResult.ACTIVATED_NOW, regNum,
-                                channels, system_slots)
-    elif statusCode == 1:
-        return ActivationResult(ActivationResult.ALREADY_USED, regNum,
-                                channels, system_slots)
-    else:
-        message = "The server returned unknown status code %s while activating" \
-                   " an installation number." % statusCode
-        raise up2dateErrors.CommunicationError(message)
-
 def _activate_hardware(login, password):
 
     # Read the asset code from the hardware.
