@@ -13,7 +13,7 @@ import httplib
 sys.path.append('..')
 from rhn.rpclib import Server, GETServer
 
-SERVER = "xmlrpc.rhn.webqa.redhat.com"
+SERVER = "xmlrpc.rhn.redhat.com"
 HANDLER = "/XMLRPC"
 
 def get_test_server_https():
