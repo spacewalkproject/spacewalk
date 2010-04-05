@@ -151,7 +151,7 @@ SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
   FROM rhnServer S inner join rhnServerChannel SC on S.id = SC.server_id
  WHERE SC.channel_id = :channel_id and 
- 			EXISTS (SELECT 1 FROM rhnServerNeededView SNV where SNV.server_id = S.id and SNV.errata_id = :errata_id)
+			S.id in (SELECT SNV.server_id FROM rhnServerNeededView SNV where SNV.errata_id = :errata_id)
  AND EXISTS 
    (SELECT 1 FROM rhnServerFeaturesView SFV WHERE 
     SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
