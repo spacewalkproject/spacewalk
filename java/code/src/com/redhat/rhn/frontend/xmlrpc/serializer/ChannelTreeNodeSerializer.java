@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
@@ -37,6 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *     #prop("string", "provider_name")
  *     #prop("int", "packages")
  *     #prop("int", "systems")
+ *     #prop("string", "arch_name")
  *   #struct_end()
  */
 public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
@@ -79,6 +82,8 @@ public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
         else {
             helper.add("systems", ctn.getSystemCount());
         }
+
+        helper.add("arch_name", ctn.getArchName());
 
         helper.writeTo(output);
     }

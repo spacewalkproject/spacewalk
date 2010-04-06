@@ -46,6 +46,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long parentId;
     private Long orgId;
     private String orgName;
+    private String archName;
     
 
     
@@ -458,4 +459,18 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
         orgName = orgname;
     }
     
+    /**
+     * @return Returns the archName.
+     */
+    public String getArchName() {
+        return archName;
+    }
+
+    /**
+     * @param archNameIn The archName to set.
+     */
+    public void setArchName(String archNameIn) {
+        this.archName = archNameIn;
+    }
+
 }
