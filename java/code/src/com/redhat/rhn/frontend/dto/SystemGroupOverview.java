@@ -33,7 +33,24 @@ public class SystemGroupOverview extends BaseDto {
     private Date modified;
     private Long maxMembers;
     private String monitoringStatus;
+    private String mostSevereErrata;
 
+
+    /**
+     * Gets the most severe errata type
+     * @return the most severe errata type
+     */
+    public String getMostSevereErrata() {
+        return mostSevereErrata;
+    }
+
+    /**
+     * Set most Severe Errata type
+     * @param mostSevereErrataIn the most severe errata type
+     */
+    public void setMostSevereErrata(String mostSevereErrataIn) {
+        this.mostSevereErrata = mostSevereErrataIn;
+    }
 
     /**
      * set if this is selected with a Long
