@@ -587,7 +587,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_ui.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_isos.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss_runcommand.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
