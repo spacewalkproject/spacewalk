@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.16
+Version: 0.9.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 07 2010 Tomas Lestach <tlestach@redhat.com> 0.9.17-1
+- introducing kickstart.cloneProfile API call (tlestach@redhat.com)
+
 * Wed Apr 07 2010 Justin Sherrill <jsherril@redhat.com> 0.9.16-1
 - 573153 - improving performance of the systems group overview page
   considerably (jsherril@redhat.com)
