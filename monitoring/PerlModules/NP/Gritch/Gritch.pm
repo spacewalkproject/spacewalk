@@ -410,7 +410,7 @@ sub sendmail {
            my $msg = Mail::Send->new(Subject => $subject, To => $recip, From => $self->recipient);
            my $fh = $msg->open('sendmail');
            print $fh $message;
-           $fh->close or $err= "couldn't send whole message: $!";
+           $fh->close;
 	} else {
            # Couldn't find sendmail -- fall back to /bin/mail
            $subject =~ tr/'//d;
