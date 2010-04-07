@@ -28,8 +28,5 @@ def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, 
     if copy_iso_dir is not None:
         opts.append("--copy-iso-dir=%s" % copy_iso_dir)
 
-    #if not upper_limit is None:
-    #    opts.append("-r%s" % upper_limit)
-
     geniso.main(opts)
 
