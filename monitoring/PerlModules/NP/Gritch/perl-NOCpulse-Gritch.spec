@@ -8,6 +8,7 @@ BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(NOCpulse::Config)
 BuildRequires: perl(NOCpulse::Debug) perl(ExtUtils::MakeMaker)
+BuildRequires: perl(Mail::Send)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
