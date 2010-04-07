@@ -22,10 +22,10 @@ def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, 
              "--type=%s" % iso_type,
            ]
 
-    if not lower_limit is None:
+    if lower_limit is not None:
         opts.append("-v%s-%s" % (lower_limit, upper_limit))
 
-    if not copy_iso_dir is None:
+    if copy_iso_dir is not None:
         opts.append("--copy-iso-dir=%s" % copy_iso_dir)
 
     #if not upper_limit is None:
