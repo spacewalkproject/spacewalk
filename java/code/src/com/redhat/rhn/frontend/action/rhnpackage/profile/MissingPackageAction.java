@@ -188,7 +188,8 @@ public class MissingPackageAction extends BaseProfilesAction {
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, getDecl(requestContext, sid));
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request,
+                                                getDecl(requestContext, sid));
         
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
