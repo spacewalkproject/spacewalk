@@ -41,9 +41,9 @@ class CertGenerationMismatchError(Exception):
 
 class CertVersionMismatchError(Exception):
     def __init__(self, old_version, new_version):
-        self.message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
+        self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
     def __str__(self):
-          return self.message
+          return self._message
 
 class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
