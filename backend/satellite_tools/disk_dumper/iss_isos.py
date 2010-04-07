@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008-2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,15 +13,10 @@
 # in this software or its documentation. 
 #
 
-from iss_runcommand import run_command
-
-class IsoError(Exception):
-    pass
-
+from satellite_tools import geniso
 
 def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, copy_iso_dir=None, iso_type=None):
     opts = []
-    command = "PYTHONPATH=/usr/share/rhn python /usr/share/rhn/satellite_tools/geniso.py %s"
     
     opts.append("--mountpoint=%s" % mountpoint)
     opts.append("--file-prefix=%s" % prefix)
@@ -38,13 +33,5 @@ def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, 
     #if not upper_limit is None:
     #    opts.append("-r%s" % upper_limit)
 
-    optstr = " ".join(opts)
+    geniso.main(opts)
 
-    status, outval, errval = run_command(command % optstr)
-    if status != 0:
-        raise IsoError(outval, errval)
-    
-         
-
-    
-        
