@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.channel;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -81,6 +82,8 @@ public class ChannelDetailsAction extends RhnAction {
         request.setAttribute("pack_size", ChannelFactory.getPackageCount(chan));
         request.setAttribute("globally", chan.isGloballySubscribable(user.getOrg()));
         request.setAttribute("channel", chan);
+        request.setAttribute("channel_last_modified", LocalizationService.
+                    getInstance().formatCustomDate(chan.getLastModified()));
         //Check if the channel needed repodata, 
         // if so get the status and last build info
         if (chan.isChannelRepodataRequired()) {

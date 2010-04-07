@@ -2782,9 +2782,7 @@ public class ChannelManager extends BaseManager {
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
         log.info("File Modified Date:" + fileModifiedDateIn);
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String fileModifiedDate = formatter.format(fileModifiedDateIn);
-        return fileModifiedDate;
+        return LocalizationService.getInstance().formatCustomDate(fileModifiedDateIn);
     }
 
 

@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import java.text.Collator;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -59,6 +60,7 @@ public class LocalizationService {
      * into java.util.Dates so they can be formatted based on Locale.
      */
     public static final String RHN_DB_DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String RHN_CUSTOM_DATEFORMAT = "yyyy-MM-dd HH:mm:ss z";
 
     private static Logger log = Logger.getLogger(LocalizationService.class);
     private static Logger msgLogger = Logger
@@ -430,6 +432,20 @@ public class LocalizationService {
         dbuff.append(timeI.format(date));
 
         return getDebugVersionOfString(dbuff.toString());
+    }
+
+    /**
+     * Returns fixed custom format string displayed for the determined timezone
+     * Example: 2010-04-01 15:04:24 CEST
+     *
+     * @param date Date to format.
+     * @return String representation of given date for set timezone
+     */
+    public String formatCustomDate(Date date) {
+        TimeZone tz = determineTimeZone();
+        SimpleDateFormat sdf = new SimpleDateFormat(RHN_CUSTOM_DATEFORMAT);
+        sdf.setTimeZone(tz);
+        return sdf.format(date);
     }
 
     /**
