@@ -19,7 +19,7 @@ import fcntl
 import select
 import sys
 import StringIO
-
+import types
 
 #   Adapted from the Python Cookbook recipe called
 #   "Capturing the Output and Error Streams from a
@@ -36,7 +36,7 @@ def make_fd_nonblocking(file_desc):
 def run_command(command):
     command_process = subprocess.Popen(command, stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            close_fds=True, shell=(not (type(cmd) in (types.ListType, types.TupleType))) )
+                            close_fds=True, shell=(not (type(command) in (types.ListType, types.TupleType))) )
     outstring = StringIO.StringIO()
     errstring = StringIO.StringIO()
     
