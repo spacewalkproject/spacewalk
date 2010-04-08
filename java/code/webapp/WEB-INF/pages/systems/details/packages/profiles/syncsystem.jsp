@@ -30,6 +30,10 @@
             ${current.name}
         </rl:column>
 
+        <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
+            ${current.arch}
+        </rl:column>
+
         <rl:column headerkey="schedulesync.jsp.action" bound="false">
             ${current.actionStatus}
         </rl:column>

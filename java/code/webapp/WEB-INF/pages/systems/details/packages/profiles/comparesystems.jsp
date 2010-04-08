@@ -35,12 +35,16 @@
                 ${current.name}
             </rl:column>
 
+            <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
+                ${current.arch}
+            </rl:column>
+
             <rl:column headerkey="compare.jsp.thissystem" bound="false">
-                ${current.system.evra}
+                ${current.system.evr}
             </rl:column>
             
             <rl:column headertext="${requestScope.systemname}" bound="false">
-                ${current.other.evra}
+                ${current.other.evr}
             </rl:column>
                         
             <rl:column headerkey="compare.jsp.difference" bound="false">
