@@ -11,10 +11,17 @@ import socket
 from rhn import SSL
 
 def main():
-    server_name = "xmlrpc.rhn.webqa.redhat.com"
+    server_name = "xmlrpc.rhn.redhat.com"
     server_port = 443
     ca_cert = "/usr/share/rhn/RHNS-CA-CERT"
+    try:
+        server_name = sys.argv[1]
+        server_port = int(sys.argv[2])
+        ca_cert = sys.argv[3]
+    except:
+        pass
     diff_count = 0
+
 
     mem_usage = None
     for i in range(10000):
