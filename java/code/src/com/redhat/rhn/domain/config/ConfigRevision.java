@@ -209,7 +209,15 @@ public class ConfigRevision extends BaseDomainHelper {
     public void setConfigFileType(ConfigFileType cft) {
         configFileType = cft;
     }
-    
+
+    /**
+     * Is this revision a file?
+     * @return true if file-type is 'file'
+     */
+    public boolean isFile() {
+        return (configFileType != null && configFileType.getLabel().equals("file"));
+    }
+
     /**
      * Is this revision a directory?
      * @return true if file-type is 'directory'
