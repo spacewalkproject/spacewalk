@@ -63,7 +63,7 @@ sql:
 		) as architecture,
 		(
 			(
-			select count(*) || ' CPUs' from rhncpu where rhnserver.id = rhncpu.server_id
+			select sum(nrcpu) || ' CPUs' from rhncpu where rhnserver.id = rhncpu.server_id
 			) || network_data.col
 		) as hardware
 	from rhnserver,
