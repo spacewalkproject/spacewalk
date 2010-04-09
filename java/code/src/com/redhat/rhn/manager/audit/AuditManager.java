@@ -143,12 +143,9 @@ public class AuditManager /* extends BaseManager */ {
 
         types.put("default", new String[]{
             "USER",
-            "LOGIN",
             "USER_AUTH",
-            "USER_ACCT",
             "USER_MGMT",
-            "USER_START",
-            "USER_END",
+            "USER_ERR",
             "USER_LOGIN",
             "USER_LOGOUT",
             "ADD_USER",
