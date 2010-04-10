@@ -108,7 +108,7 @@ class PackagePush(basePackageUpload.BasePackageUpload):
         if ret != apache.OK:
             return ret
 
-        temp_stream = rhnPackageUpload.write_temp_file(req, 16384)
+        temp_stream = rhnPackageUpload.write_temp_file(req, 16384, self.packaging)
 
         header, payload_stream, header_start, header_end = \
             rhnPackageUpload.load_package(temp_stream)

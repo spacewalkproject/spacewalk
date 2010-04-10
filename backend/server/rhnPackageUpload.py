@@ -19,7 +19,7 @@ import os
 import tempfile
 
 from common import CFG, log_debug, rhnFault, UserDictCase
-from spacewalk.common import rhn_mpm
+from spacewalk.common import rhn_mpm, rhn_deb
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhn_rpm import get_header_byte_range
 
@@ -40,11 +40,14 @@ def source_match(v1, v2):
     return 0
 
 
-def write_temp_file(req, buffer_size):
+def write_temp_file(req, buffer_size, packaging=None):
     """ Write request to temporary file (write max. buffer_size at once).
         Returns the file object.
     """ 
-    t = tempfile.TemporaryFile()
+    suffix = ''
+    if packaging == 'deb':
+        suffix = '.deb'
+    t = tempfile.NamedTemporaryFile(suffix=suffix)
     while 1:
         buf = req.read(buffer_size)
         if not buf:
@@ -148,6 +151,8 @@ def push_package(header, payload_stream, checksum_type, checksum, org_id=None, f
         raise rhnFault(50, "Package upload failed: %s" % e)
     except importLib.FileConflictError:
         raise rhnFault(50, "File already exists")
+    except:
+        raise rhnFault(50, "File error")
 
     pkg = mpmSource.create_package(header, size=payload_size,
         checksum_type=checksum_type, checksum=checksum,
@@ -290,13 +295,19 @@ def _key_ids(sigs):
     return l
 
 def load_package(package_stream):
-    try:
-        header, payload_stream = rhn_mpm.load(file=package_stream)
-    except rhn_mpm.InvalidPackageError, e:
-        raise rhnFault(50, "Unable to load package", explain=0)
+    if package_stream.name.endswith('.deb'):
+        try:
+            header, payload_stream = rhn_deb.load(filename=package_stream.name)
+        except:
+            raise rhnFault(50, "Unable to load package", explain=0)
+    else:
+        try:
+            header, payload_stream = rhn_mpm.load(file=package_stream)
+        except:
+            raise rhnFault(50, "Unable to load package", explain=0)
 
     payload_stream.seek(0, 0)
-    if header.packaging == "mpm":
+    if header.packaging == "mpm" or header.packaging == "deb":
         header.header_start = header.header_end = 0
         (header_start, header_end) = (0, 0)
     else:

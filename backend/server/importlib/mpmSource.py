@@ -18,6 +18,7 @@
 #
 
 import headerSource
+import debPackage
 from importLib import SolarisPatchInfo, \
                       SolarisPatchPackagesInfo, SolarisPatchSetInfo, \
                       SolarisPatchSetMember, SolarisPackageInfo
@@ -219,6 +220,9 @@ def create_package(header, size, checksum_type, checksum, relpath, org_id, heade
             checksum_type=checksum_type, checksum=checksum,
             relpath=relpath, org_id=org_id, header_start=header_start,
             header_end=header_end, channels=channels)
+    if header.packaging == 'deb':
+        return debPackage.debBinaryPackage(header, size=size, checksum_type=checksum_type, checksum=checksum, path=relpath,
+            org_id=org_id, channels=channels)
     if header.is_source:
         raise NotImplementedError()
     p = mpmBinaryPackage()

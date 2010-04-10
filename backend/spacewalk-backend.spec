@@ -18,6 +18,8 @@ Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
 Requires: rhnlib >= 1.8
+# for Debian support
+Requires: python-debian
 Requires: %{name}-libs = %{version}-%{release}
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
@@ -382,6 +384,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/importlib/backendOracle.py*
 %{rhnroot}/server/importlib/blacklistImport.py*
 %{rhnroot}/server/importlib/channelImport.py*
+%{rhnroot}/server/importlib/debPackage.py*
 %{rhnroot}/server/importlib/errataCache.py*
 %{rhnroot}/server/importlib/errataImport.py*
 %{rhnroot}/server/importlib/headerSource.py*

@@ -58,6 +58,8 @@ def load(filename=None, file=None, fd=None):
             return load_rpm(f)
         except InvalidPackageError:
             raise e
+        except:
+            raise e
 
     return p.header, p.payload_stream
 
@@ -83,6 +85,8 @@ def load_rpm(stream):
         raise apply(InvalidPackageError, e.args)
     except rhn_rpm.error, e:
         raise InvalidPackageError(e)
+    except:
+        raise InvalidPackageError
     stream.seek(0, 0)
 
     return header, stream
