@@ -59,7 +59,7 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-x86_64', 'x86_64', lookup_arch_type('rpm'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-x86_64-deb', 'x86_64 Debian', lookup_arch_type('deb'));
+(rhn_channel_arch_id_seq.nextval, 'channel-amd64-deb', 'AMD64 Debian', lookup_arch_type('deb'));
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-ppc', 'PPC', lookup_arch_type('rpm'));

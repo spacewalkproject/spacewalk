@@ -87,6 +87,33 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
 
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('i386-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-ia32-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('alpha-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-alpha-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('ia64-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-ia64-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('sparc-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-sparc-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('s390-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-s390-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('powerpc-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-amd64-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('arm-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-mips-deb'));
+
 commit;
 
 --

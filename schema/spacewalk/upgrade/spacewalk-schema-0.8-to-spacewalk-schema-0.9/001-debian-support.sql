@@ -13,13 +13,13 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-ia64-deb', 'IA-64 Debian', lookup_arch_type('deb'));
 insert into rhnChannelArch (id, label, name, arch_type_id) values
+(rhn_channel_arch_id_seq.nextval, 'channel-amd64-deb', 'AMD64 Debian', lookup_arch_type('deb'));
+insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-sparc-deb', 'Sparc Debian', lookup_arch_type('deb'));
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-alpha-deb', 'Alpha Debian', lookup_arch_type('deb'));
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-s390-deb', 's390 Debian', lookup_arch_type('deb'));
-insert into rhnChannelArch (id, label, name, arch_type_id) values
-(rhn_channel_arch_id_seq.nextval, 'channel-x86_64-deb', 'x86_64 Debian', lookup_arch_type('deb'));
 insert into rhnChannelArch (id, label, name, arch_type_id) values
 (rhn_channel_arch_id_seq.nextval, 'channel-powerpc-deb', 'PowerPC Debian', lookup_arch_type('deb'));
 insert into rhnChannelArch (id, label, name, arch_type_id) values
@@ -92,13 +92,13 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-s390-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
@@ -213,5 +213,174 @@ insert into rhnServerPackageArchCompat
 insert into rhnServerPackageArchCompat
  (server_arch_id, package_arch_id, preference) values
  (LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+commit;
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('i386-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-ia32-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('alpha-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-alpha-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('ia64-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-ia64-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('sparc-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-sparc-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('s390-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-s390-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('powerpc-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-powerpc-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-amd64-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('arm-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-arm-deb'));
+
+insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
+(LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_CHANNEL_ARCH('channel-mips-deb'));
+
+commit;
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('alpha-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('sparc-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('s390-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('powerpc-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('arm-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('mips-debian-linux'),
+            lookup_sg_type('sw_mgr_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('alpha-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('sparc-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('s390-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('powerpc-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('arm-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('mips-debian-linux'),
+            lookup_sg_type('enterprise_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('alpha-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('sparc-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('s390-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('powerpc-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('arm-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('mips-debian-linux'),
+            lookup_sg_type('provisioning_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('alpha-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('sparc-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('s390-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('powerpc-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('arm-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
+	values (lookup_server_arch('mips-debian-linux'),
+            lookup_sg_type('monitoring_entitled'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('virtualization_host'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('virtualization_host'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('virtualization_host'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('s390-debian-linux'),
+            lookup_sg_type('virtualization_host'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('powerpc-debian-linux'),
+            lookup_sg_type('virtualization_host'));
+
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('i386-debian-linux'),
+            lookup_sg_type('virtualization_host_platform'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('amd64-debian-linux'),
+            lookup_sg_type('virtualization_host_platform'));
+insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
+    values (lookup_server_arch('ia64-debian-linux'),
+            lookup_sg_type('virtualization_host_platform'));
 
 commit;

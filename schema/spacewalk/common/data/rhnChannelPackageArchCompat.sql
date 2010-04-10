@@ -219,16 +219,16 @@ insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-x86_64'), LOOKUP_PACKAGE_ARCH('src'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('all-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('i386-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('amd64-deb'));
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-x86_64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
+values (LOOKUP_CHANNEL_ARCH('channel-amd64-deb'), LOOKUP_PACKAGE_ARCH('src-deb'));
 
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
