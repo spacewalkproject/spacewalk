@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import logging, os, sys, xmlrpclib
+import logging, os, re, sys, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from optparse import Option, OptionParser
@@ -30,8 +30,8 @@ class SpacewalkShell(Cmd):
         self.prompt = 'Spacewalk> '
        
         try:
-            # don't split on hyphens
-            import readline 
+            # don't split on hyphens during tab completion
+            import readline
             newdelims = readline.get_completer_delims().replace('-', '')
             readline.set_completer_delims(newdelims)
         except:
@@ -86,8 +86,8 @@ class SpacewalkShell(Cmd):
             if not options.username:
                 options.username = raw_input("Username: ")
 
-            if not password:
-                password = getpass("Password: ")
+            if not options.password:
+                options.password = getpass("Password: ")
 
             try:
                 self.session = self.client.auth.login(options.username, 
@@ -107,9 +107,24 @@ class SpacewalkShell(Cmd):
                     logging.error("Could not write cache file")
  
         logging.info("Connected to " + options.server)
-   
+ 
+    # write the history file and exit 
+    def terminate(self, exit_code=0):
+        print
+
+        if not self.options.nohistory:
+            try:
+                import readline
+                readline.write_history_file(self.history_file)
+            except:
+                logging.error("Could not write history file")
+
+        sys.exit(exit_code)
+
+ 
     def emptyline(self):
         pass
+
 
     # load the history file
     def preloop(self):
@@ -120,35 +135,54 @@ class SpacewalkShell(Cmd):
             except:
                 logging.error("Could not read history file")
 
+
     # handle commands that exit the shell
     def precmd(self, line):
         # set the command and arguments once so they can be used elsewhere
-        parts = line.split()
-        self.cmd = parts[0]
-        self.args = parts[1:]
+        try:
+            parts = line.split()
+            self.cmd = parts[0]
+            self.args = parts[1:]
+        except IndexError:
+            self.cmd = ''
+            self.args = []
  
         if self.cmd.lower() in ('quit', 'exit', 'eof'):
-            print
-
-            if not options.nohistory:
-                try:
-                    import readline
-                    readline.write_history_file(self.history_file)
-                except:
-                    logging.error("Could not write history file")
-
-            sys.exit(0)
+            self.terminate()
         else:
             return line
 
+###########
+
     def tab_completer(self, options, text):
         return [x for x in options if x.startswith(text)]
+    
+    def filter_results(self, list, args):
+        patterns = []
+        for pattern in args:
+            patterns.append(re.compile(pattern, re.IGNORECASE))
+
+        matches = []
+        for item in list:
+            if len(patterns) > 0:
+                for pattern in patterns:
+                    if pattern.search(item):
+                        matches.append(item)
+            else:
+                matches.append(item)
+
+        matches.sort()
+        return matches
+
+###########
 
     def help_help(self):
-        print "help <topic>"
+        print "help COMMAND"
+
 
     def help_getapi(self):
         print "getapi"
+
 
     def do_getapi(self, args):
         print self.client.api.getVersion()
@@ -161,27 +195,120 @@ class SpacewalkShell(Cmd):
         print self.client.api.systemVersion()
 
 
-    def help_getswchannels(self):
-        print "getswchannels"
-
-    def do_getswchannels(self, args, doreturn=0):
-        channels = self.client.channel.listAllChannels(self.session)
-
-        labels = list(channel.get('label') for channel in channels)
-        labels.sort()
+    def help_listsystems(self):
+        print "listsystems [PATTERN1] [PATTERN2] ..."
+    
+    def do_listsystems(self, args, doreturn=0):
+        systems = self.client.system.listSystems(self.session)
+        systems = [x.get('name') for x in systems]
 
         if doreturn:
-            return labels
+            return systems
         else:
-            for label in labels:
-                print label
+            print "\n".join(self.filter_results(systems, self.args))
 
+
+    def help_getsystemdetails(self):
+        print "getsystemdetails SYSTEM"
+
+    def complete_getsystemdetails(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_listsystems('', 1), text)
+ 
+    def do_getsystemdetails(self, args):
+        if len(self.args) != 1:
+            self.help_getsystemdetails()
+            return
+
+        try:
+            try:
+                # check if we were passed a system ID
+                system_id = int(self.args[0])
+    
+                system = self.client.system.getName(self.session, system_id)
+                last_checkin = system.get('last_checkin')
+            except ValueError:
+                system_id = None
+
+            if not system_id:
+                systems = self.client.system.getId(self.session,
+                                                   self.args[0])
+
+                if len(systems) > 1:
+                    logging.info("Multiple systems found with the same name")
+
+                    for system in systems:
+                        logging.info(self.args[0] + " = " + system.get('id')) 
+
+                    return
+
+                system_id = systems[0].get('id')
+                last_checkin = systems[0].get('last_checkin')
+
+            details = self.client.system.getDetails(self.session, system_id)
+
+            registered = self.client.system.getRegistrationDate(self.session,
+                                                                system_id)
+
+            entitlements = self.client.system.getEntitlements(self.session,
+                                                              system_id)
+
+            base_channel = \
+                self.client.system.getSubscribedBaseChannel(self.session,
+                                                            system_id)
+
+            child_channels = \
+                self.client.system.listSubscribedChildChannels(self.session,
+                                                               system_id)
+
+            groups = self.client.system.listGroups(self.session,
+                                                   system_id)
+
+            kernel = self.client.system.getRunningKernel(self.session,
+                                                         system_id)
+        except xmlrpclib.Fault, err:
+            logging.error(err.faultString.rsplit(': ', 1)[1])
+            return 
+        except:
+            logging.debug(sys.exc_info()[0])
+            logging.error("Could not retreive system information")
+            return
        
+        print "Name:          " + self.args[0] + "\n" + \
+              "System ID:     " + str(system_id) + "\n" + \
+              "Locked:        " + str(details.get('lock_status')) + "\n" + \
+              "Registered:    " + registered.value + "\n" + \
+              "Last Checkin:  " + last_checkin.value + "\n" + \
+              "Kernel:        " + kernel + "\n" + \
+              "Base Channel:  " + base_channel.get('label')
+
+        for channel in child_channels:
+            print "Child Channel: " + channel.get('label')
+
+        for entitlement in entitlements:
+            print "Entitlement:   " + entitlement
+
+        for group in groups:
+            if group.get('subscribed') == 1:
+                print "Group:         " + group.get('system_group_name')
+
+    def help_listswchannels(self):
+        print "listswchannels [PATTERN1] [PATTERN2] ..."
+
+    def do_listswchannels(self, args, doreturn=0):
+        channels = self.client.channel.listAllChannels(self.session)
+        channels = [x.get('label') for x in channels]
+
+        if doreturn:
+            return channels
+        else:
+            print "\n".join(self.filter_results(channels, self.args))
+      
+ 
     def help_getswchanneldetails(self):
         print "getswchanneldetails CHANNEL"
 
     def complete_getswchanneldetails(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_getswchannels('', 1), text)
+        return self.tab_completer(self.do_listswchannels('', 1), text)
  
     def do_getswchanneldetails(self, args):
         if len(self.args) != 1:
@@ -194,17 +321,15 @@ class SpacewalkShell(Cmd):
         except xmlrpclib.Fault, err:
             logging.error(err.faultString.rsplit(': ', 1)[1])
             return 
-        
-        items = {'label' : 'Label', 
-                 'name' : 'Name', 
-                 'arch_name' : 'Architecture', 
-                 'parent_channel_label' : 'Parent Channel',
-                 'gpg_key_id' : 'GPG ID', 
-                 'gpg_key_fp' : 'GPG Fingerprint', 
-                 'gpg_key_url' : 'GPG URL'}
+       
+        print "Label:           " + details.get('label') + "\n" + \
+              "Name:            " + details.get('name') + "\n" + \
+              "Parent:          " + details.get('parent_channel_label') + "\n" + \
+              "Architecture:    " + details.get('arch_name') + "\n" + \
+              "GPG Key:         " + details.get('gpg_key_id') + "\n" + \
+              "GPG Fingerprint: " + details.get('gpg_key_fp') + "\n" + \
+              "GPG URL:         " + details.get('gpg_key_url')
 
-        for key in items.keys():
-            print items.get(key) + "=" + details.get(key)
 
 # parse the options and then start the command interpreter
 if __name__ == "__main__":
@@ -244,7 +369,10 @@ if __name__ == "__main__":
     # start the shell
     try:
         shell.cmdloop()
+    except xmlrpclib.Fault, err:
+        logging.error(err.faultString.rsplit(': ', 1)[1])
+        shell.terminate(1)
     except KeyboardInterrupt:
-        shell.precmd('exit')
+        shell.terminate()
 
 # vim:ts=4:expandtab:
