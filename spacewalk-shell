@@ -177,7 +177,11 @@ class SpacewalkShell(Cmd):
                 except:
                     logging.warning("Cached credentials are invalid")
                     self.session = ''
-                    os.remove(self.cache_file)
+
+                    try:
+                        os.remove(self.cache_file)
+                    except:
+                        pass
         
         # attempt to login if we don't have a valid session yet    
         if not self.session:
@@ -226,6 +230,11 @@ class SpacewalkShell(Cmd):
         if self.session:
             self.client.auth.logout(self.session)
             self.session = ''
+            
+            try:
+                os.remove(self.cache_file)
+            except:
+                pass
         else:
             logging.error("You're not logged in")
 
