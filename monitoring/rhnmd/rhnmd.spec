@@ -16,9 +16,8 @@ Group:          System Environment/Daemons
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:       openssh-server openssh
 BuildRequires:  pam-devel
-%ifarch x86_64
-Obsoletes: 		rhmd.i386
-%endif 
+Obsoletes: 		rhnmd.i386
+Obsoletes:		rhnmd.x86_64
 
 %description
 rhnmd enables secure ssh-based communication between the monitoring
