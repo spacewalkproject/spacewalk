@@ -28,76 +28,15 @@ class SpacewalkShell(Cmd):
         except:
             pass
 
+        self.session = ''
+
         # make the options available everywhere
         self.options = options
 
-        if options.nossl:
-            proto = "http"
-        else:
-            proto = "https"
-
-        options.server = proto + "://" + options.server + "/rpc/api"
-
-        # connect to the server
-        logging.debug("Connecting to " + options.server)
-        self.client = xmlrpclib.Server(options.server)
-
-        # ensure the server is recent enough
-        api_version = self.client.api.getVersion()
-        if api_version < self.MINIMUM_API_VERSION:
-            logging.error("API (" + api_version + ") is too old (>= " \
-                         + self.MINIMUM_API_VERSION + " required)")
-            sys.exit(1)
-
-        self.session = ''
         userinfo = getpwuid(os.getuid())
-        cache_file = os.path.join(userinfo[5], ".spacewalk_cache")
+        self.cache_file = os.path.join(userinfo[5], ".spacewalk_cache")
         self.history_file = os.path.join(userinfo[5], ".spacewalk_history")
 
-        # retrieve a cached session
-        if not options.nocache:
-            if os.path.isfile(cache_file):
-                logging.info("Using cached credentials from " + cache_file)
-
-                try:
-                    sessionfile = open(cache_file, "r")
-                    self.session = sessionfile.read()
-                    sessionfile.close()
-                except:
-                    logging.error("Could not read cache file")
-
-                try:
-                    self.client.user.listUsers(self.session)
-                except:
-                    self.session = ''
-                    os.remove(cache_file)
-        
-        # attempt to login if we don't have a valid session yet    
-        if not self.session:
-            if not options.username:
-                options.username = raw_input("Username: ")
-
-            if not options.password:
-                options.password = getpass("Password: ")
-
-            try:
-                self.session = self.client.auth.login(options.username, 
-                                                      options.password)
-            except:
-                logging.error("Invalid credentials")
-                sys.exit(1)
-
-            # write the session to a cache
-            if not options.nocache:
-                try:
-                    logging.debug("Writing session cache to " + cache_file) 
-                    sessionfile = open(cache_file, "w")
-                    sessionfile.write(self.session)
-                    sessionfile.close()
-                except:
-                    logging.error("Could not write cache file")
- 
-        logging.info("Connected to " + options.server)
  
     # write the history file and exit 
     def terminate(self, exit_code=0):
@@ -125,6 +64,10 @@ class SpacewalkShell(Cmd):
                 readline.read_history_file(self.history_file)
             except:
                 logging.error("Could not read history file")
+
+        if not self.session:
+            self.args = []
+            self.do_login(self.args)
 
 
     # handle commands that exit the shell
@@ -170,6 +113,123 @@ class SpacewalkShell(Cmd):
     def help_help(self):
         print "help COMMAND"
 
+###########
+
+    def help_login(self):
+        print "login [USERNAME] [SERVER]"
+
+    def do_login(self, args):
+        self.session = ''
+        
+        if self.options.nossl:
+            proto = "http"
+        else:
+            proto = "https"
+
+        if len(self.args) == 2 and self.args[1]:
+            server = self.args[1]
+        elif self.options.server:
+            server = self.options.server
+        else:
+            logging.error("No server specified")
+            return
+
+        server = proto + "://" + server + "/rpc/api"
+
+        # connect to the server
+        logging.debug("Connecting to " + server)
+        self.client = xmlrpclib.Server(server)
+
+        try:
+            api_version = self.client.api.getVersion()
+        except:
+            logging.error(sys.exc_info()[1])
+            self.client = None
+            return
+
+        # ensure the server is recent enough
+        if api_version < self.MINIMUM_API_VERSION:
+            logging.error("API (" + api_version + ") is too old (>= " \
+                         + self.MINIMUM_API_VERSION + " required)")
+
+            self.client = None
+            return
+
+        # retrieve a cached session
+        if not self.options.nocache:
+            if os.path.isfile(self.cache_file):
+                try:
+                    # read the session (format = username:session)
+                    sessionfile = open(self.cache_file, "r")
+                    parts = sessionfile.read().split(':')
+                    sessionfile.close()
+   
+                    username = parts[0]
+                    self.session = parts[1]
+                except:
+                    logging.error("Could not read " + self.cache_file)
+
+                try:
+                    logging.info("Using cached credentials from " + \
+                                 self.cache_file)
+
+                    self.client.user.listUsers(self.session)
+                except:
+                    logging.warning("Cached credentials are invalid")
+                    self.session = ''
+                    os.remove(self.cache_file)
+        
+        # attempt to login if we don't have a valid session yet    
+        if not self.session:
+            if self.options.username:
+                username = self.options.username
+                self.options.username = None
+            elif len(self.args) > 0 and self.args[0]:
+                username = self.args[0]
+            else:
+                username = raw_input("Username: ")
+
+            if self.options.password:
+                password = self.options.password
+                self.options.password = None
+            else:
+                password = getpass("Password: ")
+
+            try:
+                self.session = self.client.auth.login(username, 
+                                                      password)
+            except:
+                logging.error("Invalid credentials")
+                return
+
+            # write the session to a cache
+            if not self.options.nocache:
+                try:
+                    logging.debug("Writing session cache to " + self.cache_file) 
+                    sessionfile = open(self.cache_file, "w")
+                    sessionfile.write(username + ':' + self.session)
+                    sessionfile.close()
+                except:
+                    logging.error("Could not write cache file")
+ 
+        # disable caching of subsequent logins
+        self.options.nocache = True
+
+        logging.info("Connected to " + server + " as " + username)
+
+###########
+
+    def help_logout(self):
+        print "logout"
+        
+    def do_logout(self, args):
+        if self.session:
+            self.client.auth.logout(self.session)
+            self.session = ''
+        else:
+            logging.error("You're not logged in")
+
+###########
 
     def help_getapi(self):
         print "getapi"
