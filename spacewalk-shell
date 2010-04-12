@@ -1,0 +1,250 @@
+#!/usr/bin/python
+
+import logging, os, sys, xmlrpclib
+from cmd import Cmd
+from getpass import getpass
+from optparse import Option, OptionParser
+from pwd import getpwuid
+
+sys.path.append(os.getcwd())
+#from spacewalk_shell_actions import *
+
+INTRO="""
+Welcome to SpacewalkShell, a command line interface to Spacewalk.
+
+For a full set of commands, type "help" on the prompt.
+For help for a specific command try "help <cmd>".
+"""
+
+class SpacewalkShell(Cmd):
+    MINIMUM_API_VERSION = 10.8
+   
+    def __init__(self, options):
+        # set some defaults since we can't call our superclass constructor
+        self.cmdqueue = []
+        self.completekey = "tab"
+        self.stdout = sys.stdout
+
+        # tailor the command interface for our needs 
+        self.intro = INTRO
+        self.prompt = 'Spacewalk> '
+       
+        try:
+            # don't split on hyphens
+            import readline 
+            newdelims = readline.get_completer_delims().replace('-', '')
+            readline.set_completer_delims(newdelims)
+        except:
+            pass
+
+        # make the options available everywhere
+        self.options = options
+
+        if options.nossl:
+            proto = "http"
+        else:
+            proto = "https"
+
+        options.server = proto + "://" + options.server + "/rpc/api"
+
+        # connect to the server
+        logging.debug("Connecting to " + options.server)
+        self.client = xmlrpclib.Server(options.server)
+
+        # ensure the server is recent enough
+        api_version = self.client.api.getVersion()
+        if api_version < self.MINIMUM_API_VERSION:
+            logging.error("API (" + api_version + ") is too old (>= " \
+                         + self.MINIMUM_API_VERSION + " required)")
+            sys.exit(1)
+
+        self.session = ''
+        userinfo = getpwuid(os.getuid())
+        cache_file = os.path.join(userinfo[5], ".spacewalk_cache")
+        self.history_file = os.path.join(userinfo[5], ".spacewalk_history")
+
+        # retrieve a cached session
+        if not options.nocache:
+            if os.path.isfile(cache_file):
+                logging.info("Using cached credentials from " + cache_file)
+
+                try:
+                    sessionfile = open(cache_file, "r")
+                    self.session = sessionfile.read()
+                    sessionfile.close()
+                except:
+                    logging.error("Could not read cache file")
+
+                try:
+                    self.client.user.listUsers(self.session)
+                except:
+                    self.session = ''
+                    os.remove(cache_file)
+        
+        # attempt to login if we don't have a valid session yet    
+        if not self.session:
+            if not options.username:
+                options.username = raw_input("Username: ")
+
+            if not password:
+                password = getpass("Password: ")
+
+            try:
+                self.session = self.client.auth.login(options.username, 
+                                                      options.password)
+            except:
+                logging.error("Invalid credentials")
+                sys.exit(1)
+
+            # write the session to a cache
+            if not options.nocache:
+                try:
+                    logging.debug("Writing session cache to " + cache_file) 
+                    sessionfile = open(cache_file, "w")
+                    sessionfile.write(self.session)
+                    sessionfile.close()
+                except:
+                    logging.error("Could not write cache file")
+ 
+        logging.info("Connected to " + options.server)
+   
+    def emptyline(self):
+        pass
+
+    # load the history file
+    def preloop(self):
+        if not options.nohistory:
+            try:
+                import readline
+                readline.read_history_file(self.history_file)
+            except:
+                logging.error("Could not read history file")
+
+    # handle commands that exit the shell
+    def precmd(self, line):
+        # set the command and arguments once so they can be used elsewhere
+        parts = line.split()
+        self.cmd = parts[0]
+        self.args = parts[1:]
+ 
+        if self.cmd.lower() in ('quit', 'exit', 'eof'):
+            print
+
+            if not options.nohistory:
+                try:
+                    import readline
+                    readline.write_history_file(self.history_file)
+                except:
+                    logging.error("Could not write history file")
+
+            sys.exit(0)
+        else:
+            return line
+
+    def tab_completer(self, options, text):
+        return [x for x in options if x.startswith(text)]
+
+    def help_help(self):
+        print "help <topic>"
+
+    def help_getapi(self):
+        print "getapi"
+
+    def do_getapi(self, args):
+        print self.client.api.getVersion()
+
+
+    def help_getsystemversion(self):
+        print "getsystemversion"
+
+    def do_getsystemversion(self, args):
+        print self.client.api.systemVersion()
+
+
+    def help_getswchannels(self):
+        print "getswchannels"
+
+    def do_getswchannels(self, args, doreturn=0):
+        channels = self.client.channel.listAllChannels(self.session)
+
+        labels = list(channel.get('label') for channel in channels)
+        labels.sort()
+
+        if doreturn:
+            return labels
+        else:
+            for label in labels:
+                print label
+
+       
+    def help_getswchanneldetails(self):
+        print "getswchanneldetails CHANNEL"
+
+    def complete_getswchanneldetails(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_getswchannels('', 1), text)
+ 
+    def do_getswchanneldetails(self, args):
+        if len(self.args) != 1:
+            self.help_getswchanneldetails()
+            return
+
+        try:
+            details = self.client.channel.software.getDetails(self.session, 
+                                                              self.args[0])
+        except xmlrpclib.Fault, err:
+            logging.error(err.faultString.rsplit(': ', 1)[1])
+            return 
+        
+        items = {'label' : 'Label', 
+                 'name' : 'Name', 
+                 'arch_name' : 'Architecture', 
+                 'parent_channel_label' : 'Parent Channel',
+                 'gpg_key_id' : 'GPG ID', 
+                 'gpg_key_fp' : 'GPG Fingerprint', 
+                 'gpg_key_url' : 'GPG URL'}
+
+        for key in items.keys():
+            print items.get(key) + "=" + details.get(key)
+
+# parse the options and then start the command interpreter
+if __name__ == "__main__":
+    optionsTable = [
+        Option('-u', '--username', action='store',
+               help='Use this username to connect to RHN/Satellite'),
+        Option('-p', '--password', action='store',
+               help='Use this password to connect to RHN/Satellite'),
+        Option('--server', action='store', default="localhost", 
+               help='Connect to this server (http[s]://<hostname>/APP)'),
+        Option('--nocache', action='store_true',
+                help="Do not create a username/password cache"),
+        Option('--nossl', action='store_true',
+               help="Use HTTP instead of HTTPS"),
+        Option('--nohistory', action='store_true',
+                help="Do not store command history in ~/.spacewalk_history"),
+        Option('-d', '--debug', action='store_true',
+               help="Enable debug logging"),
+    ]
+    
+    parser = OptionParser(option_list=optionsTable)
+    (options, args) = parser.parse_args()
+ 
+    if options.debug:
+        log_level = logging.DEBUG
+    else:
+        log_level = logging.INFO
+
+
+    # setup logging
+    logging.basicConfig(level=log_level, 
+                        format="%(levelname)s: %(message)s")
+
+    # setup the shell
+    shell = SpacewalkShell(options)
+
+    # start the shell
+    try:
+        shell.cmdloop()
+    except KeyboardInterrupt:
+        shell.precmd('exit')
+
+# vim:ts=4:expandtab:
