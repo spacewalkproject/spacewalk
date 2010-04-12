@@ -6,9 +6,6 @@ from getpass import getpass
 from optparse import Option, OptionParser
 from pwd import getpwuid
 
-sys.path.append(os.getcwd())
-#from spacewalk_shell_actions import *
-
 class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
    
@@ -90,7 +87,7 @@ class SpacewalkShell(Cmd):
 ###########
 
     def tab_completer(self, options, text):
-        return [x for x in options if x.startswith(text)]
+        return [o for o in options if o.startswith(text)]
     
     def filter_results(self, list, args):
         patterns = []
@@ -131,8 +128,8 @@ class SpacewalkShell(Cmd):
 
         return packages
 
-    def get_system_id(self, system):
-        systems = self.client.system.getId(self.session, system)
+    def get_system_id(self, name):
+        systems = self.client.system.getId(self.session, name)
 
         if len(systems) == 0:
             logging.error("No systems found")
@@ -143,7 +140,7 @@ class SpacewalkShell(Cmd):
             logging.warning("Multiple systems found with the same name")
 
             for system in systems:
-                logging.warning(self.args[0] + " = " + system.get('id')) 
+                logging.warning(name + " = " + str(system.get('id'))) 
 
             return
 
@@ -156,15 +153,24 @@ class SpacewalkShell(Cmd):
         return self.tab_completer(self.do_listsystems('', True, False), text)
 
     def do_addtossm(self, args):
-        systems = self.do_listsystems(args, True)
+        all_systems = {}
+        for s in self.client.system.listSystems(self.session):
+            all_systems[s.get('name')] = s.get('id')
 
-        for s in systems:
-            if s in self.ssm.keys():
-                logging.warning(s + " is already in the SSM")
+        matches = self.filter_results(all_systems.keys(), self.args)
+
+        if len(matches) == 0:
+            logging.warning("No systems found")
+            return
+
+        for match in matches:
+            if match in self.ssm.keys():
+                logging.warning(match + " is already in the SSM")
                 continue
-            else:
-                system_id = self.get_system_id(s)
-                self.ssm[s] = system_id
+            else:             
+                logging.info("Adding " + match + " to the SSM")
+                logging.debug("System ID: " + str(all_systems.get(match)))
+                self.ssm[match] = all_systems.get(match)
 
 
     def help_delfromssm(self):
@@ -174,11 +180,15 @@ class SpacewalkShell(Cmd):
         return self.tab_completer(self.do_listssm('', True), text)
 
     def do_delfromssm(self, args):
-        for s in self.args:
-            if s in self.ssm.keys():
-                del self.ssm[s]
-            else:
-                logging.warning(s + " is not in the SSM")
+        matches = self.filter_results(self.ssm.keys(), self.args)
+        
+        if len(matches) == 0:
+            logging.warning("No matches found in the SSM")
+            return
+
+        for match in matches:
+            logging.info("Deleting " + match + " from the SSM")
+            del self.ssm[match]
             
  
     def help_listssm(self):
@@ -398,7 +408,7 @@ class SpacewalkShell(Cmd):
     
     def do_listsystems(self, args, doreturn=False, filtered=True):
         systems = self.client.system.listSystems(self.session)
-        systems = [x.get('name') for x in systems]
+        systems = [s.get('name') for s in systems]
 
         if filtered:
             systems = self.filter_results(systems, self.args)
@@ -406,7 +416,7 @@ class SpacewalkShell(Cmd):
         if doreturn:
             return systems
         else:
-            print "\n".join(systems)
+            print "\n".join(sorted(systems.keys()))
 
 ###########
 
@@ -499,7 +509,7 @@ class SpacewalkShell(Cmd):
 
     def do_listswchannels(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
-        channels = [x.get('label') for x in channels]
+        channels = [c.get('label') for c in channels]
 
         if doreturn:
             return channels
@@ -518,7 +528,7 @@ class SpacewalkShell(Cmd):
         systems = self.client.channel.software.listSubscribedSystems(self.session,
                                                                      self.args[0])
         
-        systems = [x.get('name') for x in systems]
+        systems = [s.get('name') for s in systems]
 
         print "\n".join(systems)
 
