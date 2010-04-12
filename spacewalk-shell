@@ -9,13 +9,6 @@ from pwd import getpwuid
 sys.path.append(os.getcwd())
 #from spacewalk_shell_actions import *
 
-INTRO="""
-Welcome to SpacewalkShell, a command line interface to Spacewalk.
-
-For a full set of commands, type "help" on the prompt.
-For help for a specific command try "help <cmd>".
-"""
-
 class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
    
@@ -24,9 +17,7 @@ class SpacewalkShell(Cmd):
         self.cmdqueue = []
         self.completekey = "tab"
         self.stdout = sys.stdout
-
-        # tailor the command interface for our needs 
-        self.intro = INTRO
+        
         self.prompt = 'Spacewalk> '
        
         try:
@@ -197,6 +188,14 @@ class SpacewalkShell(Cmd):
 
 ###########
 
+    def help_getcertificateexpiration(self):
+        print "getcertificateexpiration"
+
+    def do_getcertificateexpiration(self, args):
+        print self.client.satellite.getCertificateExpirationDate(self.session).value
+
+###########
+
     def help_listentitlements(self):
         print "listentitlements"
 
@@ -214,7 +213,6 @@ class SpacewalkShell(Cmd):
         for e in entitlements.get('channel'):
             print e.get('label') + ": " + \
                   str(e.get('used_slots')) + "/" + str(e.get('total_slots'))
-
 
 ###########
 
@@ -395,12 +393,12 @@ if __name__ == "__main__":
     shell = SpacewalkShell(options)
 
     # start the shell
-    try:
-        shell.cmdloop()
-    except xmlrpclib.Fault, err:
-        logging.error(err.faultString.rsplit(': ', 1)[1])
-        shell.terminate(1)
-    except KeyboardInterrupt:
-        shell.terminate()
+    while 1:
+        try:
+            shell.cmdloop()
+        except xmlrpclib.Fault, err:
+            logging.error(err.faultString.rsplit(': ', 1)[1])
+        except KeyboardInterrupt:
+            shell.terminate()
 
 # vim:ts=4:expandtab:
