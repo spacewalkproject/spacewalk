@@ -342,19 +342,19 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_getapi(self):
-        print "Usage: getapi"
+    def help_getapiversion(self):
+        print "Usage: getapiversion"
 
 
-    def do_getapi(self, args):
+    def do_getapiversion(self, args):
         print self.client.api.getVersion()
 
 ###########
 
-    def help_getsystemversion(self):
-        print "Usage: getsystemversion"
+    def help_getserverversion(self):
+        print "Usage: getserverversion"
 
-    def do_getsystemversion(self, args):
+    def do_getserverversion(self, args):
         print self.client.api.systemVersion()
 
 ###########
@@ -416,7 +416,7 @@ class SpacewalkShell(Cmd):
         if doreturn:
             return systems
         else:
-            print "\n".join(sorted(systems.keys()))
+            print "\n".join(sorted(systems))
 
 ###########
 
