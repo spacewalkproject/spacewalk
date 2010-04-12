@@ -187,6 +187,7 @@ class SpacewalkShell(Cmd):
     def do_getapi(self, args):
         print self.client.api.getVersion()
 
+###########
 
     def help_getsystemversion(self):
         print "getsystemversion"
@@ -194,6 +195,28 @@ class SpacewalkShell(Cmd):
     def do_getsystemversion(self, args):
         print self.client.api.systemVersion()
 
+###########
+
+    def help_listentitlements(self):
+        print "listentitlements"
+
+    def do_listentitlements(self, args):
+        entitlements = self.client.satellite.listEntitlements(self.session)
+
+        print "System:"
+        for e in entitlements.get('system'):
+            print e.get('label') + ": " + \
+                  str(e.get('used_slots')) + "/" + str(e.get('total_slots'))
+
+        print       
+ 
+        print "Channel:"
+        for e in entitlements.get('channel'):
+            print e.get('label') + ": " + \
+                  str(e.get('used_slots')) + "/" + str(e.get('total_slots'))
+
+
+###########
 
     def help_listsystems(self):
         print "listsystems [PATTERN1] [PATTERN2] ..."
@@ -207,6 +230,7 @@ class SpacewalkShell(Cmd):
         else:
             print "\n".join(self.filter_results(systems, self.args))
 
+###########
 
     def help_getsystemdetails(self):
         print "getsystemdetails SYSTEM"
@@ -291,6 +315,8 @@ class SpacewalkShell(Cmd):
             if group.get('subscribed') == 1:
                 print "Group:         " + group.get('system_group_name')
 
+###########
+
     def help_listswchannels(self):
         print "listswchannels [PATTERN1] [PATTERN2] ..."
 
@@ -303,6 +329,7 @@ class SpacewalkShell(Cmd):
         else:
             print "\n".join(self.filter_results(channels, self.args))
       
+###########
  
     def help_getswchanneldetails(self):
         print "getswchanneldetails CHANNEL"
@@ -330,6 +357,7 @@ class SpacewalkShell(Cmd):
               "GPG Fingerprint: " + details.get('gpg_key_fp') + "\n" + \
               "GPG URL:         " + details.get('gpg_key_url')
 
+###########
 
 # parse the options and then start the command interpreter
 if __name__ == "__main__":
