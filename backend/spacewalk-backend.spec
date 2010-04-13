@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.20
+Version: 0.9.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,7 +629,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Tue Apr 13 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.20-1
+* Tue Apr 13 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.21-1
 - 175155 - do not use X-RHN-Satellite-XML-Dump-Version on two places
 - code cleanup (jpazdziora@redhat.com)
 
