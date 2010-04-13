@@ -103,7 +103,7 @@ if ($set_macro) {
         my $sql = qq|
                 UPDATE rhn_config_macro
                 SET definition=?
-                WHERE macro.name = ?
+                WHERE name = ?
                 |;
         my $sth = $ini->dbh->prepare($sql);
         $sth->execute($new_value, $set_macro);
