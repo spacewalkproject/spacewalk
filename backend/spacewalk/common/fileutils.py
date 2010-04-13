@@ -62,46 +62,6 @@ def cleanupNormPath(path, dotYN=0):
     return path
 
 
-def maketemp(prefix):
-    """ Creates a temporary file (guaranteed to be new), using the
-        specified prefix.
-        Returns the filename and an open file descriptor (low-level)
-    """
-
-    filename = "%s-%s-%.8f" % (prefix, os.getpid(), time.time())
-    tries = 10
-    while tries > 0:
-        tries = tries - 1
-        try:
-            fd = os.open(filename, os.O_RDWR | os.O_CREAT | os.O_EXCL, 0600)
-        except OSError, e:
-            if e.errno != 17:
-                raise e
-            # File already exists
-            filename = "%s-%.8f" % (filename, time.time())
-        else:
-            break
-    else:
-        raise OSError("Could not create temp file")
-
-    return filename, fd
-
-
-def make_temp_file(prefix):
-    """Creates a temporary file stream (returns an open file object)
-
-    Returns a read/write stream pointing to a file that goes away once the
-    stream is closed
-    """
-
-    filename, fd = maketemp(prefix)
-
-    os.unlink(filename)
-    # Since maketemp returns a freshly created file, we can skip the truncation
-    # part (w+); r+ should do just fine
-    return os.fdopen(fd, "r+b")
-
-
 def rotateFile(filepath, depth=5, suffix='.', verbosity=0):
     """ backup/rotate a file
         depth (-1==no limit) refers to num. of backups (rotations) to keep.
