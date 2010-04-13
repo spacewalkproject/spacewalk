@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-import logging, os, re, sys, textwrap, xmlrpclib
+# RFEs:
+# configchannel.listSubscribedSystems
+
+import atexit, logging, os, re, readline, sys, textwrap, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from optparse import Option, OptionParser
@@ -8,6 +11,8 @@ from pwd import getpwuid
 
 class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
+
+    HISTORY_LENGTH = 1024
   
     ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
                     'enterprise_entitled'          : 'Management',
@@ -23,14 +28,6 @@ class SpacewalkShell(Cmd):
         
         self.prompt = 'Spacewalk> '
        
-        try:
-            # don't split on hyphens during tab completion
-            import readline
-            newdelims = readline.get_completer_delims().replace('-', '')
-            readline.set_completer_delims(newdelims)
-        except:
-            pass
-
         self.session = ''
         self.ssm = {}
 
@@ -41,19 +38,25 @@ class SpacewalkShell(Cmd):
         self.cache_file = os.path.join(userinfo[5], ".spacewalk_cache")
         self.history_file = os.path.join(userinfo[5], ".spacewalk_history")
 
- 
-    # write the history file and exit 
-    def terminate(self, exit_code=0):
-        print
+        try:
+            # don't split on hyphens during tab completion
+            newdelims = readline.get_completer_delims().replace('-', '')
+            readline.set_completer_delims(newdelims)
+        
+            if not options.nohistory:
+                try:
+                    readline.read_history_file(self.history_file)
+                    readline.set_history_length(self.HISTORY_LENGTH)
 
-        if not self.options.nohistory:
-            try:
-                import readline
-                readline.write_history_file(self.history_file)
-            except:
-                logging.error("Could not write history file")
-
-        sys.exit(exit_code)
+                    # always write the history file on exit
+                    atexit.register(readline.write_history_file,
+                                    self.history_file)
+                except:
+                    logging.error("Could not read history file")
+                    logging.debug(sys.exc_info())
+        except:
+            logging.debug(sys.exc_info())
+            pass
 
  
     def emptyline(self):
@@ -62,13 +65,6 @@ class SpacewalkShell(Cmd):
 
     # load the history file
     def preloop(self):
-        if not options.nohistory:
-            try:
-                import readline
-                readline.read_history_file(self.history_file)
-            except:
-                logging.error("Could not read history file")
-
         if not self.session:
             self.args = []
             self.do_login(self.args)
@@ -86,7 +82,8 @@ class SpacewalkShell(Cmd):
             self.args = []
  
         if self.cmd.lower() in ('quit', 'exit', 'eof'):
-            self.terminate()
+            print
+            sys.exit(0)
         else:
             return line
 
@@ -153,7 +150,7 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_ssm_add(self):
-        print "Usage: ssm_add SYSTEM1 [SYSTEM2] ..."
+        print "Usage: ssm_add SYSTEM [SYSTEM] ..."
 
     def complete_ssm_add(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True, False), text)
@@ -180,7 +177,7 @@ class SpacewalkShell(Cmd):
 
 
     def help_ssm_rm(self):
-        print "Usage: ssm_rm SYSTEM1 [SYSTEM2] ..."
+        print "Usage: ssm_rm SYSTEM [SYSTEM] ..."
     
     def complete_ssm_rm(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_ssm_list('', True), text)
@@ -206,8 +203,7 @@ class SpacewalkShell(Cmd):
         if doreturn:
             return systems
         else:
-            for s in systems:
-                print s
+            print "\n".join(systems)
 
 
     def help_ssm_clear(self):
@@ -257,8 +253,9 @@ class SpacewalkShell(Cmd):
         try:
             api_version = self.client.api.getVersion()
         except:
-            logging.error(sys.exc_info()[1])
             self.client = None
+            logging.error(sys.exc_info()[1])
+            logging.debug(sys.exc_info())
             return
 
         # ensure the server is recent enough
@@ -282,6 +279,7 @@ class SpacewalkShell(Cmd):
                     self.session = parts[1]
                 except:
                     logging.error("Could not read " + self.cache_file)
+                    logging.debug(sys.exc_info())
 
                 try:
                     logging.info("Using cached credentials from " + \
@@ -295,6 +293,7 @@ class SpacewalkShell(Cmd):
                     try:
                         os.remove(self.cache_file)
                     except:
+                        logging.debug(sys.exc_info())
                         pass
         
         # attempt to login if we don't have a valid session yet    
@@ -307,6 +306,10 @@ class SpacewalkShell(Cmd):
             else:
                 username = raw_input("Username: ")
 
+                # don't store the username in the command history
+                last = readline.get_current_history_length() - 1
+                readline.remove_history_item(last)
+
             if self.options.password:
                 password = self.options.password
                 self.options.password = None
@@ -316,8 +319,10 @@ class SpacewalkShell(Cmd):
             try:
                 self.session = self.client.auth.login(username, 
                                                       password)
+                self.username = username
             except:
                 logging.error("Invalid credentials")
+                logging.debug(sys.exc_info())
                 return
 
             # write the session to a cache
@@ -329,6 +334,7 @@ class SpacewalkShell(Cmd):
                     sessionfile.close()
                 except:
                     logging.error("Could not write cache file")
+                    logging.debug(sys.exc_info())
  
         # disable caching of subsequent logins
         self.options.nocache = True
@@ -344,13 +350,23 @@ class SpacewalkShell(Cmd):
         if self.session:
             self.client.auth.logout(self.session)
             self.session = ''
+            self.username = ''
             
             try:
                 os.remove(self.cache_file)
             except:
+                logging.debug(sys.exc_info())
                 pass
         else:
             logging.error("You're not logged in")
+
+###########
+
+    def help_whoami(self):
+        print "Usage: whoami"
+
+    def do_whoami(self, args):
+        print self.username
 
 ###########
 
@@ -391,7 +407,6 @@ class SpacewalkShell(Cmd):
                   str(e.get('used_slots')) + "/" + str(e.get('total_slots'))
 
         print       
- 
         print "Channel:"
         for e in entitlements.get('channel'):
             print e.get('label') + ": " + \
@@ -400,16 +415,14 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_package_details(self):
-        print "Usage: package_details PACKAGE1 [PACKAGE2] ..."        
+        print "Usage: package_details PACKAGE [PACKAGE] ..."        
 
     def do_package_details(self, args):
         add_separator = False
 
         for package in self.args:
             if add_separator:
-                print
-                print "--------------------"
-                print
+                print "\n--------------------\n"
 
             add_separator = True
 
@@ -426,13 +439,12 @@ class SpacewalkShell(Cmd):
             print "Name:    " + details.get('name')
             print "Version: " + details.get('version')
             print "Release: " + details.get('release') 
-            print "Epoch:   " + details.get('epoch') or "N/A"
+            print "Epoch:   " + details.get('epoch')
             print "Arch:    " + details.get('arch_label')
 
             print
             print "Description: "
-            for line in textwrap.wrap(details.get('description')):
-                print line
+            print "\n".join(textwrap.wrap(details.get('description')))
 
             print
             print "File:    " + details.get('file')
@@ -457,11 +469,7 @@ class SpacewalkShell(Cmd):
         
         for p in packages:
             details = self.client.packages.getDetails(self.session, p.get('id'))
-
             print "Package: " + self.build_package_names([p])[0]
-            for provider in details.get('label'):
-                print "Provider: " + provider
-            print
 
 ###########
 
@@ -483,7 +491,7 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_system_details(self):
-        print "Usage: system_details SYSTEM1 [SYSTEM2] ..."
+        print "Usage: system_details SYSTEM [SYSTEM] ..."
 
     def complete_system_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True, False), text)
@@ -537,9 +545,7 @@ class SpacewalkShell(Cmd):
                 ranked_config_channels.append(channel.get('label'))
        
             if add_separator:
-                print
-                print "--------------------"
-                print
+                print "\n--------------------\n"
 
             add_separator = True
 
@@ -575,6 +581,179 @@ class SpacewalkShell(Cmd):
 
 ###########
 
+    def help_activationkey_list(self):
+        print "Usage: activationkey_list [KEY] [KEY] ..."
+
+    def do_activationkey_list(self, args, doreturn=False):
+        keys = self.client.activationkey.listActivationKeys(self.session)
+        keys = [k.get('key') for k in keys]
+
+        if doreturn:
+            return keys
+        else:
+            print "\n".join(self.filter_results(keys, self.args))
+
+###########
+
+    def help_activationkey_listsystems(self):
+        print "Usage: activationkey_listsystems KEY"
+
+    def complete_activationkey_listsystems(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listsystems(self, args):
+        try:
+            systems = \
+                self.client.activationkey.listActivatedSystems(self.session,
+                                                           self.args[0])
+        except:
+            logging.error(self.args[0] + ' is not a valid activation key')
+            logging.debug(sys.exc_info())
+            return
+        
+        systems = sorted([s.get('hostname') for s in systems])
+
+        print "\n".join(systems)
+
+###########
+ 
+    def help_activationkey_details(self):
+        print "Usage: activationkey_details KEY [KEY] ..."
+
+    def complete_activationkey_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+ 
+    def do_activationkey_details(self, args):
+        add_separator = False
+
+        for key in self.args:
+            try:
+                details = self.client.activationkey.getDetails(self.session, 
+                                                               key)
+
+                config_channels = \
+                    self.client.activationkey.listConfigChannels(self.session, 
+                                                                 key) 
+            except:
+                logging.error(key + ' is not a valid activation key')
+                logging.debug(sys.exc_info())
+                return
+     
+            groups = []
+            for group in details.get('server_group_ids'):
+                group_details = self.client.systemgroup.getDetails(self.session,
+                                                                   group)
+                groups.append(group_details.get('name'))
+        
+            if add_separator:
+                print "\n--------------------\n"
+            
+            add_separator = True
+
+            print "Key:               " + details.get('key')
+            print "Description:       " + details.get('description')
+            print "Universal Default: " + str(details.get('universal_default'))
+
+            print
+            print "Software Channels:"
+            print '  ' + details.get('base_channel_label')
+
+            for channel in details.get('child_channel_labels'):
+                print "   |-- " + channel
+
+            print
+            print 'Configuration Channels:'
+            for channel in config_channels:
+                print '  ' + channel.get('label')
+
+            print
+            print "Entitlements:"
+            for entitlement in sorted(details.get('entitlements')):
+                print '  ' + self.ENTITLEMENTS[entitlement]
+
+            print
+            print "System Groups:"
+            for group in groups:
+                print '  ' + group
+
+            print
+            print "Packages:"
+            for package in details.get('packages'):
+                name = package.get('name')
+
+                if package.get('arch'):
+                    name = name + '.' + package.get('arch')
+
+                print '  ' + name
+
+###########
+
+    def help_configchannel_list(self):
+        print "Usage: configchannel_list [CHANNEL] [CHANNEL] ..."
+
+    def do_configchannel_list(self, args, doreturn=False):
+        channels = self.client.configchannel.listGlobals(self.session)
+        channels = [c.get('label') for c in channels]
+
+        if doreturn:
+            return channels
+        else:
+            print "\n".join(self.filter_results(channels, self.args))
+
+###########
+
+    def help_configchannel_listsystems(self):
+        print "Usage: configchannel_listsystems CHANNEL"
+
+    def complete_configchannel_listsystems(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_configchannel_list('', True), text)
+
+    def do_configchannel_listsystems(self, args):
+        print "configchannel.listSubscribedSystems is not implemented"
+        return
+
+        systems = \
+            self.client.configchannel.listSubscribedSystems(self.session,
+                                                            self.args[0])
+        
+        systems = sorted([s.get('name') for s in systems])
+
+        print "\n".join(systems)
+
+###########
+ 
+    def help_configchannel_details(self):
+        print "Usage: configchannel_details CHANNEL [CHANNEL] ..."
+
+    def complete_configchannel_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_configchannel_list('', True), text)
+ 
+    def do_configchannel_details(self, args):
+        add_separator = False
+
+        for channel in self.args:
+            details = self.client.configchannel.getDetails(self.session, 
+                                                           channel)
+      
+            files = self.client.configchannel.listFiles(self.session,
+                                                        channel)
+ 
+            if add_separator:
+                print "\n--------------------\n"
+            
+            add_separator = True
+
+            print "Label:       " + details.get('label')
+            print "Name:        " + details.get('name')
+            print "Description: " + details.get('description')
+
+            print
+            print "Files:"
+            for file in files:
+                print '  ' + file.get('path')
+
+###########
+
     def help_softwarechannel_list(self):
         print "Usage: softwarechannel_list [CHANNEL] [CHANNEL] ..."
 
@@ -596,10 +775,11 @@ class SpacewalkShell(Cmd):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_listsystems(self, args):
-        systems = self.client.channel.software.listSubscribedSystems(self.session,
-                                                                     self.args[0])
+        systems = \
+            self.client.channel.software.listSubscribedSystems(self.session,
+                                                               self.args[0])
         
-        systems = [s.get('name') for s in systems]
+        systems = sorted([s.get('name') for s in systems])
 
         print "\n".join(systems)
 
@@ -645,9 +825,7 @@ class SpacewalkShell(Cmd):
                 self.client.channel.software.listSubscribedSystems(self.session,                                                                   channel)
  
             if add_separator:
-                print
-                print "--------------------"
-                print
+                print "\n--------------------\n"
 
             add_separator = True
 
@@ -660,8 +838,7 @@ class SpacewalkShell(Cmd):
 
             print
             print "Description:"
-            for line in textwrap.wrap(details.get('description')):
-                print line
+            print "\n".join(textwrap.wrap(details.get('description')))
            
             print 
             print "GPG Key:            " + details.get('gpg_key_id')
@@ -712,6 +889,7 @@ if __name__ == "__main__":
             shell.cmdloop()
         except xmlrpclib.Fault, err:
             logging.error(err.faultString.rsplit(': ', 1)[1])
+            logging.debug(sys.exc_info())
         except KeyboardInterrupt:
             print
 
