@@ -38,6 +38,8 @@ from server import rhnSQL
 from server.rhnServer import satellite_cert
 from spacewalk.common import fileutils
 
+import tempfile
+
 ## local imports
 import sync_handlers
 import satCerts
@@ -116,7 +118,7 @@ def validateSatCert(certFilename, verbosity=0):
 
     # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
     # doesn't like).
-    certTmpFile, fd = fileutils.maketemp(DEFAULT_RHN_CERT_LOCATION)
+    fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
     fo = os.fdopen(fd, 'wb')
     fo.write(string.strip(openGzippedFile(certFilename).read()))
     fo.flush()

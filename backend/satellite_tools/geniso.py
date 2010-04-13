@@ -22,7 +22,7 @@ import string
 from stat import ST_SIZE
 from optparse import Option, OptionParser
 
-from spacewalk.common.fileutils import maketemp
+import tempfile
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"
@@ -109,7 +109,7 @@ def main(arglist):
     cdcount = len(cds)
     
     # Create an empty temp file
-    empty_file_path, fd = maketemp("/tmp/empty.file")
+    fd, empty_file_path = tempfile.mkstemp(dir = '/tmp', prefix = 'empty.file-')
     os.close(fd)
 
     # command-line template
@@ -125,7 +125,7 @@ def main(arglist):
         #        options.type, options.version, options.release, i+1)
 
         # Create a temp file to store the path specs
-        pathfiles, pathfiles_fd = maketemp("/tmp/geniso")
+        pathfiles_fd, pathfiles = tempfile.mkstemp(dir = '/tmp', prefix = 'geniso-')
 
         # Command-line options; the keys are supposed to start with a dash
         opts = {
