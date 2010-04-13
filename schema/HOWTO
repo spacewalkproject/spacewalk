@@ -1,9 +1,3 @@
-# $Id#
-
-* How to run SQL scripts from this tree:
-./deploy-tree-local.sh
-cd /tmp/satcon-local-deploy/
-sqlplus foo/bar@baz @rhn/tables/rhnChannel.sql
 
 * How to create the spacewalk schema:
 cd spacewalk
