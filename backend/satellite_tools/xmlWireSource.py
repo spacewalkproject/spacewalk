@@ -403,10 +403,7 @@ class RPCGetWireSource(BaseWireSource):
         # Force a login otherwise
         self._set_login_token(self._login())
         url = self.url + self.handler
-        # include xml-dump-version in the header
-        self.login_token['X-RHN-Satellite-XML-Dump-Version'] = \
-            CFG.XML_DUMP_VERSION
-        get_server_obj = rpclib.GETServer(url, proxy=CFG.HTTP_PROXY, 
+        get_server_obj = connection.GETServer(url, proxy=CFG.HTTP_PROXY,
             username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
             headers=self.login_token)
         # Add SSL trusted cert
