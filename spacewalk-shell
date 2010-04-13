@@ -420,6 +420,10 @@ For help for a specific command try "help <cmd>".
         print "Usage: package_details PACKAGE [PACKAGE] ..."        
 
     def do_package_details(self, args):
+        if len(self.args) == 0:
+            self.help_package_details()
+            return
+
         add_separator = False
 
         for package in self.args:
@@ -467,6 +471,10 @@ For help for a specific command try "help <cmd>".
         print "Example: name:kernel AND version:2.6.18 AND -description:devel" 
 
     def do_package_search(self, args):
+        if len(self.args) == 0:
+            self.help_package_search()
+            return
+
         packages = self.client.packages.search.advanced(self.session, args)
         
         for p in packages:
@@ -505,6 +513,7 @@ For help for a specific command try "help <cmd>".
 
         add_separator = False
 
+        # use the systems listed in the SSM
         if self.args[0].lower() == 'ssm':
             systems = self.ssm
         else:
@@ -613,6 +622,10 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listsystems(self, args):
+        if len(self.args) == 0:
+            self.help_activationkey_listsystems()
+            return
+
         try:
             systems = \
                 self.client.activationkey.listActivatedSystems(self.session,
@@ -635,6 +648,10 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_activationkey_list('', True), text)
  
     def do_activationkey_details(self, args):
+        if len(self.args) == 0:
+            self.help_activationkey_details()
+            return
+
         add_separator = False
 
         for key in self.args:
@@ -723,6 +740,10 @@ For help for a specific command try "help <cmd>".
         print "configchannel.listSubscribedSystems is not implemented"
         return
 
+        if len(self.args) == 0:
+            self.help_configchannel_listsystems()
+            return
+
         systems = \
             self.client.configchannel.listSubscribedSystems(self.session,
                                                             self.args[0])
@@ -740,6 +761,10 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_configchannel_list('', True), text)
  
     def do_configchannel_details(self, args):
+        if len(self.args) == 0:
+            self.help_configchannel_details()
+            return
+
         add_separator = False
 
         for channel in self.args:
@@ -786,6 +811,10 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_listsystems(self, args):
+        if len(self.args) == 0:
+            self.help_softwarechannel_listsystems()
+            return
+
         systems = \
             self.client.channel.software.listSubscribedSystems(self.session,
                                                                self.args[0])
@@ -807,6 +836,10 @@ For help for a specific command try "help <cmd>".
             return []
 
     def do_softwarechannel_packages(self, args, doreturn=False):
+        if len(self.args) == 0:
+            self.help_softwarechannel_packages()
+            return
+
         packages = self.client.channel.software.listLatestPackages(self.session,
                                                                    self.args[0])
 
@@ -826,6 +859,10 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
  
     def do_softwarechannel_details(self, args):
+        if len(self.args) == 0:
+            self.help_softwarechannel_details()
+            return
+
         add_separator = False
 
         for channel in self.args:
