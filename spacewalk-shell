@@ -19,15 +19,21 @@ class SpacewalkShell(Cmd):
                     'monitoring_entitled'          : 'Monitoring',
                     'virtualization_host'          : 'Virtualization',
                     'virtualization_host_platform' : 'Virtualization Platform'}
- 
+
+    intro = """
+Welcome to SpacewalkShell, a command line interface to Spacewalk.
+
+For a full set of commands, type "help" on the prompt.
+For help for a specific command try "help <cmd>".
+"""
+    cmdqueue = []
+    completekey = "tab"
+    stdout = sys.stdout
+    prompt = 'Spacewalk> '
+
+    emptyline = lambda self: None
+
     def __init__(self, options):
-        # set some defaults since we can't call our superclass constructor
-        self.cmdqueue = []
-        self.completekey = "tab"
-        self.stdout = sys.stdout
-        
-        self.prompt = 'Spacewalk> '
-       
         self.session = ''
         self.ssm = {}
 
@@ -57,10 +63,6 @@ class SpacewalkShell(Cmd):
         except:
             logging.debug(sys.exc_info())
             pass
-
- 
-    def emptyline(self):
-        pass
 
 
     # load the history file
@@ -491,15 +493,24 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_system_details(self):
-        print "Usage: system_details SYSTEM [SYSTEM] ..."
+        print "Usage: system_details SSM|SYSTEM"
 
     def complete_system_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True, False), text)
  
     def do_system_details(self, args):
+        if len(self.args) == 0:
+            self.help_system_details()
+            return
+
         add_separator = False
 
-        for system in self.args:
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        for system in systems:
             try:
                 # check if we were passed a system ID
                 system_id = int(system)
@@ -888,9 +899,11 @@ if __name__ == "__main__":
         try:
             shell.cmdloop()
         except xmlrpclib.Fault, err:
+            shell.INTRO = ''
             logging.error(err.faultString.rsplit(': ', 1)[1])
             logging.debug(sys.exc_info())
         except KeyboardInterrupt:
+            shell.INTRO = ''
             print
 
 # vim:ts=4:expandtab:
