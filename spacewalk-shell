@@ -97,7 +97,8 @@ For help for a specific command try "help <cmd>".
     def filter_results(self, list, args):
         patterns = []
         for pattern in args:
-            patterns.append(re.compile(pattern, re.IGNORECASE))
+            if pattern != '':
+                patterns.append(re.compile(pattern, re.IGNORECASE))
 
         matches = []
         for item in list:
@@ -105,10 +106,7 @@ For help for a specific command try "help <cmd>".
                 for pattern in patterns:
                     if pattern.search(item):
                         matches.append(item)
-            else:
-                matches.append(item)
 
-        matches.sort()
         return matches
 
     def build_package_names(self, packages):
@@ -137,7 +135,7 @@ For help for a specific command try "help <cmd>".
         systems = self.client.system.getId(self.session, name)
 
         if len(systems) == 0:
-            logging.error("No systems found")
+            logging.warning("No systems found")
             return
         elif len(systems) == 1:
             return systems[0].get('id')
@@ -152,7 +150,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_ssm_add(self):
-        print "Usage: ssm_add SYSTEM [SYSTEM] ..."
+        print "Usage: ssm_add group:GROUP|SYSTEM ..."
 
     def complete_ssm_add(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True, False), text)
@@ -162,10 +160,23 @@ For help for a specific command try "help <cmd>".
         for s in self.client.system.listSystems(self.session):
             all_systems[s.get('name')] = s.get('id')
 
-        matches = self.filter_results(all_systems.keys(), self.args)
+        systems = []
+        for item in self.args:
+            if item.lower().startswith('group:'):
+                item = item.replace('group:', '')
+                members = self.do_group_listsystems(item, True)
+
+                if len(members) > 0:
+                    systems.extend(members)
+                else:
+                    logging.warning('No systems in group ' + item)
+            else:
+                systems.append(item)
+
+        matches = self.filter_results(all_systems.keys(), systems)
 
         if len(matches) == 0:
-            logging.warning("No systems found")
+            logging.warning("No systems were added to the SSM")
             return
 
         for match in matches:
@@ -178,13 +189,13 @@ For help for a specific command try "help <cmd>".
                 self.ssm[match] = all_systems.get(match)
 
 
-    def help_ssm_rm(self):
-        print "Usage: ssm_rm SYSTEM [SYSTEM] ..."
+    def help_ssm_del(self):
+        print "Usage: ssm_del SYSTEM ..."
     
-    def complete_ssm_rm(self, text, line, begidx, endidx):
+    def complete_ssm_del(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_ssm_list('', True), text)
 
-    def do_ssm_rm(self, args):
+    def do_ssm_del(self, args):
         matches = self.filter_results(self.ssm.keys(), self.args)
         
         if len(matches) == 0:
@@ -206,6 +217,8 @@ For help for a specific command try "help <cmd>".
             return systems
         else:
             print "\n".join(systems)
+            print
+            print 'Systems Selected: ' + str(len(systems))
 
 
     def help_ssm_clear(self):
@@ -243,7 +256,7 @@ For help for a specific command try "help <cmd>".
         elif self.options.server:
             server = self.options.server
         else:
-            logging.error("No server specified")
+            logging.warning("No server specified")
             return
 
         server = proto + "://" + server + "/rpc/api"
@@ -323,7 +336,7 @@ For help for a specific command try "help <cmd>".
                                                       password)
                 self.username = username
             except:
-                logging.error("Invalid credentials")
+                logging.warning("Invalid credentials")
                 logging.debug(sys.exc_info())
                 return
 
@@ -360,7 +373,7 @@ For help for a specific command try "help <cmd>".
                 logging.debug(sys.exc_info())
                 pass
         else:
-            logging.error("You're not logged in")
+            logging.warning("You're not logged in")
 
 ###########
 
@@ -417,7 +430,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_package_details(self):
-        print "Usage: package_details PACKAGE [PACKAGE] ..."        
+        print "Usage: package_details PACKAGE ..."        
 
     def do_package_details(self, args):
         if len(self.args) == 0:
@@ -484,7 +497,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_system_list(self):
-        print "Usage: system_list [PATTERN] [PATTERN] ..."
+        print "Usage: system_list [PATTERN] ..."
     
     def do_system_list(self, args, doreturn=False, filtered=True):
         systems = self.client.system.listSystems(self.session)
@@ -527,7 +540,7 @@ For help for a specific command try "help <cmd>".
                 system_id = self.get_system_id(system)
 
             if not system_id:
-                logging.error(system + ' is not a valid system')
+                logging.warning(system + ' is not a valid system')
                 continue
 
             last_checkin = \
@@ -601,8 +614,101 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_group_list(self):
+        print "Usage: group_list [GROUP] ..."
+
+    def do_group_list(self, args, doreturn=False):
+        groups = self.client.systemgroup.listAllGroups(self.session)
+        groups = [g.get('name') for g in groups]
+
+        if doreturn:
+            return groups
+        else:
+            if len(self.args) > 0:
+                groups = self.filter_results(groups, self.args)
+
+            print "\n".join(sorted(groups))
+
+###########
+
+    def help_group_listsystems(self):
+        print "Usage: group_listsystems GROUP"
+
+    def complete_group_listsystems(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_group_list('', True), text)
+ 
+    def do_group_listsystems(self, args, doreturn=False):
+        if len(self.args) == 0:
+            self.help_group_listsystems()
+            return
+
+        group = args
+
+        try:
+            systems = self.client.systemgroup.listSystems(self.session,
+                                                          group)
+            
+            systems = sorted([s.get('profile_name') for s in systems])
+        except:
+            logging.warning(group + ' is not a valid group')
+            logging.debug(sys.exc_info())
+            return []
+ 
+        if doreturn:
+            return systems
+        else:
+            if len(self.args) > 1:
+                systems = self.filter_results(systems, self.args[1:])
+
+            print "\n".join(sorted(systems))
+     
+###########
+ 
+    def help_group_details(self):
+        print "Usage: group_details GROUP ..."
+
+    def complete_group_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_group_list('', True), text)
+ 
+    def do_group_details(self, args):
+        if len(self.args) == 0:
+            self.help_group_details()
+            return
+
+        add_separator = False
+
+        for group in self.args:
+            try:
+                details = self.client.systemgroup.getDetails(self.session, 
+                                                             group)
+            
+                systems = self.client.systemgroup.listSystems(self.session,
+                                                              group)
+            
+                systems = sorted([s.get('profile_name') for s in systems])
+            except:
+                logging.warning(key + ' is not a valid group')
+                logging.debug(sys.exc_info())
+                return
+     
+            if add_separator:
+                print "\n--------------------\n"
+            
+            add_separator = True
+
+            print "Name               " + details.get('name')
+            print "Description:       " + details.get('description')
+            print "Number of Systems: " + str(details.get('system_count'))
+
+            print
+            print "Members:"
+            for system in systems:
+                print '  ' + system
+
+###########
+
     def help_activationkey_list(self):
-        print "Usage: activationkey_list [KEY] [KEY] ..."
+        print "Usage: activationkey_list [KEY] ..."
 
     def do_activationkey_list(self, args, doreturn=False):
         keys = self.client.activationkey.listActivationKeys(self.session)
@@ -611,7 +717,10 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return keys
         else:
-            print "\n".join(self.filter_results(keys, self.args))
+            if len(self.args) > 0:
+                keys = self.filter_results(keys, self.args)
+
+            print "\n".join(sorted(keys))
 
 ###########
 
@@ -631,7 +740,7 @@ For help for a specific command try "help <cmd>".
                 self.client.activationkey.listActivatedSystems(self.session,
                                                            self.args[0])
         except:
-            logging.error(self.args[0] + ' is not a valid activation key')
+            logging.warning(self.args[0] + ' is not a valid activation key')
             logging.debug(sys.exc_info())
             return
         
@@ -642,7 +751,7 @@ For help for a specific command try "help <cmd>".
 ###########
  
     def help_activationkey_details(self):
-        print "Usage: activationkey_details KEY [KEY] ..."
+        print "Usage: activationkey_details KEY ..."
 
     def complete_activationkey_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_activationkey_list('', True), text)
@@ -663,7 +772,7 @@ For help for a specific command try "help <cmd>".
                     self.client.activationkey.listConfigChannels(self.session, 
                                                                  key) 
             except:
-                logging.error(key + ' is not a valid activation key')
+                logging.warning(key + ' is not a valid activation key')
                 logging.debug(sys.exc_info())
                 return
      
@@ -717,7 +826,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_configchannel_list(self):
-        print "Usage: configchannel_list [CHANNEL] [CHANNEL] ..."
+        print "Usage: configchannel_list [CHANNEL] ..."
 
     def do_configchannel_list(self, args, doreturn=False):
         channels = self.client.configchannel.listGlobals(self.session)
@@ -726,7 +835,10 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return channels
         else:
-            print "\n".join(self.filter_results(channels, self.args))
+            if len(self.args) > 0:
+                channels = self.filter_results(channels, self.args)
+
+            print "\n".join(sorted(channels))
 
 ###########
 
@@ -755,7 +867,7 @@ For help for a specific command try "help <cmd>".
 ###########
  
     def help_configchannel_details(self):
-        print "Usage: configchannel_details CHANNEL [CHANNEL] ..."
+        print "Usage: configchannel_details CHANNEL ..."
 
     def complete_configchannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
@@ -791,7 +903,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_softwarechannel_list(self):
-        print "Usage: softwarechannel_list [CHANNEL] [CHANNEL] ..."
+        print "Usage: softwarechannel_list [CHANNEL] ..."
 
     def do_softwarechannel_list(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
@@ -800,7 +912,10 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return channels
         else:
-            print "\n".join(self.filter_results(channels, self.args))
+            if len(self.args) > 0:
+                channels = self.filter_results(channels, self.args)
+
+            print "\n".join(sorted(channels))
       
 ###########
 
@@ -826,7 +941,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_softwarechannel_packages(self):
-        print "Usage: softwarechannel_packages CHANNEL [PACKAGE] [PACKAGE] ..."
+        print "Usage: softwarechannel_packages CHANNEL [PACKAGE] ..."
 
     def complete_softwarechannel_packages(self, text, line, begidx, endidx):
         # only tab complete the channel name
@@ -848,12 +963,15 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return packages
         else:
-            print "\n".join(self.filter_results(packages, self.args[1:])) 
+            if len(self.args) > 1:
+                packages = self.filter_results(packages, self.args[1:])
+
+            print "\n".join(sorted(packages)) 
             
 ###########
  
     def help_softwarechannel_details(self):
-        print "Usage: softwarechannel_details CHANNEL [CHANNEL] ..."
+        print "Usage: softwarechannel_details CHANNEL ..."
 
     def complete_softwarechannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
@@ -936,11 +1054,11 @@ if __name__ == "__main__":
         try:
             shell.cmdloop()
         except xmlrpclib.Fault, err:
-            shell.INTRO = ''
+            shell.intro = ''
             logging.error(err.faultString.rsplit(': ', 1)[1])
             logging.debug(sys.exc_info())
         except KeyboardInterrupt:
-            shell.INTRO = ''
+            shell.intro = ''
             print
 
 # vim:ts=4:expandtab:
