@@ -66,7 +66,6 @@ import os
 import sys
 import time
 import string
-from spacewalk.common.fileutils import cleanupAbsPath
 import tempfile
 
 DEFAULT_CLIENT_CONFIG_OVERRIDES = 'client-config-overrides.txt'
@@ -191,8 +190,8 @@ examples:
         msg = "ERROR: exactly two arguments are required, see --help"
         raise TypeError(msg)
 
-    configFilename = cleanupAbsPath(sys.argv[1])
-    newMappings = cleanupAbsPath(sys.argv[2])
+    configFilename = os.path.abspath(sys.argv[1])
+    newMappings = os.path.abspath(sys.argv[2])
     
     if not os.path.exists(configFilename):
         msg = ("ERROR: filename to alter (1st argument), does not exist:\n"
