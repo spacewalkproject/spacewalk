@@ -45,8 +45,10 @@ For help for a specific command try "help <cmd>".
         self.history_file = os.path.join(userinfo[5], ".spacewalk_history")
 
         try:
-            # don't split on hyphens during tab completion
-            newdelims = readline.get_completer_delims().replace('-', '')
+            # don't split on hyphens or colons during tab completion
+            newdelims = readline.get_completer_delims()
+            newdelims = newdelims.replace('-', '')
+            newdelims = newdelims.replace(':', '')
             readline.set_completer_delims(newdelims)
         
             if not options.nohistory:
@@ -153,7 +155,13 @@ For help for a specific command try "help <cmd>".
         print "Usage: ssm_add group:GROUP|SYSTEM ..."
 
     def complete_ssm_add(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True, False), text)
+        if text.startswith('group:'):
+            # prepend 'group' to each item for tab completion
+            groups = ['group:' + g for g in self.do_group_list('', True)]
+
+            return self.tab_completer(groups, text)
+        else:
+            return self.tab_completer(self.do_system_list('', True), text) 
 
     def do_ssm_add(self, args):
         all_systems = {}
@@ -162,7 +170,7 @@ For help for a specific command try "help <cmd>".
 
         systems = []
         for item in self.args:
-            if item.lower().startswith('group:'):
+            if item.startswith('group:'):
                 item = item.replace('group:', '')
                 members = self.do_group_listsystems(item, True)
 
@@ -499,16 +507,16 @@ For help for a specific command try "help <cmd>".
     def help_system_list(self):
         print "Usage: system_list [PATTERN] ..."
     
-    def do_system_list(self, args, doreturn=False, filtered=True):
+    def do_system_list(self, args, doreturn=False):
         systems = self.client.system.listSystems(self.session)
         systems = [s.get('name') for s in systems]
-
-        if filtered:
-            systems = self.filter_results(systems, self.args)
 
         if doreturn:
             return systems
         else:
+            if len(self.args) > 0:
+                systems = self.filter_results(systems, self.args)
+
             print "\n".join(sorted(systems))
 
 ###########
@@ -517,7 +525,7 @@ For help for a specific command try "help <cmd>".
         print "Usage: system_details SSM|SYSTEM"
 
     def complete_system_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True, False), text)
+        return self.tab_completer(self.do_system_list('', True), text)
  
     def do_system_details(self, args):
         if len(self.args) == 0:
@@ -617,7 +625,7 @@ For help for a specific command try "help <cmd>".
     def help_group_list(self):
         print "Usage: group_list [GROUP] ..."
 
-    def do_group_list(self, args, doreturn=False):
+    def do_group_list(self, args, doreturn=False, filtered=True):
         groups = self.client.systemgroup.listAllGroups(self.session)
         groups = [g.get('name') for g in groups]
 
