@@ -95,7 +95,7 @@ class StreamConnection(_Server):
                 password=password, refreshCallback=refreshCallback)
         self.add_header("X-RHN-Satellite-XML-Dump-Version", xml_dump_version)
 
-class GETServer(rpclib.GETServer)
+class GETServer(rpclib.GETServer):
     """ class rpclib.GETServer with overriden default transports classes """
     _transport_class = Transport
     _transport_class_https = SafeTransport
