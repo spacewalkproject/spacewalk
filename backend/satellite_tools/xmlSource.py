@@ -464,6 +464,10 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates' : 'receiving_updates',
         'rhn-channel-checksum-type' : 'checksum_type',
     }
+    def populateFromElements(self, obj, elements):
+        BaseItem.populateFromElements(self, obj, elements)
+        if obj['checksum_type'] == 'sha':
+            obj['checksum_type'] = 'sha1'
 addItem(ChannelItem)
 
 class BaseChecksummedItem(BaseItem):
