@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import logging, os, re, sys, xmlrpclib
+import logging, os, re, sys, textwrap, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from optparse import Option, OptionParser
@@ -8,7 +8,13 @@ from pwd import getpwuid
 
 class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
-   
+  
+    ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
+                    'enterprise_entitled'          : 'Management',
+                    'monitoring_entitled'          : 'Monitoring',
+                    'virtualization_host'          : 'Virtualization',
+                    'virtualization_host_platform' : 'Virtualization Platform'}
+ 
     def __init__(self, options):
         # set some defaults since we can't call our superclass constructor
         self.cmdqueue = []
@@ -168,7 +174,7 @@ class SpacewalkShell(Cmd):
                 logging.warning(match + " is already in the SSM")
                 continue
             else:             
-                logging.info("Adding " + match + " to the SSM")
+                logging.info("Added " + match + " to the SSM")
                 logging.debug("System ID: " + str(all_systems.get(match)))
                 self.ssm[match] = all_systems.get(match)
 
@@ -214,6 +220,12 @@ class SpacewalkShell(Cmd):
 
     def help_help(self):
         print "Usage: help COMMAND"
+
+    def help_clear(self):
+        print "Usage: clear"
+    
+    def do_clear(self, args):
+        os.system('clear')
 
 ###########
 
@@ -387,6 +399,53 @@ class SpacewalkShell(Cmd):
 
 ###########
 
+    def help_getpackagedetails(self):
+        print "Usage: getpackagedetails PACKAGE1 [PACKAGE2] ..."        
+
+    def do_getpackagedetails(self, args):
+        add_separator = False
+
+        for package in self.args:
+            if add_separator:
+                print
+                print "--------------------"
+                print
+
+            add_separator = True
+
+            try:
+                id = int(package)
+            except:
+                id = self.client.packages.search.name(self.session,
+                                                      package)[0].get('id')
+
+            details = self.client.packages.getDetails(self.session, id)
+            channels = self.client.packages.listProvidingChannels(self.session,
+                                                                  id)
+
+            print "Name:    " + details.get('name')
+            print "Version: " + details.get('version')
+            print "Release: " + details.get('release') 
+            print "Epoch:   " + details.get('epoch') or "N/A"
+            print "Arch:    " + details.get('arch_label')
+
+            print
+            print "Description: "
+            for line in textwrap.wrap(details.get('description')):
+                print line
+
+            print
+            print "File:    " + details.get('file')
+            print "Size:    " + details.get('size')
+            print "MD5:     " + details.get('md5sum')
+
+            print
+            print "Available From:"
+            for channel in sorted([c.get('label') for c in channels]):
+                print channel
+
+###########
+
     def help_findpackages(self):
         print "Usage: findpackages QUERY"
         print "Available Fields: name, epoch, version, release, arch, " + \
@@ -397,14 +456,17 @@ class SpacewalkShell(Cmd):
         packages = self.client.packages.search.advanced(self.session, args)
         
         for p in packages:
-            print "Channel: " + p.get('provider')
+            details = self.client.packages.getDetails(self.session, p.get('id'))
+
             print "Package: " + self.build_package_names([p])[0]
+            for provider in details.get('label'):
+                print "Provider: " + provider
             print
 
 ###########
 
     def help_listsystems(self):
-        print "Usage: listsystems [PATTERN1] [PATTERN2] ..."
+        print "Usage: listsystems [PATTERN] [PATTERN] ..."
     
     def do_listsystems(self, args, doreturn=False, filtered=True):
         systems = self.client.system.listSystems(self.session)
@@ -421,29 +483,24 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_getsystemdetails(self):
-        print "Usage: getsystemdetails SYSTEM"
+        print "Usage: getsystemdetails SYSTEM1 [SYSTEM2] ..."
 
     def complete_getsystemdetails(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_listsystems('', True, False), text)
  
     def do_getsystemdetails(self, args):
-        if len(self.args) != 1:
-            self.help_getsystemdetails()
-            return
+        add_separator = False
 
-        try:
+        for system in self.args:
             try:
                 # check if we were passed a system ID
-                system_id = int(self.args[0])
-    
-                system = self.client.system.getName(self.session, system_id)
-                last_checkin = system.get('last_checkin')
+                system_id = int(system)
             except ValueError:
-                system_id = None
+                system_id = self.get_system_id(system)
 
             if not system_id:
-                system_id = self.get_system_id(self.args[0])
-
+                logging.error(system + ' is not a valid system')
+                continue
 
             last_checkin = \
                 self.client.system.getName(self.session,
@@ -453,7 +510,7 @@ class SpacewalkShell(Cmd):
 
             registered = self.client.system.getRegistrationDate(self.session,
                                                                 system_id)
-
+            
             entitlements = self.client.system.getEntitlements(self.session,
                                                               system_id)
 
@@ -470,42 +527,56 @@ class SpacewalkShell(Cmd):
 
             kernel = self.client.system.getRunningKernel(self.session,
                                                          system_id)
-        except xmlrpclib.Fault, err:
-            logging.error(err.faultString.rsplit(': ', 1)[1])
-            return 
-        except:
-            logging.debug(sys.exc_info()[0])
-            logging.error("Could not retreive system information")
-            return
+            
+            config_channels = \
+                self.client.system.config.listChannels(self.session,
+                                                       system_id)
+
+            ranked_config_channels = []
+            for channel in config_channels:
+                ranked_config_channels.append(channel.get('label'))
        
-        print "Name:          " + self.args[0] + "\n" + \
-              "System ID:     " + str(system_id) + "\n" + \
-              "Locked:        " + str(details.get('lock_status')) + "\n" + \
-              "Registered:    " + registered.value + "\n" + \
-              "Last Checkin:  " + last_checkin.value + "\n" + \
-              "Kernel:        " + kernel
+            if add_separator:
+                print
+                print "--------------------"
+                print
 
-        print
-        print "Base Channel:  " + base_channel.get('label')
+            add_separator = True
 
-        for channel in child_channels:
-            print "Child Channel: " + channel.get('label')
+            print "Name:          " + system
+            print "System ID:     " + str(system_id)
+            print "Locked:        " + str(details.get('lock_status'))
+            print "Registered:    " + registered.value
+            print "Last Checkin:  " + last_checkin.value
+            print "Kernel:        " + kernel
 
-        print
+            print
+            print "Software Channels:"
+            print '  ' + base_channel.get('label')
 
-        for entitlement in entitlements:
-            print "Entitlement:   " + entitlement
+            for channel in child_channels:
+                print "   |-- " + channel.get('label')
 
-        print
+            print
+            print 'Configuration Channels:'
+            for channel in ranked_config_channels:
+                print '  ' + channel
 
-        for group in groups:
-            if group.get('subscribed') == 1:
-                print "Group:         " + group.get('system_group_name')
+            print
+            print "Entitlements:"
+            for entitlement in sorted(entitlements):
+                print '  ' + self.ENTITLEMENTS[entitlement]
+
+            print
+            print "System Groups:"
+            for group in groups:
+                if group.get('subscribed') == 1:
+                    print '  ' + group.get('system_group_name')
 
 ###########
 
     def help_listswchannels(self):
-        print "Usage: listswchannels [PATTERN1] [PATTERN2] ..."
+        print "Usage: listswchannels [CHANNEL] [CHANNEL] ..."
 
     def do_listswchannels(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
@@ -535,7 +606,7 @@ class SpacewalkShell(Cmd):
 ###########
 
     def help_listswchannelpackages(self):
-        print "Usage: listswchannelpackages CHANNEL [PATTERN1] [PATTERN2] ..."
+        print "Usage: listswchannelpackages CHANNEL [PACKAGE] [PACKAGE] ..."
 
     def complete_listswchannelpackages(self, text, line, begidx, endidx):
         # only tab complete the channel name
@@ -558,30 +629,45 @@ class SpacewalkShell(Cmd):
 ###########
  
     def help_getswchanneldetails(self):
-        print "Usage: getswchanneldetails CHANNEL"
+        print "Usage: getswchanneldetails CHANNEL [CHANNEL] ..."
 
     def complete_getswchanneldetails(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_listswchannels('', True), text)
  
     def do_getswchanneldetails(self, args):
-        if len(self.args) != 1:
-            self.help_getswchanneldetails()
-            return
+        add_separator = False
 
-        try:
+        for channel in self.args:
             details = self.client.channel.software.getDetails(self.session, 
-                                                              self.args[0])
-        except xmlrpclib.Fault, err:
-            logging.error(err.faultString.rsplit(': ', 1)[1])
-            return 
-       
-        print "Label:           " + details.get('label') + "\n" + \
-              "Name:            " + details.get('name') + "\n" + \
-              "Parent:          " + details.get('parent_channel_label') + "\n" + \
-              "Architecture:    " + details.get('arch_name') + "\n" + \
-              "GPG Key:         " + details.get('gpg_key_id') + "\n" + \
-              "GPG Fingerprint: " + details.get('gpg_key_fp') + "\n" + \
-              "GPG URL:         " + details.get('gpg_key_url')
+                                                              channel)
+      
+            systems = \
+                self.client.channel.software.listSubscribedSystems(self.session,                                                                   channel)
+ 
+            if add_separator:
+                print
+                print "--------------------"
+                print
+
+            add_separator = True
+
+            print "Label:              " + details.get('label')
+            print "Name:               " + details.get('name')
+            print "Architecture:       " + details.get('arch_name')
+            print "Parent:             " + details.get('parent_channel_label')
+            print "Summary:            " + details.get('summary')
+            print "Systems Subscribed: " + str(len(systems))
+
+            print
+            print "Description:"
+            for line in textwrap.wrap(details.get('description')):
+                print line
+           
+            print 
+            print "GPG Key:            " + details.get('gpg_key_id')
+            print "GPG Fingerprint:    " + details.get('gpg_key_fp')
+            print "GPG URL:            " + details.get('gpg_key_url')
+
 
 ###########
 
