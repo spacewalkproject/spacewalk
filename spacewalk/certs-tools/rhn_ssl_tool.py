@@ -50,7 +50,7 @@ from sslToolLib import RhnSslToolException, \
         gendir, chdir, getMachineName, fixSerial, TempDir, parseRPMFilename, \
         errnoGeneralError, errnoSuccess
 
-from spacewalk.common.fileutils import rotateFile, rhn_popen, cleanupAbsPath, maketemp
+from spacewalk.common.fileutils import rotateFile, rhn_popen, cleanupAbsPath
 
 from spacewalk.common.rhn_rpm import hdrLabelCompare, sortRPMs, get_package_header, \
         getInstalledHeader

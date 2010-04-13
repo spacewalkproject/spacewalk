@@ -27,7 +27,7 @@ from common import log_debug
 from server.rhnLib import get_package_path
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.fileutils import maketemp, createPath, setPermsPath
+from spacewalk.common.fileutils import createPath, setPermsPath
 
 # no-op class, used to define the type of an attribute
 class DateType:
