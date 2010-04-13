@@ -40,12 +40,6 @@ use RHN::SatelliteCert;
 
 our @ISA = qw/RHN::DB::SatInstall/;
 
-use constant DEFAULT_RHN_SATCON_TREE =>
-  '/etc/sysconfig/rhn-satellite-prep/etc';
-
-use constant DEFAULT_SATCON_DICT =>
-  '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf';
-
 use constant DEFAULT_RHN_CERT_LOCATION =>
   '/etc/sysconfig/rhn/rhn-entitlement-cert.xml';
 
