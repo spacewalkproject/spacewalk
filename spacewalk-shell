@@ -152,13 +152,13 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_addtossm(self):
-        print "Usage: addtossm SYSTEM1 [SYSTEM2] ..."
+    def help_ssm_add(self):
+        print "Usage: ssm_add SYSTEM1 [SYSTEM2] ..."
 
-    def complete_addtossm(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_listsystems('', True, False), text)
+    def complete_ssm_add(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True, False), text)
 
-    def do_addtossm(self, args):
+    def do_ssm_add(self, args):
         all_systems = {}
         for s in self.client.system.listSystems(self.session):
             all_systems[s.get('name')] = s.get('id')
@@ -179,13 +179,13 @@ class SpacewalkShell(Cmd):
                 self.ssm[match] = all_systems.get(match)
 
 
-    def help_delfromssm(self):
-        print "Usage: delfromssm SYSTEM1 [SYSTEM2] ..."
+    def help_ssm_rm(self):
+        print "Usage: ssm_rm SYSTEM1 [SYSTEM2] ..."
     
-    def complete_delfromssm(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_listssm('', True), text)
+    def complete_ssm_rm(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_ssm_list('', True), text)
 
-    def do_delfromssm(self, args):
+    def do_ssm_rm(self, args):
         matches = self.filter_results(self.ssm.keys(), self.args)
         
         if len(matches) == 0:
@@ -197,10 +197,10 @@ class SpacewalkShell(Cmd):
             del self.ssm[match]
             
  
-    def help_listssm(self):
-        print "Usage: listssm"
+    def help_ssm_list(self):
+        print "Usage: ssm_list"
     
-    def do_listssm(self, args, doreturn=False):
+    def do_ssm_list(self, args, doreturn=False):
         systems = sorted(self.ssm.keys())
 
         if doreturn:
@@ -210,10 +210,10 @@ class SpacewalkShell(Cmd):
                 print s
 
 
-    def help_clearssm(self):
-        print "Usage: clearssm"
+    def help_ssm_clear(self):
+        print "Usage: ssm_clear"
     
-    def do_clearssm(self, args):
+    def do_ssm_clear(self, args):
         self.ssm.clear()
 
 ###########
@@ -354,35 +354,35 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_getapiversion(self):
-        print "Usage: getapiversion"
+    def help_get_apiversion(self):
+        print "Usage: get_apiversion"
 
 
-    def do_getapiversion(self, args):
+    def do_get_apiversion(self, args):
         print self.client.api.getVersion()
 
 ###########
 
-    def help_getserverversion(self):
-        print "Usage: getserverversion"
+    def help_get_serverversion(self):
+        print "Usage: get_serverversion"
 
-    def do_getserverversion(self, args):
+    def do_get_serverversion(self, args):
         print self.client.api.systemVersion()
 
 ###########
 
-    def help_getcertificateexpiration(self):
-        print "Usage: getcertificateexpiration"
+    def help_get_certificateexpiration(self):
+        print "Usage: get_certificateexpiration"
 
-    def do_getcertificateexpiration(self, args):
+    def do_get_certificateexpiration(self, args):
         print self.client.satellite.getCertificateExpirationDate(self.session).value
 
 ###########
 
-    def help_listentitlements(self):
-        print "Usage: listentitlements"
+    def help_get_entitlements(self):
+        print "Usage: get_entitlements"
 
-    def do_listentitlements(self, args):
+    def do_get_entitlements(self, args):
         entitlements = self.client.satellite.listEntitlements(self.session)
 
         print "System:"
@@ -399,10 +399,10 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_getpackagedetails(self):
-        print "Usage: getpackagedetails PACKAGE1 [PACKAGE2] ..."        
+    def help_package_details(self):
+        print "Usage: package_details PACKAGE1 [PACKAGE2] ..."        
 
-    def do_getpackagedetails(self, args):
+    def do_package_details(self, args):
         add_separator = False
 
         for package in self.args:
@@ -446,13 +446,13 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_findpackages(self):
-        print "Usage: findpackages QUERY"
+    def help_package_search(self):
+        print "Usage: package_search QUERY"
         print "Available Fields: name, epoch, version, release, arch, " + \
               "description, summary"
         print "Example: name:kernel AND version:2.6.18 AND -description:devel" 
 
-    def do_findpackages(self, args):
+    def do_package_search(self, args):
         packages = self.client.packages.search.advanced(self.session, args)
         
         for p in packages:
@@ -465,10 +465,10 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_listsystems(self):
-        print "Usage: listsystems [PATTERN] [PATTERN] ..."
+    def help_system_list(self):
+        print "Usage: system_list [PATTERN] [PATTERN] ..."
     
-    def do_listsystems(self, args, doreturn=False, filtered=True):
+    def do_system_list(self, args, doreturn=False, filtered=True):
         systems = self.client.system.listSystems(self.session)
         systems = [s.get('name') for s in systems]
 
@@ -482,13 +482,13 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_getsystemdetails(self):
-        print "Usage: getsystemdetails SYSTEM1 [SYSTEM2] ..."
+    def help_system_details(self):
+        print "Usage: system_details SYSTEM1 [SYSTEM2] ..."
 
-    def complete_getsystemdetails(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_listsystems('', True, False), text)
+    def complete_system_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True, False), text)
  
-    def do_getsystemdetails(self, args):
+    def do_system_details(self, args):
         add_separator = False
 
         for system in self.args:
@@ -575,10 +575,10 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_listswchannels(self):
-        print "Usage: listswchannels [CHANNEL] [CHANNEL] ..."
+    def help_softwarechannel_list(self):
+        print "Usage: softwarechannel_list [CHANNEL] [CHANNEL] ..."
 
-    def do_listswchannels(self, args, doreturn=False):
+    def do_softwarechannel_list(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
         channels = [c.get('label') for c in channels]
 
@@ -589,13 +589,13 @@ class SpacewalkShell(Cmd):
       
 ###########
 
-    def help_listswchannelsystems(self):
-        print "Usage: listswchannelsystems CHANNEL"
+    def help_softwarechannel_listsystems(self):
+        print "Usage: softwarechannel_listsystems CHANNEL"
 
-    def complete_listswchannelsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_listswchannels('', True), text)
+    def complete_softwarechannel_listsystems(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_softwarechannel_list('', True), text)
 
-    def do_listswchannelsystems(self, args):
+    def do_softwarechannel_listsystems(self, args):
         systems = self.client.channel.software.listSubscribedSystems(self.session,
                                                                      self.args[0])
         
@@ -605,17 +605,17 @@ class SpacewalkShell(Cmd):
 
 ###########
 
-    def help_listswchannelpackages(self):
-        print "Usage: listswchannelpackages CHANNEL [PACKAGE] [PACKAGE] ..."
+    def help_softwarechannel_packages(self):
+        print "Usage: softwarechannel_packages CHANNEL [PACKAGE] [PACKAGE] ..."
 
-    def complete_listswchannelpackages(self, text, line, begidx, endidx):
+    def complete_softwarechannel_packages(self, text, line, begidx, endidx):
         # only tab complete the channel name
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.do_listswchannels('', True), text)
+            return self.tab_completer(self.do_softwarechannel_list('', True), text)
         else:
             return []
 
-    def do_listswchannelpackages(self, args, doreturn=False):
+    def do_softwarechannel_packages(self, args, doreturn=False):
         packages = self.client.channel.software.listLatestPackages(self.session,
                                                                    self.args[0])
 
@@ -628,13 +628,13 @@ class SpacewalkShell(Cmd):
             
 ###########
  
-    def help_getswchanneldetails(self):
-        print "Usage: getswchanneldetails CHANNEL [CHANNEL] ..."
+    def help_softwarechannel_details(self):
+        print "Usage: softwarechannel_details CHANNEL [CHANNEL] ..."
 
-    def complete_getswchanneldetails(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_listswchannels('', True), text)
+    def complete_softwarechannel_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_softwarechannel_list('', True), text)
  
-    def do_getswchanneldetails(self, args):
+    def do_softwarechannel_details(self, args):
         add_separator = False
 
         for channel in self.args:
