@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.9.4
+Version:        0.9.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Apr 13 2010 Jan Pazdziora 0.9.5-1
+- Fix Makefile to workaround chameleon failing.
+
 * Mon Apr 12 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.4-1
 - Fix db schema for debian support (ukas.durfina@gmail.com)
 - Retrieve the rhn_schedules(recid) instead of using the hardcoded value of 1 (jpazdziora@redhat.com)
