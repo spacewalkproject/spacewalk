@@ -37,6 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #options()
  *                  #item("file")
  *                  #item("directory")
+ *                  #item("symlink")
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc("string", "channel","Channel Name")
@@ -112,6 +113,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
             helper.add(MACRO_START, rev.getDelimStart());
             helper.add(MACRO_END, rev.getDelimEnd());
+        }
+        else if (rev.isSymlink()) {
+            helper.add(CONTENTS, rev.getConfigContent().getContentsString());
         }
         helper.add("channel", rev.getConfigFile().getConfigChannel().getName());
         helper.writeTo(output);
