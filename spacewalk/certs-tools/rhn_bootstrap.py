@@ -41,7 +41,7 @@ from rhn_bootstrap_strings import \
     getCorpCACertSh, getRegistrationSh, getUp2dateTheBoxSh, \
     getAllowConfigManagement, getAllowRemoteCommands
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
-from spacewalk.common.fileutils import make_temp_file, rotateFile, cleanupAbsPath
+from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
 
 ## GLOBALS
