@@ -23,6 +23,7 @@ import shutil
 import string
 import subprocess
 import select
+import tempfile
 from checksum import getFileChecksum
 
 
@@ -217,8 +218,8 @@ def rhn_popen(cmd, progressCallback=None, bufferSize=16384, outputLog=None):
     c.stdin.close()
 
     # Create two temporary streams to hold the info from stdout and stderr
-    child_out = make_temp_file("/tmp/my-popen-")
-    child_err = make_temp_file("/tmp/my-popen-")
+    child_out = tempfile.TemporaryFile(prefix = '/tmp/my-popen-', mode = 'r+b')
+    child_err = tempfile.TemporaryFile(prefix = '/tmp/my-popen-', mode = 'r+b')
 
     # Map the input file descriptor with the temporary (output) one
     fd_mappings = [(c.stdout, child_out), (c.stderr, child_err)]
