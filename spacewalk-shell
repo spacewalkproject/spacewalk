@@ -1,7 +1,14 @@
 #!/usr/bin/python
 
-# RFEs:
+""" SpacewalkShell - Interactive, console prompt to Spacewalk
+
+Author: Aron Parsons <aron@redhat.com> -or- <aronparsons@gmail.com>
+License: GPLv3+
+"""
+
+# TODO for Spacewalk:
 # configchannel.listSubscribedSystems
+# configchannel - show channel ranks
 
 import atexit, logging, os, re, readline, sys, textwrap, xmlrpclib
 from cmd import Cmd
@@ -31,10 +38,13 @@ For help for a specific command try "help <cmd>".
     stdout = sys.stdout
     prompt = 'Spacewalk> '
 
+    # do nothing on an empty line
     emptyline = lambda self: None
 
     def __init__(self, options):
         self.session = ''
+        self.username = ''
+        self.server = ''
         self.ssm = {}
 
         # make the options available everywhere
@@ -53,7 +63,9 @@ For help for a specific command try "help <cmd>".
         
             if not options.nohistory:
                 try:
-                    readline.read_history_file(self.history_file)
+                    if os.path.isfile(self.history_file):
+                        readline.read_history_file(self.history_file)
+    
                     readline.set_history_length(self.HISTORY_LENGTH)
 
                     # always write the history file on exit
@@ -64,7 +76,6 @@ For help for a specific command try "help <cmd>".
                     logging.debug(sys.exc_info())
         except:
             logging.debug(sys.exc_info())
-            pass
 
 
     # load the history file
@@ -84,7 +95,60 @@ For help for a specific command try "help <cmd>".
         except IndexError:
             self.cmd = ''
             self.args = []
+
+        # perform bash-like command substitution 
+        if self.cmd.startswith('!'):
+            # remove the '!*' line from the history
+            last = readline.get_current_history_length() - 1
+            readline.remove_history_item(last)
+
+            history_match = False
+           
+            if self.cmd[1] == '!':
+                # repeat the last command
+                line = readline.get_history_item(
+                           readline.get_current_history_length() - 1)
+
+                if line:
+                    history_match = True
+                else:
+                    logging.warning(self.cmd + ': event not found')
+                    return ''
+            
+            if not history_match:
+                # is a specific history item being referenced? 
+                try:
+                    number = int(self.cmd[1:])
+                    line = readline.get_history_item(number)
+                    if line:
+                        history_match = True
+                    else:
+                        raise Exception
+                except:
+                    logging.warning(self.cmd + ': event not found')
+                    return ''
+
+            # attempt to match the beginning of the string with a history item
+            if not history_match:
+                history_range = range(1, readline.get_current_history_length())
+                history_range.reverse()
  
+                for i in history_range:
+                    item = readline.get_history_item(i)
+                    if item.startswith(self.cmd[1:]):
+                        line = item
+                        history_match = True
+                        break
+           
+            # append the arguments to the substituted command 
+            if history_match:
+                line = line + ' ' + ''.join(args)
+                print line
+                readline.add_history(line)
+            else:
+                logging.warning(self.cmd + ': event not found')
+                return ''
+
         if self.cmd.lower() in ('quit', 'exit', 'eof'):
             print
             sys.exit(0)
@@ -95,6 +159,7 @@ For help for a specific command try "help <cmd>".
 
     def tab_completer(self, options, text):
         return [o for o in options if o.startswith(text)]
+
     
     def filter_results(self, list, args):
         patterns = []
@@ -111,6 +176,8 @@ For help for a specific command try "help <cmd>".
 
         return matches
 
+
+    # build a proper RPM name from the various parts
     def build_package_names(self, packages):
         new_packages = []
         for p in packages:
@@ -133,6 +200,8 @@ For help for a specific command try "help <cmd>".
 
         return packages
 
+
+    # check for duplicate system names and return the system ID
     def get_system_id(self, name):
         systems = self.client.system.getId(self.session, name)
 
@@ -196,6 +265,7 @@ For help for a specific command try "help <cmd>".
                 logging.debug("System ID: " + str(all_systems.get(match)))
                 self.ssm[match] = all_systems.get(match)
 
+###########
 
     def help_ssm_del(self):
         print "Usage: ssm_del SYSTEM ..."
@@ -214,6 +284,7 @@ For help for a specific command try "help <cmd>".
             logging.info("Deleting " + match + " from the SSM")
             del self.ssm[match]
             
+###########
  
     def help_ssm_list(self):
         print "Usage: ssm_list"
@@ -228,6 +299,7 @@ For help for a specific command try "help <cmd>".
             print
             print 'Systems Selected: ' + str(len(systems))
 
+###########
 
     def help_ssm_clear(self):
         print "Usage: ssm_clear"
@@ -240,11 +312,22 @@ For help for a specific command try "help <cmd>".
     def help_help(self):
         print "Usage: help COMMAND"
 
+###########
+
     def help_clear(self):
         print "Usage: clear"
     
     def do_clear(self, args):
         os.system('clear')
+
+###########
+
+    def help_history(self):
+        print "Usage: history"
+
+    def do_history(self, args):
+        for i in range(1, readline.get_current_history_length()):
+            print str(i).rjust(4) + '  ' + readline.get_history_item(i)
 
 ###########
 
@@ -276,9 +359,10 @@ For help for a specific command try "help <cmd>".
         try:
             api_version = self.client.api.getVersion()
         except:
-            self.client = None
+            logging.error('API version check failed')
             logging.error(sys.exc_info()[1])
             logging.debug(sys.exc_info())
+            self.client = None
             return
 
         # ensure the server is recent enough
@@ -342,7 +426,6 @@ For help for a specific command try "help <cmd>".
             try:
                 self.session = self.client.auth.login(username, 
                                                       password)
-                self.username = username
             except:
                 logging.warning("Invalid credentials")
                 logging.debug(sys.exc_info())
@@ -362,6 +445,10 @@ For help for a specific command try "help <cmd>".
         # disable caching of subsequent logins
         self.options.nocache = True
 
+        # keep track of who we are and who we're connected to
+        self.username = username
+        self.server = server
+
         logging.info("Connected to " + server + " as " + username)
 
 ###########
@@ -374,12 +461,13 @@ For help for a specific command try "help <cmd>".
             self.client.auth.logout(self.session)
             self.session = ''
             self.username = ''
-            
-            try:
-                os.remove(self.cache_file)
-            except:
-                logging.debug(sys.exc_info())
-                pass
+            self.server = ''
+           
+            if os.path.isfile(self.cache_file): 
+                try:
+                    os.remove(self.cache_file)
+                except:
+                    logging.debug(sys.exc_info())
         else:
             logging.warning("You're not logged in")
 
@@ -389,7 +477,21 @@ For help for a specific command try "help <cmd>".
         print "Usage: whoami"
 
     def do_whoami(self, args):
-        print self.username
+        if len(self.username) > 0:
+            print self.username
+        else:
+            logging.warning("You're not logged in")
+
+###########
+
+    def help_whoamitalkingto(self):
+        print "Usage: whoamitalkingto"
+
+    def do_whoamitalkingto(self, args):
+        if len(self.server) > 0:
+            print self.server
+        else:
+            logging.warning('Yourself')
 
 ###########
 
@@ -497,10 +599,11 @@ For help for a specific command try "help <cmd>".
             return
 
         packages = self.client.packages.search.advanced(self.session, args)
-        
-        for p in packages:
-            details = self.client.packages.getDetails(self.session, p.get('id'))
-            print "Package: " + self.build_package_names([p])[0]
+       
+        if len(packages) > 0: 
+            print "\n".join(self.build_package_names(packages))
+        else:
+            logging.warning('No packages found')
 
 ###########
 
@@ -1037,6 +1140,8 @@ if __name__ == "__main__":
                help="Use HTTP instead of HTTPS"),
         Option('--nohistory', action='store_true',
                 help="Do not store command history in ~/.spacewalk_history"),
+        Option('-q', '--quiet', action='store_true',
+               help="Only print error messages"),
         Option('-d', '--debug', action='store_true',
                help="Enable debug logging"),
     ]
@@ -1046,9 +1151,10 @@ if __name__ == "__main__":
  
     if options.debug:
         log_level = logging.DEBUG
+    elif options.quiet:
+        log_level = logging.ERROR
     else:
         log_level = logging.INFO
-
 
     # setup logging
     logging.basicConfig(level=log_level, 
@@ -1057,16 +1163,20 @@ if __name__ == "__main__":
     # setup the shell
     shell = SpacewalkShell(options)
 
-    # start the shell
-    while True:
-        try:
-            shell.cmdloop()
-        except xmlrpclib.Fault, err:
-            shell.intro = ''
-            logging.error(err.faultString.rsplit(': ', 1)[1])
-            logging.debug(sys.exc_info())
-        except KeyboardInterrupt:
-            shell.intro = ''
-            print
+    if len(args) > 0:
+        shell.preloop()
+        shell.onecmd(''.join(args))
+    else:
+        # start the shell
+        while True:
+            try:
+                shell.cmdloop()
+            except xmlrpclib.Fault, err:
+                shell.intro = ''
+                logging.error(err.faultString.rsplit(': ', 1)[1])
+                logging.debug(sys.exc_info())
+            except KeyboardInterrupt:
+                shell.intro = ''
+                print
 
 # vim:ts=4:expandtab:
