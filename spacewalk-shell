@@ -10,7 +10,7 @@ License: GPLv3+
 # configchannel.listSubscribedSystems
 # configchannel - show channel ranks
 
-import atexit, logging, os, re, readline, sys, textwrap, xmlrpclib
+import atexit, logging, os, re, readline, sys, textwrap, xml, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from optparse import Option, OptionParser
@@ -213,10 +213,16 @@ For help for a specific command try "help <cmd>".
         else:
             logging.warning("Multiple systems found with the same name")
 
-            for system in systems:
+            for system in sorted(systems):
                 logging.warning(name + " = " + str(system.get('id'))) 
 
             return
+
+    def print_errata_summary(self, errata):
+        for e in errata:
+            print e.get('advisory_name') + '  ' + \
+                  textwrap.wrap(e.get('advisory_synopsis'), 50)[0].ljust(50) + \
+                  '  ' + e.get('date').rjust(8) 
 
 ###########
 
@@ -247,6 +253,9 @@ For help for a specific command try "help <cmd>".
                     systems.extend(members)
                 else:
                     logging.warning('No systems in group ' + item)
+            elif item.startswith('*'):
+                # the regex needs a character to repeat
+                systems.append('.' + item)
             else:
                 systems.append(item)
 
@@ -295,9 +304,12 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return systems
         else:
-            print "\n".join(systems)
-            print
-            print 'Systems Selected: ' + str(len(systems))
+            for s in systems:
+                print s
+
+            if len(systems) > 0:
+                print
+                print 'Systems Selected: ' + str(len(systems))
 
 ###########
 
@@ -624,6 +636,127 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_system_hardware(self):
+        print "Usage: system_details SSM|SYSTEM"
+
+    def complete_system_hardware(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+ 
+    def do_system_hardware(self, args):
+        if len(self.args) == 0:
+            self.help_system_details()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        for system in sorted(systems):
+            try:
+                # check if we were passed a system ID
+                system_id = int(system)
+            except ValueError:
+                system_id = self.get_system_id(system)
+
+            if not system_id:
+                logging.warning(system + ' is not a valid system')
+                continue
+
+            cpu = self.client.system.getCpu(self.session, system_id)
+            memory = self.client.system.getMemory(self.session, system_id)
+            devices = self.client.system.getDevices(self.session, system_id)
+            network = self.client.system.getNetworkDevices(self.session, 
+                                                           system_id)
+          
+            # Solaris systems don't have these value s
+            for v in ('cache', 'vendor', 'family', 'stepping'):
+                if not cpu.get(v):
+                    cpu[v] = ''
+ 
+            try:
+                dmi = self.client.system.getDmi(self.session, system_id)
+            except xml.parsers.expat.ExpatError:
+                dmi = None
+            
+            if add_separator:
+                print "\n--------------------\n"
+
+            add_separator = True
+
+            print 'System: ' + system
+            print
+
+            if len(network) > 0:
+                count = 0
+                print 'Network:'
+                for device in network:
+                    if count > 0:
+                        print
+                    count += 1
+
+                    print '  Interface:   ' + device.get('interface')
+                    print '  MAC Address: ' + \
+                                 device.get('hardware_address').upper()
+                    print '  IP Address:  ' + device.get('ip')
+                    print '  Netmask:     ' + device.get('netmask')
+                    print '  Broadcast:   ' + device.get('broadcast')
+                    print '  Module:      ' + device.get('module')
+                print
+
+            print 'CPU:'
+            print '  Count:    ' + str(cpu.get('count'))
+            print '  Arch:     ' + cpu.get('arch')
+            print '  MHz:      ' + cpu.get('mhz')
+            print '  Cache:    ' + cpu.get('cache')
+            print '  Vendor:   ' + cpu.get('vendor')
+            print '  Model:    ' + re.sub("\s+", ' ', cpu.get('model'))
+            print '  Family:   ' + cpu.get('family')
+            print '  Stepping: ' + cpu.get('stepping')
+
+            print
+            print 'Memory:'
+            print '  RAM:  ' + str(memory.get('ram'))
+            print '  Swap: ' + str(memory.get('swap'))
+
+            if dmi:
+                print
+                print 'DMI:'
+                print '  Vendor:       ' + dmi.get('vendor')
+                print '  System:       ' + dmi.get('system')
+                print '  Product:      ' + dmi.get('product')
+                print '  Board:        ' + dmi.get('board')
+
+                print
+                print '  Asset:'
+                for asset in dmi.get('asset').split(') ('):
+                    print '    ' + re.sub('\)|\(', '', asset)
+
+                print
+                print '  BIOS Release: ' + dmi.get('bios_release')
+                print '  BIOS Vendor:  ' + dmi.get('bios_vendor')
+                print '  BIOS Version: ' + dmi.get('bios_version')
+
+            if len(devices) > 0:
+                count = 0
+                print
+                print 'Devices:'
+                for device in devices:
+                    if count > 0:
+                        print
+                    count += 1
+    
+                    print '  Description: ' + \
+                             textwrap.wrap(device.get('description'), 60)[0]
+                    print '  Driver:      ' + device.get('driver')
+                    print '  Class:       ' + device.get('device_class')
+                    print '  Bus:         ' + device.get('bus')
+
+###########
+
     def help_system_details(self):
         print "Usage: system_details SSM|SYSTEM"
 
@@ -643,7 +776,7 @@ For help for a specific command try "help <cmd>".
         else:
             systems = self.args
 
-        for system in systems:
+        for system in sorted(systems):
             try:
                 # check if we were passed a system ID
                 system_id = int(system)
@@ -684,6 +817,8 @@ For help for a specific command try "help <cmd>".
                 self.client.system.config.listChannels(self.session,
                                                        system_id)
 
+            network = self.client.system.getNetwork(self.session, system_id)
+
             ranked_config_channels = []
             for channel in config_channels:
                 ranked_config_channels.append(channel.get('label'))
@@ -699,6 +834,8 @@ For help for a specific command try "help <cmd>".
             print "Registered:    " + registered.value
             print "Last Checkin:  " + last_checkin.value
             print "Kernel:        " + kernel
+            print "Hostname:      " + network.get('hostname')
+            print "IP Address:    " + network.get('ip')
 
             print
             print "Software Channels:"
@@ -722,6 +859,94 @@ For help for a specific command try "help <cmd>".
             for group in groups:
                 if group.get('subscribed') == 1:
                     print '  ' + group.get('system_group_name')
+
+###########
+
+    def help_system_errata(self):
+        print "Usage: system_errata SYSTEM ..."
+    
+    def complete_system_errata(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+ 
+    def do_system_errata(self, args):
+        if len(self.args) == 0:
+            self.do_help_system_errata()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        for system in sorted(systems):
+            try:
+                # check if we were passed a system ID
+                system_id = int(system)
+            except ValueError:
+                system_id = self.get_system_id(system)
+
+            if not system_id:
+                logging.warning(system + ' is not a valid system')
+                continue
+
+            errata = self.client.system.getRelevantErrata(self.session,
+                                                          system_id)
+            
+            rhsa = []
+            rhea = []
+            rhba = []
+            other = []
+            for e in errata:
+                type = e.get('advisory_type').lower()
+
+                if type.startswith('security'):
+                    rhsa.append(e)
+                elif type.startswith('bug fix'):
+                    rhba.append(e)
+                elif type.startswith('enhancement'):
+                    rhea.append(e)
+                else:
+                    other.append(e)
+               
+            if add_separator:
+                print "\n--------------------\n"
+
+            add_separator = True
+
+            print 'System: ' + system
+            print
+
+            if len(errata) == 0:
+                print 'No relevant errata'
+                continue
+
+            if len(rhsa) > 0:
+                print 'Security Errata:'
+                self.print_errata_summary(rhsa)
+            
+            if len(rhba) > 0:
+                if len(rhsa) > 0:
+                    print
+
+                print 'Bug Fix Errata:'
+                self.print_errata_summary(rhba)
+ 
+            if len(rhea) > 0:
+                if len(rhsa) > 0 or len(rhba) > 0:
+                    print
+
+                print 'Enhancement Errata:'
+                self.print_errata_summary(rhea)
+
+            if len(other) > 0:
+                if len(rhsa) > 0 or len(rhba) > 0 or len(rhea) > 0:
+                    print
+
+                print 'Other Errata:'
+                self.print_errata_summary(other)
 
 ###########
 
@@ -796,7 +1021,7 @@ For help for a specific command try "help <cmd>".
                 systems = self.client.systemgroup.listSystems(self.session,
                                                               group)
             
-                systems = sorted([s.get('profile_name') for s in systems])
+                systems = [s.get('profile_name') for s in systems]
             except:
                 logging.warning(key + ' is not a valid group')
                 logging.debug(sys.exc_info())
@@ -813,7 +1038,7 @@ For help for a specific command try "help <cmd>".
 
             print
             print "Members:"
-            for system in systems:
+            for system in sorted(systems):
                 print '  ' + system
 
 ###########
@@ -1174,6 +1399,10 @@ if __name__ == "__main__":
             except xmlrpclib.Fault, err:
                 shell.intro = ''
                 logging.error(err.faultString.rsplit(': ', 1)[1])
+                logging.debug(sys.exc_info())
+            except xml.parsers.expat.ExpatError:
+                shell.intro = ''
+                logging.error(sys.exc_info()[1])
                 logging.debug(sys.exc_info())
             except KeyboardInterrupt:
                 shell.intro = ''
