@@ -38,7 +38,6 @@ class BaseWireSource:
     url = ''
     sslYN = 0
     systemid = None
-    nRetries = 3
     server_handler = None
     xml_dump_version = None
 
