@@ -1134,19 +1134,6 @@ class Registration(rhnHandler):
         """
         self.__save_user_db(user)
    
-
-    def __translate_site_type(self, type):
-        if type == 'M':
-            return 'MARKETING'
-        elif type == 'S':
-            return 'SHIPPING'
-        elif type == 'B':
-            return 'BILLING'
-        elif type == 'R':
-            return 'SERVICE'
-        else:
-            return None
-
     def __save_user_db(self, user):
         """ Saves the user to the database. """
         user.save()
