@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.8.17
+Version:        0.8.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.8.17-1
+* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.8.18-1
 - Retrieve the rhn_schedules(recid) instead of using the hardcoded value of 1.
   (jpazdziora@redhat.com)
 
