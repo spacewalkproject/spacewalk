@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.9.5
+Version:        0.9.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.9.7-1
+- moving rhn_schedule_days to be db depedent because it has an inner select
+  clause (jsherril@redhat.com)
+- 516772 - removing fedora version specific kickstart install types since we do
+  not use them (jsherril@redhat.com)
+
 * Tue Apr 13 2010 Jan Pazdziora 0.9.5-1
 - Fix Makefile to workaround chameleon failing.
 
