@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.9.7
+Version:        0.9.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.9.7-1
+* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.9.8-1
 - moving rhn_schedule_days to be db depedent because it has an inner select
   clause (jsherril@redhat.com)
 - 516772 - removing fedora version specific kickstart install types since we do
