@@ -140,7 +140,7 @@ class BaseWireSource:
         retryYN = 0
         wait = 0.33
         lastErrorMsg = ''
-        for i in range(self.nRetries):
+        for i in range(CFG.NETWORK_RETRIES):
             server = self.getServer(retryYN)
             if server is None:
                 log2(-1, 2, 'ERROR: server unable to initialize, attempt %s' % i, stream=sys.stderr)
@@ -434,7 +434,7 @@ class RPCGetWireSource(BaseWireSource):
     def _rpc_call(self, function_name, params):
         get_server_obj = self.login()
         # Try a couple of times
-        for i in range(5):
+        for i in range(CFG.NETWORK_RETRIES):
             try:
                 ret = apply(getattr(get_server_obj, function_name), params)
             except rpclib.ProtocolError, e:
