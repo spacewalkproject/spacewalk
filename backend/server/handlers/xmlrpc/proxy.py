@@ -31,10 +31,11 @@ class rhnProxyHandler(rhnHandler):
     def __init__(self):
         rhnHandler.__init__(self)
 
-    # System authentication. We override the standard function because
-    # we need to check additionally if this system_id is entitled for
-    # proxy functionality
     def auth_system(self, system_id):
+        """ System authentication. We override the standard function because
+            we need to check additionally if this system_id is entitled for
+            proxy functionality.
+        """
         log_debug(3)        
         server = rhnHandler.auth_system(self, system_id)
         # if it did not blow up, we have a valid server. Check proxy
@@ -57,9 +58,10 @@ class rhnProxyHandler(rhnHandler):
         # we're fine...
         return server
 
-    # Authenticate a system based on the same authentication tokens
-    # the client is sending for GET requests
     def auth_client(self, token):
+        """ Authenticate a system based on the same authentication tokens
+            the client is sending for GET requests
+        """
         log_debug(3)
         # Build a UserDictCase out of the token
         dict = UserDictCase(token)
@@ -90,30 +92,31 @@ class rhnProxyHandler(rhnHandler):
         return server
 
     
-# this is the XML-RPC receiver for proxy calls    
 class Proxy(rhnProxyHandler):
+    """ this is the XML-RPC receiver for proxy calls """
     def __init__(self):
         log_debug(3)
         rhnProxyHandler.__init__(self)
         self.functions.append('package_source_in_channel')
         self.functions.append('login')
 
-    # Validates the client request for a source package download
     def package_source_in_channel(self, package, channel, auth_token):
+        """ Validates the client request for a source package download """
         log_debug(3, package, channel)
         server = self.auth_client(auth_token)
         return rhnPackage.package_source_in_channel(self.server_id, 
             package, channel)
 
-    # Login routine for the proxy
-    #
-    # Return a formatted string of session token information as regards
-    # an RHN Proxy.  Also sets this information in the headers.
-    #
-    # NOTE: design description for the auth token format and how it is
-    #       is used is well documented in the proxy/broker/rhnProxyAuth.py
-    #       code.
     def login(self, system_id):
+        """ Login routine for the proxy
+
+            Return a formatted string of session token information as regards
+            an RHN Proxy.  Also sets this information in the headers.
+
+            NOTE: design description for the auth token format and how it is
+               is used is well documented in the proxy/broker/rhnProxyAuth.py
+               code.
+        """
         log_debug(5, system_id)
         # Authenticate. We need the user record to be able to generate
         # auth tokens

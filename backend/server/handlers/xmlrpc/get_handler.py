@@ -19,7 +19,8 @@
 
 from server import apacheRequest
 
-# handles the GET requests
 class GetHandler(apacheRequest.GetHandler):
-    # Inherit the behaviour from the parent class
+    """ handles the GET requests
+		Inherit the behaviour from the parent class
+	"""
     pass
