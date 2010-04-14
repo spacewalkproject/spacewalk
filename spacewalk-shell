@@ -13,6 +13,7 @@ License: GPLv3+
 import atexit, logging, os, re, readline, sys, textwrap, xml, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
+from operator import itemgetter
 from optparse import Option, OptionParser
 from pwd import getpwuid
 
@@ -57,8 +58,7 @@ For help for a specific command try "help <cmd>".
         try:
             # don't split on hyphens or colons during tab completion
             newdelims = readline.get_completer_delims()
-            newdelims = newdelims.replace('-', '')
-            newdelims = newdelims.replace(':', '')
+            newdelims = re.sub(':|-', '', newdelims)
             readline.set_completer_delims(newdelims)
         
             if not options.nohistory:
@@ -179,7 +179,11 @@ For help for a specific command try "help <cmd>".
 
     # build a proper RPM name from the various parts
     def build_package_names(self, packages):
-        new_packages = []
+        if not isinstance(packages, list):
+            packages = [packages]
+            single = True
+
+        package_names = []
         for p in packages:
             package = p.get('name') + '-' \
                     + p.get('version') + '-' \
@@ -189,16 +193,20 @@ For help for a specific command try "help <cmd>".
                 package = package + ':' + p.get('epoch')
 
             if p.get('arch'):
-                package = package + '.' + p.get('arch')
+                # system.listPackages uses AMD64 instead of x86_64
+                arch = re.sub('AMD64', 'x86_64', p.get('arch'))
+
+                package = package + '.' + arch
             elif p.get('arch_label'):
                 package = package + '.' + p.get('arch_label')
 
-            new_packages.append(package)
+            package_names.append(package)
            
-        packages = new_packages
-        packages.sort()
-
-        return packages
+        if single:
+            return package_names[0]
+        else:
+            package_names.sort()
+            return package_names
 
 
     # check for duplicate system names and return the system ID
@@ -246,7 +254,7 @@ For help for a specific command try "help <cmd>".
         systems = []
         for item in self.args:
             if item.startswith('group:'):
-                item = item.replace('group:', '')
+                item = re.sub('group:', '', item)
                 members = self.do_group_listsystems(item, True)
 
                 if len(members) > 0:
@@ -687,8 +695,9 @@ For help for a specific command try "help <cmd>".
 
             add_separator = True
 
-            print 'System: ' + system
-            print
+            if len(systems) > 1:
+                print 'System: ' + system
+                print
 
             if len(network) > 0:
                 count = 0
@@ -757,6 +766,112 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_system_availableupgrades(self):
+        print "Usage: system_availableupgrades SSM|SYSTEM"
+
+    def complete_system_availableupgrades(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+ 
+    def do_system_availableupgrades(self, args):
+        if len(self.args) == 0:
+            self.help_system_availableupgrades()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        for system in sorted(systems):
+            try:
+                # check if we were passed a system ID
+                system_id = int(system)
+            except ValueError:
+                system_id = self.get_system_id(system)
+
+            if not system_id:
+                logging.warning(system + ' is not a valid system')
+                continue
+
+            packages = \
+                self.client.system.listLatestUpgradablePackages(self.session,
+                                                                system_id)
+
+            if add_separator:
+                print "\n--------------------\n"
+
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: ' + system
+                print
+
+            for package in sorted(packages, key=itemgetter('name')):
+                old = {'name'    : package.get('name'),
+                       'version' : package.get('from_version'),
+                       'release' : package.get('from_release'),
+                       'epoch'   : package.get('from_epoch')}
+
+                new = {'name'    : package.get('name'),
+                       'version' : package.get('to_version'),
+                       'release' : package.get('to_release'),
+                       'epoch'   : package.get('to_epoch')}
+
+                print 'Old: ' + self.build_package_names(old)
+                print 'New: ' + self.build_package_names(new)
+                print
+
+###########
+
+    def help_system_packages(self):
+        print "Usage: system_packages SSM|SYSTEM"
+
+    def complete_system_packages(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+ 
+    def do_system_packages(self, args):
+        if len(self.args) == 0:
+            self.help_system_packages()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        for system in sorted(systems):
+            try:
+                # check if we were passed a system ID
+                system_id = int(system)
+            except ValueError:
+                system_id = self.get_system_id(system)
+
+            if not system_id:
+                logging.warning(system + ' is not a valid system')
+                continue
+
+            packages = self.client.system.listPackages(self.session,
+                                                       system_id)
+
+            if add_separator:
+                print "\n--------------------\n"
+
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: ' + system
+                print
+
+            print "\n".join(self.build_package_names(packages))
+
+###########
+
     def help_system_details(self):
         print "Usage: system_details SSM|SYSTEM"
 
@@ -812,16 +927,20 @@ For help for a specific command try "help <cmd>".
 
             kernel = self.client.system.getRunningKernel(self.session,
                                                          system_id)
-            
-            config_channels = \
-                self.client.system.config.listChannels(self.session,
-                                                       system_id)
-
+           
             network = self.client.system.getNetwork(self.session, system_id)
 
+            keys = self.client.system.listActivationKeys(self.session,
+                                                         system_id)
+
             ranked_config_channels = []
-            for channel in config_channels:
-                ranked_config_channels.append(channel.get('label'))
+            if 'provisioning_entitled' in entitlements:
+                config_channels = \
+                    self.client.system.config.listChannels(self.session,
+                                                           system_id)
+
+                for channel in config_channels:
+                    ranked_config_channels.append(channel.get('label'))
        
             if add_separator:
                 print "\n--------------------\n"
@@ -831,34 +950,45 @@ For help for a specific command try "help <cmd>".
             print "Name:          " + system
             print "System ID:     " + str(system_id)
             print "Locked:        " + str(details.get('lock_status'))
-            print "Registered:    " + registered.value
-            print "Last Checkin:  " + last_checkin.value
-            print "Kernel:        " + kernel
+            print "Registered:    " + re.sub('T', ' ', registered.value)
+            print "Last Checkin:  " + re.sub('T', ' ', last_checkin.value)
+            print "OSA Status:    " + details.get('osa_status')
+
+            print
             print "Hostname:      " + network.get('hostname')
             print "IP Address:    " + network.get('ip')
+            print "Kernel:        " + kernel
+
+            if len(keys) > 0:
+                print
+                print "Activation Keys:"
+                for key in keys:
+                    print '  ' + key
 
             print
             print "Software Channels:"
             print '  ' + base_channel.get('label')
 
             for channel in child_channels:
-                print "   |-- " + channel.get('label')
+                print '    |-- ' + channel.get('label')
 
-            print
-            print 'Configuration Channels:'
-            for channel in ranked_config_channels:
-                print '  ' + channel
+            if len(ranked_config_channels) > 0:
+                print
+                print 'Configuration Channels:'
+                for channel in ranked_config_channels:
+                    print '  ' + channel
 
             print
             print "Entitlements:"
             for entitlement in sorted(entitlements):
                 print '  ' + self.ENTITLEMENTS[entitlement]
 
-            print
-            print "System Groups:"
-            for group in groups:
-                if group.get('subscribed') == 1:
-                    print '  ' + group.get('system_group_name')
+            if len(groups) > 0:
+                print
+                print "System Groups:"
+                for group in groups:
+                    if group.get('subscribed') == 1:
+                        print '  ' + group.get('system_group_name')
 
 ###########
 
@@ -916,8 +1046,9 @@ For help for a specific command try "help <cmd>".
 
             add_separator = True
 
-            print 'System: ' + system
-            print
+            if len(systems) > 1:
+                print 'System: ' + system
+                print
 
             if len(errata) == 0:
                 print 'No relevant errata'
@@ -984,7 +1115,7 @@ For help for a specific command try "help <cmd>".
             systems = self.client.systemgroup.listSystems(self.session,
                                                           group)
             
-            systems = sorted([s.get('profile_name') for s in systems])
+            systems = [s.get('profile_name') for s in systems]
         except:
             logging.warning(group + ' is not a valid group')
             logging.debug(sys.exc_info())
