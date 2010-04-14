@@ -28,6 +28,7 @@ from common import CFG, rhnFault, rhnFlags, redirectException #to catch redirect
 from common import log_debug, log_error, Traceback
 from common.rhnTranslate import _
 from common.rhnLib import setHeaderValue
+from common import byterange
 
 # local modules
 import rhnRepository
@@ -35,7 +36,6 @@ import rhnImport
 import rhnSQL
 import rhnCapability
 import apacheAuth
-import byterange
 
 # Exceptions
 class UnknownXML(Exception):

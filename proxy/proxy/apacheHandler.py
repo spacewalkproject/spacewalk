@@ -32,7 +32,7 @@ from common.rhnLib import setHeaderValue
 
 ## local imports
 from proxy.rhnProxyAuth import get_proxy_auth
-from proxy.byterange import parse_byteranges, get_content_range
+from common.byterange import parse_byteranges, get_content_range
 
 def getComponentType(req):
     """ 

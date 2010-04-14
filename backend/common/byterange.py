@@ -1,4 +1,3 @@
-# Byterange support
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -13,14 +12,14 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-# $Id$
+#
 
 import re
 
 # common module
 from common import log_debug, rhnException
 
-# Parses the HTTP header value and stores in the flags  a list of (start, end) 
+# Parses the HTTP header value and stores in the flags  a list of (start, end)
 # tuples that are more pythonic than the RFC semantics
 def parse_byteranges(byterange_header, file_size = None):
     log_debug(4, "Parsing byte range", byterange_header)
@@ -76,7 +75,7 @@ def parse_byteranges(byterange_header, file_size = None):
         else:
             start = -end
             end = None
-        
+
     byteranges = (start, end)
 
     log_debug(4, "Request byterange", byteranges)
@@ -88,7 +87,7 @@ def _str2int(val):
         return None
 
     return int(val)
-        
+
 def get_content_range(start, end, total_length=None):
     if total_length is None:
         total_length = "*"

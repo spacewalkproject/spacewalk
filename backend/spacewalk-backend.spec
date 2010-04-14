@@ -307,6 +307,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
 %{rhnroot}/common/apache.py*
+%{rhnroot}/common/byterange.py*
 %{rhnroot}/common/rhn_posix.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
@@ -352,7 +353,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/apacheRequest.py*
 %{rhnroot}/server/apacheServer.py*
 %{rhnroot}/server/apacheUploadServer.py*
-%{rhnroot}/server/byterange.py*
 %{rhnroot}/server/rhnAction.py*
 %{rhnroot}/server/rhnAuthPAM.py*
 %{rhnroot}/server/rhnCapability.py*

@@ -14,7 +14,7 @@
 #
 import unittest
 
-import server.byterange
+import common.byterange
 
 class ByteRangeTests(unittest.TestCase):
 
