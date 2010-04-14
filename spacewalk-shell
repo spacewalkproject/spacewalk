@@ -9,6 +9,8 @@ License: GPLv3+
 # TODO for Spacewalk:
 # configchannel.listSubscribedSystems
 # configchannel - show channel ranks
+# configchannel.lookupFileInfo - returns null if invalid files is passed
+# kickstart.profile.system - partitions not being returned
 
 import atexit, logging, os, re, readline, sys, textwrap, xml, xmlrpclib
 from cmd import Cmd
@@ -21,6 +23,8 @@ class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
 
     HISTORY_LENGTH = 1024
+
+    SEPARATOR = "\n--------------------\n"
   
     ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
                     'enterprise_entitled'          : 'Management',
@@ -58,7 +62,7 @@ For help for a specific command try "help <cmd>".
         try:
             # don't split on hyphens or colons during tab completion
             newdelims = readline.get_completer_delims()
-            newdelims = re.sub(':|-', '', newdelims)
+            newdelims = re.sub(':|-|/', '', newdelims)
             readline.set_completer_delims(newdelims)
         
             if not options.nohistory:
@@ -86,7 +90,7 @@ For help for a specific command try "help <cmd>".
 
 
     # handle commands that exit the shell
-    def precmd(self, line):
+    def precmd(self, line, nohistory=False):
         # set the command and arguments once so they can be used elsewhere
         try:
             parts = line.split()
@@ -95,6 +99,9 @@ For help for a specific command try "help <cmd>".
         except IndexError:
             self.cmd = ''
             self.args = []
+
+        if nohistory:
+            return line
 
         # perform bash-like command substitution 
         if self.cmd.startswith('!'):
@@ -179,6 +186,8 @@ For help for a specific command try "help <cmd>".
 
     # build a proper RPM name from the various parts
     def build_package_names(self, packages):
+        single = False
+
         if not isinstance(packages, list):
             packages = [packages]
             single = True
@@ -571,7 +580,7 @@ For help for a specific command try "help <cmd>".
 
         for package in self.args:
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -608,7 +617,10 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_package_search(self):
-        print "Usage: package_search QUERY"
+        print "Usage: package_search PACKAGE|QUERY"
+        print "Example: package_search kernel-2.6.18-92"
+        print
+        print "Advanced Search:"
         print "Available Fields: name, epoch, version, release, arch, " + \
               "description, summary"
         print "Example: name:kernel AND version:2.6.18 AND -description:devel" 
@@ -618,12 +630,266 @@ For help for a specific command try "help <cmd>".
             self.help_package_search()
             return
 
-        packages = self.client.packages.search.advanced(self.session, args)
+        fields = ('name', 'epoch', 'version', 'release', 
+                  'arch', 'description', 'summary')
+
+        advanced = False
+        for f in fields:
+            if re.match(f + ':', args):
+                advanced = True
+                break
+
+        if advanced:
+            packages = self.client.packages.search.advanced(self.session, args)
+        else:
+            packages = self.client.packages.search.name(self.session, args)
        
         if len(packages) > 0: 
             print "\n".join(self.build_package_names(packages))
         else:
             logging.warning('No packages found')
+
+###########
+
+    def help_kickstart_list(self):
+        print "Usage: kickstart_list [PATTERN] ..."
+    
+    def do_kickstart_list(self, args, doreturn=False):
+        kickstarts = self.client.kickstart.listKickstarts(self.session)
+        kickstarts = [k.get('name') for k in kickstarts]
+
+        if doreturn:
+            return kickstarts
+        else:
+            if len(self.args) > 0:
+                kickstarts = self.filter_results(kickstarts, self.args)
+
+            print "\n".join(sorted(kickstarts))
+
+###########
+
+    def help_kickstart_details(self):
+        print "Usage: kickstart_details PROFILE"
+
+    def complete_kickstart_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_kickstart_list('', True), text)
+ 
+    def do_kickstart_details(self, args):
+        if len(self.args) != 1:
+            self.help_kickstart_details()
+            return
+
+        label = self.args[0]
+        kickstart = None
+
+        profiles = self.client.kickstart.listKickstarts(self.session)
+        for p in profiles:
+            if p.get('label') == label:
+                kickstart = p
+                break
+
+        if not kickstart:
+            logging.warning('No Kickstart profile found')
+            return
+
+        act_keys = \
+            self.client.kickstart.profile.keys.getActivationKeys(self.session, 
+                                                                 label)
+
+        variables = self.client.kickstart.profile.getVariables(self.session, 
+                                                               label)
+
+        tree = \
+            self.client.kickstart.tree.getDetails(self.session,
+                                                  kickstart.get('tree_label'))
+
+        base_channel = \
+            self.client.channel.software.getDetails(self.session,
+                                                    tree.get('channel_id'))
+
+        child_channels = \
+            self.client.kickstart.profile.getChildChannels(self.session,
+                                                           label)
+
+        custom_options = \
+            self.client.kickstart.profile.getCustomOptions(self.session,
+                                                           label)
+
+        advanced_options = \
+            self.client.kickstart.profile.getAdvancedOptions(self.session, 
+                                                             label)
+
+        config_manage = \
+            self.client.kickstart.profile.system.checkConfigManagement(\
+                self.session, label)
+
+        remote_commands = \
+            self.client.kickstart.profile.system.checkRemoteCommands(\
+                self.session, label)
+
+        partitions = \
+            self.client.kickstart.profile.system.getPartitioningScheme(\
+                self.session, label)
+
+        crypto_keys = \
+            self.client.kickstart.profile.system.listKeys(self.session,
+                                                          label)
+
+        file_preservations = \
+            self.client.kickstart.profile.system.listFilePreservations(\
+                self.session, label)
+
+        software = self.client.kickstart.profile.software.getSoftwareList(\
+                self.session, label)
+
+        scripts = self.client.kickstart.profile.listScripts(self.session,
+                                                            label)
+
+        print 'Name:        ' + kickstart.get('name')
+        print 'Label:       ' + kickstart.get('label')
+        print 'Tree:        ' + kickstart.get('tree_label')
+        print 'Active:      ' + str(kickstart.get('active'))
+        print 'Advanced:    ' + str(kickstart.get('advanced_mode'))
+        print 'Org Default: ' + str(kickstart.get('org_default'))
+
+        print 
+        print 'Config Management: ' + str(config_manage)
+        print 'Remote Commands:   ' + str(remote_commands)
+
+        print
+        print "Software Channels:"
+        print '  ' + base_channel.get('label')
+
+        for channel in sorted(child_channels):
+            print '    |-- ' + channel
+
+        if len(advanced_options) > 0:
+            print
+            print 'Advanced Options:'
+            for o in sorted(advanced_options, key=itemgetter('name')):
+                if o.get('arguments'):
+                    print '  ' + o.get('name') + ' ' + o.get('arguments')
+
+        if len(custom_options) > 0:
+            print
+            print 'Custom Options:'
+            for o in sorted(custom_options, key=itemgetter('arguments')):
+                print '  ' + re.sub("\n", '', o.get('arguments'))
+
+        if len(partitions) > 0:
+            print
+            print 'Partitioning:'
+            for line in partitions:
+                print '  ' + line
+
+        print 
+        print 'Software:'
+        for s in software:
+            print '  ' + s
+
+        if len(act_keys) > 0:
+            print
+            print 'Activation Keys:'
+            for k in sorted(act_keys, key=itemgetter('key')):
+                print '  ' + k.get('key')
+
+        if len(crypto_keys) > 0:
+            print
+            print 'Crypto Keys:'
+            for k in sorted(crypto_keys, key=itemgetter('description')):
+                print '  ' + k.get('description')
+
+        if len(file_preservations) > 0:
+            print
+            print 'File Preservations:'
+            for fp in sorted(file_preservations, key=itemgetter('name')):
+                print '  ' + fp.get('name')
+                for file in sorted(fp.get('file_names')):
+                    print '    |-- ' + file
+
+        if len(variables) > 0:
+            print
+            print 'Variables:'
+            for k in sorted(variables.keys()):
+                print '  ' + k + '=' + str(variables[k])
+
+        if len(scripts) > 0:
+            print
+            print 'Scripts:'
+
+            add_separator = False
+
+            for s in scripts:
+                if add_separator:
+                    print self.SEPARATOR
+
+                add_separator = True
+
+                print '  Type:        ' + s.get('script_type')
+                print '  Chroot:      ' + str(s.get('chroot'))
+            
+                if s.get('interpreter'):
+                    print '  Interpreter: ' + s.get('interpreter')
+
+                print
+                print s.get('contents')
+ 
+###########
+
+    def help_kickstart_listsnippets(self):
+        print "Usage: kickstart_listsnippets [PATTERN] ..."
+    
+    def do_kickstart_listsnippets(self, args, doreturn=False):
+        snippets = self.client.kickstart.snippet.listCustom(self.session)
+        snippets = [s.get('name') for s in snippets]
+
+        if doreturn:
+            return snippets
+        else:
+            if len(self.args) > 0:
+                snippets = self.filter_results(snippets, self.args)
+
+            print "\n".join(sorted(snippets))
+
+###########
+ 
+    def help_kickstart_snippetdetails(self):
+        print "Usage: kickstart_snippetdetails SNIPPET ..."
+
+    def complete_kickstart_snippetdetails(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_kickstart_listsnippets('', True),
+                                  text)
+             
+    def do_kickstart_snippetdetails(self, args):
+        if len(self.args) == 0:
+            self.help_kickstart_snippetdetails()
+            return
+
+        add_separator = False
+
+        snippets = self.client.kickstart.snippet.listCustom(self.session)
+        
+        for name in self.args:
+            for s in snippets:
+                if s.get('name') == name:
+                    snippet = s
+                    break
+
+            if not snippet:
+                logging.warning(name + ' is not a valid snippet')
+                continue                
+
+            if add_separator:
+                print self.SEPARATOR
+            
+            add_separator = True
+
+            print 'Name:   ' + snippet.get('name')
+            print 'Macro:  ' + snippet.get('fragment')
+            print 'File:   ' + snippet.get('file')
+
+            print
+            print snippet.get('contents')
 
 ###########
 
@@ -691,7 +957,7 @@ For help for a specific command try "help <cmd>".
                 dmi = None
             
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -801,7 +1067,7 @@ For help for a specific command try "help <cmd>".
                                                                 system_id)
 
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -860,7 +1126,7 @@ For help for a specific command try "help <cmd>".
                                                        system_id)
 
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -943,7 +1209,7 @@ For help for a specific command try "help <cmd>".
                     ranked_config_channels.append(channel.get('label'))
        
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -1042,7 +1308,7 @@ For help for a specific command try "help <cmd>".
                     other.append(e)
                
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -1159,7 +1425,7 @@ For help for a specific command try "help <cmd>".
                 return
      
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
             
             add_separator = True
 
@@ -1171,6 +1437,58 @@ For help for a specific command try "help <cmd>".
             print "Members:"
             for system in sorted(systems):
                 print '  ' + system
+
+###########
+
+    def help_cryptokey_list(self):
+        print "Usage: cryptokey_list [KEY] ..."
+
+    def do_cryptokey_list(self, args, doreturn=False):
+        keys = self.client.kickstart.keys.listAllKeys(self.session)
+        keys = [k.get('description') for k in keys]
+
+        if doreturn:
+            return keys
+        else:
+            if len(self.args) > 0:
+                keys = self.filter_results(keys, self.args)
+
+            print "\n".join(sorted(keys))
+
+###########
+ 
+    def help_cryptokey_details(self):
+        print "Usage: cryptokey_details KEY ..."
+
+    def complete_cryptokey_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_cryptokey_list('', True), text)
+ 
+    def do_cryptokey_details(self, args):
+        if len(self.args) == 0:
+            self.help_cryptokey_details()
+            return
+
+        add_separator = False
+
+        for key in self.args:
+            try:
+                details = self.client.kickstart.keys.getDetails(self.session, 
+                                                                key)
+            except:
+                logging.warning(key + ' is not a valid crypto key')
+                logging.debug(sys.exc_info())
+                return
+        
+            if add_separator:
+                print self.SEPARATOR
+            
+            add_separator = True
+
+            print "Description: " + details.get('description')
+            print "Type:        " + details.get('type')
+
+            print
+            print details.get('content')
 
 ###########
 
@@ -1250,7 +1568,7 @@ For help for a specific command try "help <cmd>".
                 groups.append(group_details.get('name'))
         
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
             
             add_separator = True
 
@@ -1332,6 +1650,93 @@ For help for a specific command try "help <cmd>".
         print "\n".join(systems)
 
 ###########
+
+    def help_configchannel_listfiles(self):
+        print "Usage: configchannel_listfiles CHANNEL ..."
+
+    def complete_configchannel_listfiles(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_configchannel_list('', True), text)
+ 
+    def do_configchannel_listfiles(self, args, doreturn=False):
+        if len(args) == 0:
+            self.help_configchannel_listfiles()
+            return []
+
+        for channel in args.split():
+            files = self.client.configchannel.listFiles(self.session,
+                                                        channel)
+            files = [f.get('path') for f in files]
+
+            if doreturn:
+                return files
+            else:
+                print "\n".join(sorted(files))
+
+###########
+ 
+    def help_configchannel_filedetails(self):
+        print "Usage: configchannel_filedetails CHANNEL FILE ..."
+
+    def complete_configchannel_filedetails(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_configchannel_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            return self.tab_completer(\
+                self.do_configchannel_listfiles(parts[1], True), text)
+        else:
+            return []
+             
+    def do_configchannel_filedetails(self, args):
+        if len(self.args) < 2:
+            self.help_configchannel_filedetails()
+            return
+
+        add_separator = False
+
+        channel = self.args[0]
+        filenames = self.args[1:]
+
+        # the server return a null exception if an invalid file is passed
+        valid_files = self.do_configchannel_listfiles(channel, True)
+        for f in filenames:
+            if not f in valid_files:
+                filenames.remove(f)
+                logging.warning(f + ' is not in this configuration channel')
+                continue
+
+        files = self.client.configchannel.lookupFileInfo(self.session, 
+                                                         channel,
+                                                         filenames)
+
+        for file in files:
+            if add_separator:
+                print self.SEPARATOR
+            
+            add_separator = True
+
+            print 'File:     ' + file.get('path')
+            print 'Type:     ' + file.get('type')
+            print 'Revision: ' + str(file.get('revision'))
+            print 'Created:  ' + re.sub('T', ' ', file.get('creation').value)
+            print 'Modified: ' + re.sub('T', ' ', file.get('modified').value)
+
+            print
+            print 'Owner:    ' + file.get('owner')
+            print 'Group:    ' + file.get('group')
+            print 'Mode:     ' + file.get('permissions_mode')
+
+            if file.get('type') == 'file':
+                print 'MD5:      ' + file.get('md5')
+                print 'Binary:   ' + str(file.get('binary'))
+
+                if not file.get('binary'):
+                    print
+                    print file.get('contents')
+
+###########
  
     def help_configchannel_details(self):
         print "Usage: configchannel_details CHANNEL ..."
@@ -1354,7 +1759,7 @@ For help for a specific command try "help <cmd>".
                                                         channel)
  
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
             
             add_separator = True
 
@@ -1458,7 +1863,7 @@ For help for a specific command try "help <cmd>".
                 self.client.channel.software.listSubscribedSystems(self.session,                                                                   channel)
  
             if add_separator:
-                print "\n--------------------\n"
+                print self.SEPARATOR
 
             add_separator = True
 
@@ -1521,7 +1926,7 @@ if __name__ == "__main__":
 
     if len(args) > 0:
         shell.preloop()
-        shell.onecmd(''.join(args))
+        shell.onecmd(shell.precmd(' '.join(args), True))
     else:
         # start the shell
         while True:
@@ -1529,8 +1934,12 @@ if __name__ == "__main__":
                 shell.cmdloop()
             except xmlrpclib.Fault, err:
                 shell.intro = ''
-                logging.error(err.faultString.rsplit(': ', 1)[1])
-                logging.debug(sys.exc_info())
+
+                try:
+                    logging.debug(sys.exc_info())
+                    logging.error(err.faultString.rsplit(': ', 1)[1])
+                except:
+                    logging.error(err.faultString)
             except xml.parsers.expat.ExpatError:
                 shell.intro = ''
                 logging.error(sys.exc_info()[1])
