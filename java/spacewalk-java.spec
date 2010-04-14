@@ -12,7 +12,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.8.13
+Version: 0.8.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -283,6 +283,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.8.14-1
+- 574065 - fixing issue where a shared channel couldnt properly be used as a
+  distros channel (jsherril@redhat.com)
+
 * Fri Feb 12 2010 Justin Sherrill <jsherril@redhat.com> 0.8.13-1
 -  510100 - adding the ability to set a config file to a certain revision
   (jsherril@redhat.com)
