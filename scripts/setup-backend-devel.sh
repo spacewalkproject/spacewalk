@@ -10,15 +10,10 @@ if [ ! -d /spacewalk ]; then
 fi
 
 cd /usr/share/rhn/
-
 DIRS="common satellite_exporter satellite_tools server spacewalk upload_server"
 
 for dir in $DIRS; do
-
-     if [ -d $dir ]; then
-        mv $dir $dir.bak
-     fi
-     ln -s /spacewalk/backend/$dir
+     python /spacewalk/scripts/link-tree.py /spacewalk/backend/$dir /usr/share/rhn/$dir
 done;
 
 echo """
