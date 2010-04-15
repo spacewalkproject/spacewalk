@@ -168,7 +168,7 @@ For help for a specific command try "help <cmd>".
         for item in list:
             if len(patterns) > 0:
                 for pattern in patterns:
-                    if pattern.search(item):
+                    if pattern.match(item):
                         matches.append(item)
 
         return matches
@@ -852,6 +852,22 @@ For help for a specific command try "help <cmd>".
                 print
                 print s.get('contents')
  
+###########
+
+    def help_kickstart_raw(self):
+        print "Usage: kickstart_raw [PATTERN] ..."
+    
+    def complete_kickstart_raw(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_raw(self, args, doreturn=False):
+        kickstart = \
+            self.client.kickstart.profile.downloadKickstart(self.session,
+                                                            self.args[0],
+                                                            self.server)
+
+        print kickstart
+
 ###########
 
     def help_kickstart_listsnippets(self):
