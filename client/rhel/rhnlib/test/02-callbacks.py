@@ -9,7 +9,14 @@ sys.path.append('..')
 from rhn.rpclib import Server, GETServer
 
 SERVER = "http://xmlrpc.rhn.redhat.com/XMLRPC"
-#SERVER = "http://xmlrpc.rhn.webqa.redhat.com/XMLRPC"
+system_id_file = "/etc/sysconfig/rhn/systemid"
+try:
+    SERVER = "http://%s/XMLRPC" % sys.argv[1]
+    system_id_file = sys.argv[2]
+except:
+    pass
+print "SERVER = %s" % SERVER
+print "system_id_file = %s" % system_id_file
 
 def refreshCallback(*args, **kwargs):
     print "Called refreshCallback, args %s, kwargs %s" % (args, kwargs)
@@ -18,11 +25,6 @@ def progressCallback(*args, **kwargs):
     print "Called progressCallback, args %s, kwargs %s" % (args, kwargs)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        system_id_file = sys.argv[1]
-    else:
-        system_id_file = '/etc/sysconfig/rhn/systemid'
-
     sysid = open(system_id_file).read()
 
     s = Server(SERVER)
@@ -47,7 +49,11 @@ if __name__ == '__main__':
     else:
         raise Exception("Package not found")
     
+    print "PACKAGE TO DOWNLOAD: %s %s %s %s" % (package[0], package[1], package[2], package[4])
     filename = "%s-%s-%s.%s.rpm" % (package[0], package[1], package[2], package[4])
     print "Calling getPackages"
     fd = gs.getPackage(cn, filename)
-    data = open("/tmp/foobar", "w+").write(fd.read())
+    data_name = "/tmp/foobar"
+    data = open(data_name, "w+").write(fd.read())
+    print "PACKAGE DOWNLOADED AS: %s" % data_name
+

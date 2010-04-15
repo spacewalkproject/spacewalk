@@ -34,17 +34,7 @@ insert into rhnKSInstallType (id, label, name)
 
 insert into rhnKSInstallType (id, label, name)
         values (rhn_ksinstalltype_id_seq.nextval,
-                'fedora_8','Fedora 8'
-        );
-
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'fedora_9','Fedora 9'
-        );
-
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'fedora_10','Fedora 10'
+                'fedora','Fedora'
         );
 
 insert into rhnKSInstallType (id, label, name)

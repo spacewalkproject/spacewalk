@@ -1,11 +1,12 @@
 #!/usr/bin/python
 #
 # Test _smart_read over a slow socket
-# Use lsof to see how many open files we have
 #
 # $Id$
 
 import sys
+import os
+import glob
 sys.path.append('..')
 from rhn.rpclib import transports
 
@@ -41,9 +42,31 @@ def t():
     f = transports._smart_read(buf, amt, max_mem_size=amt+1)
     f.seek(0, 2)
     print "Read", f.tell(), type(f._io)
+
+
+def openedFiles():
+    global pid
+    path = '/proc/' + pid + '/fd/';
+    return len(glob.glob(os.path.join(path, '*')));
     
 
 if __name__ == '__main__':
-    for i in range(1000):
+    global pid
+    pid = str(os.getpid());
+
+    failed = False
+
+    for i in range(100):
         print "Running", i
         t()
+        if openedFiles() != 4:
+            print "FAIL: Opened files = ", openedFiles(), ", but expected: 4!"
+            failed = True
+
+    if failed:
+        print "Test FAILS!"
+        sys.exit(1);
+    else:
+        print "Test PASSES!"
+        sys.exit(0);
+

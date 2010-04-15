@@ -36,8 +36,8 @@ from server.rhnSQL import procedure
 from server.action.utils import ChannelPackage
 
 
-# verify that a hash has all the keys and those have actual values
 def hash_validate(data, *keylist):
+    """ verify that a hash has all the keys and those have actual values """
     for k in keylist:
         if not data.has_key(k):
             return 0
@@ -48,8 +48,8 @@ def hash_validate(data, *keylist):
             return 0
     return 1
 
- # process a registration number for sanitization purposes   
-def RegistrationNumber(nr):     
+def RegistrationNumber(nr):
+    """ process a registration number for sanitization purposes """
     if not nr:      
         return None     
     if not type(nr) == type(""):    
@@ -69,10 +69,8 @@ def RegistrationNumber(nr):
         return None     
     return ret
 
-#
-# Functions that we will provide for the outside world
-#
 class Registration(rhnHandler):
+    """ encapsulate functions that we will provide for the outside world """
     def __init__(self):
         rhnHandler.__init__(self)
         self.functions.append("activate_registration_number")
@@ -118,6 +116,8 @@ class Registration(rhnHandler):
         """
         Get an username and a password and create a record for this user.
         Eventually mark it as such.
+
+        Returns true value if user is reserved, otherwise fault is raised.
         """
 
         log_debug(1, username)
@@ -138,6 +138,8 @@ class Registration(rhnHandler):
         
         The user has to exist (must be already reserved), the password must
         match and we set the e-mail address if one is given
+
+        Return true if success
         """
 
         log_debug(1, username, email)
@@ -161,7 +163,7 @@ class Registration(rhnHandler):
         return ret
 
     def validate_system_input(self, data):
-        # check the input data
+        """ check the input data """
         if not hash_validate(data, "os_release", "architecture", "profile_name"):
             log_error("Incomplete data hash")
             raise rhnFault(21, _("Required data missing"))
@@ -531,54 +533,52 @@ class Registration(rhnHandler):
         # Return the server certificate file down to the client.
         return system_certificate
 
-
-    # Registers a new system to an org specified by a username, password, and
-    # optionally an org id.
-    #
-    # New for RHEL 5.
-    # 
-    # All args are strings except other.
-    # other is a dict with:
-    # * org_id - optional. Must be a string that contains the number. If it's 
-    # not given, the default org is used.
-    # * reg_num - optional. It should be an EN. It will not be activated. It's 
-    # used for automatic subscription to child channels and for deciding which 
-    # service level to entitle the machine to (managment, provisioning, etc). 
-    # If not given, the machine will only be registered to a base channel and 
-    # entitled to the highest level possible.
-    # 
-    # If a profile is created it will return a dict with:
-    # * system_id - the same xml as was previously returned
-    # * channels - a list of the channels (as strings) the system was
-    #   subscribed to
-    # * failed_channels - a list of channels (as strings) that
-    #   the system should have been subscribed to but couldn't be because they
-    #   don't have the necessary entitlements available. Can contain all the
-    #   channels including the base channel.
-    # * system_slots - a list of the system slots used (as strings).
-    # * failed_system_slots - a list of system slots (as strings) that they
-    #   should have used but couldn't because there weren't available
-    #   entitlements
-    # * universal_activation_key - a list of universal default activation keys
-    #   (as strings) that were used while registering.
-    # Allowable slots are 'enterprise_entitled' (management), 'sw_mgr_entitled' 
-    # (updates), 'monitoring_entitled' (monitoring add on to management), and 
-    # provisioning_entitled (provisioning add on to management).
-    # The call will try to use the highest system slot available. An entry will 
-    # be added to failed_system_slots for each one that is tried and fails and
-    # system_slots wil contain the one that succeeded if any.
-    # Eg: Calling this on hosted with no reg num and only update entitlements
-    # will result in system_slots containing 'sw_mgr_entitled' and 
-    # failed_system_slots containing 'enterprise_entitled'.
-    # 
-    # If an error occurs which prevents the creation of a profile, a fault will 
-    # be raised:
-    # TODO
-    #
-    def new_system_user_pass(self, profile_name, os_release_name, 
-                             version, arch, username, 
+    def new_system_user_pass(self, profile_name, os_release_name,
+                             version, arch, username,
                              password, other):
-        
+        """ Registers a new system to an org specified by a username, password, and
+            optionally an org id.
+
+            New for RHEL 5.
+
+            All args are strings except other.
+            other is a dict with:
+            * org_id - optional. Must be a string that contains the number. If it's
+            not given, the default org is used.
+            * reg_num - optional. It should be an EN. It will not be activated. It's
+            used for automatic subscription to child channels and for deciding which
+            service level to entitle the machine to (managment, provisioning, etc).
+            If not given, the machine will only be registered to a base channel and
+            entitled to the highest level possible.
+
+            If a profile is created it will return a dict with:
+            * system_id - the same xml as was previously returned
+            * channels - a list of the channels (as strings) the system was
+              subscribed to
+            * failed_channels - a list of channels (as strings) that
+              the system should have been subscribed to but couldn't be because they
+              don't have the necessary entitlements available. Can contain all the
+              channels including the base channel.
+            * system_slots - a list of the system slots used (as strings).
+            * failed_system_slots - a list of system slots (as strings) that they
+              should have used but couldn't because there weren't available
+              entitlements
+            * universal_activation_key - a list of universal default activation keys
+              (as strings) that were used while registering.
+            Allowable slots are 'enterprise_entitled' (management), 'sw_mgr_entitled'
+            (updates), 'monitoring_entitled' (monitoring add on to management), and
+            provisioning_entitled (provisioning add on to management).
+            The call will try to use the highest system slot available. An entry will
+            be added to failed_system_slots for each one that is tried and fails and
+            system_slots wil contain the one that succeeded if any.
+            Eg: Calling this on hosted with no reg num and only update entitlements
+            will result in system_slots containing 'sw_mgr_entitled' and
+            failed_system_slots containing 'enterprise_entitled'.
+
+            If an error occurs which prevents the creation of a profile, a fault will
+            be raised:
+            TODO
+        """
         log_debug(4,'in new_system_user_pass')
 
         # release_name wasn't required in the old call, so I'm just going to
@@ -690,24 +690,24 @@ class Registration(rhnHandler):
 ##                 'failed_system_slots' : ['UNDER CONSTRUCTION'],
 ##                 }
 
-    # Gets all the orgs that a user belongs to.
-    # In the OCS-future, users may belong to more than one org.
-    #
-    # New for RHEL 5.
-    #
-    # Returns a dict like:
-    # {
-    #     'orgs': {'19': 'Engineering', '4009': 'Finance'},
-    #     'default_org': '19'
-    # }
-    # 'orgs' must have at least one pair and 'default_org' must exist and point 
-    # to something in 'orgs'.
-    # 
-    # TODO Pick fault number for this and document it here
-    # Fault:
-    # * Bad credentials
     def get_possible_orgs(self, username, password):
+        """ Gets all the orgs that a user belongs to.
+            In the OCS-future, users may belong to more than one org.
 
+            New for RHEL 5.
+
+            Returns a dict like:
+            {
+                'orgs': {'19': 'Engineering', '4009': 'Finance'},
+                'default_org': '19'
+            }
+            'orgs' must have at least one pair and 'default_org' must exist and point
+            to something in 'orgs'.
+
+            TODO Pick fault number for this and document it here
+            Fault:
+            * Bad credentials
+        """
         user = rhnUser.auth_username_password(username, password)
 
         # buzilla #229362, jslagle
@@ -722,40 +722,39 @@ class Registration(rhnHandler):
         return {'orgs' : orgs, 'default_org' : default_org}
 
 
-    
-    # Entitle a particular org using an entitlement number.
-    #
-    # New for RHEL 5.
-    # 
-    # username, password, and key are strings.
-    # other is a dict with:
-    # * org_id - optional. If it's not given, the user's default org is used.
-    # 
-    # Returns a dict:
-    # {
-    #     'status_code': <status code>,
-    #     'registration_number': 'EN for this system'
-    #     'channels' : channels,
-    #     'system_slots' : system_slots
-    # }
-    # 'status_code' must be 0 for "we just activated the key" or 1 for "this
-    # key was already activated."
-    # 'registration_number' will be the EN corresponding to this activation. If 
-    # we activated an EN we'll get the same thing back. If we activate an OEM 
-    # number (eg asset tag) and maybe a pre-rhel 5 subscription number, we'll 
-    # get back the EN that was generated from it.
-    # 'channels' is a dict of the channel susbscriptions that the key activated
-    # the key/value pairs are label (string) / quantity (int)
-    # 'system_slots' is a dict of the system slots that the key activated
-    # the key/value pairs are label (string) / quantity (int)
-    # 
-    # TODO Assign fault values and document them here
-    # Faults:
-    # * Invalid key (600)
-    # * Bad credentials (?) - covers bad username and password, bad org id, and 
-    # user not in specified org
     def activate_registration_number(self, username, password, key, other):
+        """ Entitle a particular org using an entitlement number.
 
+            New for RHEL 5.
+
+            username, password, and key are strings.
+            other is a dict with:
+            * org_id - optional. If it's not given, the user's default org is used.
+
+            Returns a dict:
+            {
+                'status_code': <status code>,
+                'registration_number': 'EN for this system'
+                'channels' : channels,
+                'system_slots' : system_slots
+            }
+            'status_code' must be 0 for "we just activated the key" or 1 for "this
+            key was already activated."
+            'registration_number' will be the EN corresponding to this activation. If
+            we activated an EN we'll get the same thing back. If we activate an OEM
+            number (eg asset tag) and maybe a pre-rhel 5 subscription number, we'll
+            get back the EN that was generated from it.
+            'channels' is a dict of the channel susbscriptions that the key activated
+            the key/value pairs are label (string) / quantity (int)
+            'system_slots' is a dict of the system slots that the key activated
+            the key/value pairs are label (string) / quantity (int)
+
+            TODO Assign fault values and document them here
+            Faults:
+            * Invalid key (600)
+            * Bad credentials (?) - covers bad username and password, bad org id, and
+            user not in specified org
+        """
         # bugzilla# 236927, jslagle
         # Clients are currently broken in that they try to activate 
         # installation numbers against a satellite.
@@ -764,12 +763,14 @@ class Registration(rhnHandler):
         raise rhnFault(602)
 
 
-    # Given some hardware information, we try to find the asset tag or 
-    # serial number.
-    #
-    # See activate_hardware_info below for the structure of the
-    # hardware_info
     def __findAssetTag(self, vendor, hardware_info):
+        """ Given some hardware information, we try to find the asset tag or
+            serial number.
+
+            See activate_hardware_info below for the structure of the
+            hardware_info
+        """
+
         if self.vendor_tags.has_key(vendor):
             asset_value = ""
             key = self.vendor_tags[vendor]
@@ -912,14 +913,13 @@ class Registration(rhnHandler):
         server.save_packages()
         return 0
 
-    ##
-    # This function fields virtualization-related notifications from the
-    # client and delegates them out to the appropriate downstream handlers.
-    # The 'actions' argument is formatted as follows:
-    #
-    #    actions = [ ( timestamp, event, target, properties ), ... ]
-    #
     def virt_notify(self, system_id, actions):
+        """ This function fields virtualization-related notifications from the
+            client and delegates them out to the appropriate downstream handlers.
+            The 'actions' argument is formatted as follows:
+
+            actions = [ ( timestamp, event, target, properties ), ... ]
+        """
         log_debug(3, "Received virt notification:", system_id, actions)
 
         # Authorize the client.
@@ -932,9 +932,10 @@ class Registration(rhnHandler):
 
         return 0
 
-    # This function will update the package list associated with a server
-    # to be exactly the list of packages passed on the argument list   
     def update_packages(self, system_id, packages):
+        """ This function will update the package list associated with a server
+            to be exactly the list of packages passed on the argument list
+        """
         log_debug(5, system_id, packages)
         if CFG.DISABLE_PACKAGES:
             return 0
@@ -1006,8 +1007,8 @@ class Registration(rhnHandler):
                     packagesV2.append(p)
         return packagesV2
 
-    # Insert a new profile for the server
-    def add_hw_profile(self, system_id, hwlist):       
+    def add_hw_profile(self, system_id, hwlist):
+        """ Insert a new profile for the server """
         log_debug(5, system_id, hwlist)
         server = self.auth_system(system_id)
         # log the entry
@@ -1018,8 +1019,8 @@ class Registration(rhnHandler):
         server.save_hardware()
         return 0
 
-    # Recreate the server HW profile
-    def refresh_hw_profile(self, system_id, hwlist):       
+    def refresh_hw_profile(self, system_id, hwlist):
+        """ Recreate the server HW profile """
         log_debug(5, system_id, hwlist)
         server = self.auth_system(system_id)
         # log the entry
@@ -1033,8 +1034,8 @@ class Registration(rhnHandler):
         server.save_hardware()
         return 0
         
-    # Welcome message
     def welcome_message(self, lang = None):
+        """ returns string of welcome message """
         log_debug(1, "lang: %s" % lang)
         if lang:
             cat.setlangs(lang)
@@ -1043,8 +1044,8 @@ class Registration(rhnHandler):
         rhnFlags.set("compress_response", 1)
         return msg
 
-    # Privacy Statement
     def privacy_statement(self, lang = None):
+        """ returns string of privacy statement """
         log_debug(1, "lang: %s" % lang)
         if lang:
             cat.setlangs(lang)
@@ -1053,16 +1054,18 @@ class Registration(rhnHandler):
         rhnFlags.set("compress_response", 1)
         return msg
 
-    # register a product and record the data sent with the registration
-    #
-    # bretm:  hasn't registered a product or recorded anything since 2001, near
-    #         as I can tell what it actually appears to be responsible for is
-    #         protecting us against people registering systems from t7/t9
-    #         countries
-    #
-    #         actual use of registration numbers has been moved into the
-    #         server_class.__save stuff
     def register_product(self, system_id, product, oeminfo = {}):
+        """ register a product and record the data sent with the registration
+
+            bretm:  hasn't registered a product or recorded anything since 2001, near
+              as I can tell what it actually appears to be responsible for is
+              protecting us against people registering systems from t7/t9
+              countries
+
+              actual use of registration numbers has been moved into the
+              server_class.__save stuff
+        """
+
         log_debug(5, system_id, product, oeminfo)
         if type(product) != type({}):
             log_error("Invalid argument type", type(product))
@@ -1123,31 +1126,16 @@ class Registration(rhnHandler):
         user.save()
         return 0
 
-    #
-    # Moved the saving of the user out to a common method
-    # so that we can save to the db in a satellite.
-    #
-    # It is called from the update_contact_info.
-    #
     def __save_user(self, user):
+        """ Moved the saving of the user out to a common method
+            so that we can save to the db in a satellite.
+
+            It is called from the update_contact_info.
+        """
         self.__save_user_db(user)
    
-
-    def __translate_site_type(self, type):
-        if type == 'M':
-            return 'MARKETING'
-        elif type == 'S':
-            return 'SHIPPING'
-        elif type == 'B':
-            return 'BILLING'
-        elif type == 'R':
-            return 'SERVICE'
-        else:
-            return None
-    #
-    # Saves the user to the database.
-    #
     def __save_user_db(self, user):
+        """ Saves the user to the database. """
         user.save()
 
     def update_contact_info(self, username, password, info={}):
@@ -1201,8 +1189,8 @@ class Registration(rhnHandler):
         self.__save_user(user)
         return 0
 
-    # Updates the RPM transactions
     def update_transactions(self, system_id, timestamp, transactions_hash):
+        """ Updates the RPM transactions """
         log_debug(1)
         # Authenticate
         server = self.auth_system(system_id)
@@ -1210,29 +1198,29 @@ class Registration(rhnHandler):
         return 0
         
 
-    # To reduce the number of tracebacks
     def anonymous(self, release=None, arch=None):
+        """ To reduce the number of tracebacks """
         log_debug(1, "Disabled!", release, arch)
         raise rhnFault(28)
 
-    # Presents the client with a message to display
-    # Returns:
-    # (returnCode, titleText, messageText)
-    # titleText is the window's title, messageText is the message displayed in
-    # that window by the client
-    #
-    # if returnCode is 1, the client
-    #    will show the message in a window with the
-    #    title of titleText, and allow the user to
-    #    continue.
-    # if returnCode is -1, the client
-    #    will show the message in a window with the
-    #    title of titleText, and not allow the user
-    #    to continue
-    # if returnCode is 0, no message
-    #    screen will be shown.
-
     def finish_message(self, system_id):
+        """ Presents the client with a message to display
+            Returns:
+            (returnCode, titleText, messageText)
+            titleText is the window's title, messageText is the message displayed in
+            that window by the client
+
+            if returnCode is 1, the client
+              will show the message in a window with the
+              title of titleText, and allow the user to
+              continue.
+            if returnCode is -1, the client
+              will show the message in a window with the
+              title of titleText, and not allow the user
+              to continue
+            if returnCode is 0, no message
+              screen will be shown.
+        """
         log_debug(1)
         # Authenticate
         self.auth_system(system_id)
@@ -1362,10 +1350,11 @@ class Registration(rhnHandler):
                 'receiving_updates' : receiving_updates,
                 'channels' : eus_channels}
 
-    # given username, password, os release, and arch, say how many available
-    # entitlements remain for the org.
-    # o  return -1 in case of infinite entitlements
     def remaining_subscriptions(self, username, password, arch, release):
+        """ given username, password, os release, and arch, say how many available
+            entitlements remain for the org.
+            o  return -1 in case of infinite entitlements
+        """
         arch = normalize_server_arch(arch)
 
         user = rhnUser.search(username)

@@ -20,6 +20,12 @@ import handler_base
 import os
 import stat
 import pwd, grp
+try:
+    from selinux import lgetfilecon
+except:
+    # on rhel4 we do not support selinux
+    def lgetfilecon(path):
+        return [0, '']
 
 class Handler(handler_base.HandlerBase):
     _usage_options = handler_base.HandlerBase._usage_options + " [ files ... ]"
@@ -39,91 +45,116 @@ class Handler(handler_base.HandlerBase):
 
         #Labels for column headers
         status_label = "STATUS"
-        owner_status = "OWNER (channel:deployed)"
-        group_status = "GROUP (channel:deployed)"
-        mode_status = "MODE (channel:deployed)"
+        owner_status = "OWNER"
+        group_status = "GROUP"
+        mode_status = "MODE"
+        selinux_status = "SELINUX"
         file_status = "FILE"
+
+        status_help = "(channel:local)"
         
-        maxlen = -1
+        maxlenarr = {
+            'status' : len(status_label),
+            'owner' : max(len(owner_status), len(status_help)),
+            'group' : max(len(group_status), len(status_help)),
+            'mode' : max(len(mode_status), len(status_help)),
+            'selinux' : max(len(selinux_status), len(status_help)),
+        }
 
         #Iterate throught the files and process them. The src file is the file as it is in the config channel,
         #the dst file is the file as it is in the filesystem.
         for file in self.get_valid_files():
             (src, file_info, dirs_created) = self.repository.get_file_info(file)
-                                                                                                            
+
             ftype = file_info.get('filetype')
-                                                                                                            
+
             if not src:
                 continue
-                                                                                                            
+
             dst = self.get_dest_file(file)
-            
+
             #Added file_info parameter, which contains information needed to look for differences in the owner, group, and mode.            
             ret_dict = self._process_file(src, dst, file, ftype, file_info)
 
             if self.options.verbose:
                 #Get the max of the return values for this file, which is used to determine the length of each field in the output.
                 #Don't include the 'file' value, because it gets displayed last in each row and will throw off the size of the other fields.
-                ret_max = max(len(ret_dict['status']), len(ret_dict['owner']), len(ret_dict['group']), len(ret_dict['mode']))
-            
-                #Which is bigger, the current ret_max or the older value of maxlen?
-                maxlen = max(maxlen, ret_max)
-            
+                maxlenarr['status'] = max(maxlenarr['status'], len(ret_dict['status']))
+                maxlenarr['owner'] = max(maxlenarr['owner'], len(ret_dict['owner']))
+                maxlenarr['group'] = max(maxlenarr['group'], len(ret_dict['group']))
+                maxlenarr['mode'] = max(maxlenarr['mode'], len(ret_dict['mode']))
+                if len(ret_dict['selinux']) > 0:
+                    (src, dst) = ret_dict['selinux'].split('|')
+                    maxlenarr['selinux'] = max(maxlenarr['selinux'], len(src), len(dst))
+
             #Place the return values into a list so we can iterate through them later when we want to print them out.
             ret.append(ret_dict)
 
         if self.options.verbose:       
-            #Take the column header labels into account when determining the length of each field.
-            maxlen = max(maxlen, len(status_label), len(owner_status), len(group_status), len(mode_status), len(file_status))
-        
             formatstr = "%-*s"      #format string for the fields where the length matters.
             formatstr_nolimit = "%-s"   #format string for the fields where the length of the field doesn't matter. Namely, the file field.
-        
+
             #The overall format of the output.
-            outstring = "%(status)s  %(owner)s  %(group)s  %(mode)s  %(file)s"
-        
+            outstring = "%(status)s  %(owner)s  %(group)s  %(mode)s  %(selinux)s  %(file)s"
+
             #Print out the column labels.
             print outstring % {     
-                                    "status"       :       formatstr % (maxlen, status_label),
-                                    "owner"        :       formatstr % (maxlen, owner_status),
-                                    "group"        :       formatstr % (maxlen, group_status),
-                                    "mode"         :       formatstr % (maxlen, mode_status),
+                                    "status"       :       formatstr % (maxlenarr['status'], status_label),
+                                    "owner"        :       formatstr % (maxlenarr['owner'], owner_status),
+                                    "group"        :       formatstr % (maxlenarr['group'], group_status),
+                                    "mode"         :       formatstr % (maxlenarr['mode'], mode_status),
+                                    "selinux"      :       formatstr % (maxlenarr['selinux'], selinux_status),
                                     "file"         :       formatstr_nolimit % (file_status),
                               }
-        
+
+            print outstring % {
+                                    "status"       :       formatstr % (maxlenarr['status'], ""),
+                                    "owner"        :       formatstr % (maxlenarr['owner'], status_help),
+                                    "group"        :       formatstr % (maxlenarr['group'], status_help),
+                                    "mode"         :       formatstr % (maxlenarr['mode'], status_help),
+                                    "selinux"      :       formatstr % (maxlenarr['selinux'], status_help),
+                                    "file"         :       ""
+                              }
+
             #Go through each of the dictionaries returned by self._process_file(), format their values, and print out the result.
             for fdict in ret:
-                print outstring % {     
-                                    "status"       :       formatstr % (maxlen, fdict['status']),
-                                    "owner"        :       formatstr % (maxlen, fdict['owner']),
-                                    "group"        :       formatstr % (maxlen, fdict['group']),
-                                    "mode"         :       formatstr % (maxlen, fdict['mode']),
-                                    "file"         :       formatstr_nolimit % (fdict['file'],),
+                src_selinux = dst_selinux = ""
+                if len(fdict['selinux']) > 0:
+                    (src_selinux, dst_selinux) = fdict['selinux'].split('|')
+
+                print outstring % {
+                                    "status"       :       formatstr % (maxlenarr['status'], fdict['status']),
+                                    "owner"        :       formatstr % (maxlenarr['owner'], fdict['owner']),
+                                    "group"        :       formatstr % (maxlenarr['group'], fdict['group']),
+                                    "mode"         :       formatstr % (maxlenarr['mode'], fdict['mode']),
+                                    "selinux"      :       formatstr % (maxlenarr['selinux'], src_selinux),
+                                    "file"         :       formatstr_nolimit % (fdict['file']),
                                   }
+                if len(dst_selinux) > 0:
+                    print outstring % {
+                                    "status"       :       formatstr % (maxlenarr['status'], ""),
+                                    "owner"        :       formatstr % (maxlenarr['owner'], ""),
+                                    "group"        :       formatstr % (maxlenarr['group'], ""),
+                                    "mode"         :       formatstr % (maxlenarr['mode'], ""),
+                                    "selinux"      :       formatstr % (maxlenarr['selinux'], dst_selinux),
+                                    "file"         :       "",
+                                      }
         #Not verbose, so give the simple output for each file...
         else:
-            outstring = "%9s %s"
+            outstring = "%*s %s"
+            maxlen = max(map(lambda x: len(x['status']), ret)) + 1
             for fdict in ret:
-                if fdict['status'] == 'unmodified':
-                    mystatus = ""
-                else:
-                    mystatus = fdict['status']
-
-                print outstring % (mystatus, fdict['file'])
-            
-            
+                print outstring % (maxlen, fdict['status'], fdict['file'])
 
     def _process_file(self, *args):
-        #5/16/05 wregglej - 154433 made the report string so I don't have to modify
-        #the output format in mulitple places.
-        report = "%9s\t%s\t%s\t%s\t%s" # modified state, owner changes, group changes, permissions changes, file. Was originally "%9s %s"
         owner_report = "%s:%s"
         group_report = "%s:%s"
         perm_report = "%s:%s"
+        selinux_report = "%s|%s"
 
         src, dst, file, type, info = args[:5]
         
-        status = 'unmodified'
+        status = []
         stat_err = 0
 
         #Stat the destination file
@@ -132,7 +163,6 @@ class Handler(handler_base.HandlerBase):
         except:
             stat_err = 1
 
-       
         src_user = info['username']
         if not stat_err:
             #check for owner differences
@@ -146,7 +176,11 @@ class Handler(handler_base.HandlerBase):
             dst_user = "missing"
         
         #owner_status gets displayed with the verbose option.
-        owner_status = owner_report % (src_user, dst_user)
+        if src_user == dst_user:
+            owner_status = ""
+        else:
+            owner_status = owner_report % (src_user, dst_user)
+            status.append('user')
 
         src_group = info['groupname']
         if not stat_err:
@@ -161,7 +195,11 @@ class Handler(handler_base.HandlerBase):
             dst_group = "missing"
 
         #group_status gets displayed with the verbose option.
-        group_status = group_report % (src_group, dst_group)
+        if src_group == dst_group:
+            group_status = ""
+        else:
+            group_status = group_report % (src_group, dst_group)
+            status.append('group')
         
         #check for permissions differences
         src_perm = str(info['filemode'])
@@ -179,30 +217,50 @@ class Handler(handler_base.HandlerBase):
             dst_perm = dst_perm[1:]
         
         #perm_status gets displayed with the verbose option.
-        perm_status = perm_report % (src_perm, dst_perm)
+        if src_perm == dst_perm:
+            perm_status = ""
+        else:
+            perm_status = perm_report % (src_perm, dst_perm)
+            status.append('mode')
+
+        # compare selinux contexts
+        src_selinux = info['selinux_ctx']
+        if not stat_err:
+            dst_selinux = lgetfilecon(dst)[1]
+            if dst_selinux == None:
+                dst_selinux = ""
+        else:
+            dst_selinux = "missing"
+
+        if src_selinux == dst_selinux:
+            selinux_status = ""
+        else:
+            selinux_status = selinux_report % (src_selinux, dst_selinux)
+            status.append('selinux')
 
         #figure out the ultimate value of status.
         if stat_err:
-            status = "missing"
+            status = ["missing"]
 
         elif type == 'directory':
             if not os.path.isdir(file):
-                status = 'missing'
+                status = ["missing"]
 
         elif not os.access(dst, os.R_OK):
-            status = "missing"
+            status = ["missing"]
 
         else:
             src_sha1 = utils.sha1_file(src)
             dst_sha1 = utils.sha1_file(dst)
             if src_sha1 != dst_sha1:
-                status = 'modified'
+                status.append('modified')
 
         return {
-                    "status"            :   status,
+                    "status"            :   ','.join(status),
                     "owner"             :   owner_status,
                     "group"             :   group_status,
                     "mode"              :   perm_status,
+                    "selinux"           :   selinux_status,
                     "file"              :   file,
                }
 

@@ -410,7 +410,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          C.org_id,
          (select org.name 
             from web_customer org
-            where org.id = C.org_id) as org_name
+            where org.id = C.org_id) as org_name,
+         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id
@@ -431,7 +432,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          C.org_id,
          (select org.name 
             from web_customer org
-            where org.id = C.org_id) as org_name
+            where org.id = C.org_id) as org_name,
+         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
     from rhnSharedChannelView C inner join 
     rhnUserChannel UC on UC.channel_id = C.id  
     where UC.user_id = :user_id
@@ -452,7 +454,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          C.org_id,
          (select org.name 
             from web_customer org
-            where org.id = C.org_id) as org_name
+            where org.id = C.org_id) as org_name,
+         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
 	 from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id  AND 
@@ -479,7 +482,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          C.org_id,
          (select org.name 
             from web_customer org
-            where org.id = C.org_id) as org_name
+            where org.id = C.org_id) as org_name,
+         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id  and
@@ -499,7 +503,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
-			        ) AS package_count
+			        ) AS package_count,
+                   (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id left join
 	 rhnChannel C2 on C.parent_channel = C2.id  
@@ -518,7 +523,8 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
-			        ) AS package_count
+			        ) AS package_count,
+                  (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id left join
 	 rhnChannel C2 on C2.parent_channel = C.id  

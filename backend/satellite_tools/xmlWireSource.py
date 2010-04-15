@@ -38,7 +38,6 @@ class BaseWireSource:
     url = ''
     sslYN = 0
     systemid = None
-    nRetries = 3
     server_handler = None
     xml_dump_version = None
 
@@ -140,7 +139,7 @@ class BaseWireSource:
         retryYN = 0
         wait = 0.33
         lastErrorMsg = ''
-        for i in range(self.nRetries):
+        for i in range(CFG.NETWORK_RETRIES):
             server = self.getServer(retryYN)
             if server is None:
                 log2(-1, 2, 'ERROR: server unable to initialize, attempt %s' % i, stream=sys.stderr)
@@ -403,10 +402,7 @@ class RPCGetWireSource(BaseWireSource):
         # Force a login otherwise
         self._set_login_token(self._login())
         url = self.url + self.handler
-        # include xml-dump-version in the header
-        self.login_token['X-RHN-Satellite-XML-Dump-Version'] = \
-            CFG.XML_DUMP_VERSION
-        get_server_obj = rpclib.GETServer(url, proxy=CFG.HTTP_PROXY, 
+        get_server_obj = connection.GETServer(url, proxy=CFG.HTTP_PROXY,
             username=CFG.HTTP_PROXY_USERNAME, password=CFG.HTTP_PROXY_PASSWORD,
             headers=self.login_token)
         # Add SSL trusted cert
@@ -437,7 +433,7 @@ class RPCGetWireSource(BaseWireSource):
     def _rpc_call(self, function_name, params):
         get_server_obj = self.login()
         # Try a couple of times
-        for i in range(5):
+        for i in range(CFG.NETWORK_RETRIES):
             try:
                 ret = apply(getattr(get_server_obj, function_name), params)
             except rpclib.ProtocolError, e:
