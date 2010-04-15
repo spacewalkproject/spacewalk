@@ -3,7 +3,8 @@ Author: Aron Parsons <aron@redhat.com> -or- <aronparsons@gmail.com>
 License: GPLv3+
 """
 
-import atexit, logging, os, re, readline, sys, textwrap, xml, xmlrpclib
+import atexit, logging, os, re, readline
+import sys, textwrap, urllib2, xml, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from operator import itemgetter
@@ -46,8 +47,8 @@ For help for a specific command try "help <cmd>".
         self.options = options
 
         userinfo = getpwuid(os.getuid())
-        self.cache_file = os.path.join(userinfo[5], ".spacewalk_cache")
-        self.history_file = os.path.join(userinfo[5], ".spacewalk_history")
+        self.cache_file = os.path.join(userinfo[5], ".spacecmd_cache")
+        self.history_file = os.path.join(userinfo[5], ".spacecmd_history")
 
         try:
             # don't split on hyphens or colons during tab completion
@@ -97,7 +98,7 @@ For help for a specific command try "help <cmd>".
             return line
 
         # perform bash-like command substitution 
-        if self.cmd.startswith('!'):
+        if self.cmd[0] == '!':
             # remove the '!*' line from the history
             last = readline.get_current_history_length() - 1
             readline.remove_history_item(last)
@@ -135,7 +136,7 @@ For help for a specific command try "help <cmd>".
  
                 for i in history_range:
                     item = readline.get_history_item(i)
-                    if item.startswith(self.cmd[1:]):
+                    if re.match(self.cmd[1:], item):
                         line = item
                         history_match = True
                         break
@@ -158,7 +159,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def tab_completer(self, options, text):
-        return [o for o in options if o.startswith(text)]
+        return [o for o in options if re.match(text, o)]
 
     
     def filter_results(self, list, args):
@@ -228,6 +229,30 @@ For help for a specific command try "help <cmd>".
 
             return
 
+
+    def expand_systems(self, args):
+        systems = []
+        for item in args:
+            if re.match('group:', item):
+                item = re.sub('group:', '', item)
+                members = self.do_group_listsystems(item, True)
+
+                if len(members) > 0:
+                    systems.extend(members)
+                else:
+                    logging.warning('No systems in group ' + item)
+            elif re.match('search:', item):
+                query = item.split(':', 1)[1]
+                results = self.do_system_search(query, True)
+        
+                if len(results) > 0:
+                    systems.extend(results)
+            else:
+                systems.append(item)
+
+        return systems
+
+
     def print_errata_summary(self, errata):
         for e in errata:
             print e.get('advisory_name') + '  ' + \
@@ -236,11 +261,20 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_ssm(self):
+        print 'The System Set Manager (SSM) is a group of systems that you '
+        print 'can perform tasks on as a group.'
+        print
+        print 'Example:'
+        print '> ssm_add group:rhel5-x86_64'
+        print '> ssm_add someotherhost.example.com'
+        print '> system_details ssm'
+
     def help_ssm_add(self):
-        print "Usage: ssm_add group:GROUP|SYSTEM ..."
+        print "Usage: ssm_add SYSTEM|group:GROUP|search:QUERY ..."
 
     def complete_ssm_add(self, text, line, begidx, endidx):
-        if text.startswith('group:'):
+        if re.match('group:', text):
             # prepend 'group' to each item for tab completion
             groups = ['group:' + g for g in self.do_group_list('', True)]
 
@@ -249,23 +283,15 @@ For help for a specific command try "help <cmd>".
             return self.tab_completer(self.do_system_list('', True), text) 
 
     def do_ssm_add(self, args):
+        if len(self.args) == 0:
+            self.help_ssm_add()
+            return
+
         all_systems = {}
         for s in self.client.system.listSystems(self.session):
             all_systems[s.get('name')] = s.get('id')
 
-        systems = []
-        for item in self.args:
-            if item.startswith('group:'):
-                item = re.sub('group:', '', item)
-                members = self.do_group_listsystems(item, True)
-
-                if len(members) > 0:
-                    systems.extend(members)
-                else:
-                    logging.warning('No systems in group ' + item)
-            else:
-                systems.append(item)
-
+        systems = self.expand_systems(self.args)
         matches = self.filter_results(all_systems.keys(), systems)
 
         if len(matches) == 0:
@@ -274,23 +300,22 @@ For help for a specific command try "help <cmd>".
 
         for match in matches:
             if match in self.ssm.keys():
-                logging.warning(match + " is already in the SSM")
+                logging.warning(match + " is already in the list")
                 continue
             else:
                 logging.info("Added " + match)
                 self.ssm[match] = all_systems.get(match)
 
         if len(self.ssm) > 0:
-            print
             print 'Systems Selected: ' + str(len(self.ssm))
 
 ###########
 
     def help_ssm_rm(self):
-        print "Usage: ssm_rm SYSTEM ..."
+        print "Usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ..."
     
     def complete_ssm_rm(self, text, line, begidx, endidx):
-        if text.startswith('group:'):
+        if re.match('group:', text):
             # prepend 'group' to each item for tab completion
             groups = ['group:' + g for g in self.do_group_list('', True)]
 
@@ -299,19 +324,11 @@ For help for a specific command try "help <cmd>".
             return self.tab_completer(self.do_ssm_list('', True), text)
 
     def do_ssm_rm(self, args):
-        systems = []
-        for item in self.args:
-            if item.startswith('group:'):
-                item = re.sub('group:', '', item)
-                members = self.do_group_listsystems(item, True)
+        if len(self.args) == 0:
+            self.help_ssm_rm()
+            return
 
-                if len(members) > 0:
-                    systems.extend(members)
-                else:
-                    logging.warning('No systems in group ' + item)
-            else:
-                systems.append(item)
-
+        systems = self.expand_systems(self.args)
         matches = self.filter_results(self.ssm.keys(), systems)
         
         if len(matches) == 0:
@@ -322,7 +339,6 @@ For help for a specific command try "help <cmd>".
             logging.info("Removed " + match)
             del self.ssm[match]
             
-        print
         print 'Systems Selected: ' + str(len(self.ssm))
 
 ###########
@@ -340,7 +356,6 @@ For help for a specific command try "help <cmd>".
                 print s
 
             if len(systems) > 0:
-                print
                 print 'Systems Selected: ' + str(len(systems))
 
 ###########
@@ -394,11 +409,11 @@ For help for a specific command try "help <cmd>".
             logging.warning("No server specified")
             return
 
-        server = proto + "://" + server + "/rpc/api"
+        serverurl = proto + "://" + server + "/rpc/api"
 
         # connect to the server
         logging.debug("Connecting to " + server)
-        self.client = xmlrpclib.Server(server)
+        self.client = xmlrpclib.Server(serverurl)
 
         try:
             api_version = self.client.api.getVersion()
@@ -493,7 +508,7 @@ For help for a specific command try "help <cmd>".
         self.username = username
         self.server = server
 
-        logging.info("Connected to " + server + " as " + username)
+        logging.info("Connected to " + serverurl + " as " + username)
 
 ###########
 
@@ -858,10 +873,23 @@ For help for a specific command try "help <cmd>".
         return self.tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_raw(self, args, doreturn=False):
-        kickstart = \
-            self.client.kickstart.profile.downloadKickstart(self.session,
-                                                            self.args[0],
-                                                            self.server)
+        url = 'http://' + self.server + '/ks/cfg/label/' + self.args[0]
+
+        try:
+            logging.debug('Retreiving ' + url)
+            response = urllib2.urlopen(url) 
+            kickstart = response.read()
+        except urllib2.HTTPError:
+            logging.error(sys.exc_info()[1])
+            logging.error('Could not retreive the Kickstart file')
+            return
+
+        # the value returned here is uninterpreted by Cobbler
+        # which makes it useless
+        #kickstart = \
+        #    self.client.kickstart.profile.downloadKickstart(self.session,
+        #                                                    self.args[0],
+        #                                                    self.server)
 
         print kickstart
 
@@ -953,11 +981,19 @@ For help for a specific command try "help <cmd>".
             self.help_system_search()
             return
 
-        if re.search(':', self.args[0]):
-            (field, value) = self.args[0].split(':')
+        if re.search(':', args):
+            try:
+                (field, value) = args.split(':')
+            except ValueError:
+                logging.error('Invalid query')
+                return []
         else:
             field = 'name'
-            value = self.args[0]
+            value = args
+
+        if not value:
+            logging.warning('Invalid query')
+            return []
 
         results = []
         if field == 'name':
@@ -1393,11 +1429,11 @@ For help for a specific command try "help <cmd>".
             for e in errata:
                 type = e.get('advisory_type').lower()
 
-                if type.startswith('security'):
+                if re.match('security', type):
                     rhsa.append(e)
-                elif type.startswith('bug fix'):
+                elif re.match('bug fix', type):
                     rhba.append(e)
-                elif type.startswith('enhancement'):
+                elif re.match('enhancement', type):
                     rhea.append(e)
                 else:
                     other.append(e)

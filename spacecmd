@@ -11,6 +11,7 @@ License: GPLv3+
 # configchannel - show channel ranks
 # configchannel.lookupFileInfo - returns null if invalid files is passed
 # kickstart.profile.system - partitions not being returned
+# kickstart.profile.downloadKickstart - not parsed by Cobbler
 
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
@@ -18,24 +19,26 @@ from optparse import Option, OptionParser
 sys.path.append(os.getcwd())
 from SpacewalkShell import SpacewalkShell
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     optionsTable = [
         Option('-u', '--username', action='store',
                help='Use this username to connect to RHN/Satellite'),
         Option('-p', '--password', action='store',
                help='Use this password to connect to RHN/Satellite'),
-        Option('--server', action='store', default="localhost", 
-               help='Connect to this server (http[s]://<hostname>/APP)'),
+        Option('--server', action='store', default='localhost', 
+               help='Connect to this server (http[s]://<server>/APP)'),
         Option('--nocache', action='store_true',
-                help="Do not create a username/password cache"),
+                help='Do not create a username/password cache'),
         Option('--nossl', action='store_true',
-               help="Use HTTP instead of HTTPS"),
+               help='Use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
-                help="Do not store command history in ~/.spacewalk_history"),
+                help='Do not store command history in ~/.spacecmd_history'),
         Option('-q', '--quiet', action='store_true',
-               help="Only print error messages"),
+               help='Only print error messages'),
+        Option('-v', '--verbose', action='store_true',
+               help='Print informational messages'),
         Option('-d', '--debug', action='store_true',
-               help="Enable debug logging"),
+               help='Enable debug logging'),
     ]
     
     parser = OptionParser(option_list=optionsTable)
@@ -43,10 +46,12 @@ if __name__ == "__main__":
  
     if options.debug:
         log_level = logging.DEBUG
+    elif options.verbose:
+        log_level = logging.INFO
     elif options.quiet:
         log_level = logging.ERROR
     else:
-        log_level = logging.INFO
+        log_level = logging.WARNING
 
     logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
 
