@@ -269,37 +269,65 @@ For help for a specific command try "help <cmd>".
         matches = self.filter_results(all_systems.keys(), systems)
 
         if len(matches) == 0:
-            logging.warning("No systems were added to the SSM")
+            logging.warning("No matches found")
             return
 
         for match in matches:
             if match in self.ssm.keys():
                 logging.warning(match + " is already in the SSM")
                 continue
-            else:             
-                logging.info("Added " + match + " to the SSM")
-                logging.debug("System ID: " + str(all_systems.get(match)))
+            else:
+                logging.info("Added " + match)
                 self.ssm[match] = all_systems.get(match)
+
+        if len(self.ssm) > 0:
+            print
+            print 'Systems Selected: ' + str(len(self.ssm))
 
 ###########
 
-    def help_ssm_del(self):
-        print "Usage: ssm_del SYSTEM ..."
+    def help_ssm_rm(self):
+        print "Usage: ssm_rm SYSTEM ..."
     
-    def complete_ssm_del(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_ssm_list('', True), text)
+    def complete_ssm_rm(self, text, line, begidx, endidx):
+        if text.startswith('group:'):
+            # prepend 'group' to each item for tab completion
+            groups = ['group:' + g for g in self.do_group_list('', True)]
 
-    def do_ssm_del(self, args):
-        matches = self.filter_results(self.ssm.keys(), self.args)
+            return self.tab_completer(groups, text)
+        else:
+            return self.tab_completer(self.do_ssm_list('', True), text)
+
+    def do_ssm_rm(self, args):
+        systems = []
+        for item in self.args:
+            if item.startswith('group:'):
+                item = re.sub('group:', '', item)
+                members = self.do_group_listsystems(item, True)
+
+                if len(members) > 0:
+                    systems.extend(members)
+                else:
+                    logging.warning('No systems in group ' + item)
+            else:
+                # simple globbing
+                item = re.sub('\*', '.*', item)
+
+                systems.append(item)
+
+        matches = self.filter_results(self.ssm.keys(), systems)
         
         if len(matches) == 0:
-            logging.warning("No matches found in the SSM")
+            logging.warning("No matches found")
             return
 
         for match in matches:
-            logging.info("Deleting " + match + " from the SSM")
+            logging.info("Removed " + match)
             del self.ssm[match]
             
+        print
+        print 'Systems Selected: ' + str(len(self.ssm))
+
 ###########
  
     def help_ssm_list(self):
