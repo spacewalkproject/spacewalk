@@ -126,6 +126,9 @@ class RegisterKsCli(rhncli.RhnCli):
                                                    self.options.password)
             other['channel'] = channels['default_channel']
 
+        if not self.options.nohardware:
+            other['hardware_profile'] = hardwareList
+
         try:
             if self.options.activationkey:
                 systemId = rhnreg.registerSystem(token = self.options.activationkey,
@@ -140,10 +143,6 @@ class RegisterKsCli(rhncli.RhnCli):
                 up2dateErrors.AuthenticationOrAccountCreationError), e:
             print "%s" % e.errmsg
             sys.exit(1)
- 
-        # collect hardware info, inluding hostname
-        if not self.options.nohardware:
-            rhnreg.sendHardware(systemId, hardwareList)
 
         if not self.options.nopackages:
             rhnreg.sendPackages(systemId, packageList)
