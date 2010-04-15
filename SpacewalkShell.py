@@ -86,6 +86,9 @@ For help for a specific command try "help <cmd>".
             parts = line.split()
             self.cmd = parts[0]
             self.args = parts[1:]
+
+            # simple globbing
+            self.args = [re.sub('\*', '.*', a) for a in self.args]
         except IndexError:
             self.cmd = ''
             self.args = []
@@ -261,9 +264,6 @@ For help for a specific command try "help <cmd>".
                 else:
                     logging.warning('No systems in group ' + item)
             else:
-                # simple globbing
-                item = re.sub('\*', '.*', item)
-
                 systems.append(item)
 
         matches = self.filter_results(all_systems.keys(), systems)
@@ -310,9 +310,6 @@ For help for a specific command try "help <cmd>".
                 else:
                     logging.warning('No systems in group ' + item)
             else:
-                # simple globbing
-                item = re.sub('\*', '.*', item)
-
                 systems.append(item)
 
         matches = self.filter_results(self.ssm.keys(), systems)
