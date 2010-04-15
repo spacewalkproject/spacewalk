@@ -17555,6 +17555,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         </context-group>
       </trans-unit>
 
+      <trans-unit id="distro-delete.jsp.cantdelete">
+        <source>This distribution cannot be deleted at this time.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/TreeDelete.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="virtualization.provision.first.jsp.header1">
         <source>Select a Kickstart Profile</source>
         <context-group name="ctx">
