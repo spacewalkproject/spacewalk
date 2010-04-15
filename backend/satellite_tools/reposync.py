@@ -147,8 +147,8 @@ class RepoSync:
                 self.associate_package(pack)
             except KeyboardInterrupt:
                 raise
-            except:
-                self.error_msg("ERROR" + fetchTraceback())
+            except Exception, e:
+                self.error_msg(e)
                 if self.fail:
                     raise
                 continue
