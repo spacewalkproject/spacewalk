@@ -3,7 +3,8 @@
 #
 #
 # $Id$
-
+#
+# Usage: $0 SERVER PROXY [SYSTEMID]
 
 import sys
 sys.path.append('..')
@@ -13,7 +14,22 @@ from rhn.transports import Output
 
 SERVER = "xmlrpc.rhn.redhat.com"
 HANDLER = "/XMLRPC"
-PROXY = "cellar.rhndev.redhat.com:3129"
+PROXY = "proxy.example.com:8080"
+system_id_file = '/etc/sysconfig/rhn/systemid'
+
+if len(sys.argv) < 3:
+    print "Non efficient cmd-line arguments! Provide at least server & proxy!"
+    sys.exit(1);
+try:
+    SERVER = sys.argv[1]
+    PROXY = sys.argv[2]
+    system_id_file = sys.argv[3]
+except:
+    pass
+
+print "SERVER = %s" % SERVER
+print "PROXY = %s" % PROXY
+print "system_id_file = %s" % system_id_file
 
 def get_test_server_proxy_http():
     global SERVER, HANDLER, PROXY
@@ -33,11 +49,6 @@ def get_test_server_http():
 
     
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        system_id_file = sys.argv[1]
-    else:
-        system_id_file = '/etc/sysconfig/rhn/systemid'
-
     systemid = open(system_id_file).read()
 
     tests = [
@@ -48,39 +59,7 @@ if __name__ == '__main__':
     ]
     for gs in tests:
         s = gs()
+        print "--- %s ---" % gs
         print s.up2date.login(systemid)
     
-    sys.exit(0)
 
-    h = HTTPSProxyConnection(PROXY, 'www.redhat.com')
-    #h = HTTPSConnection('www.redhat.com')
-    h.connect()
-    h.putrequest("GET", "/")
-    h.endheaders()
-    response = h.getresponse()
-    print "XXX", response.status
-    print "YYY", response.reason
-    print "XXX", response.msg
-    print "--%s---" % response.read()
-    
-    sys.exit(0)
-    h = Output()
-    h.process("Googoogoo")
-    headers, fd = h.send_http("roadrunner.devel.redhat.com", handler="/XMLRPC")
-    print headers
-
-    sys.exit(0)
-    h = HTTPProxyConnection('tuxmonkey.support.redhat.com:8080', 
-        'www.redhat.com')
-    h.connect()
-    h.putrequest("GET", "/")
-    h.endheaders()
-    response = h.getresponse()
-    print "XXX", response.status
-    print "YYY", response.reason
-    print "XXX", response.msg
-    print "GGG", response.read()
-
-    sys.exit(0)
-    s = Server("http://roadrunner.devel.redhat.com:2121/googgaaa")
-    s.goo.gaa()
