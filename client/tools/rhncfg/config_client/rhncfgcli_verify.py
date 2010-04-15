@@ -36,6 +36,12 @@ class Handler(handler_base.HandlerBase):
             action="count",
             help="Increase the amount of output detail.",
         ),
+        handler_base.HandlerBase._option_class(
+            '--only',
+            "-o",
+            action="count",
+            help="Only show files that differ.",
+        ),
     ]
 
     # Main function to be run
@@ -122,6 +128,14 @@ class Handler(handler_base.HandlerBase):
                 if len(fdict['selinux']) > 0:
                     (src_selinux, dst_selinux) = fdict['selinux'].split('|')
 
+                if self.options.only:
+                    sum = 0
+                    for key in fdict.keys():
+                        if key != 'file':
+                            sum += len(fdict[key])
+                    if sum == 0:
+                        continue
+
                 print outstring % {
                                     "status"       :       formatstr % (maxlenarr['status'], fdict['status']),
                                     "owner"        :       formatstr % (maxlenarr['owner'], fdict['owner']),
@@ -144,6 +158,8 @@ class Handler(handler_base.HandlerBase):
             outstring = "%*s %s"
             maxlen = max(map(lambda x: len(x['status']), ret)) + 1
             for fdict in ret:
+                if self.options.only and len(fdict['status']) == 0:
+                    continue
                 print outstring % (maxlen, fdict['status'], fdict['file'])
 
     def _process_file(self, *args):
