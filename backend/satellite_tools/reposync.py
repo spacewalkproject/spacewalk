@@ -145,9 +145,6 @@ class RepoSync:
                 path = self.plugin.get_package(pack)
                 self.upload_package(pack, path)
                 self.associate_package(pack)
-                if self.url.find("file://")  < 0:
-                    os.remove(path)
-
             except KeyboardInterrupt:
                 raise
             except:
@@ -155,6 +152,9 @@ class RepoSync:
                 if self.fail:
                     raise
                 continue
+            finally:
+                if self.url.find("file://")  < 0:
+                    os.remove(path)
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
