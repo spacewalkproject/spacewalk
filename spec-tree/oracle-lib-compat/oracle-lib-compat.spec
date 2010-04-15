@@ -22,6 +22,8 @@ Requires:       oracle-instantclient-basic = %{icversion}
 Requires:       oracle-instantclient-sqlplus = %{icversion}
 Requires(post): ldconfig
 Requires(post): /usr/bin/execstack
+Requires(post): /usr/bin/file
+Requires(post): /usr/bin/xargs
 
 %ifarch x86_64
 %define lib64 ()(64bit)
