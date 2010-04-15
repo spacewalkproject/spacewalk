@@ -251,14 +251,18 @@ public abstract class ConfigFileData {
             msgs.addError(error("mode-invalid"));
         }
 
+        String sens = "s\\d+";
+        String cats = "c\\d+(\\.c\\d+)?";
+        String mlsregex = sens + "(:" + cats + "(," + cats + ")*)?";
         // Validate selinux context
         if (!getSelinuxCtx().matches(
                  // \\w is [a-zA-Z_0-9], or [_[:alnum:]]
                  "^\\w*" + // user
                 "(:\\w*" + // role
                 "(:\\w*" + // type
-                "(:\\w*(\\-\\w+)?" + // sensitivity
-                "(:\\w*(\\.\\w+))?)?)?)?$")) { // category
+                "(:" + mlsregex + // low
+                "(\\-" + mlsregex + // high
+                ")?)?)?)?$")) {
             msgs.addError(new ValidatorError("Invalid SELinux context"));
         }
         
