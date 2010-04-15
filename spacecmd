@@ -12,6 +12,7 @@ License: GPLv3+
 # configchannel.lookupFileInfo - returns null if invalid files is passed
 # kickstart.profile.system - partitions not being returned
 # kickstart.profile.downloadKickstart - not parsed by Cobbler
+# schedule.archiveActions missing
 
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser

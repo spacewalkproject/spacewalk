@@ -3,12 +3,13 @@ Author: Aron Parsons <aron@redhat.com> -or- <aronparsons@gmail.com>
 License: GPLv3+
 """
 
-import atexit, logging, os, re, readline
+import atexit, datetime, logging, os, re, readline
 import sys, textwrap, urllib2, xml, xmlrpclib
 from cmd import Cmd
 from getpass import getpass
 from operator import itemgetter
 from pwd import getpwuid
+from tempfile import mkstemp
 
 class SpacewalkShell(Cmd):
     MINIMUM_API_VERSION = 10.8
@@ -22,6 +23,8 @@ class SpacewalkShell(Cmd):
                     'monitoring_entitled'          : 'Monitoring',
                     'virtualization_host'          : 'Virtualization',
                     'virtualization_host_platform' : 'Virtualization Platform'}
+
+    EDITORS = ('vim', 'vi', 'nano', 'emacs')
 
     intro = """
 Welcome to SpacewalkShell, a command line interface to Spacewalk.
@@ -161,7 +164,7 @@ For help for a specific command try "help <cmd>".
     def tab_completer(self, options, text):
         return [o for o in options if re.match(text, o)]
 
-    
+
     def filter_results(self, list, args):
         patterns = []
         for pattern in args:
@@ -176,6 +179,96 @@ For help for a specific command try "help <cmd>".
                         matches.append(item)
 
         return matches
+
+
+    def editor(self, template):
+        # create a temporary file
+        (descriptor, file_name) = mkstemp(prefix='spacecmd.')
+
+        if template and descriptor:
+            try:
+                file = os.fdopen(descriptor, 'w')
+                file.write(template)
+                file.close()
+            except:
+                logging.warning('Could not open the temporary file')
+                pass
+
+        success = False
+        for editor_cmd in self.EDITORS:
+            try:
+                exit_code = os.spawnlp(os.P_WAIT, editor_cmd, 
+                                       editor_cmd, file_name)
+
+                if exit_code == 0:
+                    success = True
+                    break
+                else:
+                    logging.error('Editor exited with code ' + str(exit_code))
+            except:
+                logging.error(sys.exc_info()[1])
+                logging.debug(sys.exc_info())
+
+        if not success:
+            logging.error('No editors found')
+            return ''
+
+        if os.path.isfile(file_name) and exit_code == 0:
+            try:
+                # read the session (format = username:session)
+                file = open(file_name, "r")
+                contents = file.read()
+                file.close()
+                
+                return (contents, file_name)
+            except:
+                logging.error("Could not read " + file_name)
+                logging.debug(sys.exc_info())
+                return ''
+
+
+    def user_confirm(self):
+        answer = raw_input('Is this correct? ')
+
+        if re.match('y', answer, re.IGNORECASE):
+            return True
+        else:
+            return False
+
+
+    # parse time input from the userand return xmlrpclib.DateTime
+    def parse_time_input(self, time):
+        if time == '' or re.match('now', time, re.IGNORECASE):
+            time = datetime.datetime.now() 
+        else:
+            # parse the time provided
+            match = re.search('^\+?(\d+)(s|m|h|d)$', time, re.IGNORECASE)
+    
+            if not match or len(match.groups()) != 2:
+                logging.error('Invalid time provided')
+                return
+                
+            number = int(match.group(1))
+            unit = match.group(2)
+   
+            if re.match('s', unit, re.IGNORECASE):
+                delta = datetime.timedelta(seconds=number)
+            elif re.match('m', unit, re.IGNORECASE):
+                delta = datetime.timedelta(minutes=number)
+            elif re.match('h', unit, re.IGNORECASE):
+                delta = datetime.timedelta(hours=number)
+            elif re.match('d', unit, re.IGNORECASE):
+                delta = datetime.timedelta(days=number)
+    
+            time = datetime.datetime.now() + delta
+ 
+        time = xmlrpclib.DateTime(time.timetuple())
+
+        if time:
+            return time
+        else:
+            logging.error('Invalid time provided')
+            return
 
 
     # build a proper RPM name from the various parts
@@ -953,7 +1046,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_system_list(self):
-        print "Usage: system_list [PATTERN] ..."
+        print "Usage: system_list"
     
     def do_system_list(self, args, doreturn=False):
         systems = self.client.system.listSystems(self.session)
@@ -962,9 +1055,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return systems
         else:
-            if len(self.args) > 0:
-                systems = self.filter_results(systems, self.args)
-
             print "\n".join(sorted(systems))
 
 ###########
@@ -1041,8 +1131,117 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_system_script(self):
+        print "Usage: system_script SSM|SYSTEM ..."
+        print
+        print "Start Time Examples:"
+        print "now  -> right now!"
+        print "+15m -> 15 minutes from now"
+        print "+1d  -> 1 day from now"
+
+    def complete_system_script(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+ 
+    def do_system_script(self, args):
+        if len(self.args) == 0:
+            self.help_system_details()
+            return
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        if len(systems) == 0:
+            logging.warning('No systems selected')
+            return
+
+        user    = raw_input('User [root]: ')
+        group   = raw_input('Group [root]: ')
+        timeout = raw_input('Timeout (in seconds) [600]: ')
+        time    = raw_input('Start Time [now]: ')
+        script_file  = raw_input('Script File [create]: ')
+
+        # defaults
+        if not user:        user        = 'root'
+        if not group:       group       = 'root'
+        if not timeout:     timeout     = 600
+
+        # convert the time input to xmlrpclib.DateTime
+        time = self.parse_time_input(time)
+
+        if script_file:
+            keep_script_file = True
+            
+            script_file = os.path.abspath(script_file)
+
+            try:
+                file = open(script_file, 'r')
+                script = file.read()
+                file.close()
+            except:
+                logging.error('Could not read ' + script_file)
+                logging.error(sys.exc_info()[1])
+                logging.debug(sys.exc_info())
+                return
+        else:
+            keep_script_file = False
+
+            # have the user put the script into that file
+            (script, script_file) = self.editor("#!/bin/bash\n")
+
+        if not script:
+            logging.error('No script provided')
+            return
+
+        # display a summary
+        print
+        print 'User:       ' + user
+        print 'Group:      ' + group
+        print 'Timeout:    ' + str(timeout) + ' seconds'
+        print 'Start Time: ' + re.sub('T', ' ', time.value)
+        print
+        print script
+        print
+
+        # have the user confirm
+        if not self.user_confirm():
+            return
+
+        for system in systems:
+            try:
+                # check if we were passed a system ID
+                system_id = int(system)
+            except ValueError:
+                system_id = self.get_system_id(system)
+
+            if not system_id:
+                logging.warning(system + ' is not a valid system')
+                continue
+           
+            id = self.client.system.scheduleScriptRun(self.session,
+                                                      system_id,
+                                                      user,
+                                                      group,
+                                                      timeout,
+                                                      script,
+                                                      time)
+
+            logging.info('Schedule ID: ' + str(id)) 
+
+        if not keep_script_file:
+            try:
+                os.remove(script_file)
+            except:
+                logging.error('Could not remove ' + script_file)
+                logging.error(sys.exc_info()[1])
+                logging.debug(sys.exc_info())
+
+###########
+
     def help_system_hardware(self):
-        print "Usage: system_details SSM|SYSTEM"
+        print "Usage: system_details SSM|SYSTEM ..."
 
     def complete_system_hardware(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -1164,7 +1363,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_system_availableupgrades(self):
-        print "Usage: system_availableupgrades SSM|SYSTEM"
+        print "Usage: system_availableupgrades SSM|SYSTEM ..."
 
     def complete_system_availableupgrades(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -1224,7 +1423,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_system_packages(self):
-        print "Usage: system_packages SSM|SYSTEM"
+        print "Usage: system_packages SSM|SYSTEM ..."
 
     def complete_system_packages(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -1270,7 +1469,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_system_details(self):
-        print "Usage: system_details SSM|SYSTEM"
+        print "Usage: system_details SSM|SYSTEM ..."
 
     def complete_system_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -1479,18 +1678,15 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_group_list(self):
-        print "Usage: group_list [GROUP] ..."
+        print "Usage: group_list"
 
-    def do_group_list(self, args, doreturn=False, filtered=True):
+    def do_group_list(self, args, doreturn=False):
         groups = self.client.systemgroup.listAllGroups(self.session)
         groups = [g.get('name') for g in groups]
 
         if doreturn:
             return groups
         else:
-            if len(self.args) > 0:
-                groups = self.filter_results(groups, self.args)
-
             print "\n".join(sorted(groups))
 
 ###########
@@ -1572,7 +1768,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_cryptokey_list(self):
-        print "Usage: cryptokey_list [KEY] ..."
+        print "Usage: cryptokey_list"
 
     def do_cryptokey_list(self, args, doreturn=False):
         keys = self.client.kickstart.keys.listAllKeys(self.session)
@@ -1581,9 +1777,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return keys
         else:
-            if len(self.args) > 0:
-                keys = self.filter_results(keys, self.args)
-
             print "\n".join(sorted(keys))
 
 ###########
@@ -1624,7 +1817,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_activationkey_list(self):
-        print "Usage: activationkey_list [KEY] ..."
+        print "Usage: activationkey_list"
 
     def do_activationkey_list(self, args, doreturn=False):
         keys = self.client.activationkey.listActivationKeys(self.session)
@@ -1633,9 +1826,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return keys
         else:
-            if len(self.args) > 0:
-                keys = self.filter_results(keys, self.args)
-
             print "\n".join(sorted(keys))
 
 ###########
@@ -1742,7 +1932,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_configchannel_list(self):
-        print "Usage: configchannel_list [CHANNEL] ..."
+        print "Usage: configchannel_list"
 
     def do_configchannel_list(self, args, doreturn=False):
         channels = self.client.configchannel.listGlobals(self.session)
@@ -1751,9 +1941,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return channels
         else:
-            if len(self.args) > 0:
-                channels = self.filter_results(channels, self.args)
-
             print "\n".join(sorted(channels))
 
 ###########
@@ -1906,7 +2093,7 @@ For help for a specific command try "help <cmd>".
 ###########
 
     def help_softwarechannel_list(self):
-        print "Usage: softwarechannel_list [CHANNEL] ..."
+        print "Usage: softwarechannel_list"
 
     def do_softwarechannel_list(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
@@ -1915,9 +2102,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return channels
         else:
-            if len(self.args) > 0:
-                channels = self.filter_results(channels, self.args)
-
             print "\n".join(sorted(channels))
       
 ###########
