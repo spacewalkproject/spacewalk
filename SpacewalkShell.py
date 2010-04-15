@@ -941,6 +941,66 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
+    def help_system_search(self):
+        print "Usage: system_search QUERY"
+        print
+        print "Available Fields: name, ip, hostname, " + \
+              "device, vendor, driver"
+        print "Example: system_search vendor:vmware" 
+    
+    def do_system_search(self, args, doreturn=False):
+        if (len(self.args)) != 1:
+            self.help_system_search()
+            return
+
+        if re.search(':', self.args[0]):
+            (field, value) = self.args[0].split(':')
+        else:
+            field = 'name'
+            value = self.args[0]
+
+        results = []
+        if field == 'name':
+            results = self.client.system.search.nameAndDescription(self.session,
+                                                                   value)  
+            key = 'name' 
+        elif field == 'ip':
+            results = self.client.system.search.ip(self.session, value)
+            key = 'ip'
+        elif field == 'hostname':
+            results = self.client.system.search.hostname(self.session, value)
+            key = 'hostname'
+        elif field == 'device':
+            results = self.client.system.search.deviceDescription(self.session,
+                                                                  value)
+            key = 'hw_description'
+        elif field == 'vendor':
+            results = self.client.system.search.deviceVendorId(self.session,
+                                                               value)
+            key = 'hw_vendor_id'
+        elif field == 'driver':
+            results = self.client.system.search.deviceDriver(self.session,
+                                                             value)
+            key = 'hw_driver'
+        else:
+            logging.warning('Invalid search field')
+            return []
+
+        systems = []
+        for s in results:
+            if re.search(value, s.get(key), re.IGNORECASE):
+                systems.append(s.get('name'))
+
+        if doreturn:
+            return systems
+        else:
+            if (len(systems)) > 0:
+                print "\n".join(sorted(systems))
+            else:
+                logging.warning('No systems found')
+
+###########
+
     def help_system_hardware(self):
         print "Usage: system_details SSM|SYSTEM"
 
