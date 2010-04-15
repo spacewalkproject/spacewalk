@@ -114,7 +114,7 @@ For help for a specific command try "help <cmd>".
             if self.cmd[1] == '!':
                 # repeat the last command
                 line = readline.get_history_item(
-                           readline.get_current_history_length() - 1)
+                           readline.get_current_history_length())
 
                 if line:
                     history_match = True
@@ -270,10 +270,10 @@ For help for a specific command try "help <cmd>".
                     systems.extend(members)
                 else:
                     logging.warning('No systems in group ' + item)
-            elif item.startswith('*'):
-                # the regex needs a character to repeat
-                systems.append('.' + item)
             else:
+                # simple globbing
+                item = re.sub('\*', '.*', item)
+
                 systems.append(item)
 
         matches = self.filter_results(all_systems.keys(), systems)
