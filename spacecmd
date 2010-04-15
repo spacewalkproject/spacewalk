@@ -12,150 +12,12 @@ License: GPLv3+
 # configchannel.lookupFileInfo - returns null if invalid files is passed
 # kickstart.profile.system - partitions not being returned
 
-import atexit, logging, os, re, readline, sys, xml, xmlrpclib
-from cmd import Cmd
+import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
-from pwd import getpwuid
 
-class SpacewalkShell(Cmd):
-    sys.path.append(os.getcwd())
-    from spacecmdapi import *
+sys.path.append(os.getcwd())
+from SpacewalkShell import SpacewalkShell
 
-    HISTORY_LENGTH = 1024
-  
-    intro = """
-Welcome to spacecmd, a command line interface to Spacewalk.
-
-For a full set of commands, type "help" on the prompt.
-For help for a specific command try "help <cmd>".
-"""
-    cmdqueue = []
-    completekey = "tab"
-    stdout = sys.stdout
-    prompt = 'spacecmd> '
-
-    # do nothing on an empty line
-    emptyline = lambda self: None
-
-    def __init__(self, options):
-        self.session = ''
-        self.username = ''
-        self.server = ''
-        self.ssm = {}
-
-        # make the options available everywhere
-        self.options = options
-
-        userinfo = getpwuid(os.getuid())
-        self.cache_file = os.path.join(userinfo[5], ".spacecmd_cache")
-        self.history_file = os.path.join(userinfo[5], ".spacecmd_history")
-
-        try:
-            # don't split on hyphens or colons during tab completion
-            newdelims = readline.get_completer_delims()
-            newdelims = re.sub(':|-|/', '', newdelims)
-            readline.set_completer_delims(newdelims)
-        
-            if not options.nohistory:
-                try:
-                    if os.path.isfile(self.history_file):
-                        readline.read_history_file(self.history_file)
-    
-                    readline.set_history_length(self.HISTORY_LENGTH)
-
-                    # always write the history file on exit
-                    atexit.register(readline.write_history_file,
-                                    self.history_file)
-                except:
-                    logging.error("Could not read history file")
-                    logging.debug(sys.exc_info())
-        except:
-            logging.debug(sys.exc_info())
-
-
-    # load the history file
-    def preloop(self):
-        if not self.session:
-            self.args = []
-            self.do_login(self.args)
-
-
-    # handle commands that exit the shell
-    def precmd(self, line, nohistory=False):
-        # set the command and arguments once so they can be used elsewhere
-        try:
-            parts = line.split()
-            self.cmd = parts[0]
-            self.args = parts[1:]
-        except IndexError:
-            self.cmd = ''
-            self.args = []
-
-        if nohistory:
-            return line
-
-        # perform bash-like command substitution 
-        if self.cmd.startswith('!'):
-            # remove the '!*' line from the history
-            last = readline.get_current_history_length() - 1
-            readline.remove_history_item(last)
-
-            history_match = False
-           
-            if self.cmd[1] == '!':
-                # repeat the last command
-                line = readline.get_history_item(
-                           readline.get_current_history_length())
-
-                if line:
-                    history_match = True
-                else:
-                    logging.warning(self.cmd + ': event not found')
-                    return ''
-            
-            if not history_match:
-                # is a specific history item being referenced? 
-                try:
-                    number = int(self.cmd[1:])
-                    line = readline.get_history_item(number)
-                    if line:
-                        history_match = True
-                    else:
-                        raise Exception
-                except:
-                    logging.warning(self.cmd + ': event not found')
-                    return ''
-
-            # attempt to match the beginning of the string with a history item
-            if not history_match:
-                history_range = range(1, readline.get_current_history_length())
-                history_range.reverse()
- 
-                for i in history_range:
-                    item = readline.get_history_item(i)
-                    if item.startswith(self.cmd[1:]):
-                        line = item
-                        history_match = True
-                        break
-           
-            # append the arguments to the substituted command 
-            if history_match:
-                line = line + ' ' + ''.join(args)
-                print line
-                readline.add_history(line)
-            else:
-                logging.warning(self.cmd + ': event not found')
-                return ''
-
-        if self.cmd.lower() in ('quit', 'exit', 'eof'):
-            print
-            sys.exit(0)
-        else:
-            return line
-
-###########
-
-# parse the options and then start the command interpreter
 if __name__ == "__main__":
     optionsTable = [
         Option('-u', '--username', action='store',
@@ -169,7 +31,7 @@ if __name__ == "__main__":
         Option('--nossl', action='store_true',
                help="Use HTTP instead of HTTPS"),
         Option('--nohistory', action='store_true',
-                help="Do not store command history in ~/.spacecmd_history"),
+                help="Do not store command history in ~/.spacewalk_history"),
         Option('-q', '--quiet', action='store_true',
                help="Only print error messages"),
         Option('-d', '--debug', action='store_true',
@@ -186,18 +48,15 @@ if __name__ == "__main__":
     else:
         log_level = logging.INFO
 
-    # setup logging
-    logging.basicConfig(level=log_level, 
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
 
-    # setup the shell
     shell = SpacewalkShell(options)
 
     if len(args) > 0:
+        # run a single command given on the command line
         shell.preloop()
         shell.onecmd(shell.precmd(' '.join(args), True))
     else:
-        # start the shell
         while True:
             try:
                 shell.cmdloop()
@@ -208,6 +67,7 @@ if __name__ == "__main__":
                     logging.debug(sys.exc_info())
                     logging.error(err.faultString.rsplit(': ', 1)[1])
                 except:
+                    # a few XML-RPC messages are different
                     logging.error(err.faultString)
             except xml.parsers.expat.ExpatError:
                 shell.intro = ''
