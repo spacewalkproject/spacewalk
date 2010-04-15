@@ -159,7 +159,7 @@ class Handler(handler_base.HandlerBase):
 
         #Stat the destination file
         try:
-            dst_stat = os.stat(dst)
+            dst_stat = os.lstat(dst)
         except:
             stat_err = 1
 
