@@ -944,7 +944,7 @@ For help for a specific command try "help <cmd>".
     def help_system_search(self):
         print "Usage: system_search QUERY"
         print
-        print "Available Fields: name, ip, hostname, " + \
+        print "Available Fields: id, name, ip, hostname, " + \
               "device, vendor, driver"
         print "Example: system_search vendor:vmware" 
     
@@ -964,6 +964,9 @@ For help for a specific command try "help <cmd>".
             results = self.client.system.search.nameAndDescription(self.session,
                                                                    value)  
             key = 'name' 
+        elif field == 'id':
+            results = self.client.system.listSystems(self.session)
+            key = 'id' 
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
             key = 'ip'
@@ -986,9 +989,10 @@ For help for a specific command try "help <cmd>".
             logging.warning('Invalid search field')
             return []
 
+        # only get real matches, not the fuzzy ones we get back
         systems = []
         for s in results:
-            if re.search(value, s.get(key), re.IGNORECASE):
+            if re.search(value, str(s.get(key)), re.IGNORECASE):
                 systems.append(s.get('name'))
 
         if doreturn:
