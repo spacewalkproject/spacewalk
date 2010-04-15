@@ -2530,13 +2530,13 @@ if __name__ == '__main__':
                      " purposes !!!\n")
     try:
         sys.exit(Runner().main() or 0)
-    except (KeyboardInterrupt, SystemExit):
-        raise
+    except (KeyboardInterrupt, SystemExit), e:
+        sys.exit(e)
     except Exception:
         from common import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)
         sendMail()
-        raise
+        sys.exit(-1)
 
