@@ -227,8 +227,8 @@ For help for a specific command try "help <cmd>".
                 return ''
 
 
-    def user_confirm(self):
-        answer = raw_input('Is this correct? ')
+    def user_confirm(self, prompt='Is this correct?'):
+        answer = raw_input(prompt + ' ')
 
         if re.match('y', answer, re.IGNORECASE):
             return True
@@ -351,6 +351,19 @@ For help for a specific command try "help <cmd>".
             print e.get('advisory_name') + '  ' + \
                   textwrap.wrap(e.get('advisory_synopsis'), 50)[0].ljust(50) + \
                   '  ' + e.get('date').rjust(8) 
+
+
+    def print_action_summary(self, action, systems=[]):
+        print 'ID:         ' + str(action.get('id'))
+        print 'Type:       ' + action.get('type')
+        print 'Scheduler:  ' + action.get('scheduler')
+        print 'Start Time: ' + re.sub('T' , ' ', action.get('earliest').value)
+      
+        if len(systems) > 0: 
+            print
+            print 'Systems:'
+            for s in systems:
+                print '  ' + s.get('server_name')
 
 ###########
 
@@ -546,7 +559,7 @@ For help for a specific command try "help <cmd>".
 
                     self.client.user.listUsers(self.session)
                 except:
-                    logging.warning("Cached credentials are invalid")
+                    logging.info("Cached credentials are invalid")
                     self.session = ''
 
                     try:
@@ -1219,7 +1232,8 @@ For help for a specific command try "help <cmd>".
             if not system_id:
                 logging.warning(system + ' is not a valid system')
                 continue
-           
+
+            # the current API forces us to schedule each system individually
             id = self.client.system.scheduleScriptRun(self.session,
                                                       system_id,
                                                       user,
@@ -1765,6 +1779,269 @@ For help for a specific command try "help <cmd>".
             for system in sorted(systems):
                 print '  ' + system
 
+###########
+
+    def help_schedule_cancel(self):
+        print "Usage: schedule_cancel ID|* ..."
+
+    def complete_schedule_cancel(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_schedule_listpending('', True), 
+                                  text)
+ 
+    def do_schedule_cancel(self, args):
+        if len(self.args) == 0:
+            self.help_schedule_cancel()
+            return
+
+        actions = []
+
+        # cancel all actions
+        if '.*' in self.args:
+            prompt = 'Do you really want to cancel all pending actions?'
+
+            if self.user_confirm(prompt):
+                actions = self.do_schedule_listpending('', True)
+            else:
+                return
+        else:
+            for a in self.args:
+                try:
+                    actions.append(int(a))
+                except ValueError:
+                    logging.warning(str(a) + ' is not a valid ID')
+                    continue
+
+        self.client.schedule.cancelActions(self.session, actions)
+
+        for a in actions:
+            logging.info('Cancelled action ' + str(a))
+
+###########
+
+    def help_schedule_summary(self):
+        print "Usage: schedule_summary ID"
+
+    def do_schedule_summary(self, args):
+        if len(self.args) == 0:
+            self.help_schedule_summary()
+            return
+
+        try:
+            id = int(self.args[0])
+        except:
+            logging.warning(str(a) + ' is not a valid ID')
+            return
+
+        completed = self.client.schedule.listCompletedSystems(self.session, id)
+        failed = self.client.schedule.listFailedSystems(self.session, id)
+        pending = self.client.schedule.listInProgressSystems(self.session, id)
+
+        # schedule.getAction() API call would make this easier
+        all_actions = self.client.schedule.listAllActions(self.session)
+        action = None
+        for a in all_actions:
+            if a.get('id') == id:
+                action = a
+                del all_actions
+                break
+ 
+        self.print_action_summary(action)
+
+        if len(completed) > 0:
+            print
+            print 'Completed Systems:'
+            for s in completed:
+                print '  ' + s.get('server_name')
+
+        if len(failed) > 0:
+            print
+            print 'Failed Systems:'
+            for s in failed:
+                print '  ' + s.get('server_name')
+
+        if len(pending) > 0:
+            print
+            print 'Pending Systems:'
+            for s in pending:
+                print '  ' + s.get('server_name')
+
+        print
+        print 'Completed: ' + str(len(completed))
+        print 'Failed:    ' + str(len(failed))
+        print 'Pending:   ' + str(len(pending))
+
+###########
+
+    def help_schedule_rawoutput(self):
+        print "Usage: schedule_rawoutput ID"
+
+    def do_schedule_rawoutput(self, args):
+        if len(self.args) == 0:
+            self.help_schedule_output()
+            return
+        elif len(self.args) > 1:
+            systems = self.args[1:]
+        else:
+            systems = []
+
+        try:
+            id = int(self.args[0])
+        except:
+            logging.warning(str(a) + ' is not a valid ID')
+            return
+        
+        # schedule.getAction() API call would make this easier
+        all_actions = self.client.schedule.listAllActions(self.session)
+        action = None
+        for a in all_actions:
+            if a.get('id') == id:
+                action = a
+                del all_actions
+                break
+
+        results = self.client.system.getScriptResults(self.session, id)
+
+        add_separator = False
+
+        for r in results:
+            if add_separator:
+                print self.SEPARATOR
+
+            add_separator = True
+
+            print 'System:      ' + 'UNKNOWN'
+            print 'Start Time:  ' + re.sub('T', ' ', r.get('startDate').value)
+            print 'Stop Time:   ' + re.sub('T', ' ', r.get('stopDate').value)
+            print 'Return Code: ' + str(r.get('returnCode'))
+
+            print
+            print r.get('output')
+
+###########
+
+    def help_schedule_listpending(self):
+        print "Usage: schedule_listpending [LIMIT]"
+    
+    def do_schedule_listpending(self, args, doreturn=False):
+        actions = self.client.schedule.listInProgressActions(self.session)
+
+        if len(actions) == 0:
+            return
+
+        if doreturn:
+            return [str(a.get('id')) for a in actions]
+        else:
+            try:
+                limit = int(self.args[0])
+            except:
+                limit = len(actions)
+    
+            add_separator = False
+    
+            for i in range(0, limit):
+                if add_separator:
+                    print self.SEPARATOR
+                
+                add_separator = True
+    
+                systems = self.client.schedule.listInProgressSystems(\
+                              self.session, actions[i].get('id'))
+    
+                self.print_action_summary(actions[i], systems)
+            
+###########
+
+    def help_schedule_listcompleted(self):
+        print "Usage: schedule_listcompleted [LIMIT]"
+    
+    def do_schedule_listcompleted(self, args, doreturn=False):
+        actions = self.client.schedule.listCompletedActions(self.session)
+
+        if len(actions) == 0:
+            return
+
+        if doreturn:
+            return [str(a.get('id')) for a in actions]
+        else:
+            try:
+                limit = int(self.args[0])
+            except:
+                limit = len(actions)
+    
+            add_separator = False
+    
+            for i in range(0, limit):
+                if add_separator:
+                    print self.SEPARATOR
+                
+                add_separator = True
+    
+                systems = self.client.schedule.listCompletedSystems(\
+                              self.session, actions[i].get('id'))
+    
+                self.print_action_summary(actions[i], systems)
+            
+###########
+
+    def help_schedule_listfailed(self):
+        print "Usage: schedule_listfailed [LIMIT]"
+    
+    def do_schedule_listfailed(self, args, doreturn=False):
+        actions = self.client.schedule.listFailedActions(self.session)
+
+        if len(actions) == 0:
+            return
+
+        if doreturn:
+            return [str(a.get('id')) for a in actions]
+        else:
+            try:
+                limit = int(self.args[0])
+            except:
+                limit = len(actions)
+    
+            add_separator = False
+    
+            for i in range(0, limit):
+                if add_separator:
+                    print self.SEPARATOR
+                
+                add_separator = True
+    
+                systems = self.client.schedule.listFailedSystems(\
+                              self.session, actions[i].get('id'))
+    
+                self.print_action_summary(actions[i], systems)
+            
+###########
+
+    def help_schedule_listarchived(self):
+        print "Usage: schedule_listarchived [LIMIT]"
+    
+    def do_schedule_listarchived(self, args, doreturn=False):
+        actions = self.client.schedule.listArchivedActions(self.session)
+
+        if len(actions) == 0:
+            return
+
+        if doreturn:
+            return [str(a.get('id')) for a in actions]
+        else:
+            try:
+                limit = int(self.args[0])
+            except:
+                limit = len(actions)
+    
+            add_separator = False
+    
+            for i in range(0, limit):
+                if add_separator:
+                    print self.SEPARATOR
+                
+                add_separator = True
+    
+                self.print_action_summary(actions[i])
+            
 ###########
 
     def help_cryptokey_list(self):
