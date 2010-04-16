@@ -3,15 +3,15 @@ default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
 
 [koji]
-autobuild_tags = dist-f11-sw-0.9-candidate dist-5E-sw-0.9-candidate dist-f12-sw-0.9-candidate
+autobuild_tags = dist-f11-sw-1.0-candidate dist-5E-sw-1.0-candidate dist-f12-sw-1.0-candidate
 
-[dist-f11-sw-0.9-candidate]
+[dist-f11-sw-1.0-candidate]
 disttag = .fc11
 blacklist=jabberd-selinux
 
-[dist-5E-sw-0.9-candidate]
+[dist-5E-sw-1.0-candidate]
 disttag = .el5
 
-[dist-f12-sw-0.9-candidate]
+[dist-f12-sw-1.0-candidate]
 disttag = .fc12
 blacklist=jabberd-selinux
