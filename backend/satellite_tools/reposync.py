@@ -139,19 +139,21 @@ class RepoSync:
             self.print_msg("No new packages to download.")
         for (index, pack) in enumerate(to_download):
             """download each package"""
+            # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
             try:
-                self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
-                      pack.getNVREA())
-                path = self.plugin.get_package(pack)
-                self.upload_package(pack, path)
-                self.associate_package(pack)
-            except KeyboardInterrupt:
-                raise
-            except Exception, e:
-                self.error_msg(e)
-                if self.fail:
+                try:
+                    self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
+                          pack.getNVREA())
+                    path = self.plugin.get_package(pack)
+                    self.upload_package(pack, path)
+                    self.associate_package(pack)
+                except KeyboardInterrupt:
                     raise
-                continue
+                except Exception, e:
+                   self.error_msg(e)
+                   if self.fail:
+                       raise
+                   continue
             finally:
                 if self.url.find("file://")  < 0:
                     os.remove(path)
