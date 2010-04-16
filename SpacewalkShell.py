@@ -1234,6 +1234,7 @@ For help for a specific command try "help <cmd>".
         if not self.user_confirm():
             return
 
+        scheduled = 0
         for system in systems:
             try:
                 # check if we were passed a system ID
@@ -1254,7 +1255,10 @@ For help for a specific command try "help <cmd>".
                                                       script,
                                                       time)
 
-            logging.info('Schedule ID: ' + str(id)) 
+            logging.info('Schedule ID: ' + str(id))
+            scheduled += 1
+
+        print 'Scheduled: ' + str(scheduled) + ' systems' 
 
         if not keep_script_file:
             try:
@@ -1805,28 +1809,32 @@ For help for a specific command try "help <cmd>".
             self.help_schedule_cancel()
             return
 
-        actions = []
-
         # cancel all actions
         if '.*' in self.args:
             prompt = 'Do you really want to cancel all pending actions?'
 
             if self.user_confirm(prompt):
-                actions = self.do_schedule_listpending('', True)
+                strings = self.do_schedule_listpending('', True)
             else:
                 return
         else:
-            for a in self.args:
-                try:
-                    actions.append(int(a))
-                except ValueError:
-                    logging.warning(str(a) + ' is not a valid ID')
-                    continue
+            strings = self.args
+
+        # convert strings to integers
+        actions = []
+        for a in strings:
+            try:
+                actions.append(int(a))
+            except ValueError:
+                logging.warning(str(a) + ' is not a valid ID')
+                continue
 
         self.client.schedule.cancelActions(self.session, actions)
 
         for a in actions:
-            logging.info('Cancelled action ' + str(a))
+            logging.info('Canceled action ' + str(a))
+
+        print 'Canceled ' + str(len(actions)) + ' actions'
 
 ###########
 
