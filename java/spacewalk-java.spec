@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,21 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+- 516983 - making it clearer that a distro cannot be deleted if profiles are
+  associated with it. Also fixing the nav for that page (jsherril@redhat.com)
+- Fix the SELinux regex to handle MLS categories better
+  (joshua.roys@gtri.gatech.edu)
+- Fix SSM 'Select All' button on configuration pages
+  (joshua.roys@gtri.gatech.edu)
+- xmlrpc: Put the symlink target in 'contents' (joshua.roys@gtri.gatech.edu)
+- Add 'arch' to channel.list*Channels (colin.coe@gmail.com)
+- Fix xmlrpc file-type for symlinks (joshua.roys@gtri.gatech.edu)
+- 576907 - making same display changes for system sync (tlestach@redhat.com)
+- Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
+- 580227 - displaying dates in the same format (tlestach@redhat.com)
+
 * Wed Apr 07 2010 Tomas Lestach <tlestach@redhat.com> 0.9.17-1
 - introducing kickstart.cloneProfile API call (tlestach@redhat.com)
 
