@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,6 +629,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+
 * Thu Apr 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.23-1
 - 582203 - skip failed packages on spacewalk-repo-sync
 - use CFG.NETWORK_RETRIES instead of hardcoded value
