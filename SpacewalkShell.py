@@ -103,8 +103,7 @@ For help for a specific command try "help <cmd>".
         # perform bash-like command substitution 
         if self.cmd[0] == '!':
             # remove the '!*' line from the history
-            last = readline.get_current_history_length() - 1
-            readline.remove_history_item(last)
+            self.remove_last_history_item()
 
             history_match = False
            
@@ -227,8 +226,22 @@ For help for a specific command try "help <cmd>".
                 return ''
 
 
+    def remove_last_history_item(self):
+        last = readline.get_current_history_length() - 1
+        readline.remove_history_item(last)
+
+
+    def prompt_user(self, prompt):
+        input = raw_input(prompt)
+
+        if input != '':
+            self.remove_last_history_item()
+
+        return input
+
+
     def user_confirm(self, prompt='Is this correct?'):
-        answer = raw_input(prompt + ' ')
+        answer = self.prompt_user(prompt + ' ')
 
         if re.match('y', answer, re.IGNORECASE):
             return True
@@ -576,11 +589,10 @@ For help for a specific command try "help <cmd>".
             elif len(self.args) > 0 and self.args[0]:
                 username = self.args[0]
             else:
-                username = raw_input("Username: ")
+                username = self.prompt_user("Username: ")
 
                 # don't store the username in the command history
-                last = readline.get_current_history_length() - 1
-                readline.remove_history_item(last)
+                self.remove_last_history_item()
 
             if self.options.password:
                 password = self.options.password
@@ -1144,20 +1156,20 @@ For help for a specific command try "help <cmd>".
 
 ###########
 
-    def help_system_script(self):
-        print "Usage: system_script SSM|SYSTEM ..."
+    def help_schedule_script(self):
+        print "Usage: schedule_script SSM|SYSTEM ..."
         print
         print "Start Time Examples:"
         print "now  -> right now!"
-        print "+15m -> 15 minutes from now"
-        print "+1d  -> 1 day from now"
+        print "15m  -> 15 minutes from now"
+        print "1d   -> 1 day from now"
 
-    def complete_system_script(self, text, line, begidx, endidx):
+    def complete_schedule_script(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
  
-    def do_system_script(self, args):
+    def do_schedule_script(self, args):
         if len(self.args) == 0:
-            self.help_system_details()
+            self.help_schedule_script()
             return
 
         # use the systems listed in the SSM
@@ -1170,11 +1182,11 @@ For help for a specific command try "help <cmd>".
             logging.warning('No systems selected')
             return
 
-        user    = raw_input('User [root]: ')
-        group   = raw_input('Group [root]: ')
-        timeout = raw_input('Timeout (in seconds) [600]: ')
-        time    = raw_input('Start Time [now]: ')
-        script_file  = raw_input('Script File [create]: ')
+        user    = self.prompt_user('User [root]: ')
+        group   = self.prompt_user('Group [root]: ')
+        timeout = self.prompt_user('Timeout (in seconds) [600]: ')
+        time    = self.prompt_user('Start Time [now]: ')
+        script_file  = self.prompt_user('Script File [create]: ')
 
         # defaults
         if not user:        user        = 'root'
