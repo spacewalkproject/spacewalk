@@ -11,7 +11,7 @@
 </RefMeta>
 
 <RefNameDiv>
-<RefName><command>spaceawlk-remove-channel</command></RefName>
+<RefName><command>spacewalk-remove-channel</command></RefName>
 <RefPurpose>
 Removes a channel from an RHN Satellite or Spacewalk server.
 </RefPurpose>
