@@ -57,7 +57,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core logdriver quartz
-             commons-fileupload commons-io concurrent velocity log5j" />
+             commons-fileupload commons-io concurrent velocity " />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
@@ -102,7 +102,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core quartz
-             commons-fileupload concurrent log5j" />
+             commons-fileupload concurrent " />
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel c3p0 cglib
@@ -114,7 +114,7 @@
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz stringtree-json sitemesh struts taglibs-core
              taglibs-standard tanukiwrapper  postgresql-jdbc
-             xalan-j2 xerces-j2 xml-commons-apis log5j" />
+             xalan-j2 xerces-j2 xml-commons-apis" />
 
   <path id="bootjars">
     <fileset dir="${boot.lib.dir}" includes="*.jar" />
