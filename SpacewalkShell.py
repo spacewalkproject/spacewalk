@@ -739,8 +739,9 @@ For help for a specific command try "help <cmd>".
                                                       package)[0].get('id')
 
             details = self.client.packages.getDetails(self.session, id)
-            channels = self.client.packages.listProvidingChannels(self.session,
-                                                                  id)
+
+            channels = \
+                self.client.packages.listProvidingChannels(self.session, id)
 
             print "Name:    " + details.get('name')
             print "Version: " + details.get('version')
@@ -800,7 +801,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_kickstart_list(self):
-        print "Usage: kickstart_list [PATTERN] ..."
+        print "Usage: kickstart_list PATTERN"
     
     def do_kickstart_list(self, args, doreturn=False):
         kickstarts = self.client.kickstart.listKickstarts(self.session)
@@ -809,9 +810,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return kickstarts
         else:
-            if len(self.args) > 0:
-                kickstarts = self.filter_results(kickstarts, self.args)
-
             print "\n".join(sorted(kickstarts))
 
 ####################
@@ -985,7 +983,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_kickstart_raw(self):
-        print "Usage: kickstart_raw [PATTERN] ..."
+        print "Usage: kickstart_raw LABEL"
     
     def complete_kickstart_raw(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_kickstart_list('', True), text)
@@ -1014,7 +1012,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_kickstart_listsnippets(self):
-        print "Usage: kickstart_listsnippets [PATTERN] ..."
+        print "Usage: kickstart_listsnippets"
     
     def do_kickstart_listsnippets(self, args, doreturn=False):
         snippets = self.client.kickstart.snippet.listCustom(self.session)
@@ -1023,9 +1021,6 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return snippets
         else:
-            if len(self.args) > 0:
-                snippets = self.filter_results(snippets, self.args)
-
             print "\n".join(sorted(snippets))
 
 ####################
@@ -1619,7 +1614,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_system_errata(self):
-        print "Usage: system_errata SYSTEM ..."
+        print "Usage: system_errata SSM|SYSTEM ..."
     
     def complete_system_errata(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -2422,7 +2417,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_softwarechannel_packages(self):
-        print "Usage: softwarechannel_packages CHANNEL [PACKAGE] ..."
+        print "Usage: softwarechannel_packages CHANNEL [PACKAGE ...]"
 
     def complete_softwarechannel_packages(self, text, line, begidx, endidx):
         # only tab complete the channel name
