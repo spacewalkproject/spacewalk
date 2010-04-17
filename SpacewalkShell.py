@@ -380,6 +380,58 @@ For help for a specific command try "help <cmd>".
 
 ####################
 
+    def help_ssm_clear(self):
+        print "Usage: ssm_clear"
+    
+    def do_ssm_clear(self, args):
+        self.ssm.clear()
+
+####################
+
+    def help_help(self):
+        print "Usage: help COMMAND"
+
+####################
+
+    def help_clear(self):
+        print "Usage: clear"
+    
+    def do_clear(self, args):
+        os.system('clear')
+
+####################
+
+    def help_history(self):
+        print "Usage: history"
+
+    def do_history(self, args):
+        for i in range(1, readline.get_current_history_length()):
+            print str(i).rjust(4) + '  ' + readline.get_history_item(i)
+
+####################
+
+    def help_whoami(self):
+        print "Usage: whoami"
+
+    def do_whoami(self, args):
+        if len(self.username) > 0:
+            print self.username
+        else:
+            logging.warning("You're not logged in")
+
+####################
+
+    def help_whoamitalkingto(self):
+        print "Usage: whoamitalkingto"
+
+    def do_whoamitalkingto(self, args):
+        if len(self.server) > 0:
+            print self.server
+        else:
+            logging.warning('Yourself')
+
+####################
+
     def help_ssm(self):
         print 'The System Set Manager (SSM) is a group of systems that you '
         print 'can perform tasks on as a group.'
@@ -476,36 +528,6 @@ For help for a specific command try "help <cmd>".
 
             if len(systems) > 0:
                 print 'Systems Selected: ' + str(len(systems))
-
-####################
-
-    def help_ssm_clear(self):
-        print "Usage: ssm_clear"
-    
-    def do_ssm_clear(self, args):
-        self.ssm.clear()
-
-####################
-
-    def help_help(self):
-        print "Usage: help COMMAND"
-
-####################
-
-    def help_clear(self):
-        print "Usage: clear"
-    
-    def do_clear(self, args):
-        os.system('clear')
-
-####################
-
-    def help_history(self):
-        print "Usage: history"
-
-    def do_history(self, args):
-        for i in range(1, readline.get_current_history_length()):
-            print str(i).rjust(4) + '  ' + readline.get_history_item(i)
 
 ####################
 
@@ -647,28 +669,6 @@ For help for a specific command try "help <cmd>".
                     logging.debug(sys.exc_info())
         else:
             logging.warning("You're not logged in")
-
-####################
-
-    def help_whoami(self):
-        print "Usage: whoami"
-
-    def do_whoami(self, args):
-        if len(self.username) > 0:
-            print self.username
-        else:
-            logging.warning("You're not logged in")
-
-####################
-
-    def help_whoamitalkingto(self):
-        print "Usage: whoamitalkingto"
-
-    def do_whoamitalkingto(self, args):
-        if len(self.server) > 0:
-            print self.server
-        else:
-            logging.warning('Yourself')
 
 ####################
 
