@@ -17,6 +17,7 @@ License: GPLv3+
 # schedule.getAction - missing
 # system.getScriptResults - system names not associated with output
 # channel.software.listErrata and system.getRelevantErrata date formats
+# system.listPackages does not include 'id'
 
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
@@ -27,23 +28,25 @@ from SpacewalkShell import SpacewalkShell
 if __name__ == '__main__':
     optionsTable = [
         Option('-u', '--username', action='store',
-               help='Use this username to connect to the server'),
+               help='use this username to connect to the server'),
         Option('-p', '--password', action='store',
-               help='Use this password to connect to the server'),
+               help='use this password to connect to the server'),
         Option('-s', '--server', action='store', default='localhost', 
-               help='Connect to this server [default: %default]'),
+               help='connect to this server [default: %default]'),
         Option('--nocache', action='store_true',
-                help='Do not create a username/password cache'),
+                help='do not create a username/password cache'),
         Option('--nossl', action='store_true',
-               help='Use HTTP instead of HTTPS'),
+               help='use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
-                help='Do not store command history in ~/.spacecmd_history'),
+                help='do not store command history in ~/.spacecmd_history'),
+        Option('-y', '--yes', action='store_true',
+               help='answer yes for all questions'),
         Option('-q', '--quiet', action='store_true',
-               help='Print only error messages'),
+               help='print only error messages'),
         Option('-v', '--verbose', action='store_true',
-               help='Print informational messages'),
+               help='print informational messages'),
         Option('-d', '--debug', action='store_true',
-               help='Print debug messages'),
+               help='print debug messages'),
     ]
 
     usage = 'usage: %prog [options] [command]'    

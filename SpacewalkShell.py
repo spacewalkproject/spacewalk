@@ -49,6 +49,10 @@ For help for a specific command try 'help <cmd>'.
         self.server = ''
         self.ssm = {}
 
+        # cache large lists instead of looking up every time
+        self.all_package_names = []
+        self.all_system_names = []
+
         # make the options available everywhere
         self.options = options
 
@@ -234,7 +238,11 @@ For help for a specific command try 'help <cmd>'.
 
 
     def prompt_user(self, prompt):
-        input = raw_input(prompt)
+        try:
+            input = raw_input(prompt)
+        except EOFError:
+            print
+            return ''
 
         if input != '':
             self.remove_last_history_item()
@@ -242,8 +250,10 @@ For help for a specific command try 'help <cmd>'.
         return input
 
 
-    def user_confirm(self, prompt='Is this correct?'):
-        answer = self.prompt_user('%s ' % prompt)
+    def user_confirm(self, prompt='Is this ok [y/N]:'):
+        if self.options.yes: return True
+
+        answer = self.prompt_user('\n%s ' % prompt)
 
         if re.match('y', answer, re.IGNORECASE):
             return True
@@ -317,6 +327,28 @@ For help for a specific command try 'help <cmd>'.
         else:
             package_names.sort()
             return package_names
+
+
+    # create a global list of all available package names
+    def list_all_package_names(self, channel=''):
+        if len(self.all_package_names):
+            return self.all_package_names
+
+        if channel:
+            channels = [channel]
+        else:
+            channels = self.client.channel.listSoftwareChannels(self.session)
+            channels = [c.get('label') for c in channels]
+
+        for c in channels:
+            packages = \
+                self.client.channel.software.listLatestPackages(self.session, c)
+
+            for p in packages:
+                if not p.get('name') in self.all_package_names:
+                    self.all_package_names.append(p.get('name'))
+
+        return self.all_package_names
 
 
     # check for duplicate system names and return the system ID
@@ -1210,13 +1242,14 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: system_list'
     
     def do_system_list(self, args, doreturn=False):
-        systems = self.client.system.listSystems(self.session)
-        systems = [s.get('name') for s in systems]
+        if not len(self.all_system_names):
+            systems = self.client.system.listSystems(self.session)
+            self.all_system_names = [s.get('name') for s in systems]
 
         if doreturn:
-            return systems
+            return self.all_system_names
         else:
-            print '\n'.join(sorted(systems))
+            print '\n'.join(sorted(self.all_system_names))
 
 ####################
 
@@ -1252,7 +1285,7 @@ For help for a specific command try 'help <cmd>'.
                                                                    value)  
             key = 'name' 
         elif field == 'id':
-            results = self.client.system.listSystems(self.session)
+            results = self.do_system_list('', True)
             key = 'id' 
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
@@ -1350,7 +1383,8 @@ For help for a specific command try 'help <cmd>'.
             keep_script_file = False
 
             # have the user put the script into that file
-            (script, script_file) = self.editor('#!/bin/bash\n')
+            # put 'hostname' in automatically until the API is fixed
+            (script, script_file) = self.editor('#!/bin/bash\n\nhostname\n')
 
         if not script:
             logging.error('No script provided')
@@ -1383,10 +1417,10 @@ For help for a specific command try 'help <cmd>'.
                                                       script,
                                                       time)
 
-            logging.info('Schedule ID: %s' % str(id))
+            logging.info('Action ID: %s' % str(id))
             scheduled += 1
 
-        print 'Scheduled: %s systems' % str(scheduled)
+        print 'Scheduled: %s system(s)' % str(scheduled)
 
         if not keep_script_file:
             try:
@@ -1513,15 +1547,262 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_system_availableupgrades(self):
-        print 'Usage: system_availableupgrades SSM|SYSTEM ...'
+    def help_system_installpackage(self):
+        print 'Usage: system_installpackage SSM|SYSTEM <PACKAGE ...>'
 
-    def complete_system_availableupgrades(self, text, line, begidx, endidx):
+    def complete_system_installpackage(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_system_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.list_all_package_names(), text)
+ 
+    def do_system_installpackage(self, args):
+        if len(self.args) < 2:
+            self.help_system_installpackage()
+            return
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+            self.args.pop(0)
+        else:
+            systems = [self.args.pop(0)]
+
+        packages_to_install = self.args
+
+        jobs = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            avail_packages = self.client.system.listLatestInstallablePackages(\
+                                 self.session, system_id)
+
+            # find the corresponding package IDs
+            package_ids = []
+            for package_to_install in packages_to_install:
+                found_package = False
+
+                for p in avail_packages:
+                    if package_to_install == p.get('name'):
+                        found_package = True
+                        package_ids.append(p.get('id'))
+                        break
+
+                if not found_package:
+                    logging.warning("%s doesn't have access to %s" %(
+                                    system, package_to_install))
+
+            if len(package_ids):
+                jobs.append((system, system_id, package_ids))
+
+        if not len(jobs): return
+
+        count = 0
+        for job in jobs:
+            (system, system_id, package_ids) = job
+
+            if count: print 
+            count += 1
+
+            print 'System: %s' % system
+            print 'Install Packages:'
+            for id in package_ids:
+                package = self.client.packages.getDetails(self.session, id)
+                print self.build_package_names(package)
+        
+        if not self.user_confirm(): return
+
+        scheduled = 0
+        for job in jobs:
+            (system, system_id, package_ids) = job
+
+            time = self.parse_time_input('now')
+
+            status = self.client.system.schedulePackageInstall(self.session,
+                                                               system_id,
+                                                               package_ids,
+                                                               time)
+
+            if status:
+                scheduled += 1
+            else:
+                logging.error('Failed to schedule %s' % system)
+                continue 
+
+        print 'Scheduled %s system(s)' % str(scheduled)
+
+####################
+
+    def help_system_removepackage(self):
+        print 'Usage: system_removepackage SSM|SYSTEM <PACKAGE ...>'
+
+    def complete_system_removepackage(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_system_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.list_all_package_names(), text)
+ 
+    def do_system_removepackage(self, args):
+        if len(self.args) < 2:
+            self.help_system_removepackage()
+            return
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+            self.args.pop(0)
+        else:
+            systems = [self.args.pop(0)]
+
+        packages_to_remove = self.args
+
+        jobs = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            channels = \
+                self.client.channel.software.listSystemChannels(self.session, 
+                                                                system_id)
+
+            #XXX: system.listPackages doesn't include package ID           
+            installed_packages = []
+            for channel in channels:
+                installed_packages.extend(
+                    self.client.system.listPackagesFromChannel(
+                        self.session, system_id, channel.get('label')))
+
+            # find the corresponding package IDs
+            package_ids = []
+            for package_to_remove in packages_to_remove:
+                found_package = False
+
+                for p in installed_packages:
+                    if package_to_remove == p.get('name'):
+                        found_package = True
+                        package_ids.append(p.get('id'))
+                        break
+
+                if not found_package:
+                    logging.warning("%s does not have %s installed" %(
+                                    system, package_to_remove))
+
+            if len(package_ids):
+                jobs.append((system, system_id, package_ids))
+
+        if not len(jobs): return
+
+        count = 0
+        for job in jobs:
+            (system, system_id, package_ids) = job
+
+            if count: print 
+            count += 1
+
+            print 'System: %s' % system
+            print 'Remove Packages:'
+            for id in package_ids:
+                package = self.client.packages.getDetails(self.session, id)
+                print self.build_package_names(package)
+        
+        if not self.user_confirm(): return
+
+        scheduled = 0
+        for job in jobs:
+            (system, system_id, package_ids) = job
+
+            time = self.parse_time_input('now')
+
+            id = self.client.system.schedulePackageRemove(self.session,
+                                                          system_id,
+                                                          package_ids,
+                                                          time)
+
+            if id:
+                logging.debug('Action ID: %s' % str(id))
+                scheduled += 1
+            else:
+                logging.error('Failed to schedule %s' % system)
+                continue 
+
+        print 'Scheduled %s system(s)' % str(scheduled)
+
+####################
+
+    def help_system_upgradepackage(self):
+        print 'Usage: system_upgradepackage SSM|SYSTEM <PACKAGE ...>|*'
+
+    def complete_system_upgradepackage(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_system_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.list_all_package_names(), text)
+ 
+    def do_system_upgradepackage(self, args):
+        if len(self.args) < 2:
+            self.help_system_upgradepackage()
+            return
+
+        # install and upgrade for individual packages are the same
+        if not '.*' in self.args[1:]:
+            return self.do_system_installpackage(args)
+
+        # only pass the system/SSM to do_system_listupgrades()
+        self.args = [self.args[0]]
+
+        self.do_system_listupgrades(args)
+        if not self.user_confirm(): return
+         
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = [self.args.pop(0)]
+
+        scheduled = 0
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            packages = \
+                self.client.system.listLatestUpgradablePackages(self.session,
+                                                                system_id)
+            
+            packages = [p.get('id') for p in packages]
+
+            time = self.parse_time_input('now')
+
+            status = self.client.system.schedulePackageInstall(self.session,
+                                                               system_id,
+                                                               package_ids,
+                                                               time)
+
+            if status:
+                scheduled += 1
+            else:
+                logging.error('Failed to schedule %s' % system)
+                continue 
+
+        print 'Scheduled %s system(s)' % str(scheduled)
+
+####################
+
+    def help_system_listupgrades(self):
+        print 'Usage: system_listupgrades SSM|SYSTEM ...'
+
+    def complete_system_listupgrades(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
  
-    def do_system_availableupgrades(self, args):
+    def do_system_listupgrades(self, args):
         if not len(self.args):
-            self.help_system_availableupgrades()
+            self.help_system_listupgrades()
             return
 
         add_separator = False
@@ -1549,7 +1830,11 @@ For help for a specific command try 'help <cmd>'.
                 print 'System: %s' % system
                 print
 
+            count = 0
             for package in sorted(packages, key=itemgetter('name')):
+                if count > 0: print
+                count += 1
+
                 old = {'name'    : package.get('name'),
                        'version' : package.get('from_version'),
                        'release' : package.get('from_release'),
@@ -1560,21 +1845,20 @@ For help for a specific command try 'help <cmd>'.
                        'release' : package.get('to_release'),
                        'epoch'   : package.get('to_epoch')}
 
-                print 'Old: %s' % self.build_package_names(old)
-                print 'New: %s' % self.build_package_names(new)
-                print
+                print 'From: %s' % self.build_package_names(old)
+                print 'To:   %s' % self.build_package_names(new)
 
 ####################
 
-    def help_system_packages(self):
-        print 'Usage: system_packages SSM|SYSTEM ...'
+    def help_system_listinstalledpackages(self):
+        print 'Usage: system_listinstalledpackages SSM|SYSTEM ...'
 
-    def complete_system_packages(self, text, line, begidx, endidx):
+    def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
  
-    def do_system_packages(self, args):
+    def do_system_listinstalledpackages(self, args):
         if not len(self.args):
-            self.help_system_packages()
+            self.help_system_listinstalledpackages()
             return
 
         add_separator = False
@@ -2334,7 +2618,7 @@ For help for a specific command try 'help <cmd>'.
 ####################
  
     def help_configchannel_filedetails(self):
-        print 'Usage: configchannel_filedetails CHANNEL FILE ...'
+        print 'Usage: configchannel_filedetails CHANNEL <FILE ...>'
 
     def complete_configchannel_filedetails(self, text, line, begidx, endidx):
         parts = line.split(' ')
