@@ -91,7 +91,7 @@ For help for a specific command try 'help <cmd>'.
             self.cmd = parts[0]
             self.args = parts[1:]
 
-            # simple globbing
+            # allow simple globbing
             self.args = [re.sub('\*', '.*', a) for a in self.args]
         except IndexError:
             self.cmd = ''
@@ -359,6 +359,11 @@ For help for a specific command try 'help <cmd>'.
 
 
     def print_errata_summary(self, errata):
+        date_parts = errata.get('date').split()
+
+        if len(date_parts) > 1:
+            errata['date'] = date_parts[0]
+
         print '%s  %s  %s'  % (
               errata.get('advisory_name').ljust(14), 
               textwrap.wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50),
@@ -369,7 +374,6 @@ For help for a specific command try 'help <cmd>'.
             rhsa = []
             rhea = []
             rhba = []
-            other = []
 
             for e in errata:
                 type = e.get('advisory_type').lower()
@@ -381,7 +385,9 @@ For help for a specific command try 'help <cmd>'.
                 elif 'enhancement' in type:
                     rhea.append(e)
                 else:
-                    other.append(e)
+                    logging.warning(e.get('%s is an unknown type') % (
+                                    e.get('advisory_name')))
+                    continue
                
             if len(errata) == 0:
                 print 'No relevant errata'
@@ -404,13 +410,6 @@ For help for a specific command try 'help <cmd>'.
 
                 print 'Enhancement Errata:'
                 map(self.print_errata_summary, rhea)
-
-            if len(other) > 0:
-                if len(rhsa) > 0 or len(rhba) > 0 or len(rhea) > 0:
-                    print
-
-                print 'Other Errata:'
-                map(self.print_errata_summary, other)
 
 
     def print_action_summary(self, action, systems=[]):
@@ -1114,6 +1113,72 @@ For help for a specific command try 'help <cmd>'.
             print snippet.get('contents')
 
 ####################
+ 
+    def help_errata_details(self):
+        print 'Usage: errata_details NAME ...'
+
+    def complete_errata_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_errata_list('', True), text)
+ 
+    def do_errata_details(self, args):
+        if len(self.args) == 0:
+            self.help_errata_details()
+            return
+
+        name = self.args[0]
+
+        add_separator = False
+
+        for errata in self.args:
+            try:
+                details = self.client.errata.getDetails(self.session, name)
+
+                packages = self.client.errata.listPackages(self.session, name)
+
+                channels = \
+                    self.client.errata.applicableToChannels(self.session, name)
+            except:
+                logging.warning(name + ' is not a valid errata')
+                logging.debug(sys.exc_info())
+                continue
+     
+            if add_separator:
+                print self.SEPARATOR
+            
+            add_separator = True
+
+            print 'Name:       ' + name
+            print
+            print 'Product:    ' + details.get('product')
+            print 'Type:       ' + details.get('type')
+            print 'Issue Date: ' + details.get('issue_date')
+            print
+            print 'Topic: '
+            print '\n'.join(textwrap.wrap(details.get('topic')))
+            print
+            print 'Description: '
+            print '\n'.join(textwrap.wrap(details.get('description')))
+
+            if details.get('notes'):
+                print
+                print 'Notes:'
+                print '\n'.join(textwrap.wrap(details.get('notes')))
+
+            print 
+            print 'Solution:'
+            print '\n'.join(textwrap.wrap(details.get('solution')))
+            print
+            print 'References:'
+            print '\n'.join(textwrap.wrap(details.get('references')))
+            print
+            print 'Affected Channels:'
+            print '\n'.join(sorted([c.get('label') for c in channels]))
+            print
+            print 'Affected Packages:'
+            print '\n'.join(sorted(self.build_package_names(packages)))
+     
+
+####################
 
     def help_errata_findcve(self):
         print 'Usage: errata_findcve CVE ...'
@@ -1336,7 +1401,7 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_hardware(self):
-        print 'Usage: system_details SSM|SYSTEM ...'
+        print 'Usage: system_hardware SSM|SYSTEM ...'
 
     def complete_system_hardware(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -2478,5 +2543,37 @@ For help for a specific command try 'help <cmd>'.
             print 'GPG Key:            ' + details.get('gpg_key_id')
             print 'GPG Fingerprint:    ' + details.get('gpg_key_fp')
             print 'GPG URL:            ' + details.get('gpg_key_url')
+
+####################
+
+    def help_softwarechannel_errata(self):
+        print 'Usage: softwarechannel_errata CHANNEL ...'
+    
+    def complete_softwarechannel_errata(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+ 
+    def do_softwarechannel_errata(self, args):
+        if len(self.args) == 0:
+            self.do_help_softwarechannel_errata()
+            return
+
+        channels = self.args
+
+        add_separator = False
+
+        for channel in sorted(channels):
+            if len(channels) > 1:
+                print 'Channel: ' + channel
+                print
+
+            errata = self.client.channel.software.listErrata(self.session,
+                                                             channel)
+
+            self.print_errata_list(errata)
+
+            if add_separator:
+                print self.SEPARATOR
+
+            add_separator = True
 
 # vim:ts=4:expandtab:

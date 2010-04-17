@@ -16,6 +16,7 @@ License: GPLv3+
 # system.scheduleScriptRun - schedule multiple systems at once
 # schedule.getAction - missing
 # system.getScriptResults - system names not associated with output
+# channel.software.listErrata and system.getRelevantErrata date formats
 
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
