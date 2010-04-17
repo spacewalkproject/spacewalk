@@ -158,7 +158,7 @@ For help for a specific command try "help <cmd>".
         else:
             return line
 
-###########
+####################
 
     def tab_completer(self, options, text):
         return [o for o in options if re.match(text, o)]
@@ -378,7 +378,7 @@ For help for a specific command try "help <cmd>".
             for s in systems:
                 print '  ' + s.get('server_name')
 
-###########
+####################
 
     def help_ssm(self):
         print 'The System Set Manager (SSM) is a group of systems that you '
@@ -428,7 +428,7 @@ For help for a specific command try "help <cmd>".
         if len(self.ssm) > 0:
             print 'Systems Selected: ' + str(len(self.ssm))
 
-###########
+####################
 
     def help_ssm_rm(self):
         print "Usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ..."
@@ -460,7 +460,7 @@ For help for a specific command try "help <cmd>".
             
         print 'Systems Selected: ' + str(len(self.ssm))
 
-###########
+####################
  
     def help_ssm_list(self):
         print "Usage: ssm_list"
@@ -477,7 +477,7 @@ For help for a specific command try "help <cmd>".
             if len(systems) > 0:
                 print 'Systems Selected: ' + str(len(systems))
 
-###########
+####################
 
     def help_ssm_clear(self):
         print "Usage: ssm_clear"
@@ -485,12 +485,12 @@ For help for a specific command try "help <cmd>".
     def do_ssm_clear(self, args):
         self.ssm.clear()
 
-###########
+####################
 
     def help_help(self):
         print "Usage: help COMMAND"
 
-###########
+####################
 
     def help_clear(self):
         print "Usage: clear"
@@ -498,7 +498,7 @@ For help for a specific command try "help <cmd>".
     def do_clear(self, args):
         os.system('clear')
 
-###########
+####################
 
     def help_history(self):
         print "Usage: history"
@@ -507,7 +507,7 @@ For help for a specific command try "help <cmd>".
         for i in range(1, readline.get_current_history_length()):
             print str(i).rjust(4) + '  ' + readline.get_history_item(i)
 
-###########
+####################
 
     def help_login(self):
         print "Usage: login [USERNAME] [SERVER]"
@@ -628,7 +628,7 @@ For help for a specific command try "help <cmd>".
 
         logging.info("Connected to " + serverurl + " as " + username)
 
-###########
+####################
 
     def help_logout(self):
         print "Usage: logout"
@@ -648,7 +648,7 @@ For help for a specific command try "help <cmd>".
         else:
             logging.warning("You're not logged in")
 
-###########
+####################
 
     def help_whoami(self):
         print "Usage: whoami"
@@ -659,7 +659,7 @@ For help for a specific command try "help <cmd>".
         else:
             logging.warning("You're not logged in")
 
-###########
+####################
 
     def help_whoamitalkingto(self):
         print "Usage: whoamitalkingto"
@@ -670,7 +670,7 @@ For help for a specific command try "help <cmd>".
         else:
             logging.warning('Yourself')
 
-###########
+####################
 
     def help_get_apiversion(self):
         print "Usage: get_apiversion"
@@ -679,7 +679,7 @@ For help for a specific command try "help <cmd>".
     def do_get_apiversion(self, args):
         print self.client.api.getVersion()
 
-###########
+####################
 
     def help_get_serverversion(self):
         print "Usage: get_serverversion"
@@ -687,7 +687,7 @@ For help for a specific command try "help <cmd>".
     def do_get_serverversion(self, args):
         print self.client.api.systemVersion()
 
-###########
+####################
 
     def help_get_certificateexpiration(self):
         print "Usage: get_certificateexpiration"
@@ -695,7 +695,7 @@ For help for a specific command try "help <cmd>".
     def do_get_certificateexpiration(self, args):
         print self.client.satellite.getCertificateExpirationDate(self.session).value
 
-###########
+####################
 
     def help_get_entitlements(self):
         print "Usage: get_entitlements"
@@ -714,7 +714,7 @@ For help for a specific command try "help <cmd>".
             print e.get('label') + ": " + \
                   str(e.get('used_slots')) + "/" + str(e.get('total_slots'))
 
-###########
+####################
 
     def help_package_details(self):
         print "Usage: package_details PACKAGE ..."        
@@ -762,7 +762,7 @@ For help for a specific command try "help <cmd>".
             for channel in sorted([c.get('label') for c in channels]):
                 print channel
 
-###########
+####################
 
     def help_package_search(self):
         print "Usage: package_search PACKAGE|QUERY"
@@ -797,7 +797,7 @@ For help for a specific command try "help <cmd>".
         else:
             logging.warning('No packages found')
 
-###########
+####################
 
     def help_kickstart_list(self):
         print "Usage: kickstart_list [PATTERN] ..."
@@ -814,7 +814,7 @@ For help for a specific command try "help <cmd>".
 
             print "\n".join(sorted(kickstarts))
 
-###########
+####################
 
     def help_kickstart_details(self):
         print "Usage: kickstart_details PROFILE"
@@ -982,7 +982,7 @@ For help for a specific command try "help <cmd>".
                 print
                 print s.get('contents')
  
-###########
+####################
 
     def help_kickstart_raw(self):
         print "Usage: kickstart_raw [PATTERN] ..."
@@ -1011,7 +1011,7 @@ For help for a specific command try "help <cmd>".
 
         print kickstart
 
-###########
+####################
 
     def help_kickstart_listsnippets(self):
         print "Usage: kickstart_listsnippets [PATTERN] ..."
@@ -1028,7 +1028,7 @@ For help for a specific command try "help <cmd>".
 
             print "\n".join(sorted(snippets))
 
-###########
+####################
  
     def help_kickstart_snippetdetails(self):
         print "Usage: kickstart_snippetdetails SNIPPET ..."
@@ -1068,7 +1068,7 @@ For help for a specific command try "help <cmd>".
             print
             print snippet.get('contents')
 
-###########
+####################
 
     def help_system_list(self):
         print "Usage: system_list"
@@ -1082,7 +1082,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(systems))
 
-###########
+####################
 
     def help_system_search(self):
         print "Usage: system_search QUERY"
@@ -1154,7 +1154,7 @@ For help for a specific command try "help <cmd>".
             else:
                 logging.warning('No systems found')
 
-###########
+####################
 
     def help_schedule_script(self):
         print "Usage: schedule_script SSM|SYSTEM ..."
@@ -1268,7 +1268,7 @@ For help for a specific command try "help <cmd>".
                 logging.error(sys.exc_info()[1])
                 logging.debug(sys.exc_info())
 
-###########
+####################
 
     def help_system_hardware(self):
         print "Usage: system_details SSM|SYSTEM ..."
@@ -1390,7 +1390,7 @@ For help for a specific command try "help <cmd>".
                     print '  Class:       ' + device.get('device_class')
                     print '  Bus:         ' + device.get('bus')
 
-###########
+####################
 
     def help_system_availableupgrades(self):
         print "Usage: system_availableupgrades SSM|SYSTEM ..."
@@ -1450,7 +1450,7 @@ For help for a specific command try "help <cmd>".
                 print 'New: ' + self.build_package_names(new)
                 print
 
-###########
+####################
 
     def help_system_packages(self):
         print "Usage: system_packages SSM|SYSTEM ..."
@@ -1496,7 +1496,7 @@ For help for a specific command try "help <cmd>".
 
             print "\n".join(self.build_package_names(packages))
 
-###########
+####################
 
     def help_system_details(self):
         print "Usage: system_details SSM|SYSTEM ..."
@@ -1616,7 +1616,7 @@ For help for a specific command try "help <cmd>".
                     if group.get('subscribed') == 1:
                         print '  ' + group.get('system_group_name')
 
-###########
+####################
 
     def help_system_errata(self):
         print "Usage: system_errata SYSTEM ..."
@@ -1705,7 +1705,7 @@ For help for a specific command try "help <cmd>".
                 print 'Other Errata:'
                 self.print_errata_summary(other)
 
-###########
+####################
 
     def help_group_list(self):
         print "Usage: group_list"
@@ -1719,7 +1719,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(groups))
 
-###########
+####################
 
     def help_group_listsystems(self):
         print "Usage: group_listsystems GROUP"
@@ -1747,12 +1747,9 @@ For help for a specific command try "help <cmd>".
         if doreturn:
             return systems
         else:
-            if len(self.args) > 1:
-                systems = self.filter_results(systems, self.args[1:])
-
             print "\n".join(sorted(systems))
      
-###########
+####################
  
     def help_group_details(self):
         print "Usage: group_details GROUP ..."
@@ -1795,7 +1792,7 @@ For help for a specific command try "help <cmd>".
             for system in sorted(systems):
                 print '  ' + system
 
-###########
+####################
 
     def help_schedule_cancel(self):
         print "Usage: schedule_cancel ID|* ..."
@@ -1836,7 +1833,7 @@ For help for a specific command try "help <cmd>".
 
         print 'Canceled ' + str(len(actions)) + ' actions'
 
-###########
+####################
 
     def help_schedule_summary(self):
         print "Usage: schedule_summary ID"
@@ -1890,7 +1887,7 @@ For help for a specific command try "help <cmd>".
         print 'Failed:    ' + str(len(failed))
         print 'Pending:   ' + str(len(pending))
 
-###########
+####################
 
     def help_schedule_rawoutput(self):
         print "Usage: schedule_rawoutput ID"
@@ -1937,7 +1934,7 @@ For help for a specific command try "help <cmd>".
             print
             print r.get('output')
 
-###########
+####################
 
     def help_schedule_listpending(self):
         print "Usage: schedule_listpending [LIMIT]"
@@ -1969,7 +1966,7 @@ For help for a specific command try "help <cmd>".
     
                 self.print_action_summary(actions[i], systems)
             
-###########
+####################
 
     def help_schedule_listcompleted(self):
         print "Usage: schedule_listcompleted [LIMIT]"
@@ -2001,7 +1998,7 @@ For help for a specific command try "help <cmd>".
     
                 self.print_action_summary(actions[i], systems)
             
-###########
+####################
 
     def help_schedule_listfailed(self):
         print "Usage: schedule_listfailed [LIMIT]"
@@ -2033,7 +2030,7 @@ For help for a specific command try "help <cmd>".
     
                 self.print_action_summary(actions[i], systems)
             
-###########
+####################
 
     def help_schedule_listarchived(self):
         print "Usage: schedule_listarchived [LIMIT]"
@@ -2062,7 +2059,7 @@ For help for a specific command try "help <cmd>".
     
                 self.print_action_summary(actions[i])
             
-###########
+####################
 
     def help_cryptokey_list(self):
         print "Usage: cryptokey_list"
@@ -2076,7 +2073,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(keys))
 
-###########
+####################
  
     def help_cryptokey_details(self):
         print "Usage: cryptokey_details KEY ..."
@@ -2111,7 +2108,7 @@ For help for a specific command try "help <cmd>".
             print
             print details.get('content')
 
-###########
+####################
 
     def help_activationkey_list(self):
         print "Usage: activationkey_list"
@@ -2125,7 +2122,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(keys))
 
-###########
+####################
 
     def help_activationkey_listsystems(self):
         print "Usage: activationkey_listsystems KEY"
@@ -2151,7 +2148,7 @@ For help for a specific command try "help <cmd>".
 
         print "\n".join(systems)
 
-###########
+####################
  
     def help_activationkey_details(self):
         print "Usage: activationkey_details KEY ..."
@@ -2226,7 +2223,7 @@ For help for a specific command try "help <cmd>".
 
                 print '  ' + name
 
-###########
+####################
 
     def help_configchannel_list(self):
         print "Usage: configchannel_list"
@@ -2240,7 +2237,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(channels))
 
-###########
+####################
 
     def help_configchannel_listsystems(self):
         print "Usage: configchannel_listsystems CHANNEL"
@@ -2264,7 +2261,7 @@ For help for a specific command try "help <cmd>".
 
         print "\n".join(systems)
 
-###########
+####################
 
     def help_configchannel_listfiles(self):
         print "Usage: configchannel_listfiles CHANNEL ..."
@@ -2287,7 +2284,7 @@ For help for a specific command try "help <cmd>".
             else:
                 print "\n".join(sorted(files))
 
-###########
+####################
  
     def help_configchannel_filedetails(self):
         print "Usage: configchannel_filedetails CHANNEL FILE ..."
@@ -2351,7 +2348,7 @@ For help for a specific command try "help <cmd>".
                     print
                     print file.get('contents')
 
-###########
+####################
  
     def help_configchannel_details(self):
         print "Usage: configchannel_details CHANNEL ..."
@@ -2387,7 +2384,7 @@ For help for a specific command try "help <cmd>".
             for file in files:
                 print '  ' + file.get('path')
 
-###########
+####################
 
     def help_softwarechannel_list(self):
         print "Usage: softwarechannel_list"
@@ -2401,7 +2398,7 @@ For help for a specific command try "help <cmd>".
         else:
             print "\n".join(sorted(channels))
       
-###########
+####################
 
     def help_softwarechannel_listsystems(self):
         print "Usage: softwarechannel_listsystems CHANNEL"
@@ -2422,7 +2419,7 @@ For help for a specific command try "help <cmd>".
 
         print "\n".join(systems)
 
-###########
+####################
 
     def help_softwarechannel_packages(self):
         print "Usage: softwarechannel_packages CHANNEL [PACKAGE] ..."
@@ -2452,7 +2449,7 @@ For help for a specific command try "help <cmd>".
 
             print "\n".join(sorted(packages)) 
             
-###########
+####################
  
     def help_softwarechannel_details(self):
         print "Usage: softwarechannel_details CHANNEL ..."
