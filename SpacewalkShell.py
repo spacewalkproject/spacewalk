@@ -1367,8 +1367,7 @@ For help for a specific command try 'help <cmd>'.
         print
 
         # have the user confirm
-        if not self.user_confirm():
-            return
+        if not self.user_confirm(): return
 
         scheduled = 0
         for system in systems:

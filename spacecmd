@@ -27,11 +27,11 @@ from SpacewalkShell import SpacewalkShell
 if __name__ == '__main__':
     optionsTable = [
         Option('-u', '--username', action='store',
-               help='Use this username to connect to RHN/Satellite'),
+               help='Use this username to connect to the server'),
         Option('-p', '--password', action='store',
-               help='Use this password to connect to RHN/Satellite'),
-        Option('--server', action='store', default='localhost', 
-               help='Connect to this server (http[s]://<server>/APP)'),
+               help='Use this password to connect to the server'),
+        Option('-s', '--server', action='store', default='localhost', 
+               help='Connect to this server [default: %default]'),
         Option('--nocache', action='store_true',
                 help='Do not create a username/password cache'),
         Option('--nossl', action='store_true',
@@ -39,14 +39,15 @@ if __name__ == '__main__':
         Option('--nohistory', action='store_true',
                 help='Do not store command history in ~/.spacecmd_history'),
         Option('-q', '--quiet', action='store_true',
-               help='Only print error messages'),
+               help='Print only error messages'),
         Option('-v', '--verbose', action='store_true',
                help='Print informational messages'),
         Option('-d', '--debug', action='store_true',
-               help='Enable debug logging'),
+               help='Print debug messages'),
     ]
-    
-    parser = OptionParser(option_list=optionsTable)
+
+    usage = 'usage: %prog [options] [command]'    
+    parser = OptionParser(option_list=optionsTable, usage=usage)
     (options, args) = parser.parse_args()
  
     if options.debug:
@@ -62,7 +63,7 @@ if __name__ == '__main__':
 
     shell = SpacewalkShell(options)
 
-    if len(args) > 0:
+    if len(args):
         # run a single command given on the command line
         shell.preloop()
         shell.onecmd(shell.precmd(' '.join(args), True))
