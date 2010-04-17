@@ -33,7 +33,7 @@ if __name__ == '__main__':
                help='use this username to connect to the server'),
         Option('-p', '--password', action='store',
                help='use this password to connect to the server'),
-        Option('-s', '--server', action='store', default='localhost', 
+        Option('-s', '--server', action='store', default='localhost',
                help='connect to this server [default: %default]'),
         Option('--nocache', action='store_true',
                 help='do not create a username/password cache'),
@@ -51,10 +51,10 @@ if __name__ == '__main__':
                help='print debug messages'),
     ]
 
-    usage = 'usage: %prog [options] [command]'    
+    usage = 'usage: %prog [options] [command]'
     parser = OptionParser(option_list=optionsTable, usage=usage)
     (options, args) = parser.parse_args()
- 
+
     if options.debug:
         level = logging.DEBUG
     elif options.verbose:

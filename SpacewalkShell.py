@@ -20,7 +20,7 @@ class SpacewalkShell(Cmd):
     HISTORY_LENGTH = 1024
 
     SEPARATOR = '\n--------------------\n'
-  
+
     ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
                     'enterprise_entitled'          : 'Management',
                     'monitoring_entitled'          : 'Monitoring',
@@ -66,12 +66,12 @@ For help for a specific command try 'help <cmd>'.
             newdelims = readline.get_completer_delims()
             newdelims = re.sub(':|-|/', '', newdelims)
             readline.set_completer_delims(newdelims)
-        
+
             if not options.nohistory:
                 try:
                     if os.path.isfile(self.history_file):
                         readline.read_history_file(self.history_file)
-    
+
                     readline.set_history_length(self.HISTORY_LENGTH)
 
                     # always write the history file on exit
@@ -108,13 +108,13 @@ For help for a specific command try 'help <cmd>'.
         if nohistory:
             return line
 
-        # perform bash-like command substitution 
+        # perform bash-like command substitution
         if self.cmd[0] == '!':
             # remove the '!*' line from the history
             self.remove_last_history_item()
 
             history_match = False
-           
+
             if self.cmd[1] == '!':
                 # repeat the last command
                 line = readline.get_history_item(
@@ -125,9 +125,9 @@ For help for a specific command try 'help <cmd>'.
                 else:
                     logging.warning('%s: event not found' % self.cmd)
                     return ''
-            
+
             if not history_match:
-                # is a specific history item being referenced? 
+                # is a specific history item being referenced?
                 try:
                     number = int(self.cmd[1:])
                     line = readline.get_history_item(number)
@@ -143,15 +143,15 @@ For help for a specific command try 'help <cmd>'.
             if not history_match:
                 history_range = range(1, readline.get_current_history_length())
                 history_range.reverse()
- 
+
                 for i in history_range:
                     item = readline.get_history_item(i)
                     if re.match(self.cmd[1:], item):
                         line = item
                         history_match = True
                         break
-           
-            # append the arguments to the substituted command 
+
+            # append the arguments to the substituted command
             if history_match:
                 line += ' %s' % ''.join(self.args)
                 print line
@@ -203,7 +203,7 @@ For help for a specific command try 'help <cmd>'.
         success = False
         for editor_cmd in self.EDITORS:
             try:
-                exit_code = os.spawnlp(os.P_WAIT, editor_cmd, 
+                exit_code = os.spawnlp(os.P_WAIT, editor_cmd,
                                        editor_cmd, file_name)
 
                 if exit_code == 0:
@@ -225,7 +225,7 @@ For help for a specific command try 'help <cmd>'.
                 file = open(file_name, 'r')
                 contents = file.read()
                 file.close()
-                
+
                 return (contents, file_name)
             except:
                 logging.error('Could not read %s' % file_name)
@@ -265,18 +265,18 @@ For help for a specific command try 'help <cmd>'.
     # parse time input from the userand return xmlrpclib.DateTime
     def parse_time_input(self, time):
         if time == '' or re.match('now', time, re.IGNORECASE):
-            time = datetime.now() 
+            time = datetime.now()
         else:
             # parse the time provided
             match = re.search('^\+?(\d+)(s|m|h|d)$', time, re.IGNORECASE)
-    
+
             if not match or len(match.groups()) != 2:
                 logging.error('Invalid time provided')
                 return
-                
+
             number = int(match.group(1))
             unit = match.group(2)
-   
+
             if re.match('s', unit, re.IGNORECASE):
                 delta = timedelta(seconds=number)
             elif re.match('m', unit, re.IGNORECASE):
@@ -285,9 +285,9 @@ For help for a specific command try 'help <cmd>'.
                 delta = timedelta(hours=number)
             elif re.match('d', unit, re.IGNORECASE):
                 delta = timedelta(days=number)
-    
+
             time = now() + delta
- 
+
         time = xmlrpclib.DateTime(time.timetuple())
 
         if time:
@@ -322,7 +322,7 @@ For help for a specific command try 'help <cmd>'.
                 package += '.%s' % p.get('arch_label')
 
             package_names.append(package)
-           
+
         if single:
             return package_names[0]
         else:
@@ -354,10 +354,10 @@ For help for a specific command try 'help <cmd>'.
             for p in packages:
                 if not p.get('name') in self.all_package_shortnames:
                     self.all_package_shortnames.append(p.get('name'))
-       
+
                 if fullnames:
                     fullname = self.build_package_names(p)
-    
+
                     if not fullname in self.all_package_fullnames:
                         self.all_package_fullnames.append(fullname)
 
@@ -399,7 +399,7 @@ For help for a specific command try 'help <cmd>'.
             elif re.match('search:', item):
                 query = item.split(':', 1)[1]
                 results = self.do_system_search(query, True)
-        
+
                 if len(results):
                     systems.extend(results)
             else:
@@ -415,7 +415,7 @@ For help for a specific command try 'help <cmd>'.
             errata['date'] = date_parts[0]
 
         print '%s  %s  %s'  % (
-              errata.get('advisory_name').ljust(14), 
+              errata.get('advisory_name').ljust(14),
               wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50),
               errata.get('date').rjust(8))
 
@@ -438,7 +438,7 @@ For help for a specific command try 'help <cmd>'.
                     logging.warning(e.get('%s is an unknown type') % (
                                     e.get('advisory_name')))
                     continue
-               
+
             if not len(errata):
                 print 'No relevant errata'
                 return
@@ -446,14 +446,14 @@ For help for a specific command try 'help <cmd>'.
             if len(rhsa):
                 print 'Security Errata:'
                 map(self.print_errata_summary, rhsa)
-            
+
             if len(rhba):
                 if len(rhsa):
                     print
 
                 print 'Bug Fix Errata:'
                 map(self.print_errata_summary, rhba)
- 
+
             if len(rhea):
                 if len(rhsa) or len(rhba):
                     print
@@ -467,8 +467,8 @@ For help for a specific command try 'help <cmd>'.
         print 'Type:       %s' % action.get('type')
         print 'Scheduler:  %s' % action.get('scheduler')
         print 'Start Time: %s' % re.sub('T' , ' ', action.get('earliest').value)
-      
-        if len(systems): 
+
+        if len(systems):
             print
             print 'Systems:'
             for s in systems:
@@ -478,7 +478,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_ssm_clear(self):
         print 'Usage: ssm_clear'
-    
+
     def do_ssm_clear(self, args):
         self.ssm.clear()
 
@@ -491,7 +491,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_clear(self):
         print 'Usage: clear'
-    
+
     def do_clear(self, args):
         os.system('clear')
 
@@ -547,7 +547,7 @@ For help for a specific command try 'help <cmd>'.
 
             return self.tab_completer(groups, text)
         else:
-            return self.tab_completer(self.do_system_list('', True), text) 
+            return self.tab_completer(self.do_system_list('', True), text)
 
     def do_ssm_add(self, args):
         if not len(self.args):
@@ -580,7 +580,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_ssm_rm(self):
         print 'Usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ...'
-    
+
     def complete_ssm_rm(self, text, line, begidx, endidx):
         if re.match('group:', text):
             # prepend 'group' to each item for tab completion
@@ -597,7 +597,7 @@ For help for a specific command try 'help <cmd>'.
 
         systems = self.expand_systems(self.args)
         matches = self.filter_results(self.ssm.keys(), systems)
-        
+
         if not len(matches):
             logging.warning('No matches found')
             return
@@ -605,14 +605,14 @@ For help for a specific command try 'help <cmd>'.
         for match in matches:
             logging.info('Removed %s' % match)
             del self.ssm[match]
-            
+
         print 'Systems Selected: %s' % str(len(self.ssm))
 
 ####################
- 
+
     def help_ssm_list(self):
         print 'Usage: ssm_list'
-    
+
     def do_ssm_list(self, args, doreturn=False):
         systems = sorted(self.ssm.keys())
 
@@ -631,7 +631,7 @@ For help for a specific command try 'help <cmd>'.
 
     def do_login(self, args):
         self.session = ''
-        
+
         if self.options.nossl:
             proto = 'http'
         else:
@@ -676,7 +676,7 @@ For help for a specific command try 'help <cmd>'.
                     sessionfile = open(self.cache_file, 'r')
                     parts = sessionfile.read().split(':')
                     sessionfile.close()
-   
+
                     username = parts[0]
                     self.session = parts[1]
                 except:
@@ -697,8 +697,8 @@ For help for a specific command try 'help <cmd>'.
                     except:
                         logging.debug(sys.exc_info())
                         pass
-        
-        # attempt to login if we don't have a valid session yet    
+
+        # attempt to login if we don't have a valid session yet
         if not self.session:
             if self.options.username:
                 username = self.options.username
@@ -718,7 +718,7 @@ For help for a specific command try 'help <cmd>'.
                 password = getpass('Password: ')
 
             try:
-                self.session = self.client.auth.login(username, 
+                self.session = self.client.auth.login(username,
                                                       password)
             except:
                 logging.warning('Invalid credentials')
@@ -728,15 +728,15 @@ For help for a specific command try 'help <cmd>'.
             # write the session to a cache
             if not self.options.nocache:
                 try:
-                    logging.debug('Writing session cache to %s' % 
-                                  self.cache_file) 
+                    logging.debug('Writing session cache to %s' %
+                                  self.cache_file)
                     sessionfile = open(self.cache_file, 'w')
                     sessionfile.write('%s:%s' % (username, self.session))
                     sessionfile.close()
                 except:
                     logging.error('Could not write cache file')
                     logging.debug(sys.exc_info())
- 
+
         # disable caching of subsequent logins
         self.options.nocache = True
 
@@ -750,15 +750,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_logout(self):
         print 'Usage: logout'
-        
+
     def do_logout(self, args):
         if self.session:
             self.client.auth.logout(self.session)
             self.session = ''
             self.username = ''
             self.server = ''
-           
-            if os.path.isfile(self.cache_file): 
+
+            if os.path.isfile(self.cache_file):
                 try:
                     os.remove(self.cache_file)
                 except:
@@ -802,22 +802,22 @@ For help for a specific command try 'help <cmd>'.
         print 'System:'
         for e in entitlements.get('system'):
             print '%s: %s/%s' % (
-                  e.get('label'), 
-                  str(e.get('used_slots')),  
+                  e.get('label'),
+                  str(e.get('used_slots')),
                   str(e.get('total_slots')))
 
-        print       
+        print
         print 'Channel:'
         for e in entitlements.get('channel'):
             print '%s: %s/%s' % (
-                  e.get('label'), 
-                  str(e.get('used_slots')),  
+                  e.get('label'),
+                  str(e.get('used_slots')),
                   str(e.get('total_slots')))
 
 ####################
 
     def help_package_details(self):
-        print 'Usage: package_details PACKAGE ...'        
+        print 'Usage: package_details PACKAGE ...'
 
     def complete_package_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.list_all_package_names(True), text)
@@ -848,7 +848,7 @@ For help for a specific command try 'help <cmd>'.
 
             print 'Name:    %s' % details.get('name')
             print 'Version: %s' % details.get('version')
-            print 'Release: %s' % details.get('release') 
+            print 'Release: %s' % details.get('release')
             print 'Epoch:   %s' % details.get('epoch')
             print 'Arch:    %s' % details.get('arch_label')
 
@@ -874,14 +874,14 @@ For help for a specific command try 'help <cmd>'.
         print 'Advanced Search:'
         print 'Available Fields: name, epoch, version, release, arch, ' + \
               'description, summary'
-        print 'Example: name:kernel AND version:2.6.18 AND -description:devel' 
+        print 'Example: name:kernel AND version:2.6.18 AND -description:devel'
 
     def do_package_search(self, args):
         if not len(self.args):
             self.help_package_search()
             return
 
-        fields = ('name', 'epoch', 'version', 'release', 
+        fields = ('name', 'epoch', 'version', 'release',
                   'arch', 'description', 'summary')
 
         advanced = False
@@ -894,8 +894,8 @@ For help for a specific command try 'help <cmd>'.
             packages = self.client.packages.search.advanced(self.session, args)
         else:
             packages = self.client.packages.search.name(self.session, args)
-       
-        if len(packages): 
+
+        if len(packages):
             print '\n'.join(self.build_package_names(packages))
         else:
             logging.warning('No packages found')
@@ -904,7 +904,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_kickstart_list(self):
         print 'Usage: kickstart_list'
-    
+
     def do_kickstart_list(self, args, doreturn=False):
         kickstarts = self.client.kickstart.listKickstarts(self.session)
         kickstarts = [k.get('name') for k in kickstarts]
@@ -922,7 +922,7 @@ For help for a specific command try 'help <cmd>'.
     def complete_kickstart_details(self, text, line, begidx, endidx):
         if len(line.split(' ')) <= 2:
             return self.tab_completer(self.do_kickstart_list('', True), text)
- 
+
     def do_kickstart_details(self, args):
         if len(self.args) != 1:
             self.help_kickstart_details()
@@ -942,10 +942,10 @@ For help for a specific command try 'help <cmd>'.
             return
 
         act_keys = \
-            self.client.kickstart.profile.keys.getActivationKeys(self.session, 
+            self.client.kickstart.profile.keys.getActivationKeys(self.session,
                                                                  label)
 
-        variables = self.client.kickstart.profile.getVariables(self.session, 
+        variables = self.client.kickstart.profile.getVariables(self.session,
                                                                label)
 
         tree = \
@@ -965,7 +965,7 @@ For help for a specific command try 'help <cmd>'.
                                                            label)
 
         advanced_options = \
-            self.client.kickstart.profile.getAdvancedOptions(self.session, 
+            self.client.kickstart.profile.getAdvancedOptions(self.session,
                                                              label)
 
         config_manage = \
@@ -1001,7 +1001,7 @@ For help for a specific command try 'help <cmd>'.
         print 'Advanced:    %s' % str(kickstart.get('advanced_mode'))
         print 'Org Default: %s' % str(kickstart.get('org_default'))
 
-        print 
+        print
         print 'Config Management: %s' % str(config_manage)
         print 'Remote Commands:   %s' % str(remote_commands)
 
@@ -1031,7 +1031,7 @@ For help for a specific command try 'help <cmd>'.
             for line in partitions:
                 print '  %s' % line
 
-        print 
+        print
         print 'Software:'
         for s in software:
             print '  %s' % s
@@ -1076,18 +1076,18 @@ For help for a specific command try 'help <cmd>'.
 
                 print '  Type:        %s' % s.get('script_type')
                 print '  Chroot:      %s' % str(s.get('chroot'))
-            
+
                 if s.get('interpreter'):
                     print '  Interpreter: %s' % s.get('interpreter')
 
                 print
                 print s.get('contents')
- 
+
 ####################
 
     def help_kickstart_raw(self):
         print 'Usage: kickstart_raw LABEL'
-    
+
     def complete_kickstart_raw(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_kickstart_list('', True), text)
 
@@ -1096,7 +1096,7 @@ For help for a specific command try 'help <cmd>'.
 
         try:
             logging.debug('Retrieving %s' % url)
-            response = urllib2.urlopen(url) 
+            response = urllib2.urlopen(url)
             kickstart = response.read()
         except urllib2.HTTPError:
             logging.error(sys.exc_info()[1])
@@ -1116,7 +1116,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_kickstart_listsnippets(self):
         print 'Usage: kickstart_listsnippets'
-    
+
     def do_kickstart_listsnippets(self, args, doreturn=False):
         snippets = self.client.kickstart.snippet.listCustom(self.session)
         snippets = [s.get('name') for s in snippets]
@@ -1127,14 +1127,14 @@ For help for a specific command try 'help <cmd>'.
             print '\n'.join(sorted(snippets))
 
 ####################
- 
+
     def help_kickstart_snippetdetails(self):
         print 'Usage: kickstart_snippetdetails SNIPPET ...'
 
     def complete_kickstart_snippetdetails(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_kickstart_listsnippets('', True),
                                   text)
-             
+
     def do_kickstart_snippetdetails(self, args):
         if not len(self.args):
             self.help_kickstart_snippetdetails()
@@ -1143,7 +1143,7 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         snippets = self.client.kickstart.snippet.listCustom(self.session)
-        
+
         for name in self.args:
             for s in snippets:
                 if s.get('name') == name:
@@ -1152,11 +1152,11 @@ For help for a specific command try 'help <cmd>'.
 
             if not snippet:
                 logging.warning('%s is not a valid snippet' % name)
-                continue                
+                continue
 
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Name:   %s' % snippet.get('name')
@@ -1192,10 +1192,10 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('%s is not a valid errata' % name)
                 logging.debug(sys.exc_info())
                 continue
-     
+
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Name:       %s' % name
@@ -1215,7 +1215,7 @@ For help for a specific command try 'help <cmd>'.
                 print 'Notes:'
                 print '\n'.join(wrap(details.get('notes')))
 
-            print 
+            print
             print 'Solution:'
             print '\n'.join(wrap(details.get('solution')))
             print
@@ -1227,19 +1227,19 @@ For help for a specific command try 'help <cmd>'.
             print
             print 'Affected Packages:'
             print '\n'.join(sorted(self.build_package_names(packages)))
-     
+
 
 ####################
 
     def help_errata_search(self):
         print 'Usage: errata_search CVE ...'
-    
+
     def do_errata_search(self, args, doreturn=False):
         if not len(self.args):
             self.help_errata_search()
             return
 
-        add_separator = False           
+        add_separator = False
 
         for query in self.args:
             type = 'CVE'
@@ -1257,14 +1257,14 @@ For help for a specific command try 'help <cmd>'.
             else:
                 logging.error('Invalid query')
                 return
-           
+
             if add_separator: print self.SEPARATOR
-            add_separator = True 
- 
+            add_separator = True
+
             print 'Query: %s = %s' % (type, query)
             print
             print 'Results:'
-            
+
             if len(errata):
                 map(self.print_errata_summary, errata)
             else:
@@ -1274,7 +1274,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_list(self):
         print 'Usage: system_list'
-    
+
     def do_system_list(self, args, doreturn=False):
         if not len(self.all_system_names):
             systems = self.client.system.listSystems(self.session)
@@ -1292,8 +1292,8 @@ For help for a specific command try 'help <cmd>'.
         print
         print 'Available Fields: id, name, ip, hostname, ' + \
               'device, vendor, driver'
-        print 'Example: system_search vendor:vmware' 
-    
+        print 'Example: system_search vendor:vmware'
+
     def do_system_search(self, args, doreturn=False):
         if (len(self.args)) != 1:
             self.help_system_search()
@@ -1316,11 +1316,11 @@ For help for a specific command try 'help <cmd>'.
         results = []
         if field == 'name':
             results = self.client.system.search.nameAndDescription(self.session,
-                                                                   value)  
-            key = 'name' 
+                                                                   value)
+            key = 'name'
         elif field == 'id':
             results = self.do_system_list('', True)
-            key = 'id' 
+            key = 'id'
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
             key = 'ip'
@@ -1369,7 +1369,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_schedule_script(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_schedule_script(self, args):
         if not len(self.args):
             self.help_schedule_script()
@@ -1401,7 +1401,7 @@ For help for a specific command try 'help <cmd>'.
 
         if script_file:
             keep_script_file = True
-            
+
             script_file = os.path.abspath(script_file)
 
             try:
@@ -1471,7 +1471,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_system_hardware(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_system_hardware(self, args):
         if not len(self.args):
             self.help_system_details()
@@ -1492,19 +1492,19 @@ For help for a specific command try 'help <cmd>'.
             cpu = self.client.system.getCpu(self.session, system_id)
             memory = self.client.system.getMemory(self.session, system_id)
             devices = self.client.system.getDevices(self.session, system_id)
-            network = self.client.system.getNetworkDevices(self.session, 
+            network = self.client.system.getNetworkDevices(self.session,
                                                            system_id)
-          
+
             # Solaris systems don't have these value s
             for v in ('cache', 'vendor', 'family', 'stepping'):
                 if not cpu.get(v):
                     cpu[v] = ''
- 
+
             try:
                 dmi = self.client.system.getDmi(self.session, system_id)
             except xml.parsers.expat.ExpatError:
                 dmi = None
-            
+
             if add_separator:
                 print self.SEPARATOR
 
@@ -1572,7 +1572,7 @@ For help for a specific command try 'help <cmd>'.
                 for device in devices:
                     if count: print
                     count += 1
-    
+
                     print '  Description: %s' % (
                              wrap(device.get('description'), 60)[0])
                     print '  Driver:      %s' % device.get('driver')
@@ -1591,7 +1591,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_completer(self.do_system_list('', True), text)
         elif len(parts) > 2:
             return self.tab_completer(self.list_all_package_names(), text)
- 
+
     def do_system_installpackage(self, args):
         if len(self.args) < 2:
             self.help_system_installpackage()
@@ -1638,7 +1638,7 @@ For help for a specific command try 'help <cmd>'.
         for job in jobs:
             (system, system_id, package_ids) = job
 
-            if count: print 
+            if count: print
             count += 1
 
             print 'System: %s' % system
@@ -1646,7 +1646,7 @@ For help for a specific command try 'help <cmd>'.
             for id in package_ids:
                 package = self.client.packages.getDetails(self.session, id)
                 print self.build_package_names(package)
-        
+
         if not self.user_confirm(): return
 
         scheduled = 0
@@ -1664,7 +1664,7 @@ For help for a specific command try 'help <cmd>'.
                 scheduled += 1
             else:
                 logging.error('Failed to schedule %s' % system)
-                continue 
+                continue
 
         print 'Scheduled %s system(s)' % str(scheduled)
 
@@ -1680,7 +1680,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_completer(self.do_system_list('', True), text)
         elif len(parts) > 2:
             return self.tab_completer(self.list_all_package_names(), text)
- 
+
     def do_system_removepackage(self, args):
         if len(self.args) < 2:
             self.help_system_removepackage()
@@ -1701,10 +1701,10 @@ For help for a specific command try 'help <cmd>'.
             if not system_id: return
 
             channels = \
-                self.client.channel.software.listSystemChannels(self.session, 
+                self.client.channel.software.listSystemChannels(self.session,
                                                                 system_id)
 
-            #XXX: system.listPackages doesn't include package ID           
+            #XXX: system.listPackages doesn't include package ID
             installed_packages = []
             for channel in channels:
                 installed_packages.extend(
@@ -1735,7 +1735,7 @@ For help for a specific command try 'help <cmd>'.
         for job in jobs:
             (system, system_id, package_ids) = job
 
-            if count: print 
+            if count: print
             count += 1
 
             print 'System: %s' % system
@@ -1743,7 +1743,7 @@ For help for a specific command try 'help <cmd>'.
             for id in package_ids:
                 package = self.client.packages.getDetails(self.session, id)
                 print self.build_package_names(package)
-        
+
         if not self.user_confirm(): return
 
         scheduled = 0
@@ -1762,7 +1762,7 @@ For help for a specific command try 'help <cmd>'.
                 scheduled += 1
             else:
                 logging.error('Failed to schedule %s' % system)
-                continue 
+                continue
 
         print 'Scheduled %s system(s)' % str(scheduled)
 
@@ -1778,7 +1778,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_completer(self.do_system_list('', True), text)
         elif len(parts) > 2:
             return self.tab_completer(self.list_all_package_names(), text)
- 
+
     def do_system_upgradepackage(self, args):
         if len(self.args) < 2:
             self.help_system_upgradepackage()
@@ -1793,7 +1793,7 @@ For help for a specific command try 'help <cmd>'.
 
         self.do_system_listupgrades(args)
         if not self.user_confirm(): return
-         
+
         # use the systems listed in the SSM
         if self.args[0].lower() == 'ssm':
             systems = self.ssm
@@ -1808,7 +1808,7 @@ For help for a specific command try 'help <cmd>'.
             packages = \
                 self.client.system.listLatestUpgradablePackages(self.session,
                                                                 system_id)
-            
+
             packages = [p.get('id') for p in packages]
 
             time = self.parse_time_input('now')
@@ -1822,7 +1822,7 @@ For help for a specific command try 'help <cmd>'.
                 scheduled += 1
             else:
                 logging.error('Failed to schedule %s' % system)
-                continue 
+                continue
 
         print 'Scheduled %s system(s)' % str(scheduled)
 
@@ -1833,7 +1833,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_system_listupgrades(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_system_listupgrades(self, args):
         if not len(self.args):
             self.help_system_listupgrades()
@@ -1889,7 +1889,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_system_listinstalledpackages(self, args):
         if not len(self.args):
             self.help_system_listinstalledpackages()
@@ -1928,7 +1928,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_system_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_system_details(self, args):
         if not len(self.args):
             self.help_system_details()
@@ -1954,7 +1954,7 @@ For help for a specific command try 'help <cmd>'.
 
             registered = self.client.system.getRegistrationDate(self.session,
                                                                 system_id)
-            
+
             entitlements = self.client.system.getEntitlements(self.session,
                                                               system_id)
 
@@ -1971,7 +1971,7 @@ For help for a specific command try 'help <cmd>'.
 
             kernel = self.client.system.getRunningKernel(self.session,
                                                          system_id)
-           
+
             network = self.client.system.getNetwork(self.session, system_id)
 
             keys = self.client.system.listActivationKeys(self.session,
@@ -1985,7 +1985,7 @@ For help for a specific command try 'help <cmd>'.
 
                 for channel in config_channels:
                     ranked_config_channels.append(channel.get('label'))
-       
+
             if add_separator:
                 print self.SEPARATOR
 
@@ -2038,10 +2038,10 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_errata(self):
         print 'Usage: system_errata SSM|SYSTEM ...'
-    
+
     def complete_system_errata(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
- 
+
     def do_system_errata(self, args):
         if not len(self.args):
             self.do_help_system_errata()
@@ -2094,7 +2094,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_group_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
- 
+
     def do_group_listsystems(self, args, doreturn=False):
         if not len(self.args):
             self.help_group_listsystems()
@@ -2105,26 +2105,26 @@ For help for a specific command try 'help <cmd>'.
         try:
             systems = self.client.systemgroup.listSystems(self.session,
                                                           group)
-            
+
             systems = [s.get('profile_name') for s in systems]
         except:
             logging.warning('%s is not a valid group' % group)
             logging.debug(sys.exc_info())
             return []
- 
+
         if doreturn:
             return systems
         else:
             print '\n'.join(sorted(systems))
-     
+
 ####################
- 
+
     def help_group_details(self):
         print 'Usage: group_details GROUP ...'
 
     def complete_group_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
- 
+
     def do_group_details(self, args):
         if not len(self.args):
             self.help_group_details()
@@ -2134,21 +2134,21 @@ For help for a specific command try 'help <cmd>'.
 
         for group in self.args:
             try:
-                details = self.client.systemgroup.getDetails(self.session, 
+                details = self.client.systemgroup.getDetails(self.session,
                                                              group)
-            
+
                 systems = self.client.systemgroup.listSystems(self.session,
                                                               group)
-            
+
                 systems = [s.get('profile_name') for s in systems]
             except:
                 logging.warning('%s is not a valid group' % key)
                 logging.debug(sys.exc_info())
                 return
-     
+
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Name               %s' % details.get('name')
@@ -2165,9 +2165,9 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: schedule_cancel ID|* ...'
 
     def complete_schedule_cancel(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_schedule_listpending('', True), 
+        return self.tab_completer(self.do_schedule_listpending('', True),
                                   text)
- 
+
     def do_schedule_cancel(self, args):
         if not len(self.args):
             self.help_schedule_cancel()
@@ -2228,7 +2228,7 @@ For help for a specific command try 'help <cmd>'.
                 action = a
                 del all_actions
                 break
- 
+
         self.print_action_summary(action)
 
         if len(completed):
@@ -2273,7 +2273,7 @@ For help for a specific command try 'help <cmd>'.
         except:
             logging.warning('%s is not a valid ID' % str(a))
             return
-        
+
         # schedule.getAction() API call would make this easier
         all_actions = self.client.schedule.listAllActions(self.session)
         action = None
@@ -2305,7 +2305,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_schedule_listpending(self):
         print 'Usage: schedule_listpending [LIMIT]'
-    
+
     def do_schedule_listpending(self, args, doreturn=False):
         actions = self.client.schedule.listInProgressActions(self.session)
 
@@ -2318,25 +2318,25 @@ For help for a specific command try 'help <cmd>'.
                 limit = int(self.args[0])
             except:
                 limit = len(actions)
-    
+
             add_separator = False
-    
+
             for i in range(0, limit):
                 if add_separator:
                     print self.SEPARATOR
-                
+
                 add_separator = True
-    
+
                 systems = self.client.schedule.listInProgressSystems(\
                               self.session, actions[i].get('id'))
-    
+
                 self.print_action_summary(actions[i], systems)
-            
+
 ####################
 
     def help_schedule_listcompleted(self):
         print 'Usage: schedule_listcompleted [LIMIT]'
-    
+
     def do_schedule_listcompleted(self, args, doreturn=False):
         actions = self.client.schedule.listCompletedActions(self.session)
 
@@ -2349,25 +2349,25 @@ For help for a specific command try 'help <cmd>'.
                 limit = int(self.args[0])
             except:
                 limit = len(actions)
-    
+
             add_separator = False
-    
+
             for i in range(0, limit):
                 if add_separator:
                     print self.SEPARATOR
-                
+
                 add_separator = True
-    
+
                 systems = self.client.schedule.listCompletedSystems(\
                               self.session, actions[i].get('id'))
-    
+
                 self.print_action_summary(actions[i], systems)
-            
+
 ####################
 
     def help_schedule_listfailed(self):
         print 'Usage: schedule_listfailed [LIMIT]'
-    
+
     def do_schedule_listfailed(self, args, doreturn=False):
         actions = self.client.schedule.listFailedActions(self.session)
 
@@ -2380,25 +2380,25 @@ For help for a specific command try 'help <cmd>'.
                 limit = int(self.args[0])
             except:
                 limit = len(actions)
-    
+
             add_separator = False
-    
+
             for i in range(0, limit):
                 if add_separator:
                     print self.SEPARATOR
-                
+
                 add_separator = True
-    
+
                 systems = self.client.schedule.listFailedSystems(\
                               self.session, actions[i].get('id'))
-    
+
                 self.print_action_summary(actions[i], systems)
-            
+
 ####################
 
     def help_schedule_listarchived(self):
         print 'Usage: schedule_listarchived [LIMIT]'
-    
+
     def do_schedule_listarchived(self, args, doreturn=False):
         actions = self.client.schedule.listArchivedActions(self.session)
 
@@ -2411,17 +2411,17 @@ For help for a specific command try 'help <cmd>'.
                 limit = int(self.args[0])
             except:
                 limit = len(actions)
-    
+
             add_separator = False
-    
+
             for i in range(0, limit):
                 if add_separator:
                     print self.SEPARATOR
-                
+
                 add_separator = True
-    
+
                 self.print_action_summary(actions[i])
-            
+
 ####################
 
     def help_cryptokey_list(self):
@@ -2437,13 +2437,13 @@ For help for a specific command try 'help <cmd>'.
             print '\n'.join(sorted(keys))
 
 ####################
- 
+
     def help_cryptokey_details(self):
         print 'Usage: cryptokey_details KEY ...'
 
     def complete_cryptokey_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_cryptokey_list('', True), text)
- 
+
     def do_cryptokey_details(self, args):
         if not len(self.args):
             self.help_cryptokey_details()
@@ -2453,16 +2453,16 @@ For help for a specific command try 'help <cmd>'.
 
         for key in self.args:
             try:
-                details = self.client.kickstart.keys.getDetails(self.session, 
+                details = self.client.kickstart.keys.getDetails(self.session,
                                                                 key)
             except:
                 logging.warning('%s is not a valid crypto key' % key)
                 logging.debug(sys.exc_info())
                 return
-        
+
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Description: %s' % details.get('description')
@@ -2508,19 +2508,19 @@ For help for a specific command try 'help <cmd>'.
             logging.warning('%s is not a valid activation key' % key)
             logging.debug(sys.exc_info())
             return
-        
+
         systems = sorted([s.get('hostname') for s in systems])
 
         print '\n'.join(systems)
 
 ####################
- 
+
     def help_activationkey_details(self):
         print 'Usage: activationkey_details KEY ...'
 
     def complete_activationkey_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_activationkey_list('', True), text)
- 
+
     def do_activationkey_details(self, args):
         if not len(self.args):
             self.help_activationkey_details()
@@ -2530,26 +2530,26 @@ For help for a specific command try 'help <cmd>'.
 
         for key in self.args:
             try:
-                details = self.client.activationkey.getDetails(self.session, 
+                details = self.client.activationkey.getDetails(self.session,
                                                                key)
 
                 config_channels = \
-                    self.client.activationkey.listConfigChannels(self.session, 
-                                                                 key) 
+                    self.client.activationkey.listConfigChannels(self.session,
+                                                                 key)
             except:
                 logging.warning('%s is not a valid activation key' % key)
                 logging.debug(sys.exc_info())
                 return
-     
+
             groups = []
             for group in details.get('server_group_ids'):
                 group_details = self.client.systemgroup.getDetails(self.session,
                                                                    group)
                 groups.append(group_details.get('name'))
-        
+
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Key:               %s' % details.get('key')
@@ -2621,7 +2621,7 @@ For help for a specific command try 'help <cmd>'.
         systems = \
             self.client.configchannel.listSubscribedSystems(self.session,
                                                             self.args[0])
-        
+
         systems = sorted([s.get('name') for s in systems])
 
         print '\n'.join(systems)
@@ -2633,7 +2633,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_configchannel_listfiles(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
- 
+
     def do_configchannel_listfiles(self, args, doreturn=False):
         if not len(args):
             self.help_configchannel_listfiles()
@@ -2650,7 +2650,7 @@ For help for a specific command try 'help <cmd>'.
                 print '\n'.join(sorted(files))
 
 ####################
- 
+
     def help_configchannel_filedetails(self):
         print 'Usage: configchannel_filedetails CHANNEL <FILE ...>'
 
@@ -2658,14 +2658,14 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_configchannel_list('', True), 
+            return self.tab_completer(self.do_configchannel_list('', True),
                                       text)
         elif len(parts) > 2:
             return self.tab_completer(\
                 self.do_configchannel_listfiles(parts[1], True), text)
         else:
             return []
-             
+
     def do_configchannel_filedetails(self, args):
         if len(self.args) < 2:
             self.help_configchannel_filedetails()
@@ -2684,14 +2684,14 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('%s is not in this configuration channel' % f)
                 continue
 
-        files = self.client.configchannel.lookupFileInfo(self.session, 
+        files = self.client.configchannel.lookupFileInfo(self.session,
                                                          channel,
                                                          filenames)
 
         for file in files:
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'File:     %s' % file.get('path')
@@ -2714,13 +2714,13 @@ For help for a specific command try 'help <cmd>'.
                     print file.get('contents')
 
 ####################
- 
+
     def help_configchannel_details(self):
         print 'Usage: configchannel_details CHANNEL ...'
 
     def complete_configchannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
- 
+
     def do_configchannel_details(self, args):
         if not len(self.args):
             self.help_configchannel_details()
@@ -2729,15 +2729,15 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for channel in self.args:
-            details = self.client.configchannel.getDetails(self.session, 
+            details = self.client.configchannel.getDetails(self.session,
                                                            channel)
-      
+
             files = self.client.configchannel.listFiles(self.session,
                                                         channel)
- 
+
             if add_separator:
                 print self.SEPARATOR
-            
+
             add_separator = True
 
             print 'Label:       %s' % details.get('label')
@@ -2762,7 +2762,7 @@ For help for a specific command try 'help <cmd>'.
             return channels
         else:
             print '\n'.join(sorted(channels))
-      
+
 ####################
 
     def help_softwarechannel_listsystems(self):
@@ -2779,7 +2779,7 @@ For help for a specific command try 'help <cmd>'.
         systems = \
             self.client.channel.software.listSubscribedSystems(self.session,
                                                                self.args[0])
-        
+
         systems = sorted([s.get('name') for s in systems])
 
         print '\n'.join(systems)
@@ -2812,16 +2812,16 @@ For help for a specific command try 'help <cmd>'.
             if len(self.args) > 1:
                 packages = self.filter_results(packages, self.args[1:])
 
-            print '\n'.join(sorted(packages)) 
-            
+            print '\n'.join(sorted(packages))
+
 ####################
- 
+
     def help_softwarechannel_details(self):
         print 'Usage: softwarechannel_details CHANNEL ...'
 
     def complete_softwarechannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
- 
+
     def do_softwarechannel_details(self, args):
         if not len(self.args):
             self.help_softwarechannel_details()
@@ -2830,12 +2830,12 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for channel in self.args:
-            details = self.client.channel.software.getDetails(self.session, 
+            details = self.client.channel.software.getDetails(self.session,
                                                               channel)
-      
+
             systems = \
                 self.client.channel.software.listSubscribedSystems(self.session,                                                                   channel)
- 
+
             trees = self.client.kickstart.tree.list(self.session, channel)
 
             if add_separator:
@@ -2854,7 +2854,7 @@ For help for a specific command try 'help <cmd>'.
             print
             print 'Description:'
             print '\n'.join(wrap(details.get('description')))
-            print 
+            print
             print 'GPG Key:            %s' % details.get('gpg_key_id')
             print 'GPG Fingerprint:    %s' % details.get('gpg_key_fp')
             print 'GPG URL:            %s' % details.get('gpg_key_url')
@@ -2869,10 +2869,10 @@ For help for a specific command try 'help <cmd>'.
 
     def help_softwarechannel_errata(self):
         print 'Usage: softwarechannel_errata CHANNEL ...'
-    
+
     def complete_softwarechannel_errata(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
- 
+
     def do_softwarechannel_errata(self, args):
         if not len(self.args):
             self.do_help_softwarechannel_errata()
