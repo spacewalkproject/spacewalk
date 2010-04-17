@@ -372,7 +372,7 @@ For help for a specific command try 'help <cmd>'.
         systems = self.client.system.getId(self.session, name)
 
         if not len(systems):
-            logging.warning('No systems found')
+            logging.warning("Can't find system ID for %s" % name)
             return 0
         elif len(systems) == 1:
             return systems[0].get('id')
@@ -439,9 +439,7 @@ For help for a specific command try 'help <cmd>'.
                                     e.get('advisory_name')))
                     continue
 
-            if not len(errata):
-                print 'No relevant errata'
-                return
+            if not len(errata): return
 
             if len(rhsa):
                 print 'Security Errata:'
@@ -562,7 +560,7 @@ For help for a specific command try 'help <cmd>'.
         matches = self.filter_results(all_systems.keys(), systems)
 
         if not len(matches):
-            logging.warning('No matches found')
+            logging.warning('No systems found')
             return
 
         for match in matches:
@@ -599,7 +597,7 @@ For help for a specific command try 'help <cmd>'.
         matches = self.filter_results(self.ssm.keys(), systems)
 
         if not len(matches):
-            logging.warning('No matches found')
+            logging.warning('No systems found')
             return
 
         for match in matches:
@@ -619,10 +617,11 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return systems
         else:
-            print '\n'.join(systems)
-
             if len(systems):
+                print '\n'.join(systems)
                 print 'Systems Selected: %s' % str(len(systems))
+            else:
+                logging.warning('No systems in the SSM')
 
 ####################
 
@@ -897,8 +896,6 @@ For help for a specific command try 'help <cmd>'.
 
         if len(packages):
             print '\n'.join(self.build_package_names(packages))
-        else:
-            logging.warning('No packages found')
 
 ####################
 
@@ -938,7 +935,7 @@ For help for a specific command try 'help <cmd>'.
                 break
 
         if not kickstart:
-            logging.warning('No Kickstart profile found')
+            logging.warning('Invalid Kickstart profile label')
             return
 
         act_keys = \
@@ -1261,14 +1258,8 @@ For help for a specific command try 'help <cmd>'.
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print 'Query: %s = %s' % (type, query)
-            print
-            print 'Results:'
-
             if len(errata):
                 map(self.print_errata_summary, errata)
-            else:
-                print 'None'
 
 ####################
 
@@ -1292,7 +1283,9 @@ For help for a specific command try 'help <cmd>'.
         print
         print 'Available Fields: id, name, ip, hostname, ' + \
               'device, vendor, driver'
-        print 'Example: system_search vendor:vmware'
+        print 'Examples:'
+        print '> system_search vendor:vmware'
+        print '> system_search ip:192.168.82'
 
     def do_system_search(self, args, doreturn=False):
         if (len(self.args)) != 1:
@@ -1343,36 +1336,39 @@ For help for a specific command try 'help <cmd>'.
             logging.warning('Invalid search field')
             return []
 
-        # only get real matches, not the fuzzy ones we get back
         systems = []
+        max_size = 0
         for s in results:
+            # only use real matches, not the fuzzy ones we get back
             if re.search(value, str(s.get(key)), re.IGNORECASE):
-                systems.append(s.get('name'))
+                if len(s.get('name')) > max_size:
+                    max_size = len(s.get('name'))
+
+                systems.append( (s.get('name'), s.get(key)) )
 
         if doreturn:
-            return systems
+            return [s.get('name') for s in systems]
         else:
-            if (len(systems)):
-                print '\n'.join(sorted(systems))
-            else:
-                logging.warning('No systems found')
+            if len(systems):
+                for s in sorted(systems):
+                    print '%s  %s' % (s[0].ljust(max_size), s[1].strip(' '))
 
 ####################
 
-    def help_schedule_script(self):
-        print 'Usage: schedule_script SSM|SYSTEM ...'
+    def help_system_runscript(self):
+        print 'Usage: system_runscript SSM|SYSTEM ...'
         print
         print 'Start Time Examples:'
         print 'now  -> right now!'
         print '15m  -> 15 minutes from now'
         print '1d   -> 1 day from now'
 
-    def complete_schedule_script(self, text, line, begidx, endidx):
+    def complete_system_runscript(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
 
-    def do_schedule_script(self, args):
+    def do_system_runscript(self, args):
         if not len(self.args):
-            self.help_schedule_script()
+            self.help_system_runscript()
             return
 
         # use the systems listed in the SSM
@@ -1538,8 +1534,6 @@ For help for a specific command try 'help <cmd>'.
             print '  Cache:    %s' % cpu.get('cache')
             print '  Vendor:   %s' % cpu.get('vendor')
             print '  Model:    %s' % re.sub('\s+', ' ', cpu.get('model'))
-            print '  Family:   %s' % cpu.get('family')
-            print '  Stepping: %s' % cpu.get('stepping')
 
             print
             print 'Memory:'
@@ -1590,6 +1584,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_completer(self.do_system_list('', True), text)
         elif len(parts) > 2:
+            self.temp_package_list
             return self.tab_completer(self.list_all_package_names(), text)
 
     def do_system_installpackage(self, args):
@@ -1618,6 +1613,7 @@ For help for a specific command try 'help <cmd>'.
             package_ids = []
             for package_to_install in packages_to_install:
                 found_package = False
+                installed_packages = []
 
                 for p in avail_packages:
                     if package_to_install == p.get('name'):
@@ -1626,8 +1622,19 @@ For help for a specific command try 'help <cmd>'.
                         break
 
                 if not found_package:
-                    logging.warning("%s doesn't have access to %s" %(
-                                    system, package_to_install))
+                    if not len(installed_packages):
+                        installed_packages = \
+                            self.client.system.listPackages(self.session,
+                                                            system_id)
+      
+                    for p in installed_packages: 
+                        if package_to_install == p.get('name'):
+                            logging.warning('%s already has %s' %(
+                                            system, package_to_install))
+                            break
+                    else:
+                        logging.warning("%s doesn't have access to %s" %(
+                                        system, package_to_install))
 
             if len(package_ids):
                 jobs.append((system, system_id, package_ids))
@@ -2036,15 +2043,15 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_system_errata(self):
-        print 'Usage: system_errata SSM|SYSTEM ...'
+    def help_system_listerrata(self):
+        print 'Usage: system_listerrata SSM|SYSTEM ...'
 
-    def complete_system_errata(self, text, line, begidx, endidx):
+    def complete_system_listerrata(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
 
-    def do_system_errata(self, args):
+    def do_system_listerrata(self, args):
         if not len(self.args):
-            self.do_help_system_errata()
+            self.help_system_listerrata()
             return
 
         add_separator = False
@@ -2072,6 +2079,75 @@ For help for a specific command try 'help <cmd>'.
                 print self.SEPARATOR
 
             add_separator = True
+
+####################
+
+    def help_system_applyerrata(self):
+        print 'Usage: system_applyerrata SSM|SYSTEM ...'
+
+    def complete_system_applyerrata(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_applyerrata(self, args):
+        if not len(self.args):
+            self.help_system_applyerrata()
+            return
+
+        # use the systems applyed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        jobs = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            errata = self.client.system.getRelevantErrata(self.session,
+                                                          system_id)
+
+            if not len(errata):
+                logging.warning("%s doesn't have any relevant errata" %system)
+                continue
+
+            jobs.append( (system, system_id, errata) )
+
+        if not len(jobs): return
+
+        count = 0
+        for job in jobs:
+            (system, system_id, errata) = job
+
+            if count: print
+            count += 1
+
+            print 'System: %s' % system
+            print 'Errata:'
+            map(self.print_errata_summary, errata)
+
+        if not self.user_confirm(): return
+
+        scheduled = 0
+        for job in jobs:
+            (system, system_id, errata) = job
+
+            errata_ids = [e.get('id') for e in errata]
+
+            time = self.parse_time_input('now')
+
+            status = self.client.system.scheduleApplyErrata(self.session,
+                                                            system_id,
+                                                            errata_ids,
+                                                            time)
+
+            if status:
+                scheduled += 1
+            else:
+                logging.error('Failed to schedule %s' % system)
+                continue
+
+        print 'Scheduled %s system(s)' % str(scheduled)
 
 ####################
 
@@ -2256,12 +2332,12 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_schedule_rawoutput(self):
-        print 'Usage: schedule_rawoutput ID'
+    def help_schedule_getoutput(self):
+        print 'Usage: schedule_getoutput ID'
 
-    def do_schedule_rawoutput(self, args):
+    def do_schedule_getoutput(self, args):
         if not len(self.args):
-            self.help_schedule_output()
+            self.help_schedule_getoutput()
             return
         elif len(self.args) > 1:
             systems = self.args[1:]
@@ -2776,13 +2852,16 @@ For help for a specific command try 'help <cmd>'.
             self.help_softwarechannel_listsystems()
             return
 
+        channel = self.args[0]
+
         systems = \
             self.client.channel.software.listSubscribedSystems(self.session,
-                                                               self.args[0])
+                                                               channel)
 
         systems = sorted([s.get('name') for s in systems])
 
-        print '\n'.join(systems)
+        if len(systems):
+            print '\n'.join(systems)
 
 ####################
 
@@ -2848,12 +2927,17 @@ For help for a specific command try 'help <cmd>'.
             print 'Architecture:       %s' % details.get('arch_name')
             print 'Parent:             %s' % details.get('parent_channel_label')
             print 'Systems Subscribed: %s' % str(len(systems))
-            print
-            print 'Summary:'
-            print '\n'.join(wrap(details.get('summary')))
-            print
-            print 'Description:'
-            print '\n'.join(wrap(details.get('description')))
+
+            if details.get('summary'):
+                print
+                print 'Summary:'
+                print '\n'.join(wrap(details.get('summary')))
+
+            if details.get('description'):
+                print
+                print 'Description:'
+                print '\n'.join(wrap(details.get('description')))
+
             print
             print 'GPG Key:            %s' % details.get('gpg_key_id')
             print 'GPG Fingerprint:    %s' % details.get('gpg_key_fp')
