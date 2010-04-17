@@ -50,15 +50,15 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
  
     if options.debug:
-        log_level = logging.DEBUG
+        level = logging.DEBUG
     elif options.verbose:
-        log_level = logging.INFO
+        level = logging.INFO
     elif options.quiet:
-        log_level = logging.ERROR
+        level = logging.ERROR
     else:
-        log_level = logging.WARNING
+        level = logging.WARNING
 
-    logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
 
     shell = SpacewalkShell(options)
 

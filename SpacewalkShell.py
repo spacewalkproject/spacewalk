@@ -118,7 +118,7 @@ For help for a specific command try 'help <cmd>'.
                 if line:
                     history_match = True
                 else:
-                    logging.warning(self.cmd + ': event not found')
+                    logging.warning('%s: event not found' % self.cmd)
                     return ''
             
             if not history_match:
@@ -131,7 +131,7 @@ For help for a specific command try 'help <cmd>'.
                     else:
                         raise Exception
                 except:
-                    logging.warning(self.cmd + ': event not found')
+                    logging.warning('%s: event not found' % self.cmd)
                     return ''
 
             # attempt to match the beginning of the string with a history item
@@ -152,7 +152,7 @@ For help for a specific command try 'help <cmd>'.
                 print line
                 readline.add_history(line)
             else:
-                logging.warning(self.cmd + ': event not found')
+                logging.warning('%s: event not found' % self.cmd)
                 return ''
 
         if self.cmd.lower() in ('quit', 'exit', 'eof'):
@@ -243,7 +243,7 @@ For help for a specific command try 'help <cmd>'.
 
 
     def user_confirm(self, prompt='Is this correct?'):
-        answer = self.prompt_user(prompt + ' ')
+        answer = self.prompt_user('%s ' % prompt)
 
         if re.match('y', answer, re.IGNORECASE):
             return True
@@ -296,9 +296,8 @@ For help for a specific command try 'help <cmd>'.
 
         package_names = []
         for p in packages:
-            package = p.get('name') + '-' \
-                    + p.get('version') + '-' \
-                    + p.get('release')
+            package = '%s-%s-%s' % (
+                      p.get('name'), p.get('version'), p.get('release'))
 
             if p.get('epoch') != ' ' and p.get('epoch') != '':
                 package += ':%s' % p.get('epoch')
@@ -520,7 +519,7 @@ For help for a specific command try 'help <cmd>'.
 
         for match in matches:
             if match in self.ssm.keys():
-                logging.warning(match + ' is already in the list')
+                logging.warning('%s is already in the list' % match)
                 continue
             else:
                 logging.info('Added %s' % match)
@@ -836,7 +835,7 @@ For help for a specific command try 'help <cmd>'.
 
         advanced = False
         for f in fields:
-            if re.match(f + ':', args):
+            if re.match('%s:' % f, args):
                 advanced = True
                 break
 
@@ -1100,7 +1099,7 @@ For help for a specific command try 'help <cmd>'.
                     break
 
             if not snippet:
-                logging.warning(name + ' is not a valid snippet')
+                logging.warning('%s is not a valid snippet' % name)
                 continue                
 
             if add_separator:
@@ -1120,9 +1119,6 @@ For help for a specific command try 'help <cmd>'.
     def help_errata_details(self):
         print 'Usage: errata_details NAME ...'
 
-    def complete_errata_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_errata_list('', True), text)
- 
     def do_errata_details(self, args):
         if not len(self.args):
             self.help_errata_details()
@@ -1141,7 +1137,7 @@ For help for a specific command try 'help <cmd>'.
                 channels = \
                     self.client.errata.applicableToChannels(self.session, name)
             except:
-                logging.warning(name + ' is not a valid errata')
+                logging.warning('%s is not a valid errata' % name)
                 logging.debug(sys.exc_info())
                 continue
      
@@ -1364,7 +1360,7 @@ For help for a specific command try 'help <cmd>'.
         print
         print 'User:       %s' % user
         print 'Group:      %s' % group
-        print 'Timeout:    %s' % str(timeout) + ' seconds'
+        print 'Timeout:    %s seconds' % str(timeout)
         print 'Start Time: %s' % re.sub('T', ' ', time.value)
         print
         print script
@@ -1795,7 +1791,7 @@ For help for a specific command try 'help <cmd>'.
             
             systems = [s.get('profile_name') for s in systems]
         except:
-            logging.warning(group + ' is not a valid group')
+            logging.warning('%s is not a valid group' % group)
             logging.debug(sys.exc_info())
             return []
  
@@ -1829,7 +1825,7 @@ For help for a specific command try 'help <cmd>'.
             
                 systems = [s.get('profile_name') for s in systems]
             except:
-                logging.warning(key + ' is not a valid group')
+                logging.warning('%s is not a valid group' % key)
                 logging.debug(sys.exc_info())
                 return
      
@@ -1877,7 +1873,7 @@ For help for a specific command try 'help <cmd>'.
             try:
                 actions.append(int(a))
             except ValueError:
-                logging.warning(str(a) + ' is not a valid ID')
+                logging.warning('%s is not a valid ID' % str(a))
                 continue
 
         self.client.schedule.cancelActions(self.session, actions)
@@ -1900,7 +1896,7 @@ For help for a specific command try 'help <cmd>'.
         try:
             id = int(self.args[0])
         except:
-            logging.warning(str(a) + ' is not a valid ID')
+            logging.warning('%s is not a valid ID' % str(a))
             return
 
         completed = self.client.schedule.listCompletedSystems(self.session, id)
@@ -1958,7 +1954,7 @@ For help for a specific command try 'help <cmd>'.
         try:
             id = int(self.args[0])
         except:
-            logging.warning(str(a) + ' is not a valid ID')
+            logging.warning('%s is not a valid ID' % str(a))
             return
         
         # schedule.getAction() API call would make this easier
@@ -2143,7 +2139,7 @@ For help for a specific command try 'help <cmd>'.
                 details = self.client.kickstart.keys.getDetails(self.session, 
                                                                 key)
             except:
-                logging.warning(key + ' is not a valid crypto key')
+                logging.warning('%s is not a valid crypto key' % key)
                 logging.debug(sys.exc_info())
                 return
         
@@ -2185,12 +2181,14 @@ For help for a specific command try 'help <cmd>'.
             self.help_activationkey_listsystems()
             return
 
+        key = self.args[0]
+
         try:
             systems = \
                 self.client.activationkey.listActivatedSystems(self.session,
-                                                           self.args[0])
+                                                               key)
         except:
-            logging.warning(self.args[0] + ' is not a valid activation key')
+            logging.warning('%s is not a valid activation key' % key)
             logging.debug(sys.exc_info())
             return
         
@@ -2222,7 +2220,7 @@ For help for a specific command try 'help <cmd>'.
                     self.client.activationkey.listConfigChannels(self.session, 
                                                                  key) 
             except:
-                logging.warning(key + ' is not a valid activation key')
+                logging.warning('%s is not a valid activation key' % key)
                 logging.debug(sys.exc_info())
                 return
      
@@ -2269,7 +2267,7 @@ For help for a specific command try 'help <cmd>'.
                 name = package.get('name')
 
                 if package.get('arch'):
-                    name = name + '.%s' % package.get('arch')
+                    name += '.%s' % package.get('arch')
 
                 print '  %s' % name
 
@@ -2366,7 +2364,7 @@ For help for a specific command try 'help <cmd>'.
         for f in filenames:
             if not f in valid_files:
                 filenames.remove(f)
-                logging.warning(f + ' is not in this configuration channel')
+                logging.warning('%s is not in this configuration channel' % f)
                 continue
 
         files = self.client.configchannel.lookupFileInfo(self.session, 
