@@ -164,18 +164,17 @@ For help for a specific command try "help <cmd>".
         return [o for o in options if re.match(text, o)]
 
 
-    def filter_results(self, list, args):
-        patterns = []
-        for pattern in args:
+    def filter_results(self, list, patterns):
+        compiled_regex = []
+        for pattern in patterns:
             if pattern != '':
-                patterns.append(re.compile(pattern, re.IGNORECASE))
+                compiled_regex.append(re.compile(pattern, re.IGNORECASE))
 
         matches = []
         for item in list:
-            if len(patterns) > 0:
-                for pattern in patterns:
-                    if pattern.match(item):
-                        matches.append(item)
+            for pattern in compiled_regex:
+                if pattern.match(item):
+                    matches.append(item)
 
         return matches
 
@@ -324,7 +323,7 @@ For help for a specific command try "help <cmd>".
 
         if len(systems) == 0:
             logging.warning("No systems found")
-            return
+            return 0
         elif len(systems) == 1:
             return systems[0].get('id')
         else:
@@ -333,7 +332,7 @@ For help for a specific command try "help <cmd>".
             for system in sorted(systems):
                 logging.warning(name + " = " + str(system.get('id'))) 
 
-            return
+            return 0
 
 
     def expand_systems(self, args):
@@ -360,10 +359,57 @@ For help for a specific command try "help <cmd>".
 
 
     def print_errata_summary(self, errata):
-        for e in errata:
-            print e.get('advisory_name') + '  ' + \
-                  textwrap.wrap(e.get('advisory_synopsis'), 50)[0].ljust(50) + \
-                  '  ' + e.get('date').rjust(8) 
+        print errata.get('advisory_name').ljust(14) + '  ' + \
+              textwrap.wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50) \
+              + '  ' + errata.get('date').rjust(8) 
+
+
+    def print_errata_list(self, errata):
+            rhsa = []
+            rhea = []
+            rhba = []
+            other = []
+
+            for e in errata:
+                type = e.get('advisory_type').lower()
+
+                if re.match('security', type):
+                    rhsa.append(e)
+                elif re.match('bug fix', type):
+                    rhba.append(e)
+                elif re.match('enhancement', type):
+                    rhea.append(e)
+                else:
+                    other.append(e)
+               
+            if len(errata) == 0:
+                print 'No relevant errata'
+                return
+
+            if len(rhsa) > 0:
+                print 'Security Errata:'
+                map(self.print_errata_summary, rhsa)
+            
+            if len(rhba) > 0:
+                if len(rhsa) > 0:
+                    print
+
+                print 'Bug Fix Errata:'
+                map(self.print_errata_summary, rhba)
+ 
+            if len(rhea) > 0:
+                if len(rhsa) > 0 or len(rhba) > 0:
+                    print
+
+                print 'Enhancement Errata:'
+                map(self.print_errata_summary, rhea)
+
+            if len(other) > 0:
+                if len(rhsa) > 0 or len(rhba) > 0 or len(rhea) > 0:
+                    print
+
+                print 'Other Errata:'
+                map(self.print_errata_summary, other)
 
 
     def print_action_summary(self, action, systems=[]):
@@ -801,7 +847,7 @@ For help for a specific command try "help <cmd>".
 ####################
 
     def help_kickstart_list(self):
-        print "Usage: kickstart_list PATTERN"
+        print "Usage: kickstart_list"
     
     def do_kickstart_list(self, args, doreturn=False):
         kickstarts = self.client.kickstart.listKickstarts(self.session)
@@ -1065,6 +1111,33 @@ For help for a specific command try "help <cmd>".
 
 ####################
 
+    def help_errata_findcve(self):
+        print "Usage: errata_findcve CVE ..."
+    
+    def do_errata_findcve(self, args, doreturn=False):
+        if len(self.args) == 0:
+            self.help_errata_findcve
+            return
+
+        add_separator = False           
+
+        for query in self.args:
+            errata = self.client.errata.findByCve(self.session, query)
+           
+            if add_separator: print self.SEPARATOR
+            add_separator = True 
+ 
+            print 'Query: ' + query
+            print
+            print 'Results:'
+            
+            if len(errata) > 0:
+                map(self.print_errata_summary, errata)
+            else:
+                print 'None'
+
+####################
+
     def help_system_list(self):
         print "Usage: system_list"
     
@@ -1231,15 +1304,8 @@ For help for a specific command try "help <cmd>".
 
         scheduled = 0
         for system in systems:
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             # the current API forces us to schedule each system individually
             id = self.client.system.scheduleScriptRun(self.session,
@@ -1285,15 +1351,8 @@ For help for a specific command try "help <cmd>".
             systems = self.args
 
         for system in sorted(systems):
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             cpu = self.client.system.getCpu(self.session, system_id)
             memory = self.client.system.getMemory(self.session, system_id)
@@ -1407,15 +1466,8 @@ For help for a specific command try "help <cmd>".
             systems = self.args
 
         for system in sorted(systems):
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             packages = \
                 self.client.system.listLatestUpgradablePackages(self.session,
@@ -1467,15 +1519,8 @@ For help for a specific command try "help <cmd>".
             systems = self.args
 
         for system in sorted(systems):
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             packages = self.client.system.listPackages(self.session,
                                                        system_id)
@@ -1513,15 +1558,8 @@ For help for a specific command try "help <cmd>".
             systems = self.args
 
         for system in sorted(systems):
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             last_checkin = \
                 self.client.system.getName(self.session,
@@ -1633,72 +1671,22 @@ For help for a specific command try "help <cmd>".
             systems = self.args
 
         for system in sorted(systems):
-            try:
-                # check if we were passed a system ID
-                system_id = int(system)
-            except ValueError:
-                system_id = self.get_system_id(system)
-
-            if not system_id:
-                logging.warning(system + ' is not a valid system')
-                continue
-
-            errata = self.client.system.getRelevantErrata(self.session,
-                                                          system_id)
-            
-            rhsa = []
-            rhea = []
-            rhba = []
-            other = []
-            for e in errata:
-                type = e.get('advisory_type').lower()
-
-                if re.match('security', type):
-                    rhsa.append(e)
-                elif re.match('bug fix', type):
-                    rhba.append(e)
-                elif re.match('enhancement', type):
-                    rhea.append(e)
-                else:
-                    other.append(e)
-               
-            if add_separator:
-                print self.SEPARATOR
-
-            add_separator = True
+            system_id = self.get_system_id(system)
+            if not system_id: return
 
             if len(systems) > 1:
                 print 'System: ' + system
                 print
 
-            if len(errata) == 0:
-                print 'No relevant errata'
-                continue
+            errata = self.client.system.getRelevantErrata(self.session,
+                                                          system_id)
 
-            if len(rhsa) > 0:
-                print 'Security Errata:'
-                self.print_errata_summary(rhsa)
-            
-            if len(rhba) > 0:
-                if len(rhsa) > 0:
-                    print
+            self.print_errata_list(errata)
 
-                print 'Bug Fix Errata:'
-                self.print_errata_summary(rhba)
- 
-            if len(rhea) > 0:
-                if len(rhsa) > 0 or len(rhba) > 0:
-                    print
+            if add_separator:
+                print self.SEPARATOR
 
-                print 'Enhancement Errata:'
-                self.print_errata_summary(rhea)
-
-            if len(other) > 0:
-                if len(rhsa) > 0 or len(rhba) > 0 or len(rhea) > 0:
-                    print
-
-                print 'Other Errata:'
-                self.print_errata_summary(other)
+            add_separator = True
 
 ####################
 
