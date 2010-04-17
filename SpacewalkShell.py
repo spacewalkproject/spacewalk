@@ -50,7 +50,8 @@ For help for a specific command try 'help <cmd>'.
         self.ssm = {}
 
         # cache large lists instead of looking up every time
-        self.all_package_names = []
+        self.all_package_shortnames = []
+        self.all_package_fullnames = []
         self.all_system_names = []
 
         # make the options available everywhere
@@ -330,9 +331,15 @@ For help for a specific command try 'help <cmd>'.
 
 
     # create a global list of all available package names
-    def list_all_package_names(self, channel=''):
-        if len(self.all_package_names):
-            return self.all_package_names
+    def list_all_package_names(self, fullnames=False, channel=''):
+        if fullnames:
+            if len(self.all_package_fullnames):
+                return self.all_package_fullnames
+        else:
+            if len(self.all_package_shortnames):
+                return self.all_package_shortnames
+
+        logging.debug('Generating package name lists')
 
         if channel:
             channels = [channel]
@@ -345,10 +352,19 @@ For help for a specific command try 'help <cmd>'.
                 self.client.channel.software.listLatestPackages(self.session, c)
 
             for p in packages:
-                if not p.get('name') in self.all_package_names:
-                    self.all_package_names.append(p.get('name'))
+                if not p.get('name') in self.all_package_shortnames:
+                    self.all_package_shortnames.append(p.get('name'))
+       
+                if fullnames:
+                    fullname = self.build_package_names(p)
+    
+                    if not fullname in self.all_package_fullnames:
+                        self.all_package_fullnames.append(fullname)
 
-        return self.all_package_names
+        if fullnames:
+            return self.all_package_fullnames
+        else:
+            return self.all_package_shortnames
 
 
     # check for duplicate system names and return the system ID
@@ -803,6 +819,9 @@ For help for a specific command try 'help <cmd>'.
     def help_package_details(self):
         print 'Usage: package_details PACKAGE ...'        
 
+    def complete_package_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.list_all_package_names(True), text)
+
     def do_package_details(self, args):
         if not len(self.args):
             self.help_package_details()
@@ -901,7 +920,8 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: kickstart_details PROFILE'
 
     def complete_kickstart_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_kickstart_list('', True), text)
+        if len(line.split(' ')) <= 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
  
     def do_kickstart_details(self, args):
         if len(self.args) != 1:
@@ -997,7 +1017,7 @@ For help for a specific command try 'help <cmd>'.
             print 'Advanced Options:'
             for o in sorted(advanced_options, key=itemgetter('name')):
                 if o.get('arguments'):
-                    print '  %s  %s' % (o.get('name'), o.get('arguments'))
+                    print '  %s %s' % (o.get('name'), o.get('arguments'))
 
         if len(custom_options):
             print
@@ -1075,12 +1095,12 @@ For help for a specific command try 'help <cmd>'.
         url = 'http://%s/ks/cfg/label/%s' %(self.server, self.args[0])
 
         try:
-            logging.debug('Retreiving %s' % url)
+            logging.debug('Retrieving %s' % url)
             response = urllib2.urlopen(url) 
             kickstart = response.read()
         except urllib2.HTTPError:
             logging.error(sys.exc_info()[1])
-            logging.error('Could not retreive the Kickstart file')
+            logging.error('Could not retrieve the Kickstart file')
             return
 
         # the value returned here is uninterpreted by Cobbler
@@ -1211,23 +1231,37 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_errata_findcve(self):
-        print 'Usage: errata_findcve CVE ...'
+    def help_errata_search(self):
+        print 'Usage: errata_search CVE ...'
     
-    def do_errata_findcve(self, args, doreturn=False):
+    def do_errata_search(self, args, doreturn=False):
         if not len(self.args):
-            self.help_errata_findcve
+            self.help_errata_search()
             return
 
         add_separator = False           
 
         for query in self.args:
-            errata = self.client.errata.findByCve(self.session, query)
+            type = 'CVE'
+            value = query.upper()
+            #(type, value) = query.split(':', 1)
+
+            if re.match('cve', type, re.IGNORECASE):
+                # CVE- prefix is required
+                if not re.match('CVE', value, re.IGNORECASE):
+                    value = 'CVE-%s' % value
+
+                errata = self.client.errata.findByCve(self.session, value)
+            #elif re.match('bz', type, re.IGNORECASE):
+            #    errata = self.client.errata.findByBz(self.session, value)
+            else:
+                logging.error('Invalid query')
+                return
            
             if add_separator: print self.SEPARATOR
             add_separator = True 
  
-            print 'Query: %s' % query
+            print 'Query: %s = %s' % (type, query)
             print
             print 'Results:'
             
@@ -2120,10 +2154,10 @@ For help for a specific command try 'help <cmd>'.
             print 'Name               %s' % details.get('name')
             print 'Description:       %s' % details.get('description')
             print 'Number of Systems: %s' % str(details.get('system_count'))
-
             print
             print 'Members:'
-            print '  \n'.join(sorted(systems))
+            for s in sorted(systems):
+                print '  %s' % s
 
 ####################
 
