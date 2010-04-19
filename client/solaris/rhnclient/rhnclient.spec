@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.8
+Version: 1.1
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Mon Apr 19 2010 Shannon Hughes <shughes@redhat.com> 1.1-1
+- updated copyrights (michael.mraka@redhat.com)
+
 * Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8-1
 - replaced popen2 with subprocess in client (michael.mraka@redhat.com)
 
