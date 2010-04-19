@@ -182,7 +182,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
      *  for now
      * @throws Exception
      */
-    public void SKIPtestDeRegister() throws Exception {
+    public void skipTestDeRegister() throws Exception {
         logger.debug("testDeRegister - start");
         TestAction.deRegisterAction();
         Thread.sleep(1000);
