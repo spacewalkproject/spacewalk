@@ -18,8 +18,6 @@ package com.redhat.rhn.common.translation;
 import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.db.WrappedSQLException;
 
-import org.postgresql.util.PSQLException;
-
 import java.sql.SQLException;
 
 /**
@@ -61,7 +59,7 @@ public class ExceptionTranslator extends Translations {
      * @param e Exception to translate.
      * @return Translated RuntimeException with reference to the original.
      */
-    public static RuntimeException postgreSqlException(PSQLException e) {
+    public static RuntimeException postgreSqlException(SQLException e) {
         return new WrappedSQLException(e.getMessage(), e);
     }
     
