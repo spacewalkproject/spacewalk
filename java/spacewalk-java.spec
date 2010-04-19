@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,9 +310,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.3-1
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
 - 576211 - fixed server name replacement pattern
 - removing log5j stuff
+- fix issue with PSQLException
 
 * Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.1.2-1
 - bumping spec files to future 1.1 packages (shughes@redhat.com)
