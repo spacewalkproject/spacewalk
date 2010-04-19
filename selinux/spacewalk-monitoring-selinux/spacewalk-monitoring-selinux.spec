@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -144,6 +144,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 19 2010 Shannon Hughes <shughes@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
 * Mon Feb 01 2010 Jan Pazdziora 0.8.3-1
 - 529570 - allow monitoring to use winbind
 
