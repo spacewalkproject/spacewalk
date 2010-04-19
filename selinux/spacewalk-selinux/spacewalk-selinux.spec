@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -115,6 +115,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release
+- Move systemlogs directory out of /var/satellite
+
 * Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - rebuild for spacewalk 0.8
 
