@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,11 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release 
+- Move systemlogs directory out of /var/satellite
+- Remove audit review cruft from spacewalk-setup
+
 * Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
 - modified spacewalk-setup to use spacewalk-service
 
