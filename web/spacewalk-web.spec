@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+- Constants DEFAULT_RHN_SATCON_TREE and DEFAULT_SATCON_DICT not longer used
+
 * Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.7-1
 - 576907 - make SystemSnapshots aware of multiarch packages
 
