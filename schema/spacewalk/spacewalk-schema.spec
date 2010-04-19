@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Apr 19 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.0.1-1
+- rename schema upgrade directory for spacewalk 1.0
+- fix ORA-02429 error during schema upgrade
+
 * Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.9.8-1
 - moving rhn_schedule_days to be db depedent because it has an inner select
   clause (jsherril@redhat.com)
