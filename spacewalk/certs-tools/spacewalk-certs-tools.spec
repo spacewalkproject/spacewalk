@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Mon Apr 19 2010 Shannon Hughes <shughes@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+
 * Tue Apr 13 2010 Jan Pazdziora 0.9.2-1
 - Use tempfile.TemporaryFile and os.path.abspath, to avoid the need for
   spacewalk.common.fileutils in client_config_update.py.
