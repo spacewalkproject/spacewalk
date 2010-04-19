@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -45,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 19 2010 Shannon Hughes <shughes@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
 * Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - rebuild for spacewalk 0.8
 
