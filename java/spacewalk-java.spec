@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.3-1
+- 576211 - fixed server name replacement pattern
+- removing log5j stuff
+
 * Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.1.2-1
 - bumping spec files to future 1.1 packages (shughes@redhat.com)
 - 516983 - making it clearer that a distro cannot be deleted if profiles are
