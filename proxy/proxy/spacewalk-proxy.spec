@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -319,6 +319,10 @@ fi
 
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release
+- 578854 - read response even if HEADER_CONTENT_LENGTH is not present
+
 * Mon Mar 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
 - modified to use mod_wsgi on Fedora 11 and 12
 
