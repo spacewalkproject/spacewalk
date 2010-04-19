@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -162,6 +162,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Apr 19 2010 Shannon Hughes <shughes@redhat.com> 1.0.1-1
+- version changes for spacewalk 1.0 release (shughes@redhat.com)
+
 * Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
 - modified Spacewalk 0.9 release name
 
