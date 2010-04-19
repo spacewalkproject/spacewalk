@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.18
+Version: 5.9.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -97,6 +97,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.20-1
+- More support for symlinks in rhncfg tools
+- Add selinux output to rhncfg-client verify
+- 566664 - handle null SELinux contexts in config uploads
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.18-1
 - updated copyrights
 
