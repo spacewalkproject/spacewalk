@@ -8,7 +8,7 @@ Summary:        Red Hat Network Monitoring Daemon
 Name:           rhnmd
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:        5.3.5
+Version:        5.3.7
 Release:        1%{?dist}
 License:        GPLv2
 BuildArch:      noarch
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.3.7-1
+- 578738 - obsolete archs - we are noarch now
+
 * Wed Dec 16 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.5-1
 - 538057 - fix typo
 - 538057 - use proper text indention. The content of tags like Name, Version, ... usually starts at 17 characters
