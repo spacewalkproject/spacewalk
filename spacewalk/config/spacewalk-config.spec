@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -102,6 +102,10 @@ EOF
 
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.0.1-1
+- 576211 - fixed server name replacement pattern
+- version changes for spacewalk 1.0 release
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
 - Removal of RHN::TokenGen::Local
 - 479911 - removing duplicate rewrites and consolidating to a single location
