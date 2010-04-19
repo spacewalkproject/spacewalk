@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -102,7 +102,7 @@ EOF
 
 
 %changelog
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
 - bumping spec files to 1.1 packages
 
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.2-1
