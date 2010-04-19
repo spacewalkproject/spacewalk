@@ -20,5 +20,6 @@ from
     user_objects
 where
     lower(object_type) = 'table'
-    and object_name not like '%$%'
-/
+    and object_name not like '%$%';
+
+quit;
