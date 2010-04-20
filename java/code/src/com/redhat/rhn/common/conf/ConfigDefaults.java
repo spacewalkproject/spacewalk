@@ -154,6 +154,9 @@ public class ConfigDefaults {
     public static final String USE_DB_REPODATA = "user_db_repodata";
     public static final String CONFIG_MACRO_ARGUMENT_REGEX = "config_macro_argument_regex"; 
 
+    public static final String DB_BACKEND = "db_backend";
+    public static final String DB_BACKEND_ORACLE = "oracle";
+
 
     private ConfigDefaults() {
     }
@@ -455,6 +458,14 @@ public class ConfigDefaults {
     public String getCobblerNameSeparator() {
         return Config.get().getString(COBBLER_NAME_SEPARATOR, ":");
 
+    }
+
+    /**
+     * is the server configured to use oracle
+     * @return true if so
+     */
+    public boolean isOracle() {
+        return DB_BACKEND_ORACLE.equals(Config.get().getString(DB_BACKEND));
     }
 
 }
