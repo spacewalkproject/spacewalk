@@ -1,0 +1,485 @@
+#!/bin/bash
+#
+# Copyright (c) 2010 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+if [ 0$UID -gt 0 ]; then
+    echo "$0 has to be run as root."
+    exit 1
+fi
+
+LOG=/var/log/rhn/rhn_hostname_rename.log
+RHN_CONF_FILE=/etc/rhn/rhn.conf
+SSL_BUILD_DIR=/root/ssl-build
+HOSTS_FILE=/etc/hosts
+COBBLER_SETTINGS_FILE="/etc/cobbler/settings"
+BACKUP_EXT=.rnmbck
+
+if [ -x /etc/init.d/oracle ]; then
+    DB_SERVICE="oracle"
+fi
+
+if [ -x /etc/init.d/oracle-xe ]; then
+    DB_SERVICE="oracle-xe"
+fi
+
+MONITORING_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_backend/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
+MONITORING_SCOUT_ENABLED=`awk -F= '! /[[:space:]]*#/ && /web.is_monitoring_scout/ {gsub(/[[:space:]]*/,""); print $2}' $RHN_CONF_FILE`
+NOCPULSE_PRIVATE_KEY_FILE=~nocpulse/.ssh/nocpulse-identity
+NOCPULSE_PUBLIC_KEY_FILE=${NOCPULSE_PRIVATE_KEY_FILE}.pub
+
+ORACLE_XE_LISTENER_ORA_FILE=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/admin/listener.ora
+ORACLE_XE_TNSNAMES_ORA_FILE=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/admin/tnsnames.ora
+
+SPW_SETUP_JABBERD=/usr/bin/spacewalk-setup-jabberd
+
+
+###############################################################################
+
+function echo_usage {
+    echo "Usage:"
+    echo "   $(basename $0) <ip_address> [ --ssl-country=<ssl_country> --ssl-state=<ssl_state> --ssl-org=<ssl_org> --ssl-orgunit=<ssl_orgunit> --ssl-email=<ssl_email> --ssl-ca-password=<ssl_ca_password>]"
+    echo "   $(basename $0) { -h | --help }"
+    exit 1
+}
+
+function echo_err {
+    echo "$*" >&2
+    echo "$*" >> $LOG
+}
+
+function bye {
+    echo_err "Fix the problem and run $0 again"
+    exit 1
+}
+
+function print_status {
+    # strip whitespace
+    STATUS="${1#"${1%%[![:space:]]*}"}"
+    if [ "$STATUS" == "0" ]
+    then
+        echo "OK" | tee -a $LOG
+    else
+        echo_err "FAILED"
+        shift
+        echo_err $*
+        bye
+    fi
+}
+
+function check_input_ip {
+   IPS=`echo $(/sbin/ip a | awk  'BEGIN {FS=" ";RS="/"}; /inet / && ! /127.0./ {print $6}')`
+   for ip in $IPS
+   do
+       if [ "$1" == "$ip" ]
+       then
+          return 0
+       fi
+   done
+   return 1
+}
+
+function initial_system_hostname_check {
+    # only reliable hostname is in /proc/sys/kernel/hostname
+    SYSCTL_HOSTNAME=`cat /proc/sys/kernel/hostname`
+    if [ "$HOSTNAME" != "$SYSCTL_HOSTNAME" ]
+    then
+        echo_err "Wrong HOSTNAME variable: \"$HOSTNAME\""
+        return 1
+    fi
+
+    # check hostname command
+    if [ "$HOSTNAME" != "$(hostname)" ]
+    then
+        echo_err "Wrong hostname command output: \"$(hostname)\""
+        return 1
+    fi
+
+    # check for uppercase chars in hostname
+    if [ "$HOSTNAME" != "$(echo $HOSTNAME | tr '[:upper:]' '[:lower:]')" ]
+    then
+        echo_err "Uppercase characters are not allowed for satellite hostname."
+        return 1
+    fi
+
+    # check /etc/sysconfig/network
+    HN_NETWORK=`awk -F= '/HOSTNAME/ {print $2}' /etc/sysconfig/network`
+
+    if [ "$HOSTNAME" != "$HN_NETWORK" ]
+    then
+        echo_err "Wrong hostname in /etc/sysconfig/network: \"$HN_NETWORK\""
+        return 1
+    fi
+
+    if [ -z "$(awk "/$HOSTNAME/ && ! /127.0./ && ! /^::1/ && ! /^[[:space:]]*#/" $HOSTS_FILE)" ]
+    then
+        echo_err "Missing line \"IP $HOSTNAME\" in your $HOSTS_FILE"
+        return 1
+    fi
+
+    return 0
+}
+
+function update_rhn_conf {
+    # store config to satellite-local-rules.conf
+    /usr/bin/rhn-config-satellite.pl \
+       --target=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf \
+       --option=jabberDOThostname=$HOSTNAME \
+       --option=cobblerDOThost=$HOSTNAME \
+       >> $LOG 2>&1
+    # but do not deploy (we'd lose actual configuration)
+    # /usr/bin/satcon-deploy-tree.pl \
+    #    --source=/etc/sysconfig/rhn-satellite-prep/etc
+    #    --dest=/etc
+    #    --conf=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf
+    #    >> $LOG 2>&1
+    cp ${RHN_CONF_FILE} ${RHN_CONF_FILE}${BACKUP_EXT}
+    /usr/bin/rhn-config-satellite.pl \
+        --target=/etc/rhn/rhn.conf \
+        --option=server.jabber_server=$HOSTNAME \
+        --option=osa-dispatcher.jabber_server=$HOSTNAME \
+        --option=cobbler.host=$HOSTNAME >> $LOG 2>&1
+}
+
+function re-generate_server_ssl_certificate {
+    # default is to generate new SSL certificate
+    GEN_NEW_SSL="y"
+
+    ACTUAL_SSL_KEY_PAIR_PACKAGE=$(rpm -qa 'rhn-org-httpd-ssl-key-pair*')
+    if [ -n "$ACTUAL_SSL_KEY_PAIR_PACKAGE" ]
+    then
+        echo "Actual SSL key pair package: $ACTUAL_SSL_KEY_PAIR_PACKAGE" | tee -a $LOG
+
+        ACTUAL_CERT_FILES=$(rpm -ql $ACTUAL_SSL_KEY_PAIR_PACKAGE)
+        for cert_file in $ACTUAL_CERT_FILES
+        do
+            if [[ "$cert_file" =~ "\.crt" ]]
+            then
+                CERT_FILE="$cert_file"
+                # SUBJECT=`openssl x509 -in $CERT_FILE -noout -subject`
+                SUBJECT=`grep "Subject:" $CERT_FILE`
+            fi
+            # [[ "$cert_file" =~ "\.key" ]] && CERT_KEY_FILE="$cert_file"
+            # [[ "$cert_file" =~ "\.scr" ]] && CERT_REQ_FILE="$cert_file"
+        done
+
+        if [ ! -n "$CML_NEW_SSL_CERT_REQUEST" ]
+        then
+            # Common Name is prefilled by actuall HOSTNAME
+            HOSTNAME_CERT=`awk "/Subject:/ && /, CN=$HOSTNAME\//" $CERT_FILE`
+            if [ -n "$HOSTNAME_CERT" ]
+            then
+                echo " No need to re-generate SSL certificate." | tee -a $LOG
+                GEN_NEW_SSL="n"
+            fi
+        fi
+    fi
+
+    # is there a need to re-generate SSL certificate?
+    if [ -n "$CML_NEW_SSL_CERT_REQUEST" -o "$GEN_NEW_SSL" == "y" ]
+    then
+        if [ -n "$SUBJECT" ]
+        then
+            SUBJECT_PATTERN='[[:space:]]*Subject: C=\(..*\), ST=\(..*\), O=\(..*\), OU=\(..*\), CN=\(..*\)\/emailAddress=\(..*\)'
+            SSL_COUNTRY_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\1/"`
+            SSL_STATE_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\2/"`
+            SSL_ORG_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\3/"`
+            SSL_ORGUNIT_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\4/"`
+            SSL_EMAIL_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\6/"`
+        fi
+
+        echo "Starting generation of new SSL certificate:"
+        # COUNTRY
+        if [ -n "${CML_SSL_COUNTRY+x}" ]
+        then
+            SSL_COUNTRY=${CML_SSL_COUNTRY}
+        else
+            read -e -p " Enter Country [$SSL_COUNTRY_OLD] : "
+            SSL_COUNTRY=${REPLY:-$SSL_COUNTRY_OLD}
+        fi
+        # STATE
+        if [ -n "${CML_SSL_STATE+x}" ]
+        then
+            SSL_STATE=${CML_SSL_STATE}
+        else
+            read -e -p " Enter State [$SSL_STATE_OLD] : "
+            SSL_STATE=${REPLY:-$SSL_STATE_OLD}
+        fi
+        # ORGANIZATION
+        if [ -n "${CML_SSL_ORG+x}" ]
+        then
+            SSL_ORG=${CML_SSL_ORG}
+        else
+            read -e -p " Enter Organization [$SSL_ORG_OLD] : "
+            SSL_ORG=${REPLY:-$SSL_ORG_OLD}
+        fi
+        # ORGANIZATION UNIT
+        if [ -n "${CML_SSL_ORGUNIT+x}" ]
+        then
+            SSL_ORGUNIT=${CML_SSL_ORGUNIT}
+        else
+            # read -e -p " Enter Organization Unit [${SSL_ORGUNIT_OLD:-$HOSTNAME}] : "
+            # offer hostname as ORG UNIT everytime
+            read -e -p " Enter Organization Unit [$HOSTNAME] : "
+            SSL_ORGUNIT=${REPLY:-$SSL_ORGUNIT_OLD}
+        fi
+        # EMAIL ADDRESS
+        if [ -n "${CML_SSL_EMAIL+x}" ]
+        then
+            SSL_EMAIL=${CML_SSL_EMAIL}
+        else
+            read -e -p " Enter Email Address [$SSL_EMAIL_OLD] : "
+            SSL_EMAIL=${REPLY:-$SSL_EMAIL_OLD}
+        fi
+        # CA PASSWORD
+        # ask explicitelly (different behaviour on sat and spw)
+        if [ -n "${CML_SSL_CA_PASSWORD+x}" ]
+        then
+            SSL_CA_PASSWORD=${CML_SSL_CA_PASSWORD}
+        else
+            read -e -p " Enter CA password : " -s
+            echo
+            SSL_CA_PASSWORD=${REPLY}
+        fi
+
+        echo " Generating SSL certificate:" | tee -a $LOG
+        # just log the SSL info ...
+        echo "rhn-ssl-tool --gen-server \
+            --dir="$SSL_BUILD_DIR" \
+            --set-country="$SSL_COUNTRY" \
+            --set-state="$SSL_STATE" \
+            --set-org="$SSL_ORG" \
+            --set-org-unit="$SSL_ORGUNIT" \
+            --set-email="$SSL_EMAIL" \
+            --set-hostname="${HOSTNAME}" \
+        " >> $LOG
+        SSL_KEY_PAIR_RPM=`rhn-ssl-tool --gen-server \
+            --dir="$SSL_BUILD_DIR" \
+            --set-country="$SSL_COUNTRY" \
+            --set-state="$SSL_STATE" \
+            --set-org="$SSL_ORG" \
+            --set-org-unit="$SSL_ORGUNIT" \
+            --set-email="$SSL_EMAIL" \
+            --set-hostname="${HOSTNAME}" \
+            --password="$SSL_CA_PASSWORD" \
+            2>>$LOG | grep noarch.rpm`
+
+        if [ -n "$ACTUAL_SSL_KEY_PAIR_PACKAGE" ]
+        then
+            echo -n "Removing old SSL certificate ($ACTUAL_SSL_KEY_PAIR_PACKAGE) ... " | tee -a $LOG
+            rpm -e $ACTUAL_SSL_KEY_PAIR_PACKAGE
+            print_status $?
+        fi
+
+        echo -n "Installing new SSL certificate ($(basename $SSL_KEY_PAIR_RPM)) ... " | tee -a $LOG
+        rpm -Uh $SSL_KEY_PAIR_RPM >>$LOG
+        print_status $?
+
+        # copy jabberd certificate, too
+        echo -n "Deploying jabberd certificate ... " | tee -a $LOG
+        NEW_SSL_KEY_PAIR_PACKAGE=$(rpm -qa 'rhn-org-httpd-ssl-key-pair*')
+        JABBERD_CERTIFICATE=$(rpm -ql $NEW_SSL_KEY_PAIR_PACKAGE | grep jabberd)
+        if [ -e "$JABBERD_CERTIFICATE" ]
+        then
+            \cp -f $JABBERD_CERTIFICATE /etc/jabberd/
+            print_status $?
+        else
+            print_status 1
+        fi
+    fi
+}
+
+function push_monitoring_scounts {
+    sqlplus $(spacewalk-cfg-get default_db) >>$LOG 2>&1 <<EOS
+BEGIN
+    FOR t IN (SELECT ORG.id as FIRST, RSC.recid as SECOND, 1 as THIRD
+                FROM web_customer ORG INNER JOIN rhn_sat_cluster RSC
+                ON ORG.id  = RSC.customer_id) LOOP
+        rhn_install_org_satellites(t.FIRST, t.SECOND, t.THIRD);
+    END LOOP;
+    commit;
+END;
+/
+EOS
+}
+
+function update_monitoring_data {
+    # change IP
+    NOCPULSE_OLD_PUBLIC_KEY=`cat $NOCPULSE_PUBLIC_KEY_FILE`
+    sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
+UPDATE rhn_sat_cluster SET vip = '$IP' WHERE public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%';
+UPDATE rhn_sat_node SET ip = '$IP' WHERE EXISTS (SELECT 1 FROM rhn_sat_cluster RSC WHERE RSC.public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%' AND sat_cluster_id = RSC.recid);
+COMMIT;
+QUIT
+EOS
+}
+
+###############################################################################
+
+echo "[$(date)]: $0 $*" >> $LOG
+echo "Validating input arguments:" | tee -a $LOG
+if [ -n "${1}" ]
+then
+    IP=$1
+else
+    echo_err " Missing <ip_address> argument."
+    echo_usage
+fi
+echo -n " Validating IP ... " | tee -a $LOG
+check_input_ip $IP
+print_status $? "IP $IP is not your valid IP address."
+shift
+
+while [ $# -ge 1 ]; do
+    case $1 in
+            --help | -h)  echo_usage;;
+
+            --ssl-country=*) CML_SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
+            --ssl-state=*) CML_SSL_STATE=$(echo $1 | cut -d= -f2-);;
+            --ssl-org=*) CML_SSL_ORG=$(echo $1 | cut -d= -f2-);;
+            --ssl-orgunit=*) CML_SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
+            --ssl-email=*) CML_SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
+
+            --ssl-ca-password=*) CML_SSL_CA_PASSWORD=$(echo $1 | cut -d= -f2-);;
+            *) echo_err "Error: Invalid option $1"
+               echo_usage
+    esac
+    shift
+done
+
+# if the user has set one of these params,
+# he wants to re-generate SSL certificate
+for ssl_var in ${CML_SSL_COUNTRY} ${CML_SSL_STATE} ${CML_SSL_ORG} ${CML_SSL_ORGUNIT} ${CML_SSL_EMAIL} ${CML_SSL_CA_PASSWORD}
+do
+    [ -n "${ssl_var}" ] && CML_NEW_SSL_CERT_REQUEST=1
+done
+
+echo "=============================================" | tee -a $LOG
+echo "hostname: $HOSTNAME" | tee -a $LOG
+echo "ip: $IP" | tee -a $LOG
+echo "=============================================" | tee -a $LOG
+
+initial_system_hostname_check || bye
+
+# stop services
+echo -n "Stopping rhn-satellite services ... " | tee -a $LOG
+/usr/sbin/rhn-satellite stop >> $LOG 2>&1
+if [ "$DB_SERVICE" != "" ]
+then
+    /sbin/service $DB_SERVICE start >> $LOG 2>&1
+fi
+print_status 0  # just simulate end
+
+echo -n "Testing DB connection ... " | tee -a $LOG
+# for spacewalk only:
+if [ -e "$ORACLE_XE_LISTENER_ORA_FILE" ]
+then
+    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_LISTENER_ORA_FILE
+fi
+if [ -e $ORACLE_XE_TNSNAMES_ORA_FILE ]
+then
+    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_TNSNAMES_ORA_FILE
+fi
+
+SQL_RET=$(
+echo "set feed off;
+set pages 0;
+select 0 from dual;
+exit;
+"  | sqlplus -s $(spacewalk-cfg-get default_db)
+)
+# SQL_RET="${SQL_RET#"${SQL_RET%%[![:space:]]*}"}"
+print_status "${SQL_RET}" "Your database isn't running."
+
+echo -n "Updating /etc/rhn/rhn.conf ... " | tee -a $LOG
+update_rhn_conf
+print_status 0  # just simulate end
+
+re-generate_server_ssl_certificate
+
+# Reconfigure up2date client systems with new hostname
+
+echo -n "Regenerating new bootstrap client-config-overrides.txt ... " | tee -a $LOG
+rhn-bootstrap >> /dev/null 2>&1
+print_status $?
+
+echo -n "Updating NOCpulse.ini ... " | tee -a $LOG
+sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
+UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='RHN_SAT_HOSTNAME';
+UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='MDOM';
+COMMIT;
+QUIT
+EOS
+print_status 0  # just simulate end
+
+echo -n "Updating monitoring data ... " | tee -a $LOG
+update_monitoring_data
+print_status $?
+
+echo "Monitoring enabled: $MONITORING_ENABLED" >> $LOG
+echo "MonitoringScout enabled: $MONITORING_SCOUT_ENABLED" >> $LOG
+
+if [ "$MONITORING_ENABLED" != "0" ]
+then
+    if [ "$MONITORING_SCOUT_ENABLED" != "0" ]
+    then
+        echo -n "Pushing monitoring scounts ... " | tee -a $LOG
+        push_monitoring_scounts
+        print_status 0  # just simulate end
+    fi
+fi
+
+echo -n "Updating other DB entries ... " | tee -a $LOG
+sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
+UPDATE rhntemplatestring SET value='$HOSTNAME' WHERE label='hostname';
+COMMIT;
+QUIT
+EOS
+######## + check RHNPUSHDISPATCHER table
+print_status 0  # just simulate end
+
+echo -n "Changing cobbler settings ... " | tee -a $LOG
+# --enable-tftp=no means, everything stayes configured from previous configuration
+/usr/bin/cobbler-setup --enable-tftp=no >> $LOG 2>&1
+print_status $?
+
+echo -n "Changing jabberd settings ... " | tee -a $LOG
+# delete old dispatcher(s)
+sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
+DELETE FROM rhnPushDispatcher WHERE hostname != '$HOSTNAME';
+COMMIT;
+QUIT
+EOS
+
+if [ -e $SPW_SETUP_JABBERD ]
+then
+    $SPW_SETUP_JABBERD
+else
+    /usr/bin/satcon-deploy-tree.pl \
+        --source=/etc/sysconfig/rhn-satellite-prep/etc/jabberd \
+        --dest=/etc/jabberd \
+        --conf=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf \
+       >> /dev/null 2>&1
+fi
+print_status $?
+
+echo -n "Starting rhn-satellite services ... " | tee -a $LOG
+if [ "$DB_SERVICE" != "" ]
+then
+    /sbin/service $DB_SERVICE stop >> $LOG 2>&1
+fi
+/usr/sbin/rhn-satellite start >> $LOG 2>&1
+print_status 0  # just simulate end
+
+echo "[$(date)]: $(basename $0) finished sucessfully." >> $LOG
