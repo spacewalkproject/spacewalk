@@ -19,7 +19,7 @@ package com.redhat.rhn.frontend.dto.kickstart;
  * DTO for a com.redhat.rhn.domain.kickstart.KickstartOptionValue
  * @version $Rev: 50942 $
  */
-public class KickstartOptionValue {
+public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
 
     private String name;    
     private String arg;    
@@ -160,5 +160,13 @@ public class KickstartOptionValue {
         result = 31 * result + (arg != null ? arg.hashCode() : 0);
         result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
         return result;
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public int compareTo(KickstartOptionValue o) {
+        return getName().compareTo(o.getName());
     }
 }

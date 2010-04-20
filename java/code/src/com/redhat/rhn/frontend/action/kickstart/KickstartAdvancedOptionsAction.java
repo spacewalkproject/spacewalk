@@ -31,6 +31,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -171,7 +172,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
             displayList = cmd.getDisplayOptions();
         }
         
-
+        Collections.sort(displayList);
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
         request.setAttribute(OPTIONS, displayList);
         request.setAttribute(CUSTOM_OPTIONS, cmd.getKickstartData().getCustomOptions());
