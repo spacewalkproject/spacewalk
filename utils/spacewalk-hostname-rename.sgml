@@ -1,0 +1,109 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY SCRIPTCOMMAND "spacewalk-hostname-rename" >
+<!ENTITY PRODUCT "RHN Satellite or Spacewalk server" >
+
+]>
+<RefEntry>
+
+<RefMeta>
+    <RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle>
+    <ManVolNum>8</ManVolNum>
+    <RefMiscInfo>Version 0.1</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+    <RefName><command>&SCRIPTCOMMAND;</command></RefName>
+    <RefPurpose>
+    Reconfigures &PRODUCT; to use a different hostname/ip address.
+    </RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+    <Synopsis>
+        <cmdsynopsis>
+            <command>&SCRIPTCOMMAND;</command>
+            <arg choice='plain'><replaceable>IP_ADDRESS</replaceable></arg>
+            <arg>--ssl-country=<replaceable>SSL_COUNTRY</replaceable></arg>
+            <arg>--ssl-state=<replaceable>SSL_STATE</replaceable></arg>
+            <arg>--ssl-org=<replaceable>SSL_ORG</replaceable></arg>
+            <arg>--ssl-orgunit=<replaceable>SSL_ORGUNIT</replaceable></arg>
+            <arg>--ssl-email=<replaceable>SSL_EMAIL</replaceable></arg>
+            <arg>--ssl-ca-password=<replaceable>SSL_CA_PASSWORD</replaceable></arg>
+        </cmdsynopsis>
+        <cmdsynopsis>
+            <arg>-h</arg> <arg>--help</arg>
+        </cmdsynopsis>
+    </Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1>
+    <Title>Description</Title>
+    <para> After a system hostname or default IP gets changed on a &PRODUCT;, it is necessary to run &SCRIPTCOMMAND; to reconfigure to the new settings. Afterwards it may be necessary to reconfigure RHN Proxies and clients registered to the server.</para>
+    <para>&SCRIPTCOMMAND; takes one mandatory argument - <replaceable>IP_ADDRESS</replaceable> regardless of whether the IP address has changed or not. If there is a need to generate a new SSL certificate, all necessary information will be asked interactivelly, unless it is specified by the options.
+When the system hostname has not changed, the re-generation of a new SSL server certificate is not necessary. However, if at least one <option>--ssl-*</option> option is specified, certificate generation is forced.</para>
+</RefSect1>
+
+<RefSect1>
+    <Title>Options</Title>
+    <variablelist>
+        <varlistentry>
+            <term><replaceable>IP_ADDRESS</replaceable></term>
+            <listitem>
+                <para>Default IP address used for the &PRODUCT;.  Mandatory even if the IP address has not changed</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>-h, --help</term>
+            <listitem>
+                <para>Display the help screen with a list of options.</para>
+            </listitem>
+        </varlistentry>
+    </variablelist>
+    <para>Setting one of the following options will force re-generation of the SSL certificate:</para>
+    <variablelist>
+        <varlistentry>
+            <term>--ssl-country=<replaceable>SSL_COUNTRY</replaceable></term>
+            <listitem>
+                <para>Two letter country code to be used in the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>--ssl-state=<replaceable>SSL_STATE</replaceable></term>
+            <listitem>
+                <para>State to be used in the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>--ssl-org=<replaceable>SSL_ORG</replaceable></term>
+            <listitem>
+                <para>Organization name to be used in the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>--ssl-orgunit=<replaceable>SSL_ORGUNIT</replaceable></term>
+            <listitem>
+                <para>Organization unit name to be used in the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>--ssl-email=<replaceable>SSL_EMAIL</replaceable></term>
+            <listitem>
+                <para>Email to be used in the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>--ssl-password=<replaceable>SSL_PASSWORD</replaceable></term>
+            <listitem>
+                <para>Password of the SSL CA to sign the new SSL certificate.</para>
+            </listitem>
+        </varlistentry>
+    </variablelist>
+</RefSect1>
+
+<RefSect1>
+    <Title>Authors</Title>
+    <simplelist>
+        <member>Tomáš Leštách<email>tlestach@redhat.com</email></member>
+    </simplelist>
+</RefSect1>
+</RefEntry>
