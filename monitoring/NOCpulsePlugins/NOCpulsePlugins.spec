@@ -18,6 +18,18 @@ historical and trending reports in an easy-to-use browser interface.
 
 This package contain NOCpulse authored plugins for probes.
 
+%package Oracle
+Summary:      NOCpulse plugins for Oracle
+Group:        Development/Libraries
+Requires:     %{name} = %{version}
+
+%description Oracle
+NOCpulse provides application, network, systems and transaction monitoring,
+coupled with a comprehensive reporting system including availability,
+historical and trending reports in an easy-to-use browser interface.
+
+This package contain NOCpulse authored plugins for Oracle probes.
+
 %prep
 %setup -q
 
@@ -57,9 +69,23 @@ fi
 %dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse
 %attr(-,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
 %dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/libexec
-%attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/*
+%{_var}/lib/nocpulse/libexec/Apache*
+%{_var}/lib/nocpulse/libexec/General*
+%{_var}/lib/nocpulse/libexec/LogAgent*
+%{_var}/lib/nocpulse/libexec/MySQL*
+%{_var}/lib/nocpulse/libexec/NetworkService*
+%{_var}/lib/nocpulse/libexec/Satellite*
+%{_var}/lib/nocpulse/libexec/Unix*
+%{_var}/lib/nocpulse/libexec/Weblogic*
+%{_var}/lib/nocpulse/libexec/catalog
+%{_var}/lib/nocpulse/libexec/status
+%{_var}/lib/nocpulse/libexec/*.pm
 %{_sysconfdir}/nocpulse/*
 %{_bindir}/*
+
+%files Oracle
+%defattr(-,root,root,-)
+%{_var}/lib/nocpulse/libexec/Oracle*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
