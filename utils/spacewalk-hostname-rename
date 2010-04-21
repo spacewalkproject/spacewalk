@@ -49,7 +49,7 @@ SPW_SETUP_JABBERD=/usr/bin/spacewalk-setup-jabberd
 
 function echo_usage {
     echo "Usage:"
-    echo "   $(basename $0) <ip_address> [ --ssl-country=<ssl_country> --ssl-state=<ssl_state> --ssl-org=<ssl_org> --ssl-orgunit=<ssl_orgunit> --ssl-email=<ssl_email> --ssl-ca-password=<ssl_ca_password>]"
+    echo "   $(basename $0) <IP_ADDRESS> [ --ssl-country=<SSL_COUNTRY> --ssl-state=<SSL_STATE> --ssl-org=<SSL_ORG> --ssl-orgunit=<SSL_ORGUNIT> --ssl-email=<SSL_EMAIL> --ssl-ca-password=<SSL_CA_PASSWORD>]"
     echo "   $(basename $0) { -h | --help }"
     exit 1
 }
@@ -328,21 +328,11 @@ EOS
 ###############################################################################
 
 echo "[$(date)]: $0 $*" >> $LOG
-echo "Validating input arguments:" | tee -a $LOG
-if [ -n "${1}" ]
-then
-    IP=$1
-else
-    echo_err " Missing <ip_address> argument."
-    echo_usage
-fi
-echo -n " Validating IP ... " | tee -a $LOG
-check_input_ip $IP
-print_status $? "IP $IP is not your valid IP address."
-shift
 
 while [ $# -ge 1 ]; do
     case $1 in
+            [[:digit:]]*.[[:digit:]]*.[[:digit:]]*.[[:digit:]]*) IP=$1;;
+
             --help | -h)  echo_usage;;
 
             --ssl-country=*) CML_SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
@@ -353,10 +343,20 @@ while [ $# -ge 1 ]; do
 
             --ssl-ca-password=*) CML_SSL_CA_PASSWORD=$(echo $1 | cut -d= -f2-);;
             *) echo_err "Error: Invalid option $1"
-               echo_usage
+               echo_usage;;
     esac
     shift
 done
+
+if [ -n "${IP}" ]
+then
+    echo -n "Validating IP ... " | tee -a $LOG
+    check_input_ip $IP
+    print_status $? "IP $IP is not your valid IP address."
+else
+    echo_err "Missing <ip_address> argument."
+    echo_usage
+fi
 
 # if the user has set one of these params,
 # he wants to re-generate SSL certificate
