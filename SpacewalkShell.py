@@ -542,7 +542,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_ssm_clear(self):
-        print 'Usage: ssm_clear'
+        print 'ssm_clear: Remove all systems from the SSM'
+        print 'usage: ssm_clear'
 
     def do_ssm_clear(self, args):
         self.ssm = []
@@ -550,12 +551,14 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_help(self):
-        print 'Usage: help COMMAND'
+        print 'help: Show help for the given command'
+        print 'usage: help COMMAND'
 
 ####################
 
     def help_clear(self):
-        print 'Usage: clear'
+        print 'clear: clear the screen'
+        print 'usage: clear'
 
     def do_clear(self, args):
         os.system('clear')
@@ -563,7 +566,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_clear_caches(self):
-        print 'Usage: clear_caches'
+        print 'clear_caches: Clear the internal caches kept for systems' + \
+              ' and packages'
+        print 'usage: clear_caches'
 
     def do_clear_caches(self, args):
         self.clear_system_cache()
@@ -572,7 +577,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_history(self):
-        print 'Usage: history'
+        print 'history: Show your command history'
+        print 'usage: history'
 
     def do_history(self, args):
         for i in range(1, readline.get_current_history_length()):
@@ -581,7 +587,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_whoami(self):
-        print 'Usage: whoami'
+        print 'whoami: Print the name of the currently logged in user'
+        print 'usage: whoami'
 
     def do_whoami(self, args):
         if len(self.username):
@@ -592,7 +599,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_whoamitalkingto(self):
-        print 'Usage: whoamitalkingto'
+        print 'whoamitalkingto: Print the name of the server'
+        print 'usage: whoamitalkingto'
 
     def do_whoamitalkingto(self, args):
         if len(self.server):
@@ -608,11 +616,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print 'Example:'
         print '> ssm_add group:rhel5-x86_64'
+        print '> ssm_add search:device:vmware'
         print '> ssm_add someotherhost.example.com'
         print '> system_details ssm'
 
+####################
+
     def help_ssm_add(self):
-        print 'Usage: ssm_add SYSTEM|group:GROUP|search:QUERY ...'
+        print 'ssm_add: Add systems to the SSM, which can then be operated'
+        print '         on as a single group'
+        print 'usage: ssm_add SYSTEM|group:GROUP|search:QUERY ...'
 
     def complete_ssm_add(self, text, line, begidx, endidx):
         if re.match('group:', text):
@@ -649,7 +662,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_ssm_rm(self):
-        print 'Usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ...'
+        print 'ssm_rm: Remove systems from the SSM'
+        print 'usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ...'
 
     def complete_ssm_rm(self, text, line, begidx, endidx):
         if re.match('group:', text):
@@ -681,7 +695,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_ssm_list(self):
-        print 'Usage: ssm_list'
+        print 'ssm_list: Show the systems currently in the SSM'
+        print 'usage: ssm_list'
 
     def do_ssm_list(self, args):
         systems = sorted(self.ssm)
@@ -693,7 +708,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_login(self):
-        print 'Usage: login [USERNAME] [SERVER]'
+        print 'login: Connect to a Spacewalk server'
+        print 'usage: login [USERNAME] [SERVER]'
 
     def do_login(self, args):
         self.session = ''
@@ -815,7 +831,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_logout(self):
-        print 'Usage: logout'
+        print 'logout: Disconnect from a Spacewalk server'
+        print 'usage: logout'
 
     def do_logout(self, args):
         if self.session:
@@ -837,7 +854,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_get_apiversion(self):
-        print 'Usage: get_apiversion'
+        print 'get_apiversion: Display the API version of the server'
+        print 'usage: get_apiversion'
 
 
     def do_get_apiversion(self, args):
@@ -846,7 +864,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_get_serverversion(self):
-        print 'Usage: get_serverversion'
+        print 'get_serverversion: Display the version of the server'
+        print 'usage: get_serverversion'
 
     def do_get_serverversion(self, args):
         print self.client.api.systemVersion()
@@ -854,7 +873,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_get_certificateexpiration(self):
-        print 'Usage: get_certificateexpiration'
+        print 'get_certificateexpiration: Print the expiration date of the'
+        print "                           server's entitlement certificate"
+        print 'usage: get_certificateexpiration'
 
     def do_get_certificateexpiration(self, args):
         print self.client.satellite.getCertificateExpirationDate(self.session).value
@@ -862,7 +883,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_get_entitlements(self):
-        print 'Usage: get_entitlements'
+        print 'get_entitlements: Show the current entitlement usage'
+        print 'usage: get_entitlements'
 
     def do_get_entitlements(self, args):
         entitlements = self.client.satellite.listEntitlements(self.session)
@@ -885,7 +907,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_package_details(self):
-        print 'Usage: package_details PACKAGE ...'
+        print 'package_details: Show the details of a software package'
+        print 'usage: package_details PACKAGE ...'
 
     def complete_package_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_package_names(True), text)
@@ -936,7 +959,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_package_search(self):
-        print 'Usage: package_search PACKAGE|QUERY'
+        print 'package_search: Find packages that meet the given criteria'
+        print 'usage: package_search PACKAGE|QUERY'
+        print
         print 'Example: package_search kernel-2.6.18-92'
         print
         print 'Advanced Search:'
@@ -969,7 +994,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_kickstart_list(self):
-        print 'Usage: kickstart_list'
+        print 'kickstart_list: Show the available Kickstart profiles'
+        print 'usage: kickstart_list'
 
     def do_kickstart_list(self, args, doreturn=False):
         kickstarts = self.client.kickstart.listKickstarts(self.session)
@@ -984,7 +1010,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_kickstart_details(self):
-        print 'Usage: kickstart_details PROFILE'
+        print 'kickstart_details: Show the details of a Kickstart profile'
+        print 'usage: kickstart_details PROFILE'
 
     def complete_kickstart_details(self, text, line, begidx, endidx):
         if len(line.split(' ')) <= 2:
@@ -1153,7 +1180,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_kickstart_raw(self):
-        print 'Usage: kickstart_raw LABEL'
+        print 'kickstart_raw: Show the contents of a Kickstart profile'
+        print '               as they would be presented to a client'
+        print 'usage: kickstart_raw LABEL'
 
     def complete_kickstart_raw(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_kickstart_list('', True), text)
@@ -1182,7 +1211,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_kickstart_listsnippets(self):
-        print 'Usage: kickstart_listsnippets'
+        print 'kickstart_listsnippets: Show the available Kickstart snippets'
+        print 'usage: kickstart_listsnippets'
 
     def do_kickstart_listsnippets(self, args, doreturn=False):
         snippets = self.client.kickstart.snippet.listCustom(self.session)
@@ -1197,7 +1227,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_kickstart_snippetdetails(self):
-        print 'Usage: kickstart_snippetdetails SNIPPET ...'
+        print 'kickstart_snippetdetails: Show the contents of a snippet'
+        print 'usage: kickstart_snippetdetails SNIPPET ...'
 
     def complete_kickstart_snippetdetails(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_kickstart_listsnippets('', True),
@@ -1237,7 +1268,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_errata_details(self):
-        print 'Usage: errata_details NAME ...'
+        print 'errata_details: Show the details of an errata'
+        print 'usage: errata_details NAME ...'
 
     def do_errata_details(self, args):
         if not len(self.args):
@@ -1300,7 +1332,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_errata_search(self):
-        print 'Usage: errata_search CVE ...'
+        print 'errata_search: Show errata that meet the given criteria'
+        print 'usage: errata_search CVE ...'
 
     def do_errata_search(self, args, doreturn=False):
         if not len(self.args):
@@ -1335,7 +1368,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_list(self):
-        print 'Usage: system_list'
+        print 'system_list: Show all available system profiles'
+        print 'usage: system_list'
 
     def do_system_list(self, args, doreturn=False):
         if doreturn:
@@ -1347,10 +1381,12 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_search(self):
-        print 'Usage: system_search QUERY'
+        print 'system_search: Show systems that match the given criteria'
+        print 'usage: system_search QUERY'
         print
         print 'Available Fields: id, name, ip, hostname, ' + \
               'device, vendor, driver'
+        print
         print 'Examples:'
         print '> system_search vendor:vmware'
         print '> system_search ip:192.168.82'
@@ -1424,7 +1460,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_runscript(self):
-        print 'Usage: system_runscript SSM|<SYSTEM ...>'
+        print 'system_runscript: Schedule a script to run on the list of'
+        print '                  systems provided'
+        print 'usage: system_runscript SSM|<SYSTEM ...>'
         print
         print 'Start Time Examples:'
         print 'now  -> right now!'
@@ -1531,7 +1569,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_hardware(self):
-        print 'Usage: system_hardware SSM|<SYSTEM ...>'
+        print 'system_hardware: Show a detailed list of hardware for a system'
+        print 'usage: system_hardware SSM|<SYSTEM ...>'
 
     def complete_system_hardware(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -1644,7 +1683,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_installpackage(self):
-        print 'Usage: system_installpackage SSM|SYSTEM <PACKAGE ...>'
+        print 'system_installpackage: Install a package on a system'
+        print 'usage: system_installpackage SSM|SYSTEM <PACKAGE ...>'
 
     def complete_system_installpackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -1745,7 +1785,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_removepackage(self):
-        print 'Usage: system_removepackage SSM|SYSTEM <PACKAGE ...>'
+        print 'system_removepackage: Remove a package from a system'
+        print 'usage: system_removepackage SSM|SYSTEM <PACKAGE ...>'
 
     def complete_system_removepackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -1843,7 +1884,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_upgradepackage(self):
-        print 'Usage: system_upgradepackage SSM|SYSTEM <PACKAGE ...>|*'
+        print 'system_upgradepackage: Upgrade a package on a system'
+        print 'usage: system_upgradepackage SSM|SYSTEM <PACKAGE ...>|*'
 
     def complete_system_upgradepackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -1903,7 +1945,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listupgrades(self):
-        print 'Usage: system_listupgrades SSM|<SYSTEM ...>'
+        print 'system_listupgrades: Show the available upgrades for a system'
+        print 'usage: system_listupgrades SSM|<SYSTEM ...>'
 
     def complete_system_listupgrades(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -1959,7 +2002,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listinstalledpackages(self):
-        print 'Usage: system_listinstalledpackages SSM|<SYSTEM ...>'
+        print 'system_listinstalledpackages: Show all of the installed packages'
+        print '                              on a system'
+        print 'usage: system_listinstalledpackages SSM|<SYSTEM ...>'
 
     def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -1998,7 +2043,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_delete(self):
-        print 'Usage: system_delete SSM|<SYSTEM ...>'
+        print 'system_delete: Delete a system profile'
+        print 'usage: system_delete SSM|<SYSTEM ...>'
 
     def complete_system_delete(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -2042,7 +2088,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_rename(self):
-        print 'Usage: system_rename OLDNAME NEWNAME'
+        print 'system_rename: Rename a system profile'
+        print 'usage: system_rename OLDNAME NEWNAME'
 
     def complete_system_rename(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
@@ -2076,7 +2123,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_details(self):
-        print 'Usage: system_details SSM|<SYSTEM ...>'
+        print 'system_details: Show the details of a system profile'
+        print 'usage: system_details SSM|<SYSTEM ...>'
 
     def complete_system_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -2192,7 +2240,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listerrata(self):
-        print 'Usage: system_listerrata SSM|<SYSTEM ...>'
+        print 'system_listerrata: Show available errata for a system'
+        print 'usage: system_listerrata SSM|<SYSTEM ...>'
 
     def complete_system_listerrata(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -2231,7 +2280,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_applyerrata(self):
-        print 'Usage: system_applyerrata SSM|<SYSTEM ...>'
+        print 'system_applyerrata: Apply all outstanding errata for a system'
+        print 'usage: system_applyerrata SSM|<SYSTEM ...>'
 
     def complete_system_applyerrata(self, text, line, begidx, endidx):
         return self.tab_completer(self.get_system_names(), text)
@@ -2300,7 +2350,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_addsystems(self):
-        print 'Usage: group_addsystems GROUP SSM|<SYSTEM ...>'
+        print 'group_addsystems: Add systems to a group'
+        print 'usage: group_addsystems GROUP SSM|<SYSTEM ...>'
 
     def complete_group_addsystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -2337,7 +2388,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_removesystems(self):
-        print 'Usage: group_removesystems GROUP SSM|<SYSTEM ...>'
+        print 'group_removesystems: Remove systems from a group'
+        print 'usage: group_removesystems GROUP SSM|<SYSTEM ...>'
 
     def complete_group_removesystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -2374,7 +2426,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_create(self):
-        print 'Usage: group_create NAME'
+        print 'group_create: Create a system group'
+        print 'usage: group_create NAME'
 
     def do_group_create(self, args):
         if len(self.args) != 1:
@@ -2393,7 +2446,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_delete(self):
-        print 'Usage: group_create NAME ...'
+        print 'group_delete: Delete a system group'
+        print 'usage: group_create NAME ...'
     
     def complete_group_delete(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
@@ -2414,7 +2468,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_list(self):
-        print 'Usage: group_list'
+        print 'group_list: Show all available system groups'
+        print 'usage: group_list'
 
     def do_group_list(self, args, doreturn=False):
         groups = self.client.systemgroup.listAllGroups(self.session)
@@ -2429,7 +2484,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_listsystems(self):
-        print 'Usage: group_listsystems GROUP'
+        print 'group_listsystems: List the members of a group'
+        print 'usage: group_listsystems GROUP'
 
     def complete_group_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
@@ -2460,7 +2516,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_group_details(self):
-        print 'Usage: group_details GROUP ...'
+        print 'group_details: Show the details of a system group'
+        print 'usage: group_details GROUP ...'
 
     def complete_group_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
@@ -2504,7 +2561,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_cancel(self):
-        print 'Usage: schedule_cancel ID|* ...'
+        print 'schedule_cancel: Cancel a scheduled action'
+        print 'usage: schedule_cancel ID|* ...'
 
     def complete_schedule_cancel(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_schedule_listpending('', True),
@@ -2545,7 +2603,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_summary(self):
-        print 'Usage: schedule_summary ID'
+        print 'schedule_summary: Show the details of a scheduled action'
+        print 'usage: schedule_summary ID'
 
     def do_schedule_summary(self, args):
         if not len(self.args):
@@ -2599,7 +2658,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_getoutput(self):
-        print 'Usage: schedule_getoutput ID'
+        print 'schedule_getoutput: Show the output from a completed action'
+        print 'usage: schedule_getoutput ID'
 
     def do_schedule_getoutput(self, args):
         if not len(self.args):
@@ -2646,7 +2706,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_listpending(self):
-        print 'Usage: schedule_listpending [LIMIT]'
+        print 'schedule_listpending: Show pending actions'
+        print 'usage: schedule_listpending [LIMIT]'
 
     def do_schedule_listpending(self, args, doreturn=False):
         actions = self.client.schedule.listInProgressActions(self.session)
@@ -2677,7 +2738,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_listcompleted(self):
-        print 'Usage: schedule_listcompleted [LIMIT]'
+        print 'schedule_listcompleted: Show completed actions'
+        print 'usage: schedule_listcompleted [LIMIT]'
 
     def do_schedule_listcompleted(self, args, doreturn=False):
         actions = self.client.schedule.listCompletedActions(self.session)
@@ -2708,7 +2770,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_listfailed(self):
-        print 'Usage: schedule_listfailed [LIMIT]'
+        print 'schedule_listfailed: Show failed actions'
+        print 'usage: schedule_listfailed [LIMIT]'
 
     def do_schedule_listfailed(self, args, doreturn=False):
         actions = self.client.schedule.listFailedActions(self.session)
@@ -2739,7 +2802,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_schedule_listarchived(self):
-        print 'Usage: schedule_listarchived [LIMIT]'
+        print 'schedule_listarchived: Show archived actions'
+        print 'usage: schedule_listarchived [LIMIT]'
 
     def do_schedule_listarchived(self, args, doreturn=False):
         actions = self.client.schedule.listArchivedActions(self.session)
@@ -2767,7 +2831,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_cryptokey_list(self):
-        print 'Usage: cryptokey_list'
+        print 'cryptokey_list: List all cryptographic keys (SSL, GPG)'
+        print 'usage: cryptokey_list'
 
     def do_cryptokey_list(self, args, doreturn=False):
         keys = self.client.kickstart.keys.listAllKeys(self.session)
@@ -2782,7 +2847,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_cryptokey_details(self):
-        print 'Usage: cryptokey_details KEY ...'
+        print 'cryptokey_details: Show the contents of a cryptographic key'
+        print 'usage: cryptokey_details KEY ...'
 
     def complete_cryptokey_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_cryptokey_list('', True), text)
@@ -2817,7 +2883,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_list(self):
-        print 'Usage: activationkey_list'
+        print 'activationkey_list: List all activation keys'
+        print 'usage: activationkey_list'
 
     def do_activationkey_list(self, args, doreturn=False):
         keys = self.client.activationkey.listActivationKeys(self.session)
@@ -2832,7 +2899,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_listsystems(self):
-        print 'Usage: activationkey_listsystems KEY'
+        print 'activationkey_listsystems: List systems registered with a key'
+        print 'usage: activationkey_listsystems KEY'
 
     def complete_activationkey_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_activationkey_list('', True), text)
@@ -2861,7 +2929,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_details(self):
-        print 'Usage: activationkey_details KEY ...'
+        print 'activationkey_details: Show the details of an activation key'
+        print 'usage: activationkey_details KEY ...'
 
     def complete_activationkey_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_activationkey_list('', True), text)
@@ -2936,7 +3005,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_configchannel_list(self):
-        print 'Usage: configchannel_list'
+        print 'configchannel_list: List all configuration channels'
+        print 'usage: configchannel_list'
 
     def do_configchannel_list(self, args, doreturn=False):
         channels = self.client.configchannel.listGlobals(self.session)
@@ -2951,7 +3021,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_configchannel_listsystems(self):
-        print 'Usage: configchannel_listsystems CHANNEL'
+        print 'configchannel_listsystems: Show systems subscribed to a'
+        print '                           configuration channel'
+        print 'usage: configchannel_listsystems CHANNEL'
 
     def complete_configchannel_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
@@ -2976,7 +3048,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_configchannel_listfiles(self):
-        print 'Usage: configchannel_listfiles CHANNEL ...'
+        print 'configchannel_listfiles: Show the files in a config channel'
+        print 'usage: configchannel_listfiles CHANNEL ...'
 
     def complete_configchannel_listfiles(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
@@ -3000,7 +3073,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_configchannel_filedetails(self):
-        print 'Usage: configchannel_filedetails CHANNEL <FILE ...>'
+        print 'help_configchannel_filedetails: Show the details of a file'
+        print '                                in a configuration channel'
+        print 'usage: configchannel_filedetails CHANNEL <FILE ...>'
 
     def complete_configchannel_filedetails(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -3064,7 +3139,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_configchannel_details(self):
-        print 'Usage: configchannel_details CHANNEL ...'
+        print 'configchannel_details: Show the details of a config channel'
+        print 'usage: configchannel_details CHANNEL ...'
 
     def complete_configchannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_configchannel_list('', True), text)
@@ -3100,7 +3176,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_softwarechannel_list(self):
-        print 'Usage: softwarechannel_list'
+        print 'softwarechannel_list: List all available software channels'
+        print 'usage: softwarechannel_list'
 
     def do_softwarechannel_list(self, args, doreturn=False):
         channels = self.client.channel.listAllChannels(self.session)
@@ -3115,7 +3192,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_softwarechannel_listsystems(self):
-        print 'Usage: softwarechannel_listsystems CHANNEL'
+        print 'softwarechannel_listsystems: List all systems subscribed to'
+        print '                             a software channel'
+        print 'usage: softwarechannel_listsystems CHANNEL'
 
     def complete_softwarechannel_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
@@ -3139,7 +3218,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_softwarechannel_packages(self):
-        print 'Usage: softwarechannel_packages CHANNEL [PACKAGE ...]'
+        print 'softwarechannel_packages: List the most recent packages'
+        print '                          available from a software channel'
+        print 'usage: softwarechannel_packages CHANNEL [PACKAGE ...]'
 
     def complete_softwarechannel_packages(self, text, line, begidx, endidx):
         # only tab complete the channel name
@@ -3170,7 +3251,8 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_softwarechannel_details(self):
-        print 'Usage: softwarechannel_details CHANNEL ...'
+        print 'softwarechannel_details: Show the details of a software channel'
+        print 'usage: softwarechannel_details CHANNEL ...'
 
     def complete_softwarechannel_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
@@ -3226,7 +3308,9 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_softwarechannel_errata(self):
-        print 'Usage: softwarechannel_errata CHANNEL ...'
+        print 'softwarechannel_errata: List all the errata associated with a'
+        print '                        software channel'
+        print 'usage: softwarechannel_errata CHANNEL ...'
 
     def complete_softwarechannel_errata(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
