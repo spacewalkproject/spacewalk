@@ -268,6 +268,15 @@ class ChangeLog(Item):
         Item.__init__(self, self.attributeTypes)
 
 
+class Checksum(Item):
+    attributeTypes = {
+        'type'              : StringType,
+        'value'             : StringType,
+    }
+    def __init__(self):
+        Item.__init__(self, self.attributeTypes)
+
+
 class IncompletePackage(BaseInformation):
     attributeTypes = {
         'package_id'        : StringType, # RH db id
@@ -279,12 +288,10 @@ class IncompletePackage(BaseInformation):
         'org_id'            : IntType,
         'package_size'      : IntType,
         'last_modified'     : DateType,
-        # those attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
         # These attributes are lists of objects
         'channels'          : [StringType],
+        'checksum_list'     : [Checksum],
     }
     def __init__(self):
         BaseInformation.__init__(self, IncompletePackage.attributeTypes)

@@ -474,12 +474,15 @@ addItem(ChannelItem)
 class BaseChecksummedItem(BaseItem):
     def populate(self, attributes, elements):
         item = BaseItem.populate(self, attributes, elements)
+        item['checksums'] = {}
         if 'md5sum' in item:
-            if type(item['checksum']) != types.StringType:
-                # xml dumps < 3.5 (aka pre-sha256)
-                item['checksum_type'] = 'md5'
-                item['checksum']      = item['md5sum']
+            # xml dumps < 3.6 (aka pre-sha256)
+            item['checksums']['md5'] = item['md5sum']
             del(item['md5sum'])
+        if 'checksum_list' in item and item['checksum_list']:
+            for csum in item['checksum_list']:
+                item['checksums'][csum['type']] = csum['value']
+            del(item['checksum_list'])
         return item
 addItem(BaseChecksummedItem)
 
@@ -492,9 +495,19 @@ class IncompletePackageItem(BaseChecksummedItem):
         'last-modified'             : 'last_modified',
         'package-arch'              : 'arch',
         'org-id'                    : 'org_id',
-        'checksum-type'             : 'checksum_type',  # xml dump 3.5 (sha256)
+        'checksums'                 : 'checksum_list',
     }
 addItem(IncompletePackageItem)
+
+class ChecksumItem(BaseItem):
+    item_name = 'checksum'
+    item_class = importLib.Checksum
+    tagMap = {
+        'checksum-type'  : 'type',
+        'checksum-value' : 'value',
+    }
+addItem(ChecksumItem)
+
 
 class PackageItem(IncompletePackageItem):
     item_name = 'rhn-package'
