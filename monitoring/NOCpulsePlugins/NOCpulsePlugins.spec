@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.10
+Version:      2.208.10
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plug-ins
 URL:          https://fedorahosted.org/spacewalk
