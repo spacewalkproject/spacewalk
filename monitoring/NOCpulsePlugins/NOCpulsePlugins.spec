@@ -47,7 +47,7 @@ mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/ProbeState
 install -p -m 644 *.ini   $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
 install -p -m 644 *.pm    $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
 install -p -m 755 status  $RPM_BUILD_ROOT%{_bindir}/rhn-probe-status
-install -p -m 755 catalog $RPM_BUILD_ROOT%{_bindir}/rhn-catalog
+install -p -m 755 rhn-catalog $RPM_BUILD_ROOT%{_bindir}
 install -p -m 755 setTrending $RPM_BUILD_ROOT%{_bindir}
 
 for pkg in Apache Apache/test General LogAgent MySQL NetworkService Oracle Oracle/test Satellite Unix Unix/test Weblogic 
