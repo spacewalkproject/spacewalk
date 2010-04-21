@@ -70,9 +70,13 @@ if __name__ == '__main__':
     shell = SpacewalkShell(options)
 
     if len(args):
-        # run a single command given on the command line
-        shell.preloop()
-        shell.onecmd(shell.precmd(' '.join(args), True))
+        try:
+            # run a single command given on the command line
+            shell.preloop()
+            shell.onecmd(shell.precmd(' '.join(args), True))
+        except xmlrpclib.Fault, err:
+            logging.debug(sys.exc_info())
+            logging.error(err.faultString.rsplit(': ', 1)[1])
     else:
         while True:
             try:
