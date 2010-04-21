@@ -44,18 +44,18 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/ProbeState
 
-install *.ini   $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
-install *.pm    $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
-install status  $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
-install catalog $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
-install setTrending $RPM_BUILD_ROOT%{_bindir}
+install -p -m 644 *.ini   $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
+install -p -m 644 *.pm    $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install -p -m 644 status  $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install -p -m 644 catalog $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install -p -m 755 setTrending $RPM_BUILD_ROOT%{_bindir}
 ln -s %{_var}/lib/nocpulse/libexec/catalog $RPM_BUILD_ROOT%{_bindir}/rhn-catalog
 
 for pkg in Apache Apache/test General LogAgent MySQL NetworkService Oracle Oracle/test Satellite Unix Unix/test Weblogic 
 do
   fulldir=$RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec/$pkg
   mkdir -p  $fulldir
-  install $pkg/*.pm $fulldir
+  install -p -m 644 $pkg/*.pm $fulldir
 done
 
 %post
