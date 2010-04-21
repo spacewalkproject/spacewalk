@@ -18,6 +18,8 @@
 insert into rhnArchType (id, label, name) values
 	(rhn_archtype_id_seq.nextval, 'rpm', 'RPM');
 insert into rhnArchType (id, label, name) values
+	(rhn_archtype_id_seq.nextval, 'deb', 'DEB');
+insert into rhnArchType (id, label, name) values
 	(rhn_archtype_id_seq.nextval, 'sysv-solaris', 'SysV-Solaris');
 insert into rhnArchType (id, label, name) values
 	(rhn_archtype_id_seq.nextval, 'tar', 'tar');

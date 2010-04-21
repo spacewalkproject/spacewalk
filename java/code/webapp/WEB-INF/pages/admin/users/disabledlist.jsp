@@ -53,7 +53,8 @@
 	     	
 	    <rl:column headerkey="disabledlist.jsp.disabledOn"
 	    	bound="true"
-	    	attr="changeDate"
+	    	attr="changeDateString"
+	    	sortattr="changeDate"
 	    	styleclass="last-column"/>
 	            
  	</rl:list>

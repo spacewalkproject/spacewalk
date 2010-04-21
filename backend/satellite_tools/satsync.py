@@ -1463,7 +1463,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 path = os.path.join(base_path, relative_path)
                 f = FileManip(path, timestamp=timestamp, file_size=file_size)
                 # Retry a number of times, we may have network errors
-                for i in range(3):
+                for i in range(CFG.NETWORK_RETRIES):
                     stream = self._get_ks_file_stream(channel, label, relative_path)
                     try:
                         f.write_file(stream)
@@ -1969,7 +1969,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             nvrea = rpmManip.nvrea()
 
             # Retry a number of times, we may have network errors
-            for i in range(3):
+            for i in range(CFG.NETWORK_RETRIES):
                 rpmFile, stream = self._get_package_stream(channel,
                     package_id, nvrea, sources)
                 if stream is None:
@@ -2530,13 +2530,13 @@ if __name__ == '__main__':
                      " purposes !!!\n")
     try:
         sys.exit(Runner().main() or 0)
-    except (KeyboardInterrupt, SystemExit):
-        raise
+    except (KeyboardInterrupt, SystemExit), e:
+        sys.exit(e)
     except Exception:
         from common import fetchTraceback
         tb = 'TRACEBACK: ' + fetchTraceback(with_locals=1)
         log2disk(-1, tb)
         log2email(-1, tb)
         sendMail()
-        raise
+        sys.exit(-1)
 

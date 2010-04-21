@@ -20,30 +20,17 @@
             AND  SGM.server_id = CP.host_id(+)
             AND  SGM.group_id = UMSG.server_group_id
          GROUP BY SGM.group_id) MONITORING_STATUS,
-    ( select /*+first_rows*/ 1
-	    FROM rhnErrata E
-	    WHERE E.advisory_type = 'Security Advisory'
-	    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
-	      where snpc.errata_id = e.id
-	      and snpc.server_id = sgm.server_id
-	      and sgm.server_group_id = G.id)
-	      and rownum = 1) AS SECURITY_ERRATA,
-    ( select /*+first_rows*/ 1
-		    FROM rhnErrata E
-		    WHERE E.advisory_type = 'Bug Fix Advisory'
-		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
-		      where snpc.errata_id = e.id
-		      and snpc.server_id = sgm.server_id
-		      and sgm.server_group_id = G.id)
-				and rownum = 1) AS BUG_ERRATA,
-    ( select /*+first_rows*/ 1
-		    FROM rhnErrata E
-		    WHERE E.advisory_type = 'Product Enhancement Advisory'
-		    and exists (select 1 from rhnServerNeededErrataCache SNPC, rhnServerGroupMembers SGM
-		      where snpc.errata_id = e.id
-		      and snpc.server_id = sgm.server_id
-		      and sgm.server_group_id = G.id)
-		      and rownum = 1) AS ENHANCEMENT_ERRATA
+         (select DECODE( MAX(decode(E.advisory_type,
+                          'Security Advisory', 3,
+                          'Bug Fix Advisory', 2,
+                          'Product Enhancement Advisory', 1)),
+                          3, 'Security Advisory',
+                          2, 'Bug Fix Advisory',
+                          1, 'Product Enhancement Advisory') as type_value
+                       from rhnErrata E inner join
+                            rhnServerNeededCache SNPC on E.id = SNPC.errata_id inner join
+                            rhnServerGroupMembers SGM on SGM.server_id = SNPC.server_id
+                       where sgm.server_group_id = G.id) as MOST_SEVERE_ERRATA
  FROM   rhnServerGroup G, rhnUserManagedServerGroups UMSG
  WHERE   G.ORG_ID = :org_id
    AND   UMSG.user_id = :user_id

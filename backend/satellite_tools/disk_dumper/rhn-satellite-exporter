@@ -47,7 +47,7 @@ if __name__ == "__main__":
         main.main()
 
     except SystemExit, se:
-        sys.exit(0)
+        sys.exit(se.code)
 
     except iss.ISSError, isserror:
         tb = isserror.tb

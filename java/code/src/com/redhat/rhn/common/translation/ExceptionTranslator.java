@@ -15,10 +15,9 @@
 
 package com.redhat.rhn.common.translation;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.db.WrappedSQLException;
-
-import org.postgresql.util.PSQLException;
 
 import java.sql.SQLException;
 
@@ -56,12 +55,26 @@ public class ExceptionTranslator extends Translations {
     }
 
     /**
+     * Gets the appropriate runtime exception depending on whether the DB is oracle ornot
+     * @param e the exception
+     * @return the RuntimeExcetoion of the wrapped exception
+     */
+    public static RuntimeException sqlException(SQLException e) {
+        if (ConfigDefaults.get().isOracle()) {
+            return oracleSQLException(e);
+        }
+        else {
+            return postgreSqlException(e);
+        }
+    }
+
+    /**
      * Convert from PSQLException to some RuntimeException sub-class.
      * 
      * @param e Exception to translate.
      * @return Translated RuntimeException with reference to the original.
      */
-    public static RuntimeException postgreSqlException(PSQLException e) {
+    private static RuntimeException postgreSqlException(SQLException e) {
         return new WrappedSQLException(e.getMessage(), e);
     }
     
@@ -76,7 +89,7 @@ public class ExceptionTranslator extends Translations {
      * @return The translated RuntimeException, which includes a reference
      *         to the SQLException that was passed in.
      */
-    public static RuntimeException oracleSQLException(SQLException e) {
+    private static RuntimeException oracleSQLException(SQLException e) {
         int code = e.getErrorCode();
         String msg = e.getMessage();
         switch(code) {

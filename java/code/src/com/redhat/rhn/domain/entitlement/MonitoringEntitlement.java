@@ -42,6 +42,13 @@ public class MonitoringEntitlement extends Entitlement {
     @Override
     public boolean isBase() {
         return false;
-    }    
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSatelliteEntitlement() {
+        return true;
+    }
 }

@@ -34,7 +34,7 @@
   <property name="includehelp" value="true" />
 
   <!-- IVY Properties -->
-  <property name="ivyserver" value="http://jmrodri.fedorapeople.org" />
+  <property name="ivyserver" value="http://partha.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
   <property name="ivy.log.resolved.revision" value="false"/>  
 
@@ -57,7 +57,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core logdriver quartz
-             commons-fileupload commons-io concurrent velocity" />
+             commons-fileupload commons-io concurrent velocity " />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
@@ -102,7 +102,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core quartz
-             commons-fileupload concurrent" />
+             commons-fileupload concurrent " />
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel c3p0 cglib

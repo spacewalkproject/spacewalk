@@ -115,12 +115,14 @@ if [ -d /etc/jabberd ]; then
 fi
 
 # tomcat for spacewalk 400+
-if [ -d /etc/tomcat5 ]; then
-    cp -fapRd /etc/tomcat5 $DIR/conf/tomcat
-fi
-if [ -d /var/log/tomcat5 ]; then
-    cp -fapRd /var/log/tomcat5 $DIR/tomcat-logs
-fi
+for tomcat in tomcat5 tomcat6 ; do
+  if [ -d /etc/$tomcat ]; then
+    cp -fapRd /etc/$tomcat $DIR/conf/tomcat
+  fi
+  if [ -d /var/log/$tomcat ]; then
+    cp -fapRd /var/log/$tomcat $DIR/tomcat-logs
+  fi
+done
 
 #entitlement report
 if [ -e /usr/share/rhn/satellite_tools/rhn-entitlement-report.py ]; then

@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.3
+Version: 1.1.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -37,6 +37,7 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-cli
+Requires: jakarta-commons-el
 Requires: jakarta-commons-io
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
@@ -74,7 +75,12 @@ BuildRequires: ant-nodeps
 BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
+%if  0%{?rhel} && 0%{?rhel} < 5
 BuildRequires: javamail
+%else
+Requires: classpathx-mail
+BuildRequires: classpathx-mail
+%endif
 BuildRequires: jsp
 
 # Sadly I need these to symlink the jars properly.
@@ -214,7 +220,7 @@ install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/loca
 %else
 ant -Dprefix=$RPM_BUILD_ROOT install-tomcat6
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/
-install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
+install -m 755 conf/rhn6.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
@@ -227,7 +233,7 @@ install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
-install -d -m 755 $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs
+install -d -m 755 $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs
 
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
@@ -242,7 +248,7 @@ ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
 ln -s -f  %{cobdirsnippets} $RPM_BUILD_ROOT/%{realcobsnippetsdir}/spacewalk
-touch $RPM_BUILD_ROOT/%{_var}/satellite/systemlogs/audit-review.log
+touch $RPM_BUILD_ROOT/%{_var}/spacewalk/systemlogs/audit-review.log
 
 
 %clean
@@ -275,8 +281,8 @@ fi
 %config(noreplace) %{_sysconfdir}/tomcat6/Catalina/localhost/rhn.xml
 %endif
 %{realcobsnippetsdir}/spacewalk
-%attr(755, apache, root) %{_var}/satellite/systemlogs
-%ghost %attr(644, tomcat, root) %{_var}/satellite/systemlogs/audit-review.log
+%attr(755, tomcat, root) %{_var}/spacewalk/systemlogs
+%ghost %attr(644, tomcat, root) %{_var}/spacewalk/systemlogs/audit-review.log
 
 %files -n spacewalk-taskomatic
 %attr(755, root, root) %{_initrddir}/taskomatic
@@ -304,7 +310,143 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
-* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.3-1
+* Wed Apr 21 2010 Justin Sherrill <jsherril@redhat.com> 1.1.5-1
+- adding feature to preselect a kickstart profile for provisioning if the
+  cobbler system record for that system has it selected (jsherril@redhat.com)
+- 580927 - sorting advanced options (jsherril@redhat.com)
+- fixing broken unit tests and properly picking the right exception
+  (jsherril@redhat.com)
+- Addition of channel.software.getChannelLastBuildById API call
+  (james.hogarth@gmail.com)
+
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
+- 576211 - fixed server name replacement pattern
+- removing log5j stuff
+- fix issue with PSQLException
+
+* Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.1.2-1
+- bumping spec files to future 1.1 packages (shughes@redhat.com)
+- 516983 - making it clearer that a distro cannot be deleted if profiles are
+  associated with it. Also fixing the nav for that page (jsherril@redhat.com)
+- Fix the SELinux regex to handle MLS categories better
+  (joshua.roys@gtri.gatech.edu)
+- Fix SSM 'Select All' button on configuration pages
+  (joshua.roys@gtri.gatech.edu)
+- xmlrpc: Put the symlink target in 'contents' (joshua.roys@gtri.gatech.edu)
+- adding velocity dep (jsherril@redhat.com)
+- Add 'arch' to channel.list*Channels (colin.coe@gmail.com)
+- Fix xmlrpc file-type for symlinks (joshua.roys@gtri.gatech.edu)
+- adding log5j to ivy stuff, and moving the repo to parthas fedorapeople
+  account (jsherril@redhat.com)
+- 576907 - making same display changes for system sync (tlestach@redhat.com)
+- Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
+- 580227 - displaying dates in the same format (tlestach@redhat.com)
+
+* Wed Apr 07 2010 Tomas Lestach <tlestach@redhat.com> 0.9.17-1
+- introducing kickstart.cloneProfile API call (tlestach@redhat.com)
+
+* Wed Apr 07 2010 Justin Sherrill <jsherril@redhat.com> 0.9.16-1
+- 573153 - improving performance of the systems group overview page
+  considerably (jsherril@redhat.com)
+- adding NVL to query which needed it (jsherril@redhat.com)
+- fixing small issue with query that resulted in odd error, inconsistent
+  datatypes: expected UDT got CHAR (jsherril@redhat.com)
+- Implement 'channel.software.listChildren' API call (colin.coe@gmail.com)
+
+* Fri Apr 02 2010 Tomas Lestach <tlestach@redhat.com> 0.9.15-1
+- 576907 - supporting multilib packages for syncing systems/profiles
+  (tlestach@redhat.com)
+- fixing taskomatic problem (tlestach@redhat.com)
+- 577074 - Fix to remove invalid characters from a cobbler system record name
+  (paji@redhat.com)
+- 574594 - Fixed date based sorting issues on 4 User List pages.
+  (paji@redhat.com)
+- 577224 - Fixed an issue where when cloning KS profiles variables were not
+  getting copied (paji@redhat.com)
+
+* Wed Mar 31 2010 Justin Sherrill <jsherril@redhat.com> 0.9.14-1
+- 531122 - fixing issue where system records created with cobbler would not use
+  all the correct activation keys once keys were changed from a profile
+  (jsherril@redhat.com)
+- 522497 - Fixed a ks system details bug (paji@redhat.com)
+- Remove audit review cruft from spacewalk-setup (joshua.roys@gtri.gatech.edu)
+
+* Fri Mar 26 2010 Justin Sherrill <jsherril@redhat.com> 0.9.13-1
+- 576301, 576314 - fixing issues where auto-apply of errata was applying even
+  for systems that did not need the errata and was being scheduled multiple
+  times for systems (once for every channel that contained that errata)
+  (jsherril@redhat.com)
+- changing cobbler call to use automated user since it could go through
+  taskomatic (jsherril@redhat.com)
+- API to list API (tlestach@redhat.com)
+- 559693 - fixing apidoc (tlestach@redhat.com)
+- 559693 - allow channel.software.listAllPackages to return the checksum
+  (colin.coe@gmail.com)
+- added packages no more automaticaly required in tomcat6
+  (michael.mraka@redhat.com)
+
+* Fri Mar 26 2010 Tomas Lestach <tlestach@redhat.com> 0.9.12-1
+- API to list API (tlestach@redhat.com)
+- 559693 - fixing apidoc (tlestach@redhat.com)
+- 559693 - allow channel.software.listAllPackages to return the checksum
+  (colin.coe@gmail.com)
+
+* Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.11-1
+- fixed Requires for tomcat6
+- test case fix for SystemHandlerTest
+
+* Mon Mar 22 2010 Tomas Lestach <tlestach@redhat.com> 0.9.10-1
+- 575796 - make system.get_name API call faster (tlestach@redhat.com)
+- 529359 - attempting to fix issue where solaris packages couldnt be installed,
+  may break unit test, we will see (jsherril@redhat.com)
+- 529359 - Fix for this error (paji@redhat.com)
+- Basically removed the listAllSystems call in SystemManager (paji@redhat.com)
+- 574197 - making cobbler name seperator configurable (jsherril@redhat.com)
+
+* Wed Mar 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.9-1
+- 568958 - package removal and verify
+- 516048 - syncing java stack with perl stack on channel naming convention
+- 510383 - Create/Update user commands use the max_user_len and min_user_len values
+- 574065 - shared channel couldnt properly be used as a distros channel
+- fixed syntax highliging in editarea textareas
+- 510383 - fixes on the UI side for password length issue 
+- 572277 - package profile sync
+- added an API function: errata.listUnpublishedErrata
+- 559551 - ISE fixed for SyncSystems.do
+- making Channel.getPackages() much more verbose
+- 570560 - fixing misleading channel creation warning message
+- 514554 - adding back the ability to delete virt guests
+- 529962 - nav not showing the current tab
+- 531122 - <<inherit>> would appear within system records when modifying activation key
+- 493176 - kickstart.tree.getDetails
+- 562881 - save cobbler object after setting kickstart variables
+- 562881 - cobbler system record check
+
+* Fri Feb 19 2010 Tomas Lestach <tlestach@redhat.com> 0.9.8-1
+- 566434 - manage base entitlements with system.add/removeEntitlements API call
+  (tlestach@redhat.com)
+- combine several API call params to a single Map parameter
+  (tlestach@redhat.com)
+
+* Tue Feb 16 2010 Justin Sherrill <jsherril@redhat.com> 0.9.7-1
+- fixing issue with conflict between javamail package and classpathx-mail
+  (which provides javamail as a provides).  The fedora 12 build was building
+  against the javamail package which broke the deployment when it wasnt
+  installed (jsherril@redhat.com)
+
+* Mon Feb 15 2010 Justin Sherrill <jsherril@redhat.com> 0.9.6-1
+- changing new rev number to be one more than latest, not one more than current
+  (jsherril@redhat.com)
+-  510100 - adding the ability to set a config file to a certain revision
+  (jsherril@redhat.com)
+- making timezone still null errors a bit quieter.  Maybe once we really add
+  all the timezones we can really do a warning (jsherril@redhat.com)
+- Automatic commit of package [spacewalk-java] release [0.9.4-1].
+  (jsherril@redhat.com)
+- fixing rhn.xml for tomcat6 (jsherril@redhat.com)
+- 562881 - new api calls introduced (tlestach@redhat.com)
+
+* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.4-1
 - adding snippet api unit tests (jsherril@redhat.com)
 
 * Wed Feb 10 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1

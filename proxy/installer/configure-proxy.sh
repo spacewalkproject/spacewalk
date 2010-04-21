@@ -14,63 +14,65 @@ options:
             Indicates the location of an answer file to be use for answering
             questions asked during the installation process. See man page for
             for an example and documentation.
+  --ca-chain=CA_CHAIN
+            The CA cert used to verify the ssl connection to parent.
+  --enable-scout=1
+            1 to enable monitoring scout, 0 otherwise.
+  --force-own-ca
+            Do not use parent CA and force to create your own.
   -h, --help            
             show this help message and exit
+  --http-password=HTTP_PASSWORD
+            The password to use for an authenticated proxy.
+  --http-proxy=HTTP_PROXY
+            HTTP proxy in host:port format, e.g. squid.redhat.com:3128
+  --http-username=HTTP_USERNAME
+            The username for an authenticated proxy.
+  --install-monitoring=Y
+            Y if monitoring should be installed. Any other value means that
+            monitoring will not be installed.
   --non-interactive
             For use only with --answer-file. If the --answer-file doesn't
             provide a required response, default answer is used.
-
-  --version=VERSION
-			Version of Spacewalk Proxy Server you want to activate.
+  --monitoring-parent=MONITORING_PARENT
+            Name of the parent for your scout. Usually the same value as in
+            RHN_PARENT.
+  --monitoring-parent-ip=MONITORING_PARENT_IP
+            IP address of MONITORING_PARENT
+  --populate-config-channel=Y
+            Y if config chanel should be created and configuration files in that channel
+            updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}. 
   --rhn-parent=RHN_PARENT
 			Your parent Spacewalk server.
-  --traceback-email=TRACEBACK_EMAIL
-			Email to which tracebacks should be sent.
-  --use-ssl=USE_SSL
-			1  if  Spacewalk  Proxy Server should communicate with parent over SSL. 
-			0 otherwise. Even if disabled, client can still use SSL to connect 
-			to Spacewalk Proxy Server.
-  --ca-chain=CA_CHAIN
-			The CA cert used to verify the ssl connection to parent.
-  --force-own-ca
-			Do not use parent CA and force to create your own.
-  --http-proxy=HTTP_PROXY
-			HTTP proxy in host:port format, e.g. squid.redhat.com:3128
-  --http-username=HTTP_USERNAME
-			The username for an authenticated proxy.
-  --http-password=HTTP_PASSWORD
-			The password to use for an authenticated proxy.
   --ssl-build-dir=SSL_BUILD_DIR
 			The directory where we build SSL certificate. Default is /root/ssl-build
+  --ssl-city=SSL_CITY
+            City to be used in SSL certificate.
+  --ssl-common=SSL_COMMON
+            Common name to be used in SSL certificate.
+  --ssl-country=SSL_COUNTRY
+            Two letters country code to be used in SSL certificate.
+  --ssl-email=SSL_EMAIL
+            Email to be used in SSL certificate.
   --ssl-org=SSL_ORG
 			Organization name to be used in SSL certificate.
   --ssl-orgunit=SSL_ORGUNIT
 			Organization unit name to be used in SSL certificate.
-  --ssl-common=SSL_COMMON
-			Common name to be used in SSL certificate.
-  --ssl-city=SSL_CITY
-			City to be used in SSL certificate.
+  --ssl-password=SSL_PASSWORD
+            Password to be used for SSL CA certificate.
   --ssl-state=SSL_STATE
 			State to be used in SSL certificate.
-  --ssl-country=SSL_COUNTRY
-			Two letters country code to be used in SSL certificate.
-  --ssl-email=SSL_EMAIL
-			Email to be used in SSL certificate.
-  --ssl-password=SSL_PASSWORD
-			Password to be used for SSL CA certificate.
-  --install-monitoring=Y
-			Y if monitoring should be installed. Any other value means that 
-			monitoring will not be installed.
-  --enable-scout=1
-			1 to enable monitoring scout, 0 otherwise.
-  --monitoring-parent=MONITORING_PARENT
-			Name of the parent for your scout. Usually the same value as in 
-			RHN_PARENT.
-  --monitoring-parent-ip=MONITORING_PARENT_IP
-			IP address of MONITORING_PARENT
-  --populate-config-channel=Y
-			Y if config chanel should be created and configuration files in that channel
-			updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}.		
+  --start-services=1
+			1 or Y to start all services after configuration. This is default.
+			0 or N to not start services after configuration.
+  --traceback-email=TRACEBACK_EMAIL
+            Email to which tracebacks should be sent.
+  --use-ssl=USE_SSL
+            1  if  Spacewalk  Proxy Server should communicate with parent over SSL.
+            0 otherwise. Even if disabled, client can still use SSL to connect
+            to Spacewalk Proxy Server.
+  --version=VERSION
+            Version of Spacewalk Proxy Server you want to activate.
 HELP
 	exit
 }
@@ -106,6 +108,7 @@ while [ $# -ge 1 ]; do
 			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
 			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
+			--start-services=*) START_SERVICES=$(echo $1 | cut -d= -f2-);;
 			*) echo Error: Invalid option $1
     esac
     shift
@@ -287,6 +290,10 @@ if [ $? -eq 0 ]; then
     mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.rpmsave
 fi
 
+if [ -x /usr/sbin/rhn-proxy ]; then
+	/usr/sbin/rhn-proxy stop
+fi
+
 $YUM_OR_UPDATE spacewalk-proxy-management
 # check if package install successfully
 rpm -q spacewalk-proxy-management >/dev/null
@@ -349,10 +356,14 @@ fi
 SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100 / 1024)}')
 
 ln -sf /etc/pki/spacewalk/jabberd/server.pem /etc/jabberd/server.pem
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
-sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
-        < $DIR/squid.conf  > $SQUID_DIR/squid.conf
+/usr/bin/spacewalk-setup-jabberd --macros "hostname:$HOSTNAME"
+SQUID_REWRITE="s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g;"
+SQUID_VER_MAJOR=$(squid -v | awk -F'[ .]' '/Version/ {print $4}')
+if [ $SQUID_VER_MAJOR -ge 3 ] ; then
+    # squid 3.X has acl 'all' built-in
+    SQUID_REWRITE="$SQUID_REWRITE s/^acl all.*//;"
+fi
+sed "$SQUID_REWRITE" < $DIR/squid.conf  > $SQUID_DIR/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
 	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
 	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
@@ -486,5 +497,12 @@ for service in squid httpd jabberd $MonitoringScout; do
   /sbin/chkconfig --add $service 
   /sbin/chkconfig --level 345 $service on 
 done
-/usr/sbin/rhn-proxy restart
 
+# default is 1
+START_SERVICES=$(yes_no ${START_SERVICES:-1})
+if [ "$START_SERVICES" = "1" ]; then
+    /usr/sbin/rhn-proxy restart
+else
+	echo Skipping start of services.
+	echo Use "/usr/sbin/rhn-proxy start" to manualy start proxy.
+fi

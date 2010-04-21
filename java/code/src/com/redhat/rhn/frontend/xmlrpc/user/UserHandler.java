@@ -15,10 +15,10 @@
 package com.redhat.rhn.frontend.xmlrpc.user;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -46,6 +46,7 @@ import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -652,7 +653,8 @@ public class UserHandler extends BaseHandler {
         // we set use pam authentication, yet the password field
         // in the database is NOT NULL.  So we have to create this
         // stupid HACK!  Actually this is beyond HACK.
-        return MD5Crypt.crypt("" + System.currentTimeMillis());
+        return RandomStringUtils.random(UserDefaults.get().getMinPasswordLength());
+        
     }
     
     private void prepareAttributeUpdate(String attrName, UpdateUserCommand cmd, 

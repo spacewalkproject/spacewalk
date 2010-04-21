@@ -295,6 +295,7 @@ SELECT PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
        PN.name,
        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
        P.summary,
+       PA.id AS arch_id,
        PE.epoch,
        PE.version,
        PE.release,
@@ -450,7 +451,7 @@ SELECT PN.id || '|' || SPE.id AS ID_COMBO,
 
 <mode name="packages_from_server_set" class="com.redhat.rhn.frontend.dto.SsmRemovePackageListItem">
   <query params="user_id, set_label">
-SELECT   PN.ID || '|' || PE.ID || '|' || PA.ID AS id_combo,
+SELECT   PN.ID || '|' || PE.ID || '|' || X.package_arch_id AS id_combo,
          PN.name || '-' || PE.evr.as_vre_simple() AS nvre,
          PA.label AS arch,
          X.num_systems AS num_systems
@@ -471,7 +472,7 @@ SELECT   PN.ID || '|' || PE.ID || '|' || PA.ID AS id_combo,
                    SP.package_arch_id) X
    WHERE PE.ID = X.evr_id
      AND PN.ID = X.name_id
-     AND PA.ID = X.package_arch_id
+     AND PA.ID (+) = X.package_arch_id
 ORDER BY UPPER (PN.NAME)
   </query>
 </mode>
@@ -1259,14 +1260,17 @@ SELECT P.id AS id,
        NVL(PE.release, ' ') as release,
        NVL(PE.epoch, ' ') as epoch,
        PA.label AS arch_label,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified,
+       CV.checksum as checksum,
+       CV.checksum_type as checksum_type
   FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
+       rhnChannelPackage CP, rhnChecksumView CV
  WHERE CP.channel_id = :cid
    AND CP.package_id = P.id
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
+   AND P.checksum_id = CV.id
 ORDER BY UPPER(name)
   </query>
 </mode>
@@ -1871,6 +1875,49 @@ ORDER BY P.package_arch_id DESC
        WHERE cp.package_id = s.element
          AND s.label = :set_label
    </query>
+</mode>
+
+<write-mode name="insert_primary_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set primary = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="insert_filelist_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set filelist = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="insert_other_xml">
+   <query params="pid, xml">
+	update rhnPackageRepodata  
+		set other = :xml 
+	where package_id = :pid
+   </query>
+</write-mode>
+
+<write-mode name="create_repo_entrys">
+   <query params="cid">
+	insert into rhnPackageRepodata (package_id) 
+		(select cp.package_id as id from rhnChannelPackage cp left join rhnPackageRepoData rd on cp.package_id = rd.package_id
+			where cp.channel_id = :cid 
+			  and rd.package_id is null)
+   </query>
+</write-mode>
+
+
+<mode name="lookup_repodata" class="com.redhat.rhn.frontend.dto.PackageDto">
+  <query params="pid">
+SELECT 
+     P.package_id AS id, p.primary as primary_xml, p.other as other_xml, p.filelist as filelist_xml
+    from rhnPackageRepoData p
+     where p.package_id = :pid   
+  </query>
 </mode>
    
 </datasource_modes>

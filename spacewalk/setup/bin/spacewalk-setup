@@ -108,14 +108,8 @@ print Spacewalk::Setup::loc("* Performing initial configuration.\n");
 my $config_opts = populate_initial_configs(\%opts, \%answers);
 mkdir_mount_points($config_opts->{'mount_point'},
 	$config_opts->{'mount_point'} . '/redhat',
-	$config_opts->{'mount_point'} . '/systemlogs',
 	$config_opts->{'kickstart_mount_point'});
 setup_sudoers(\%opts, \%answers);
-
-my $aurev_fn = $config_opts->{'mount_point'} . '/systemlogs/audit-review.log';
-qx(touch $aurev_fn);
-qx(chown tomcat $aurev_fn);
-qx(chattr +a $aurev_fn);
 
 print Spacewalk::Setup::loc("* Activating $product_name.\n");
 load_satellite_certificate(\%opts, \%answers);
@@ -142,8 +136,8 @@ print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
 setup_cobbler(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Restarting services.\n");
-Spacewalk::Setup::system_or_exit(['/usr/sbin/rhn-satellite', 'restart'], 40,
-	       'Could not restart the rhn-satellite service.');
+Spacewalk::Setup::system_or_exit(['/usr/sbin/spacewalk-service', 'restart'], 40,
+	       'Could not restart spacewalk services.');
 
 wait_for_tomcat($answers{hostname});
 
@@ -1298,13 +1292,7 @@ sub setup_gpg {
 
 # Satellite services are handled by chkconfig now.
 sub setup_services {
-  my @services = qw/jabberd osa-dispatcher taskomatic tomcat5 httpd Monitoring MonitoringScout rhn-search/;
-
-  foreach my $service (@services) {
-    if (-e "/etc/init.d/$service") {
-      Spacewalk::Setup::system_or_exit(["/sbin/chkconfig", "--level", "345", $service, "on"], 11, 'Could not turn the %s service on.', $service);
-    }
-  }
+  Spacewalk::Setup::system_or_exit(["/usr/sbin/spacewalk-service", "--level", "345", "enable"], 11, 'Could not turn spacewalk services on.');
 
   return 1;
 }
@@ -1363,7 +1351,7 @@ sub wait_for_tomcat {
             return;
         }
     }
-    print "Tomcat failed to start properly or the installer ran out of tries.  Please check /var/log/tomcat5/catalina.out for errors.\n";
+    print "Tomcat failed to start properly or the installer ran out of tries.  Please check /var/log/tomcat*/catalina.out for errors.\n";
     return;
 }
 

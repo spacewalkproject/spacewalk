@@ -81,6 +81,7 @@
       <rhn-tab name="Distributions" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/ViewTrees.do">        
         <rhn-tab-url>/rhn/kickstart/TreeEdit.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/TreeCreate.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/TreeDelete.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do">
         <rhn-tab-url>/rhn/systems/provisioning/preservation/PreservationListEdit.do</rhn-tab-url>

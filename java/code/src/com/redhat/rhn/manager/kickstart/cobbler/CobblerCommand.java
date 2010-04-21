@@ -123,6 +123,7 @@ public abstract class CobblerCommand {
      * @return the cobbler name.
      */
     public static String makeCobblerName(String label, Org org) {
+        String sep = ConfigDefaults.get().getCobblerNameSeparator();
         label = label.replace(' ', '_').replaceAll("[^a-zA-Z0-9_-]", "");
 
         if (org == null) {
@@ -130,7 +131,7 @@ public abstract class CobblerCommand {
         }
 
         String orgName = org.getName().replaceAll("[^a-zA-Z0-9_-]", "").replace(' ', '_');
-        String format = "%s:%s:%s";
+        String format = "%s" + sep + "%s" + sep + "%s";
         return String.format(format, label, org.getId(), orgName);
 
     }

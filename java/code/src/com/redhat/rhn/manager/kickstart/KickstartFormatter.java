@@ -658,12 +658,14 @@ public class KickstartFormatter {
          
         log.debug("adding perl -npe for /etc/sysconfig/rhn/up2date");
         if (this.ksdata.isRhel2()) {
-            retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost + 
-                    "/' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);            
+            retval.append("perl -npe 's|^(\\s*serverURL\\s*=\\s*[^:]+://)[^/]*/|${1}" +
+                     up2datehost +
+                     "/|' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);
         }
         // both rhel 2 and rhel3/4 need the following
-        retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost +
-                "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
+        retval.append("perl -npe 's|^(\\s*serverURL\\s*=\\s*[^:]+://)[^/]*/|${1}" +
+                up2datehost +
+                "/|' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
         if (this.ksdata.getVerboseUp2date()) {
             retval.append("[ -r /etc/yum.conf ] && " +

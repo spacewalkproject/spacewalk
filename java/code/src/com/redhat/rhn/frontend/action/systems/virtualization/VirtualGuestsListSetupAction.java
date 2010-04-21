@@ -89,7 +89,7 @@ public class VirtualGuestsListSetupAction extends BaseSystemListSetupAction {
         // Set parameter for the actions dropdown:
         List actionOptions = new LinkedList();
         String [] resourceBundleKeys = {
-                //"virtualguestslist.jsp.deletesystem",
+                "virtualguestslist.jsp.deletesystem",
                 "virtualguestslist.jsp.startsystem",
                 "virtualguestslist.jsp.suspendsystem",
                 "virtualguestslist.jsp.resumesystem",

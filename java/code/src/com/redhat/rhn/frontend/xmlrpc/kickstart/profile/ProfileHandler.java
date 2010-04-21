@@ -52,6 +52,8 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
+import org.cobbler.Profile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -975,5 +977,74 @@ public class ProfileHandler extends BaseHandler {
     
     private KickstartData lookupKsData(String label, Org org) {
         return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
+    }
+
+    /**
+     * Returns a list of kickstart variables associated with the specified kickstart profile
+     *
+     * @param sessionKey      identifies the user making the call
+     *                        cannot be <code>null</code>
+     * @param ksLabel identifies the kickstart profile
+     *                        cannot be <code>null</code>
+     *
+     * @return map of kickstart variables associated with the specified kickstart
+     *
+     * @xmlrpc.doc Returns a list of variables
+     *                      associated with the specified kickstart profile
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.returntype
+     *          #array()
+     *              #struct("kickstart variable")
+     *                  #prop("string", "key")
+     *                  #prop("string or int", "value")
+     *              #struct_end()
+     *          #array_end()
+     */
+    public Map<String, Object> getVariables(String sessionKey, String ksLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+
+        return ksData.getCobblerObject(loggedInUser).getKsMeta();
+    }
+
+    /**
+     * Associates list of kickstart variables with the specified kickstart profile
+     *
+     * @param sessionKey      identifies the user making the call
+     *                        cannot be <code>null</code>
+     * @param ksLabel identifies the kickstart profile
+     *                        cannot be <code>null</code>
+     * @param variables          list of variables to set
+     *
+     * @return int - 1 on success, exception thrown otherwise
+     *
+     * @xmlrpc.doc Associates list of kickstart variables
+     *                              with the specified kickstart profile
+     *
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "ksLabel")
+     * @xmlrpc.param
+     *      #array()
+     *          #struct("kickstart variable")
+     *              #prop("string", "key")
+     *              #prop("string or int", "value")
+     *          #struct_end()
+     *      #array_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setVariables
+                (String sessionKey, String ksLabel, Map<String, Object> variables) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+
+        Profile profile = ksData.getCobblerObject(loggedInUser);
+        profile.setKsMeta(variables);
+        profile.save();
+
+        return 1;
     }
 }

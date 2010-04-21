@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #
 # $Id$
+#
+# USAGE:  $0 SERVER CERT
 """
 Tests a memory leak in the applet
 """
@@ -10,8 +12,14 @@ import string
 from rhn import rpclib
 
 def main():
-    server_url = "https://xmlrpc.rhn.webqa.redhat.com/APPLET"
+    server_name = "xmlrpc.rhn.redhat.com"
     ca_cert = "/usr/share/rhn/RHNS-CA-CERT"
+    try:
+        server_name = sys.argv[1]
+        ca_cert = sys.argv[2]
+    except:
+        pass
+    server_url = "https://" + server_name + "/APPLET" 
     diff_count = 0
 
     mem_usage = None

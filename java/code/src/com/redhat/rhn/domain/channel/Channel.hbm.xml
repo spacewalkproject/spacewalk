@@ -350,6 +350,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>
     
+   <sql-query name="Channel.getErrataCount">
+        <return-scalar type="int" column="errata_count"/>
+        <![CDATA[select count(*) as errata_count from rhnChannelErrata cp where cp.channel_id = :cid]]>
+    </sql-query>
+    
     <sql-query name="Channel.getPackageIdList">
         <return-scalar type="long" column="package_id"/>
         <![CDATA[select cp.package_id from rhnChannelPackage cp where cp.channel_id = :cid]]>

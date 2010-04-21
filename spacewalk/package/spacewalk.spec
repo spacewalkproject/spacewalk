@@ -1,7 +1,7 @@
-%define release_name Bowling
+%define release_name Smile
 
 Name:           spacewalk
-Version:        0.9.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -136,7 +136,8 @@ Solaris machines.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
-echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
+SW_REL=$(echo %{version} | awk -F. '{print $1"."$2}')
+echo "Spacewalk release $SW_REL (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
 install -d $RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d
 for i in oracle postgresql ; do
         cat <<EOF >$RPM_BUILD_ROOT/%{_datadir}/spacewalk/setup/defaults.d/$i-backend.conf
@@ -161,6 +162,12 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+
+* Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- modified Spacewalk 0.9 release name
+
 * Thu Jan 14 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
 - droped spacewalk-cypress from Requires
 - removed spacewalk-moon (sub)package as it is not used anywhere

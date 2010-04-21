@@ -69,23 +69,24 @@ def main():
         Option('-u','--username',   action='store',      help='Use this username to connect to RHN/Satellite'),
         Option('-p','--password',   action='store',      help='Use this password to connect to RHN/Satellite'),
         Option('-s','--stdin',      action='store_true', help='Read the package names from stdin'),
-        Option('-X','--exclude',    action="append",     help="Exclude packages that match this glob expression"),
+        Option('-X','--exclude',    action='append',     help='Exclude packages that match this glob expression'),
         Option(     '--force',      action='store_true', help='Force the package upload (overwrites if already uploaded)'),
-        Option(     '--nosig',      action='store_true', help="Push unsigned packages"),
+        Option(     '--nosig',      action='store_true', help='Push unsigned packages'),
         Option(     '--newest',     action='store_true', help='Only push the packages that are newer than the server ones'),
         Option(     '--nullorg',    action='store_true', help='Use the null org id'),
         Option(     '--header',     action='store_true', help='Upload only the header(s)'),
         Option(     '--source',     action='store_true', help='Upload source package information'),
         Option(     '--server',     action='store',      help='Push to this server (http[s]://<hostname>/APP)'),
-        Option(     '--test',       action='store_true', help="Only print the packages to be pushed"),
-        Option('-?','--usage',      action='store_true', help="Briefly describe the options"),
-        Option('-N','--new-cache',  action='store_true', help="Create a new username/password cache"),
-        Option(     '--no-cache',   action='store_true', help="Do not create a username/password cache"),
-        Option(     '--extended-test',  action='store_true', help="Perform a more verbose test"),
+        Option(     '--proxy',      action='store',      help='Use proxy server (<server>:<port>)'),
+        Option(     '--test',       action='store_true', help='Only print the packages to be pushed'),
+        Option('-?','--usage',      action='store_true', help='Briefly describe the options'),
+        Option('-N','--new-cache',  action='store_true', help='Create a new username/password cache'),
+        Option(     '--no-cache',   action='store_true', help='Do not create a username/password cache'),
+        Option(     '--extended-test',  action='store_true', help='Perform a more verbose test'),
         Option(     '--no-session-caching',  action='store_true', 
-            help="Disables session-token support. Useful for using rhnpush with pre-4.0.6 satellites."),
+            help='Disables session-token support. Useful for using rhnpush with pre-4.0.6 satellites.'),
         Option(     '--tolerant',   action='store_true', 
-            help="If rhnpush errors while uploading a package, continue uploading the rest of the packages.")
+            help='If rhnpush errors while uploading a package, continue uploading the rest of the packages.')
     ]
 
     #Having to maintain a store_true list is ugly. I'm trying to get rid of this.
@@ -304,7 +305,7 @@ class UploadClass(uploadLib.UploadClass):
 
         #ping the server for status
         self.warn(2,"url is",self.url_v2)
-        ping = rhnpush_v2.PingPackageUpload(self.url_v2)
+        ping = rhnpush_v2.PingPackageUpload(self.url_v2, self.options.proxy)
         self.ping_status, errmsg, headerinfo = ping.ping()
         self.warn(2, "Result codes:", self.ping_status, errmsg)
 
@@ -605,7 +606,7 @@ class UploadClass(uploadLib.UploadClass):
 
     def _push_package_v2(self, package, FileChecksumType, FileChecksum):
         self.warn(1, "Using POST request")
-        pu = rhnpush_v2.PackageUpload(self.url_v2)
+        pu = rhnpush_v2.PackageUpload(self.url_v2, self.options.proxy)
 
         if self.new_sat_test():
             pu.set_session(self.session.getSessionString())

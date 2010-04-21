@@ -34,14 +34,14 @@ import operator
 from optparse import Option, OptionParser
 
 ## local imports
-from rhn.common import rhn_rpm
+from spacewalk.common import rhn_rpm
 from client_config_update import readConfigFile
 from rhn_bootstrap_strings import \
     getHeader, getConfigFilesSh, getUp2dateScriptsSh, getGPGKeyImportSh, \
     getCorpCACertSh, getRegistrationSh, getUp2dateTheBoxSh, \
     getAllowConfigManagement, getAllowRemoteCommands
 from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
-from spacewalk.common.fileutils import make_temp_file, rotateFile, cleanupAbsPath
+from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
 
 ## GLOBALS

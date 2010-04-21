@@ -1,0 +1,8 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c:set var="loginLength" value="${rhn:getConfig('max_user_len')}"/>
+    <c:set var="firstNameLength" value="128"/>
+    <c:set var="lastNameLength" value="128"/>
+    <c:set var="passwordLength" value="${rhn:getConfig('max_passwd_len')}"/>
+    <c:set var="emailLength" value="${rhn:getConfig('max_email_len')}"/>
+    <c:set var="titleLength" value="128"/>

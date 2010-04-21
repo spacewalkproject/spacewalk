@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.9.0
+Version:    1.1.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -30,7 +30,11 @@ install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
+%if  0%{?rhel} && 0%{?rhel} < 6
 install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
+%else
+install -d -m 755 %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/
+%endif
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn
 install -d -m 755 %{buildroot}/%{_sysconfdir}/rhn/default
 cp -R css %{buildroot}/%{_var}/www/html/
@@ -42,7 +46,11 @@ cp -R templates %{buildroot}/%{_var}/www/html/
 cp -R styles %{buildroot}/%{_var}/www/html/nav/
 cp -R setup  %{buildroot}%{_datadir}/spacewalk/
 cp -R java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
+%if  0%{?rhel} && 0%{?rhel} < 6
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
+%else
+ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
+%endif
 cp conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
 
 %clean
@@ -63,11 +71,29 @@ rm -rf %{buildroot}
 /%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
 %{_datadir}/rhn/lib/java-branding.jar
+%if  0%{?rhel} && 0%{?rhel} < 6
 %{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
+%else
+%{_var}/lib/tomcat6/webapps/rhn/WEB-INF/lib/java-branding.jar
+%endif
 %{_sysconfdir}/rhn/default/rhn_docs.conf
 
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+
+* Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- resigning spacewalk cert
+- 516048 - syncing java stack with perl stack on channel naming convention
+
+* Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- 486430 - changed organization name in default cert
+
+* Thu Feb 11 2010 Justin Sherrill <jsherril@redhat.com> 0.9.2-1
+- updating branding package for tomcat6 (jsherril@redhat.com)
+- let's start Spacewalk 0.9 (michael.mraka@redhat.com)
+
 * Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - upadating spacewalk cert (jsherril@redhat.com)
 

@@ -19,8 +19,13 @@ CREATE TABLE rhnReleaseChannelMap
     product          VARCHAR2(64) NOT NULL,
     version          VARCHAR2(64) NOT NULL,
     release          VARCHAR2(64) NOT NULL,
-    channel_arch_id  NUMBER NOT NULL,
+    channel_arch_id  NUMBER NOT NULL
+                     CONSTRAINT rhn_rcm_caid_fk
+                        REFERENCES rhnChannelArch (id),
     channel_id       NUMBER NOT NULL
+                     CONSTRAINT rhn_rcm_cid_fk
+                        REFERENCES rhnChannel (id)
+                        ON DELETE CASCADE
 )
 ENABLE ROW MOVEMENT
 ;

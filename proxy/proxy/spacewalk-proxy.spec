@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.9.0
+Version: 1.1.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -37,7 +37,7 @@ Requires: %{name}-html
 %else
 Requires: spacewalk-proxy-selinux
 %endif
-Requires: jabberd
+Requires: jabberd spacewalk-setup-jabberd
 Requires: httpd
 Requires: sos
 Requires(preun): initscripts
@@ -69,7 +69,11 @@ Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: httpd
 Requires: mod_ssl
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
 Requires(post): %{name}-common
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
@@ -109,9 +113,14 @@ between an Spacewalk Proxy Server and parent Spacewalk server.
 Group:   Applications/Internet
 Summary: Modules shared by Spacewalk Proxy components
 Requires: mod_ssl
+%if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
+%else
+Requires: mod_wsgi
+%endif
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
+Requires: spacewalk-backend >= 0.9.22
 Obsoletes: rhns-proxy-common < 5.3.0
 
 %description common
@@ -156,6 +165,13 @@ make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
+
+%if  0%{?rhel} && 0%{?rhel} < 6
+rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-wsgi.conf
+rm -rfv $RPM_BUILD_ROOT%{rhnroot}/wsgi/
+%else
+rm -fv $RPM_BUILD_ROOT%{httpdconf}/spacewalk-proxy-python.conf
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -233,7 +249,6 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy_broker.conf
-%attr(640,root,apache) %config(noreplace) %{httpdconf}/proxy_broker.conf
 
 %files redirect
 %defattr(-,root,root)
@@ -246,7 +261,6 @@ fi
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy_redirect.conf
-%attr(640,root,apache) %config(noreplace) %{httpdconf}/proxy_redirect.conf
 
 %files common
 %defattr(-,root,root)
@@ -254,7 +268,6 @@ fi
 %{destdir}/__init__.py*
 %{destdir}/apacheServer.py*
 %{destdir}/apacheHandler.py*
-%{destdir}/byterange.py*
 %{destdir}/rhnShared.py*
 %{destdir}/rhnConstants.py*
 %{destdir}/responseContext.py*
@@ -270,7 +283,14 @@ fi
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn_proxy.conf
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy.conf
+%if  0%{?rhel} && 0%{?rhel} < 6
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-python.conf
+%else
+%attr(640,root,apache) %config %{httpdconf}/spacewalk-proxy-wsgi.conf
+%{rhnroot}/wsgi/xmlrpc.py*
+%{rhnroot}/wsgi/xmlrpc_redirect.py*
+%endif
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
 %attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
@@ -298,6 +318,18 @@ fi
 
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- merge 2 duplicate byterange module to common.byterange
+- bumping spec files to 1.1 packages
+- 578854 - read response even if HEADER_CONTENT_LENGTH is not present
+
+* Mon Mar 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- modified to use mod_wsgi on Fedora 11 and 12
+
+* Thu Mar 25 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.1-1
+- 566124 - do not distribute jabber configuration file
+- user spacewalk-setup-jabberd to configure jabberd
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
 - updated copyrights
 

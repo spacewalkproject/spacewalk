@@ -6,10 +6,7 @@
 #
 """utility functions for up2date"""
 
-import re
 import os
-import sys
-import rpm
 import string
 
 import up2dateErrors

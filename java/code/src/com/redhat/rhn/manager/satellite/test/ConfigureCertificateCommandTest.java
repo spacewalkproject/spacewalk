@@ -30,10 +30,14 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
     private ConfigureCertificateCommand cmd;
     
     public void testCreateCommand() throws Exception {
-        String originalConfig = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        String originalConfigParent =
+                        Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        String originalConfigDisconnected =
+                        Config.get().getString(ConfigDefaults.DISCONNECTED);
 
         Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
                 "satellite.webqa.redhat.com");
+        Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "1");
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
@@ -47,18 +51,30 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
         
-        if (originalConfig == null) {
+        if (originalConfigParent == null) {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
         } 
         else {
-            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfig);
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfigParent);
+        }
+        if (originalConfigDisconnected == null) {
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "");
+        }
+        else {
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED,
+                                                originalConfigDisconnected);
         }
     }
     
     public void testCreateCommandIgnoreMismatch() throws Exception {
-        String originalConfig = Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
-        Config.get().setString(ConfigDefaults.SATELLITE_PARENT, 
+        String originalConfigParent =
+                        Config.get().getString(ConfigDefaults.SATELLITE_PARENT);
+        String originalConfigDisconnected =
+                        Config.get().getString(ConfigDefaults.DISCONNECTED);
+
+        Config.get().setString(ConfigDefaults.SATELLITE_PARENT,
                 "satellite.webqa.redhat.com");
+        Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "1");
         user.addRole(RoleFactory.SAT_ADMIN);
         cmd = new ConfigureCertificateCommand(user) {
             protected Executor getExecutor() {
@@ -75,11 +91,18 @@ public class ConfigureCertificateCommandTest extends BaseTestCaseWithUser {
         
         assertNotNull(cmd.getCertificateText());
         assertNull(cmd.storeConfiguration());
-        if (originalConfig == null) {
+        if (originalConfigParent == null) {
             Config.get().setString(ConfigDefaults.SATELLITE_PARENT, "");
         } 
         else {
-            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfig);
+            Config.get().setString(ConfigDefaults.SATELLITE_PARENT, originalConfigParent);
+        }
+        if (originalConfigDisconnected == null) {
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED, "");
+        }
+        else {
+            Config.get().setBoolean(ConfigDefaults.DISCONNECTED,
+                                                originalConfigDisconnected);
         }
     }
     

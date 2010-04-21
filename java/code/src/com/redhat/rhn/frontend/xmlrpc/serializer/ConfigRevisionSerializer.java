@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
@@ -37,6 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #options()
  *                  #item("file")
  *                  #item("directory")
+ *                  #item("symlink")
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc("string", "channel","Channel Name")
@@ -85,17 +85,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         ConfigRevision rev = (ConfigRevision) value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        if (rev.isDirectory()) {
-            helper.add(TYPE, ConfigFileType.DIR);
-        }
-        else {
-            helper.add(TYPE, ConfigFileType.FILE);
-            if (rev.getConfigContent().isBinary()) {
-                helper.add(BINARY, Boolean.TRUE);
-            }
-            else {
-                helper.add(BINARY, Boolean.FALSE);
-            }
+
+        if (rev.getConfigFileType() != null) {
+            helper.add(TYPE, rev.getConfigFileType().getLabel());
         }
 
         helper.add(PATH, rev.getConfigFile().getConfigFileName().getPath());
@@ -109,13 +101,20 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         helper.add(PERMISSIONS_MODE, new DecimalFormat("000").format(
             rev.getConfigInfo().getFilemode().longValue()));
 
-        if (!rev.isDirectory()) {
+        if (rev.isFile()) {
             if (!rev.getConfigContent().isBinary()) {
+                helper.add(BINARY, Boolean.FALSE);
                 helper.add(CONTENTS, rev.getConfigContent().getContentsString());    
+            }
+            else {
+                helper.add(BINARY, Boolean.TRUE);
             }
             helper.add("md5", rev.getConfigContent().getChecksum().getChecksum());
             helper.add(MACRO_START, rev.getDelimStart());
             helper.add(MACRO_END, rev.getDelimEnd());
+        }
+        else if (rev.isSymlink()) {
+            helper.add(CONTENTS, rev.getConfigContent().getContentsString());
         }
         helper.add("channel", rev.getConfigFile().getConfigChannel().getName());
         helper.writeTo(output);

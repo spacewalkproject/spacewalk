@@ -23,14 +23,14 @@ Certificate:
                     18:c4:04:af:4f:15:69:89:9b
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
-            X509v3 Subject Key Identifier: 
+            X509v3 Subject Key Identifier:
             69:44:27:05:DC:2E:ED:A5:F4:81:C4:D7:78:45:E7:44:5D:F8:87:47
-            X509v3 Authority Key Identifier: 
+            X509v3 Authority Key Identifier:
             keyid:69:44:27:05:DC:2E:ED:A5:F4:81:C4:D7:78:45:E7:44:5D:F8:87:47
             DirName:/C=US/ST=North Carolina/L=Raleigh/O=Red Hat, Inc./OU=Red Hat Network/CN=RHN Certificate Authority/emailAddress=rhn-noc@redhat.com
             serial:00
 
-            X509v3 Basic Constraints: 
+            X509v3 Basic Constraints:
             CA:TRUE
     Signature Algorithm: md5WithRSAEncryption
         23:c9:ca:07:9f:5e:96:39:83:e0:4e:da:dd:47:84:30:ca:d4:
@@ -64,4 +64,93 @@ DQYJKoZIhvcNAQEEBQADgYEAI8nKB59eljmD4E7a3UeEMMrU1TiG+d6Ig8osRyY2
 q/QUHigp3n0QSl6RPlqZBwypLuP7eERJxTLW6HqX/ynQM64munYGfnmXFwxPLSqL
 iqxBWa7pxFUtuYjfm3tB+DIu7snAWeIwV143RynALXgz086jK9yE2r87Lku2s7ZO
 noA=
+-----END CERTIFICATE-----
+
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 42 (0x2a)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=US, ST=North Carolina, L=Raleigh, O=Red Hat, Inc., OU=Red Hat Network, CN=RHN Certificate Authority/emailAddress=rhn-noc@redhat.com
+        Validity
+            Not Before: Feb 26 21:07:08 2010 GMT
+            Not After : Feb 24 21:07:08 2020 GMT
+        Subject: C=US, ST=North Carolina, L=Raleigh, O=Red Hat, Inc., OU=Red Hat Network, CN=RHN Certificate Authority/emailAddress=rhn-noc@redhat.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:a9:51:91:f5:5e:ae:cd:8b:5f:8e:c6:1c:64:f5:
+                    8c:68:b0:b3:8b:1d:29:2d:95:ff:87:46:8e:93:dc:
+                    2a:92:17:9d:60:38:cb:c8:9a:a1:24:fa:ff:21:de:
+                    a6:f8:4a:ba:87:a8:c7:6a:d4:64:cd:37:e9:37:ec:
+                    5d:56:3b:7c:d3:94:13:89:a5:cb:23:f0:80:7d:07:
+                    6e:ca:fd:cf:6c:ea:cc:bb:ab:ff:b8:a3:cb:ec:9a:
+                    ab:77:fe:ae:5a:a3:54:36:a6:aa:96:bc:9d:3c:ce:
+                    af:3c:48:18:70:26:b4:b0:c1:40:cf:c8:23:21:46:
+                    4c:d1:ed:71:bc:8e:e8:54:df:55:06:b3:a1:30:56:
+                    25:f5:5d:ab:8e:4a:66:4f:1b:df:53:9c:8c:3c:11:
+                    92:d1:11:a4:82:c6:69:ee:9a:94:83:56:de:0c:ba:
+                    9d:1c:21:bb:8c:33:7d:aa:6e:d9:97:3a:c8:92:8f:
+                    e0:bd:27:dc:71:e2:b6:b0:e3:82:46:5f:08:ba:86:
+                    65:18:a9:a5:c2:b6:7d:4d:7c:fe:3f:dd:72:0d:a0:
+                    fc:ec:46:1b:24:b5:e1:9b:01:37:66:57:0a:22:00:
+                    22:20:d6:74:ca:cd:8b:66:72:62:39:e9:67:52:d6:
+                    e3:2b:7e:7c:aa:cf:7d:61:c3:7e:0f:38:bd:b5:17:
+                    ad:f9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier:
+                15:F1:11:00:0A:34:A1:A2:56:BB:2F:57:1E:59:E2:7F:6A:CF:EA:43
+            X509v3 Authority Key Identifier:
+                keyid:15:F1:11:00:0A:34:A1:A2:56:BB:2F:57:1E:59:E2:7F:6A:CF:EA:43
+                DirName:/C=US/ST=North Carolina/L=Raleigh/O=Red Hat, Inc./OU=Red Hat Network/CN=RHN Certificate Authority/emailAddress=rhn-noc@redhat.com
+                serial:2A
+
+            X509v3 Basic Constraints:
+                CA:TRUE
+    Signature Algorithm: sha1WithRSAEncryption
+        2d:1b:a6:e7:df:b2:9e:2e:e4:1a:4d:e1:58:97:c2:82:18:10:
+        f6:79:69:02:12:4c:72:cc:e4:09:c8:43:90:5e:a5:ee:da:04:
+        72:10:1a:6a:09:32:73:a8:6d:ba:81:f2:fe:b1:bb:1f:89:87:
+        69:d7:d9:15:c7:29:15:c5:21:f4:a4:f2:45:c9:cf:1d:dd:9e:
+        56:ae:55:85:03:53:1f:54:6b:93:18:f2:02:ed:bb:5a:1b:74:
+        aa:64:56:49:9c:2f:d9:0d:5b:3f:03:5a:5f:e2:19:6b:12:a7:
+        0f:b5:72:52:0d:95:f9:15:a7:28:e2:8a:c2:69:88:87:b8:42:
+        57:65:06:94:94:1d:15:d6:ad:7a:60:05:fb:f9:cc:83:09:b5:
+        41:07:5d:78:ec:a6:da:6a:23:77:6f:b9:9a:4b:60:30:53:bb:
+        e4:7e:5e:51:7c:a9:11:79:b8:3c:f4:19:8d:f3:5a:27:7f:ff:
+        4c:e7:44:e0:e4:e6:0e:18:55:d7:68:72:22:7a:30:76:9b:26:
+        84:d6:d8:20:40:ef:8e:45:75:94:d0:86:2c:a8:af:bc:31:2d:
+        50:20:eb:d1:16:55:e6:3e:8b:82:ed:fb:dd:a3:a0:f7:6b:7e:
+        d6:b8:5f:45:a5:0b:72:7b:7e:6d:20:7f:60:95:67:ad:96:12:
+        ba:6b:e7:6c
+-----BEGIN CERTIFICATE-----
+MIIE8zCCA9ugAwIBAgIBKjANBgkqhkiG9w0BAQUFADCBsTELMAkGA1UEBhMCVVMx
+FzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQHDAdSYWxlaWdoMRYwFAYD
+VQQKDA1SZWQgSGF0LCBJbmMuMRgwFgYDVQQLDA9SZWQgSGF0IE5ldHdvcmsxIjAg
+BgNVBAMMGVJITiBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxITAfBgkqhkiG9w0BCQEW
+EnJobi1ub2NAcmVkaGF0LmNvbTAeFw0xMDAyMjYyMTA3MDhaFw0yMDAyMjQyMTA3
+MDhaMIGxMQswCQYDVQQGEwJVUzEXMBUGA1UECAwOTm9ydGggQ2Fyb2xpbmExEDAO
+BgNVBAcMB1JhbGVpZ2gxFjAUBgNVBAoMDVJlZCBIYXQsIEluYy4xGDAWBgNVBAsM
+D1JlZCBIYXQgTmV0d29yazEiMCAGA1UEAwwZUkhOIENlcnRpZmljYXRlIEF1dGhv
+cml0eTEhMB8GCSqGSIb3DQEJARYScmhuLW5vY0ByZWRoYXQuY29tMIIBIjANBgkq
+hkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVGR9V6uzYtfjsYcZPWMaLCzix0pLZX/
+h0aOk9wqkhedYDjLyJqhJPr/Id6m+Eq6h6jHatRkzTfpN+xdVjt805QTiaXLI/CA
+fQduyv3PbOrMu6v/uKPL7Jqrd/6uWqNUNqaqlrydPM6vPEgYcCa0sMFAz8gjIUZM
+0e1xvI7oVN9VBrOhMFYl9V2rjkpmTxvfU5yMPBGS0RGkgsZp7pqUg1beDLqdHCG7
+jDN9qm7ZlzrIko/gvSfcceK2sOOCRl8IuoZlGKmlwrZ9TXz+P91yDaD87EYbJLXh
+mwE3ZlcKIgAiINZ0ys2LZnJiOelnUtbjK358qs99YcN+Dzi9tRet+QIDAQABo4IB
+EjCCAQ4wHQYDVR0OBBYEFBXxEQAKNKGiVrsvVx5Z4n9qz+pDMIHeBgNVHSMEgdYw
+gdOAFBXxEQAKNKGiVrsvVx5Z4n9qz+pDoYG3pIG0MIGxMQswCQYDVQQGEwJVUzEX
+MBUGA1UECAwOTm9ydGggQ2Fyb2xpbmExEDAOBgNVBAcMB1JhbGVpZ2gxFjAUBgNV
+BAoMDVJlZCBIYXQsIEluYy4xGDAWBgNVBAsMD1JlZCBIYXQgTmV0d29yazEiMCAG
+A1UEAwwZUkhOIENlcnRpZmljYXRlIEF1dGhvcml0eTEhMB8GCSqGSIb3DQEJARYS
+cmhuLW5vY0ByZWRoYXQuY29tggEqMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEF
+BQADggEBAC0bpuffsp4u5BpN4ViXwoIYEPZ5aQISTHLM5AnIQ5Bepe7aBHIQGmoJ
+MnOobbqB8v6xux+Jh2nX2RXHKRXFIfSk8kXJzx3dnlauVYUDUx9Ua5MY8gLtu1ob
+dKpkVkmcL9kNWz8DWl/iGWsSpw+1clINlfkVpyjiisJpiIe4QldlBpSUHRXWrXpg
+Bfv5zIMJtUEHXXjsptpqI3dvuZpLYDBTu+R+XlF8qRF5uDz0GY3zWid//0znRODk
+5g4YVddociJ6MHabJoTW2CBA745FdZTQhiyor7wxLVAg69EWVeY+i4Lt+92joPdr
+fta4X0WlC3J7fm0gf2CVZ62WErpr52w=
 -----END CERTIFICATE-----

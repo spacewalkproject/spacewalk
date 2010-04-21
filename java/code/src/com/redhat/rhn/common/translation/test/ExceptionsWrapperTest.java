@@ -46,6 +46,9 @@ public class ExceptionsWrapperTest extends TestCase {
         super(name);
     }
 
+    /**
+     * These tests assume that the DB is oracle
+     */
     public void testConstraintViolation() throws Exception {
         Session session = null;
         Statement stmt = null;

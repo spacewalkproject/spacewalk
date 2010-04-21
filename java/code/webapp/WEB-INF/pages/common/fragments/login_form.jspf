@@ -1,11 +1,12 @@
+<%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
     <div class="formrow">
 <span class="label"><bean:message key="login.jsp.redhatlogin"/></span>
-      <span class="formfield"><html:text tabindex="2" property="username" size="10" maxlength="64"/></span>
+      <span class="formfield"><html:text tabindex="2" property="username" size="10" maxlength="${loginLength}"/></span>
     </div>
 
     <div class="formrow">
       <span class="label"><bean:message key="login.jsp.password"/></span>
-      <span class="formfield"><html:password tabindex="2" property="password" size="10" value="" maxlength="32" /></span>
+      <span class="formfield"><html:password tabindex="2" property="password" size="10" value="" maxlength="${passwordLength}" /></span>
     </div>
 
     <div class="formrow">

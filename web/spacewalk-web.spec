@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 1.1.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,36 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+- Constants DEFAULT_RHN_SATCON_TREE and DEFAULT_SATCON_DICT not longer used
+
+* Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.7-1
+- 576907 - make SystemSnapshots aware of multiarch packages
+
+* Thu Mar 25 2010 Justin Sherrill <jsherril@redhat.com> 0.9.6-1
+- 528170 - fixing issue where cloning a channel with cloned errata would select
+  clones of the cloned errata to pull into the new channel if they existed,
+  instead of just using the original clones directly. (jsherril@redhat.com)
+
+* Thu Mar 18 2010 Jan Pazdziora 0.9.5-1
+- 568958 - fixing issue where package removal and verify could not be scheduled
+  or would not work for systems that do not upload arch information
+  (jsherril@redhat.com)
+- 516048 - syncing java stack with perl stack on channel naming convention
+  (shughes@redhat.com)
+- 529371 - use the OO interface to File::Temp, make it UNLINK
+
+* Wed Mar 10 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- fixed typos
+
+* Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- 529371 - fixed missing code from gpg migration
+- 528170 - fixing cloning on an already cloned channel
+
+* Fri Feb 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- moved PXT::Debug to separate module
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.14-1
 - updated copyrights
 - removed a lot of unused code

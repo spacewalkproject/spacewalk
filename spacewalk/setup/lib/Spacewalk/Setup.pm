@@ -283,7 +283,10 @@ sub upgrade_stop_services {
   my $opts = shift;
   if ($opts->{'upgrade'} && not $opts->{'skip-services-check'}) {
     print "* Upgrade flag passed.  Stopping necessary services.\n";
-    if (-e "/usr/sbin/rhn-satellite") {
+    if (-e "/usr/sbin/spacewalk-service") {
+      system_or_exit(['/usr/sbin/spacewalk-service', 'stop'], 16,
+                      'Could not stop the rhn-satellite service.');
+    } elsif (-e "/usr/sbin/rhn-satellite") {
       system_or_exit(['/usr/sbin/rhn-satellite', 'stop'], 16,
                       'Could not stop the rhn-satellite service.');
     } elsif (-e "/etc/init.d/rhn-satellite") {
@@ -306,18 +309,12 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 my @spinning_pattern = (
-    '______|||', 
-    'o_____|||', 
-    '_o____|||', 
-    '__o___|||', 
-    '___o__|||', 
-    '____o_|||', 
-    '_____o/||', 
-    '______o/|', 
-    '_______o/', 
-    '________o', 
-    '_________', 
-    '______///',
+    ':-)',
+    ':-/',
+    ':-|',
+    ':-\\',
+    '8-0',
+    '8-)',
 );
 
 my $spinning_pattern_maxlength = 0;
@@ -431,14 +428,9 @@ sub clear_db {
 
     my $dbh = get_dbh($answers);
 
-    print loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
+    print loc("** Database: Shutting down spacewalk services that may be using DB.\n");
 
-    system_debug('/sbin/service tomcat5 stop');
-    system_debug('/sbin/service taskomatic stop');
-    system_debug('/sbin/service httpd stop');
-    system_debug('/sbin/service jabberd stop');
-    system_debug('/sbin/service osa-dispatcher stop');
-    system_debug('/sbin/service tsdb_local_queue stop');
+    system_debug('/usr/sbin/spacewalk-service --exclude=oracle* --exclude=postgresql stop');
 
     print loc("** Database: Services stopped.  Clearing DB.\n");
 

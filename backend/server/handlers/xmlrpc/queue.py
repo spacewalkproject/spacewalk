@@ -205,7 +205,7 @@ class Queue(rhnHandler):
                               and sap.action_id = a.prerequisite
                               and sap.status != 2 -- completed
                            )
-                     order by a.prerequisite nulls last, a.id
+                      order by a.earliest_action, a.prerequisite nulls first, a.id
     """)
 
                 

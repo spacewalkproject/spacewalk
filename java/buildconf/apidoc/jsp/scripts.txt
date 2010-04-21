@@ -36,7 +36,7 @@ $client->call('auth.logout', $session);</br>
 <hr />
 <p />
 <h3>Python example:</h3><br />
-Below is an example of the user.listAdministeredSystemGroups call being used.  Only the name of each group is printed. 
+Below is an example of the user.listUsers call being used.  Only the login of each user is printed. 
 <p />
 
 <code>
@@ -50,9 +50,9 @@ SATELLITE_PASSWORD = "password"<br />
 client = xmlrpclib.Server(SATELLITE_URL, verbose=0)<br />
 <br />
 key = client.auth.login(SATELLITE_LOGIN, SATELLITE_PASSWORD)<br />
-list = client.user.list_administered_system_groups(key, 'admin')<br />
-for group in list:<br />
-&nbsp;&nbsp;&nbsp;print group.get('name')<br />
+list = client.user.list_users(key)<br />
+for user in list:<br />
+&nbsp;&nbsp;&nbsp;print user.get('login')<br />
 <br />
 client.auth.logout(key)<br />
 </code>

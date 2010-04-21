@@ -64,10 +64,10 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
@@ -79,7 +79,6 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2782,9 +2781,7 @@ public class ChannelManager extends BaseManager {
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
         log.info("File Modified Date:" + fileModifiedDateIn);
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String fileModifiedDate = formatter.format(fileModifiedDateIn);
-        return fileModifiedDate;
+        return LocalizationService.getInstance().formatCustomDate(fileModifiedDateIn);
     }
 
 

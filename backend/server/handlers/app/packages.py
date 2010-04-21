@@ -290,7 +290,7 @@ class Packages(RPC_Base):
             header, org_id=org_id)
 
         checksum_type = header.checksum_type()
-        checksum = getFileChecksum(header.checksum_type(), file=package_stream)
+        checksum = getFileChecksum(header.checksum_type(), file=payload_stream)
         package_dict, diff_level = rhnPackageUpload.push_package(
             header, payload_stream, checksum_type, checksum, org_id=org_id, force=force,
             header_start=header_start, header_end=header_end,

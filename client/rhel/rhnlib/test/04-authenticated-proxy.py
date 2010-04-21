@@ -2,7 +2,9 @@
 #
 #
 #
-# $Id$
+# $Id$ 
+#
+# Usage: $0 SERVER PROXY:PORT [SYSTEMID] [PROXY_USER] [PROXY_PASS]
 
 import sys
 import httplib
@@ -12,9 +14,25 @@ from rhn.connections import HTTPProxyConnection, HTTPSProxyConnection
 
 SERVER = "xmlrpc.rhn.redhat.com"
 HANDLER = "/XMLRPC"
-PROXY = "cellar.rhndev.redhat.com:3128"
-PROXY_USERNAME = "rhn"
-PROXY_PASSWORD = "rhn"
+PROXY = "proxy.example.com:8080"
+PROXY_USERNAME = None
+PROXY_PASSWORD = None
+system_id_file = '/etc/sysconfig/rhn/systemid'
+
+if len(sys.argv) < 3: 
+    print "Non efficient cmd-line arguments! Provide at least server & proxy!"
+    sys.exit(1);
+
+try:
+    SERVER = sys.argv[1];
+    PROXY = sys.argv[2];
+    system_id_file = sys.argv[3]
+    PROXY_USERNAME = sys.argv[4];
+    PROXY_PASSWORD = sys.argv[5];
+except:
+    pass
+
+
 
 def get_test_server_proxy_http():
     global SERVER, HANDLER, PROXY
@@ -28,11 +46,6 @@ def get_test_server_proxy_https():
 
     
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        system_id_file = sys.argv[1]
-    else:
-        system_id_file = '/etc/sysconfig/rhn/systemid'
-
     systemid = open(system_id_file).read()
 
     tests = [

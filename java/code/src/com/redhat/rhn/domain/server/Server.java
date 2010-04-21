@@ -109,6 +109,40 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set history;
     private Set packages;
     private ProxyInfo proxyInfo;
+    private Set<? extends ServerGroup> groups;
+    private Set<Capability> capabilities;
+
+    /**
+     * @return Returns the capabilities.
+     */
+    public Set<Capability> getCapabilities() {
+        return capabilities;
+    }
+
+
+    
+    /**
+     * @param capabilitiesIn The capabilities to set.
+     */
+    public void setCapabilities(Set<Capability> capabilitiesIn) {
+        capabilities = capabilitiesIn;
+    }
+    
+    
+    /**
+     * @return Returns the groups.
+     */
+    protected Set<? extends ServerGroup> getGroups() {
+        return groups;
+    }
+
+    
+    /**
+     * @param groupsIn The groups to set.
+     */
+    protected void setGroups(Set<? extends ServerGroup> groupsIn) {
+        groups = groupsIn;
+    }
 
     /**
      * @return the proxyInfo
@@ -656,7 +690,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * The set of ServerGroup(s) that this Server is a member of
      * @return Returns the serverGroups.
      */
-    public List getEntitledGroups() {
+    public List<EntitlementServerGroup> getEntitledGroups() {
         return ServerGroupFactory.listEntitlementGroups(this);
     }
 
@@ -1362,14 +1396,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean deleteGuest(VirtualInstance guest) {
-        boolean deleted = removeGuest(guest);
-        log.debug("deleteGuest.deleted? " + deleted);
-         // only remove the host from the virtual instance if it belongs to this server
-        if (deleted) {
+        if (canDeleteGuest(guest)) {
             guest.deleteGuestSystem();
+            return removeGuest(guest);
         }
-        
-        return deleted;
+        return false;
+    }
+    
+    private boolean canDeleteGuest(VirtualInstance guest) {
+        for (VirtualInstance g : guests) {
+            if (g.getId().equals(guest.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -1380,10 +1420,9 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
      */
     public boolean removeGuest(VirtualInstance guest) {
-        
         boolean deleted = false;
-        for (Iterator it = guests.iterator(); it.hasNext();) {
-            VirtualInstance g = (VirtualInstance)it.next();
+        for (Iterator<VirtualInstance> it = guests.iterator(); it.hasNext();) {
+            VirtualInstance g = it.next();
             if (g.getId().equals(guest.getId())) {
                 guest.setHostSystem(null);
                 
@@ -1395,6 +1434,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         
         return deleted;
     }
+
     
     /**
      * Return the virtual instance that owns this server when the server is a virtual guest.

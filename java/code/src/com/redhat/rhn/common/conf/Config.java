@@ -400,6 +400,10 @@ public class Config {
         if (f.isDirectory()) {
             // bugzilla: 154517; only add items that end in .conf
             File[] files = f.listFiles();
+            if (files == null) {
+                logger.error("Unable to list files in path : " + path);
+                return;
+            }
             for (int i = 0; i < files.length; i++) {
                 if (files[i].getName().endsWith((".conf"))) {
                     fileList.add(files[i]);

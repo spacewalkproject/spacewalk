@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008-2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,38 +13,20 @@
 # in this software or its documentation. 
 #
 
-from iss_runcommand import run_command
-
-class IsoError(Exception):
-    pass
-
+from satellite_tools import geniso
 
 def create_isos(mountpoint, outdir, prefix, lower_limit=None, upper_limit=None, copy_iso_dir=None, iso_type=None):
-    opts = []
-    command = "PYTHONPATH=/usr/share/rhn python /usr/share/rhn/satellite_tools/geniso.py %s"
-    
-    opts.append("--mountpoint=%s" % mountpoint)
-    opts.append("--file-prefix=%s" % prefix)
-    opts.append("--output=%s" % outdir)
-    opts.append("--type=%s" % iso_type)
-    
-    
-    if not lower_limit is None:
+    opts = [ "--mountpoint=%s" % mountpoint,
+             "--file-prefix=%s" % prefix,
+             "--output=%s" % outdir,
+             "--type=%s" % iso_type,
+           ]
+
+    if lower_limit is not None:
         opts.append("-v%s-%s" % (lower_limit, upper_limit))
 
-    if not copy_iso_dir is None:
+    if copy_iso_dir is not None:
         opts.append("--copy-iso-dir=%s" % copy_iso_dir)
 
-    #if not upper_limit is None:
-    #    opts.append("-r%s" % upper_limit)
+    geniso.main(opts)
 
-    optstr = " ".join(opts)
-
-    status, outval, errval = run_command(command % optstr)
-    if status != 0:
-        raise IsoError(outval, errval)
-    
-         
-
-    
-        

@@ -18,6 +18,8 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
+import org.cobbler.Profile;
+
 /**
  * KickstartCloneCommand - class to clone a KickstartData object and its children
  * @version $Rev$
@@ -55,6 +57,12 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         clonedKickstart = this.ksdata.deepCopy(user, newLabel);
         KickstartWizardHelper helperCmd = new KickstartWizardHelper(user);
         helperCmd.store(clonedKickstart);
+        
+        Profile original = ksdata.getCobblerObject(user);
+        Profile cloned = clonedKickstart.getCobblerObject(user);
+        cloned.setKsMeta(original.getKsMeta());
+        cloned.save();
+        
         return null;
     }
 

@@ -20,6 +20,8 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.task.TaskManager;
 
 import org.apache.log4j.Logger;
 
@@ -88,9 +90,12 @@ public class RepositoryWriter {
      * @param channel channelinfo for repomd file creation
      */
     public void writeRepomdFiles(Channel channel) {
+        
+        PackageManager.createRepoEntrys(channel.getId());
+        
         log.info("Generating new repository metatada for channel '" +
-                channel.getLabel() + "' " + channel.getPackages().size() +
-                " packages, " + channel.getErratas().size() + " updates");
+                channel.getLabel() + "' " + channel.getPackageCount() +
+                " packages, " + channel.getErrataCount() + " updates");
         String prefix = mountPoint + File.separator + pathPrefix +
                 File.separator + channel.getLabel() + File.separator;
 
@@ -102,7 +107,7 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter primaryFile;
         CompressingDigestOutputWriter filelistsFile;
         CompressingDigestOutputWriter otherFile;
-
+                
         // Get compatible checksumType
         this.checksumtype = channel.getChecksumTypeLabel();
         
@@ -117,10 +122,10 @@ public class RepositoryWriter {
         }
         // translate sha1 to sha for xml repo files
         String checksumLabel = this.checksumtype;
-        if (checksumLabel == "sha1") {
+        if (checksumLabel.equals("sha1")) {
             checksumLabel = "sha";
         }
-
+        
         try {
             primaryFile = new CompressingDigestOutputWriter(
                     new FileOutputStream(prefix + PRIMARY_FILE), checksumAlgo);
@@ -142,24 +147,22 @@ public class RepositoryWriter {
                 new OutputStreamWriter(filelistsFile));
         BufferedWriter otherBufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(otherFile));
-
         PrimaryXmlWriter primary = new PrimaryXmlWriter(primaryBufferedWriter);
         FilelistsXmlWriter filelists = new FilelistsXmlWriter(
                 filelistsBufferedWriter);
         OtherXmlWriter other = new OtherXmlWriter(otherBufferedWriter);
-
         Date start = new Date();
+        
         primary.begin(channel);
         filelists.begin(channel);
         other.begin(channel);
-
-        Iterator iter = RepomdWriter.getChannelPackageDtoIterator(channel);
+        
+        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
         while (iter.hasNext()) {
             PackageDto pkgDto = (PackageDto) iter.next();
             primary.addPackage(pkgDto);
             filelists.addPackage(pkgDto);
             other.addPackage(pkgDto);
-
             try {
                 primaryFile.flush();
                 filelistsFile.flush();
@@ -172,7 +175,6 @@ public class RepositoryWriter {
         primary.end();
         filelists.end();
         other.end();
-
         try {
             primaryBufferedWriter.close();
             filelistsBufferedWriter.close();
@@ -181,7 +183,7 @@ public class RepositoryWriter {
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
-
+        
         RepomdIndexData primaryData = new RepomdIndexData(primaryFile
                 .getCompressedChecksum(),
                 primaryFile.getUncompressedChecksum(), channel
@@ -200,7 +202,7 @@ public class RepositoryWriter {
                 checksumAlgo);
 
         RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
-        
+
         //Set the type so yum can read and perform checksum
         primaryData.setType(checksumLabel);
         filelistsData.setType(checksumLabel);
@@ -247,6 +249,7 @@ public class RepositoryWriter {
                 " seconds");
     }
 
+    
     /**
      * 
      * @param channel channel indo
@@ -362,8 +365,8 @@ public class RepositoryWriter {
      */
     private RepomdIndexData generateUpdateinfo(Channel channel, String prefix, 
             String checksumtypeIn) {
-
-        if (channel.getErratas().size() == 0) {
+        
+        if (channel.getErrataCount() == 0) {
             return null;
         }
 

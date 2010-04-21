@@ -488,16 +488,19 @@ SELECT PN.id || '|' || SPE.id AS ID,
        SP.name_id,
        PN.name,
        SP.evr_id,
+       PA.label AS ARCH,
        SPE.evr.as_vre_simple() AS EVR,
        SPE.epoch,
        SPE.version,
        SPE.release
   FROM rhnPackageName PN,
        rhnPackageEVR SPE,
+       rhnPackageArch PA,
        rhnServerPackage SP
  WHERE PN.id = SP.name_id
    AND SPE.id = SP.evr_id
    AND SP.server_id = :sid
+   AND SP.package_arch_id = PA.id
    AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
                      PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
   </query>
@@ -509,6 +512,7 @@ SELECT PN.id || '|' || PE.id AS ID,
        PNEVRA.name_id,
        PN.name,
        PNEVRA.evr_id,
+       PA.label AS ARCH,
        PE.evr.as_vre_simple() AS EVR,
        PE.epoch,
        PE.version,
@@ -516,10 +520,12 @@ SELECT PN.id || '|' || PE.id AS ID,
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageNEVRA PNEVRA,
+       rhnPackageArch PA,
        rhnSnapshotPackage SP
  WHERE SP.snapshot_id = :ss_id
    AND SP.nevra_id = PNEVRA.id
    AND PNEVRA.name_id = PN.id
+   AND PNEVRA.package_arch_id = PA.id
    AND PNEVRA.evr_id = PE.id
    AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
                      PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
@@ -1757,7 +1763,7 @@ SELECT NEWEST.package_id AS id, NEWEST.channel_id
   <query params="sid, action_id">
 SELECT SAVR.mode_differs,
        SAVR.size_differs,
-       SAVR.checksum_differs md5_differs,
+       SAVR.checksum_differs,
        SAVR.uid_differs,
        SAVR.gid_differs,
        SAVR.mtime_differs,
@@ -1782,7 +1788,7 @@ SELECT SAVR.mode_differs,
 UNION
 SELECT 'N' AS mode_differs,
        'N' AS size_differs,
-       'N' AS checksum_differs md5_differs,
+       'N' AS checksum_differs,
        'N' AS uid_differs,
        'N' AS gid_differs,
        'N' AS mtime_differs,

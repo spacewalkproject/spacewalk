@@ -212,10 +212,7 @@ class XML_Dumper:
     def dump_channel_families(self):
         log_debug(2)
 
-	cids = "" 
-	for i in range(len(self.channel_ids)-1):
-            cids = cids + str(self.channel_ids[i]['channel_id']) + ","
-        cids = cids + str(self.channel_ids[len(self.channel_ids)-1]['channel_id'])
+        cids = ','.join(map(lambda x:str(x['channel_id']), self.channel_ids + self.channel_ids_for_families))
 
         h = self.get_channel_families_statement_new(cids)
         h.execute()
@@ -1041,7 +1038,7 @@ class CachedDumper(exportLib.BaseDumper):
 
         self.cache_set(params, s.getvalue())
 
-class ChannelsDumper(CachedDumper, exportLib.ChannelsDumper):
+class ChannelsDumper(exportLib.ChannelsDumper):
     _query_list_channels = rhnSQL.Statement("""
         select c.id, c.org_id, 
 	       c.label, ca.label channel_arch, c.basedir, c.name, 
@@ -1057,19 +1054,21 @@ class ChannelsDumper(CachedDumper, exportLib.ChannelsDumper):
            and c.checksum_type_id = ct.id (+)
     """)
     def __init__(self, writer, channels):
-        h = rhnSQL.prepare(self._query_list_channels)
-        CachedDumper.__init__(self, writer, statement=h, params=channels)
-        self._writer = writer
+        exportLib.ChannelsDumper.__init__(self, writer, channels)
 
-    def _get_key(self, params):
-        channel_id = params['channel_id']
-        return "xml-channels/rhn-channel-%d.xml" % channel_id
-
-    def _dump_subelement(self, data):
+    def dump_subelement(self, data):
         log_debug(6, data)
         #return exportLib.ChannelsDumper.dump_subelement(self, data)
         c = _ChannelsDumper(self._writer, data)
         c.dump()
+
+    def set_iterator(self):
+        if not self._channels:
+            # Nothing to do
+            return
+
+        h = rhnSQL.prepare(self._query_list_channels)
+        return QueryIterator(statement=h, params=self._channels)
 
 class _ChannelsDumper(exportLib._ChannelDumper):
     tag_name = 'rhn-channel'

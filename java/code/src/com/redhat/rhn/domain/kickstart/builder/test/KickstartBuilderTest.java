@@ -329,6 +329,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartBuilder builder = new KickstartBuilder(user);
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
+        //String randomLabel = RandomStringUtils.randomAlphabetic(10);
         KickstartData ksData = builder.createFromParser(parser, "mykslabel", 
                 KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
         assertEquals(19, ksData.getCommands().size());

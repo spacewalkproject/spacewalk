@@ -9,14 +9,17 @@ sys.path.append('..')
 from rhn.rpclib import Server, GETServer
 
 SERVER = "http://xmlrpc.rhn.redhat.com/XMLRPC"
-#SERVER = "http://xmlrpc.rhn.webqa.redhat.com/XMLRPC"
+system_id_file = "/etc/sysconfig/rhn/systemid"
+try:
+    SERVER = "http://%s/XMLRPC" % sys.argv[1]
+    system_id_file = sys.argv[2]
+except:
+    pass
+print "SERVER = %s" % SERVER
+print "system_id_file = %s" % system_id_file
 
 s = Server(SERVER)
-if len(sys.argv) > 1:
-    systemid_file = sys.argv[1]
-else:
-    systemid_file = "/etc/sysconfig/rhn/systemid"
-sysid = open(systemid_file).read()
+sysid = open(system_id_file).read()
 
 dict = s.up2date.login(sysid)
 print dict
@@ -32,9 +35,13 @@ print l
 
 # Package download
 package = l[0]
+print "PACKAGE TO DOWNLOAD: %s %s %s %s" % (package[0], package[1], package[2], package[4])
 filename = "%s-%s-%s.%s.rpm" % (package[0], package[1], package[2],
                 package[4])
 fd = sg.getPackage(channel_name, filename)
-f = open("/tmp/test-get-%s" % filename, "w+")
+f_name = "/tmp/test-get-%s" % filename
+f = open(f_name, "w+")
 f.write(fd.read())
 f.close()
+print "PACKAGE DOWNLOADED AS: %s" % f_name
+

@@ -414,14 +414,17 @@ sub errata_migration_provider {
     sort { ( ($tcache{$b->{CREATED}} ||= str2time($b->{CREATED}))     # order by timestamp, cached, newest
 	     <=>                                                      # first, so the oldest cloned errata
 	     ($tcache{$a->{CREATED}} ||= str2time($a->{CREATED})) )   # is the one used.  If two errata share
-	   || ( $a->{ADVISORY_NAME} cmp $b->{ADVISORY_NAME} ) }                 # a timestamp, order alphabetically
+	   || ( $a->{ID} cmp $b->{ID} ) }                             # a timestamp, order by id, to get the one created first
       grep { exists $_->{RELATIONSHIP} and $_->{RELATIONSHIP} eq 'cloned_from' } # filter out non-cloned errata
 	(@{$published_owned_errata}, @{$unpublished_owned_errata});
 
   my %clone_map;   # need a map to find the appropriate pre-existing errata for each Red Hat errata.
 
   foreach my $owned_errata (@owned_errata) {
+    #push the original id
     push @{$clone_map{$owned_errata->{FROM_ERRATA_ID}}}, $owned_errata;
+    #also push the clone's id (in case we clone a cloned channel)
+    push @{$clone_map{$owned_errata->{ID}}}, $owned_errata;
   }
 
   foreach my $e_data (@{$errata_data}) {

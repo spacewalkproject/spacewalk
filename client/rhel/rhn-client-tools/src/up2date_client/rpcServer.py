@@ -187,6 +187,7 @@ def getServer(refreshCallback=None):
 
 def doCall(method, *args, **kwargs):
     log = up2dateLog.initLog()
+    log.log_debug("rpcServer: Calling XMLRPC %s" % method.__dict__['_Method__name'])
     cfg = config.initUp2dateConfig()
     ret = None
 

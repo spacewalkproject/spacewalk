@@ -31,7 +31,6 @@ a module with a class that inherits FirstBootGuiWindow.)
 """
 
 import urlparse
-import socket
 import gtk
 # Need to import gtk.glade to make this file work alone even though we always 
 # access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff 
@@ -40,7 +39,6 @@ import gtk.glade
 import gobject
 import sys
 import os
-import stat
 import gettext
 _ = gettext.gettext
 gettext.textdomain("rhn-client-tools")
@@ -64,21 +62,14 @@ import rhnreg_constants
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 
-if cfg['development']:
-    gladefile = "../../data/rh_register.glade"
-else:
-    gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
+gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
 
 # we need to carry these values between screen, so stash at module scope
 username = None
 password = None
-email = ""
-# organization will be set to a string which is the org id to use. It should be 
-# None if the server doesn't support multi-orgs, or to use the default org.
-organization = None
 newAccount = None # Should be assigned True or False
 productInfo = None
-regNum = None
+hw_activation_code = None
 serverType = None
 chosen_channel = None
 
@@ -117,23 +108,6 @@ class ReviewLog:
     
     def getTextBuffer(self):
         return self._text
-    
-    def foundRegNumButCouldntActivate(self):
-        self.addBoldText(_("Notice"))
-        self.addText(rhnreg_constants.INST_NUM_ON_DISK)
-        self.addText('') # adds newline
-    
-    def autoActivatedRegistrationNumber(self, registrationNumber, 
-                                        activationResult):
-        self.addBoldText(_("Automatic Subscription Activation"))
-        text = rhnreg_constants.SUB_NUM % registrationNumber
-        text = text + ' ' + rhnreg_constants.SUB_NUM_RESULT
-        self.addText(text)
-        for channel, quantity in activationResult.getChannelsActivated().items():
-            self.addBulletedText("%s (%s)" % (channel, quantity))
-        for service, quantity in activationResult.getSystemSlotsActivated().items():
-            self.addBulletedText("%s (%s)" % (service, quantity))
-        self.addText('') # adds newline
     
     def autoActivatedHardwareInfo(self, activationResult):
         self.addBoldText(_("Automatic Subscription Activation"))
@@ -306,8 +280,7 @@ class ChooseServerPage:
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
             serverType = 'hosted'
         else:
-            customServer = self.chooseServerXml.get_widget(
-                                'satelliteServerEntry').get_text()
+            customServer = self.customServerEntry.get_text()
             try:
                 customServer = rhnreg.makeNiceServerUrl(customServer)
             except up2dateErrors.InvalidProtocolError:
@@ -330,7 +303,9 @@ class ChooseServerPage:
         # Try to contact the server to see if we have a good cert
         try:
             setBusyCursor()
-            rhnreg.privacyText()
+            # get the caps info before we show the activastion page which needs the
+            # caps. _but_ we need to do this after we configure the network...
+            rhnreg.getCaps()
             setArrowCursor()
         except up2dateErrors.SSLCertificateVerifyFailedError:
             setArrowCursor()
@@ -382,9 +357,6 @@ class ChooseServerPage:
             dialog.run()
             return True
 
-        if validateCaps() is True: # There was an error
-            return True
-        
         return False
 
 
@@ -501,9 +473,6 @@ class LoginPage:
         """Returns False if everything's ok, True if there was a problem."""
         try:
             setBusyCursor()
-            # get the caps info before we show the activastion page which needs the
-            # caps. _but_ we need to do this after we configure the network...
-            rhnreg.getCaps()
             self.alreadyRegistered = 1
             self.alreadyRegistered = rhnreg.reserveUser(self.loginUname.get_text(),
                                                         self.loginPw.get_text())
@@ -520,255 +489,9 @@ class LoginPage:
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
         
-        # I don't know why we call registerUser when logging in an existing 
-        # user, but the code did this. There was a comment which might have been
-        # referring to this which said "legacy cruft". Maybe some old sat needs
-        # this?
-        try:
-            rhnreg.registerUser(username, password)
-            log.log_me("Registered login info.")
-        except up2dateErrors.CommunicationError, e:
-            setArrowCursor()
-            errorWindow(_("There was a problem logging in:\n%s") % 
-                                      e.errmsg)
-            return True
-        except:
-            setArrowCursor()
-            errorWindow(_("There was problem logging in."))
-            return True
-        
         setArrowCursor()
         return False
     
-    def showPrivacyDialog(self, button):
-        PrivacyDialog()
-
-
-def chooseOrgShouldBeShown():
-    """Decides whether we should show the choose org page or not.
-    
-    Returns True if we're talking to hosted and the user belongs to at least 2
-    orgs. If an error occurs, it is logged and True returned. Returns False 
-    otherwise.
-    
-    This is a loose function because it's difficult to use it in firstboot 
-    where we want to without a hack if it's in ChooseOrgPage.
-    
-    """
-    global organization
-    organization = None
-    try:
-        setBusyCursor()
-        possibleOrgs = rhnreg.getPossibleOrgs(username, password)
-        setArrowCursor()
-        if len(possibleOrgs.getOrgs()) < 2:
-            return False
-    except:
-        setArrowCursor()
-        log.log_me("There was an exception while trying to get the list of orgs"
-                   " to determine whether or not to show the choose org screen:")
-        log.log_exception(*sys.exc_info())
-        return False
-    return True
-
-class ChooseOrgPage:
-    def __init__(self):
-        self.chooseOrgXml = gtk.glade.XML(gladefile,
-                                          "chooseOrgWindowVbox",
-                                          domain="rhn-client-tools")
-        # self.orgsList will have the org id in the 0th column and the 
-        # org name in the 1st column.
-        self.orgsList = gtk.ListStore(gobject.TYPE_INT, gobject.TYPE_STRING)
-        self.orgsComboBox = self.chooseOrgXml.get_widget("orgsComboBox")
-        self.orgsComboBox.set_model(self.orgsList)
-        cell = gtk.CellRendererText()
-        self.orgsComboBox.pack_start(cell, True)
-        self.orgsComboBox.add_attribute(cell, 'text', 1)  
-        self.useCachedOrgs = False
-    
-    def chooseOrgPageVbox(self):
-        return self.chooseOrgXml.get_widget("chooseOrgWindowVbox")
-    
-    def chooseOrgPagePrepare(self, useCachedOrgs=False):
-        """The loose function chooseOrgShouldBeShown() should be used to find
-        out if this page should be shown or not.
-        
-        """
-        # TODO add support for args to callAndFilterExceptions and pass 
-        # useCachedOrgs as an arg
-        self.useCachedOrgs = useCachedOrgs
-        callAndFilterExceptions(
-                self._chooseOrgPagePrepare,
-                [], 
-                _("There was an error while getting the list of organizations.")
-        )
-    
-    def _chooseOrgPagePrepare(self):
-        """Functionality for chooseOrgPagePrepare but might raise exceptions."""
-        global username, password
-        setBusyCursor()
-        possibleOrgs = rhnreg.getPossibleOrgs(username, password, 
-                                               self.useCachedOrgs)
-        setArrowCursor()
-        self.orgsList.clear()
-        for orgId, orgName in possibleOrgs.getOrgs().items():
-            row = self.orgsList.append([orgId, orgName])
-            if orgId == possibleOrgs.getDefaultOrg():
-                self.orgsComboBox.set_active_iter(row)
-    
-    def chooseOrgPageApply(self):
-        global organization
-        activeIndex = self.orgsComboBox.get_active()
-        organization = self.orgsList[activeIndex][0]
-
-
-def activateSubscriptionShouldBeShown():
-    """If we activate an EN from disk and/or hardware info (eg asset tag) and 
-    one of them provides an entitlement for the base channel the system needs 
-    OR they have at least one available entitlement of the type the system 
-    needs, then we skip the activation screen (return False).
-    
-    This is a loose function because it's difficult to use it in firstboot 
-    where we want to without a hack if it's in ActivateSubscriptionPage.
-    
-    """
-    try:
-        setBusyCursor()
-        
-        # We have to call autoActivateNumbersOnce for satellite b/c it reads 
-        # and stores the IN # on disk, which we need.
-        registrationNumberStatus, oemNumberStatus = autoActivateNumbersOnce()
-        # Go ahead and return False if we're satellite.
-        if rhnreg.getServerType() == 'satellite':
-            return False
-        
-        # We should only skip the screen based on available subs (not 
-        # autoactivation) if we pass through any time after the first. That's 
-        # implemented by autoActivateNumbersOnce returning None, None on any 
-        # call after the first.
-        if registrationNumberStatus and \
-           registrationNumberStatus.getStatus() == ActivationResult.ACTIVATED_NOW:# and \
-           # TODO up2dateUtils.getOSRelease() in registrationNumberStatus[ActivationResult.RELEASE]:
-           return False
-        if oemNumberStatus and \
-           oemNumberStatus.getStatus() == ActivationResult.ACTIVATED_NOW:# and \
-           # TODO up2dateUtils.getOSRelease() in oemNumberStatus[ActivationResult.RELEASE]:
-           return False
-        availableSubs = rhnreg.getAvailableSubscriptions(username, password)
-
-        # I use != instead of > because -1 == infinite
-        if int(availableSubs) != 0: 
-            return False
-    except up2dateErrors.Error:
-        setArrowCursor()
-        log.log_me("There was an error while trying to figure out if we should "
-                   "skip the activation screen, so we'll show it. Error info:")
-        log.log_exception(*sys.exc_info())
-    setArrowCursor()
-    return True
-
-
-class ActivateSubscriptionPage:
-    """The screen that allows activation a installation number.
-    
-    activateSubscriptionShouldBeShown() should be used to decide whether to show
-    this page or not.
-    
-    """
-    def __init__(self):
-        self.activateSubscriptionNoneXml = gtk.glade.XML(gladefile,
-                                                "activateSubscriptionNoneWindowVbox",
-                                                domain="rhn-client-tools")
-        self.activateSubscriptionNoneVbox = \
-                self.activateSubscriptionNoneXml.get_widget(
-                "activateSubscriptionNoneWindowVbox")
-        self.registrationNumberEntry = \
-                self.activateSubscriptionNoneXml.get_widget(
-                "registrationNumberEntry")
-        self.registrationNumberStatusLabel = \
-                self.activateSubscriptionNoneXml.get_widget(
-                "registrationNumberStatusLabel")
-        self.registrationNumberEntry.connect("changed", 
-                self.activateSubscriptionPageRegistrationNumberChanged)
-        self.activatedRegNums = []
-    
-    def activateSubscriptionPageVbox(self):
-        return self.activateSubscriptionNoneVbox
-    
-    def activateSubscriptionPagePrepare(self):
-        # We need to call this manually otherwise it won't say the number's been
-        # activated when they click back from the create profile page until they
-        # change it.
-        self.activateSubscriptionPageRegistrationNumberChanged()
-    
-    def activateSubscriptionPageVerify(self):
-        """Returns False if everything is ok. Returns True if there's a problem
-        and the user was notified.
-        
-        """
-        newRegNum = self.registrationNumberEntry.get_text()
-        if newRegNum == "":
-            errorWindow(_("You must enter an installation number."))
-            self.registrationNumberEntry.grab_focus()
-            return True
-        return False
-    
-    def activateSubscriptionPageApply(self):
-        """Returns False if everything is ok. Returns True if there's a problem
-        and the user was notified.
-        
-        """
-        status = callAndFilterExceptions(
-                self._activateSubscriptionPageApply,
-                [],
-                _("There was an error activating your number.")
-        )
-        # Need to handle a filtering returning None
-        if status is False:
-            return False
-        else:
-            return True
-    
-    def _activateSubscriptionPageApply(self):
-        """See comment for activateSubscriptionPageApply."""
-        global username, password, organization, regNum
-        regNum = self.registrationNumberEntry.get_text()
-        if regNum not in self.activatedRegNums:
-            try:
-                setBusyCursor()
-                result = rhnreg.activateRegistrationNumber(username, password, 
-                                                        regNum, organization)
-            except up2dateErrors.InvalidRegistrationNumberError:
-                setArrowCursor()
-                errorWindow(rhnreg_constants.INVALID_NUMBER % regNum)
-                return True
-            except up2dateErrors.NotEntitlingError:
-                setArrowCursor()
-                errorWindow(rhnreg_constants.NONENTITLING_NUMBER)
-                return True
-            setArrowCursor()
-            if result.getStatus() == ActivationResult.ALREADY_USED:
-                errorWindow(rhnreg_constants.ALREADY_USED_NUMBER)
-                return True
-            else:
-                assert result.getStatus() == ActivationResult.ACTIVATED_NOW
-                reviewLog.activatedRegistrationNumber(regNum, result)
-                self.activatedRegNums.append(regNum)
-                rhnreg.writeRegNum(regNum)
-        else:
-            log.debug_log("Skipping activation because this number has already "
-                          "been activated.")
-        return False
-    
-    def activateSubscriptionPageRegistrationNumberChanged(self, entry=None):
-        newRegNum = self.registrationNumberEntry.get_text()
-        if newRegNum in self.activatedRegNums:
-            status = _("This installation number has already been activated.")
-        else:
-            status = ""
-        status = "<small><i>%s</i></small>" % status
-        self.registrationNumberStatusLabel.set_label(status)
-
 
 class ReviewSubscriptionPage:
     def __init__(self):
@@ -797,31 +520,6 @@ class ConfirmAllUpdatesDialog:
         self.dialog.destroy()
 
         
-def chooseChannelShouldBeShown():
-    '''
-    Returns True if the choose channel window should be shown, else
-    returns False.
-    '''
-    
-    # First and foremost, does the server support eus?
-    if rhnreg.server_supports_eus():
-    
-        global username, password, oragnization
-        other = {}
-        if organization is not None:
-            other['org_id'] = organization
-            
-        channels = rhnreg.getAvailableChannels(username, password,
-                                                    other)
-
-        channels = channels['channels']
-
-        if len(channels) > 0:
-            return True
-    else:
-        return False
-        
-        
 class ChooseChannelPage:
     def __init__(self):
         self.chooseChannelXml = gtk.glade.XML(gladefile,
@@ -842,14 +540,10 @@ class ChooseChannelPage:
         
     def chooseChannelPagePrepare(self):
     
-        global username, password, organization
-        other = {}
-        if organization is not None:
-            other['org_id'] = organization
-            
-        self.eus_channels = rhnreg.getAvailableChannels(username, password,
-                                                    other)
-                                                    
+        global username, password
+
+        # The self.eus_channels was populated in chooseChannelShouldBeShown
+
         self.channels = self.eus_channels['channels']
         self.receiving_updates = self.eus_channels['receiving_updates']
         
@@ -894,6 +588,28 @@ class ChooseChannelPage:
         else:
             self.chose_all_updates = True
         
+    def chooseChannelShouldBeShown(self):
+        '''
+        Returns True if the choose channel window should be shown, else
+        returns False.
+        '''
+
+        # First and foremost, we should try to activate hardware
+        try_to_activate_hardware()
+
+        # Second and foremost, does the server support eus?
+        if rhnreg.server_supports_eus():
+
+            global username, password
+
+            self.eus_channels = rhnreg.getAvailableChannels(username, password)
+
+            if len(self.eus_channels['channels']) > 0:
+                return True
+        else:
+            return False
+
+
 class CreateProfilePage:
     def __init__(self):
         self.createProfileXml = gtk.glade.XML(gladefile,
@@ -1008,11 +724,11 @@ class CreateProfilePage:
         pwin = progress.Progress()
         pwin.setLabel(_("Sending your profile information to Red Hat Network.  Please wait."))
         self.systemId = None
-        global newAccount, email, username, password, regNum, \
+        global newAccount, username, password, hw_activation_code, \
                _hasBaseChannelAndUpdates, chosen_channel
         other = {}
-        if regNum:
-            other['registration_number'] = regNum
+        if hw_activation_code:
+            other['registration_number'] = hw_activation_code
         if chosen_channel is not None:
             other['channel'] = chosen_channel
 
@@ -1052,7 +768,6 @@ class CreateProfilePage:
             pwin.hide()
             errorWindow(_("The installation number [ %s ] provided is not a valid installation number. Please go back to the previous screen and fix it." %
                                               other['registration_number']))
-##            self.regNumEntry.grab_focus()
             return True
         except up2dateErrors.ActivationKeyUsageLimitError, e:
             pwin.hide()
@@ -1191,8 +906,7 @@ class ProvideCertificatePage:
                                                 "provideCertificateWindowVbox",
                                                 domain="rhn-client-tools")
         
-        # set server url at runtime
-        self.setUrlInWidget()
+        self.orig_cert_label_template = self.provideCertificateXml.get_widget("SecurityCertLabel").get_text()
 
     def provideCertificatePageVbox(self):
         return self.provideCertificateXml.get_widget("provideCertificateWindowVbox")
@@ -1202,9 +916,7 @@ class ProvideCertificatePage:
         sets the security cert label's server url at runtime 
         """
         securityCertlabel = self.provideCertificateXml.get_widget("SecurityCertLabel")
-        text = securityCertlabel.get_text()
-        text = text % cfg['serverURL'] 
-        securityCertlabel.set_text(text)
+        securityCertlabel.set_text(self.orig_cert_label_template % cfg['serverURL'])
 
     def provideCertificatePageApply(self):
         """If the 'I have a cert' radio button is selected, this function will 
@@ -1265,7 +977,7 @@ class ProvideCertificatePage:
             up2dateConfig.save()
             # Take the new cert for a spin
             try:
-                rhnreg.privacyText()
+                rhnreg.getCaps()
             except up2dateErrors.SSLCertificateVerifyFailedError:
                 server_url = up2dateConfig['serverURL']
                 #TODO: we could point the user to grab the cert from /pub if its sat
@@ -1287,9 +999,6 @@ class ProvideCertificatePage:
                 errorWindow(_("There was an SSL error. This could be because the file you picked was not a certificate file."))
                 return ERROR_WAS_HANDLED
 
-            if validateCaps() is True: # There was an error
-                return SERVER_TOO_OLD
-            
             return CERT_INSTALLED
             
         except IOError, e:
@@ -1409,54 +1118,12 @@ class WhyRegisterDialog:
         self.whyRegisterXml.signal_autoconnect({
             "onBackToRegistrationButtonClicked" : self.finish,
         })
-        self.whyRegisterXml.get_widget("privacyButton").connect("clicked", self.showPrivacyDialog)
     
     def finish(self, button):
         self.dlg.hide()
         self.rc = 1 # What does this do? Is it needed?
 
     
-    def showPrivacyDialog(self, button):
-        PrivacyDialog()
-
-class PrivacyDialog:
-    def __init__(self):
-        self.privXml = gtk.glade.XML(
-            gladefile,
-            "privacyDialog", domain="rhn-client-tools")
-        self.dlg = self.privXml.get_widget("privacyDialog")
-
-        self.privXml.get_widget("okButton").connect("clicked", self.finish)
-        
-        privacyArea = self.privXml.get_widget("privacyArea")
-        socket.setdefaulttimeout(5)
-        # see bz #165157
-
-        try:
-            text = callAndFilterExceptions(
-                    rhnreg.privacyText,
-                    [socket.timeout, up2dateErrors.CommunicationError],
-                    _("There was an error retrieving the privacy statement.")
-            )
-            if text is None:
-                text = ""
-        except (socket.timeout, up2dateErrors.CommunicationError), error:
-            self.dlg.hide()
-            messageWindow.ErrorDialog(_("Unable to access the server. Please "
-                "check your network settings."), parent=self.dlg)
-            log.log_me(error)
-            return None
-            
-        textBuffer = gtk.TextBuffer(None)
-        textBuffer.set_text(text)
-        privacyArea.set_buffer(textBuffer)
-
-
-    def finish(self, button):
-        self.dlg.hide()
-        self.rc = 1
-
-
 class HardwareDialog:
     def __init__(self):
         self.hwXml = gtk.glade.XML(
@@ -1696,97 +1363,15 @@ def callAndFilterExceptions(function, allowedExceptions,
             errorHandler(disallowedExceptionMessage, 
                     (exceptionType, exception, stackTrace))
 
-def autoActivateNumbersOnce():
-    """Activates the registration/installation number from disk and the hardware
-    info from the bios.
-    
-    Returns two values. They will be ActivationResults for the registration
-    number from disk and the hardware info respectively if the activations 
-    happened. Each value will be None if that activation didn't take place or 
-    there was an error. If this call is made more than once, every call after 
-    the first will return (None, None).
-    
-    After activating the numbers, it will refresh the cached available 
-    subscriptions used by rhnreg.getAvailableSubscriptions.
-    
-    If something is activated, the resulting reg num will be stored so it will
-    be used when creating the system profile (for child channels). A number
-    from disk takes precedence over hardware info if both are activated.
-    
-    Can raise CommunicationError.
-    
-    """
-    global _autoActivatedNumbers, regNum
-    if _autoActivatedNumbers:
-        return (None, None)
-    _autoActivatedNumbers = True
-    
-    log.log_debug("Trying to automatically activate stuff.")
-    
-    activateHWResult = None
-    if serverType == 'hosted':        
-        hardwareInfo = None
-        try:
-            hardwareInfo = hardware.get_hal_system_and_smbios()
-        except:
-            log.log_me("There was an error while reading the hardware info from "
-                       "the bios. Traceback:\n")
-            log.log_exception(*sys.exc_info())
-        if hardwareInfo:
-            try:
-                activateHWResult = rhnreg.activateHardwareInfo(username, password, 
-                                                        hardwareInfo, organization)
-                if activateHWResult.getStatus() == ActivationResult.ACTIVATED_NOW:
-                    reviewLog.autoActivatedHardwareInfo(activateHWResult)
-                regNum = activateHWResult.getRegistrationNumber()
-                rhnreg.writeRegNum(regNum)
-            except up2dateErrors.NotEntitlingError:
-                log.log_debug('There are are no entitlements associated with this '
-                              'hardware.')
-            except up2dateErrors.InvalidRegistrationNumberError:
-                log.log_debug('The hardware id was not recognized as valid.')
-
-    # Try number from file after hardware info so this takes precedence for the
-    # one we use later.
-    activateRegNumResult = None
-    registrationNumber = None
-    try:
-        registrationNumber = rhnreg.readRegNum()
-    except IOError, error:
-        log.log_me("There was an error while reading the registration "
-                   "number from disk:\n%s" % error)
-    if registrationNumber:
-        if serverType == 'hosted':
-            try:
-                activateRegNumResult = rhnreg.activateRegistrationNumber(
-                                                   username, password, registrationNumber, 
-                                                   organization)
-                if activateRegNumResult.getStatus() == ActivationResult.ACTIVATED_NOW:
-                    reviewLog.autoActivatedRegistrationNumber(registrationNumber, 
-                                                    activateRegNumResult)
-                regNum = activateRegNumResult.getRegistrationNumber()
-                rhnreg.writeRegNum(regNum)
-            except up2dateErrors.NotEntitlingError:
-                log.log_me("The installation number on disk is not entitling.")
-                regNum = registrationNumber
-                rhnreg.writeRegNum(regNum)
-            except up2dateErrors.Error, error:
-                log.log_me("There was an error while activating the installation "
-                           "number found on disk:\n%s" % error)
-                reviewLog.foundRegNumButCouldntActivate()
-        else:
-            regNum = registrationNumber
-        
-        # Call getAvailableSubscriptions to refresh its cache
-        rhnreg.getAvailableSubscriptions(username, password)
-        ##            log.log_me("It looks like the EN was successfully activated"
-        ##                       " but there still aren't any available "
-        ##                       "entitlements in the account. Maybe there's a "
-        ##                       "delay with them activating, so we'll continue "
-        ##                       "with registration and hope they show up later "
-        ##                       "and apply to this profile.")
-    return (activateRegNumResult, activateHWResult)
-
+def try_to_activate_hardware():
+    global hw_activation_code
+    if serverType == 'hosted':
+        # hardware asset codes only make sense on hosted
+        setBusyCursor()
+        code = rhnreg._activate_hardware(username, password)
+        if code != None:
+            hw_activation_code = code
+        setArrowCursor()
 
 def hasBaseChannelAndUpdates():
     """Returns a bool indicating whether the system has registered, subscribed 
@@ -1797,22 +1382,6 @@ def hasBaseChannelAndUpdates():
     """
     global _hasBaseChannelAndUpdates
     return _hasBaseChannelAndUpdates
-
-
-def validateCaps():
-    """If the server doesn't support the needed capabilities, informs the user
-    and returns True. If it does, returns False. This is kinda backwards, but I 
-    wanted it to work the same way as most of the other calls.
-    
-    """
-    setBusyCursor()
-    if rhnreg.serverSupportsRhelFiveCalls():
-        setArrowCursor()
-        return False
-    else:
-        setArrowCursor()
-        errorWindow(rhnreg_constants.SERVER_TOO_OLD)
-        return True
 
 
 def setBusyCursor():

@@ -34,6 +34,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "version")
  *      #prop("string", "release")
  *      #prop("string", "epoch")
+ *      #prop("string", "checksum")
+ *      #prop("string", "checksum_type")
  *      #prop("int", "id")
  *      #prop("string", "arch_label")
  *      #prop("string", "last_modified_date")
@@ -66,6 +68,8 @@ public class PackageDtoSerializer implements XmlRpcCustomSerializer {
             epoch = "";
         }
         helper.add("epoch", epoch == null ? "" : epoch);
+        helper.add("checksum", pack.getChecksum());
+        helper.add("checksum_type", pack.getChecksumType());
         helper.add("id", pack.getId());
         helper.add("arch_label", pack.getArchLabel());
         helper.add("last_modified_date", pack.getLastModified());

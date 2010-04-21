@@ -47,7 +47,6 @@ public class SnippetHandler extends BaseHandler {
      * 
      * @xmlrpc.doc List all cobbler snippets for the logged in user
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
      *          #array()
      *            $SnippetSerializer
@@ -67,7 +66,6 @@ public class SnippetHandler extends BaseHandler {
      * @xmlrpc.doc List only custom snippets for the logged in user.
      *    These snipppets are editable.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
      *          #array()
      *            $SnippetSerializer
@@ -87,7 +85,6 @@ public class SnippetHandler extends BaseHandler {
      * @xmlrpc.doc List only pre-made default snippets for the logged in user.
      *    These snipppets are not editable.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
      *          #array()
      *            $SnippetSerializer

@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.9.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -27,15 +27,12 @@ Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
 Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
-Requires:       jabberd
 Requires:       /usr/bin/gpg
-Requires:       libxslt
-
+Requires:       spacewalk-setup-jabberd
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
 setup tasks, re-installation, and upgrades.
-
 
 %prep
 %setup -q
@@ -68,13 +65,8 @@ install -m 0644 share/ssl.conf.6 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
-install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/jabberd
 install -m 0755 share/upgrade/* %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
-install -m 0644 share/jabberd/* %{buildroot}/%{_datadir}/spacewalk/setup/jabberd/
-
-# jabberd ssl cert location
-install -d -m 755 %{buildroot}/%{_sysconfdir}/pki/spacewalk/jabberd
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
@@ -82,6 +74,9 @@ install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/se
 install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 install -m 0755 share/oracle/upgrade-db-10g.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+
+# create a directory for misc. Spacewalk things
+install -d -m 755 %{buildroot}/%{_var}/spacewalk
 
 
 %check
@@ -97,15 +92,28 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
-%{_bindir}/spacewalk-setup-jabberd
 %{_bindir}/spacewalk-make-mount-points
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-%dir %{_sysconfdir}/pki/spacewalk
-%dir %{_sysconfdir}/pki/spacewalk/jabberd
+%attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+- Move systemlogs directory out of /var/satellite
+- Remove audit review cruft from spacewalk-setup
+
+* Wed Mar 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- modified spacewalk-setup to use spacewalk-service
+
+* Tue Mar 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
+- fixed packaging conflicts
+
+* Fri Mar 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- let's smile in Spacewalk 0.9
+- 566124 - spacewalk-setup-jabberd splited from spacewalk-setup
+
 * Mon Dec  7 2009 Miroslav Suchy <msuchy@redhat.com> 0.8.1-1
 - change spinning patter to bowling
 

@@ -21,13 +21,14 @@ import base64
 import string
 from rhn import rpclib
 from rhn.rpclib import transports
-from server import apache
+from common import apache
 
 # common modules
 from common import CFG, rhnFault, rhnFlags, redirectException #to catch redirect exception
 from common import log_debug, log_error, Traceback
 from common.rhnTranslate import _
 from common.rhnLib import setHeaderValue
+from common import byterange
 
 # local modules
 import rhnRepository
@@ -35,7 +36,6 @@ import rhnImport
 import rhnSQL
 import rhnCapability
 import apacheAuth
-import byterange
 
 # Exceptions
 class UnknownXML(Exception):

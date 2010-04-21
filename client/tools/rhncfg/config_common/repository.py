@@ -28,10 +28,10 @@ import utils
 from rhn_log import log_debug, die
 #from rhn_rpc import rpclib
 try:
-    from selinux import getfilecon
+    from selinux import lgetfilecon
 except:
     # on rhel4 we do not support selinux
-    def getfilecon(path):
+    def lgetfilecon(path):
         return [0, ''];
 
 
@@ -89,7 +89,7 @@ class Repository:
         # Returns the stat information as required by the API
         ret = {}
         fields = {
-            'mode'      : stat.ST_MODE & 07777,
+            'mode'      : stat.ST_MODE,
             'user'      : stat.ST_UID,
             'group'     : stat.ST_GID,
             'size'      : stat.ST_SIZE,
@@ -132,7 +132,9 @@ class Repository:
             ret['group'] = gr_name
             self._gid_cache[gid] = gr_name
 
-        ret['selinux_ctx'] = getfilecon(path)[1]
+        ret['selinux_ctx'] = lgetfilecon(path)[1]
+        if ret['selinux_ctx'] == None:
+            ret['selinux_ctx'] = ''
 
         return ret
 
@@ -143,10 +145,10 @@ class Repository:
             local_path = remote_path
 
         try:
-            file_stat = os.stat(local_path)
+            file_stat = os.lstat(local_path)
         except OSError, e:
             raise cfg_exceptions.RepositoryLocalFileError(
-                "Error stat()-ing local file: %s" % e)
+                "Error lstat()-ing local file: %s" % e)
 
         # Dlimiters
         if delim_start or delim_end:
@@ -165,7 +167,12 @@ class Repository:
         }
 
         file_contents = None
-        if os.path.isdir(local_path):
+        if os.path.islink(local_path):
+            params['config_file_type_id'] = 3
+            load_contents = 0
+            file_contents = os.readlink(local_path)
+            self._add_content(file_contents, params)
+        elif os.path.isdir(local_path):
             params['config_file_type_id'] = 2
             load_contents = 0
         else:

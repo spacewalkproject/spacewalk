@@ -72,6 +72,7 @@
         <dependency org="redhat" name="xalan-j2" rev="2.6.0" />
         <dependency org="redhat" name="xerces-j2" rev="2.6.2" />
         <dependency org="redhat" name="xml-commons-apis" rev="1.0" />
-        
+        <dependency org="redhat" name="log5j" rev="1.2" />
+        <dependency org="redhat" name="velocity" rev="1.5" />
     </dependencies>
 </ivy-module>

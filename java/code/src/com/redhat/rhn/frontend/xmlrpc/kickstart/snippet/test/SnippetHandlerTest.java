@@ -30,9 +30,11 @@ public class SnippetHandlerTest extends BaseHandlerTestCase {
 
     public void testListAll() {
         deleteAllSnippets();
-        assertTrue(handler.listAll(adminKey).isEmpty());
+        List old = handler.listAll(adminKey);
         CobblerSnippet.createOrUpdate(true, "foo", "My foo snippet", admin.getOrg());
-        assertFalse(handler.listAll(adminKey).isEmpty());
+        List newList = handler.listAll(adminKey);
+        assertTrue(old.size() + 1 == newList.size());
+
     }
     
     public void testListCustom() {
@@ -46,13 +48,13 @@ public class SnippetHandlerTest extends BaseHandlerTestCase {
     public void testCreateOrUpdate() {
         deleteAllSnippets();
         handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
-        assertTrue(handler.listAll(adminKey).get(0).getName().equals("foobar"));
+        assertTrue(handler.listCustom(adminKey).get(0).getName().equals("foobar"));
     }
     
     public void testDelete() {
         deleteAllSnippets();
         handler.createOrUpdate(adminKey, "foobar", "My Little foobar");
-        assertTrue(handler.listAll(adminKey).get(0).getName().equals("foobar"));
+        assertTrue(handler.listCustom(adminKey).get(0).getName().equals("foobar"));
         handler.delete(adminKey, "foobar");
         assertTrue(handler.listCustom(adminKey).isEmpty());
     }

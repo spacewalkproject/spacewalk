@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 #
 # String constants for the RHN Register TUI/GUI.
-# Copyright (c) 2000-2006 Red Hat, Inc.
+# Copyright (c) 2000-2010 Red Hat, Inc.
 #
 # Author:
 #       James Slagle <jslagle@redhat.com>
@@ -10,8 +10,7 @@
 import gettext
 _ = gettext.gettext
 
-COPYRIGHT_TEXT        = _("Copyright © 2006  Red Hat, Inc. All rights "
-                          "reserved.")
+COPYRIGHT_TEXT        = _("Copyright © 2006--2010 Red Hat, Inc. All rights reserved.")
 
 # Connect Window
 CONNECT_WINDOW        = _("Attempting to contact the Red Hat Network server.")
@@ -32,8 +31,6 @@ START_REGISTER_TEXT   = _("This assistant will guide you through "
                           " * Your Red Hat Login & password\n"
                           " * The location of a Red Hat Network Satellite "
                           "or Proxy (optional)\n\n")
-START_REGISTER_TEXT_H = _("If you do not have a Red Hat Login, this "
-                          "assistant will allow you to create one.")
 
 # Why Register Window
 WHY_REGISTER          = _("Why Should I Connect to RHN? ...")                  
@@ -58,38 +55,19 @@ WHY_REGISTER_TIP      = _("Tip: Red Hat values your privacy: "
                           "http://www.redhat.com/legal/privacy_statement.html")
 BACK_REGISTER         = _("Take me back to the setup process.")
 
-# Privacy Window
-PRIVACY_WINDOW         = _("Step 1: Review the Red Hat Privacy Statement")
-TERMS_AND_CONDS_WINDOW = _("Review the Red Hat Network Terms And Conditions")
-
 # Confirm Quit Window
 CONFIRM_QUIT           = _("Software update setup unsuccessful")
-CONFIRM_QUIT_TXT       = _("Are you sure you don't want to connect your system to Red Hat Network? "
-                           "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n\n"
-                           "Security & Updates:\n"
-                           "Receive the latest software updates, including security updates, keeping this Red Hat "
-                           "Enterprise Linux system updated and secure.\n\n"
-                           "Downloads & Upgrades:\n"
-                           "Download installation images for Red Hat Enterprise Linux releases, including "
-                           "new releases.\n\n"
-                           "Support:\n"
-                           "Access to the technical support experts at Red Hat or Red Hat's partners for help "
-                           "with any issues you might encounter with this system.\n\n"
-                           "Compliance:\n"
-                           "Stay in compliance with your subscription agreement and manage subscriptions for systems "
-                           "connected to your account at http://rhn.redhat.com/.\n\n"
-                           "You will not be able to take advantage of these subscription privileges without connecting "
-                           "your system to Red Hat Network.\n\n"
-                           "Tip: Red Hat values your privacy: http://www.redhat.com/legal/privacy_statement.html")
+CONFIRM_QUIT_SURE       = _("Are you sure you don't want to connect your system to Red Hat Network? "
+                           "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n")
+CONFIRM_QUIT_WILLNOT       = _("You will not be able to take advantage of these subscription privileges without connecting "
+                           "your system to Red Hat Network.\n")
 CONTINUE_REGISTERING   = _("Take me back to the setup process.")
-REGISTER_LATER         = _("No thanks.  I'll connect later.")
 REGISTER_LATER2        = _("I'll register later.")
 
 # Info Window
 REGISTER_WINDOW   = _("Setting up software updates")
 LOGIN_PROMPT      = _("Please enter your login information for the %s Red "
                     "Hat Network Satellite:\n\n")
-NEW_LOGIN         = _("Create a New Login ...")
 HOSTED_LOGIN      = _("Red Hat Login:")
 LOGIN             = _("Login:")
 PASSWORD          = _("Password:")
@@ -97,67 +75,16 @@ LOGIN_TIP         = _("Tip: Forgot your login or password?  Contact your "
                       "Satellite's Organization Administrator.")
 USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
-PASSWORD_MISMATCH = _("The two passwords you entered don't match.  "
-                      "Please re-type your passwords.")
 
 # Product Window
-PRODUCT_WINDOW         = _("Create a new Red Hat login")
-PRODUCT_WINDOW_PROMPT  = _("Fill in the form below to create a new Red Hat "
-                          "login for use with Red Hat Network (http://rhn.redhat.com/).  "
-                          "Required information is marked with a '*':")
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
 HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? " 
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
-HOSTED_LOGIN_ENTRY     = _("*Desired Login:")
-HOSTED_LOGIN_ENTRY_TIP = _("Examples: user@domain.com")
-HOSTED_PASSWORD_ENTRY  = _("*Desired Password:")
-PASSWORD_VERIFY        = _("*Confirm Password:")
 EMAIL                  = _("*Email Address:")
-COMPANY_TIP            = _("Tip: Leave blank if not with a company.")
-PRIVACY_TIP            = _("Tip: Red Hat values your privacy.  "
-                           "View our privacy policy at: "
-                           "http://")
 
-FIRST_NAME_REQD        = _("Please enter your first name.")
-LAST_NAME_REQD         = _("Please enter your last name.")
-EMAIL_ADDR_REQD        = _("Please enter your email address.")
-EMAIL_ADDR_VERIFY      = _("Please enter a valid email address.")
-COUNTRY_REQD           = _("Please enter your country.")
-LOGIN_TOO_SHORT        = _("Please enter a longer login.")
-PASSWORD_TOO_SHORT     = _("Please enter a longer password.")
-PASSWORD_TOO_LONG      = _("Please enter a shorter password.")
-
-
-SYSTEM_ALREADY_REGISTERED = _("It appears this system has attempted to register to the Red Hat Network.\n"
-                              "The system may already be set up for software updates.\n\n"
-                              "Are you sure you would like to continue?")
-
-# Org selection window.
-ORG_SELECT        = _("Select Organization")
-ORG_SELECT_PROMPT = _("Your login, %s, is associated with multiple "
-                      "organizations.  You will need to select an organization to connect this "
-                      "system to.")
-ORG_PROMPT        = _("Organization:")                      
-ORG_REQUIRED      = _("You must select an organization.")
-
-# Subscription window.
-SUBSCRIPTION_WINDOW     = _("Access a subscription")
-SUBSCRIPTION_INTRO      = _("Your system will need to access a subscription. "
-                            "This will allow you to keep your system updated, secure, and supported.")
-SUBSCRIPTION_INFO       = _("You have no active subscriptions available in your "
-                            "account.  You will need to do one of the following to create an active " 
-                            "subscription in your account before this system can connect to "
-                            "Red Hat Network:")
-SUBSCRIPTION_CHOICE1    = _("Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
-                            "Your RHN > Subscription Management > System Entitlements.")
-SUBSCRIPTION_CHOICE2    = _("Purchase an additional Red Hat Enterprise Linux subscription at "
-                            "http://www.redhat.com/store/.")
-SUBSCRIPTION_CHOICE3    = _("Activate a new subscription with an installation number:")
-SUBSCRIPTION_CHOICE3_ALT    = _("You have already activated this "
-                                "installation number during this registration.")
-ENTITLEMENT_NUM_PROMPT  = _("Installation Number:")
-ENTITLEMENT_NUM_EXAMPLE = _("Example: XXXX-XXXX-XXXX-XXXX")
+SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
+SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 # Send Window
 SEND_WINDOW             = _("We are finished collecting information for the System Profile.\n\n"
@@ -168,14 +95,6 @@ SEND_WINDOW             = _("We are finished collecting information for the Syst
 
 # Finish Window
 FINISH_WINDOW           = _("Finish setting up software updates")
-FINISH_WINDOW_TEXT      = _("Congratulations, you have successfully completed software updates "
-                            "set up for this system.\n\n"
-                            "Your system is now ready to receive the software updates that will keep "
-                            "it secure and supported.\n\n"
-                            "You'll know when software updates are available when a package icon appears "
-                            "in the notification area of you desktop (usually in the upper-right corner.) "
-                            "Clicking on this icon, when available, will guide you through applying any "
-                            "updates that are available.")
 FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
                             "command line to get the latest "
                             "software updates from Red Hat Network. You will need to run this "
@@ -189,7 +108,6 @@ FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "
 # Review Window
 REVIEW_WINDOW           = _("Review system subscription details")
 REVIEW_WINDOW_PROMPT    = _("Please review the subscription details below:")
-SUBSCRIPTIONS           = _("Subscriptions Activated:")
 SUB_NUM                 = _("The installation number %s was activated during "
                             "this system's initial connection to Red Hat Network.")
 SUB_NUM_RESULT          = _("Subscriptions have been activated for the following "
@@ -289,20 +207,9 @@ ACTIVATION_KEY          = _("Universal default activation key detected\n"
                             "You may also refer to the RHN Reference Guide, section 6.4.6 for more details "
                             "about activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
                             "Universal Default activation key: %s")
-INST_NUM_ON_DISK        = _("A subscription-activating installation number was found on disk, but we "
-                            "were not able to activate it (An unknown error occurred.) We used existing "
-                            "active subscription slots available in the rhn account instead. You may wish "
-                            "to contact Red Hat customer service regarding this issue: "
-                            "http://www.redhat.com/apps/support/")
-INST_NUM_ON_DISK_NA     = _("A installation number was found on disk, but we " +
-                            "were not able to activate it (An unknown error occurred.) We used existing " +
-                            "active subscription slots available in the rhn account instead. You may wish " +
-                            "to contact Red Hat customer service regarding this issue: " +
-                            "http://www.redhat.com/apps/support/")
 
 # Error Messages.
 FATAL_ERROR                = _("Fatal Error")
-RECOVERABLE_ERROR          = _("Error")
 WARNING                    = _("Warning")
 HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Network Server.\n\n"
                                "Double check the location provided - is '%s' correct?\n"
@@ -311,41 +218,17 @@ HOSTED_CONNECTION_ERROR    = _("We can't contact the Red Hat Network Server.\n\n
                                "This system will not be able to successfully receive software updates "
                                "from Red Hat without connecting to a Red Hat Network server")
 
-SATELLITE_CONNECTION_ERROR = _("We can't contact the Red Hat Network Server.\n\n"
-                               "Double check the location provided - is '%s' correct?\n"
-                               "If not, you can correct it and try again.\n\n"
-                               "Make sure that the network connection on this system is operational.\n\n"
-                               "This system will not be able to successfully receive software updates "
-                               "from Red Hat without connecting to a Red Hat Network server")
 BASECHANNELERROR           = _("Architecture: %s, OS Release: %s, OS "
                                "Version: %s")
 SERVER_TOO_OLD             = _("This server doesn't support functionality "
                                "needed by this version of the software update"
                                " setup client. Please try again with a newer "
                                "server.")
-INVALID_NUMBER             = _("The installation number you have provided "
-                               "(%s) is "
-                               "invalid.\n\nPlease check the number and try "
-                               "again or try another option listed on the "
-                               "'Access a Subscription' screen.")
-ALREADY_USED_NUMBER        = _("The installation number you provided is "
-                               "valid but was already activated and the subscriptions "
-                               "have already been used by systems in your "
-                               "organization or is not usable for this system."
-                               "\n\nPlease try a different "
-                               "number or try another option listed on the "
-                               "'Access a Subscription' screen.")
-NONENTITLING_NUMBER        = _("The installation number you provided "
-                               "does not have subscriptions associated with "
-                               "it.\n\n"
-                               "Please try a different number or try another "
-                               "option listed in the 'Access a Subscription' "
-                               "screen.")
 
 
 SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate File</span></b>\n\n"
                                "The certificate you provided, <b>%s</b>, is not compatible with "
-                               " the Red Hat Network server at <b>%s</b>.You may want to double-check"
+                               " the Red Hat Network server at <b>%s</b>. You may want to double-check"
                                " that you have provided a valid certificate file."
                                " Are you sure you have provided the correct certificate, and that" 
                                " the certificate file has not been corrupted?\n\n"

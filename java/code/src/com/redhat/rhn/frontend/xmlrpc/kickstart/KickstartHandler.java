@@ -37,6 +37,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
+import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
@@ -439,6 +440,40 @@ public class KickstartHandler extends BaseHandler {
         if (ve != null) {
             throw new InvalidKickstartTreeException(ve.getKey());
         }*/
+        return 1;
+    }
+
+    /**
+     * Clones a kickstart profile.
+     *
+     * @param sessionKey user's session key.
+     * @param ksLabelToClone label of the kickstart profile to clone
+     * @param newKsLabel label of the cloned profile
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Clone a Kickstart Profile
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabelToClone" "Label of the
+     * kickstart profile to clone")
+     * @xmlrpc.param #param_desc("string", "newKsLabel" "label of the cloned profile")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int cloneProfile(String sessionKey, String ksLabelToClone, String newKsLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData toClone = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                                        ksLabelToClone, loggedInUser.getOrg().getId());
+        if (toClone == null) {
+            throw new InvalidKickstartLabelException(ksLabelToClone);
+        }
+
+        KickstartCloneCommand cmd =
+            new KickstartCloneCommand(toClone.getId(), loggedInUser, newKsLabel);
+
+        KickstartBuilder builder = new KickstartBuilder(loggedInUser);
+        builder.validateNewLabel(newKsLabel);
+        cmd.store();
+
         return 1;
     }
 

@@ -63,6 +63,7 @@ class rhnpushConfigParser:
                                 'no_cache'          :   '0',
                                 'extended_test'     :   '0',
                                 'no_session_caching'     :   '0', 
+                                'proxy'             :   '',
                                 'tolerant'          :   '0',            
                                 }
 

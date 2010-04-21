@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 1.1.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -53,8 +53,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
-install -m 644 c2s.xml $RPM_BUILD_ROOT%{defaultdir}
-install -m 644 sm.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
@@ -72,8 +70,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %dir %{defaultdir}
-%{defaultdir}/c2s.xml
-%{defaultdir}/sm.xml
 %{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
@@ -87,6 +83,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+
+* Thu Mar 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- updated proxy installer to squid 3.X
+
+* Thu Mar  4 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.2-1
+- 570431 - add option --start-services
+
+* Fri Feb 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- 558628 - fixed configure-proxy script
+- 558628 - made /cblr rewrites work over SSL
+
 * Fri Jan 29 2010 Miroslav Suchý <msuchy@redhat.com> 0.8.2-1
 - 543879 - adding support to the proxy side to redirect to a url 
   that will rewrite kickstarts with the proxy name for /cblr 

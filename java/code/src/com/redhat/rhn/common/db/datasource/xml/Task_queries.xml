@@ -146,14 +146,12 @@ SELECT DISTINCT
     
     
 <mode name="errataqueue_find_autoupdate_servers">
-  <query params="errata_id">
+  <query params="errata_id, channel_id">
 SELECT DISTINCT
        S.id AS server_id, S.org_id org_id
-  FROM rhnServer S
- WHERE EXISTS (SELECT 1 FROM rhnChannelErrata CE, rhnServerChannel SC
-                       WHERE CE.errata_id = :errata_id
-                         AND SC.channel_id = CE.channel_id
-                         AND SC.server_id = S.id)
+  FROM rhnServer S inner join rhnServerChannel SC on S.id = SC.server_id
+ WHERE SC.channel_id = :channel_id and 
+			S.id in (SELECT SNV.server_id FROM rhnServerNeededView SNV where NVL(SNV.errata_id, 0) = :errata_id)
  AND EXISTS 
    (SELECT 1 FROM rhnServerFeaturesView SFV WHERE 
     SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
@@ -558,12 +556,14 @@ FROM
          p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
-         cs.checksum, cs.checksum_type as checksumtype
+         cs.checksum, cs.checksum_type as checksum_type,
+         prd.primary as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
     FROM
          rhnChannelPackage cp,
          rhnPackage p
             LEFT OUTER JOIN rhnPackageGroup pg ON p.package_group = pg.id
-            LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id,
+            LEFT OUTER JOIN rhnSourceRpm srpm  ON p.source_rpm_id = srpm.id
+            LEFT JOIN rhnPackageRepodata prd ON prd.package_id = p.id,
          rhnPackageName pn,
          rhnPackageEvr pevr,
          rhnPackageArch pa,
@@ -582,23 +582,27 @@ FROM
 <mode name="repomdgenerator_capability_files">
    <query params="channel_id">
   SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version
-    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+    FROM rhnPackageFile pkgf, rhnPackageCapability pkgcap, 
+         rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgf.package_id
       AND pkgf.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary is null
   ORDER BY pkgf.package_id
    </query>
 </mode>
 
 <mode name="repomdgenerator_capability_provides">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT /*+first_rows*/  chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageProvides pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -606,35 +610,41 @@ FROM
 <mode name="repomdgenerator_capability_requires">
    <query params="channel_id">
   SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+    FROM rhnPackageRequires pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
 
 <mode name="repomdgenerator_capability_conflicts">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT  /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageConflicts pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
 
 <mode name="repomdgenerator_capability_obsoletes">
    <query params="channel_id">
-  SELECT /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
-    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap, rhnChannelPackage chpkg
+  SELECT  /*+first_rows*/ chpkg.package_id, pkgcap.id, pkgcap.name, pkgcap.version, pkgp.sense
+    FROM rhnPackageObsoletes pkgp, rhnPackageCapability pkgcap, 
+    	rhnChannelPackage chpkg left join  rhnPackageRepodata prd ON prd.package_id = chpkg.package_id
     WHERE
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
+      AND prd.primary is null
   ORDER BY pkgp.package_id
    </query>
 </mode>

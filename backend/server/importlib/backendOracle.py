@@ -444,6 +444,7 @@ class OracleBackend(Backend):
                 'boot_image'        : DBstring(128),
                 'kstree_type'       : DBint(),
                 'install_type'      : DBint(),
+                'last_modified'     : DBdateTime()
             },
             pk          = ['label', 'org_id'],
             nullable    = ['org_id'],

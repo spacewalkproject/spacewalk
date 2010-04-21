@@ -8,11 +8,20 @@
 <html>
 <body>
 
+
+<c:if test="${requestScope.pageList != null}">
+	<div class="site-alert">
+		     <bean:message key="distro-delete.jsp.cantdelete"/>
+	</div>
+</c:if>
+
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="system.common.kickstartAlt">
   <bean:message key="distro-delete.jsp.header1" arg0="${kstree.label}"/>
 </rhn:toolbar>
 
 <h2><bean:message key="distro-delete.jsp.header2"/></h2>
+
+
 
 <div>
   <p>

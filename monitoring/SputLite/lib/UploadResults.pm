@@ -5,6 +5,7 @@ use CGI;
 use NOCpulse::CF_DB;
 use Data::Dumper;
 use Time::Local;
+use Mail::Send;
 
 # Keep in synch with MessageQueue/CommandOutputQueue.pm
 my $PROTOCOL_VERSION = '1.0';
@@ -115,9 +116,6 @@ sub do_notification {
   my $exec     = $CF_DB->getCQ_Execs_by_instance_target($iid, $target_id, $target_type);
 
   my $message = <<EOMSG;
-To: $recipient
-Subject:  Command Execution Report
-
 Command:            $command->{'description'}
 Executed by:        $sat->{'description'} (NSID $exec->{'netsaint_id'}) 
 Downloaded on:      $exec->{'date_accepted'} GMT
@@ -146,10 +144,10 @@ Instance details:
   Notes:           $instance->{'notes'}
 EOMSG
 
-  open(MAIL, "|/usr/sbin/sendmail -t");
-  print MAIL "$message\n";
-  close(MAIL);
-  
+  my $msg = Mail::Send->new(Subject => 'Command Execution Report', To => $recipient);
+  my $fh = $msg->open('sendmail');
+  print $fh $message;
+  $fh->close;
 }
 
 

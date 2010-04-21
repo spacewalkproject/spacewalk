@@ -52,7 +52,6 @@ rhn_config_parameter             :: data/rhn_config_group \
                                     data/rhn_config_security_type
 rhn_metrics                      :: data/rhn_command_class data/rhn_units
 rhn_os_commands_xref             :: data/rhn_command data/rhn_os
-rhn_schedule_days                :: data/rhn_schedules
 rhn_schedules                    :: data/rhn_schedule_types
 rhn_units                        :: data/rhn_quanta
 rhnErrataFile                    :: lookup_functions

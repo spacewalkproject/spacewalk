@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.manager.user.test;
 
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
@@ -33,6 +35,39 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         assertNotNull(command.getUser());
     }
 
+    public void testLongNames() {
+        int maxLogin = UserDefaults.get().getMaxUserLength();
+        int maxPassword = UserDefaults.get().getMaxPasswordLength();
+        int emailLength = UserDefaults.get().getMaxEmailLength();
+        Config.get().setString(UserDefaults.MAX_USER_LENGTH, String.valueOf(5));
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, String.valueOf(5));
+        Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(5));
+        
+        String invalidLogin   = TestUtils.randomString();
+        String invalidPassword = "password";
+        String invalidEmail   = "foobar@foobar.com";
+        String validPrefix = "Sr.";
+
+        //Test invalid values
+        command.setLogin(invalidLogin);
+        command.setEmail(invalidEmail);
+        command.setPassword(invalidPassword);
+        command.setPrefix(validPrefix);
+        command.setFirstNames("testuser");
+        command.setLastName("testuser");
+        //We should get 4 errors (login, email, password, prefix)
+        Object[] errors = command.validate();
+        Config.get().setString(UserDefaults.MAX_USER_LENGTH, 
+                                        String.valueOf(maxLogin));
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, 
+                                        String.valueOf(maxPassword));
+        Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH,
+                                            String.valueOf(emailLength));
+        assertEquals(3, errors.length);
+        
+    }
+    
+    
     public void testValidate() {
         String invalidLogin = "";
         String validLogin   = TestUtils.randomString();

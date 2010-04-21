@@ -1330,7 +1330,7 @@ public class ActionManager extends BaseManager {
         Action action = createScheduledAction(scheduler, type, name, earliestAction);
         ActionFactory.save(action);
         ActionFactory.getSession().flush();
-        ActionFactory.getSession().refresh(action);
+        //ActionFactory.getSession().refresh(action);
        
         
         Map params = new HashMap();

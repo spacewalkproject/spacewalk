@@ -2,7 +2,7 @@
 #
 # $Id$
 
-CODE_DIRS = common server upload_server satellite_tools satellite_exporter po
+CODE_DIRS = common server upload_server satellite_tools satellite_exporter po wsgi
 CONF_DIRS = apache-conf httpd-conf rhn-conf logrotate
 
 # We look for config files in "well known" locations (rhn-conf,

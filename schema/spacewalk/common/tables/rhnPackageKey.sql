@@ -31,10 +31,6 @@ CREATE TABLE rhnPackageKey
 )
 ;
 
-CREATE INDEX rhn_pkey_id_k_pid_idx
-    ON rhnPackageKey (id, key_id, provider_id, key_type_id)
-    TABLESPACE [[2m_tbs]];
-
 CREATE SEQUENCE rhn_pkey_id_seq START WITH 100;
 
 ALTER TABLE rhnPackageKey

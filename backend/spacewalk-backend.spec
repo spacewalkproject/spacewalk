@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.9.0
+Version: 1.1.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -151,6 +151,7 @@ This package contains listener for the Server XML dumper.
 Summary: Spacewalk server and client tools libraries
 Group: Applications/Internet
 BuildRequires: python-devel
+Requires: python-hashlib
 
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
@@ -219,7 +220,11 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler >= 1.4.3
-Requires: rhnlib  >= 2.5.20
+%if 0%{?rhel} && 0%{?rhel} < 5
+Requires: rhnlib  >= 2.1.4-14
+%else
+Requires: rhnlib  >= 2.5.22
+%endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
@@ -258,7 +263,7 @@ export PYTHON_MODULE_VERSION=%{version}
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-wsgi.conf
-rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/server/wsgi
+rm -rfv $RPM_BUILD_ROOT/%{rhnroot}/wsgi
 %else
 rm -v $RPM_BUILD_ROOT/%{apacheconfd}/zz-spacewalk-server-python.conf
 %endif
@@ -301,6 +306,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
+%{rhnroot}/common/apache.py*
+%{rhnroot}/common/byterange.py*
 %{rhnroot}/common/rhn_posix.py*
 %{rhnroot}/common/rhn_timer.py*
 %{rhnroot}/common/rhnApache.py*
@@ -322,6 +329,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
+# wsgi stuff
+%if !( 0%{?rhel} && 0%{?rhel} < 6)
+%dir %{rhnroot}/wsgi
+%{rhnroot}/wsgi/__init__.py*
+%{rhnroot}/wsgi/wsgiHandler.py*
+%{rhnroot}/wsgi/wsgiRequest.py*
+%endif
 
 %files sql
 %defattr(-,root,root)
@@ -334,13 +348,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %files server
 %defattr(-,root,root)
 # modules
-%{rhnroot}/server/apache.py*
 %{rhnroot}/server/apacheAuth.py*
 %{rhnroot}/server/apacheHandler.py*
 %{rhnroot}/server/apacheRequest.py*
 %{rhnroot}/server/apacheServer.py*
 %{rhnroot}/server/apacheUploadServer.py*
-%{rhnroot}/server/byterange.py*
 %{rhnroot}/server/rhnAction.py*
 %{rhnroot}/server/rhnAuthPAM.py*
 %{rhnroot}/server/rhnCapability.py*
@@ -402,20 +414,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 %else
 # wsgi stuff
 %attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server-wsgi.conf
-%dir %{rhnroot}/server/wsgi
-%{rhnroot}/server/wsgi/__init__.py*
-%{rhnroot}/server/wsgi/app.py*
-%{rhnroot}/server/wsgi/applet.py*
-%{rhnroot}/server/wsgi/config.py*
-%{rhnroot}/server/wsgi/config_tool.py*
-%{rhnroot}/server/wsgi/package_push.py*
-%{rhnroot}/server/wsgi/package_upload.py*
-%{rhnroot}/server/wsgi/sat.py*
-%{rhnroot}/server/wsgi/sat_dump.py*
-%{rhnroot}/server/wsgi/wsgiHandler.py*
-%{rhnroot}/server/wsgi/wsgiRequest.py*
-%{rhnroot}/server/wsgi/xmlrpc.py*
-%{rhnroot}/server/wsgi/xp.py*
+%{rhnroot}/wsgi/app.py*
+%{rhnroot}/wsgi/applet.py*
+%{rhnroot}/wsgi/config.py*
+%{rhnroot}/wsgi/config_tool.py*
+%{rhnroot}/wsgi/package_push.py*
+%{rhnroot}/wsgi/package_upload.py*
+%{rhnroot}/wsgi/sat.py*
+%{rhnroot}/wsgi/sat_dump.py*
+%{rhnroot}/wsgi/xmlrpc.py*
+%{rhnroot}/wsgi/xp.py*
 %endif
 
 # logs and other stuff
@@ -556,11 +564,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-schema-stats
 %attr(750,root,root) %{_bindir}/satpasswd
 %attr(750,root,root) %{_bindir}/satwho
+%attr(750,root,root) %{_bindir}/spacewalk-remove-channel*
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
 %{rhnroot}/satellite_tools/req_channels.py*
-%{rhnroot}/satellite_tools/satrm.py*
 %{rhnroot}/satellite_tools/rhn-entitlement-report.py*
 %{rhnroot}/satellite_tools/satsync.py*
 %{rhnroot}/satellite_tools/satCerts.py*
@@ -571,6 +579,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
+%{rhnroot}/satellite_tools/updateSignatures.py*
 %{rhnroot}/satellite_tools/reposync.py*
 %{rhnroot}/satellite_tools/constants.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
@@ -578,7 +587,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_ui.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_isos.py*
-%{rhnroot}/satellite_tools/disk_dumper/iss_runcommand.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
@@ -598,7 +606,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/spacewalk-debug.8*
 %{_mandir}/man8/satpasswd.8*
 %{_mandir}/man8/satwho.8*
-
+%{_mandir}/man8/spacewalk-remove-channel.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -621,6 +629,90 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 20 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
+- fixing build error on RHEL 5
+
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- merge 2 duplicate byterange module to common.byterange
+- bumping spec files to 1.1 packages
+
+* Thu Apr 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.23-1
+- 582203 - skip failed packages on spacewalk-repo-sync
+- use CFG.NETWORK_RETRIES instead of hardcoded value
+- removed dead code
+
+* Tue Apr 13 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.21-1
+- 175155 - do not use X-RHN-Satellite-XML-Dump-Version on two places
+- code cleanup (jpazdziora@redhat.com)
+
+* Wed Apr 07 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.19-1
+- 574334 - fixed Error: NameError caught!
+
+* Wed Mar 31 2010 Partha Aji <paji@redhat.com> 0.9.18-1
+- 575867 - Fixed a registration issue where config channels 
+  in reactivation key +  activation key combination got ranked 
+  the same value causing all sorts of errors. (paji@redhat.com)
+- 175155 - require specific version of rhnlib (msuchy@redhat.com)
+
+* Tue Mar 30 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.17-1
+- 577668 - fixed spacewalk-repo-sync behaviour for ftp and file
+
+* Mon Mar 29 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.16-1
+- more modification to support mod_wsgi in proxy
+
+* Fri Mar 26 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.14-1
+- fixed spacewalk-backend packaging
+
+* Thu Mar 25 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.13-1
+- moved mod_wsgi stuff from spacewalk-backend-server to spacewalk-backend
+- added tomcat6 to satelite-debug
+
+* Mon Mar 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.12-1
+- 571413 - fixed source rpackage push
+- fixing wsgi error handling
+
+* Thu Mar 18 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.11-1
+- 561553 - fixed missing commit
+- 564278 - fixed satellite-sync call from rhn-satellite-activate
+
+* Wed Mar 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.10-1
+- 568958 - package removal and verify
+- 573140 - solaris packages with duplicate requires
+
+* Fri Mar 12 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.9-1
+- Fixed constraint violation when satellite had multiple certs
+- 558502 - fixed ordering issue in reprovisioning
+
+* Wed Mar 10 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.8-1
+- 571365 - fixed solaris mpm packages import
+- spacewalk-remove-channel improvements
+
+* Mon Mar 08 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.7-1
+- fixed import to work with satellites running older versions of rhnLib
+- 568371 - fix an ORA-00918 on config file import
+- fixed error ihandling for spacewalk-channel-remove
+- 570176 - disable caching the channel info during export
+- spacewalk-remove-channel script enhancements
+- 569233 - exit with error value upon error
+
+* Wed Feb 24 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.6-1
+- fixed missing require
+- fixed dates in rhn-satellite-exporter
+
+* Tue Feb 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.5-1
+- improved spacewalk-repo-sync
+
+* Mon Feb 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- fixed import error proxy ImportError: No module named server
+- 246480 - sync last_modified column for rhnKickstartableTree as well.
+- 501024 - want to preserve families for channels which are already in the dump
+
+* Fri Feb 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.1-1
+- added repo deletion to channel remove script
+- added spacewalk-remove-channel
+- added mechanism for updating existing sha256 packages
+- 562644 - added class to emulate mod_python's mp_table
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.43-1
 - updated copyrights
 - 479911 - removing duplicate rewrites and consolidating to a single location

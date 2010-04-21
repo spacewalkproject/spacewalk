@@ -24,14 +24,14 @@ import testByteRangeRpcServer
 import testClientCaps
 import testConfig
 import testRhnChannel
-import testRhnErrata
 import testRpcServer
 import testRpmUtils
 import testSSLSocketTimeout
 import testTransactions
 import testUp2dateAuth
 import testUp2dateUtils
-import testrhnregGui
+import haltreetests
+### import testrhnregGui
 
 from unittest import TestSuite
 
@@ -42,15 +42,14 @@ def suite():
         testClientCaps.suite(),
         testConfig.suite(),
         testRhnChannel.suite(),
-        testRhnErrata.suite(),
-##        testRpcServer.suite(),
+        testRpcServer.suite(),
         testRpmUtils.suite(),
         testSSLSocketTimeout.suite(),
         testTransactions.suite(),
         testUp2dateAuth.suite(),
         testUp2dateUtils.suite(),
-        testrhnregGui.suite(),
-##        haltreetests.suite()
+###        testrhnregGui.suite(),
+        haltreetests.suite()
     ))
 
 if __name__ == "__main__":

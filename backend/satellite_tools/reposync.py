@@ -14,6 +14,7 @@
 # in this software or its documentation. 
 #
 import sys, os, time, grp
+import hashlib
 from optparse import OptionParser
 from server import rhnPackage, rhnSQL, rhnChannel, rhnPackageUpload
 from common import CFG, initCFG, rhnLog, fetchTraceback
@@ -26,6 +27,7 @@ from server.importlib.packageImport import ChannelPackageSubscription
 
 
 default_log_location = '/var/log/rhn/reposync/'
+default_hash = 'sha256'
 
 class RepoSync:
    
@@ -38,7 +40,6 @@ class RepoSync:
     fail = False
     repo_label = None
     quiet = False
-    mirrorlist = False
 
     def main(self):
         initCFG('server')
@@ -47,10 +48,10 @@ class RepoSync:
         (options, args) = self.process_args()
 
         log_filename = 'reposync.log'
-        if options.channel_label and options.label:
+        if options.channel_label:
             date = time.localtime()
             datestr = '%d.%02d.%02d-%02d:%02d:%02d' % (date.tm_year, date.tm_mon, date.tm_mday, date.tm_hour, date.tm_min, date.tm_sec)
-            log_filename = options.channel_label + '-' + options.label + '-' +  datestr + '.log'
+            log_filename = options.channel_label + '-' +  datestr + '.log'
            
         rhnLog.initLOG(default_log_location + log_filename)
         #os.fchown isn't in 2.4 :/
@@ -59,17 +60,28 @@ class RepoSync:
 
         quit = False
         if not options.url:
-            quit = True
-            self.error_msg("--url must be specified")
-        if not options.type:
-            quit = True
-            self.error_msg("--type must be specified")
+            if options.channel_label:
+                h = rhnSQL.prepare("""select s.source_url
+                                      from rhnChannelContentSource s,
+                                           rhnChannel c
+                                     where c.id = s.channel_id
+                                       and c.label = :label""")
+                h.execute(label=options.channel_label)
+                source_urls = h.fetchall_dict() or []
+                if source_urls:
+                    self.url = source_urls[0]['source_url']
+                else:
+                    quit = True
+                    self.error_msg("Channel has no URL associated")
+        else:
+            self.url = options.url
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
-        if not options.label:
-            quit = True
-            self.error_msg("--label must be specified")
+        if options.label:
+            self.error_msg("--label is obsoleted")
+        if options.mirror:
+            self.error_msg("--mirrorlist is obsoleted; mirrorlist is recognized automatically")
 
         self.log_msg("\nSync started: %s" % (time.asctime(time.localtime())))
         self.log_msg(str(sys.argv))
@@ -79,11 +91,9 @@ class RepoSync:
             sys.exit(1)
 
         self.type = options.type
-        self.url = options.url
         self.channel_label = options.channel_label
         self.fail = options.fail
-        self.repo_label = options.label
-        self.mirrorlist = options.mirror
+        self.repo_label = self.short_hash(self.url)
         self.quiet = options.quiet
         self.channel = self.load_channel()
 
@@ -91,7 +101,7 @@ class RepoSync:
             print "Channel does not exist or is not custom"
             sys.exit(1)
 
-        self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label, self.mirrorlist)
+        self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
         self.print_msg("Sync complete")
 
@@ -99,11 +109,11 @@ class RepoSync:
         self.parser = OptionParser()
         self.parser.add_option('-u', '--url', action='store', dest='url', help='The url to sync')
         self.parser.add_option('-c', '--channel', action='store', dest='channel_label', help='The label of the channel to sync packages to')
-        self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported')
-        self.parser.add_option('-l', '--label', action='store', dest='label', help='A friendly label to refer to the repo')
+        self.parser.add_option('-t', '--type', action='store', dest='type', help='The type of repo, currently only "yum" is supported', default='yum')
+        self.parser.add_option('-l', '--label', action='store_true', dest='label', help='Ignored; for compatibility with old versions')
         self.parser.add_option('-f', '--fail', action='store_true', dest='fail', default=False , help="If a package import fails, fail the entire operation")
         self.parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Print no output, still logs output")
-        self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Treat --url as a mirror list (may not be supported by all content sources)")
+        self.parser.add_option('-m', '--mirrorlist', action='store_true', dest='mirror', default=False, help="Ignored; for compatibility with old versions. Mirrorlist is recognized automatically.")
         return self.parser.parse_args()
 
     def load_plugin(self):
@@ -129,22 +139,24 @@ class RepoSync:
             self.print_msg("No new packages to download.")
         for (index, pack) in enumerate(to_download):
             """download each package"""
+            # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
             try:
-                self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
-                      pack.getNVREA())
-                path = self.plugin.get_package(pack)
-                self.upload_package(pack, path)
-                self.associate_package(pack)
+                try:
+                    self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
+                          pack.getNVREA())
+                    path = self.plugin.get_package(pack)
+                    self.upload_package(pack, path)
+                    self.associate_package(pack)
+                except KeyboardInterrupt:
+                    raise
+                except Exception, e:
+                   self.error_msg(e)
+                   if self.fail:
+                       raise
+                   continue
+            finally:
                 if self.url.find("file://")  < 0:
                     os.remove(path)
-
-            except KeyboardInterrupt:
-                raise
-            except:
-                self.error_msg("ERROR" + fetchTraceback())
-                if self.fail:
-                    raise
-                continue
     
     def upload_package(self, package, path):
         temp_file = open(path, 'rb')
@@ -217,6 +229,9 @@ class RepoSync:
 
     def log_msg(self, message):
         rhnLog.log_clean(0, message)
+
+    def short_hash(self, str):
+        return hashlib.new(default_hash, str).hexdigest()[0:8]
 
 class ContentPackage:
 

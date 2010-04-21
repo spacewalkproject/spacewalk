@@ -13,20 +13,6 @@ _ = gettext.gettext
 
 
 
-global channel_blacklist
-channel_blacklist = []
-
-
-# FIXME?
-# change this so it doesnt import sourceConfig, but
-# instead sourcesConfig imports rhnChannel (and repoDirector)
-# this use a repoDirector.repos.parseConfig() or the like for
-# each line in "sources", which would then add approriate channels
-# to rhnChannel.selected_channels and populate the sources lists
-# the parseApt/parseYum stuff would move to repoBackends/*Repo.parseConfig()
-# instead... then we should beable to fully modularize the backend support
-
-
 # heh, dont get much more generic than this...
 class rhnChannel:
     # shrug, use attributes for thetime being

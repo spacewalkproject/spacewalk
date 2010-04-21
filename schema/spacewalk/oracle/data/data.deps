@@ -19,5 +19,6 @@ rhnArchTypeActions         :: data/rhnArchType data/rhnActionType
 rhnKickstartTimezone       :: data/rhnKSInstallType
 rhnTemplateString          :: data/rhnTemplateCategory
 rhnBlacklistObsoletes      :: lookup_functions
+rhn_schedule_days          :: data/rhn_schedules
 
 

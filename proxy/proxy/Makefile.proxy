@@ -12,12 +12,12 @@ SGMLS   = $(wildcard *.sgml)
 MANS    = $(patsubst %.sgml,%.8,$(SGMLS))
 MANDIR  ?= /usr/share/man
 
-CODE_DIRS = broker redirect pm
+CODE_DIRS = broker redirect pm wsgi
 CONF_DIRS = httpd-conf rhn-conf logrotate
 PACKAGES_DIR        = $(PREFIX)/var/up2date/packages
 PACKAGES_LIST_DIR   = $(PREFIX)/var/up2date/list
 
-FILES	= __init__ apacheHandler apacheServer byterange responseContext \
+FILES	= __init__ apacheHandler apacheServer responseContext \
         rhnAuthCacheClient rhnAuthProtocol rhnConstants \
         rhnProxyAuth rhnShared xxmlrpclib
 TAR_EXCLUDE = install

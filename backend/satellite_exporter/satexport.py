@@ -17,7 +17,7 @@
 
 import time
 import xmlrpclib
-from server import apache
+from common import apache
 
 from common import CFG, initCFG, log_debug, log_error, log_setreq, initLOG, \
     Traceback, rhnFault, rhnException, rhnFlags
@@ -241,6 +241,11 @@ class FunctionRetrievalError(Exception):
     pass
 
 apache_server = ApacheServer()
-headerParserHandler = apache_server.headerParserHandler
-handler = apache_server.handler
-cleanupHandler = apache_server.cleanupHandler
+class HandlerWrap:
+    def __init__(self, name, init=0):
+        return getattr(apache_server, name)
+
+### Instantiate external entry points:
+headerParserHandler = HandlerWrap("headerParserHandler")
+handler             = HandlerWrap("handler")
+cleanupHandler      = HandlerWrap("cleanupHandler")

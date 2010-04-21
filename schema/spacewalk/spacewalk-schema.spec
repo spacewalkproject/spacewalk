@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.9.0
+Version:        1.1.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,37 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+
+* Wed Apr 14 2010 Justin Sherrill <jsherril@redhat.com> 0.9.8-1
+- moving rhn_schedule_days to be db depedent because it has an inner select
+  clause (jsherril@redhat.com)
+- 516772 - removing fedora version specific kickstart install types since we do
+  not use them (jsherril@redhat.com)
+
+* Tue Apr 13 2010 Jan Pazdziora 0.9.5-1
+- Fix Makefile to workaround chameleon failing.
+
+* Mon Apr 12 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.4-1
+- Fix db schema for debian support (ukas.durfina@gmail.com)
+- Retrieve the rhn_schedules(recid) instead of using the hardcoded value of 1 (jpazdziora@redhat.com)
+- schema upgrade for Spacewalk and Fedora gpg keys (michael.mraka@redhat.com)
+- 561553 - added Spacewalk into package providers
+- drop this useless index (michael.mraka@redhat.com)
+- 563902 - tuned sql upgrade script (michael.mraka@redhat.com)
+
+* Thu Mar 11 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- fixed misplaced column in index
+
+* Tue Mar 09 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
+- 568293 - don't allow duplicated rows in rhnChecksum
+- added constraints to rhnReleaseChannelMap
+- repo generation changes, precomputing package repodata
+
+* Thu Feb 18 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.1-1
+- support for Debian (lukas.durfina@gmail.com)
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.9-1
 - call update_family_counts() only once in prune_family()
 

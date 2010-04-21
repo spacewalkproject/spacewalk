@@ -304,13 +304,13 @@ public class ServerGroupHandler extends BaseHandler {
      *          $ManagedServerGroupSerializer
      *      #array_end()
      */
-    public List listAllGroups(String sessionKey) {
+    public List<ManagedServerGroup> listAllGroups(String sessionKey) {
         User loggedInUser =  getLoggedInUser(sessionKey);
-        List<ServerGroup> groups = ServerGroupFactory.listManagedGroups(
+        List<ManagedServerGroup> groups = ServerGroupFactory.listManagedGroups(
                 loggedInUser.getOrg());
-        List<ServerGroup> toReturn = new ArrayList();
+        List<ManagedServerGroup> toReturn = new ArrayList();
         ServerGroupManager sm = ServerGroupManager.getInstance();
-        for (ServerGroup group : groups) {
+        for (ManagedServerGroup group : groups) {
             if (sm.canAccess(loggedInUser, group)) {
                 toReturn.add(group);
             }            

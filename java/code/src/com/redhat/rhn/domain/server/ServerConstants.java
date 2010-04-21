@@ -20,6 +20,12 @@ package com.redhat.rhn.domain.server;
  * @version $Rev$
  */
 public class ServerConstants {
+    /**
+     * Feature constant for probes
+     */
+    public static final String FEATURE_PROBES = "ftr_probes";
+    
+    public static final String FEATURE_SYSTEM_GROUPING = "ftr_system_grouping";
     
     private ServerConstants() {
         
@@ -87,10 +93,5 @@ public class ServerConstants {
     public static final ServerGroupType getServerGroupTypeVirtualizationPlatformEntitled() {
         return ServerFactory.lookupServerGroupTypeByLabel("virtualization_host_platform");
     } 
-    
-    /**
-     * Feature constant for probes
-     */
-    public static final String FEATURE_PROBES = "ftr_probes";
 
 }

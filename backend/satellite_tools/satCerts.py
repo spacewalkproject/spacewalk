@@ -41,9 +41,9 @@ class CertGenerationMismatchError(Exception):
 
 class CertVersionMismatchError(Exception):
     def __init__(self, old_version, new_version):
-        self.message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
+        self._message = "the versions of current and new certificate do not match, [%s] vs. [%s]" % (old_version, new_version)
     def __str__(self):
-          return self.message
+          return self._message
 
 class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
@@ -319,8 +319,7 @@ _query_latest_version = rhnSQL.Statement("""
     ORDER BY CASE WHEN version IS NULL
         THEN 0 
         ELSE version
-    END, version
-    DESC
+    END DESC
 """)
 def retrieve_db_cert(label='rhn-satellite-cert'):
     h = rhnSQL.prepare(_query_latest_version)

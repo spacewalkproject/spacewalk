@@ -30,6 +30,8 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
 import com.redhat.rhn.domain.org.usergroup.UserGroupFactory;
 import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.server.EntitlementServerGroup;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
@@ -303,12 +305,12 @@ public class OrgImpl extends BaseDomainHelper implements Org, Identifiable {
     }
 
     /** {@inheritDoc} */
-    public List getEntitledServerGroups() {
+    public List<EntitlementServerGroup> getEntitledServerGroups() {
         return ServerGroupFactory.listEntitlementGroups(this);
     }
 
     /** {@inheritDoc} */
-    public List getManagedServerGroups() {
+    public List<ManagedServerGroup> getManagedServerGroups() {
         return ServerGroupFactory.listManagedGroups(this);
     }
 

@@ -638,7 +638,6 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="submitted" type="java.lang.Boolean" />
-            <form-property name="pwdChanged" type="java.lang.String" />
         </form-bean>                                                
 
         <form-bean name="kickstartScriptForm"
@@ -679,7 +678,7 @@
             <form-property name="partitions" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        
-        
+
       <form-bean name="kickstartVariableForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="variables" type="java.lang.String" />
@@ -843,7 +842,7 @@
 		</form-bean>
 		
         <form-bean name="channelEditForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.action.channel.manage.ChannelNameForm">
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="dispatch" type="java.lang.String" />
             <form-property name="deny" type="java.lang.String" />
@@ -899,6 +898,7 @@
       <form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />
 	  <form-property name="contents"       type="java.lang.String"/>
 	  <form-property name="filetype"       type="java.lang.String" />
+	  <form-property name="revnum"         type="java.lang.String" />
 	  <form-property name="binary"         type="java.lang.Boolean" />
       <form-property name="submitted"      type="java.lang.Boolean"/>
     </form-bean>
@@ -2625,6 +2625,9 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
+        <forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
         
     <action path="/systems/details/packages/VerifyPackages"
@@ -2647,7 +2650,7 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
-                 redirect="true" />
+                 redirect="true" />                
     </action>
     
     <action path="/systems/details/packages/PackageList"
@@ -2671,6 +2674,9 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
+		<forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
 
    <action path="/systems/details/packages/UpgradableList"
@@ -2693,7 +2699,10 @@
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
          <forward name="confirm"
                   path="/systems/details/packages/Packages.do"
-                  redirect="true"/>                 
+                  redirect="true"/>
+        <forward name="remotecmd"
+                 path="/systems/details/packages/ScheduleRemoteCommand.do"
+                 redirect="true" />
     </action>
     
     <action path="/systems/details/packages/ScheduleRemoteCommand"
@@ -3780,6 +3789,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncProfilesSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/syncprofile.jsp"/>
+        <forward name="sync"
+                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do"
+                 redirect="true"/>
     </action>
 
     <action path="/systems/details/packages/profiles/SyncProfilesSubmit"
@@ -3809,6 +3821,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncSystemsSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/syncsystem.jsp"/>
+        <forward name="sync"
+                 path="/systems/details/packages/profiles/SyncSystemsSubmit.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/SyncSystemsSubmit"
@@ -3837,6 +3852,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.MissingPackageSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/missingpkgs.jsp"/>
+        <forward name="submit"
+                 path="/systems/details/packages/profiles/MissingPackageSubmit.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/MissingPackageSubmit"
@@ -3845,15 +3863,10 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.MissingPackageAction"
         parameter="dispatch">
         <forward name="default"
-                 path="/systems/details/packages/profiles/MissingPackages"
-                 redirect="true" />
-        <forward name="newprofile"
+                 path="/WEB-INF/pages/systems/details/packages/profiles/missingpkgs.jsp" />
+        <forward name="showprofile"
                  path="/systems/details/packages/profiles/ShowProfiles.do"
                  redirect="true" />
-        <forward name="removepackages"
-                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do" />
-        <forward name="subscribechannels"
-                 path="/systems/details/packages/profiles/SyncProfilesSubmit.do" />
     </action>
     
 

@@ -54,6 +54,7 @@ public abstract class CobblerObject {
     protected static final String UID = "uid";
     protected static final String PROFILE = "profile";
     private static final String REDHAT_KEY = "redhat_management_key";
+    public static final String INHERIT_KEY = "<<inherit>>";
     
     protected String handle;
     protected Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -466,7 +467,7 @@ public abstract class CobblerObject {
      * @param keys the red hat activation keys in a set
      */
     public void setRedHatManagementKey(Set<String> keys) {
-        modify(REDHAT_KEY, StringUtil.join(",", keys));
+        modify(REDHAT_KEY, StringUtils.defaultString(StringUtil.join(",", keys)));
     }
 
     /**
@@ -496,9 +497,15 @@ public abstract class CobblerObject {
      */
     public void syncRedHatManagementKeys(Collection<String> keysToRemove,
                                             Collection<String> keysToAdd) {
-        Set keySet = getRedHatManagementKeySet();
+        Set<String> keySet = getRedHatManagementKeySet();
         keySet.removeAll(keysToRemove);
         keySet.addAll(keysToAdd);
+        if (keySet.size() > 1 && keySet.contains(INHERIT_KEY)) {
+            keySet.remove(INHERIT_KEY);
+        }
+        else if (keySet.isEmpty()) {
+            keySet.add(INHERIT_KEY);
+        }
         setRedHatManagementKey(keySet);
     }
 

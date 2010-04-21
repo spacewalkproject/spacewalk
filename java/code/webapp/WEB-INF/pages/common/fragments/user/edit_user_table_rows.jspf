@@ -1,3 +1,5 @@
+<%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
+
   <tr>
     <th><bean:message key="username.displayname"/></th>
     <td><c:out escapeXml="true" value="${user.login}" /></td>
@@ -17,19 +19,19 @@
   <tr>
     <th><bean:message key="firstNames.displayname"/></th>
     <td>
-      <html:text property="firstNames" size="20" maxlength="20"/>
+      <html:text property="firstNames" size="20" maxlength="${firstNameLength}"/>
     </td>
   </tr>
   <tr>
     <th><bean:message key="lastName.displayname"/></th>
     <td>
-      <html:text property="lastName" size="20" maxlength="20"/>
+      <html:text property="lastName" size="20" maxlength="${lastNameLength}"/>
     </td>
   </tr>
   <tr>
     <th><bean:message key="position.displayname"/></th>
     <td>
-      <html:text property="title" size="30" maxlength="30"/>
+      <html:text property="title" size="30" maxlength="${titleLength}"/>
     </td>
   </tr>
   <rhn:require acl="user_role(org_admin)">
@@ -43,13 +45,13 @@
   <tr>
     <th><bean:message key="password.displayname"/></th>
     <td>
-      <html:password property="desiredpassword" size="20" maxlength="20"/>
+      <html:password property="desiredpassword" size="20" maxlength="${passwordLength}"/>
     </td>
   </tr>
   <tr>
     <th><bean:message key="confirmpass.displayname"/></th>
     <td>
-      <html:password property="desiredpasswordConfirm" size="20" maxlength="20"/>
+      <html:password property="desiredpasswordConfirm" size="20" maxlength="${passwordLength}"/>
     </td>
   </tr>
   <tr>

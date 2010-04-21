@@ -4,12 +4,11 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.9.0
+Version: 1.0.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-%if 0%{?suse_version: %{suse_version} > 1000} 
-%{!?suse_version:1}
 BuildArch: noarch
+%if 0%{?suse_version}
 BuildRequires: update-desktop-files
 %endif
 
@@ -20,7 +19,12 @@ Requires: python-ethtool
 Requires: gnupg
 Requires: sh-utils
 Requires: dbus-python
+%if 0%{?fedora} > 12 || 0%{?rhel} > 5
+Requires: python-gudev
+Requires: hwdata
+%else
 Requires: hal >= 0.5.8.1-52
+%endif
 Requires: newt
 Requires: python-dmidecode
 Requires: libxml2-python
@@ -31,6 +35,15 @@ BuildRequires: python-devel
 BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
+
+# The following BuildRequires are for check only
+%if 0%{?fedora} >= 12
+BuildRequires: python-coverage
+BuildRequires: rhnlib
+# python-setuptools can be removed when 556290 gets fixed
+BuildRequires: python-setuptools
+BuildRequires: rpm-python
+%endif
 
 %description
 Red Hat Network Client Tools provides programs and libraries to allow your
@@ -107,14 +120,17 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if 0%{?fedora} >= 12
+%check
+
+make -f Makefile.rhn-client-tools test
+%endif
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 # some info about mirrors
 %doc doc/ChangeLog 
 %doc doc/mirrors.txt 
-%doc doc/fedora-core-1 
-%doc doc/updates-released
 %doc doc/AUTHORS
 %doc doc/LICENSE
 %{_mandir}/man8/rhn-profile-sync.8*
@@ -137,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/up2date_client/__init__.*
 %{_datadir}/rhn/up2date_client/config.*
 %{_datadir}/rhn/up2date_client/haltree.*
-%{_datadir}/rhn/up2date_client/hardware.*
+%{_datadir}/rhn/up2date_client/hardware*
 %{_datadir}/rhn/up2date_client/up2dateUtils.*
 %{_datadir}/rhn/up2date_client/up2dateLog.*
 %{_datadir}/rhn/up2date_client/up2dateErrors.*
@@ -147,7 +163,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/up2date_client/rpmUtils.*
 %{_datadir}/rhn/up2date_client/rhnPackageInfo.*
 %{_datadir}/rhn/up2date_client/rhnChannel.*
-%{_datadir}/rhn/up2date_client/rhnErrata.*
 %{_datadir}/rhn/up2date_client/rhnHardware.*
 %{_datadir}/rhn/up2date_client/transaction.*
 %{_datadir}/rhn/up2date_client/clientCaps.*
@@ -199,14 +214,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # firstboot is smart enough now to skip these modules
 # if the modules say to
-%{_datadir}/firstboot/modules/rhn_activate_gui.*
 %{_datadir}/firstboot/modules/rhn_login_gui.*
 %{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
 %{_datadir}/firstboot/modules/rhn_start_gui.*
 %{_datadir}/firstboot/modules/rhn_choose_server_gui.*
 %{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
 %{_datadir}/firstboot/modules/rhn_create_profile_gui.*
-%{_datadir}/firstboot/modules/rhn_choose_org_gui.*
 %{_datadir}/firstboot/modules/rhn_review_gui.*
 %{_datadir}/firstboot/modules/rhn_finish_gui.*
 
@@ -225,6 +238,59 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Thu Apr 08 2010 Jan Pazdziora 1.0.0-1
+- Bumping up version to 1.0.0.
+
+* Fri Apr 02 2010 Jan Pazdziora 0.9.13-1
+- Fixes to previous cleanup.
+
+* Fri Apr 02 2010 Jan Pazdziora 0.9.12-1
+- Code cleanup.
+- Remove the installation number support in GUI.
+
+* Wed Mar 31 2010 Jan Pazdziora 0.9.11-1
+- Make sure activate_hardware_info is called before available_eus_channels.
+
+* Wed Mar 31 2010 Jan Pazdziora 0.9.10-1
+- Code cleanup.
+- Remove installation number activation.
+
+* Mon Mar 29 2010 Jan Pazdziora 0.9.9-1
+- Code cleanup.
+- Add back invocation of _activate_hardware, for hosted.
+- Use /etc/sysconfig/rhn/hw-activation-code for the hardware activation code.
+
+* Fri Mar 26 2010 Jan Pazdziora 0.9.8-1
+- Check the capability in cfg (uses cached value).
+- Remove --email and --subscription options from rhnreg_ks.
+- No longer use rhnreg.reserveUser nor rhnreg.registerUser in rhnreg_ks.
+
+* Thu Mar 25 2010 Jan Pazdziora 0.9.7-1
+- Code cleanup.
+- 575127 - fix typo in dmidecode key (msuchy@redhat.com)
+- Changing the default networkRetries from 5 to 1 (so no retries).
+- do not use reserved word type (msuchy@redhat.com)
+- remove dead code (msuchy@redhat.com)
+- group test on subsystem together, to create more readable code
+  (msuchy@redhat.com)
+
+* Tue Mar 23 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.6-1
+- 564352 - try to get from udev as much hw info as possible
+
+* Mon Mar 22 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.5-1
+- 564352 - use gudev instead of hal if gudev is present
+
+* Mon Mar 01 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- added new CA key valid until 2020
+- 567901 - fix input of user name
+
+* Fri Feb 19 2010 Jan Pazdziora 0.9.3-1
+- Move the logging of XMLRPC calls down to up2date_client/rpcServer
+- Cleanup of unused code
+
+* Wed Feb 17 2010 Miroslav Suchy <msuchy@redhat.com> 0.9.2-1
+- 564491 - package should be noarch
+
 * Fri Feb  5 2010 Miroslav Suchy <msuchy@redhat.com> 0.8.12-1
 - 543509 - found another part of code where we use hal for getting DMI inforation, removing
 

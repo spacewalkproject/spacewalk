@@ -1,0 +1,322 @@
+#!/usr/bin/python
+#
+# Copyright (c) 2010 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+import sys
+import xmlrpclib
+import fnmatch
+import ConfigParser
+from optparse import OptionParser, Option
+import re
+
+DEFAULT_SERVER = "localhost"
+DEFAULT_USER = "spacewalk"
+DEFAULT_PASSWORD = "spacewalk"
+
+DEFAULT_CONFIG = '/etc/rhn/spacewalk-common-channels.ini'
+
+channel_arch = {
+        'i386':         'channel-ia32',
+        'x86_64':       'channel-x86_64',
+        'ia64':         'channel-ia64',
+        'sparc':        'channel-sparc',
+        'sparc64':      'channel-sparc64',
+        'alpha':        'channel-alpha',
+        's390':         'channel-s390',
+        's390x':        'channel-s390x',
+        'iSeries':      'channel-iSeries',
+        'pSeries':      'channel-pSeries',
+        'x86_64':       'channel-x86_64',
+        'ppc':          'channel-ppc',
+        'ppc64':        'channel-ppc64',
+        'sparc-sun-solaris': 'channel-sparc-sun-solaris',
+        'i386-sun-solaris':  'channel-i386-sun-solaris',
+        }
+
+SPLIT_PATTERN = '[ ,]+'
+
+# extend OptionParser to print examples
+class xOptionParser(OptionParser):
+    def print_help(self):
+        OptionParser.print_help(self)
+        print "\n\n" + self.examples
+
+def connect(user, password, server):
+    server_url = "http://%s/rpc/api" % server
+
+    if options.verbose > 2:
+        client_verbose = options.verbose - 2
+    else:
+        client_verbose = 0
+    if options.verbose:
+        sys.stdout.write("Connecting to %s\n" % server_url)
+    client   = xmlrpclib.Server(server_url, verbose=client_verbose)
+    key      = client.auth.login(user, password)
+    return client, key
+
+def add_channels(channels, section, arch):
+    base_channels = ['']
+    optional  = ['activationkey', 'base_channel_activationkey', 'gpgkey_url',
+                 'gpgkey_id', 'gpgkey_fingerprint', 'yumrepo_url']
+    mandatory = ['label', 'name', 'summary', 'checksum', 'arch']
+
+    if config.has_option(section, 'base_channels'):
+        base_channels = re.split(SPLIT_PATTERN, config.get(section, 'base_channels', 1))
+
+    config.set(section, 'arch', arch)
+    config.set(section, 'section', section)
+    for base_channel in base_channels:
+        config.set(section, 'base_channel', base_channel)
+        channel = { 'base_channel': config.get(section, 'base_channel')}
+
+        if base_channel:
+            if channel['base_channel'] not in channels:
+                # there isn't such base channel so skip also child
+                continue
+            # set base channel values so they can be used as macros
+            for (k,v) in channels[channel['base_channel']].items():
+                config.set(section, 'base_channel_' + k, v)
+
+        for k in optional:
+            if config.has_option(section,k):
+                channel[k] = config.get(section, k)
+            else:
+                channel[k] = ''
+        for k in mandatory:
+            channel[k] = config.get(section, k)
+        channels[channel['label']] = channel
+
+if __name__ == "__main__":
+    # options parsing
+    usage = "usage: %prog [options] <channel1 glob> [<channel2 glob> ... ]"
+    examples = """Examples:
+
+Create Fedora 12 channel, its child channels and activation key limited to 10 servers:
+    %(prog)s -u admin -p pass -k 10 'fedora12*'
+
+Create Centos 5 with child channels only on x86_64:
+    %(prog)s -u admin -p pass -a x86_64 'centos5*'
+
+Create only Centos 4 base channels for intel archs:
+    %(prog)s -u admin -p pass -a i386,x86_64 'centos4'
+
+Create Spacewalk client child channel for every (suitable) defined base channel:
+    %(prog)s -u admin -p pass 'spacewalk-client*'
+
+Create everything as well as unlimited activation key for every channel:
+    %(prog)s -u admin -p pass -k unlimited '*'
+\n""" % {'prog': sys.argv[0]}
+
+    option_list = [
+        Option("-c", "--config", help="configuration file", default=DEFAULT_CONFIG),
+        Option("-u", "--user", help="username", default=DEFAULT_USER),
+        Option("-p", "--password", help="password", default=DEFAULT_PASSWORD),
+        Option("-s", "--server", help="your spacewalk server", default=DEFAULT_SERVER),
+        Option("-k", "--keys", help="activation key usage limit - 'unlimited' or number\n"
+                         + "(default: options is not set and activation keys are not created at all)",
+                         dest="key_limit"),
+        Option("-n", "--dry-run", help="perform a trial run with no changes made",
+                         action="store_true"),
+        Option("-a", "--archs", help="list of architectures"),
+        Option("-v", "--verbose", help="verbose", action="count"),
+        Option("-l", "--list", help="print list of available channels",
+                         action="store_true"),
+        ]
+
+    parser = xOptionParser(usage=usage, option_list=option_list)
+    parser.examples = examples
+    (options, args) = parser.parse_args()
+    config = ConfigParser.ConfigParser()
+    config.read(options.config)
+
+    if options.list:
+        print "Available channels:"
+        channel_list = config.sections()
+        if channel_list:
+            for channel in sorted(channel_list):
+                channel_archs = config.get(channel, 'archs')
+                print " %-20s %s" % (channel + ":", channel_archs)
+        else:
+            print " [no channel available]"
+        sys.exit(0)
+
+    if not args:
+        print parser.print_help()
+        parser.exit()
+
+    key = None
+    client = None
+    channels = {}
+
+    sections = []
+    # sort base channels first and child last
+    for section in config.sections():
+        if config.has_option(section, 'base_channels'): # child
+            sections.append(section)
+        else:                                           # base
+            sections.insert(0,section)
+    for section in sections:
+        archs = re.split(SPLIT_PATTERN, config.get(section, 'archs'))
+        if options.archs:
+            # filter out archs not set on commandline
+            archs = filter(lambda a: a in options.archs, archs)
+        for arch in archs:
+            add_channels(channels, section, arch)
+
+    # list of base_channels to deal with
+    base_channels  = {}
+    # list of child_channels for given base_channel
+    child_channels = {}
+    # filter out non-matching channels
+    for pattern in args:
+        for name in fnmatch.filter(channels.keys(), pattern):
+            attr = channels[name]
+            if attr['base_channel']:
+                if attr['base_channel'] not in base_channels:
+                    base_channels[attr['base_channel']] = False
+                if attr['base_channel'] in child_channels:
+                    child_channels[attr['base_channel']].append(name)
+                else:
+                    child_channels[attr['base_channel']] = [name]
+            else:
+                # this channel is base channel
+                base_channels[name] = True
+                if name not in child_channels:
+                    child_channels[name] = []
+
+
+    for (base_channel_label, create_channel) in sorted(base_channels.items()):
+
+        if key == None:
+            try:
+                client, key = connect(options.user, options.password, options.server)
+                user_info = client.user.getDetails(key, options.user)
+                org_id = user_info['org_id']
+            except xmlrpclib.Fault, e:
+                if e.faultCode == 2950:
+                    sys.stderr.write("Either the password or username is incorrect.\n")
+                    sys.exit(2)
+                else:
+                   raise e
+
+        if create_channel:
+            base_info = channels[base_channel_label]
+            if options.verbose:
+                sys.stdout.write("Base channel '%s' - creating...\n" % base_info['name'])
+            if options.verbose > 1:
+                sys.stdout.write("* label=%s, summary=%s, arch=%s, checksum=%s\n" % (
+                                base_info['label'], base_info['summary'],
+                                base_info['arch'], base_info['checksum']))
+
+            if not options.dry_run:
+                try:
+                    # create base channel
+                    client.channel.software.create(key,
+                        base_info['label'], base_info['name'], base_info['summary'],
+                        channel_arch[base_info['arch']], '', base_info['checksum'],
+                        { 'url': base_info['gpgkey_url'],
+                          'id' : base_info['gpgkey_id'],
+                          'fingerprint': base_info['gpgkey_fingerprint']},
+                        { 'url': base_info['yumrepo_url'],
+                          'label': 'X',
+                          'sync': False})
+                except xmlrpclib.Fault, e:
+                    if e.faultCode != 1200: # ignore if channel exists
+                        sys.stderr.write("ERROR: %s: %s\n" % (
+                                          base_info['label'], e.faultString))
+                        continue
+
+            if options.key_limit is not None:
+                if options.verbose:
+                    sys.stdout.write("* Activation key '%s' - creating...\n" % (
+                                        base_info['label']))
+                if not options.dry_run:
+                    # create activation key
+                    if options.key_limit == 'unlimited':
+                        ak_args = (key, base_info['activationkey'], base_info['name'],
+                                        base_info['label'], [], False)
+                    else:
+                        ak_args = (key, base_info['activationkey'], base_info['name'], 
+                                        base_info['label'], int(options.key_limit),
+                                        [], False)
+                    try:
+                        client.activationkey.create(*ak_args)
+                    except xmlrpclib.Fault, e:
+                        sys.stderr.write("ERROR: %s: %s\n" % (
+                                          base_info['label'], e.faultString))
+        else:
+            # check whether channel exists
+            try:
+                base_info = client.channel.software.getDetails(key, base_channel_label)
+                if options.verbose:
+                    sys.stdout.write("Base channel '%s' - exists\n" % base_info['name'])
+            except xmlrpclib.Fault, e:
+                if e.faultCode != -210: # don't report 'No such channel'
+                    sys.stderr.write("ERROR: %s: %s\n" % (
+                                      base_channel_label, e.faultString))
+                continue
+
+        for child_channel_label in sorted(child_channels[base_channel_label]):
+            child_info = channels[child_channel_label]
+            if options.verbose:
+                sys.stdout.write("* Child channel '%s' - creating...\n" % child_info['name'])
+            if options.verbose > 1:
+                sys.stdout.write("** label=%s, summary=%s, arch=%s, parent=%s, checksum=%s\n" % (
+                                    child_info['label'], child_info['summary'],
+                                    child_info['arch'], base_channel_label,
+                                    child_info['checksum']))
+
+            if not options.dry_run:
+                try:
+                    # create child channels
+                    client.channel.software.create(key,
+                            child_info['label'], child_info['name'], child_info['summary'],
+                            channel_arch[child_info['arch']], base_channel_label,
+                            child_info['checksum'],
+                            { 'url': child_info['gpgkey_url'],
+                              'id' : child_info['gpgkey_id'],
+                              'fingerprint': child_info['gpgkey_fingerprint']},
+                            { 'url': child_info['yumrepo_url'],
+                              'label': 'X',
+                              'sync': False})
+                except xmlrpclib.Fault, e:
+                    if e.faultCode != 1200: # ignore if channel exists
+                        sys.stderr.write("ERROR: %s: %s\n" % (
+                                          child_info['label'], e.faultString))
+
+            if options.key_limit is not None:
+                if ('base_channel_activationkey' in child_info
+                    and child_info['base_channel_activationkey']):
+                    activationkey = "%s-%s" % (
+                                org_id, child_info['base_channel_activationkey'])
+                    if options.verbose:
+                        sys.stdout.write("** Activation key '%s' - adding child channel...\n" % (
+                                             activationkey))
+                    if not options.dry_run:
+                        try:
+                            client.activationkey.addChildChannels(key, activationkey,
+                                                                   [child_info['label']])
+                        except xmlrpclib.Fault, e:
+                            sys.stderr.write("ERROR: %s: %s\n" % (
+                                          child_info['label'], e.faultString))
+
+        if options.verbose:
+            # an empty line after channel group
+            sys.stdout.write("\n")
+
+    if client is not None:
+        # logout
+        client.auth.logout(key)
+

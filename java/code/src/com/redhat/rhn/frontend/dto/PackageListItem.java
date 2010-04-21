@@ -479,6 +479,14 @@ public class PackageListItem extends IdComboDto {
         ret.put("arch_id", getIdThree());
         return ret;
     }
+
+    /**
+     * Returns a unique id (nameId x archId) for HashMap
+     * @return a map id
+     */
+    public String getMapHash() {
+        return "" + getNameId() + "|" + getArchId();
+    }
     
     /**
      * Returns a list of Key map representation for a given list of package  items 

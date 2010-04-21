@@ -15,21 +15,17 @@
     <bean:message key="missingpkgs.jsp.missingpackages" />
 </h2>
 
-<form name="rhn_list" method="POST"
-      action="/rhn/systems/details/packages/profiles/MissingPackageSubmit.do?date=${time}">
-
+<rl:listset name="compareListSet">
     <div class="page-summary">
         <bean:message key="missingpkgs.jsp.pagesummary" />
     </div>
 
-<rl:listset name="compareListSet">
-    <rl:list dataset="pageList"
-        width="100%"        
+    <rl:list width="100%"
         name="compareList"
         styleclass="list">
         
         <rl:column headerkey="missingpkgs.jsp.package" bound="false">
-            ${current.name}
+            ${current.actionTargetNevra}
         </rl:column>
 
         <rl:column headerkey="missingpkgs.jsp.channels" bound="false">
@@ -65,9 +61,9 @@
     <html:hidden property="prid" value="${param.prid}" />
     <html:hidden property="sync" value="${param.sync}" />
     <html:hidden property="set_label" value="packages_for_system_sync" />
+    <html:hidden property="time" value="${time}" />
 
 </rl:listset>
 
-</form>
 </body>
 </html>

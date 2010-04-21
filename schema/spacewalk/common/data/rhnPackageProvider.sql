@@ -26,6 +26,8 @@ insert into rhnPackageProvider (id, name) values
 (rhn_package_provider_id_seq.nextval, 'Suse' );
 insert into rhnPackageProvider (id, name) values
 (rhn_package_provider_id_seq.nextval, 'Oracle Inc.' );
+insert into rhnPackageProvider (id, name) values
+(rhn_package_provider_id_seq.nextval, 'Spacewalk' );
 
 
 

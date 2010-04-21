@@ -12,10 +12,10 @@ use GDBM_File;
 use Sys::Hostname;
 use LWP::UserAgent;
 use URI::Escape;
-
+use Mail::Send;
+use Mail::Mailer;
 
 # Class variables
-my @SENDMAILS     = qw(/usr/lib/sendmail /usr/sbin/sendmail);
 $NOCpulse::Gritch::USE_SENDMAIL = 0;
 my $MAX_TIE_TRIES = 5;
 my $MODE          = 0644;
@@ -406,13 +406,11 @@ sub sendmail {
    } else {
 	# Use sendmail
 	my $sendmail = get_sendmail();
-	if ($sendmail) {
-           open(MAIL, "|$sendmail -t");
-           print MAIL "To: $recip\n";
-           print MAIL "Subject: $subject\n";
-           print MAIL "\n";
-           print MAIL "$message\n";
-           close(MAIL);
+	if (Mail::Mailer::is_exe('sendmail')) {
+           my $msg = Mail::Send->new(Subject => $subject, To => $recip, From => $self->recipient);
+           my $fh = $msg->open('sendmail');
+           print $fh $message;
+           $fh->close;
 	} else {
            # Couldn't find sendmail -- fall back to /bin/mail
            $subject =~ tr/'//d;
@@ -425,15 +423,6 @@ sub sendmail {
 
   return 1;
 
-}
-
-sub get_sendmail
-{
-   my $sendmail;
-   foreach $sendmail (@SENDMAILS) {
-     return $sendmail if (-x $sendmail);
-   }
-   return undef;
 }
 
 

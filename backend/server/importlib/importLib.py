@@ -27,7 +27,7 @@ from common import log_debug
 from server.rhnLib import get_package_path
 from spacewalk.common import rhn_mpm
 from spacewalk.common.checksum import getFileChecksum
-from spacewalk.common.fileutils import maketemp, createPath, setPermsPath
+from spacewalk.common.fileutils import createPath, setPermsPath
 
 # no-op class, used to define the type of an attribute
 class DateType:
@@ -374,8 +374,6 @@ class SourcePackage(IncompletePackage):
         'payload_format'    : StringType,
         'build_host'        : StringType,
         'build_time'        : DateType,
-        'sigchecksum_type'  : StringType,
-        'sigchecksum'       : StringType,
         'vendor'            : StringType,
         'cookie'            : StringType,
         'package_size'      : IntType,
@@ -385,6 +383,9 @@ class SourcePackage(IncompletePackage):
         'md5sum'            : StringType,       # xml dumps < 3.5
         'checksum'          : StringType,       # xml dumps >= 3.5
         'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'sigmd5'            : StringType,       # xml dumps < 3.5 and rpms
+        'sigchecksum_type'  : StringType,       # xml dumps >= 3.5
+        'sigchecksum'       : StringType,       # xml dumps >= 3.5
     }
     def __init__(self):
         # Inherit from IncompletePackage

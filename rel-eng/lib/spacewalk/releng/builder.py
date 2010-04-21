@@ -49,10 +49,15 @@ class Builder(object):
         self.build_version = version
         self.dist = dist
         self.test = test
-        self.global_config = global_config
+        self.config = global_config
         self.user_config = user_config
         self.offline=offline
         self.no_cleanup = False
+
+        # Override global configurations using local configurations
+        for section in pkg_config.sections():
+            for options in pkg_config.options(section):
+                self.config.set(section, options, pkg_config.get(section, options))
 
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
@@ -98,13 +103,13 @@ class Builder(object):
 
         # Configure CVS variables if possible. Will check later that
         # they're actually defined if the user requested CVS work be done.
-        if self.global_config.has_section("cvs"):
-            if self.global_config.has_option("cvs", "cvsroot"):
-                self.cvs_root = self.global_config.get("cvs", "cvsroot")
+        if self.config.has_section("cvs"):
+            if self.config.has_option("cvs", "cvsroot"):
+                self.cvs_root = self.config.get("cvs", "cvsroot")
                 debug("cvs_root = %s" % self.cvs_root)
-            if self.global_config.has_option("cvs", "branches"):
+            if self.config.has_option("cvs", "branches"):
                 self.cvs_branches = \
-                    global_config.get("cvs", "branches").split(" ")
+                    self.config.get("cvs", "branches").split(" ")
 
         # TODO: if it looks like we need custom CVSROOT's for different users,
         # allow setting of a property to lookup in ~/.spacewalk-build-rc to
@@ -259,7 +264,7 @@ class Builder(object):
         Lookup autobuild Koji tags from global config, create srpms with
         appropriate disttags, and submit builds to Koji.
         """
-        autobuild_tags = self.global_config.get("koji", "autobuild_tags")
+        autobuild_tags = self.config.get("koji", "autobuild_tags")
         print("Building release in Koji...")
         debug("Koji tags: %s" % autobuild_tags)
         koji_tags = autobuild_tags.strip().split(" ")
@@ -270,18 +275,18 @@ class Builder(object):
 
         for koji_tag in koji_tags:
             # Lookup the disttag configured for this Koji tag:
-            disttag = self.global_config.get(koji_tag, "disttag")
-            if self.global_config.has_option(koji_tag, "whitelist"):
+            disttag = self.config.get(koji_tag, "disttag")
+            if self.config.has_option(koji_tag, "whitelist"):
                 # whitelist implies only those packages can be built to the
                 # tag,regardless if blacklist is also defined.
-                if self.project_name not in self.global_config.get(koji_tag,
+                if self.project_name not in self.config.get(koji_tag,
                         "whitelist").strip().split(" "):
                     print("WARNING: %s not specified in whitelist for %s" % (
                         self.project_name, koji_tag))
                     print("   Package *NOT* submitted to Koji.")
                     continue
-            elif self.global_config.has_option(koji_tag, "blacklist"):
-                if self.project_name in self.global_config.get(koji_tag,
+            elif self.config.has_option(koji_tag, "blacklist"):
+                if self.project_name in self.config.get(koji_tag,
                         "blacklist").strip().split(" "):
                     print("WARNING: %s specified in blacklist for %s" % (
                         self.project_name, koji_tag))
@@ -496,15 +501,15 @@ class Builder(object):
         """
         Return True if this repo and branch is configured to build in CVS.
         """
-        if not self.global_config.has_section("cvs"):
+        if not self.config.has_section("cvs"):
             debug("Cannot build from CVS, no 'cvs' section found in global.build.py.props")
             return False
 
-        if not self.global_config.has_option("cvs", "cvsroot"):
+        if not self.config.has_option("cvs", "cvsroot"):
             debug("Cannot build from CVS, no 'cvsroot' defined in global.build.py.props")
             return False
 
-        if not self.global_config.has_option("cvs", "branches"):
+        if not self.config.has_option("cvs", "branches"):
             debug("Cannot build from CVS no branches defined in global.build.py.props")
             return False
 
@@ -515,11 +520,11 @@ class Builder(object):
         Return True if this repo and branch are configured to auto build in
         any Koji tags.
         """
-        if not self.global_config.has_section("koji"):
+        if not self.config.has_section("koji"):
             debug("No 'koji' section found in global.build.py.props")
             return False
 
-        if not self.global_config.has_option("koji", "autobuild_tags"):
+        if not self.config.has_option("koji", "autobuild_tags"):
             debug("Cannot build in Koji, no autobuild_tags defined in global.build.py.props")
             return False
 

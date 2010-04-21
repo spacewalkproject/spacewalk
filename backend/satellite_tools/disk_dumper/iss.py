@@ -175,11 +175,6 @@ class Dumper(dumper.XML_Dumper):
 		   from rhnChannel ch
 		  where ch.label = :label
 		"""
-	    if self.start_date:
-                query += """
-		    and last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		    and last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-                    """
             self.channel_query = rhnSQL.Statement(query)
             ch_data = rhnSQL.prepare(self.channel_query)
             
@@ -190,16 +185,27 @@ class Dumper(dumper.XML_Dumper):
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
             for ids in channel_labels:
-                ch_data.execute(label=ids, **dates)
+                ch_data.execute(label=ids)
                 ch_info = ch_data.fetchall_dict()
                 
                 if not ch_info:
-                    if self.start_date:
-                        raise ISSError("Error: No %s channel information found within specified time frame." % ids, "")
-                    else:
-                        raise ISSError("Error: Channel %s not found." % ids, "")
+                    raise ISSError("Error: Channel %s not found." % ids, "")
                     
                 self.channel_ids = self.channel_ids + ch_info
+
+            # For list of channel families, we want to also list those relevant for channels
+            # that are already on disk, so that we do not lose those families with
+            # "incremental" dumps. So we will gather list of channel ids for channels already
+            # in dump.
+            self.channel_ids_for_families = []
+            channel_labels_for_families = self.fm.filemap['channels'].list()
+            print "Appending channels %s" % ( channel_labels_for_families )
+            for ids in channel_labels_for_families:
+                ch_data.execute(label=ids)
+                ch_info = ch_data.fetchall_dict()
+                if ch_info:
+                    self.channel_ids_for_families = self.channel_ids_for_families + ch_info
+
         except ISSError:
             #Don't want calls to sys.exit to show up as a "bad" error.
             raise

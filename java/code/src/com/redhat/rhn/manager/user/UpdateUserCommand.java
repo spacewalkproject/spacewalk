@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.user;
 
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 
@@ -123,11 +124,13 @@ public class UpdateUserCommand {
         }
 
         String password = getUnencryptedPassword();
-        if (password == null || password.length() < 5) {
+        if (password == null || password.length() < 
+                                    UserDefaults.get().getMinPasswordLength()) {
             throw new IllegalArgumentException(LocalizationService.getInstance().
-                    getMessage("error.minpassword", 5));
+                    getMessage("error.minpassword",
+                                    UserDefaults.get().getMinPasswordLength()));
         }
-        else if (password.length() > 38) {
+        else if (password.length() > UserDefaults.get().getMaxPasswordLength()) {
             throw new IllegalArgumentException(LocalizationService.getInstance().
                     getMessage("error.maxpassword"));
         }
@@ -159,6 +162,12 @@ public class UpdateUserCommand {
         // Make sure user and email are not null
         if (email == null) {
             throw new IllegalArgumentException("Email address is null");
+        }
+        
+        // Make email is not over the max length
+        if (user.getEmail().length() > UserDefaults.get().getMaxEmailLength()) {
+            throw new IllegalArgumentException(String.format(
+                    "Email address specified [%s] is too long", user.getEmail()));
         }
         
         // Make sure set email is valid

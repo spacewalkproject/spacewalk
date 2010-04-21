@@ -23,7 +23,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp" 
                   insert="false" update="false"/>
-        
+		
+		<set name="features" inverse="true" table="rhnServerGroupTypeFeature">
+            <key column="server_group_type_id"/>
+            <many-to-many column="feature_id" class="com.redhat.rhn.domain.server.Feature"/>
+        </set>
+		        
     </class>
 
     <query name="ServerGroupType.findByLabel">

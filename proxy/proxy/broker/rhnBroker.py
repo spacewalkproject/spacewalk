@@ -22,7 +22,7 @@ import socket
 import re
 
 # global module imports
-from mod_python import apache
+from common import apache
 
 # common module imports
 from common.rhnLib import parseUrl

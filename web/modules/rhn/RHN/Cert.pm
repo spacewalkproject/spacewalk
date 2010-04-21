@@ -19,8 +19,8 @@ package RHN::Cert;
 
 use XML::LibXML;
 use IO::File;
-use File::Temp;
-
+use File::Temp ();
+use IPC::Open3;
 use RHN::Exception qw/throw/;
 
 sub new {
@@ -159,15 +159,49 @@ sub check_signature {
   $self->check_required_fields;
   my $data = $self->as_checksum_string;
 
-  my ( $data_fh, $data_file ) = File::Temp::tempfile(UNLINK => 1);
-  print $data_fh $data;
+  my $data_file = new File::Temp(UNLINK => 1);
+  print $data_file $data;
+  $data_file->close();
 
-  my ( $sig_fh, $sig_file ) = File::Temp::tempfile(UNLINK => 1);
-  print $sig_fh $signature;
+  my $sig_file = new File::Temp(UNLINK => 1);
+  print $sig_file $signature;
+  $sig_file->close();
 
-  system("gpgv -q --keyring $keyring $sig_file $data_file");
+  system('gpg', '--verify', '-q', '--keyring', $keyring, $sig_file->filename(), $data_file->filename());
+
   my $retval = $? >> 8;
   return ($retval == 0) ? 1 : 0;
+}
+
+sub compute_signature {
+  my $self = shift;
+  my $passphrase = shift;
+  my $signer = shift;
+
+  $self->check_required_fields;
+
+  my $data = $self->as_checksum_string;
+
+  my $data_file = new File::Temp(UNLINK => 1);
+  print $data_file $data;
+  $data_file->close();
+
+  my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
+         qw|gpg -q --batch --yes --passphrase-fd 0 --sign --detach-sign --armor
+                -o /dev/stdout --local-user|, $signer, $data_file->filename()) or return;
+  print $wfh $passphrase;
+  close $wfh;
+
+  my $out;
+  {
+  local $/ = undef;
+  $out = <$rfh>;
+  }
+  close $rfh;
+
+  waitpid $pid, 0;
+
+  return $out;
 }
 
 sub set_required_fields {

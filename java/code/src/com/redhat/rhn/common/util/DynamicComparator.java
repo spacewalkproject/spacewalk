@@ -83,11 +83,13 @@ public class DynamicComparator implements Comparator  {
             if (val1 instanceof String  && val2 instanceof String) {
                 return order * getCollator().compare(val1, val2);
             }
+            // a < b = -1, a > b = 1 , a== b =0
+            
             if (val1 == null && val2 != null) {
-                return -1;
+                return order * -1;
             }
-            else if (val2 == null && val1 != null) {
-                return 1;
+            else if (val1 != null && val2 == null) {
+                return order * 1;
             }
             else if (val1 == val2) {
                 return 0;

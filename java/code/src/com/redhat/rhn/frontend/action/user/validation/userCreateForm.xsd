@@ -2,25 +2,6 @@
 
 <schema targetNamespace="http://rhn.redhat.com" 
 	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
-	<attribute name="login">
-		<simpleType baseType="string">
-			<minLength value="1" />
-			<maxLength value="64" />
-                        <username/>
-		</simpleType>
-	</attribute>
-	<attribute name="desiredpassword">
-		<simpleType baseType="string">
-			<minLength value="5" />
-			<maxLength value="64" />
-		</simpleType>
-	</attribute>
-	<attribute name="desiredpasswordConfirm">
-		<simpleType baseType="string">
-			<minLength value="5" />
-			<maxLength value="64" />
-		</simpleType>
-	</attribute>
 	<attribute name="firstNames">
 		<simpleType baseType="string">
 			<minLength value="1" />
@@ -33,12 +14,6 @@
             <maxLength value="128"/>
         </simpleType>
     </attribute>
-	<attribute name="email">
-		<simpleType baseType="string">
-			<minLength value="1" />
-			<maxLength value="128" />
-		</simpleType>
-	</attribute>
 	<attribute name="company">
 		<simpleType baseType="string">
 			<requiredIf field="account_type" value="create_corporate"/>

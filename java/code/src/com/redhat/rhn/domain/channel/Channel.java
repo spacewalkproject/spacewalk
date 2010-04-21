@@ -383,6 +383,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
+     * @deprecated
      * @return Returns the set of packages for this channel.
      */
     public Set getPackages() {
@@ -399,6 +400,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
         // So we are better off using a hibernate query for the count...
         return ChannelFactory.getPackageCount(this);
     }
+    
+    /**
+     * @return Returns the size of the package set for this channel.
+     */
+    public int getErrataCount() {
+        return ChannelFactory.getErrataCount(this);
+    }
+    
 
     /**
      * Sets the packages set for this channel

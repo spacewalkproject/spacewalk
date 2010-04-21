@@ -111,14 +111,14 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
     }
     
-    private void showRemoteCommandMsg(ActionMessages msgs, boolean before) {
+    private void showRemoteCommandMsg(ActionMessages msgs, boolean before, String mode) {
         if (before) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("message.remotecommandbefore"));
+                    new ActionMessage("message.remotecommandbefore." + mode));
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("message.remotecommandafter"));
+                    new ActionMessage("message.remotecommandafter." + mode));
         }
     }
     
@@ -215,7 +215,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             pa.setPrerequisite(sra);
             ActionManager.storeAction(pa);
             showMessages(msgs, pa, server, numPackages, mode);
-            showRemoteCommandMsg(msgs, true);
+            showRemoteCommandMsg(msgs, true, mode);
         }
         else {
             List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
@@ -228,7 +228,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             sra.setPrerequisite(pa);
             ActionManager.storeAction(sra);
             showMessages(msgs, sra, server, numPackages, mode);
-            showRemoteCommandMsg(msgs, false);
+            showRemoteCommandMsg(msgs, false, mode);
         }
         SessionSetHelper.obliterate(request, sessionSetLabel);
         return msgs;
@@ -254,6 +254,13 @@ public class ScheduleRemoteCommand extends RhnAction {
         form.set("timeout", new Long(600));
         form.set("script", "#!/bin/sh");
         form.set("mode", request.getParameter("mode"));
+        getStrutsDelegate().prepopulateDatePicker(request, 
+                            form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+        Date date = getStrutsDelegate().readDatePicker(
+                form, "date", DatePicker.YEAR_RANGE_POSITIVE);
+        
+        request.setAttribute("scheduledDate", 
+                LocalizationService.getInstance().formatDate(date));
     }
     
     private List<Map<String, Long>> toList(Set<String> set) {

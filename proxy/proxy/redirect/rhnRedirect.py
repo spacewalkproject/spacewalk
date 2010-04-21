@@ -19,7 +19,7 @@
 import string
 import socket
 import re
-from mod_python import apache
+from common import apache
 
 # common module imports
 from common.rhnLib import parseUrl

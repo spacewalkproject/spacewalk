@@ -81,6 +81,9 @@ public class ChannelRepodataWorker implements QueueWorker {
             if (!isChannelLabelAlreadyInProcess()) {
                 markInProgress();
                 populateQueueEntryDetails();
+                
+                
+                
                 Channel channelToProcess = ChannelFactory
                         .lookupByLabel(channelLabelToProcess);
                 // if the channelExists in the db still

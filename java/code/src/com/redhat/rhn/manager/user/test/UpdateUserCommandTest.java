@@ -16,11 +16,14 @@ package com.redhat.rhn.manager.user.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.conf.UserDefaults;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.user.UpdateUserCommand;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * UpdateUserCommandTest
@@ -35,6 +38,29 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
         User user = UserTestUtils.createUser("testUser", oid);
         command = new UpdateUserCommand(user);
     }
+    
+    public void testLongNames() {
+        int maxPassword = UserDefaults.get().getMaxPasswordLength();
+        int emailLength = UserDefaults.get().getMaxEmailLength();
+
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, String.valueOf(5));
+        Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(5));
+        
+
+        String invalidPassword = "password";
+        String invalidEmail   = "foobar@foobar.com";
+        //Test invalid values
+
+        command.setEmail(invalidEmail);
+        assertCommandThrows(IllegalArgumentException.class, command);
+        command.setPassword(invalidPassword);
+        assertCommandThrows(IllegalArgumentException.class, command);
+
+        Config.get().setString(UserDefaults.MAX_PASSWORD_LENGTH, 
+                                        String.valueOf(maxPassword));
+        Config.get().setString(UserDefaults.MAX_EMAIL_LENGTH, String.valueOf(emailLength));
+        
+    }    
     
     public void testPartialUpdate() {
         command.setEmail("50cent@pimpville.com");
@@ -96,12 +122,12 @@ public class UpdateUserCommandTest extends RhnBaseTestCase {
     
     public void testValidPassword() {
         command.setEmail("jesusr@redhat.com");
-        
-        // = minlen
-        assertPassword("12345", command);
-        
         // = maxlen
-        assertPassword("12345678901234567890123456789012345678", command);
+        assertPassword(StringUtils.repeat("a", UserDefaults.get().
+                getMinPasswordLength()), command);        
+        // = maxlen
+        assertPassword(StringUtils.repeat("a", UserDefaults.get().
+                getMaxPasswordLength()), command);
         
         // random string
         String randomPassword = TestUtils.randomString();

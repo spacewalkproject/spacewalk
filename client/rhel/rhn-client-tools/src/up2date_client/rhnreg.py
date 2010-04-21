@@ -15,7 +15,6 @@ import up2dateErrors
 import rhnserver
 import rpmUtils
 import up2dateLog
-import rpcServer
 import urlparse
 import rhnreg_constants
 import hardware
@@ -39,29 +38,13 @@ _ = gettext.gettext
 #SYSID_DIR = /tmp
 SYSID_DIR = "/etc/sysconfig/rhn"
 REMIND_FILE = "%s/rhn_register_remind" % SYSID_DIR
-# REG_NUM_FILE is the new rhel 5 number.
-REG_NUM_FILE = "%s/install-num" % SYSID_DIR
 
-cachedOrgs = None
-cachedAvailableSubscriptions = None
-cachedAvailableChannels = None
+HW_CODE_FILE = "%s/hw-activation-code" % SYSID_DIR
 
 import config
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
 
-
-def validateEmail(email):
-    ret = 1
-
-    if len(email) < 6:
-        ret = 0
-    if not email.find("@") > 0:
-        ret = 0
-    if not email.find(".") > 0:
-        ret = 0
-
-    return ret
 
 def startRhnsd():
     # successful registration.  Try to start rhnsd if it isn't running.
@@ -133,11 +116,11 @@ def _write_secure_file(secure_file, file_contents):
             return False
     
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, 0600)
-    regNumFile = os.fdopen(fd, 'w')
+    fd_file = os.fdopen(fd, 'w')
     try:
-        regNumFile.write(file_contents)
+        fd_file.write(file_contents)
     finally:
-        regNumFile.close()
+        fd_file.close()
     
     return True
 
@@ -151,33 +134,9 @@ def writeSystemId(systemId):
     
     return res
 
-def writeRegNum(regNum):
+def writeHWCode(hw_activation_code):
     """Returns True if the write is successful or False if it fails."""
-    file_contents = regNum + '\n'
-    return _write_secure_file(REG_NUM_FILE, file_contents)
-
-def readRegNum():
-    """
-    Returns the first line of the reg num file without the trailing newline
-    or None if the file doesn't exist.
-    
-    Can raise IOError if the file exists but there's an error reading it.
-    
-    TODO If we wind up with a nice class for reg nums / install nums it would be
-    cool to return one of those.
-    
-    New in RHEL 5.
-    
-    """
-    if not os.access(REG_NUM_FILE, os.F_OK):
-        return None
-    # There's a race condition here, but it doesn't really matter
-    regNumFile = open(REG_NUM_FILE)
-    try:
-        line = regNumFile.readline()
-    finally:
-        regNumFile.close()
-    return line.strip()
+    return _write_secure_file(HW_CODE_FILE, hw_activation_code + '\n')
 
 def get_virt_info():
     """
@@ -265,12 +224,6 @@ def welcomeText():
     return s.registration.welcome_message()
     
 
-def privacyText():
-    s = rhnserver.RhnServer()
-
-    return s.registration.privacy_statement()
-
-
 def finishMessage(systemId):
     s = rhnserver.RhnServer()
     return  s.registration.finish_message(systemId)
@@ -290,13 +243,9 @@ def reserveUser(username, password):
     return s.registration.reserve_user(username, password)
 
 
-def registerUser(username, password, email = None):
+def registerUser(username, password):
     s = rhnserver.RhnServer()
-
-    if not email == None:
-        s.registration.new_user(username, password, email)
-    else:
-        s.registration.new_user(username, password)
+    s.registration.new_user(username, password)
 
 
 class RegistrationResult:
@@ -408,29 +357,26 @@ def registerSystem(username = None, password = None,
 
     
       
-def getAvailableChannels(username, password, other, useCache = False):
-                         
-    global cachedAvailableChannels
-    
+def getAvailableChannels(username, password):
     s = rhnserver.RhnServer()
     server_arch = up2dateUtils.getArch()
     server_version = up2dateUtils.getVersion()
     server_release = up2dateUtils.getRelease()
     
-    if cachedAvailableChannels is None or useCache == False:
-        try:
-	    cachedAvailableChannels = rpcServer.doCall(
-	                          s.registration.available_eus_channels,
+    availableChannels = None
+
+    try:
+        availableChannels = s.registration.available_eus_channels(
                                                  username, password,
                                                  server_arch, server_version, 
                                                  server_release)
-	except rpclib.Fault, f:
-            if f.faultCode == 99:
-                raise up2dateErrors.DelayError(f.faultString)
-            else:
-                raise
+    except rpclib.Fault, f:
+        if f.faultCode == 99:
+            raise up2dateErrors.DelayError(f.faultString)
+        else:
+            raise
     
-    return cachedAvailableChannels
+    return availableChannels
 
 
 
@@ -481,7 +427,6 @@ def registerSystem2(username = None, password = None,
                                                         activationKey,
                                                         other)
     else:
-        log.log_debug("Calling xmlrpc registration.new_system_user_pass.")
         info = s.registration.new_system_user_pass(profileName,
                                                    up2dateUtils.getOSRelease(),
                                                    up2dateUtils.getVersion(),
@@ -521,92 +466,13 @@ def sat_supports_virt_guest_registration():
         return False
     
             
-def getRemainingSubscriptions(username, password):
-
-    s = rhnserver.RhnServer()
-    server_type = getServerType()
-    
-    # The only point of this function is to determine if we should show the
-    # Activate a Subscription screen, which we never do in satellite.
-    if server_type == 'satellite':
-        return 1
-
-    arch = up2dateUtils.getArch()
-    #Intentionally swapping, release/version so it is more in tune
-    #with the perspective of release/version used by RHN Hosted.
-    #bz: 442694
-    release = up2dateUtils.getVersion()
-    version = up2dateUtils.getRelease()
-    log.log_debug('Calling xmlrpc registration.remaining_subscriptions')
-        
-
-    virt_uuid, virt_type = get_virt_info()
-    if virt_uuid is not None:
-        log.log_debug('Sending up virt_uuid: %s' % str(virt_uuid))
-    else:
-        virt_uuid = ""
-
-    # If we've gotten this far, we're definitely looking at hosted.
-    # Hosted will have to support the sending of the release, and optionally,
-    # the virt_uuid.
-
-    if cfg['supportsSMBIOS']:
-        smbios = hardware.get_smbios()
-        subs = s.registration.remaining_subscriptions(username, password, 
-                                                      arch,
-                                                      release,
-                                                      virt_uuid,
-                                                      smbios)
-    else:
-        subs = s.registration.remaining_subscriptions(username, password, 
-                                                      arch,
-                                                      release,
-                                                      virt_uuid)
-
-
-    log.log_debug('Server returned %s' % subs)
-    return subs
-
-def getAvailableSubscriptions(username, password, useCache=False):
-    """Higher level and more convenient version of getRemainingSubscriptions.
-    
-    Precondition: getCaps() was called.
-    
-    Returns: -1 for inifinite subscriptions.
-    
-    Raises:
-    * up2dateErrors.ServerCapabilityError
-    * up2dateErrors.ValidationError
-    probably others
-    
-    """
-    global cachedAvailableSubscriptions
-    
-    log.log_debug('Calling getAvailableSubscriptions')
-
-    if cfg['supportsRemainingSubscriptions'] is None:
-        message = "The server doesn't support the " \
-                  "registration.remaining_subscriptions call which is needed."
-        raise up2dateErrors.ServerCapabilityError(message)
-    
-    if cachedAvailableSubscriptions is None or useCache is False:
-        try:
-            cachedAvailableSubscriptions = \
-                    getRemainingSubscriptions(username, password)
-        except up2dateErrors.NoBaseChannelError, e:
-            cachedAvailableSubscriptions = 0
-            log.log_debug('NoBaseChannelError raised.')
-    log.log_debug('Returning %s available subscriptions.' % 
-                  cachedAvailableSubscriptions)
-    return cachedAvailableSubscriptions
-
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
     s.registration.add_hw_profile(systemId, hardwareList)
    
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
-    if not s.capabilities.hasCapability('xmlrpc.packages.extended_profile', 2):
+    if not cfg['supportsExtendedPackageProfile'] == 2:
         # for older satellites and hosted - convert to old format
         packageList = convertPackagesFromHashToList(packageList)
     s.registration.add_packages(systemId, packageList)
@@ -703,50 +569,32 @@ class ActivationResult:
         """Returns a dict- the key/value pairs are label/quantity."""
         return self._systemSlots
 
-def activateRegistrationNumber(username, password, registrationNumber, 
-                               orgId=None):
-    """Tries to activate a registration/entitlement number.
-    
-    Returns an ActivationResult.
-    Can raise:
-        InvalidRegistrationNumberError
-        Entitlement number is not entitling - ValidationError TODO change to 
-                                              something else so if they type 
-                                              one in we can give better feedback
-        Communication errors, etc
-    
-    """
-    log.log_debug('Calling xmlrpc activate_registration_number.')
-    server = rhnserver.RhnServer()
-##    if server.capabilities.hasCapability(
-##       'registration.activate_subscription_number'):
-##        # TODO Make xmlrpc call
-##        pass
-##    else:
-##        # TODO
-##        pass
+def _activate_hardware(login, password):
 
-    other = {}
-    if orgId:
-        other = {'org_id': orgId}
-    
-    result = server.registration.activate_registration_number(username, password, registrationNumber, other)
-    statusCode = result['status_code']
-    regNum = result['registration_number']
-    channels = result['channels']
-    system_slots = result['system_slots']
-    log.log_debug('Server returned status code %s' % statusCode)
-    if statusCode == 0:
-        return ActivationResult(ActivationResult.ACTIVATED_NOW, regNum,
-                                channels, system_slots)
-    elif statusCode == 1:
-        return ActivationResult(ActivationResult.ALREADY_USED, regNum,
-                                channels, system_slots)
-    else:
-        message = "The server returned unknown status code %s while activating" \
-                   " an installation number." % statusCode
-        raise up2dateErrors.CommunicationError(message)
+    # Read the asset code from the hardware.
+    activateHWResult = None
+    hardwareInfo = None
+    hw_activation_code = None
+    try:
+        hardwareInfo = hardware.get_hal_system_and_smbios()
+    except:
+        log.log_me("There was an error while reading the hardware "
+                   "info from the bios. Traceback:\n")
+        log.log_exception(*sys.exc_info())
 
+    if hardwareInfo is not None:
+        try:
+            activateHWResult = activateHardwareInfo(
+                                       login, password, hardwareInfo)
+            if activateHWResult.getStatus() == ActivationResult.ACTIVATED_NOW:
+                hw_activation_code = activateHWResult.getRegistrationNumber()
+                writeHWCode(hw_activation_code)
+        except up2dateErrors.NotEntitlingError:
+            log.log_debug('There are are no entitlements associated '
+                          'with this hardware.')
+        except up2dateErrors.InvalidRegistrationNumberError:
+            log.log_debug('The hardware id was not recognized as valid.')
+    return hw_activation_code
 
 def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
     """Tries to activate an entitlement linked to the hardware info that we
@@ -761,7 +609,6 @@ def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
     """
 ##    import pprint
 ##    pprint.pprint(hardwareInfo)
-    log.log_debug('Calling xmlrpc activate_hardware_info.')
     
     other = {}
     if orgId:
@@ -782,110 +629,6 @@ def activateHardwareInfo(username, password, hardwareInfo, orgId=None):
                    " the hardware info." % statusCode
         raise up2dateErrors.CommunicationError(message)
 
-
-# TODO Move the PossibleOrg stuff to a seperate file
-class PossibleOrgsError(Exception):
-    pass
-class InvalidDefaultError(PossibleOrgsError):
-    pass
-class NoDefaultError(PossibleOrgsError):
-    pass
-
-class PossibleOrgs:
-    def __init__(self):
-        self._orgs = {}
-        self._default = None
-    
-    def setOrgs(self, orgsDict):
-        """orgsDict must be a dict of org ids (as ints or strings that contain 
-        ints) to org names (as strings).
-        
-        """
-        self._orgs = {}
-        for id, name in orgsDict.items():
-            self._orgs[int(id)] = name
-        self._default = None
-    
-    def setDefaultOrg(self, orgId):
-        """Must refer to org that's already been added. Can be an int or string
-        containing an int.
-        
-        """
-        if int(orgId) not in self._orgs.keys():
-            raise InvalidDefaultError("Tried to set default org to %s. Valid "
-                                      "values are %s" % (orgId, self._orgs.keys()))
-        self._default = int(orgId)
-    
-    def getOrgs(self):
-        """Returns a dict of org ids (ints) to org names (strings). Can return
-        an empty dict.
-        
-        """
-        return self._orgs
-    
-    def getDefaultOrg(self):
-        """Returns the org id (int) of the default org.
-        Raises NoDefaultError if setDefaultOrg was never called or wasn't called
-        after setOrgs.
-        
-        """
-        if self._default is None:
-            raise NoDefaultError()
-        return self._default
-
-def getPossibleOrgs(username, password, useCache=False):
-    """Gets the orgs the user belongs to and the default one.
-    
-    If useCache is set to true it will not talk to the server and will return 
-    the values from the most recent non-cached call. If there is nothing cached, 
-    it will get the current value from the server.
-    
-    Returns a PossibleOrgs.
-    
-    Can raise:
-    * up2dateErrors2.UnknownMethodException if called on a server that doesn't 
-      support the necessary xmlrpc (satellites won't, at least for now)
-    * The usual 'communication with a server' exceptions
-    
-    """
-    global cachedOrgs
-    if useCache and cachedOrgs is not None:
-        return cachedOrgs
-    s = rhnserver.RhnServer()
-    orgsFromServer = s.registration.get_possible_orgs(username, password)
-    cachedOrgs = PossibleOrgs()
-    cachedOrgs.setOrgs(orgsFromServer['orgs'])
-    cachedOrgs.setDefaultOrg(orgsFromServer['default_org'])
-    return cachedOrgs
-
-
-def serverSupportsRhelFiveCalls():
-    """This checks for the new calls we added for rhel 5, some of which 
-    are required, such as the new system registration calls. I don't know how 
-    this will work long term, but for now we wanna put this into a build that 
-    people will probably try to use against servers that don't support the new 
-    stuff.
-    TODO List calls here.
-    
-    Returns True or False.
-    
-    """
-    # This is a hack. 
-    # TODO Call new_system_user_pass instead of getPossibleOrg so it works on sats.
-    # TODO Make this use nice capabilities infrastructure or something.
-    # We only check for get_possible_orgs but we're really also checking for the
-    # other calls that were added at the same time.
-    try:
-        getPossibleOrgs('sdthzdthz233drgdth', 'ztedhzdth2zdbz')
-    except up2dateErrors.ValidationError:
-        return True
-    except up2dateErrors.UnknownMethodException:
-        pass
-    except:
-        log.log_me("An unexcepted error was raised while checking to see if the"
-                   " server supports the required calls:")
-        log.log_exception(*sys.exc_info())
-    return False
 
 def spawnRhnCheckForUI():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):

@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
 import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.server.EntitlementServerGroup;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 
@@ -220,14 +222,14 @@ public interface Org {
      * 
      * @return List of ServerGroup classes
      */
-    List getEntitledServerGroups();
+    List<EntitlementServerGroup> getEntitledServerGroups();
 
     /**
      * Get the set of ManagedServerGroups that this Org is a member of.
      * 
      * @return List of ServerGroup classes
      */
-    List getManagedServerGroups();
+    List<ManagedServerGroup> getManagedServerGroups();
 
     /**
      * TODO: get rid of Role label and pass in the class Reset channel

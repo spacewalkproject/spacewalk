@@ -52,6 +52,7 @@ public abstract class ConfigFileData {
     private String selinuxCtx;
     private String macroStart;
     private String macroEnd;
+    private String revNumber;
     
     private ConfigFileType type;
     
@@ -250,14 +251,18 @@ public abstract class ConfigFileData {
             msgs.addError(error("mode-invalid"));
         }
 
+        String sens = "s\\d+";
+        String cats = "c\\d+(\\.c\\d+)?";
+        String mlsregex = sens + "(:" + cats + "(," + cats + ")*)?";
         // Validate selinux context
         if (!getSelinuxCtx().matches(
                  // \\w is [a-zA-Z_0-9], or [_[:alnum:]]
                  "^\\w*" + // user
                 "(:\\w*" + // role
                 "(:\\w*" + // type
-                "(:\\w*(\\-\\w+)?" + // sensitivity
-                "(:\\w*(\\.\\w+))?)?)?)?$")) { // category
+                "(:" + mlsregex + // low
+                "(\\-" + mlsregex + // high
+                ")?)?)?)?$")) {
             msgs.addError(new ValidatorError("Invalid SELinux context"));
         }
         
@@ -399,5 +404,21 @@ public abstract class ConfigFileData {
                 append("isBinary", isBinary()).                
                 append("Size:", getContentSize());
         return builder.toString();
+    }
+
+
+    /**
+     * @return Returns the revNumber.
+     */
+    public String getRevNumber() {
+        return revNumber;
+    }
+
+
+    /**
+     * @param revNumberIn The revNumber to set.
+     */
+    public void setRevNumber(String revNumberIn) {
+        this.revNumber = revNumberIn;
     }
  }

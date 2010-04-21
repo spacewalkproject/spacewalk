@@ -16,9 +16,11 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.FileUtils;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
@@ -775,8 +777,8 @@ public class KickstartFactory extends HibernateFactory {
         retval = (KickstartableTree) 
             HibernateFactory.getSession().load(KickstartableTree.class, treeId);
         if (retval != null) {
-            if (retval.getChannel().getOrg() != null && 
-                    !retval.getChannel().getOrg().getId().equals(orgId)) {
+            List<Channel> list = OrgFactory.lookupById(orgId).getAccessibleChannels();
+            if (!list.contains(retval.getChannel())) {
                 retval = null;
             }
         }

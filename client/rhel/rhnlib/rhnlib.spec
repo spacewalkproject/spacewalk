@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.21
+Version: 2.5.24
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,14 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 2.5.24-1
+- Cleaning up, preparing for automatization
+- 575259 - properly set protocol type
+
+* Fri Feb 12 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.22-1
+- 564299 - handle http 302 redirect request for satellite-sync
+- rpclib.py cleanup
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 2.5.21-1
 - updated copyrights
 

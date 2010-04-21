@@ -101,6 +101,14 @@
         font-size: 14px;
 }
 
+.local-alert {
+    color: #d00;
+    padding-top:7px;
+    padding-left:4px;
+    text-align: left;
+    font-size: 14px;
+}
+
 .site-info ul,
 .site-alert ul {
 margin: 0px;

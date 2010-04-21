@@ -83,7 +83,7 @@
       </tr>
       <tr>
         <th><bean:message key="channelfiles.jsp.lastmod"/>:</th>
-        <td><c:out value="${channel.lastModified}" /></td>
+        <td><c:out value="${channel_last_modified}" /></td>
       </tr>
       <tr>
         <th><bean:message key="channel.jsp.repolastbuild"/>:</th>

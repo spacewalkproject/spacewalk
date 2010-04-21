@@ -23,7 +23,7 @@ import base64
 import string
 from rhnConstants import *
 from rhn import rpclib, connections
-from mod_python import apache
+from common import apache
 
 ## common imports
 from common import rhnApache, rhnFlags, log_debug, log_error, CFG, \
@@ -32,7 +32,7 @@ from common.rhnLib import setHeaderValue
 
 ## local imports
 from proxy.rhnProxyAuth import get_proxy_auth
-from proxy.byterange import parse_byteranges, get_content_range
+from common.byterange import parse_byteranges, get_content_range
 
 def getComponentType(req):
     """ 

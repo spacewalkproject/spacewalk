@@ -415,7 +415,17 @@ public class ErrataManager extends BaseManager {
      * @return all of the errata.
      */
     public static DataResult unpublishedOwnedErrata(User user) {
-        return ownedErrata(user, "unpublished_owned_errata");
+        return unpublishedOwnedErrata(user, null);
+    }
+
+    /**
+     * Returns all of the unpublished errata.
+     * @param user Currently logged in user.
+     * @param clazz The class you would like the return values represented as
+     * @return all of the errata.
+     */
+    public static DataResult unpublishedOwnedErrata(User user, Class clazz) {
+        return ownedErrata(user, "unpublished_owned_errata", clazz);
     }
 
     /**
@@ -476,7 +486,6 @@ public class ErrataManager extends BaseManager {
         return dr;
     }
 
-
     /**
      * Helper method to get the unpublished/published errata
      * @param user Currently logged in user
@@ -484,7 +493,24 @@ public class ErrataManager extends BaseManager {
      * @return all of the errata
      */
     private static DataResult ownedErrata(User user, String mode) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", mode);
+        return ownedErrata(user, mode, null);
+    }
+
+    /**
+     * Helper method to get the unpublished/published errata
+     * @param user Currently logged in user
+     * @param mode Tells which mode (published/unpublished) we need to run
+     * @param clazz The class you would like the return values represented as
+     * @return all of the errata
+     */
+    private static DataResult ownedErrata(User user, String mode, Class clazz) {
+        SelectMode m;
+        if (clazz == null) {
+            m = ModeFactory.getMode("Errata_queries", mode);
+        }
+        else {
+            m = ModeFactory.getMode("Errata_queries", mode, clazz);
+        }
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         return makeDataResult(params, new HashMap(), null, m);

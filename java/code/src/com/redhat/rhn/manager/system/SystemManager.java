@@ -326,17 +326,6 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Returns a list of all systems
-     * @return list of SystemOverviews
-     */
-    public static DataResult<SystemOverview> listAllSystems() {
-        SelectMode m = ModeFactory.getMode("System_queries", "all_systems");
-        DataResult dr = makeDataResult(new HashMap(), new HashMap(), null, m);
-        dr.elaborate();
-        return dr;
-    }
-
-    /**
      * Returns list of all systems that are  visible to user 
      * but not in the given server group.
      * @param user Currently logged in user.
@@ -383,7 +372,6 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
-    
     
     /**
      * Returns list of out of date systems visible to user.

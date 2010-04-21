@@ -46,8 +46,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Specify a username")),
         self.optparser.add_option("--password", action="store",
             help=_("Specify a password")),
-        self.optparser.add_option("--email", action="store",
-            help=_("Specify an email address")),
         self.optparser.add_option("--systemorgid", action="store",
             help=_("Specify an organizational id for this system")),
         self.optparser.add_option("--serverUrl", action="store",
@@ -56,8 +54,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Specify a file to use as the ssl CA cert")),
         self.optparser.add_option("--activationkey", action="store",
             help=_("Specify an activation key")),
-        self.optparser.add_option("--subscription", action="store",
-            help=_("Specify a installation number to use")),
         self.optparser.add_option("--use-eus-channel", action="store_true",
             help=_("Subscribe this system to the EUS channel tied to the system's redhat-release")),
         self.optparser.add_option("--contactinfo", action="store_true",
@@ -91,13 +87,6 @@ class RegisterKsCli(rhncli.RhnCli):
 
         rhnreg.getCaps()
         
-        if not self.options.activationkey:
-            # reserve the username
-            ret = rhnreg.reserveUser(self.options.username,
-                self.options.password)
-            rhnreg.registerUser(self.options.username, self.options.password,
-                self.options.email)
-
         if not self.options.nopackages:
             getArch = 0
             if rhnreg.cfg['supportsExtendedPackageProfile']:
@@ -115,8 +104,6 @@ class RegisterKsCli(rhncli.RhnCli):
             profilename = RegisterKsCli.__generateProfileName(hardwareList)
 
         other = {}
-        if self.options.subscription:
-            other['registrationNumber'] = self.options.subscription
         if self.options.systemorgid:
             other['org_id'] = self.options.systemorgid
 
@@ -136,8 +123,7 @@ class RegisterKsCli(rhncli.RhnCli):
                 sys.exit(-1)
             
             channels = rhnreg.getAvailableChannels(self.options.username,
-                                                   self.options.password,
-                                                   other)
+                                                   self.options.password)
             other['channel'] = channels['default_channel']
 
         try:
@@ -150,7 +136,8 @@ class RegisterKsCli(rhncli.RhnCli):
                     self.options.password, profilename, other = other)
         except (up2dateErrors.AuthenticationTicketError,
                 up2dateErrors.RhnUuidUniquenessError,
-                up2dateErrors.CommunicationError), e:
+                up2dateErrors.CommunicationError,
+                up2dateErrors.AuthenticationOrAccountCreationError), e:
             print "%s" % e.errmsg
             sys.exit(1)
  

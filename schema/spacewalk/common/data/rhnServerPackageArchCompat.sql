@@ -26,6 +26,14 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('i386-debian-linux'), LOOKUP_PACKAGE_ARCH('i386-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('i386-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('i486-redhat-linux'), LOOKUP_PACKAGE_ARCH('i486'), 0);
 
 insert into rhnServerPackageArchCompat
@@ -72,6 +80,7 @@ insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('i686-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
 
+
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('athlon-redhat-linux'), LOOKUP_PACKAGE_ARCH('athlon'), 0);
@@ -103,6 +112,14 @@ insert into rhnServerPackageArchCompat
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('alpha-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('alpha-debian-linux'), LOOKUP_PACKAGE_ARCH('alpha-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('alpha-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
@@ -142,11 +159,31 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('ia64-debian-linux'), LOOKUP_PACKAGE_ARCH('ia64-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('ia64-debian-linux'), LOOKUP_PACKAGE_ARCH('i386-deb'), 100);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('ia64-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('sparc-redhat-linux'), LOOKUP_PACKAGE_ARCH('sparc'), 0);
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('sparc-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('sparc-debian-linux'), LOOKUP_PACKAGE_ARCH('sparc-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('sparc-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
@@ -186,6 +223,14 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('s390-debian-linux'), LOOKUP_PACKAGE_ARCH('s390-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('s390-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('s390x-redhat-linux'), LOOKUP_PACKAGE_ARCH('s390x'), 0);
 
 insert into rhnServerPackageArchCompat
@@ -196,6 +241,7 @@ insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('s390x-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
 
+
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('ppc-redhat-linux'), LOOKUP_PACKAGE_ARCH('ppc'), 0);
@@ -203,6 +249,30 @@ insert into rhnServerPackageArchCompat
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('ppc-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('powerpc-debian-linux'), LOOKUP_PACKAGE_ARCH('powerpc-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('powerpc-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('arm-debian-linux'), LOOKUP_PACKAGE_ARCH('arm-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('arm-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_PACKAGE_ARCH('mips-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('mips-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
@@ -310,6 +380,18 @@ insert into rhnServerPackageArchCompat
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_PACKAGE_ARCH('amd64-deb'), 0);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_PACKAGE_ARCH('i386-deb'), 140);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
+(LOOKUP_SERVER_ARCH('amd64-debian-linux'), LOOKUP_PACKAGE_ARCH('all-deb'), 1000);
+
+insert into rhnServerPackageArchCompat
+(server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('ia32e-redhat-linux'), LOOKUP_PACKAGE_ARCH('ia32e'), 0);
 
 insert into rhnServerPackageArchCompat
@@ -339,6 +421,7 @@ insert into rhnServerPackageArchCompat
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('ia32e-redhat-linux'), LOOKUP_PACKAGE_ARCH('noarch'), 1000);
+
 
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values

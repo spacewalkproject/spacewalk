@@ -84,6 +84,9 @@ Utility to push binary and source RPMs into an RHN channel.
         <arg>--server=<replaceable>SERVER</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--proxy=<replaceable>PROXY:PORT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-N</arg> <arg>--new-cache</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -259,6 +262,12 @@ Utility to push binary and source RPMs into an RHN channel.
         <term>--server=<replaceable>SERVER</replaceable></term>
         <listitem>
             <para>push to this server. The format is http[s]://&lt;hostname&gt;/APP</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--proxy=<replaceable>PROXY:PORT</replaceable></term>
+        <listitem>
+            <para>Use proxy server (<server>:<port>)</para>
         </listitem>
     </varlistentry>
     <varlistentry>

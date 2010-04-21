@@ -20,7 +20,7 @@
 import os
 
 # global module imports
-from mod_python import apache
+from common import apache
 
 # common module imports
 from common import CFG, initCFG, initLOG, log_setreq, Traceback, log_debug

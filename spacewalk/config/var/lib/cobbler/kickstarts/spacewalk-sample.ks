@@ -56,7 +56,7 @@ mkdir -p /tmp/rhn_rpms/optional
 cd /tmp/rhn_rpms/optional
 wget -P /tmp/rhn_rpms/optional http://@@http_server@@/download/package/0d4038661a461e7335cb4a602afbf9eaf6962a86/1229750186128/1/1236/libxml2-python-2.6.32-1.fc9.i386.rpm
 rpm -Uvh --replacepkgs --replacefiles /tmp/rhn_rpms/optional/pyOpenSSL* /tmp/rhn_rpms/optional/rhnlib* /tmp/rhn_rpms/optional/libxml2-python*
-perl -npe 's/xmlrpc.rhn.redhat.com/@@http_server@@/' -i /etc/sysconfig/rhn/up2date
+perl -npe 's|^(\s*serverURL\s*=\s*[^:]+://)[^/]*/|${1}@@http_server@@/|' -i /etc/sysconfig/rhn/up2date
 
 # now copy from the ks-tree we saved in the non-chroot checkout
 cp -fav /tmp/ks-tree-copy/* /

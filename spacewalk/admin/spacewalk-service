@@ -1,0 +1,208 @@
+#!/bin/sh
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+
+if [ -x /etc/init.d/oracle ]; then
+   DB_SERVICE="oracle"
+fi
+
+if [ -x /etc/init.d/oracle-xe ]; then
+   DB_SERVICE="oracle-xe"
+fi
+
+if [ -x /etc/init.d/tomcat5 ]; then
+   TOMCAT="tomcat5"
+fi
+
+if [ -x /etc/init.d/tomcat6 ]; then
+   TOMCAT="tomcat6"
+fi
+
+
+SERVICES="jabberd $DB_SERVICE osa-dispatcher $TOMCAT httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
+
+. /etc/init.d/functions
+
+forward_services() {
+    ACTION="$1"
+
+    RET=0
+    E_STAT=0
+    for service in $SERVICES; do
+	if [ -e /etc/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+            E_STAT=$?
+	fi
+        if [ $E_STAT -ne 0 ]; then
+            RET=$E_STAT
+	fi
+    done
+    return $RET
+}
+
+reverse_services() {
+    ACTION="$1"
+
+    RET=0
+    E_STAT=0
+    for service in $(echo $SERVICES | tac -s" "); do
+	if [ -e /etc/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+            E_STAT=$?
+	fi
+        if [ $E_STAT -ne 0 ]; then
+            RET=$E_STAT
+	fi
+    done
+    return $RET
+}
+
+chkconfig() {
+    RET=0
+    E_STAT=0
+    for service in $SERVICES; do
+        if [ -e /etc/init.d/$service ]; then
+            /sbin/chkconfig $service "$@"
+            E_STAT=$?
+        fi
+        if [ $E_STAT -ne 0 ]; then
+            RET=$E_STAT
+        fi
+    done
+    return $RET
+}
+
+turn_on() {
+   echo "Enabling spacewalk services..."
+   chkconfig on "$@"
+   echo "Done"
+   return 0
+}
+
+turn_off() {
+   echo "Disabling spacewalk services..."
+   chkconfig off "$@"
+   echo "Done"
+   return 0
+}
+
+list() {
+   echo "Listing spacewalk services..."
+   chkconfig --list
+   echo "Done"
+   return 0
+}
+
+start() {
+        echo "Starting spacewalk services..."
+	forward_services start
+	echo "Done."
+        return 0
+}
+
+stop() {
+        echo "Shutting down spacewalk services..."
+	reverse_services stop
+	echo "Done."
+        return 0
+}
+
+status() {
+    forward_services status
+    return $?
+}
+
+ensure_httpd_down() {
+    COUNT=0
+    LIMIT=10
+
+    while [ "$(pidof httpd | wc -w)" -gt 0 ] && [ "$COUNT" -lt "$LIMIT" ]
+    do
+	sleep 1
+	((COUNT++))
+    done
+
+    if [ "$COUNT" -eq "$LIMIT" ]; then
+	killall -9 httpd
+	sleep 4
+    fi
+
+    return 0
+}
+
+OPTS=$(getopt --longoptions=exclude:,level: -n ${0##*/} -- e:l: "$@")
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$OPTS"
+
+while true ; do
+    case "$1" in
+        -e|--exclude)
+            EXCLUDE=$2
+            shift
+            # the space in "$SERVICE " is intentional, don't remove it 
+            SERVICES=$(while read -d " " service ; do echo ${service/$EXCLUDE}; done <<<"$SERVICES ")
+            ;;
+        -l|--level)
+            LEVEL="--level $2"
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error!" >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+case "$1" in
+    start)
+	start
+        ;;
+    stop)
+	stop
+        ;;
+    enable)
+        turn_on $LEVEL
+        ;;
+    disable)
+        turn_off $LEVEL
+        ;;
+    list)
+        list
+        ;;
+    status)
+	status
+        ;;
+    restart|reload)
+        stop
+        sleep 4
+
+        ensure_httpd_down
+
+        start
+        ;;
+    *)
+        echo "Usage: $(basename $0) {start|stop|status|reload|restart|enable|disable}"
+        exit 1
+        ;;
+esac
+exit $?

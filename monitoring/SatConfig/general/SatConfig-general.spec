@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.16
+Version:      1.216.17
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -41,6 +41,7 @@ install -m 755 pip $RPM_BUILD_ROOT%sysv_dir
 install -m 444 SysV.ini $RPM_BUILD_ROOT%sysv_dir
 ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
+install -D -p -m 755 NOCpulse-ini $RPM_BUILD_ROOT%{_sbindir}/NOCpulse-ini
 
 %files
 %defattr(-,root,root,-)
@@ -56,6 +57,7 @@ install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 %sysv_dir/pip
 %sysv_dir/SysV.ini
 %hb_res_dir/*
+%{_sbindir}/NOCpulse-ini
 %doc 1-STARTUP_SEQUENCE 2-COMMANDS_OVERVIEW 3-CONFIGURATION 4-DEVELOPMENT 5-STEPS_LEGEND
 %{_mandir}/man8/NOCpulse-ini.8.*
 
@@ -63,6 +65,9 @@ install -D -m 644 NOCpulse-ini.8 $RPM_BUILD_ROOT%{_mandir}/man8/NOCpulse-ini.8
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Apr 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.216.17-1
+- add NOCpulse-ini to %%files
+
 * Thu Sep 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.16-1
 - 476851 - removal of tables: rhn_db_environment, rhn_environment
 

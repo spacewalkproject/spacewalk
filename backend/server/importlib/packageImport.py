@@ -397,12 +397,10 @@ class PackageImport(ChannelPackageSubscription):
             pkgDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[(pkgDict['checksum_type'], pkgDict['checksum'])] = None
             names[pkgDict['name']] = None
             archs[pkgDict['arch']] = None
 
         self.backend.lookupEVRs(evrs)
-        self.backend.lookupChecksums(checksums)
         self.backend.lookupPackageNames(names)
         self.backend.lookupPackageArches(archs)
 
@@ -446,11 +444,9 @@ class PackageImport(ChannelPackageSubscription):
             patchDict['evr'] = evr
 
             evrs[evr] = None
-            checksums[(patchDict['checksum_type'], patchDict['checksum'])] = None
             names[patchDict['name']] = None
 
         self.backend.lookupEVRs(evrs)
-        self.backend.lookupChecksums(self.checksums)
         self.backend.lookupPackageNames(names)
 
         nevras = {}
@@ -502,6 +498,7 @@ class SourcePackageImport(Import):
         self._update_last_modified = update_last_modified
         self.sourceRPMs = {}
         self.groups = {}
+        self.checksums = {}
 
     def preprocess(self):
         for package in self.batch:
@@ -510,6 +507,7 @@ class SourcePackageImport(Import):
     def fix(self):
         self.backend.lookupSourceRPMs(self.sourceRPMs)
         self.backend.lookupPackageGroups(self.groups)
+        self.backend.lookupChecksums(self.checksums)
         self.__postprocess()
         # Uniquify the packages
         uniqdict = {}
@@ -570,6 +568,14 @@ class SourcePackageImport(Import):
         self.sourceRPMs[sourceRPM] = None
         self.groups[package['package_group']] = None
 
+        checksumTuple = (package['checksum_type'], package['checksum'])
+        if checksumTuple not in self.checksums:
+            self.checksums[checksumTuple] = None
+
+        sigchecksumTuple = (package['sigchecksum_type'], package['sigchecksum'])
+        if sigchecksumTuple not in self.checksums:
+            self.checksums[sigchecksumTuple] = None
+
     def __postprocess(self):
         # Gather the IDs we've found
 
@@ -584,6 +590,10 @@ class SourcePackageImport(Import):
         # Set the ids
         package['package_group'] = self.groups[package['package_group']]
         package['source_rpm_id'] = self.sourceRPMs[package['source_rpm']]
+        package['checksum_id'] = self.checksums[(package['checksum_type'],
+                                                 package['checksum'])]
+        package['sigchecksum_id'] = self.checksums[(package['sigchecksum_type'],
+                                                    package['sigchecksum'])]
 
     def _cleanup_object(self, object):
         Import._cleanup_object(self, object)

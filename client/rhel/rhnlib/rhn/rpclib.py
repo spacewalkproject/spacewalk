@@ -19,6 +19,8 @@ __version__ = "$Revision$"
 
 import transports
 import urllib
+import socket
+import re
 
 from types import ListType, TupleType
 
@@ -33,16 +35,18 @@ from transports import File
 
 MAX_REDIRECTIONS = 5
 
-# save the original handler in case of redirect
-send_handler = None
+def check_ipv6(n):
+    """ Returns true if n is IPv6 address, false otherwise. """
+    try:
+        socket.inet_pton(socket.AF_INET6, n)
+        return True
+    except:
+        return False
 
-#
-# Function used to split host information in an URL per RFC 2396
-# handle full hostname like user:passwd@host:port
-#
-# TODO: check IPv6 numerical IPs it may break
-#
 def split_host(hoststring):
+    """ Function used to split host information in an URL per RFC 2396
+        handle full hostname like user:passwd@host:port
+    """
     l = hoststring.split('@', 1)
     host = None
     port = None
@@ -60,10 +64,19 @@ def split_host(hoststring):
         hostport = l[0]
 
     # Now parse hostport
-    arr = hostport.split(':', 1)
-    host = arr[0]
-    if len(arr) == 2:
-        port = arr[1]
+    if hostport[0] == '[':
+        # IPv6 with port
+        host, port = re.split('(?<=\]):', ip_port, 1)
+        host = host.lstrip('[').rstrip(']')
+    elif check_ipv6(hostport):
+        # just IPv6
+        host = hostport
+    else:
+        # IPv4
+        arr = hostport.split(':', 1)
+        host = arr[0]
+        if len(arr) == 2:
+            port = arr[1]
         
     return (host, port, user, passwd)
 
@@ -83,10 +96,7 @@ class MalformedURIError(IOError):
     pass
 
 
-# This is a cut-and-paste of xmlrpclib.ServerProxy, with the data members made
-# protected instead of private
-# It also adds support for changing the way the request is made (XMLRPC or
-# GET)
+# Originaly taken from xmlrpclib.ServerProxy, now changed most of the code
 class Server:
     """uri [,options] -> a logical connection to an XML-RPC server
 
@@ -150,25 +160,16 @@ class Server:
         self._username = username
         self._password = password
 
-        # get the url
-        type, uri = urllib.splittype(uri)
-        if type is None:
-            raise MalformedURIError, "missing protocol in uri"
-        # with a real uri passed in, uri will now contain "//hostname..." so we 
-        # need at least 3 chars for it to maybe be ok...
-        if len(uri) < 3 or uri[0:2] != "//": 
-            raise MalformedURIError
-        type = type.lower()
-        self._type = type
-        if type not in ("http", "https"):
-            raise IOError, "unsupported XML-RPC protocol"
-        self._host, self._handler = urllib.splithost(uri)
-        if not self._handler:
-            self._handler = "/RPC2"
+        if len(__version__.split()) > 1:
+            self.rpc_version = __version__.split()[1]
+        else:
+            self.rpc_version = __version__
+
+        self._reset_host_handler_and_type()
 
         if transport is None:
             self._allow_redirect = 1
-            transport = self.default_transport(type, proxy, username, password)
+            transport = self.default_transport(self._type, proxy, username, password)
         else:
             #
             # dont allow redirect on unknow transports, that should be
@@ -287,15 +288,37 @@ class Server:
             return headers['Accept-Ranges']
         return None
 
+    def _reset_host_handler_and_type(self):
+        """ Reset the attributes:
+            self._host, self._handler, self._type
+            according the value of self._uri.
+        """
+        # get the url
+        type, uri = urllib.splittype(self._uri)
+        if type is None:
+            raise MalformedURIError, "missing protocol in uri"
+        # with a real uri passed in, uri will now contain "//hostname..." so we
+        # need at least 3 chars for it to maybe be ok...
+        if len(uri) < 3 or uri[0:2] != "//":
+            raise MalformedURIError
+        if type != None:
+            self._type = type.lower()
+        else:
+            self._type = type
+        if self._type not in ("http", "https"):
+            raise IOError, "unsupported XML-RPC protocol"
+        self._host, self._handler = urllib.splithost(uri)
+        if not self._handler:
+            self._handler = "/RPC2"
+
     def _request(self, methodname, params):
-        # call a method on the remote server
+        """ Call a method on the remote server 
+            we can handle redirections. """
         # the loop is used to handle redirections
         redirect_response = 0
         retry = 0
 
-        rpc_version = __version__
-        if len(__version__.split()) > 1:
-            rpc_version = __version__.split()[1]
+        self._reset_host_handler_and_type()
 
         while 1:
             if retry >= MAX_REDIRECTIONS:
@@ -309,7 +332,7 @@ class Server:
 
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
-                rpc_version)
+                self.rpc_version)
             # identify the capability set of this client to the server
             self._transport.set_header("X-Client-Version", 1)
             
@@ -321,8 +344,8 @@ class Server:
 
             if redirect_response:
                 self._transport.add_header('X-RHN-Redirect', '0')
-                if send_handler:
-                    self._transport.add_header('X-RHN-Path', send_handler)
+                if self.send_handler:
+                    self._transport.add_header('X-RHN-Path', self.send_handler)
 
             request = self._req_body(params, methodname)
 
@@ -339,15 +362,16 @@ class Server:
             self._redirected = None
             retry += 1
             if save_response == 200:
+                # exit redirects loop and return response
                 break
-            elif save_response in (301, 302):
-                self._redirected = self._transport.redirected()
-                self.use_handler_path = 0
-                redirect_response = 1
-            else:
+            elif save_response not in (301, 302):
                 # Retry pkg fetch
                  self.use_handler_path = 1
                  continue
+            # rest of loop is run only if we are redirected (301, 302)
+            self._redirected = self._transport.redirected()
+            self.use_handler_path = 0
+            redirect_response = 1
 
             if not self._allow_redirect:
                 raise InvalidRedirectionError("Redirects not allowed")
@@ -376,29 +400,21 @@ class Server:
             if not self._handler:
                 self._handler = "/RPC2"
 
-            if save_response == 302:
-                redirect_response = 1
+            # Create a new transport for the redirected service and
+            # set up the parameters on the new transport
+            del self._transport
+            self._transport = self.default_transport(typ, self._proxy,
+                                     self._username, self._password)
+            self.set_progress_callback(self._progressCallback)
+            self.set_refresh_callback(self._refreshCallback)
+            self.set_buffer_size(self._bufferSize)
+            self.setlang(self._lang)
 
-                #
-                # Create a new transport for the redirected service and
-                # set up the parameters on the new transport
-                #
-                del self._transport
-                self._transport = self.default_transport(typ, self._proxy,
-                                         self._username, self._password)
-                self.set_progress_callback(self._progressCallback)
-                self.set_refresh_callback(self._refreshCallback)
-                self.set_buffer_size(self._bufferSize)
-                self.setlang(self._lang)
-
-                if self._trusted_cert_files != [] and \
-                    hasattr(self._transport, "add_trusted_cert"):
-                    for certfile in self._trusted_cert_files:
-                        self._transport.add_trusted_cert(certfile)
-                #
-                # Then restart the loop to try the new entry point.
-                #
-                continue
+            if self._trusted_cert_files != [] and \
+                hasattr(self._transport, "add_trusted_cert"):
+                for certfile in self._trusted_cert_files:
+                    self._transport.add_trusted_cert(certfile)
+            # Then restart the loop to try the new entry point.
 
         if isinstance(response, transports.File):
             # Just return the file
@@ -500,10 +516,10 @@ class GETServer(Server):
         self._orig_handler = self._handler
         # Download resumption
         self.set_range(offset=None, amount=None)
+        # referer, which redirect us to new handler
+        self.send_handler=None
 
     def _req_body(self, params, methodname):
-        global send_handler
-        
         if not params or len(params) < 1:
             raise Exception("Required parameter channel not found")
         # Strip the multiple / from the handler
@@ -513,7 +529,7 @@ class GETServer(Server):
         self._handler = '/' + '/'.join(hndl)
 
         #save the constructed handler in case of redirect
-        send_handler = self._handler
+        self.send_handler = self._handler
         
         # Add headers
         #override the handler to replace /XMLRPC with pkg path
@@ -594,8 +610,9 @@ def getHeaderValues(headers, name):
             headers.getallmatchingheaders(name))
 
 class _Method:
-    # some magic to bind an XML-RPC method to an RPC server.
-    # supports "nested" methods (e.g. examples.getStateName)
+    """ some magic to bind an XML-RPC method to an RPC server.
+        supports "nested" methods (e.g. examples.getStateName)
+    """
     def __init__(self, send, name):
         self._send = send
         self._name = name
@@ -643,7 +660,7 @@ class SlicingMethod(_Method):
         
 
 def reportError(headers):
-    # Reports the error from the headers
+    """ Reports the error from the headers. """
     errcode = 0
     errmsg = ""
     s = "X-RHN-Fault-Code"

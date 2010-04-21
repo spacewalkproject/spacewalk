@@ -8,16 +8,16 @@ TOP	= ..
 SUBDIR	= satellite_tools
 SUBDIRS = exporter disk_dumper accounts repo_plugins
 FILES	= __init__ connection constants diskImportLib messages \
-            progress_bar req_channels satCerts satrm satsync syncCache \
+            progress_bar req_channels satCerts satsync syncCache \
             sync_handlers rhn-entitlement-report\
             syncLib SequenceServer xmlDiskDumper xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages reposync 
+            satComputePkgHeaders updatePackages reposync updateSignatures
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
-          spacewalk-repo-sync
+          spacewalk-repo-sync spacewalk-remove-channel
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)

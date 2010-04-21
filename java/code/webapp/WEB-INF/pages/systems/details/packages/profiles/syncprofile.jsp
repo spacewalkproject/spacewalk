@@ -21,14 +21,17 @@
 </div>
 
 <rl:listset name="compareListSet">
-    <rl:list dataset="pageList"
-        width="100%"        
+    <rl:list width="100%"
         name="compareList"
         styleclass="list"
         emptykey="schedulesync.jsp.nopackagesselected">
         
         <rl:column headerkey="schedulesync.jsp.package" bound="false">
             ${current.name}
+        </rl:column>
+
+        <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
+            ${current.arch}
         </rl:column>
 
         <rl:column headerkey="schedulesync.jsp.action" bound="false">
@@ -61,20 +64,17 @@
     <html:hidden property="sid" value="${param.sid}" />
     <html:hidden property="prid" value="${param.prid}" />
     <html:hidden property="set_label" value="packages_for_system_sync" />
-    
-</rl:listset>
 
     <rhn:require acl="system_feature(ftr_delta_action)"
         mixins="com.redhat.rhn.common.security.acl.SystemAclHandler">
         <rhn:submitted/>
-        <html:form method="POST" action="/systems/details/packages/profiles/SyncProfilesSubmit?sid=${param.sid}&prid=${param.prid}">
         <div align="right">
             <hr />
             <html:submit property="dispatch">
                 <bean:message key="schedulesync.jsp.schedulesync"/>"
             </html:submit>
         </div>
-        </html:form>
     </rhn:require>
+</rl:listset>
 </body>
 </html>

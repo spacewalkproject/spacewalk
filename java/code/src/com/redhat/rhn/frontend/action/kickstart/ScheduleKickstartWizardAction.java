@@ -274,6 +274,18 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             ListTagHelper.selectRadioValue(ListHelper.LIST, 
                     form.getString(RequestContext.COBBLER_ID), ctx.getRequest());
         }
+        else if (system.getCobblerId() != null) {
+            //if nothing is selected by the user yet, use the cobbler
+            //  system record to pre-select something.
+            SystemRecord rec = SystemRecord.lookupById(
+                    CobblerXMLRPCHelper.getConnection(
+                            ConfigDefaults.get().getCobblerAutomatedUser()),
+                    system.getCobblerId());
+            if (rec != null) {
+                ListTagHelper.selectRadioValue(ListHelper.LIST,
+                        rec.getProfile().getId(), ctx.getRequest());
+            }
+        }
 
         ActionForward retval = mapping.findForward("first");
         return retval;

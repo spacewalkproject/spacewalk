@@ -1033,17 +1033,22 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testGetName() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
                 
-        SystemOverview name = handler.getName(adminKey, server.getId().intValue()); 
+        Map name = handler.getName(adminKey, server.getId().intValue());
 
         assertTrue(null != name);
-        assertEquals(server.getId(), (Long)name.getId());
-        assertEquals(server.getName(), (String)name.getName());
-        assertNotNull(name.getLastCheckin());
+        assertEquals(server.getId(), (Long)name.get("id"));
+        assertEquals(server.getName(), (String)name.get("name"));
+        assertNotNull(name.get("last_checkin"));
 
-        SystemOverview invalid = handler.getName(adminKey, 10001234);
-        assertTrue(null != invalid);
-        assertNull(invalid.getId());
-        assertNull(invalid.getName());
+        try {
+            Map invalid = handler.getName(adminKey, 10001234);
+            assertTrue(null != invalid);
+            assertNull(invalid.get("id"));
+            assertNull(invalid.get("name"));
+        }
+        catch (NoSuchSystemException e) {
+            // expected
+        }
     }
     
     public void testGetRegistrationDate() throws Exception {
@@ -2160,4 +2165,5 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(proxy2.getId(), ((ServerPath) results[1]).getId());
         assertEquals(proxy2.getName(), ((ServerPath) results[1]).getHostname());
     }
+    
 }

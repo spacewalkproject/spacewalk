@@ -24,10 +24,6 @@
 <html:form action="/account/UserDetailsSubmit">
 
  <table class="details" align="center">
-  <tr>
-    <th><bean:message key="companyname.displayname"/></th>
-    <td>${user.company}</td>
-  </tr>
 
    <%@ include file="/WEB-INF/pages/common/fragments/user/edit_user_table_rows.jspf"%>
   <tr>

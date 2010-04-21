@@ -21,7 +21,7 @@ TOP	= ../..
 
 # Specific stuff
 SUBDIR	= satellite_tools/disk_dumper
-FILES	= __init__ iss iss_isos iss_ui iss_actions iss_runcommand dumper string_buffer
+FILES	= __init__ iss iss_isos iss_ui iss_actions dumper string_buffer
 SCRIPTS = rhn-satellite-exporter
 BINDIR	= /usr/bin
 include $(TOP)/Makefile.defs

@@ -95,7 +95,7 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
                 virtualInstanceFactory.newRegisteredGuestWithHost();
         
         Server otherHost = ServerFactory.createServer();
-        
+
         assertFalse(otherHost.deleteGuest(virtualInstance));
         assertNotNull("guest system should not have been deleted", 
                 virtualInstance.getGuestSystem());

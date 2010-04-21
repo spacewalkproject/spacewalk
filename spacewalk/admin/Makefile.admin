@@ -40,7 +40,7 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-sudo-load-ssl-cert \
                validate-sat-cert.pl
 
-SBIN_SCRIPTS = rhn-sat-restart-silent rhn-satellite
+SBIN_SCRIPTS = rhn-sat-restart-silent spacewalk-service
 
 GPGKEY_FILES = RHN-GPG-KEY
 

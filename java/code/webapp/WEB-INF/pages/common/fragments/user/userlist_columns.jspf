@@ -17,4 +17,5 @@
 <rl:column bound="true"
 	headerkey="userdetails.jsp.lastsign"
 	sortable="true"
+	sortattr="lastLoggedInDate"
 	attr="lastLoggedIn"/>

@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.CompressionUtil;
+
+import java.sql.Blob;
 import java.util.Date;
 /**
  * PackageDto
@@ -47,6 +51,9 @@ public class PackageDto extends BaseDto {
     private String sourceRpm;
     private Long headerStart;
     private Long headerEnd;
+    private Blob primaryXml;
+    private Blob otherXml;
+    private Blob filelistXml;
 
     // Pre-existing queries returning this as a string.
     private String lastModified;
@@ -206,7 +213,7 @@ public class PackageDto extends BaseDto {
      *
      * @param checksumTypeIn The checksumtype to set
      */
-    public void setChecksumtype(String checksumTypeIn) {
+    public void setChecksumType(String checksumTypeIn) {
         this.checksumType = checksumTypeIn;
     }
 
@@ -418,4 +425,82 @@ public class PackageDto extends BaseDto {
         this.headerEnd = headerEndIn;
     }
 
+    
+    /**
+     * @return Returns the primaryXml.
+     */
+    public Blob getPrimaryBlob() {
+        return primaryXml;
+    }
+
+    /**
+     * get the primary xml
+     * @return the primary xml as a string
+     */
+    public String getPrimaryXml() {
+        return transformXml(primaryXml);
+    }
+    
+    /**
+     * @param blobIn The primaryXml to set.
+     */
+    public void setPrimaryXml(Blob blobIn) {
+        this.primaryXml =  blobIn;
+    }
+
+    
+    /**
+     * @return Returns the otherXml.
+     */
+    public Blob getOtherBlob() {
+        return otherXml;
+    }
+    
+    /**
+     * Get the other repodata uncompressed
+     * @return the other xml
+     */
+    public String getOtherXml() {
+        return transformXml(otherXml);
+    }
+
+    
+    /**
+     * @param blobIn The otherXml to set.
+     */
+    public void setOtherXml(Blob blobIn) {
+        this.otherXml = blobIn; 
+    }
+
+    
+    /**
+     * @return Returns the filelistXml.
+     */
+    public Blob getFilelistBlob() {
+        return filelistXml;
+    }
+
+    /**
+     * Get the filelist repodata uncompressed
+     * @return the filelist xml
+     */
+    public String getFilelistXml() {
+        return transformXml(filelistXml);
+    }
+    
+    /**
+     * @param blobIn The filelistXml to set.
+     */
+    public void setFilelistXml(Blob blobIn) {
+        this.filelistXml = blobIn;
+    }
+
+    /**
+     * Convert a blob into a string
+     * @param blobIn
+     * @return
+     */
+    private String transformXml(Blob blobIn) {
+        return CompressionUtil.gzipDecompress(HibernateFactory.blobToByteArray(blobIn));
+    }
 }

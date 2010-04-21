@@ -64,40 +64,28 @@ provide a required response, default answer is used.</para>
 <para>Following options can be set using answer file as well. See section ANSWER FILE.
 </para>
 <variablelist>
-  <varlistentry>
-        <term>--version=VERSION</term>
-        <listitem>
-            <para>Version of Spacewalk Proxy Server you want to activate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--rhn-parent=RHN_PARENT</term>
-        <listitem>
-            <para>Your parent Spacewalk server.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--traceback-email=TRACEBACK_EMAIL</term>
-        <listitem>
-            <para>Email to which tracebacks should be sent.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--use-ssl=USE_SSL</term>
-        <listitem>
-            <para>1 if Spacewalk Proxy Server should communicate with parent over SSL. 0 otherwise. Even if disabled, client can still use SSL to connect to Spacewalk Proxy Server.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
+   <varlistentry>
         <term>--ca-chain=CA_CHAIN</term>
         <listitem>
             <para>The CA cert used to verify the ssl connection to parent.</para>
         </listitem>
-    </varlistentry>
+   </varlistentry>
+   <varlistentry>
+        <term>--enable-scout=1</term>
+        <listitem>
+            <para>1 to enable monitoring scout, 0 otherwise.</para>
+        </listitem>
+  </varlistentry>
     <varlistentry>
         <term>--force-own-ca</term>
         <listitem>
             <para>Do not use parent CA and force to create your own.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-password=HTTP_PASSWORD</term>
+        <listitem>
+            <para>The password to use for an authenticated proxy.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -113,75 +101,9 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--http-password=HTTP_PASSWORD</term>
-        <listitem>
-            <para>The password to use for an authenticated proxy.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-build-dir=SSL_BUILD_DIR</term>
-        <listitem>
-            <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-org=SSL_ORG</term>
-        <listitem>
-            <para>Organization name to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-orgunit=SSL_ORGUNIT</term>
-        <listitem>
-            <para>Organization unit name to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-common=SSL_COMMON</term>
-        <listitem>
-            <para>Common name to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-city=SSL_CITY</term>
-        <listitem>
-            <para>City to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-state=SSL_STATE</term>
-        <listitem>
-            <para>State to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-country=SSL_COUNTRY</term>
-        <listitem>
-            <para>Two letters country code to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-email=SSL_EMAIL</term>
-        <listitem>
-            <para>Email to be used in SSL certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--ssl-password=SSL_PASSWORD</term>
-        <listitem>
-            <para>Password to be used for SSL CA certificate.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>--install-monitoring=Y</term>
         <listitem>
             <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--enable-scout=1</term>
-        <listitem>
-            <para>1 to enable monitoring scout, 0 otherwise.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -200,6 +122,91 @@ provide a required response, default answer is used.</para>
         <term>--populate-config-channel=Y</term>
         <listitem>
             <para>Y if config chanel should be created and configuration files in that channel updated. Configuration channel will be named rhn_proxy_config_${SYSTEM_ID}</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--rhn-parent=RHN_PARENT</term>
+        <listitem>
+            <para>Your parent Spacewalk server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-build-dir=SSL_BUILD_DIR</term>
+        <listitem>
+            <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-city=SSL_CITY</term>
+        <listitem>
+            <para>City to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-common=SSL_COMMON</term>
+        <listitem>
+            <para>Common name to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-country=SSL_COUNTRY</term>
+        <listitem>
+            <para>Two letters country code to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-email=SSL_EMAIL</term>
+        <listitem>
+            <para>Email to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-org=SSL_ORG</term>
+        <listitem>
+            <para>Organization name to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-orgunit=SSL_ORGUNIT</term>
+        <listitem>
+            <para>Organization unit name to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-password=SSL_PASSWORD</term>
+        <listitem>
+            <para>Password to be used for SSL CA certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-state=SSL_STATE</term>
+        <listitem>
+            <para>State to be used in SSL certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--start-services=START</term>
+        <listitem>
+            <para>1 or Y to start all services after configuration. This is default.</para>
+            <para>0 or N to not start services after configuration.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--traceback-email=TRACEBACK_EMAIL</term>
+        <listitem>
+            <para>Email to which tracebacks should be sent.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--use-ssl=USE_SSL</term>
+        <listitem>
+            <para>1 if Spacewalk Proxy Server should communicate with parent over SSL. 0 otherwise. Even if disabled, client can still use SSL to connect to Spacewalk Proxy Server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--version=VERSION</term>
+        <listitem>
+            <para>Version of Spacewalk Proxy Server you want to activate.</para>
         </listitem>
     </varlistentry>
 </variablelist>
@@ -314,6 +321,13 @@ provide a required response, default answer is used.</para>
         <term>SSL_PASSWORD</term>
         <listitem>
            <para>Password to be used for SSL CA certificate.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>START_SERVICES</term>
+        <listitem>
+           <para>1 or Y to start all services after configuration. This is default.</para>
+           <para>0 or N to not start services after configuration.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

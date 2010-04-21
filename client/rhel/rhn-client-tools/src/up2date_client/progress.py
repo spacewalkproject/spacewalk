@@ -1,19 +1,14 @@
 #
 # Progress bar for Update Agent
-# Copyright (c) 1999-2002 Red Hat, Inc.
+# Copyright (c) 1999-2010 Red Hat, Inc.
 #
 # Author: Preston Brown <pbrown@redhat.com>
 
 import gtk
 
-import config
-cfg = config.initUp2dateConfig()
-
 class Progress:
     def __init__(self):
         glade_prefix = "/usr/share/rhn/up2date_client/"
-        if cfg['development']:
-            glade_prefix = "../../data/"
 
         self.xml = gtk.glade.XML(glade_prefix + "progress.glade", "progressWindow")
         self.progressWindow = self.xml.get_widget("progressWindow")

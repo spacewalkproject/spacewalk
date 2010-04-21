@@ -79,8 +79,13 @@ public class KickstartActivationKeysCommand extends BaseKickstartCommand {
         for (Long id : ids) {
             Token token = TokenFactory.lookupById(id);
             this.getKickstartData().addDefaultRegToken(token);
+        }
+        //So we will add them all even if they are already there (in case the
+        //  Key was added via the commandline and doesn't actually have them :/
+        for (Token token : this.getKickstartData().getDefaultRegTokens()) {
             keysToAdd.add(ActivationKeyFactory.lookupByToken(token).getKey());
         }
+
         Profile prof = Profile.lookupById(
                 CobblerXMLRPCHelper.getConnection(this.getUser()),
                 this.getKickstartData().getCobblerId());

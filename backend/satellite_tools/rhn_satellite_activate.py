@@ -38,6 +38,8 @@ from server import rhnSQL
 from server.rhnServer import satellite_cert
 from spacewalk.common import fileutils
 
+import tempfile
+
 ## local imports
 import sync_handlers
 import satCerts
@@ -116,7 +118,7 @@ def validateSatCert(certFilename, verbosity=0):
 
     # copy cert to temp location (it may be gzipped which validate-sat-cert.pl
     # doesn't like).
-    certTmpFile, fd = fileutils.maketemp(DEFAULT_RHN_CERT_LOCATION)
+    fd, certTmpFile = tempfile.mkstemp(prefix = DEFAULT_RHN_CERT_LOCATION + '-')
     fo = os.fdopen(fd, 'wb')
     fo.write(string.strip(openGzippedFile(certFilename).read()))
     fo.flush()
@@ -405,6 +407,9 @@ def populateChannelFamilies(options):
     if options.no_ssl:
         args.extend(['--no-ssl'])
 
+    if options.dump_version:
+        args.extend(['--dump-version', options.dump_version])
+
     ## database string for that satellite-sync
     #if options.db:
     #    args.extend(['--db', options.db])
@@ -467,6 +472,7 @@ def processCommandline():
         Option('--ignore-expiration', action='store_true', help='execute regardless of the expiration of the RHN Certificate (not recommended).'),
         Option('--ignore-version-mismatch', action='store_true', help='execute regardless of version mismatch of existing and new certificate.'),
         Option('-v','--verbose', action='count',      help='be verbose (accumulable: -vvv means "be *really* verbose").'),
+        Option(     '--dump-version', action='store', help="requested version of XML dump"),
               ]
 
     options, args = OptionParser(option_list=options).parse_args()

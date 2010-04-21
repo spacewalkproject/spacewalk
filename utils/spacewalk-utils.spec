@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.9.0
+Version:	1.1.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -47,6 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
+%config %{_sysconfdir}/rhn/spacewalk-common-channels.ini
 %attr(755,root,root) %{_bindir}/*
 %dir %{rhnroot}/utils
 %{rhnroot}/utils/__init__.py*
@@ -56,6 +57,28 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 21 2010 Tomas Lestach <tlestach@redhat.com> 1.1.2-1
+- changes to spacewalk-hostname-rename script (tlestach@redhat.com)
+- introducing spacewalk-hostname-rename.sh script (tlestach@redhat.com)
+
+* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
+- bumping spec files to 1.1 packages
+
+* Thu Apr 01 2010 Miroslav Suchý <msuchy@redhat.com> 0.9.6-1
+- add script delete-old-systems-interactive
+
+* Tue Mar 16 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.5-1
+- added repo urls and gpg keys to spacewalk-common-channel.ini
+
+* Mon Feb 22 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.4-1
+- emulate epilog in optparse on RHEL5 (python 2.4)
+
+* Wed Feb 17 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.3-1
+- fixed of spacewalk-common-channels
+
+* Mon Feb 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.9.2-1
+- added spacewalk-common-channels utility
+
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.3-1
 - updated copyrights
 

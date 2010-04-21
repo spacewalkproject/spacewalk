@@ -42,5 +42,13 @@ public class NonLinuxEntitlement extends Entitlement {
     @Override
     public boolean isBase() {
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSatelliteEntitlement() {
+        return false;
     }    
 }

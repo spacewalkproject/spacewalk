@@ -1,1 +1,1 @@
-alter table rhnPackageFile drop column md5;
+alter table rhnPackageFile set unused column md5;

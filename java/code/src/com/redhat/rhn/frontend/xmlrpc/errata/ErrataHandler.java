@@ -537,7 +537,46 @@ public class ErrataHandler extends BaseHandler {
         return ErrataManager.applicableChannels(errata.getId(), 
                          loggedInUser.getOrg().getId(), null, Map.class).toArray();
     }
-    
+
+    /**
+     * Returns a list of unpublished errata for the logged-in user's Org.
+     * @param sessionKey The sessionKey for the logged in user
+     * @return Returns an array of errata
+     *
+     * @xmlrpc.doc Returns a list of unpublished errata
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct()
+     *              #prop("int", "id")
+     *              #prop("int", "published")
+     *              #prop("string", "advisory")
+     *              #prop("string", "advisory_name")
+     *              #prop("string", "advisory_type")
+     *              #prop("string", "synopsis")
+     *              #prop("dateTime.iso8601", "created")
+     *              #prop("dateTime.iso8601", "update_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listUnpublishedErrata(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Map[] unpub = (Map[])ErrataManager.unpublishedOwnedErrata(loggedInUser, Map.class)
+                .toArray(new Map[0]);
+
+        for (Map errataItem : unpub) {
+            // remove items that can be NULL to prevent xmlrpc failure
+            Iterator<Map.Entry> itr = errataItem.entrySet().iterator();
+            for (; itr.hasNext();) {
+                if (itr.next().getValue() == null) {
+                    itr.remove();
+                }
+            }
+        }
+
+        return unpub;
+    }
+
     /**
      * Returns a list of CVEs for a given erratum
      * @param sessionKey The sessionKey for the logged in user

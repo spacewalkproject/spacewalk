@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-cert version="0.1">
   <rhn-cert-field name="product">SPACEWALK-001</rhn-cert-field>
-  <rhn-cert-field name="owner">Spacewalk Public Cert</rhn-cert-field>
+  <rhn-cert-field name="owner">Spacewalk Default Organization</rhn-cert-field>
   <rhn-cert-field name="issued">2007-07-13 00:00:00</rhn-cert-field>
   <rhn-cert-field name="expires">2015-07-13 00:00:00</rhn-cert-field>
   <rhn-cert-field name="slots">20000</rhn-cert-field>
@@ -15,9 +15,9 @@
 -----BEGIN PGP SIGNATURE-----
 Version: Crypt::OpenPGP 1.03
 
-iQBGBAARAwAGBQJLWH5GAAoJEJ5yna8GlHkyMBEAn03hy3A12ssw9IV5dhwUNnas
-ocxvAJ9sQ5zHoJv+5Ib1GVEKmNE0v3a0rg==
-=tyNI
+iQBGBAARAwAGBQJLqMhgAAoJEJ5yna8GlHkyrL4AoIrXT8ITy6MwGyOr5ev5LsmL
+ZAN9AKCOZ6vxkuSIl1ld5Mu7Hvwz8bgn2g==
+=OoMc
 -----END PGP SIGNATURE-----
 </rhn-cert-signature>
 </rhn-cert>

@@ -1279,6 +1279,14 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig</context>
         </context-group>
       </trans-unit>
+      
+      <trans-unit id="error.maxemail">
+<source>The email address is too long. Please enter a shorter email address and try again.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/CreateUser</context>
+        </context-group>
+      </trans-unit>
+            
       <trans-unit id="error.addr_invalid">
 <source>Entered email address is not valid</source>
         <context-group name="ctx">
@@ -8453,6 +8461,12 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
      <trans-unit id="channeltarget.success">
         <source>Subscribed {0} system(s) to {1}.</source>
+     </trans-unit>
+     <trans-unit id="error.config.revnum.too-old">
+        <source>The specified revision number must be greater than the current revision number.</source>
+     </trans-unit>
+     <trans-unit id="error.config.revnum.invalid">
+        <source>Please specify a valid revision number.</source>
      </trans-unit>
      <trans-unit id="kickstart.cobbler.distro.syncfail">
         <source>

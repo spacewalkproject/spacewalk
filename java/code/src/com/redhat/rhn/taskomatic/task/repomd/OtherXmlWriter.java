@@ -14,13 +14,19 @@
  */
 package com.redhat.rhn.taskomatic.task.repomd;
 
+import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.task.TaskManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Iterator;
 
@@ -51,7 +57,7 @@ public class OtherXmlWriter extends RepomdWriter {
     public String getOtherXml(Channel channel) throws Exception {
         begin(channel);
 
-        Iterator iter = getChannelPackageDtoIterator(channel);
+        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
         while (iter.hasNext()) {
             addPackage((PackageDto) iter.next());
         }
@@ -71,8 +77,7 @@ public class OtherXmlWriter extends RepomdWriter {
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/other");
-        attr.addAttribute("packages", Integer.toString(channel.getPackages()
-                .size()));
+        attr.addAttribute("packages", Integer.toString(channel.getPackageCount()));
 
         try {
             handler.startElement("otherdata", attr);
@@ -100,10 +105,29 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param pkgDto pkg info to add to xml
      */
     public void addPackage(PackageDto pkgDto) {
+
         try {
-            addPackageBoilerplate(handler, pkgDto);
-            addPackageChangelog(pkgDto);
-            handler.endElement("package");
+            String xml = pkgDto.getOtherXml();
+            if (ConfigDefaults.get().useDBRepodata() && !StringUtils.isEmpty(xml)) {
+                if (xml != null) {
+                    handler.addCharacters(xml);
+                    return;
+                }
+            }
+            
+            OutputStream st = new ByteArrayOutputStream();
+            SimpleContentHandler tmpHandler = getTemporaryHandler(st);
+            tmpHandler.startDocument();
+            
+            addPackageBoilerplate(tmpHandler, pkgDto);
+            addPackageChangelog(pkgDto, tmpHandler);
+            tmpHandler.endElement("package");
+            tmpHandler.endDocument();
+            
+            String pkg =  st.toString();
+            PackageManager.updateRepoOther(pkgDto.getId(), pkg);
+            handler.addCharacters(pkg);
+            
         }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
@@ -115,7 +139,8 @@ public class OtherXmlWriter extends RepomdWriter {
      * @param pkgDto pkg changelog info to add to xml
      * @throws SAXException sax exception
      */
-    private void addPackageChangelog(PackageDto pkgDto) throws SAXException {
+    private void addPackageChangelog(PackageDto pkgDto, 
+            SimpleContentHandler tmpHandler) throws SAXException {
 
         long pkgId = pkgDto.getId().longValue();
         while (changeLogIterator.hasNextForPackage(pkgId)) {
@@ -125,9 +150,9 @@ public class OtherXmlWriter extends RepomdWriter {
             attr.addAttribute("author", sanitize(pkgId, author));
             attr.addAttribute("date", Long.toString(changeLogIterator.getDate(
                     "time").getTime() / 1000));
-            handler.startElement("changelog", attr);
-            handler.addCharacters(sanitize(pkgId, text));
-            handler.endElement("changelog");
+            tmpHandler.startElement("changelog", attr);
+            tmpHandler.addCharacters(sanitize(pkgId, text));
+            tmpHandler.endElement("changelog");
         }
     }
 

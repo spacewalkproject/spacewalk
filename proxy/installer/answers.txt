@@ -30,3 +30,7 @@ HTTP_PASSWORD=
 # these during proxy activation.
 POPULATE_CONFIG_CHANNEL=Y
 
+# if you do not want to start services after configuration
+# set this variable to 0 or N
+START_SERVICES=Y
+

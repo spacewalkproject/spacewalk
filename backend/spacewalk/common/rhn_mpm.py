@@ -23,6 +23,8 @@ import struct
 
 from types import ListType, TupleType, DictType
 
+MPM_CHECKSUM_TYPE = 'md5'       # FIXME: this should be a configuration option
+
 def labelCompare(l1, l2):
     try:
         import rhn_rpm
@@ -107,6 +109,9 @@ class MPM_Header:
 
     def is_signed(self):
         return 0
+
+    def checksum_type(self):
+        return MPM_CHECKSUM_TYPE
 
 class InvalidPackageError(Exception):
     pass

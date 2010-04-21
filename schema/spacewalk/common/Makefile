@@ -38,7 +38,7 @@ files : $(FILES)
 	@$(RMTRASH)
 
 %.sql : %.cql
-	$(CHAMELEON) -o $@ $^
+	$(CHAMELEON) -o $@ $^ || cp $^ $@
 
 links :
 	@$(RMLINKS)

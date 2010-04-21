@@ -111,7 +111,7 @@ def main():
 
    if options.gather:
       gather(False)
-      exit(0)
+      sys.exit(0)
 
    validate_options(options)
 
@@ -143,7 +143,7 @@ def main():
 
    if not os.path.exists(fullpath):
       print "Error: data file '" + filename + "' does not exist"
-      exit(1)
+      sys.exit(1)
 
    parent = options.parent_channel
    clone = options.clone
@@ -199,7 +199,7 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
     
    if src_label == None:
       print("Error: Source Channel '" + srcChannel + "' could not be found.")
-      exit(1)
+      sys.exit(1)
    if new_label == None:
       if not clone:
          print("Creating channel, " + newChannel + ", with arch " + arch_label),
@@ -345,7 +345,7 @@ def findSrcChan(version, release, arch, extra = None):
       low_extra = extra.lower()
       if low_extra == "clusterstorage":
          low_extra = "cluster-storage"
-      if low_extra == "extra":
+      if low_extra == "extras":
           return  "rhel-%s-%s-%s-%s" % (arch, low_release, version, low_extra)
       else:
           return "rhel-%s-%s-%s-%s" % (arch, low_release, low_extra, version )
@@ -416,7 +416,7 @@ Add the extra's channel as a child channel of 'my-stable-channel':
 
 def error(msg):
    print msg
-   exit(-1)
+   sys.exit(-1)
 
 
 if __name__ == "__main__":

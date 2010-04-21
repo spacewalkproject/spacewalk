@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
-import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
 import com.redhat.rhn.domain.user.User;
@@ -27,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +44,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SyncSystemsProfilesAction extends BaseProfilesAction {
     
     private static Logger log = Logger.getLogger(SyncSystemsProfilesAction.class);
-    private static final String DATA_SET = "pageList";
     private static final CompareSystemSetupAction DECL_ACTION = 
         new CompareSystemSetupAction();
 
@@ -67,12 +64,8 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Long sid1 = requestContext.getRequiredParam("sid_1");
+        Date time = new Date(requestContext.getRequiredParam("time"));
         
-        //get the earliest time this action should be performed from the form
-        DynaActionForm form = (DynaActionForm) formIn;
-        Date earliest = getStrutsDelegate().readDatePicker(form, "date",
-                DatePicker.YEAR_RANGE_POSITIVE);
-
         if (log.isDebugEnabled()) {
             log.debug("Calling syncToSystem");
         }
@@ -82,9 +75,10 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
                     getDecl(sid));
 
             PackageAction pa = ProfileManager.syncToSystem(user, sid, sid1, 
-                    pkgIdCombos, null, earliest);
+                    pkgIdCombos, null, time);
             
             if (pa != null) {
+
                 addHardwareMessage(pa, requestContext);
             
                 // sid, actionid, servername, profilename
@@ -107,6 +101,7 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
             Map params = new HashMap();
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.SID1, sid1);
+            params.put("time", new Long(time.getTime()));
             return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                     params);
         }
@@ -115,7 +110,7 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
             params.put(RequestContext.SID, sid);
             params.put(RequestContext.SID1, sid1);
             params.put("sync", "system");
-            params.put("date", new Long(earliest.getTime()));
+            params.put("time", new Long(time.getTime()));
             return getStrutsDelegate().forwardParams(mapping.findForward("missing"),
                     params);
         }

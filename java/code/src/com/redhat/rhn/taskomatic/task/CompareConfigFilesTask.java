@@ -24,9 +24,7 @@ import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
-import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
-import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
 import org.quartz.Job;
@@ -66,15 +64,12 @@ public class CompareConfigFilesTask implements Job {
 
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
-        for (SystemOverview sys : SystemManager.listAllSystems()) {
-            Action act = ActionFactory.createAction(ActionFactory.TYPE_CONFIGFILES_DIFF);
-            ConfigAction cfact = (ConfigAction) act;
-            Server server = ServerFactory.lookupById(sys.getId());
-
+        for (Server server : ServerFactory.listConfigEnabledSystems()) {
             if (server.isInactive()) {
                 continue;
             }
-
+            Action act = ActionFactory.createAction(ActionFactory.TYPE_CONFIGFILES_DIFF);
+            ConfigAction cfact = (ConfigAction) act;
             // set up needed fields for the action
             act.setName(act.getActionType().getName());
             act.setOrg(server.getOrg());

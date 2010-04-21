@@ -9,8 +9,7 @@ TOP     = ..
 SUBDIR		= server
 FILES		= __init__ \
 		  apacheServer apacheHandler apacheAuth apacheRequest \
-                  apache apacheUploadServer \
-                  byterange \
+                  apacheUploadServer \
 		  configFilesHandler \
 		  rhnAuthPAM rhnCapability rhnChannel rhnDatabaseCache \
                   rhnDependency \
@@ -21,6 +20,6 @@ FILES		= __init__ \
                   rhnSession rhnUser rhnVirtualization taskomatic
 SUBDIRS		= rhnSQL rhnServer action \
 			  handlers importlib action_extra_data \
-			  config_common repomd wsgi
+			  config_common repomd
 
 include $(TOP)/Makefile.defs

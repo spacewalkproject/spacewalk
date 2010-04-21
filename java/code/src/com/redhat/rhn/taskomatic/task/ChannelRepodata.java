@@ -48,6 +48,7 @@ public class ChannelRepodata extends SingleThreadedTestableTask {
                         ChannelRepodataDriver.class);
             }
             catch (Exception e) {
+                e.printStackTrace();
                 LOG.error(e);
                 return;
             }

@@ -7,6 +7,7 @@
 <body>
 <script language="javascript" src="/javascript/display.js"></script>
 
+<%@ include file="/WEB-INF/pages/common/fragments/user/user_attribute_sizes.jspf"%>
 
 <!-- Setup the account_type variable, which is used throughout this page -->
 <c:if test="${empty param.account_type}">
@@ -38,21 +39,21 @@
     <tr>
       <th><rhn:required-field key="desiredlogin"/>:</th>
       <td>
-        <html:text property="login" size="15" maxlength="45"/>
+        <html:text property="login" size="15" maxlength="${loginLength}"/>
       </td>
     </tr>
     <tr>
       <th><bean:message key="desiredpass" />
        <span name="password-asterisk" class="required-form-field">*</span>:</th>
       <td>
-        <html:password property="desiredpassword" size="15" maxlength="32"/>
+        <html:password property="desiredpassword" size="15" maxlength="${passwordLength}"/>
       </td>
     </tr>
     <tr>
       <th><bean:message key="confirmpass" />
       <span name="password-asterisk" class="required-form-field">*</span>:</th>
       <td>
-        <html:password property="desiredpasswordConfirm" size="15" maxlength="32"/>
+        <html:password property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}"/>
       </td>
     </tr>
     <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
@@ -87,33 +88,17 @@
             labelProperty="label" />
         </html:select>
 
-        <html:text property="firstNames" size="15" maxlength="40"/>
-        <html:text property="lastName" size="15" maxlength="40"/>
+        <html:text property="firstNames" size="15" maxlength="${firstNameLength}"/>
+        <html:text property="lastName" size="15" maxlength="${lastNameLength}"/>
       </td>
     </tr>
 
     <tr>
        <th><rhn:required-field key="email"/>:</th>
        <td>
-           <html:text property="email" size="20" />
+           <html:text property="email" size="20" maxlength="${emailLength}"/>
        </td>
     </tr>
-<c:if test="${account_type == 'create_corporate'}" >
-    <tr>
-      <th><rhn:required-field key="userdetails.jsp.company"/>:
-      </th>
-      <td>
-        <html:text property="company" size="15" maxlength="100"/>
-      </td>
-    </tr>
-
-    <tr>
-      <th><bean:message key="userdetails.jsp.position" />:</th>
-      <td>
-        <html:text property="title" size="15" maxlength="100"/>
-      </td>
-    </tr>
-</c:if>
 <html:hidden property="account_type" value="${account_type}" />
 
     <tr>
