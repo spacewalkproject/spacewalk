@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Apr 21 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.0.2-1
+- spacewalk 1.0 schema upgrade fixes
+
 * Mon Apr 19 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.0.1-1
 - rename schema upgrade directory for spacewalk 1.0
 - fix ORA-02429 error during schema upgrade
