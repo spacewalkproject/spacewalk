@@ -16,7 +16,7 @@ NOCpulse provides application, network, systems and transaction monitoring,
 coupled with a comprehensive reporting system including availability,
 historical and trending reports in an easy-to-use browser interface.
 
-This package contain NOCpulse authored plugins for probes.
+This package contain NOCpulse authored plug-ins for probes.
 
 %package Oracle
 Summary:      NOCpulse plug-ins for Oracle
@@ -28,7 +28,7 @@ NOCpulse provides application, network, systems and transaction monitoring,
 coupled with a comprehensive reporting system including availability,
 historical and trending reports in an easy-to-use browser interface.
 
-This package contain NOCpulse authored plugins for Oracle probes.
+This package contain NOCpulse authored plug-ins for Oracle probes.
 
 %prep
 %setup -q
