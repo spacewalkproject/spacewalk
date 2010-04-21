@@ -1917,22 +1917,12 @@ For help for a specific command try 'help <cmd>'.
         try:
             id = int(self.args[0])
         except:
-            logging.warning('%s is not a valid ID' % str(a))
+            logging.error('%s is not a valid action ID' % str(a))
             return
-
-        # schedule.getAction() API call would make this easier
-        all_actions = self.client.schedule.listAllActions(self.session)
-        action = None
-        for a in all_actions:
-            if a.get('id') == id:
-                action = a
-                del all_actions
-                break
 
         results = self.client.system.getScriptResults(self.session, id)
 
         add_separator = False
-
         for r in results:
             if add_separator:
                 print self.SEPARATOR
@@ -1946,6 +1936,46 @@ For help for a specific command try 'help <cmd>'.
 
             print
             print r.get('output')
+
+#        completed = self.client.schedule.listCompletedSystems(self.session, id)
+#
+#        if len(completed):
+#            print
+#            print 'Completed Systems:'
+#
+#            add_separator = False
+#            for r in completed:
+#                if add_separator:
+#                    print self.SEPARATOR
+#
+#                add_separator = True
+#
+#                print 'System:      %s' % r.get('server_name')
+#                print 'Completed:   %s' % re.sub('T', ' ', 
+#                                                 r.get('timestamp').value)
+#
+#                print
+#                print r.get('message')
+#
+#        failed = self.client.schedule.listFailedSystems(self.session, id)
+#
+#        if len(failed):
+#            print
+#            print 'Failed Systems:'
+#
+#            add_separator = False
+#            for r in failed:
+#                if add_separator:
+#                    print self.SEPARATOR
+#
+#                add_separator = True
+#
+#                print 'System:      %s' % r.get('server_name')
+#                print 'Completed:   %s' % re.sub('T', ' ', 
+#                                                 r.get('timestamp').value)
+#
+#                print
+#                print r.get('message')
 
 ####################
 

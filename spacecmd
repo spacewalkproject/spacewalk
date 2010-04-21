@@ -9,14 +9,15 @@ License: GPLv3+
 # TODO for Spacewalk:
 # configchannel.listSubscribedSystems
 # configchannel - show channel ranks
-# configchannel.lookupFileInfo - returns null if invalid files is passed
+# configchannel.lookupFileInfo - returns null if invalid file is passed
 # channel.software.listErrata and system.getRelevantErrata date formats
 # errata.findByBz does not exist
 # errata.findByKeyword does not exist
 # errata.findByDescription does not exist
 # kickstart.profile.system - partitions not being returned
 # kickstart.profile.downloadKickstart - not parsed by Cobbler
-# schedule.getAction - missing
+# schedule.listFailedSystems - full output not displayed in 'message'
+# schedule.listCompletedSystems - full output not displayed in 'message'
 # system.scheduleScriptRun - schedule multiple systems at once
 # system.getScriptResults - system names not associated with output
 # system.listPackages does not include 'id'
