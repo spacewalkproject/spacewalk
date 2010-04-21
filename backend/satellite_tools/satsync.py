@@ -393,7 +393,6 @@ class Syncer:
         self.systemid = None
 
         self._channel_packages = {}
-        self._uq_channel_packages = {}
         self._avail_channel_packages = {}
 
         self._missing_channel_packages = None
@@ -833,10 +832,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _compute_unique_packages(self):
         ### process package metadata for one channel at a time
         relevant = self._channel_req.get_requested_channels()
-        self._channel_packages = channel_packages = {}
-        self._avail_channel_packages = avail_channel_packages = {}
-        uq_package_ids = {}
-        self._uq_channel_packages = uq_channel_packages = {}
+        self._channel_packages = {}
+        self._avail_channel_packages = {}
         for chn in relevant:
             try:
                 timestamp = self._channel_collection.get_channel_timestamp(chn)
@@ -850,27 +847,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if package_ids is None:
                 # Not an incremental
                 package_ids = avail_package_ids
-            channel_packages[chn] = package_ids
-            avail_channel_packages[chn] = avail_package_ids
-
-        # Uniquify the packages
-        for channel_label, package_ids in channel_packages.items():
-            ch_package_ids = uq_channel_packages[channel_label] = []
-            for pid in package_ids:
-                if uq_package_ids.has_key(pid):
-                    # Saw this package already
-                    continue
-                ch_package_ids.append(pid)
-                uq_package_ids[pid] = None
-            # Be nice enough to sort the list
-            ch_package_ids.sort()
-        del uq_package_ids
+            channel_packages[chn] = set(package_ids or [])
+            avail_channel_packages[chn] = set(avail_package_ids or [])
 
     def processShortPackages(self):
         log(1, ["", "Retrieving short package metadata (used for indexing)"])
 
-        # Compute the unique packages and populate self._channel_packages and
-        # self._uq_channel_packages
+        # Compute the unique packages and populate self._channel_packages
         self._compute_unique_packages()
 
         h = sync_handlers.get_short_package_handler()
@@ -921,7 +904,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_channel_packages = {}
         missing_fs_packages = {}
 
-        for channel_label, upids in self._uq_channel_packages.items():
+        for channel_label, upids in self._channel_packages.items():
             log(1, "Diffing package metadata (what's missing locally?): %s" %
                 channel_label)
             m_channel_packages = missing_channel_packages[channel_label] = []
