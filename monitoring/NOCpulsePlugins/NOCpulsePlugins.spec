@@ -19,7 +19,7 @@ historical and trending reports in an easy-to-use browser interface.
 This package contain NOCpulse authored plugins for probes.
 
 %package Oracle
-Summary:      NOCpulse plugins for Oracle
+Summary:      NOCpulse plug-ins for Oracle
 Group:        Development/Libraries
 Requires:     %{name} = %{version}
 
