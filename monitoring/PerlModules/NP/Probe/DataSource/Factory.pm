@@ -2,8 +2,6 @@ package NOCpulse::Probe::DataSource::Factory;
 
 use strict;
 use NOCpulse::Probe::DataSource::InetSocket;
-use NOCpulse::Probe::DataSource::Oracle;
-use NOCpulse::Probe::DataSource::CannedOracle;
 use NOCpulse::Probe::DataSource::SNMP;
 use NOCpulse::Probe::DataSource::SQLPlusQuery;
 use NOCpulse::Probe::DataSource::SQLServer;
@@ -86,6 +84,9 @@ sub snmp {
 
 sub oracle {
     my ($self, %args) = @_;
+
+    require NOCpulse::Probe::DataSource::Oracle;
+    require NOCpulse::Probe::DataSource::CannedOracle;
 
     my $source;
 

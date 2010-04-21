@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Probe
-Summary:      Probe execution framework
+Summary:      Monitoring probes for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      1.183.13
@@ -17,6 +17,18 @@ coupled with a comprehensive reporting system including availability,
 historical and trending reports in an easy-to-use browser interface.
 
 This package provides classes for executing probes.
+
+%package Oracle
+Summary:      Monitoring probes for Oracle databases
+Group:        Development/Libraries
+Requires:     %{name} = %{version}
+
+%description Oracle
+NOCpulse provides application, network, systems and transaction monitoring,
+coupled with a comprehensive reporting system including availability,
+historical and trending reports in an easy-to-use browser interface.
+
+This package provides probes for Oracle.
 
 %prep
 %setup -q
@@ -68,9 +80,59 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-runprobe
 %{_bindir}/monitoring-data-cleanup
 %dir %{perl_vendorlib}/NOCpulse
-%{perl_vendorlib}/NOCpulse/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/NOCpulse/Probe
+%dir %{perl_vendorlib}/NOCpulse/Probe/DataSource
+%{perl_vendorlib}/NOCpulse/Probe/Config*
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/AbstractDataSource.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/AbstractDatabase.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/AbstractOSCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/CannedUnixCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/CannedWindowsCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/DfOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/DigOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/EventReaderOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/Factory.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/HTTP.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/InetSocket.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/InterfaceTrafficOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/IostatOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/LogAgentOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/MySQL.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/NetstatOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/NetworkServiceCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/PsOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/SNMP.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/SQLPlusQuery.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/SQLServer.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/SoapLite.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/SwapOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/UnixCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/UptimeOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/VirtualMemoryOutput.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/WQLQuery.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/WindowsCommand.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/test*
+%{perl_vendorlib}/NOCpulse/Probe/*.pm
+%{perl_vendorlib}/NOCpulse/Probe/SNMP*
+%{perl_vendorlib}/NOCpulse/Probe/Shell*
+%{perl_vendorlib}/NOCpulse/Probe/Utils*
+%{perl_vendorlib}/NOCpulse/Probe/test*
+%{_mandir}/man3/NOCpulse::Probe::DataSource*
+%{_mandir}/man3/NOCpulse::Probe::ItemStatus*
+%{_mandir}/man3/NOCpulse::Probe::Result*
+%{_mandir}/man3/NOCpulse::Probe::Shell::AbstractShell*
+%{_mandir}/man3/NOCpulse::Probe::Shell::Local*
+%{_mandir}/man3/NOCpulse::Probe::Shell::SSH*
+%{_mandir}/man3/NOCpulse::Probe::Shell::Unix*
+%{_mandir}/man3/monitoring-data-cleanup*
 %doc LICENSE
+
+%files Oracle
+%defattr(-,root,root,-)
+%{perl_vendorlib}/NOCpulse/Probe/Shell/SQLPlus.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/CannedOracle.pm
+%{perl_vendorlib}/NOCpulse/Probe/DataSource/Oracle.pm
+%{_mandir}/man3/NOCpulse::Probe::Shell::SQLPlus*
 
 %changelog
 * Thu Feb 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.183.13-1
