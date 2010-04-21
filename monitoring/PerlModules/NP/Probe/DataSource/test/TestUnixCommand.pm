@@ -21,9 +21,6 @@ sub test_local {
     my $self = shift;
     my $data_source = $self->ok_shellscript([], 'ls -l /opt/home/nocpulse/etc');
     $self->assert(qr/SatCluster.ini/, $data_source->results);
-    $self->assert($self->{factory}->provided_count == 1, 'Factory did not track creation');
-    $self->assert($self->{factory}->provided->[0] == $data_source,
-                  'Factory did not track proper object');
 }
 
 sub test_local_canned {
