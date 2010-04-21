@@ -1038,20 +1038,6 @@ sub server_prefs_form_cb {
   }
 }
 
-sub delete_servers_cb {
-  my $pxt = shift;
-
-  my $set_name = 'system_list';
-  my $set = new RHN::DB::Set $set_name, $pxt->user->id;
-
-  my $count = scalar($set->contents);
-
-  RHN::Server->delete_servers_in_system_list($pxt->user->id);
-
-  my $message = "message=" . sprintf('message.ssm.server%sdeleted', ($count == 1 ? '' : 's')) . "%messagep1=$count";
-  $pxt->redirect('/rhn/systems/Overview.do?empty_set=true&return_url=/rhn/systems/Overview.do?' . $message);
-}
-
 sub system_activation_key_form {
   my $pxt = shift;
   my %attr = @_;

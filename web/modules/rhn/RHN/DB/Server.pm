@@ -887,33 +887,6 @@ EOQ
   }
 }
 
-sub delete_servers_in_system_list {
-  my $class = shift;
-  my $uid = shift;
-
-  my $dbh = RHN::DB->connect();
-  my $query;
-  my $sth;
-
-  eval {
-    $query = <<EOQ;
-BEGIN
-  delete_server_bulk(?);
-END;
-EOQ
-    $sth = $dbh->prepare($query);
-    $sth->execute($uid);
-
-    $dbh->commit;
-  };
-
-  if ($@) {
-    my $E = $@;
-    $dbh->rollback;
-
-    die $E;
-  }
-}
 
 sub server_event_true_history {
   my $class = shift;

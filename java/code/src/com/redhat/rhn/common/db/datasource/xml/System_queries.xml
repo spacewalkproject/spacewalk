@@ -561,6 +561,7 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 <mode name="in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query name="in_set" />
   <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
 </mode>
 
 

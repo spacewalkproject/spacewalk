@@ -5,10 +5,10 @@
 
 <c:choose>
 <c:when test = "${empty notSelectable}">
-	<c:set var="updateStyle" value = "center"/>
+	<c:set var="namestyle" value = ""/>
 </c:when>
 <c:otherwise>
-	<c:set var="updateStyle" value = "first-column"/>
+	<c:set var="namestyle" value = "first-column"/>
 </c:otherwise>
 </c:choose>
 	
@@ -34,12 +34,23 @@
 	 						disabled="${not current.selectable}"
 	 						styleclass="first-column"/>
 		</c:if>
+		<!-- Name Column -->
+		<rl:column sortable="true" 
+				   bound="false"
+		           headerkey="systemlist.jsp.system" 
+		           sortattr="name" 
+		           defaultsort="asc"
+		           styleclass="${namestyle}">
+			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
+		</rl:column>
+		
+		
 		<c:if test = "${empty noUpdates}">
 		<!--Updates Column -->
 		<rl:column sortable="false" 
 				   bound="false"
 		           headerkey="systemlist.jsp.status" 
-		           styleclass="${updateStyle}"
+		           styleclass="center"
 		           	headerclass="thin-column">
                       <c:out value="${current.statusDisplay}" escapeXml="false"/>
 		</rl:column>		
@@ -101,15 +112,13 @@
 				</c:choose>
 			</rl:column>
 		</c:if>
-		<!-- Name Channel Column -->
-		<rl:column sortable="true" 
-				   bound="false"
-		           headerkey="systemlist.jsp.system" 
-		           sortattr="name" 
-		           defaultsort="asc">
-			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
-		</rl:column>
-		
+		<c:if test = "${not empty showLastCheckin}">
+			<rl:column sortable="false"
+					attr="lastCheckin"
+					bound="true"
+				   headerkey="systemlist.jsp.last_checked_in"/>
+				
+		</c:if>
 		<!-- Base Channel Column -->
 		<rl:column sortable="false" 
 				   bound="false"
@@ -121,8 +130,7 @@
 		<rl:column sortable="false" 
 				   bound="false"
 		           headerkey="systemlist.jsp.entitlement" 
-		           styleclass="last-column center"
-		           headerclass="thin-column">       		           
+		           styleclass="last-column">       		           
                       <c:out value="${current.entitlementLevel}" escapeXml="false"/>
 		</rl:column>		
 	

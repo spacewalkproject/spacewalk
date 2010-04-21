@@ -5230,6 +5230,28 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/channels/software/Search</context>
         </context-group>
       </trans-unit>
+
+ <!-- SSM System  list-->
+	<group>
+		<context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/ssm/DeleteConfirm.do</context>
+        </context-group>
+	
+	  <trans-unit id="ssm.delete.systems.header">
+        <source>Confirm System Profiles Deletion</source>
+      </trans-unit>
+	  <trans-unit id="ssm.delete.systems.summary">
+        <source>This will delete the selected profiles permanently.</source>
+      </trans-unit>
+	  <trans-unit id="ssm.delete.systems.confirmbutton">
+        <source>Confirm Deletion</source>
+      </trans-unit>
+	  <trans-unit id="ssm.delete.systems.confirmmessage">
+        <source>The selected systems in the System Set Manager have been queued for deletion.</source>
+      </trans-unit>
+     </group>
+      
+      
 <!-- == Systems == -->
       <trans-unit id="overview.jsp.header">
 <source>System Overview</source>
@@ -5302,6 +5324,12 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemlist.jsp.last_checked_in">
+<source>Last Checked in</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/SystemList</context>
+        </context-group>
+      </trans-unit>      
 
       <trans-unit id="systemlist.jsp.system">
 <source>System</source>

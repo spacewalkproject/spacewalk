@@ -23,7 +23,7 @@
   href="/network/systems/ssm/misc/reboot_systems_conf.pxt">Reboot
   Systems</a></li>
   <li><a
-  href="/network/systems/ssm/misc/delete_systems_conf.pxt">Delete
+  href="/rhn/systems/ssm/DeleteConfirm.do">Delete
   System Profiles</a></li>
 </ul>
 

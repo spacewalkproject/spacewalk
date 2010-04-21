@@ -2872,6 +2872,17 @@
                   redirect="true"/>
     </action>
     
+    <!--System Details SSM Configuration -->
+        <action path="/systems/ssm/DeleteConfirm"
+        scope="request"
+        input="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.systems.SSMDeleteSystemsConfirm"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/systems/ssmdeleteconfirm.jsp"/>
+		<forward name="confirm"
+                 path="/ssm/ViewAllLog.do" redirect="true"/>                 
+    </action>
     <!--System Details Configuration -->
      <action path="/systems/details/configuration/Overview"
          scope="request"

@@ -109,7 +109,7 @@
 		<rhn-tab-url>/network/systems/ssm/misc/pkg_prof_update_conf.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/change_sys_pref_conf.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/prof_conv_conf.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/misc/delete_systems_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/rhn/systems/ssm/DeleteConfirm.do</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/reboot_systems_conf.pxt</rhn-tab-url>
                 <rhn-tab-url>/network/systems/ssm/misc/upgrade_slot.pxt</rhn-tab-url>
 	</rhn-tab>

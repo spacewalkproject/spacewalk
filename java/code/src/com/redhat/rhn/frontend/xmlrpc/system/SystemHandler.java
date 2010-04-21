@@ -110,6 +110,7 @@ import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -173,6 +174,10 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         
+        return getReactivationKey(loggedInUser, server);
+    }
+
+    private String getReactivationKey(User loggedInUser, Server server) {
         //check for agent smith feature... 
         if (!SystemManager.serverHasFeature(server.getId(), "ftr_agent_smith")) {
             throw new PermissionCheckFailureException();
@@ -196,6 +201,48 @@ public class SystemHandler extends BaseHandler {
         // Return the "key" for this activation key :-/
         return key.getKey();
     }
+    
+    /**
+     * Get a reactivation key for this server.
+     * 
+     * @param clientCert  client certificate of the system.
+     * @return Returns the reactivation key string for the given server
+     * @throws FaultException A FaultException is thrown if:
+     *   - The server corresponding to the sid cannot be found
+     *   - The server doesn't have the "agent smith" feature
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     * @since 10.9
+     * @xmlrpc.doc Obtains a reactivation key for this server.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype string
+     */
+    public String obtainReactivationKey(String clientCert) 
+        throws FaultException, MethodInvalidParamException {
+        StringReader rdr = new StringReader(clientCert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }        
+        return getReactivationKey(server.getOrg().getActiveOrgAdmins().get(0), server);
+    }    
     
     /**
      * Adds an entitlement to a given server.
