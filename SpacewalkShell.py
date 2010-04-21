@@ -31,7 +31,7 @@ class SpacewalkShell(Cmd):
                     'virtualization_host'          : 'Virtualization',
                     'virtualization_host_platform' : 'Virtualization Platform'}
 
-    EDITORS = ('vim', 'vi', 'nano', 'emacs')
+    EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
     intro = '''
 Welcome to spacecmd, a command line interface to Spacewalk.
@@ -208,6 +208,11 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('Could not open the temporary file')
                 pass
 
+        # use the user's specified editor
+        if os.environ['EDITOR']:
+            if self.EDITORS[0] != os.environ['EDITOR']:
+                self.EDITORS.insert(0, os.environ['EDITOR'])
+
         success = False
         for editor_cmd in self.EDITORS:
             try:
@@ -250,7 +255,7 @@ For help for a specific command try 'help <cmd>'.
 
     def prompt_user(self, prompt):
         try:
-            input = raw_input(prompt)
+            input = raw_input('%s ' % prompt)
         except EOFError:
             print
             return ''
@@ -264,7 +269,7 @@ For help for a specific command try 'help <cmd>'.
     def user_confirm(self, prompt='Is this ok [y/N]:'):
         if self.options.yes: return True
 
-        answer = self.prompt_user('\n%s ' % prompt)
+        answer = self.prompt_user('\n%s' % prompt)
 
         if re.match('y', answer, re.IGNORECASE):
             return True
@@ -490,13 +495,11 @@ For help for a specific command try 'help <cmd>'.
             rhba = []
 
             for e in errata:
-                type = e.get('advisory_type').lower()
-
-                if 'security' in type:
+                if re.match('security', type, re.IGNORECASE):
                     rhsa.append(e)
-                elif 'bug fix' in type:
+                elif re.match('bug fix', type, re.IGNORECASE):
                     rhba.append(e)
-                elif 'enhancement' in type:
+                elif re.match('enhancement', type, re.IGNORECASE):
                     rhea.append(e)
                 else:
                     logging.warning(e.get('%s is an unknown type') % (
@@ -820,6 +823,8 @@ For help for a specific command try 'help <cmd>'.
             self.session = ''
             self.username = ''
             self.server = ''
+            self.clear_system_cache()
+            self.clear_package_cache()        
 
             if os.path.isfile(self.cache_file):
                 try:
@@ -1878,7 +1883,7 @@ For help for a specific command try 'help <cmd>'.
                 self.client.system.listLatestUpgradablePackages(self.session,
                                                                 system_id)
 
-            packages = [p.get('id') for p in packages]
+            package_ids = [p.get('id') for p in packages]
 
             time = self.parse_time_input('now')
 
@@ -2294,6 +2299,120 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_group_addsystems(self):
+        print 'Usage: group_addsystems GROUP SSM|<SYSTEM ...>'
+
+    def complete_group_addsystems(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+    
+        if len(parts) == 2:
+            return self.tab_completer(self.do_group_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.get_system_names(), text)
+
+    def do_group_addsystems(self, args):
+        if not len(self.args):
+            self.help_group_addsystems()
+            return
+
+        group_name = self.args.pop(0)
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        system_ids = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+            system_ids.append(system_id)
+
+        self.client.systemgroup.addOrRemoveSystems(self.session,
+                                                   group_name,
+                                                   system_ids,
+                                                   True)
+
+####################
+
+    def help_group_removesystems(self):
+        print 'Usage: group_removesystems GROUP SSM|<SYSTEM ...>'
+
+    def complete_group_removesystems(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+    
+        if len(parts) == 2:
+            return self.tab_completer(self.do_group_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.get_system_names(), text)
+
+    def do_group_removesystems(self, args):
+        if not len(self.args):
+            self.help_group_removesystems()
+            return
+
+        group_name = self.args.pop(0)
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        system_ids = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+            system_ids.append(system_id)
+
+        self.client.systemgroup.addOrRemoveSystems(self.session,
+                                                   group_name,
+                                                   system_ids,
+                                                   False)
+
+####################
+
+    def help_group_create(self):
+        print 'Usage: group_create NAME'
+
+    def do_group_create(self, args):
+        if len(self.args) != 1:
+            self.help_group_create()
+            return
+
+        name = self.args[0]
+        description = self.prompt_user('Description:')
+
+        group = self.client.systemgroup.create(self.session, name, description)
+
+        if not group:
+            logging.error('Failed to create group')
+            return
+
+####################
+
+    def help_group_delete(self):
+        print 'Usage: group_create NAME ...'
+    
+    def complete_group_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_group_list('', True), text)
+
+    def do_group_delete(self, args):
+        if not len(self.args):
+            self.help_group_delete()
+            return
+
+        groups = self.args
+
+        self.do_group_details('', True)
+        if not self.user_confirm('Delete these groups [y/N]:'): return        
+
+        for group in groups:
+            self.client.systemgroup.delete(self.session, group)
+
+####################
+
     def help_group_list(self):
         print 'Usage: group_list'
 
@@ -2346,7 +2465,7 @@ For help for a specific command try 'help <cmd>'.
     def complete_group_details(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
 
-    def do_group_details(self, args):
+    def do_group_details(self, args, short=False):
         if not len(self.args):
             self.help_group_details()
             return
@@ -2375,10 +2494,12 @@ For help for a specific command try 'help <cmd>'.
             print 'Name               %s' % details.get('name')
             print 'Description:       %s' % details.get('description')
             print 'Number of Systems: %s' % str(details.get('system_count'))
-            print
-            print 'Members:'
-            for s in sorted(systems):
-                print '  %s' % s
+
+            if not short:
+                print
+                print 'Members:'
+                for s in sorted(systems):
+                    print '  %s' % s
 
 ####################
 
