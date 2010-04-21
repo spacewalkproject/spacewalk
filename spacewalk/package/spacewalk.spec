@@ -105,6 +105,8 @@ Requires: spacewalk-java-oracle
 Requires: perl(DBD::Oracle)
 Requires: cx_Oracle
 Requires: spacewalk-backend-sql-oracle
+Requires: NOCpulsePlugins-Oracle
+Requires: perl-NOCpulse-Probe-Oracle
 
 %description oracle
 Spacewalk is a systems management application that will
