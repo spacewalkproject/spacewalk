@@ -977,7 +977,11 @@ For help for a specific command try 'help <cmd>'.
 
     def help_errata_search(self):
         print 'errata_search: List errata that meet the given criteria'
-        print 'usage: errata_search CVE ...'
+        print 'usage: errata_search CVE|RHSA|RHBA|RHEA ...'
+        print
+        print 'Example:'
+        print '> errata_search CVE-2009:1674'
+        print '> errata_search RHSA-2009:1674'
 
     def do_errata_search(self, args, doreturn=False):
         if not len(self.args):
@@ -987,21 +991,21 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for query in self.args:
-            type = 'CVE'
             value = query.upper()
-            #(type, value) = query.split(':', 1)
 
-            if re.match('cve', type, re.I):
+            if re.match('CVE', query, re.I):
                 # CVE- prefix is required
                 if not re.match('CVE', value, re.I):
                     value = 'CVE-%s' % value
 
                 errata = self.client.errata.findByCve(self.session, value)
-            #elif re.match('bz', type, re.I):
-            #    errata = self.client.errata.findByBz(self.session, value)
             else:
-                logging.error('Invalid query')
-                return
+                errata = self.client.errata.getDetails(self.session, value)
+                logging.debug(errata.get('type'))
+                errata = [ {'advisory_name'     : value,
+                            'advisory_type'     : errata.get('type'),
+                            'advisory_synopsis' : errata.get('synopsis'),
+                            'date'              : errata.get('issue_date') } ]
 
             if add_separator: print self.SEPARATOR
             add_separator = True
