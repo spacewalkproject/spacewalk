@@ -19,6 +19,10 @@ class SpacewalkShell(Cmd):
 
     HISTORY_LENGTH = 1024
 
+    # life of caches in seconds
+    SYSTEM_CACHE_TTL = 300
+    PACKAGE_CACHE_TTL = 3600
+
     SEPARATOR = '\n--------------------\n'
 
     ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
@@ -30,7 +34,7 @@ class SpacewalkShell(Cmd):
     EDITORS = ('vim', 'vi', 'nano', 'emacs')
 
     intro = '''
-Welcome to SpacewalkShell, a command line interface to Spacewalk.
+Welcome to spacecmd, a command line interface to Spacewalk.
 
 For a full set of commands, type 'help' on the prompt.
 For help for a specific command try 'help <cmd>'.
@@ -38,7 +42,7 @@ For help for a specific command try 'help <cmd>'.
     cmdqueue = []
     completekey = 'tab'
     stdout = sys.stdout
-    prompt = 'Spacewalk> '
+    prompt = 'spacecmd> '
 
     # do nothing on an empty line
     emptyline = lambda self: None
@@ -47,12 +51,16 @@ For help for a specific command try 'help <cmd>'.
         self.session = ''
         self.username = ''
         self.server = ''
-        self.ssm = {}
+        self.ssm = []
 
         # cache large lists instead of looking up every time
         self.all_package_shortnames = []
         self.all_package_fullnames = []
-        self.all_system_names = []
+        self.all_systems = []
+
+        # expiration times for internal caches
+        self.system_cache_expire = datetime.now()
+        self.package_cache_expire = datetime.now()
 
         # make the options available everywhere
         self.options = options
@@ -235,7 +243,9 @@ For help for a specific command try 'help <cmd>'.
 
     def remove_last_history_item(self):
         last = readline.get_current_history_length() - 1
-        readline.remove_history_item(last)
+
+        if last >= 0:
+            readline.remove_history_item(last)
 
 
     def prompt_user(self, prompt):
@@ -286,7 +296,7 @@ For help for a specific command try 'help <cmd>'.
             elif re.match('d', unit, re.IGNORECASE):
                 delta = timedelta(days=number)
 
-            time = now() + delta
+            time = datetime.now() + delta
 
         time = xmlrpclib.DateTime(time.timetuple())
 
@@ -330,22 +340,20 @@ For help for a specific command try 'help <cmd>'.
             return package_names
 
 
-    # create a global list of all available package names
-    def list_all_package_names(self, fullnames=False, channel=''):
-        if fullnames:
-            if len(self.all_package_fullnames):
-                return self.all_package_fullnames
-        else:
-            if len(self.all_package_shortnames):
-                return self.all_package_shortnames
+    def clear_package_cache(self):
+        self.all_package_shortnames = []
+        self.all_package_fullnames = []
+        self.package_cache_expire = datetime.now()
 
-        logging.debug('Generating package name lists')
 
-        if channel:
-            channels = [channel]
-        else:
-            channels = self.client.channel.listSoftwareChannels(self.session)
-            channels = [c.get('label') for c in channels]
+    def generate_package_cache(self, force=False):
+        if not force and datetime.now() < self.package_cache_expire:
+            return        
+        
+        logging.debug('Regenerating internal package cache')
+
+        channels = self.client.channel.listSoftwareChannels(self.session)
+        channels = [c.get('label') for c in channels]
 
         for c in channels:
             packages = \
@@ -355,11 +363,18 @@ For help for a specific command try 'help <cmd>'.
                 if not p.get('name') in self.all_package_shortnames:
                     self.all_package_shortnames.append(p.get('name'))
 
-                if fullnames:
-                    fullname = self.build_package_names(p)
+                fullname = self.build_package_names(p)
 
-                    if not fullname in self.all_package_fullnames:
-                        self.all_package_fullnames.append(fullname)
+                if not fullname in self.all_package_fullnames:
+                    self.all_package_fullnames.append(fullname)
+
+        self.package_cache_expire = \
+            datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
+
+
+    # create a global list of all available package names
+    def get_package_names(self, fullnames=False):
+        self.generate_package_cache()
 
         if fullnames:
             return self.all_package_fullnames
@@ -367,20 +382,61 @@ For help for a specific command try 'help <cmd>'.
             return self.all_package_shortnames
 
 
+    def clear_system_cache(self):
+        self.all_systems = []
+        self.system_cache_expire = datetime.now()
+
+    
+    def generate_system_cache(self, force=False):
+        if not force and datetime.now() < self.system_cache_expire:
+            return        
+
+        logging.debug('Regenerating internal system cache')
+
+        systems = self.client.system.listSystems(self.session)
+
+        self.all_systems = []
+        for s in systems:
+            self.all_systems.append( {'id' : s.get('id'),
+                                      'name' : s.get('name')})
+
+        self.system_cache_expire = \
+            datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
+
+
+    def get_system_names(self):
+        self.generate_system_cache()
+        return [s.get('name') for s in self.all_systems]
+
+
     # check for duplicate system names and return the system ID
     def get_system_id(self, name):
-        systems = self.client.system.getId(self.session, name)
+        self.generate_system_cache()
 
-        if not len(systems):
+        try:
+            # check if we were passed a system instead of a name
+            id = int(name)
+            for s in self.all_systems:
+                if id == s.get('id'): return id
+        except:
+            pass
+
+        # get a set of matching systems to check for duplicate names
+        systems = []
+        for s in self.all_systems:
+            if name == s.get('name'):
+                systems.append(s.get('id'))
+
+        if len(systems) == 1:
+            return systems[0]
+        elif not len(systems):
             logging.warning("Can't find system ID for %s" % name)
             return 0
-        elif len(systems) == 1:
-            return systems[0].get('id')
         else:
             logging.warning('Multiple systems found with the same name')
 
-            for system in sorted(systems):
-                logging.warning('%s = %s' % (name, str(system.get('id'))))
+            for id in systems:
+                logging.warning('%s = %s' % (name, str(id)))
 
             return 0
 
@@ -403,6 +459,14 @@ For help for a specific command try 'help <cmd>'.
                 if len(results):
                     systems.extend(results)
             else:
+                try:
+                    # determine the system name if passed an ID
+                    id = int(item)
+                    name = self.client.system.getName(self.session, id)
+                    item = name.get('name')                    
+                except:
+                    pass
+
                 systems.append(item)
 
         return systems
@@ -478,7 +542,7 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: ssm_clear'
 
     def do_ssm_clear(self, args):
-        self.ssm.clear()
+        self.ssm = []
 
 ####################
 
@@ -492,6 +556,15 @@ For help for a specific command try 'help <cmd>'.
 
     def do_clear(self, args):
         os.system('clear')
+
+####################
+
+    def help_clear_caches(self):
+        print 'Usage: clear_caches'
+
+    def do_clear_caches(self, args):
+        self.clear_system_cache()
+        self.clear_package_cache()        
 
 ####################
 
@@ -545,31 +618,27 @@ For help for a specific command try 'help <cmd>'.
 
             return self.tab_completer(groups, text)
         else:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_completer(self.get_system_names(), text)
 
     def do_ssm_add(self, args):
         if not len(self.args):
             self.help_ssm_add()
             return
 
-        all_systems = {}
-        for s in self.client.system.listSystems(self.session):
-            all_systems[s.get('name')] = s.get('id')
-
         systems = self.expand_systems(self.args)
-        matches = self.filter_results(all_systems.keys(), systems)
+        matches = self.filter_results(self.get_system_names(), systems)
 
         if not len(matches):
             logging.warning('No systems found')
             return
 
         for match in matches:
-            if match in self.ssm.keys():
+            if match in self.ssm:
                 logging.warning('%s is already in the list' % match)
                 continue
             else:
+                self.ssm.append(match)
                 logging.info('Added %s' % match)
-                self.ssm[match] = all_systems.get(match)
 
         if len(self.ssm):
             print 'Systems Selected: %s' % str(len(self.ssm))
@@ -586,7 +655,7 @@ For help for a specific command try 'help <cmd>'.
 
             return self.tab_completer(groups, text)
         else:
-            return self.tab_completer(self.do_ssm_list('', True), text)
+            return self.tab_completer(sorted(self.ssm), text)
 
     def do_ssm_rm(self, args):
         if not len(self.args):
@@ -594,7 +663,7 @@ For help for a specific command try 'help <cmd>'.
             return
 
         systems = self.expand_systems(self.args)
-        matches = self.filter_results(self.ssm.keys(), systems)
+        matches = self.filter_results(self.ssm, systems)
 
         if not len(matches):
             logging.warning('No systems found')
@@ -602,7 +671,7 @@ For help for a specific command try 'help <cmd>'.
 
         for match in matches:
             logging.info('Removed %s' % match)
-            del self.ssm[match]
+            self.ssm.remove(match)
 
         print 'Systems Selected: %s' % str(len(self.ssm))
 
@@ -611,17 +680,12 @@ For help for a specific command try 'help <cmd>'.
     def help_ssm_list(self):
         print 'Usage: ssm_list'
 
-    def do_ssm_list(self, args, doreturn=False):
-        systems = sorted(self.ssm.keys())
+    def do_ssm_list(self, args):
+        systems = sorted(self.ssm)
 
-        if doreturn:
-            return systems
-        else:
-            if len(systems):
-                print '\n'.join(systems)
-                print 'Systems Selected: %s' % str(len(systems))
-            else:
-                logging.warning('No systems in the SSM')
+        if len(systems):
+            print '\n'.join(systems)
+            print 'Systems Selected: %s' % str(len(systems))
 
 ####################
 
@@ -819,7 +883,7 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: package_details PACKAGE ...'
 
     def complete_package_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.list_all_package_names(True), text)
+        return self.tab_completer(self.get_package_names(True), text)
 
     def do_package_details(self, args):
         if not len(self.args):
@@ -909,7 +973,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return kickstarts
         else:
-            print '\n'.join(sorted(kickstarts))
+            if len(kickstarts):
+                print '\n'.join(sorted(kickstarts))
 
 ####################
 
@@ -1121,7 +1186,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return snippets
         else:
-            print '\n'.join(sorted(snippets))
+            if len(snippets):
+                print '\n'.join(sorted(snippets))
 
 ####################
 
@@ -1267,14 +1333,11 @@ For help for a specific command try 'help <cmd>'.
         print 'Usage: system_list'
 
     def do_system_list(self, args, doreturn=False):
-        if not len(self.all_system_names):
-            systems = self.client.system.listSystems(self.session)
-            self.all_system_names = [s.get('name') for s in systems]
-
         if doreturn:
-            return self.all_system_names
+            return self.get_system_names()
         else:
-            print '\n'.join(sorted(self.all_system_names))
+            if len(self.get_system_names()):
+                print '\n'.join(sorted(self.get_system_names()))
 
 ####################
 
@@ -1312,7 +1375,7 @@ For help for a specific command try 'help <cmd>'.
                                                                    value)
             key = 'name'
         elif field == 'id':
-            results = self.do_system_list('', True)
+            results = self.get_system_names()
             key = 'id'
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
@@ -1356,7 +1419,7 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_runscript(self):
-        print 'Usage: system_runscript SSM|SYSTEM ...'
+        print 'Usage: system_runscript SSM|<SYSTEM ...>'
         print
         print 'Start Time Examples:'
         print 'now  -> right now!'
@@ -1364,7 +1427,7 @@ For help for a specific command try 'help <cmd>'.
         print '1d   -> 1 day from now'
 
     def complete_system_runscript(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_runscript(self, args):
         if not len(self.args):
@@ -1463,10 +1526,10 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_hardware(self):
-        print 'Usage: system_hardware SSM|SYSTEM ...'
+        print 'Usage: system_hardware SSM|<SYSTEM ...>'
 
     def complete_system_hardware(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_hardware(self, args):
         if not len(self.args):
@@ -1582,10 +1645,9 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_completer(self.get_system_names(), text)
         elif len(parts) > 2:
-            self.temp_package_list
-            return self.tab_completer(self.list_all_package_names(), text)
+            return self.tab_completer(self.get_package_names(), text)
 
     def do_system_installpackage(self, args):
         if len(self.args) < 2:
@@ -1629,7 +1691,7 @@ For help for a specific command try 'help <cmd>'.
       
                     for p in installed_packages: 
                         if package_to_install == p.get('name'):
-                            logging.warning('%s already has %s' %(
+                            logging.warning('%s already has %s installed' %(
                                             system, package_to_install))
                             break
                     else:
@@ -1684,9 +1746,9 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_completer(self.get_system_names(), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.list_all_package_names(), text)
+            return self.tab_completer(self.get_package_names(), text)
 
     def do_system_removepackage(self, args):
         if len(self.args) < 2:
@@ -1782,9 +1844,9 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_completer(self.get_system_names(), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.list_all_package_names(), text)
+            return self.tab_completer(self.get_package_names(), text)
 
     def do_system_upgradepackage(self, args):
         if len(self.args) < 2:
@@ -1836,10 +1898,10 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listupgrades(self):
-        print 'Usage: system_listupgrades SSM|SYSTEM ...'
+        print 'Usage: system_listupgrades SSM|<SYSTEM ...>'
 
     def complete_system_listupgrades(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_listupgrades(self, args):
         if not len(self.args):
@@ -1892,10 +1954,10 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listinstalledpackages(self):
-        print 'Usage: system_listinstalledpackages SSM|SYSTEM ...'
+        print 'Usage: system_listinstalledpackages SSM|<SYSTEM ...>'
 
     def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_listinstalledpackages(self, args):
         if not len(self.args):
@@ -1930,13 +1992,91 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_delete(self):
+        print 'Usage: system_delete SSM|<SYSTEM ...>'
+
+    def complete_system_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_delete(self, args):
+        if not len(self.args):
+            self.help_system_delete()
+            return
+
+        # use the systems listed in the SSM
+        if self.args[0].lower() == 'ssm':
+            systems = self.ssm
+        else:
+            systems = self.args
+
+        system_ids = []
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            system_ids.append(system_id)            
+          
+        # provide a summary to the user 
+        self.do_system_details('', True)
+
+        if not self.user_confirm('Delete these systems [y/N]:'):
+            return 
+
+        self.client.system.deleteSystems(self.session, system_ids)
+
+        logging.info('Deleted %s system(s)', str(len(system_ids)))
+        
+        # regenerate the system name cache
+        self.generate_system_cache(True)
+
+        # remove these systems from the SSM
+        for s in systems:
+            if s in self.ssm:
+                self.ssm.remove(s)
+
+####################
+
+    def help_system_rename(self):
+        print 'Usage: system_rename OLDNAME NEWNAME'
+
+    def complete_system_rename(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_rename(self, args):
+        if len(self.args) != 2:
+            self.help_system_rename()
+            return
+
+        (old_name, new_name) = self.args
+
+        system_id = self.get_system_id(old_name)
+        if not system_id: return
+
+        print '%s (%s) -> %s' % (old_name, system_id, new_name)
+        if not self.user_confirm(): return
+
+        self.client.system.setProfileName(self.session,
+                                          system_id,
+                                          new_name)
+
+        # regenerate the cache of systems
+        self.generate_system_cache(True)
+
+        # update the SSM
+        if old_name in self.ssm:
+            self.ssm.remove(old_name)
+            self.ssm.append(new_name) 
+
+####################
+
     def help_system_details(self):
-        print 'Usage: system_details SSM|SYSTEM ...'
+        print 'Usage: system_details SSM|<SYSTEM ...>'
 
     def complete_system_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
-    def do_system_details(self, args):
+    def do_system_details(self, args, short=False):
         if not len(self.args):
             self.help_system_details()
             return
@@ -1962,6 +2102,23 @@ For help for a specific command try 'help <cmd>'.
             registered = self.client.system.getRegistrationDate(self.session,
                                                                 system_id)
 
+            if add_separator:
+                print self.SEPARATOR
+
+            add_separator = True
+
+            print 'Name:          %s' % system
+            print 'System ID:     %s' % str(system_id)
+            print 'Locked:        %s' % str(details.get('lock_status'))
+            print 'Registered:    %s' % re.sub('T', ' ', registered.value)
+            print 'Last Checkin:  %s' % re.sub('T', ' ', last_checkin.value)
+            print 'OSA Status:    %s' % details.get('osa_status')
+           
+            # only print basic information if requested 
+            if short: continue
+
+            network = self.client.system.getNetwork(self.session, system_id)
+
             entitlements = self.client.system.getEntitlements(self.session,
                                                               system_id)
 
@@ -1979,8 +2136,6 @@ For help for a specific command try 'help <cmd>'.
             kernel = self.client.system.getRunningKernel(self.session,
                                                          system_id)
 
-            network = self.client.system.getNetwork(self.session, system_id)
-
             keys = self.client.system.listActivationKeys(self.session,
                                                          system_id)
 
@@ -1992,18 +2147,6 @@ For help for a specific command try 'help <cmd>'.
 
                 for channel in config_channels:
                     ranked_config_channels.append(channel.get('label'))
-
-            if add_separator:
-                print self.SEPARATOR
-
-            add_separator = True
-
-            print 'Name:          %s' % system
-            print 'System ID:     %s' % str(system_id)
-            print 'Locked:        %s' % str(details.get('lock_status'))
-            print 'Registered:    %s' % re.sub('T', ' ', registered.value)
-            print 'Last Checkin:  %s' % re.sub('T', ' ', last_checkin.value)
-            print 'OSA Status:    %s' % details.get('osa_status')
 
             print
             print 'Hostname:      %s' % network.get('hostname')
@@ -2044,10 +2187,10 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_listerrata(self):
-        print 'Usage: system_listerrata SSM|SYSTEM ...'
+        print 'Usage: system_listerrata SSM|<SYSTEM ...>'
 
     def complete_system_listerrata(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_listerrata(self, args):
         if not len(self.args):
@@ -2083,10 +2226,10 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_applyerrata(self):
-        print 'Usage: system_applyerrata SSM|SYSTEM ...'
+        print 'Usage: system_applyerrata SSM|<SYSTEM ...>'
 
     def complete_system_applyerrata(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_completer(self.get_system_names(), text)
 
     def do_system_applyerrata(self, args):
         if not len(self.args):
@@ -2161,7 +2304,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return groups
         else:
-            print '\n'.join(sorted(groups))
+            if len(groups):
+                print '\n'.join(sorted(groups))
 
 ####################
 
@@ -2191,7 +2335,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return systems
         else:
-            print '\n'.join(sorted(systems))
+            if len(systems):
+                print '\n'.join(sorted(systems))
 
 ####################
 
@@ -2510,7 +2655,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return keys
         else:
-            print '\n'.join(sorted(keys))
+            if len(keys):
+                print '\n'.join(sorted(keys))
 
 ####################
 
@@ -2559,7 +2705,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return keys
         else:
-            print '\n'.join(sorted(keys))
+            if len(keys):
+                print '\n'.join(sorted(keys))
 
 ####################
 
@@ -2587,7 +2734,8 @@ For help for a specific command try 'help <cmd>'.
 
         systems = sorted([s.get('hostname') for s in systems])
 
-        print '\n'.join(systems)
+        if len(systems):
+            print '\n'.join(systems)
 
 ####################
 
@@ -2676,7 +2824,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return channels
         else:
-            print '\n'.join(sorted(channels))
+            if len(channels):
+                print '\n'.join(sorted(channels))
 
 ####################
 
@@ -2700,7 +2849,8 @@ For help for a specific command try 'help <cmd>'.
 
         systems = sorted([s.get('name') for s in systems])
 
-        print '\n'.join(systems)
+        if len(systems):
+            print '\n'.join(systems)
 
 ####################
 
@@ -2723,7 +2873,8 @@ For help for a specific command try 'help <cmd>'.
             if doreturn:
                 return files
             else:
-                print '\n'.join(sorted(files))
+                if len(files):
+                    print '\n'.join(sorted(files))
 
 ####################
 
@@ -2837,7 +2988,8 @@ For help for a specific command try 'help <cmd>'.
         if doreturn:
             return channels
         else:
-            print '\n'.join(sorted(channels))
+            if len(channels):
+                print '\n'.join(sorted(channels))
 
 ####################
 
@@ -2891,7 +3043,8 @@ For help for a specific command try 'help <cmd>'.
             if len(self.args) > 1:
                 packages = self.filter_results(packages, self.args[1:])
 
-            print '\n'.join(sorted(packages))
+            if len(packages):
+                print '\n'.join(sorted(packages))
 
 ####################
 
