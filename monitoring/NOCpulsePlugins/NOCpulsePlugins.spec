@@ -46,10 +46,9 @@ mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/ProbeState
 
 install -p -m 644 *.ini   $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
 install -p -m 644 *.pm    $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
-install -p -m 644 status  $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
-install -p -m 644 catalog $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install -p -m 755 status  $RPM_BUILD_ROOT%{_bindir}/rhn-probe-status
+install -p -m 755 catalog $RPM_BUILD_ROOT%{_bindir}/rhn-catalog
 install -p -m 755 setTrending $RPM_BUILD_ROOT%{_bindir}
-ln -s %{_var}/lib/nocpulse/libexec/catalog $RPM_BUILD_ROOT%{_bindir}/rhn-catalog
 
 for pkg in Apache Apache/test General LogAgent MySQL NetworkService Oracle Oracle/test Satellite Unix Unix/test Weblogic 
 do
@@ -77,8 +76,6 @@ fi
 %{_var}/lib/nocpulse/libexec/Satellite*
 %{_var}/lib/nocpulse/libexec/Unix*
 %{_var}/lib/nocpulse/libexec/Weblogic*
-%{_var}/lib/nocpulse/libexec/catalog
-%{_var}/lib/nocpulse/libexec/status
 %{_var}/lib/nocpulse/libexec/*.pm
 %{_sysconfdir}/nocpulse/*
 %{_bindir}/*
