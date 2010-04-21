@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,15 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 21 2010 Justin Sherrill <jsherril@redhat.com> 1.1.5-1
+- adding feature to preselect a kickstart profile for provisioning if the
+  cobbler system record for that system has it selected (jsherril@redhat.com)
+- 580927 - sorting advanced options (jsherril@redhat.com)
+- fixing broken unit tests and properly picking the right exception
+  (jsherril@redhat.com)
+- Addition of channel.software.getChannelLastBuildById API call
+  (james.hogarth@gmail.com)
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.4-1
 - 576211 - fixed server name replacement pattern
 - removing log5j stuff
