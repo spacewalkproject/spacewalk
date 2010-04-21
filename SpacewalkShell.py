@@ -184,7 +184,7 @@ For help for a specific command try 'help <cmd>'.
         compiled_regex = []
         for pattern in patterns:
             if pattern != '':
-                compiled_regex.append(re.compile(pattern, re.IGNORECASE))
+                compiled_regex.append(re.compile(pattern, re.I))
 
         matches = []
         for item in list:
@@ -271,7 +271,7 @@ For help for a specific command try 'help <cmd>'.
 
         answer = self.prompt_user('\n%s' % prompt)
 
-        if re.match('y', answer, re.IGNORECASE):
+        if re.match('y', answer, re.I):
             return True
         else:
             return False
@@ -279,11 +279,11 @@ For help for a specific command try 'help <cmd>'.
 
     # parse time input from the userand return xmlrpclib.DateTime
     def parse_time_input(self, time):
-        if time == '' or re.match('now', time, re.IGNORECASE):
+        if time == '' or re.match('now', time, re.I):
             time = datetime.now()
         else:
             # parse the time provided
-            match = re.search('^\+?(\d+)(s|m|h|d)$', time, re.IGNORECASE)
+            match = re.search('^\+?(\d+)(s|m|h|d)$', time, re.I)
 
             if not match or len(match.groups()) != 2:
                 logging.error('Invalid time provided')
@@ -292,13 +292,13 @@ For help for a specific command try 'help <cmd>'.
             number = int(match.group(1))
             unit = match.group(2)
 
-            if re.match('s', unit, re.IGNORECASE):
+            if re.match('s', unit, re.I):
                 delta = timedelta(seconds=number)
-            elif re.match('m', unit, re.IGNORECASE):
+            elif re.match('m', unit, re.I):
                 delta = timedelta(minutes=number)
-            elif re.match('h', unit, re.IGNORECASE):
+            elif re.match('h', unit, re.I):
                 delta = timedelta(hours=number)
-            elif re.match('d', unit, re.IGNORECASE):
+            elif re.match('d', unit, re.I):
                 delta = timedelta(days=number)
 
             time = datetime.now() + delta
@@ -495,14 +495,14 @@ For help for a specific command try 'help <cmd>'.
             rhba = []
 
             for e in errata:
-                if re.match('security', type, re.IGNORECASE):
+                if re.match('security', e.get('advisory_type'), re.I):
                     rhsa.append(e)
-                elif re.match('bug fix', type, re.IGNORECASE):
+                elif re.match('bug fix', e.get('advisory_type'), re.I):
                     rhba.append(e)
-                elif re.match('enhancement', type, re.IGNORECASE):
+                elif re.match('enhancement', e.get('advisory_type'), re.I):
                     rhea.append(e)
                 else:
-                    logging.warning(e.get('%s is an unknown type') % (
+                    logging.warning('%s is an unknown errata type' % (
                                     e.get('advisory_name')))
                     continue
 
@@ -1314,13 +1314,13 @@ For help for a specific command try 'help <cmd>'.
             value = query.upper()
             #(type, value) = query.split(':', 1)
 
-            if re.match('cve', type, re.IGNORECASE):
+            if re.match('cve', type, re.I):
                 # CVE- prefix is required
-                if not re.match('CVE', value, re.IGNORECASE):
+                if not re.match('CVE', value, re.I):
                     value = 'CVE-%s' % value
 
                 errata = self.client.errata.findByCve(self.session, value)
-            #elif re.match('bz', type, re.IGNORECASE):
+            #elif re.match('bz', type, re.I):
             #    errata = self.client.errata.findByBz(self.session, value)
             else:
                 logging.error('Invalid query')
@@ -1408,7 +1408,7 @@ For help for a specific command try 'help <cmd>'.
         max_size = 0
         for s in results:
             # only use real matches, not the fuzzy ones we get back
-            if re.search(value, str(s.get(key)), re.IGNORECASE):
+            if re.search(value, str(s.get(key)), re.I):
                 if len(s.get('name')) > max_size:
                     max_size = len(s.get('name'))
 
