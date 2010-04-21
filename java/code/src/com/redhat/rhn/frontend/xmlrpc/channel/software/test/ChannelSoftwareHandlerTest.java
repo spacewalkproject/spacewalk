@@ -467,6 +467,15 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         channelDetailsEquality(c, result);
     }
 
+   public void testGetChannelLastBuildById() throws Exception {
+       ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
+       addRole(admin, RoleFactory.CHANNEL_ADMIN);
+       Channel c = ChannelFactoryTest.createTestChannel(admin);
+       assertNotNull(c);
+       String lastRepoBuild = csh.getChannelLastBuildById(adminKey, c.getId().intValue());
+       assertEquals(lastRepoBuild, "");
+    }
+
     private void channelDetailsEquality(Channel original, Channel result) {
         assertNotNull(result);
         assertEquals(original.getId(), result.getId());
