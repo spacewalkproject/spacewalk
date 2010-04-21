@@ -77,7 +77,7 @@ fi
 %{_var}/lib/nocpulse/libexec/Unix*
 %{_var}/lib/nocpulse/libexec/Weblogic*
 %{_var}/lib/nocpulse/libexec/*.pm
-%{_sysconfdir}/nocpulse/*
+%config %{_sysconfdir}/nocpulse/*
 %{_bindir}/*
 
 %files Oracle
