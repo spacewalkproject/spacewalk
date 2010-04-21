@@ -2016,6 +2016,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
     * @param id - id of channel wanted
     * @throws NoSuchChannelException thrown if no channel is found.
     * @return the build date on the repodata of the channel requested
+    *
+    * @xmlrpc.doc Returns the last build date of the repomd.xml file
+    * for the given channel as a localised string.
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("int", "id", "id of channel wanted")
+    * @xmlrpc.returntype the last build date of the repomd.xml file
+    * as a localised string
     */
 
     public String getChannelLastBuildById(String sessionKey, Integer id)
