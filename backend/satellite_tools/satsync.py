@@ -259,7 +259,7 @@ class Runner:
 
 
     def _run_syncer_step(self, function, step_name):
-        # Runs a function, and catches the most common error cases
+        """ Runs a function, and catches the most common error cases """
         try:
             ret = function()
         except (xmlDiskSource.MissingXmlDiskSourceDirError,
@@ -344,7 +344,7 @@ class Runner:
         self.syncer.import_kickstarts()
 
 def sendMail(forceEmail=0):
-    ### Send email summary
+    """ Send email summary """
     if forceEmail or (OPTIONS is not None and OPTIONS.email):
         body = dumpEMAIL_LOG()
         if body:
@@ -411,7 +411,7 @@ class Syncer:
         self._uq_channel_kickstarts = {}
 
     def initialize(self):
-        "Initialization that requires IO, etc."
+        """Initialization that requires IO, etc."""
 
         # Sync from filesystem:
         if self.mountpoint:
@@ -542,8 +542,9 @@ class Syncer:
         return self._process_cert(cert)
 
     def _process_cert(self, cert, store_cert=1):
-        # Give the cert a check - if it's broken xml we'd better find it out
-        # now
+        """Give the cert a check - if it's broken xml we'd better find it out
+           now
+        """
         log2(1, 4, "    - parsing for sanity")
         sat_cert = satellite_cert.SatelliteCert()
         try:
@@ -642,8 +643,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._set_comps_for_channel(backend, data[label]['id'], comps_path, timestamp)
 
     def process_channels(self):
-        # push channels, channel-family and dist. map information
-        # as well upon parsing.
+        """ push channels, channel-family and dist. map information
+            as well upon parsing.
+        """
         log(1, ["", "Retrieving / parsing channel data"])
 
         h = sync_handlers.get_channel_handler()
@@ -830,7 +832,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             None
 
     def _compute_unique_packages(self):
-        ### process package metadata for one channel at a time
+        """ process package metadata for one channel at a time """
         relevant = self._channel_req.get_requested_channels()
         self._channel_packages = {}
         self._avail_channel_packages = {}
@@ -1179,7 +1181,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         log(1, "Processing srpm packages complete")
 
     def _compute_unique_source_packages(self):
-        ### process package metadata for one channel at a time
+        """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_source_packages = channel_sp = {}
         self._avail_channel_source_packages = avail_channel_source_packages = {}
@@ -1356,7 +1358,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 raise ReprocessingNeeded
 
     def _compute_unique_kickstarts(self):
-        ### process package metadata for one channel at a time
+        """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         self._channel_kickstarts = channel_kickstarts = {}
         self._uq_channel_kickstarts = uq_channel_kickstarts = {}
@@ -1386,7 +1388,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     """)
 
     def _compute_missing_kickstarts(self):
-        ### process package metadata for one channel at a time
+        """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
         coll = sync_handlers.KickstartableTreesCollection()
         missing_kickstarts = {}
@@ -1642,7 +1644,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         return db_channel_errata
 
     def _diff_errata(self):
-        # Fetch the errata for this channel
+        """ Fetch the errata for this channel"""
         db_channel_errata = self._get_db_channel_errata()
 
         relevant = self._channel_req.get_requested_channels()
@@ -1697,9 +1699,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         del uq_errata
 
     def _diff_db_errata(self):
-        # Compute errata that are missing from the satellite
-        # Kind of similar to diff_errata, if we had the timestamp and advisory
-        # information available
+        """ Compute errata that are missing from the satellite
+            Kind of similar to diff_errata, if we had the timestamp and advisory
+            information available
+        """
         errata_collection = sync_handlers.ErrataCollection()
         self._missing_channel_errata = missing_channel_errata = {}
         db_channel_errata = self._get_db_channel_errata()
@@ -1873,7 +1876,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         return importer.affected_channels
 
     def _get_cached_package_batch(self, chunk, sources=0):
-        # short-circuit the most common case
+        """ short-circuit the most common case"""
         if not chunk:
             return []
         short_package_collection = sync_handlers.ShortPackageCollection()
@@ -1931,7 +1934,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             pb.printComplete()
 
     def _fix_erratum(self, erratum):
-        # Replace the list of packages with references to short packages
+        """ Replace the list of packages with references to short packages"""
         sp_coll = sync_handlers.ShortPackageCollection()
         pids = unique(erratum['packages'])
         # map all the pkgs objects to the erratum
