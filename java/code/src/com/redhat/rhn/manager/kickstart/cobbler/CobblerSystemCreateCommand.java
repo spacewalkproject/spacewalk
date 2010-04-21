@@ -273,7 +273,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public String getCobblerSystemRecordName() {
         String sep = ConfigDefaults.get().getCobblerNameSeparator();
         String name = this.server.getName().replace(' ', '_');
-        name = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_-]", "");
+        name = name.replace(' ', '_').replaceAll("[^a-zA-Z0-9_\\-\\.]", "");
         return name + sep +
             this.server.getOrg().getId();
     }
