@@ -16,9 +16,23 @@ BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
 
+Requires:       bash
+Requires:       cobbler
+Requires:       coreutils
+Requires:       initscripts
+Requires:       iproute
+Requires:       net-tools
+Requires:       oracle-lib-compat
+Requires:       perl-Satcon
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       python, rpm-python
-Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       rhnlib >= 2.5.20
+Requires:       rpm
+Requires:       setup
+Requires:       spacewalk-admin
+Requires:       spacewalk-certs-tools
+Requires:       spacewalk-config
+Requires:       spacewalk-setup
 
 %description
 Generic utilities that may be run against a Spacewalk server.  This package
