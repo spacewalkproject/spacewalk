@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.0.4
+Version:	1.0.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -16,9 +16,23 @@ BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
 
+Requires:       bash
+Requires:       cobbler
+Requires:       coreutils
+Requires:       initscripts
+Requires:       iproute
+Requires:       net-tools
+Requires:       oracle-lib-compat
+Requires:       perl-Satcon
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       python, rpm-python
-Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       rhnlib >= 2.5.20
+Requires:       rpm
+Requires:       setup
+Requires:       spacewalk-admin
+Requires:       spacewalk-certs-tools
+Requires:       spacewalk-config
+Requires:       spacewalk-setup
 
 %description
 Generic utilities that may be run against a Spacewalk server.  This package
@@ -57,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 22 2010 Tomas Lestach <tlestach@redhat.com> 1.0.5-1
+- adding requires to utils/spacewalk-utils.spec (tlestach@redhat.com)
+
 * Wed Apr 21 2010 Tomas Lestach <tlestach@redhat.com> 1.0.4-1
 - introducing spacewalk-hostname-rename.sh script (tlestach@redhat.com)
 
