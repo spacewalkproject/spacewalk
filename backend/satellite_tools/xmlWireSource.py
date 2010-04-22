@@ -435,7 +435,8 @@ class RPCGetWireSource(BaseWireSource):
     def _rpc_call(self, function_name, params):
         get_server_obj = self.login()
         # Try a couple of times
-        for i in range(CFG.NETWORK_RETRIES):
+        cfg = config.initUp2dateConfig()
+        for i in range(cfg['networkRetries']):
             try:
                 ret = apply(getattr(get_server_obj, function_name), params)
             except rpclib.ProtocolError, e:
