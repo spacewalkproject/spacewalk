@@ -23,6 +23,7 @@ import connection
 
 # rhn imports
 from common import CFG, rhnLib
+from up2date_client import config
 
 # local imports
 from syncLib import log, log2, RhnSyncException
@@ -139,7 +140,8 @@ class BaseWireSource:
         retryYN = 0
         wait = 0.33
         lastErrorMsg = ''
-        for i in range(CFG.NETWORK_RETRIES):
+        cfg = config.initUp2dateConfig()
+        for i in range(cfg['networkRetries']):
             server = self.getServer(retryYN)
             if server is None:
                 log2(-1, 2, 'ERROR: server unable to initialize, attempt %s' % i, stream=sys.stderr)

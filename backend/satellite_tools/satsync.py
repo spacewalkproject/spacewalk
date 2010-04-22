@@ -31,6 +31,7 @@ from optparse import Option, OptionParser
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
     rhnLib, rhnFlags
+from up2date_client import config
 from spacewalk.common import rhn_rpm
 from spacewalk.common.checksum import getFileChecksum
 
@@ -1439,6 +1440,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_ks_files = self._compute_missing_ks_files()
 
         log(1, ["", "Downloading kickstartable trees files"])
+        cfg = config.initUp2dateConfig()
         for channel, files in missing_ks_files.items():
             files_count = len(files)
 
@@ -1463,7 +1465,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 path = os.path.join(base_path, relative_path)
                 f = FileManip(path, timestamp=timestamp, file_size=file_size)
                 # Retry a number of times, we may have network errors
-                for i in range(CFG.NETWORK_RETRIES):
+                for i in range(cfg['networkRetries']):
                     stream = self._get_ks_file_stream(channel, label, relative_path)
                     try:
                         f.write_file(stream)
