@@ -8,5 +8,6 @@ editAreaLoader.init({
         ,allow_resize: "both"
         ,word_wrap: true
         ,toolbar: "search, go_to_line, |, undo, redo, |, syntax_selection, |, highlight, reset_highlight, |, help"
+	,syntax: "bash"
 });
 </script>

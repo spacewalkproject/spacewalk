@@ -83,7 +83,7 @@ Requires:       spacewalk-selinux
 Requires:       jabberd-selinux
 %endif
 
-Requires:       editarea
+Requires:       editarea >= 0.8.2-2
 
 
 %description common
