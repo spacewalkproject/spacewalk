@@ -132,6 +132,12 @@ class ChannelDiskSource(DiskSource):
         return "channel.xml"
 
 
+class ChannelCompsDiskSource(ChannelDiskSource):
+
+    def _file_name(self):
+        return "comps.xml"
+
+
 def hashPackageId(obj_id, mod=100, padding=2):
     """Hash the package ID
 
