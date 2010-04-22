@@ -1962,6 +1962,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._extinct_packages.clear()
         pkgs_total = len(missing_fs_packages)
         pkg_current = 0
+        cfg = config.initUp2dateConfig()
         for package_id, path in missing_fs_packages:
             pkg_current = pkg_current + 1
             timestamp = package_collection.get_package_timestamp(package_id)
@@ -1971,7 +1972,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             nvrea = rpmManip.nvrea()
 
             # Retry a number of times, we may have network errors
-            for i in range(CFG.NETWORK_RETRIES):
+            for i in range(cfg['networkRetries']):
                 rpmFile, stream = self._get_package_stream(channel,
                     package_id, nvrea, sources)
                 if stream is None:
