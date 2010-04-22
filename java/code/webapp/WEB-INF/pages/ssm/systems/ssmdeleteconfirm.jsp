@@ -14,6 +14,8 @@
 <p><bean:message key="ssm.delete.systems.summary" /></p>
 <c:set var="notSelectable" value="true"/>
 <c:set var="showLastCheckin" value="true"/>
+<c:set var="noPackages" value="true"/>
+<c:set var="noErrata" value="true"/>
 
 <rl:listset name="systemListSet" legend="system">
     <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>

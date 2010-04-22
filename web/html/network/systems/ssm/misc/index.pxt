@@ -103,7 +103,7 @@ systems will be removed.</p>
 
 <ul>
   <li><a
-  href="/network/systems/ssm/misc/delete_systems_conf.pxt">Delete
+  href="/rhn/systems/ssm/DeleteConfirm.do">Delete
   System Profiles</a></li>
 </ul>
 
