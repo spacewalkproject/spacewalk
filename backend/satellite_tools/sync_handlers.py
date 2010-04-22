@@ -219,6 +219,7 @@ def import_channels(channels, orgid=None):
     # Don't commit just yet
     importer.will_commit = 0
     importer.run()
+    return importer
 
 # Singleton-like
 class ShortPackageCollection:
