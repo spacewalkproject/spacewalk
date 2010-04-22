@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-""" spacecmd - Interactive, console prompt to Spacewalk
+""" spacecmd - a command line interface to Spacewalk
 
 Author: Aron Parsons <aron@redhat.com>
-License: GPLv3+
+License: GPLv3
 """
 
 import logging, os, sys, xml, xmlrpclib

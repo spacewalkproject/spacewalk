@@ -358,8 +358,8 @@ For help for a specific command try 'help <cmd>'.
 
     def generate_package_cache(self, force=False):
         if not force and datetime.now() < self.package_cache_expire:
-            return        
-        
+            return
+
         logging.debug('Regenerating internal package cache')
 
         channels = self.client.channel.listSoftwareChannels(self.session)
@@ -396,10 +396,10 @@ For help for a specific command try 'help <cmd>'.
         self.all_systems = []
         self.system_cache_expire = datetime.now()
 
-    
+
     def generate_system_cache(self, force=False):
         if not force and datetime.now() < self.system_cache_expire:
-            return        
+            return
 
         logging.debug('Regenerating internal system cache')
 
@@ -473,7 +473,7 @@ For help for a specific command try 'help <cmd>'.
                     # determine the system name if passed an ID
                     id = int(item)
                     name = self.client.system.getName(self.session, id)
-                    item = name.get('name')                    
+                    item = name.get('name')
                 except:
                     pass
 
@@ -684,7 +684,7 @@ For help for a specific command try 'help <cmd>'.
 
     def do_clear_caches(self, args):
         self.clear_system_cache()
-        self.clear_package_cache()        
+        self.clear_package_cache()
 
 ####################
 
@@ -1074,7 +1074,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_group_addsystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
-    
+
         if len(parts) == 2:
             return self.tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
@@ -1112,7 +1112,7 @@ For help for a specific command try 'help <cmd>'.
 
     def complete_group_removesystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
-    
+
         if len(parts) == 2:
             return self.tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
@@ -1173,7 +1173,7 @@ For help for a specific command try 'help <cmd>'.
     def help_group_delete(self):
         print 'group_delete: Delete a system group'
         print 'usage: group_create NAME ...'
-    
+
     def complete_group_delete(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_group_list('', True), text)
 
@@ -1185,7 +1185,7 @@ For help for a specific command try 'help <cmd>'.
         groups = self.args
 
         self.do_group_details('', True)
-        if not self.user_confirm('Delete these groups [y/N]:'): return        
+        if not self.user_confirm('Delete these groups [y/N]:'): return
 
         for group in groups:
             self.client.systemgroup.delete(self.session, group)
@@ -1709,7 +1709,7 @@ For help for a specific command try 'help <cmd>'.
             self.username = ''
             self.server = ''
             self.clear_system_cache()
-            self.clear_package_cache()        
+            self.clear_package_cache()
 
             if os.path.isfile(self.cache_file):
                 try:
@@ -1955,7 +1955,7 @@ For help for a specific command try 'help <cmd>'.
 #                add_separator = True
 #
 #                print 'System:      %s' % r.get('server_name')
-#                print 'Completed:   %s' % re.sub('T', ' ', 
+#                print 'Completed:   %s' % re.sub('T', ' ',
 #                                                 r.get('timestamp').value)
 #
 #                print
@@ -1975,7 +1975,7 @@ For help for a specific command try 'help <cmd>'.
 #                add_separator = True
 #
 #                print 'System:      %s' % r.get('server_name')
-#                print 'Completed:   %s' % re.sub('T', ' ', 
+#                print 'Completed:   %s' % re.sub('T', ' ',
 #                                                 r.get('timestamp').value)
 #
 #                print
@@ -2746,8 +2746,8 @@ For help for a specific command try 'help <cmd>'.
                         installed_packages = \
                             self.client.system.listPackages(self.session,
                                                             system_id)
-      
-                    for p in installed_packages: 
+
+                    for p in installed_packages:
                         if package_to_install == p.get('name'):
                             logging.warning('%s already has %s installed' %(
                                             system, package_to_install))
@@ -3089,18 +3089,18 @@ For help for a specific command try 'help <cmd>'.
             system_id = self.get_system_id(system)
             if not system_id: return
 
-            system_ids.append(system_id)            
-          
-        # provide a summary to the user 
+            system_ids.append(system_id)
+
+        # provide a summary to the user
         self.do_system_details('', True)
 
         if not self.user_confirm('Delete these systems [y/N]:'):
-            return 
+            return
 
         self.client.system.deleteSystems(self.session, system_ids)
 
         logging.info('Deleted %s system(s)', str(len(system_ids)))
-        
+
         # regenerate the system name cache
         self.generate_system_cache(True)
 
@@ -3142,7 +3142,7 @@ For help for a specific command try 'help <cmd>'.
         # update the SSM
         if old_name in self.ssm:
             self.ssm.remove(old_name)
-            self.ssm.append(new_name) 
+            self.ssm.append(new_name)
 
 ####################
 
@@ -3190,8 +3190,8 @@ For help for a specific command try 'help <cmd>'.
             print 'Registered:    %s' % re.sub('T', ' ', registered.value)
             print 'Last Checkin:  %s' % re.sub('T', ' ', last_checkin.value)
             print 'OSA Status:    %s' % details.get('osa_status')
-           
-            # only print basic information if requested 
+
+            # only print basic information if requested
             if short: continue
 
             network = self.client.system.getNetwork(self.session, system_id)
