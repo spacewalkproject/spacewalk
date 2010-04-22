@@ -149,6 +149,27 @@ def read_cpuinfo():
             return ""
         return a[e]
 
+    # read cpu list and return number of cpus and list as dictionary
+    def get_cpulist_as_dict(cpulist):
+        count = 0
+        tmpdict = {}
+        for cpu in string.split(cpulist, "\n\n"):
+            if not len(cpu):
+                continue
+            count = count + 1
+            if count > 1:
+                continue # just count the rest
+            for cpu_attr in string.split(cpu, "\n"):
+                if not len(cpu_attr):
+                    continue
+                vals = string.split(cpu_attr, ":")
+                if len(vals) != 2:
+                    # XXX: make at least some effort to recover this data...
+                    continue
+                name, value = string.strip(vals[0]), string.strip(vals[1])
+                tmpdict[string.lower(name)] = value
+        return [count, tmpdict]
+
     if not os.access("/proc/cpuinfo", os.R_OK):
         return {}
 
@@ -173,28 +194,12 @@ def read_cpuinfo():
                }
     if uname[0] == "i" and uname[-2:] == "86" or (uname == "x86_64"):
         # IA32 compatible enough
-        count = 0
-        tmpdict = {}
-        for cpu in string.split(cpulist, "\n\n"):
-            if not len(cpu):
-                continue
-            count = count + 1
-            if count > 1:
-                continue # just count the rest
-            for cpu_attr in string.split(cpu, "\n"):
-                if not len(cpu_attr):
-                    continue
-                vals = string.split(cpu_attr, ":")
-                if len(vals) != 2:
-                    # XXX: make at least some effort to recover this data...
-                    continue
-                name, value = string.strip(vals[0]), string.strip(vals[1])
-                tmpdict[string.lower(name)] = value
+        (count, tmpdict) = get_cpulist_as_dict(cpulist)
 
         if uname == "x86_64":
             hwdict['platform'] = 'x86_64'
         else:
-            hwdict['platform']      = "i386"
+            hwdict['platform'] = "i386"
             
         hwdict['count']         = count
         hwdict['type']          = get_entry(tmpdict, 'vendor_id')
@@ -213,21 +218,9 @@ def read_cpuinfo():
             hwdict['speed']         = int(round(float(mhz_speed)) - 1)
         except ValueError:
             hwdict['speed'] = -1
-
-        
-
     elif uname in["alpha", "alphaev6"]:
         # Treat it as an an Alpha
-        tmpdict = {}
-        for cpu_attr in string.split(cpulist, "\n"):
-            if not len(cpu_attr):
-                continue
-            vals = string.split(cpu_attr, ":")
-            if len(vals) != 2:
-                # XXX: make at least some effort to recover this data...
-                continue
-            name, value = string.strip(vals[0]), string.strip(vals[1])
-            tmpdict[string.lower(name)] = string.lower(value)
+        (count, tmpdict) = get_cpulist_as_dict(cpulist)
 
         hwdict['platform']      = "alpha"
         hwdict['count']         = get_entry(tmpdict, 'cpus detected')
@@ -247,26 +240,8 @@ def read_cpuinfo():
             hwdict['speed']         = int(round(float(hz_speed[0]))) / 1000000
         except ValueError:
             hwdict['speed'] = -1
-
     elif uname in ["ia64"]:
-        tmpdict = {}
-        count = 0
-        for cpu in string.split(cpulist, "\n\n"):
-            if not len(cpu):
-                continue
-            count = count + 1
-            # count the rest
-            if count > 1:
-                continue
-            for cpu_attr in string.split(cpu, "\n"):
-                if not len(cpu_attr):
-                    continue
-                vals = string.split(cpu_attr, ":")  
-                if len(vals) != 2:
-                    # XXX: make at least some effort to recover this data...
-                    continue
-                name, value = string.strip(vals[0]), string.strip(vals[1])
-                tmpdict[string.lower(name)] = string.lower(value)
+        (count, tmpdict) = get_cpulist_as_dict(cpulist)
 
         hwdict['platform']      = uname
         hwdict['count']         = count
@@ -283,24 +258,7 @@ def read_cpuinfo():
         hwdict['other']         = get_entry(tmpdict, 'features')
 
     elif uname in ['ppc64']:
-        tmpdict = {}
-        count = 0
-        for cpu in string.split(cpulist, "\n\n"):
-            if not len(cpu):
-                continue
-            count = count + 1
-            # count the rest
-            if count > 1:
-                continue
-            for cpu_attr in string.split(cpu, "\n"):
-                if not len(cpu_attr):
-                    continue
-                vals = string.split(cpu_attr, ":")  
-                if len(vals) != 2:
-                    # XXX: make at least some effort to recover this data...
-                    continue
-                name, value = string.strip(vals[0]), string.strip(vals[1])
-                tmpdict[string.lower(name)] = string.lower(value)
+        (count, tmpdict) = get_cpulist_as_dict(cpulist)
 
         hwdict['platform'] = uname
         hwdict['count'] = count
@@ -314,8 +272,6 @@ def read_cpuinfo():
             hwdict['speed'] = int(round(float(mhz_speed)) - 1)
         except ValueError:
             hwdict['speed'] = -1
-         
-        
     else:
         # XXX: expand me. Be nice to others
         hwdict['platform']      = uname
