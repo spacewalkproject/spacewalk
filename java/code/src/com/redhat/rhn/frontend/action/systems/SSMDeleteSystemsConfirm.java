@@ -64,9 +64,12 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
         return mapping.findForward("confirm");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List getResult(RequestContext contextIn) {
-        return SystemManager.inSet (contextIn.getLoggedInUser(),
+        return SystemManager.inSet(contextIn.getLoggedInUser(),
                                         RhnSetDecl.SYSTEMS.getLabel());
     }
 

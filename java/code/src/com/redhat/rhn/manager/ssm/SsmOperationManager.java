@@ -14,19 +14,19 @@
  */
 package com.redhat.rhn.manager.ssm;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Handles the tracking of SSM asynchronous operations, providing functionality for
@@ -260,13 +260,20 @@ public class SsmOperationManager extends BaseManager {
 
         writeMode.executeUpdate(params);
     }
-    
+
+    /**
+     * Associates an operation with a group of servers against which it was run, where
+     * a list of server ids are passed in 
+     * @param operationId identifies an existing operation to associate with servers
+     * @param sidsIn the list server ids
+     */
     public static void deleteServersWithOperation(long operationId, List<Long> sidsIn) {
         WriteMode writeMode = 
-            ModeFactory.getWriteMode("ssm_operation_queries", "delete_servers_to_operation");
+            ModeFactory.getWriteMode("ssm_operation_queries", 
+                                        "delete_servers_to_operation");
         Map<String, Object> params = new HashMap<String, Object>(2);
         
-        for (Long sid: sidsIn) {
+        for (Long sid : sidsIn) {
             params.put("op_id", operationId);
             params.put("sid", sid);
             
