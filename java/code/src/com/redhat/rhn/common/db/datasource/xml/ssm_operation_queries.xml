@@ -90,7 +90,7 @@
 
 <!-- adds sids for which servers we want to delete -->
 <write-mode name="delete_servers_to_operation">
-   <query params="op_id", "sid"> 
+   <query params="op_id, sid"> 
       INSERT 
       INTO   rhnSsmOperationServer 
              (
