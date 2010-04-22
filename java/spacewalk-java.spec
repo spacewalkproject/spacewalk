@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 21 2010 Tomas Lestach <tlestach@redhat.com> 1.0.5-1
+- adding commets for apidoc generation (tlestach@redhat.com)
+- adding test for getChannelLastBuildById() (james.hogarth@gmail.com)
+- Addition of channel.software.getChannelLastBuildById API call
+  (james.hogarth@gmail.com)
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.0.4-1
 - 576211 - fixed server name replacement pattern
 

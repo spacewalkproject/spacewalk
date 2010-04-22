@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.0.2
+Version:	1.0.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 21 2010 Tomas Lestach <tlestach@redhat.com> 1.0.4-1
+- introducing spacewalk-hostname-rename.sh script (tlestach@redhat.com)
+
 * Mon Apr 19 2010 Justin Sherrill <jsherril@redhat.com> 1.0.2-1
 - version changes for spacewalk 1.0 release (shughes@redhat.com)
 

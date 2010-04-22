@@ -17,6 +17,8 @@
 CREATE TABLE rhnPackageRepodata
 (
     package_id  NUMBER NOT NULL
+                    CONSTRAINT rhnPackageRepodata_pk
+                        PRIMARY KEY
                     CONSTRAINT rhn_pkey_rd_pid_fk
                         REFERENCES rhnPackage (id)
                         ON DELETE CASCADE,
