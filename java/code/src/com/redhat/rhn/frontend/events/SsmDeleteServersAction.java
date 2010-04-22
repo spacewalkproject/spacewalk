@@ -14,19 +14,16 @@
  */
 package com.redhat.rhn.frontend.events;
 
+import java.util.List;
+
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
-
-import java.util.List;
 
 /**
  * Handles performing subscription changes for servers in the SSM.
  *
- * @see com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent
+ * @see com.redhat.rhn.frontend.events.SsmDeleteServersEvent
  * @version $Revision$
  */
 public class SsmDeleteServersAction extends AbstractDatabaseAction {
@@ -37,39 +34,20 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
 
         User user = event.getUser();
         List<Long> sids = event.getSids();
-
-        // Parse and store the changes into RhnSets
-        //SsmManager.populateSsmChannelServerSets(user, changes);
-
-        // Log the change operation
-
-        /* Since the servers are in two separate sets, make explicit associations from
-           those sets to the operation.
-         */
-        //long operationId = SsmOperationManager.createOperation(user,
-          //  "Channel Subscription Updates", null);
-
-        /*
-        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-            RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());
-        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-            RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.getLabel());
-*/
-        // Do the changes
-
-        /* Anything after the operation is created should be in a try..finally to
-           attempt to prevent a hanging, perpetually in progress operation. This is
-           an added safety once a taskomatic task is created to automatically time out
-           long requests.
-         */
-        /*
+       
+        long operationId = SsmOperationManager.createOperation(user,
+            "Server Delete", null);
+        
+        SsmOperationManager.deleteServersWithOperation(operationId, sids);
+        
         try {
-            SsmManager.performChannelActions(user);
+            // stubbed out...need to replace with delete method
+            //SsmManager.performChannelActions(user);
         }
         finally {
             // Complete the action
             SsmOperationManager.completeOperation(user, operationId);
         }
-        */
+        
     }
 }
