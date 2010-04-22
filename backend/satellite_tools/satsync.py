@@ -594,6 +594,35 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                              xmlDiskSource.ChannelFamilyDiskSource,
                              "channel-families")
 
+    def _set_comps_for_channel(self, backend, channel_id, path, timestamp):
+        sth = backend.dbmodule.prepare("""
+                declare
+                        i integer;
+                begin
+                        -- it will be possible to simplify this select once there is
+                        -- unique key on rhnChannelComps.channel_id
+                        select id into i
+                        from (
+                                select id, relative_filename, last_modified
+                                from (
+                                        select id, relative_filename, last_modified
+                                        from rhnChannelComps
+                                        where channel_id = :channel_id
+                                        order by id desc
+                                        )
+                                where rownum = 1
+                        )
+                        where relative_filename = :path
+                                and last_modified = to_date(:timestamp, 'YYYYMMDDHH24MISS');
+                exception when no_data_found then
+                        delete from rhnChannelComps
+                        where channel_id = :channel_id;
+                        insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
+                        values (rhn_channelcomps_id_seq.nextval, :channel_id, :path, to_date(:timestamp, 'YYYYMMDDHH24MISS'), sysdate, sysdate);
+                end;
+        """)
+        sth.execute(channel_id = channel_id, path = path, timestamp = timestamp)
+
     def process_channels(self):
         # push channels, channel-family and dist. map information
         # as well upon parsing.
@@ -637,7 +666,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         requested_channels = self._channel_req.get_requested_channels()
         try:
-            sync_handlers.import_channels(requested_channels, \
+            importer = sync_handlers.import_channels(requested_channels, \
                                           orgid=OPTIONS.orgid or None)
             for label in requested_channels:
                 timestamp = self._channel_collection.get_channel_timestamp(label)
@@ -653,6 +682,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         stream = rpmServer.getCompsFileStream(label)
                         f = FileManip(comps_path, timestamp, None)
                         f.write_file(stream)
+                    data = { label : None }
+                    importer.backend.lookupChannels(data)
+                    self._set_comps_for_channel(importer.backend, data[label]['id'], comps_path, timestamp)
 
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %
