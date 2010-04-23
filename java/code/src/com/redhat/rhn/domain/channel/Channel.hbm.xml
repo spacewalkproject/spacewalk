@@ -68,6 +68,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="channel_family_id"/>
         </set>
         
+        <one-to-one name="comps" property-ref="channel"
+            class="com.redhat.rhn.domain.channel.Comps" cascade="all" lazy="proxy"/>        
+        
         <set name="contentSources" lazy="true" table="rhnChannelContentSource" 
 	     cascade="all-delete-orphan" inverse="true">
             <key column="channel_id"/>
