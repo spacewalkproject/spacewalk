@@ -86,6 +86,7 @@ class ChannelMapper:
             rhnChannelComps
         where
             channel_id = :channel_id
+        order by id desc
         """)
 
         self.cloned_from_id_sql = rhnSQL.prepare("""

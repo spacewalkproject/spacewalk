@@ -23,6 +23,11 @@ LOG=/var/log/rhn/rhn_hostname_rename.log
 RHN_CONF_FILE=/etc/rhn/rhn.conf
 SSL_BUILD_DIR=/root/ssl-build
 HOSTS_FILE=/etc/hosts
+ETC_JABBERD_DIR=/etc/jabberd
+NOCPULSE_INI=/etc/NOCpulse.ini
+BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
+BOOTSTRAP_CCO=/var/www/html/pub/bootstrap/client-config-overrides.txt
+SAT_LOCAL_RULES_CONF=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf
 COBBLER_SETTINGS_FILE="/etc/cobbler/settings"
 BACKUP_EXT=.rnmbck
 
@@ -131,10 +136,20 @@ function initial_system_hostname_check {
     return 0
 }
 
+function backup_file {
+    if [ -e ${1} ]
+    then
+        cp ${1} ${1}${BACKUP_EXT}
+    else
+        echo "Backup of ${1} failed. File not found." >> $LOG
+    fi
+}
+
 function update_rhn_conf {
+    backup_file ${SAT_LOCAL_RULES_CONF}
     # store config to satellite-local-rules.conf
     /usr/bin/rhn-config-satellite.pl \
-       --target=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf \
+       --target=${SAT_LOCAL_RULES_CONF} \
        --option=jabberDOThostname=$HOSTNAME \
        --option=cobblerDOThost=$HOSTNAME \
        >> $LOG 2>&1
@@ -142,11 +157,11 @@ function update_rhn_conf {
     # /usr/bin/satcon-deploy-tree.pl \
     #    --source=/etc/sysconfig/rhn-satellite-prep/etc
     #    --dest=/etc
-    #    --conf=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf
+    #    --conf=$SAT_LOCAL_RULES_CONF
     #    >> $LOG 2>&1
-    cp ${RHN_CONF_FILE} ${RHN_CONF_FILE}${BACKUP_EXT}
+    backup_file ${RHN_CONF_FILE}
     /usr/bin/rhn-config-satellite.pl \
-        --target=/etc/rhn/rhn.conf \
+        --target=${RHN_CONF_FILE} \
         --option=server.jabber_server=$HOSTNAME \
         --option=osa-dispatcher.jabber_server=$HOSTNAME \
         --option=cobbler.host=$HOSTNAME >> $LOG 2>&1
@@ -229,7 +244,6 @@ function re-generate_server_ssl_certificate {
         then
             SSL_ORGUNIT=${CML_SSL_ORGUNIT}
         else
-            # read -e -p " Enter Organization Unit [${SSL_ORGUNIT_OLD:-$HOSTNAME}] : "
             # offer hostname as ORG UNIT everytime
             read -e -p " Enter Organization Unit [$HOSTNAME] : "
             SSL_ORGUNIT=${REPLY:-$SSL_ORGUNIT_OLD}
@@ -292,7 +306,7 @@ function re-generate_server_ssl_certificate {
         JABBERD_CERTIFICATE=$(rpm -ql $NEW_SSL_KEY_PAIR_PACKAGE | grep jabberd)
         if [ -e "$JABBERD_CERTIFICATE" ]
         then
-            \cp -f $JABBERD_CERTIFICATE /etc/jabberd/
+            \cp -f $JABBERD_CERTIFICATE $ETC_JABBERD_DIR/
             print_status $?
         else
             print_status 1
@@ -315,7 +329,6 @@ EOS
 }
 
 function update_monitoring_data {
-    # change IP
     NOCPULSE_OLD_PUBLIC_KEY=`cat $NOCPULSE_PUBLIC_KEY_FILE`
     sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
 UPDATE rhn_sat_cluster SET vip = '$IP' WHERE public_key LIKE '${NOCPULSE_OLD_PUBLIC_KEY}%';
@@ -408,24 +421,36 @@ print_status 0  # just simulate end
 
 re-generate_server_ssl_certificate
 
-# Reconfigure up2date client systems with new hostname
-
 echo -n "Regenerating new bootstrap client-config-overrides.txt ... " | tee -a $LOG
-rhn-bootstrap >> /dev/null 2>&1
-print_status $?
+backup_file ${BOOTSTRAP_SH}
+backup_file ${BOOTSTRAP_CCO}
+# it's easier to subst HOSTNAME with sed
+# than to re-generate and keep current configuration
+# rhn-bootstrap >> /dev/null 2>&1
+sed -i "s/\(HOSTNAME=\).*/\1$HOSTNAME/" ${BOOTSTRAP_SH}
+sed -i "s/\(noSSLServerURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+print_status 0  # just simulate end
 
-echo -n "Updating NOCpulse.ini ... " | tee -a $LOG
-sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
+if [ -e "${NOCPULSE_INI}" ]
+then
+    backup_file ${NOCPULSE_INI}
+    echo -n "Updating NOCpulse.ini ... " | tee -a $LOG
+    sqlplus $(spacewalk-cfg-get default_db) >>$LOG <<EOS
 UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='RHN_SAT_HOSTNAME';
 UPDATE rhn_config_macro SET definition='$HOSTNAME' WHERE name='MDOM';
 COMMIT;
 QUIT
 EOS
-print_status 0  # just simulate end
+    print_status 0  # just simulate end
+fi
 
-echo -n "Updating monitoring data ... " | tee -a $LOG
-update_monitoring_data
-print_status $?
+if [ -e $NOCPULSE_OLD_PUBLIC_KEY ]
+then
+    echo -n "Updating monitoring data ... " | tee -a $LOG
+    update_monitoring_data
+    print_status $?
+fi
 
 echo "Monitoring enabled: $MONITORING_ENABLED" >> $LOG
 echo "MonitoringScout enabled: $MONITORING_SCOUT_ENABLED" >> $LOG
@@ -446,7 +471,6 @@ UPDATE rhntemplatestring SET value='$HOSTNAME' WHERE label='hostname';
 COMMIT;
 QUIT
 EOS
-######## + check RHNPUSHDISPATCHER table
 print_status 0  # just simulate end
 
 echo -n "Changing cobbler settings ... " | tee -a $LOG
@@ -462,14 +486,19 @@ COMMIT;
 QUIT
 EOS
 
+for jabber_config_file in c2s.xml s2s.xml sm.xml
+do
+    backup_file ${ETC_JABBERD_DIR}/${jabber_config_file}
+done
+
 if [ -e $SPW_SETUP_JABBERD ]
 then
     $SPW_SETUP_JABBERD
 else
     /usr/bin/satcon-deploy-tree.pl \
         --source=/etc/sysconfig/rhn-satellite-prep/etc/jabberd \
-        --dest=/etc/jabberd \
-        --conf=/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf \
+        --dest=$ETC_JABBERD_DIR \
+        --conf=$SAT_LOCAL_RULES_CONF \
        >> /dev/null 2>&1
 fi
 print_status $?

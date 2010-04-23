@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -258,6 +259,26 @@ public class SsmOperationManager extends BaseManager {
         params.put("set_label", setLabel);
 
         writeMode.executeUpdate(params);
+    }
+
+    /**
+     * Associates an operation with a group of servers against which it was run, where
+     * a list of server ids are passed in 
+     * @param operationId identifies an existing operation to associate with servers
+     * @param sidsIn the list server ids
+     */
+    public static void deleteServersWithOperation(long operationId, List<Long> sidsIn) {
+        WriteMode writeMode = 
+            ModeFactory.getWriteMode("ssm_operation_queries", 
+                                        "delete_servers_to_operation");
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        
+        for (Long sid : sidsIn) {
+            params.put("op_id", operationId);
+            params.put("sid", sid);
+            
+            writeMode.executeUpdate(params);
+        }
     }
 }
 

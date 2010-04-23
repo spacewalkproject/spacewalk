@@ -183,7 +183,7 @@ class FileManip:
         # df
         f_bavail = stat[4] # # free blocks
         freespace = f_bsize * float(f_bavail)
-        if self.file_size > freespace:
+        if self.file_size != None and self.file_size > freespace:
             msg = messages.not_enough_diskspace % (freespace/1024)
             log(-1, msg, stream=sys.stderr)
             #pkilambi: As the metadata download does'nt check for unfetched rpms
@@ -223,7 +223,7 @@ class FileManip:
         l_file_size = fout.tell()
         fout.close()
 
-        if self.file_size != l_file_size:
+        if self.file_size != None and self.file_size != l_file_size:
             # Something bad happened
             msg = "Error: expected %s bytes, got %s bytes" % (self.file_size,
                 l_file_size)
@@ -236,7 +236,7 @@ class FileManip:
             raise FileCreationError(msg)
 
         os.utime(self.full_path, (self.timestamp, self.timestamp))
-        return self.file_size
+        return l_file_size
 
 
 class RpmManip(FileManip):
