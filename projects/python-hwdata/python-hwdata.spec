@@ -3,7 +3,7 @@
 %endif
 
 Name:		python-hwdata
-Version:	1.0
+Version:	1.1
 Release:	1%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
@@ -44,5 +44,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Apr 23 2010 Miroslav Suchý <msuchy@redhat.com> 1.0-1
+* Fri Apr 23 2010 Miroslav Suchý <msuchy@redhat.com> 1.1-1
 - initial release
