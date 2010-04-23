@@ -935,7 +935,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
                 apply(h.execute, (), nevra)
                 row = None
-                 for r in (h.fetchall_dict() or []):
+                for r in (h.fetchall_dict() or []):
                     # let's check which checksum we have in database
                     if package['checksums'][r['checksum_type']] == r['checksum']:
                        row = r
