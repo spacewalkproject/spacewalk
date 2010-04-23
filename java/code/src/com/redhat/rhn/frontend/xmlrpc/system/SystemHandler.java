@@ -112,6 +112,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.system.DuplicateSystemGrouping;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
@@ -4299,5 +4300,91 @@ public class SystemHandler extends BaseHandler {
         rec.save();
 
         return 1;
+    }
+    
+
+    private List transformDuplicate(List<DuplicateSystemGrouping> list, String propName) {
+        List toRet = new ArrayList();
+        for (DuplicateSystemGrouping b : list) {
+            Map map = new HashMap();
+            map.put(propName, b.getKey());
+            map.put("systems", b.getSystem());
+            toRet.add(map);
+        }
+        return toRet;
+    }
+    
+    /**
+     * List Duplicates by IP
+     * @param sessionKey the session key
+     * @return List of Duplicates
+     * 
+     *
+     * @xmlrpc.doc List duplicate systems by IP Address. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype 
+     *      #array()
+     *           #struct("Duplicate Group")
+     *                   #prop("string", "ip")
+     *                   #prop_array_begin("systems")
+     *                      $NetworkDtoSerializer
+     *                   #prop_array_end()
+     *           #struct_end()
+     *      #array_end()
+     **/
+    public List listDuplicatesByIp(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<DuplicateSystemGrouping> list = SystemManager.listDuplicatesByIP(loggedInUser);
+        return transformDuplicate(list, "ip");
+    }
+    
+    /**
+     * List Duplicates by Mac Address
+     * @param sessionKey the session key
+     * @return List of Duplicates
+     * 
+     *
+     * @xmlrpc.doc List duplicate systems by Mac Address. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype 
+     *      #array()
+     *           #struct("Duplicate Group")
+     *                   #prop("string", "mac")
+     *                   #prop_array_begin("systems")
+     *                      $NetworkDtoSerializer
+     *                   #prop_array_end()
+     *           #struct_end()
+     *      #array_end()
+     **/
+    public List listDuplicatesByMac(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<DuplicateSystemGrouping> list = 
+            SystemManager.listDuplicatesByMac(loggedInUser);
+        return transformDuplicate(list, "mac");
+    }
+    
+    /**
+     * List Duplicates by Hostname
+     * @param sessionKey the session key
+     * @return List of Duplicates
+     * 
+     *
+     * @xmlrpc.doc List duplicate systems by Hostname. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype 
+     *      #array()
+     *           #struct("Duplicate Group")
+     *                   #prop("string", "hostname")
+     *                   #prop_array_begin("systems")
+     *                      $NetworkDtoSerializer
+     *                   #prop_array_end()
+     *           #struct_end()
+     *      #array_end()
+     **/
+    public List listDuplicatesByHostname(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<DuplicateSystemGrouping> list = 
+            SystemManager.listDuplicatesByHostname(loggedInUser);
+        return transformDuplicate(list, "hostname");
     }
 }

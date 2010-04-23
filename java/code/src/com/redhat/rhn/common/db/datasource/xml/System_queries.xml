@@ -1585,5 +1585,61 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 </mode>
 
 
+<mode name="duplicate_system_ids_ip" class="com.redhat.rhn.frontend.dto.NetworkDto">
+    <query params="uid">
+        SELECT distinct S.id as system_id, NI.ip_addr as key, si.checkin as last_checkin
+        from rhnServer S inner join
+          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
+          	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
+          	 rhnServerInfo si on si.server_id = S.id inner join
+          	 ( Select NI2.ip_addr, count(NI2.server_id) as syscount 
+          	 	from rhnServerNetInterface NI2 inner join 
+          	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
+          	 	where USP2.user_id = :uid and 
+          	 		NI2.ip_addr not in(%s)
+          	 	group by NI2.ip_addr) SUMM on SUMM.ip_addr = NI.ip_addr
+        where USP.user_id = :uid and
+        	  SUMM.syscount > 1
+    </query>
+</mode>
+
+
+<mode name="duplicate_system_ids_mac" class="com.redhat.rhn.frontend.dto.NetworkDto">
+    <query params="uid">
+        SELECT distinct S.id as system_id, NI.hw_addr as key, si.checkin as last_checkin
+        from rhnServer S inner join
+          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
+          	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
+          	 rhnServerInfo si on si.server_id = S.id inner join
+          	 ( Select NI2.hw_addr, count(NI2.server_id) as syscount 
+          	 	from rhnServerNetInterface NI2 inner join 
+          	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
+          	 	where USP2.user_id = :uid and 
+          	 		NI2.hw_addr not in (%s)
+          	 	group by NI2.hw_addr) SUMM on SUMM.hw_addr = NI.hw_addr
+        where USP.user_id = :uid and
+        	  SUMM.syscount > 1
+    </query>
+</mode>
+
+<mode name="duplicate_system_ids_hostname" class="com.redhat.rhn.frontend.dto.NetworkDto">
+    <query params="uid">
+        SELECT distinct S.id as system_id, NI.hostname as key, si.checkin as last_checkin
+        from rhnServer S inner join
+          	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
+          	 rhnServerNetwork NI on NI.server_id = S.id inner join 
+          	 rhnServerInfo si on si.server_id = S.id inner join
+          	 ( Select NI2.hostname, count(NI2.server_id) as syscount 
+          	 	from rhnServerNetwork NI2 inner join 
+          	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
+          	 	where USP2.user_id = :uid 
+          	 	group by NI2.hostname) SUMM on SUMM.hostname = NI.hostname
+        where USP.user_id = :uid and
+        	  SUMM.syscount > 1
+    </query>
+</mode>
+
+
+
 </datasource_modes>
 

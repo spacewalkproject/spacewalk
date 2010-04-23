@@ -55,6 +55,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
+import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.dto.OrgProxyServer;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
@@ -2660,4 +2661,72 @@ public class SystemManager extends BaseManager {
         retval.setElaborationParams(Collections.EMPTY_MAP);
         return retval;
     }
+    
+    private static List listDuplicates(User user, String query, List ignored) {
+        SelectMode ipMode = ModeFactory.getMode("System_queries",
+        query);
+    
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        DataResult<NetworkDto> nets;
+        if (ignored.isEmpty()) {
+            nets = ipMode.execute(params);
+        }
+        else {
+            nets = ipMode.execute(params, ignored);
+        }
+         
+        
+        List<DuplicateSystemGrouping> nodes = new ArrayList<DuplicateSystemGrouping>();
+        for (NetworkDto net : nets) {
+            boolean found = false;
+            for (DuplicateSystemGrouping node : nodes) {
+                if (node.addIfMatch(net)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                nodes.add(new DuplicateSystemGrouping(net));
+            }
+        }
+        return nodes;
+    }
+    
+    /**
+     * List duplicate systems by ip address
+     * @param user the user doing the search
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static List listDuplicatesByIP(User user) {
+        List ignoreIps = new ArrayList();
+        ignoreIps.add("127.0.0.1");
+        ignoreIps.add("127.0.0.01");
+        ignoreIps.add("0");
+        return listDuplicates(user, "duplicate_system_ids_ip", ignoreIps);
+    }
+    
+    /**
+     * List duplicate systems by mac address
+     * @param user the user doing the search
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static List listDuplicatesByMac(User user) {
+        List ignoreMacs = new ArrayList();
+        ignoreMacs.add("00:00:00:00:00:00");
+        ignoreMacs.add("fe:ff:ff:ff:ff:ff");
+        return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs);
+    }
+    
+    /**
+     * List duplicate systems by hostname
+     * @param user the user doing the search
+     * @return List of DuplicateSystemBucket objects
+     */
+    public static List listDuplicatesByHostname(User user) {
+        return listDuplicates(user, "duplicate_system_ids_hostname", 
+                Collections.EMPTY_LIST);
+    }
+    
+    
 }
