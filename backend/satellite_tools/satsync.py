@@ -849,8 +849,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if package_ids is None:
                 # Not an incremental
                 package_ids = avail_package_ids
-            channel_packages[chn] = set(package_ids or [])
-            avail_channel_packages[chn] = set(avail_package_ids or [])
+            self._channel_packages[chn] = set(package_ids or [])
+            self._avail_channel_packages[chn] = set(avail_package_ids or [])
 
     def processShortPackages(self):
         log(1, ["", "Retrieving short package metadata (used for indexing)"])
