@@ -463,6 +463,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-product-beta'  : 'product_beta',
         'rhn-channel-receiving-updates' : 'receiving_updates',
         'rhn-channel-checksum-type' : 'checksum_type',
+        'has-comps'                 : 'has_comps',
     }
     def populateFromElements(self, obj, elements):
         BaseItem.populateFromElements(self, obj, elements)

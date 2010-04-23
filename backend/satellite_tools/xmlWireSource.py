@@ -473,3 +473,6 @@ class RPCGetWireSource(BaseWireSource):
     def getKickstartFileStream(self, channel, ks_tree_label, relative_path):
         return self._rpc_call("getKickstartFile", (channel, ks_tree_label,
             relative_path))
+
+    def getCompsFileStream(self, channel):
+        return self._rpc_call("repodata", (channel, 'comps.xml'))

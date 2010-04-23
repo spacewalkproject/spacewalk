@@ -639,6 +639,17 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         try:
             sync_handlers.import_channels(requested_channels, \
                                           orgid=OPTIONS.orgid or None)
+            for label in requested_channels:
+                timestamp = self._channel_collection.get_channel_timestamp(label)
+                ch = self._channel_collection.get_channel(label, timestamp)
+                if ch.has_key('has_comps') and ch['has_comps'] == 'True':
+                    print "Need to download comps for %s" % label
+                    rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+                    stream = rpmServer.getCompsFileStream(label)
+                    path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
+                    f = FileManip(path, timestamp, None)
+                    f.write_file(stream)
+
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %
                 string.join(requested_channels))
