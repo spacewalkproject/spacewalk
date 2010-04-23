@@ -177,11 +177,21 @@ class Dumper(dumper.XML_Dumper):
 		"""
             self.channel_query = rhnSQL.Statement(query)
             ch_data = rhnSQL.prepare(self.channel_query)
+
+            comps_query = """
+                select relative_filename
+                from rhnChannelComps
+                where channel_id = :channel_id
+                order by id desc
+            """
+            self.channel_comps_query = rhnSQL.Statement(comps_query)
+            channel_comps_sth = rhnSQL.prepare(self.channel_comps_query)
             
             #self.channel_ids contains the list of dictionaries that hold the channel information
             #The keys are 'channel_id', 'label', and 'last_modified'.
             self.channel_ids = []
-    
+            self.channel_comps = {}
+
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
             for ids in channel_labels:
@@ -192,6 +202,12 @@ class Dumper(dumper.XML_Dumper):
                     raise ISSError("Error: Channel %s not found." % ids, "")
                     
                 self.channel_ids = self.channel_ids + ch_info
+
+                channel_comps_sth.execute(channel_id = ch_info[0]['channel_id'])
+                comps_info = channel_comps_sth.fetchone_dict()
+
+                if comps_info != None:
+                    self.channel_comps[ch_info[0]['channel_id']] = comps_info['relative_filename']
 
             # For list of channel families, we want to also list those relevant for channels
             # that are already on disk, so that we do not lose those families with
