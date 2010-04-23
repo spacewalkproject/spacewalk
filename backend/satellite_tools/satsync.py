@@ -893,14 +893,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
            and p.checksum_id = c.id
-           and c.checksum = :checksum
-           and c.checksum_type = :checksum_type
     """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
-        nvrea_keys = ['name', 'epoch', 'version', \
-                      'release', 'arch', 'checksum', 'checksum_type']
+        nvrea_keys = ['name', 'epoch', 'version', 'release', 'arch']
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -937,7 +934,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     nevra['org_id'] = package['org_id']
 
                 apply(h.execute, (), nevra)
-                row = h.fetchone_dict()
+                row = None
+                 for r in (h.fetchall_dict() or []):
+                    # let's check which checksum we have in database
+                    if package['checksums'][r['checksum_type']] == r['checksum']:
+                       row = r
+                       break
+
                 # Update the progress bar
                 pb.addTo(1)
                 pb.printIncrement()
@@ -955,8 +958,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         In an incremental approach, one may request packages that are actually
         not available in the current dump, probably because of applying an
         incremental to the wrong base"""
-        for channel_label, objs in missing_channel_packages.items():
-            pids = map(lambda x: x[0], objs)
+        for channel_label, pids in missing_channel_packages.items():
 	    if sources:
 		avail_pids = map(lambda x: x[0], self._avail_channel_source_packages[channel_label])
 	    else:
@@ -1014,8 +1016,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         nevra = []
         for t in ['name', 'epoch', 'version', 'release', 'arch']:
             nevra.append(package[t])
-        checksum_type = package['checksum_type']
-        checksum = package['checksum']
         package_size = package['package_size']
 
         if package['org_id'] is not None:
@@ -1023,27 +1023,22 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         else:
             orgid = package['org_id']
 
-        path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
         if not row:
             # Package is missing completely from the DB
-            m_channel_packages.append((package_id, path))
-            (errcode, ret_path) = self._verify_file(path,
-                l_timestamp, package_size, checksum_type, checksum)
-            if errcode == 0:
-                # Package on the filesystem, and matches
-                return
-            # we have to update this rpm
-            m_fs_packages.append((package_id, path))
+            m_channel_packages.append(package_id)
+            #m_fs_packages.append((package_id, path))
             return
 
         # Package found in the DB
+        checksum_type = row['checksum_type']
+        checksum = package['checksum']
         db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_checksum_type = row['checksum_type']
         db_checksum = row['checksum']
         db_package_size = row['package_size']
         db_path = row['path']
         final_path = db_path
 
+        path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
         # Check the filesystem
         # This is one ugly piece of code
         (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
@@ -1065,13 +1060,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                         m_fs_packages.append((package_id, final_path))
 
         if (l_timestamp <= db_timestamp and
-            checksum_type == db_checksum_type and checksum == db_checksum and
+            checksum == db_checksum and
             package_size == db_package_size and final_path == db_path):
             # Same package
             return
         # Have to re-import the package - this may be just because the
         # path has changed
-        m_channel_packages.append((package_id, final_path))
+        m_channel_packages.append(package_id)
 
     def download_rpms(self):
         log(1, ["", "Downloading rpm packages"])
@@ -1103,7 +1098,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # Nothing to see here
                 continue
 
-            for (pid, path) in pids:
+            for pid in pids:
                 # XXX Catch errors
                 timestamp = short_package_collection.get_package_timestamp(pid)
                 if not package_collection.has_package(pid, timestamp):
