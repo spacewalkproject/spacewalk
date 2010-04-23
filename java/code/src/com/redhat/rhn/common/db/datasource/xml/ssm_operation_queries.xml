@@ -88,18 +88,22 @@
    </query>
 </write-mode>
 
-<!-- adds sids for which servers we want to delete -->
-<write-mode name="delete_servers_to_operation">
-   <query params="op_id, sid"> 
-      INSERT 
-      INTO   rhnSsmOperationServer 
+<!-- adds sids for which servers we want to work on -->
+<write-mode name="map_sids_to_operation">
+   <query params="op_id, user_id"> 
+      INSERT  INTO   rhnSsmOperationServer( operation_id, server_id)
              (
-             operation_id, 
-             server_id
-             )
-      VALUES (
-             :op_id, 
-             :sid
+             select :op_id, S.id
+             from rhnServer S inner join rhnUserServerPerms USP on S.id = USP.server_id 
+             where S.id in (%s) 
+             	   AND user_id = :user_id
+             	   and S.id not in 
+             	   (
+                    SELECT sos.server_id
+                      FROM rhnSsmOperationServer sos
+                     WHERE sos.operation_id = :op_id
+                       AND sos.server_id = s.id             	   
+             	   ) 
              )
    </query> 
 </write-mode>

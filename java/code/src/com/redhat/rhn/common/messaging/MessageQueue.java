@@ -31,6 +31,8 @@ import com.redhat.rhn.frontend.events.RestartSatelliteAction;
 import com.redhat.rhn.frontend.events.RestartSatelliteEvent;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
+import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
+import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
@@ -263,6 +265,9 @@ public class MessageQueue {
         SsmChangeChannelSubscriptionsAction sccsa =
             new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
+        
+        MessageQueue.registerAction(new SsmDeleteServersAction(), 
+                                                SsmDeleteServersEvent.class);
 
         // Used to allow SSM package installs to be run asynchronously
         SsmInstallPackagesAction ssmPackageInstallAction = new SsmInstallPackagesAction();

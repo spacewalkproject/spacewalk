@@ -14,17 +14,22 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
+import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,6 +64,18 @@ public class SSMDeleteSystemsConfirm extends RhnAction implements Listable {
     
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
+        
+        RhnSet set = RhnSetDecl.SYSTEMS.get(context.getLoggedInUser());
+        
+        // Fire the request off asynchronously
+        SsmDeleteServersEvent event =
+            new SsmDeleteServersEvent(context.getLoggedInUser(),
+                            new ArrayList<Long>(set.getElementValues()));
+        MessageQueue.publish(event);
+        set.clear();
+        RhnSetManager.store(set);
+        
+        
         getStrutsDelegate().saveMessage("ssm.delete.systems.confirmmessage",
                                                     context.getRequest());
         return mapping.findForward("confirm");

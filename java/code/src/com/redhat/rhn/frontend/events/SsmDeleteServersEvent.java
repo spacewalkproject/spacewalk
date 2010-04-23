@@ -28,7 +28,7 @@ import com.redhat.rhn.domain.user.User;
  */
 public class SsmDeleteServersEvent implements EventMessage {
 
-    private User user;
+    private Long userId;
     private List<Long> sids;
 
     /**
@@ -47,15 +47,15 @@ public class SsmDeleteServersEvent implements EventMessage {
             throw new IllegalArgumentException("Server Id list cannot be null");
         }
 
-        this.user = userIn;
+        this.userId = userIn.getId();
         this.sids = sidsIn;
     }
 
     /**
      * @return will not be <code>null</code>
      */
-    public User getUser() {
-        return user;
+    public Long getUser() {
+        return userId;
     }
 
     /**
@@ -72,7 +72,7 @@ public class SsmDeleteServersEvent implements EventMessage {
 
     /** {@inheritDoc} */
     public String toString() {
-        return "SsmChannelSubscriptionsEvent[User: " + user.getLogin() +
+        return "SsmChannelSubscriptionsEvent[User Id: " + userId +
             ", Delete Count: " + sids.size() + "]";
     }
 }

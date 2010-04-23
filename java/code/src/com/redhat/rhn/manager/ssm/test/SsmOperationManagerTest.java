@@ -27,6 +27,7 @@ import com.redhat.rhn.manager.ssm.SsmOperationStatus;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -55,6 +56,20 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(1, result.size());
     }
 
+    
+    public void testCreateAndAllOperations2() throws Exception {
+        long operationId = SsmOperationManager.createOperation(ssmUser,
+                                            "Test testCreateAndAllOperations2 ", null);
+        SsmOperationManager.associateServersWithOperation(operationId, ssmUser.getId(), 
+                                                new ArrayList<Long>(serverSet.
+                                                                    getElementValues()));
+        DataResult result = SsmOperationManager.allOperations(ssmUser);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }    
+    
     public void testCreateCompleteAndInProgressOperations() throws Exception {
         // Test
         long completeMeId =

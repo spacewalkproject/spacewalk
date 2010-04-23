@@ -14,11 +14,13 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import java.util.List;
-
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
+import com.redhat.rhn.manager.system.SystemManager;
+
+import java.util.List;
 
 /**
  * Handles performing subscription changes for servers in the SSM.
@@ -31,18 +33,19 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
         SsmDeleteServersEvent event = (SsmDeleteServersEvent) msg;
-
-        User user = event.getUser();
+        User user = UserFactory.lookupById(event.getUser());
         List<Long> sids = event.getSids();
        
         long operationId = SsmOperationManager.createOperation(user,
             "Server Delete", null);
         
-        SsmOperationManager.deleteServersWithOperation(operationId, sids);
+        SsmOperationManager.associateServersWithOperation(operationId, 
+                                                        user.getId(), sids);
         
         try {
-            // stubbed out...need to replace with delete method
-            //SsmManager.performChannelActions(user);
+            for (Long sid : sids) {
+                SystemManager.deleteServer(user, sid);    
+            }
         }
         finally {
             // Complete the action
