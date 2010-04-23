@@ -2,7 +2,7 @@
 
 Name:           python-debian
 Version:        0.1.16
-Release:        2
+Release:        1
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
@@ -60,8 +60,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc README README.changelog README.deb822 HISTORY.deb822 ACKNOWLEDGEMENTS
 
 %changelog
-* Fri Apr 23 2010 Miroslav Suchý <msuchy@redhat.com> 0.1.16-2
-- import package to Spacewalk
-
 * Thu Apr 22 2010 Lukáš Ďurfina <lukas.durfina@gmail.com> 0.1.16-1
 - Creation of package
