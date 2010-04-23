@@ -349,13 +349,8 @@ class Package(IncompletePackage):
         'header_start'      : IntType,
         'header_end'        : IntType,
         'path'              : StringType,
-        # these attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
-        'sigmd5'            : StringType,       # xml dumps < 3.5 and rpms
-        'sigchecksum_type'  : StringType,       # xml dumps >= 3.5
-        'sigchecksum'       : StringType,       # xml dumps >= 3.5
+        'sigmd5'            : StringType,
         # These attributes are lists of objects
         'files'             : [File],
         'requires'          : [Dependency],
@@ -364,6 +359,7 @@ class Package(IncompletePackage):
         'obsoletes'         : [Dependency],
         'changelog'         : [ChangeLog],
         'channels'          : [StringType],
+        'checksum_list'     : [Checksum],
     }
     def __init__(self):
         # Inherit from IncompletePackage
@@ -389,11 +385,8 @@ class SourcePackage(IncompletePackage):
         'last_modified'     : DateType,
         # these attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
         'sigmd5'            : StringType,       # xml dumps < 3.5 and rpms
-        'sigchecksum_type'  : StringType,       # xml dumps >= 3.5
-        'sigchecksum'       : StringType,       # xml dumps >= 3.5
+        'checksum_list'     : [Checksum],
     }
     def __init__(self):
         # Inherit from IncompletePackage
@@ -414,8 +407,7 @@ class SourcePackageFile(Information):
         'org_id'            : IntType,
         # these attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'checksum_list'     : [Checksum],
     }
 
 
@@ -434,8 +426,7 @@ class ErrataFile(Information):
         'package_id'        : IntType,
         # these attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'checksum_list'     : [Checksum],
     }
 
 
@@ -544,10 +535,8 @@ class KickstartFile(Information):
         'relative_path' : StringType,
         'last_modified' : DateType,
         'file_size'     : IntType,
-        # these attributes are mutualy exclusive
         'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'checksum_list'     : [Checksum],
     }
 
 class KickstartableTree(Information):
