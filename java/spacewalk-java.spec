@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.5
+Version: 1.1.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 23 2010 Justin Sherrill <jsherril@redhat.com> 1.1.6-1
+- adding duplicate system manager layer and api calls (jsherril@redhat.com)
+- adding server delete event for duplicate profiles (shughes@redhat.com)
+- Moved SSM System DeleteConfirm page to java to facilitate Deletion using the
+  message queue infrastructure (paji@redhat.com)
+- allowing the period character is cobbler system records (jsherril@redhat.com)
+
 * Wed Apr 21 2010 Justin Sherrill <jsherril@redhat.com> 1.1.5-1
 - adding feature to preselect a kickstart profile for provisioning if the
   cobbler system record for that system has it selected (jsherril@redhat.com)
