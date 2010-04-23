@@ -40,5 +40,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Apr 23 2010 Miroslav Suchý <msuchy@redhat.com>
+* Fri Apr 23 2010 Miroslav Suchý <msuchy@redhat.com> 1.0-1
 - initial release
