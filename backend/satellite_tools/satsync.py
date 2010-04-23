@@ -1880,7 +1880,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         else:
             package_collection = sync_handlers.PackageCollection()
         batch = []
-        for pid, file_path in chunk:
+        for pid in chunk:
             timestamp = short_package_collection.get_package_timestamp(pid)
             package = package_collection.get_package(pid, timestamp)
             if package is None:
@@ -1888,7 +1888,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 raise Exception("Package Not Found in Cache, Clear the Cache to \
 		                 Regenerate it.")
             # Now set the path
-            package['path'] = file_path
+# FIXME            package['path'] = file_path
             batch.append(package)
         return batch
 
