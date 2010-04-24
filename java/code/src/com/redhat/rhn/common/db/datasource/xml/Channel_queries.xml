@@ -411,9 +411,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          (select org.name 
             from web_customer org
             where org.id = C.org_id) as org_name,
-         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
+         CA.name as arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
+        inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
@@ -433,9 +434,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          (select org.name 
             from web_customer org
             where org.id = C.org_id) as org_name,
-         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
-    from rhnSharedChannelView C inner join 
+         CA.name as arch_name
+    from rhnSharedChannelView C inner join
     rhnUserChannel UC on UC.channel_id = C.id  
+    inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
     where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
@@ -455,9 +457,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          (select org.name 
             from web_customer org
             where org.id = C.org_id) as org_name,
-         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
+         CA.name as arch_name
 	 from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
+         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  AND 
 	 	   :server_count &lt;= 
 	 	   ( select count(SC.server_id)
@@ -483,9 +486,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          (select org.name 
             from web_customer org
             where org.id = C.org_id) as org_name,
-         (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
+         CA.name as arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
+        inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  and
 	 C.end_of_life &lt; sysdate
     </query>
@@ -504,10 +508,11 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
 			        ) AS package_count,
-                   (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
+                   CA.name as arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id left join
 	 rhnChannel C2 on C.parent_channel = C2.id  
+         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  AND
 	 		(C.org_id is null  or ( C2.id is not null AND C2.org_id is null ))
     </query>
@@ -524,10 +529,11 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
 			        ) AS package_count,
-                  (select CA.name from rhnChannelArch CA where CA.ID = C.channel_arch_id) arch_name
+                   CA.name as arch_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id left join
 	 rhnChannel C2 on C2.parent_channel = C.id  
+         inner join rhnChannelArch CA ON CA.ID  = C.channel_arch_id
 	 where UC.user_id = :user_id  AND
 	 		(C.org_id = :org_id  or ( C2.id is not null AND C2.org_id = :org_id ))
     </query>
