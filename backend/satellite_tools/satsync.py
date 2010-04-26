@@ -626,9 +626,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
-        if os.path.exists(full_path):
-            print "Comps file %s already exists" % comps_path
-        else:
+        if not os.path.exists(full_path):
             print "Need to download comps for %s (%s)" % (label, comps_path)
             rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
             stream = rpmServer.getCompsFileStream(label)
