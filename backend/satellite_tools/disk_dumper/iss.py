@@ -75,6 +75,7 @@ class FileMapper:
                             'kickstart_trees'   :   xmlDiskSource.KickstartDataDiskSource(self.mp),
                             'kickstart_files'   :   xmlDiskSource.KickstartFileDiskSource(self.mp),
                             'binary_rpms'       :   xmlDiskSource.BinaryRPMDiskSource(self.mp),
+                            'comps'             :   xmlDiskSource.ChannelCompsDiskSource(self.mp),
                        }
 
     #This will make sure that all of the directories leading up to the 
@@ -108,6 +109,10 @@ class FileMapper:
     def getChannelsFile(self, channelname):
         self.filemap['channels'].setChannel(channelname)
         return self.setup_file(self.filemap['channels']._getFile())
+
+    def getChannelCompsFile(self, channelname):
+        self.filemap['comps'].setChannel(channelname)
+        return self.setup_file(self.filemap['comps']._getFile())
 
     def getChannelPackageShortFile(self, channel_id):
         self.filemap['channel-pkg-short'].setChannel(channel_id)
@@ -561,6 +566,20 @@ class Dumper(dumper.XML_Dumper):
                 log2email(4, "Channel: %s" % channel['label'])
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
                 
+                if self.channel_comps.has_key(channel['channel_id']):
+                    relative_filename = self.channel_comps[channel['channel_id']]
+                    full_filename = os.path.join(CFG.MOUNT_POINT, self.channel_comps[channel['channel_id']])
+                    target_filename = self.fm.getChannelCompsFile(channel['label'])
+                    print "Need to copy %s to %s" % ( full_filename, target_filename )
+
+                    # the comps.xml file will get gzipped afterwards
+                    # but it's still faster to do hardlink first
+                    if self.hardlinks:
+                        os.link(full_filename, target_filename)
+                    else:
+                        shutil.copyfile(full_filename, target_filename)
+
+
                 pb.addTo(1)
                 pb.printIncrement()
             pb.printComplete()
