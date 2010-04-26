@@ -56,7 +56,7 @@ class USB:
                 else:
                     vendor = l[0].lower()
                     vendor_name = ' '.join(l[1:])
-                    if not USB.devices.has_key(vendor):
+                    if vendor not in USB.devices:
                         USB.devices[vendor] = [vendor_name, {}]
                     else: # this should not happen
                         USB.devices[vendor][0] = vendor_name
@@ -67,7 +67,7 @@ class USB:
         """
         vendor = vendor.lower()
         if self.cache:
-            if USB.devices.has_key(vendor):
+            if vendor in USB.devices:
                 return USB.devices[vendor][0]
             else:
                 return None
@@ -81,8 +81,8 @@ class USB:
         vendor = vendor.lower()
         device = device.lower()
         if self.cache:
-            if USB.devices.has_key(vendor):
-                if USB.devices[vendor][1].has_key(device):
+            if vendor in USB.devices:
+                if device in USB.devices[vendor][1]:
                     return USB.devices[vendor][1][device][0]
                 else:
                     return None
@@ -126,7 +126,7 @@ class PCI:
                         subsystem_name = ' '.join(l[2:])
                     else:
                         subsystem_name = ''
-                    if not PCI.devices.has_key(subvendor):
+                    if not subvendor in list(PCI.devices.keys()):
                         PCI.devices[subvendor] = [vendor_name, {subdevice: subsystem_name}]
                     else: # this should not happen
                             PCI.devices[subvendor][1][subdevice] = subsystem_name
@@ -137,7 +137,7 @@ class PCI:
                 else:
                     vendor = l[0].lower()
                     vendor_name = ' '.join(l[1:])
-                    if not PCI.devices.has_key(vendor):
+                    if not vendor in  list(PCI.devices.keys()):
                         PCI.devices[vendor] = [vendor_name, {}]
                     else: # this should not happen
                         PCI.devices[vendor][0] = vendor_name
@@ -148,7 +148,7 @@ class PCI:
         """
         vendor = vendor.lower()
         if self.cache:
-            if PCI.devices.has_key(vendor):
+            if vendor in list(PCI.devices.keys()):
                 return PCI.devices[vendor][0]
             else:
                 return None
@@ -162,8 +162,8 @@ class PCI:
         vendor = vendor.lower()
         device = device.lower()
         if self.cache:
-            if PCI.devices.has_key(vendor):
-                if PCI.devices[vendor][1].has_key(device):
+            if vendor in list(PCI.devices.keys()):
+                if device in list(PCI.devices[vendor][1].keys()):
                     return PCI.devices[vendor][1][device]
                 else:
                     return None
