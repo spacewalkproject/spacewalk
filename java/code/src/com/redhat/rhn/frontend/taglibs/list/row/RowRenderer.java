@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) 2009--2010 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ *
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation.
+ */
+package com.redhat.rhn.frontend.taglibs.list.row;
+
+import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+
+/**
+ * 
+ * RowRenderer
+ * @version $Rev$
+ */
+public class RowRenderer {
+
+    private String[] rowClasses;
+    private int rowNum;
+
+    /**
+     * RowRenderer Construtor
+     */
+    public RowRenderer() {
+        rowClasses = new String[2];
+        rowClasses[0] = "list-row-even";
+        rowClasses[1] = "list-row-odd";
+        rowNum = -1;
+        
+    }
+    
+    /**
+     * get the row style for the current object
+     * @param currentObject the current object that is being rendered
+     * @return the string that is the style to add to the row
+     */
+    public String getRowStyle(Object currentObject) {
+        rowNum++;
+        return rowClasses[rowNum % rowClasses.length];
+    }
+    
+    /**
+     * Set the list of row styles
+     * @param stylesIn the styles
+     */
+    public void setRowClasses(String stylesIn) {
+            rowClasses = ListTagUtil.parseStyles(stylesIn);
+    }
+
+    
+    
+}
