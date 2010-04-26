@@ -547,6 +547,19 @@ class PackageItem(IncompletePackageItem):
         'rhn-package-changelog'     : 'changelog',
     }
     tagMap.update(IncompletePackageItem.tagMap)
+    def populate(self, attributes, elements):
+        item = IncompletePackageItem.populate(self, attributes, elements)
+        # find out "primary" checksum
+        have_filedigests = len([1 for i in item['requires'] if i['name'] == 'rpmlib(FileDigests)'])
+        if have_filedigests:
+            for ctype in ['sha512','sha384','sha256','sha1','md5']:
+                if ctype in item['checksums']:
+                    item['checksum_type'] = ctype
+                    break
+        else:
+            item['checksum_type'] = 'md5'
+        item['checksum'] = item['checksums'][item['checksum_type']]
+        return item
 addItem(PackageItem)
 
 class IncompleteSourcePackageItem(BaseItem):
@@ -621,7 +634,15 @@ class FileItem(BaseChecksummedItem):
     item_class = importLib.File
     tagMap = {
         'md5' : 'md5sum',
+        'checksum-type': 'checksum_type',
+        'checksum'     : 'checksum',
     }
+    def populate(self, attributes, elements):
+        item = BaseChecksummedItem.populate(self, attributes, elements)
+        if not item['checksum_type']:
+            item['checksum_type'] = item['checksums'].keys()[0]
+            item['checksum'] = item['checksums'][item['checksum_type']]
+        return item
 addItem(FileItem)
 
 class DistItem(BaseItem):
