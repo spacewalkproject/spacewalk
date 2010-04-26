@@ -1267,7 +1267,8 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
                cp.version channel_product_version,
                cp.beta channel_product_beta,
                c.receiving_updates,
-               ct.label checksum_type
+               ct.label checksum_type,
+               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp,
                rhnChecksumType ct
          where c.id = :channel_id

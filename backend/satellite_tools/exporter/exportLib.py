@@ -190,6 +190,7 @@ class _ChannelDumper(BaseRowDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
+            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
