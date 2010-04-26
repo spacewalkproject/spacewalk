@@ -480,6 +480,40 @@ For help for a specific command try 'help <cmd>'.
         return systems
 
 
+    def list_base_channels(self, system):
+        if re.match('ssm', system, re.I):
+            if len(self.ssm):
+                system = self.ssm[0]
+
+        system_id = self.get_system_id(system)
+        if not system_id: return
+
+        channels = self.client.system.listSubscribableBaseChannels(self.session,
+                                                                   system_id)
+
+        return [c.get('label') for c in channels]   
+
+
+    def list_child_channels(self, system, subscribed=False):
+        if re.match('ssm', system, re.I):
+            if len(self.ssm):
+                system = self.ssm[0]
+
+        system_id = self.get_system_id(system)
+        if not system_id: return
+
+        if subscribed:
+            channels = \
+                self.client.system.listSubscribedChildChannels(self.session,
+                                                               system_id)
+        else:
+            channels = \
+                self.client.system.listSubscribableChildChannels(self.session,
+                                                                 system_id)
+
+        return [c.get('label') for c in channels]   
+
+
     def print_errata_summary(self, errata):
         date_parts = errata.get('date').split()
 
@@ -490,6 +524,61 @@ For help for a specific command try 'help <cmd>'.
               errata.get('advisory_name').ljust(14),
               wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50),
               errata.get('date').rjust(8))
+
+
+    def manipulate_child_channels(self, args, remove=False):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            if remove:
+                self.help_system_rmchildchannel()
+            else:
+                self.help_system_addchildchannel()
+            return
+
+        new_channel = args.pop()
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = args
+    
+        print 'Systems:'
+        for s in sorted(systems):
+            print '  %s' % s
+
+        print
+
+        if remove:
+            print 'Removing Channel:'
+        else:
+            print 'Adding Channel:'
+
+        print '  %s' % new_channel
+
+        if not self.user_confirm(): return
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            child_channels = \
+                self.client.system.listSubscribedChildChannels(self.session, 
+                                                               system_id)
+
+            child_channels = [c.get('label') for c in child_channels]
+
+            if remove:
+                if new_channel in child_channels:
+                    child_channels.remove(new_channel)
+            else:
+                if new_channel not in child_channels:
+                    child_channels.append(new_channel)
+
+            self.client.system.setChildChannels(self.session,
+                                                system_id,
+                                                child_channels)
 
 
     def print_errata_list(self, errata):
@@ -3244,6 +3333,93 @@ For help for a specific command try 'help <cmd>'.
         if old_name in self.ssm:
             self.ssm.remove(old_name)
             self.ssm.append(new_name)
+
+####################
+
+    def help_system_setbasechannel(self):
+        print "system_setbasechannel: Set a system's base software channel"
+        print 'usage: system_setbasechannel SSM|<SYSTEM ...> CHANNEL'
+
+    def complete_system_setbasechannel(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(line.split(' ')) == 3:
+            system = line.split(' ')[1]
+            return self.tab_completer(self.list_base_channels(system), text)
+
+    def do_system_setbasechannel(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_system_setbasechannel()
+            return
+
+        new_channel = args.pop()
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = args
+    
+        add_separator = False
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            old = self.client.system.getSubscribedBaseChannel(self.session,
+                                                              system_id)
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'System:           %s' % system
+            print 'Old Base Channel: %s' % old.get('label')
+            print 'New Base Channel: %s' % new_channel
+             
+        if not self.user_confirm(): return
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.setBaseChannel(self.session,
+                                              system_id,
+                                              new_channel)
+
+####################
+
+    def help_system_addchildchannel(self):
+        print "system_addchildchannel: Add a child channel to a system"
+        print 'usage: system_addchildchannel SSM|<SYSTEM ...> CHANNEL'
+
+    def complete_system_addchildchannel(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(line.split(' ')) == 3:
+            system = line.split(' ')[1]
+            return self.tab_completer(self.list_child_channels(system), text)
+
+    def do_system_addchildchannel(self, args):
+        self.manipulate_child_channels(args)
+
+####################
+
+    def help_system_rmchildchannel(self):
+        print "system_rmchildchannel: Remove a child channel from a system"
+        print 'usage: system_rmchildchannel SSM|<SYSTEM ...> CHANNEL'
+
+    def complete_system_rmchildchannel(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(line.split(' ')) == 3:
+            system = line.split(' ')[1]
+            return self.tab_completer(self.list_child_channels(system, True), 
+                                      text)
+
+    def do_system_rmchildchannel(self, args):
+        self.manipulate_child_channels(args, True)
 
 ####################
 
