@@ -2323,7 +2323,7 @@ def processCommandline():
     global OPTIONS
     OPTIONS, args = optionParser.parse_args()
 
-    # we take no extra commandline arguments that are not linked to an option
+    # we take extra commandline arguments that are not linked to an option
     if args:
         msg = "ERROR: these arguments make no sense in this context (try --help): %s" % repr(args)
         log2stderr(-1, msg, 1,1)
