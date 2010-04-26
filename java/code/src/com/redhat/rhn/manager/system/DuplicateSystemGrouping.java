@@ -24,7 +24,7 @@ import java.util.List;
  * DuplicateSystemBucket
  * @version $Rev$
  */
-public class DuplicateSystemGrouping {
+public class DuplicateSystemGrouping  {
 
     private String key;
     private List<NetworkDto> systems;
@@ -65,8 +65,19 @@ public class DuplicateSystemGrouping {
     /**
      * @return Returns the systems.
      */
-    public List<NetworkDto> getSystem() {
+    public List<NetworkDto> getSystems() {
         return systems;
     }
+
+    /**
+     * Expand the systems
+     * @return the expansion
+     */
+    public List<NetworkDto> expand() {
+       return   getSystems();
+    }
+
+
+
     
 }

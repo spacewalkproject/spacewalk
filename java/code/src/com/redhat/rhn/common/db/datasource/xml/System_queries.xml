@@ -1587,7 +1587,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 <mode name="duplicate_system_ids_ip" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid">
-        SELECT distinct S.id as system_id, NI.ip_addr as key, si.checkin as last_checkin
+        SELECT distinct S.id as id, NI.ip_addr as key, si.checkin as last_checkin
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
@@ -1606,7 +1606,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 <mode name="duplicate_system_ids_mac" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid">
-        SELECT distinct S.id as system_id, NI.hw_addr as key, si.checkin as last_checkin
+        SELECT distinct S.id as id, NI.hw_addr as key, si.checkin as last_checkin
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
@@ -1624,7 +1624,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 <mode name="duplicate_system_ids_hostname" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid">
-        SELECT distinct S.id as system_id, NI.hostname as key, si.checkin as last_checkin
+        SELECT distinct S.id as id, NI.hostname as key, si.checkin as last_checkin
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetwork NI on NI.server_id = S.id inner join 

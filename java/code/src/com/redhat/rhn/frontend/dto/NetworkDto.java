@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.domain.Identifiable;
+
 import java.util.Date;
 
 /**
@@ -21,8 +23,8 @@ import java.util.Date;
  * NetworkDto
  * @version $Rev$
  */
-public class NetworkDto {
-
+public class NetworkDto implements Identifiable {
+ 
     
     private Long systemId;
     private String key;
@@ -65,14 +67,14 @@ public class NetworkDto {
     /**
      * @return Returns the systemId.
      */
-    public Long getSystemId() {
+    public Long getId() {
         return systemId;
     }
     
     /**
      * @param systemIdIn The systemId to set.
      */
-    public void setSystemId(Long systemIdIn) {
+    public void setId(Long systemIdIn) {
         this.systemId = systemIdIn;
     }
     

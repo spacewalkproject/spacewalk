@@ -4308,7 +4308,7 @@ public class SystemHandler extends BaseHandler {
         for (DuplicateSystemGrouping b : list) {
             Map map = new HashMap();
             map.put(propName, b.getKey());
-            map.put("systems", b.getSystem());
+            map.put("systems", b.getSystems());
             toRet.add(map);
         }
         return toRet;

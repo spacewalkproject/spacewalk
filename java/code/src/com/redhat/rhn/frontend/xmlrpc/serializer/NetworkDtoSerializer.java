@@ -51,7 +51,7 @@ public class NetworkDtoSerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         NetworkDto net = (NetworkDto)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        helper.add("systemId", net.getSystemId());
+        helper.add("systemId", net.getId());
         helper.add("last_checkin", net.getLastCheckin());
         helper.writeTo(output);
     }

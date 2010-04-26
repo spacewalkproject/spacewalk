@@ -30,6 +30,6 @@ public interface Expandable {
      * Expands and returns the children 
      * @return the child object
      */
-    List<Identifiable> expand();
+    List<? extends Identifiable> expand();
 
 }
