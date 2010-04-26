@@ -19,6 +19,7 @@ import com.redhat.rhn.common.util.DynamicComparator;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.html.HtmlTag;
+import com.redhat.rhn.frontend.struts.Expandable;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +48,9 @@ public class DataSetManipulator {
     
     private int pageSize;
     private List dataset;
+    private ListFilter filter;
+    private String filterBy;
+    private String filterValue;    
     private int totalDataSetSize;
     private HttpServletRequest request;
     private String uniqueName;
@@ -74,6 +78,7 @@ public class DataSetManipulator {
     private static final String IMG_LAST_UNFOCUSED = 
                                     "/img/list-allforward-unfocused.gif";    
     
+    
     /**
      * Constructor
      * @param pageSizeIn page size of the list
@@ -91,6 +96,18 @@ public class DataSetManipulator {
         unfilteredDataSize = dataset.size();
     }
     
+    private List expand(List data) {
+        List expanded = new LinkedList();
+        for (Object obj : data) {
+            expanded.add(obj);
+            if (obj instanceof Expandable) {
+                Expandable ex = (Expandable) obj;
+                expanded.addAll(ListFilterHelper.filter(ex.expand(),
+                            filter, filterBy, filterValue));
+            }
+        }
+        return expanded;
+    }
     /**
      * Get the total (non-filtered, non-paginated) dataset size
      * @return total size
@@ -122,7 +139,7 @@ public class DataSetManipulator {
         else {
             retval.addAll(dataset);   
         }
-        return retval;
+        return expand(retval);
     }
 
     /**
@@ -316,19 +333,19 @@ public class DataSetManipulator {
 
     /**
      * Filters the dataset based on filter criteria
-     * @param filter ListFilter instance
+     * @param f ListFilter instance
      * @param context the page context to write to
      * @throws JspException if failure to write to pageContext
      */
-    public void filter(ListFilter filter, PageContext context) throws JspException {
+    public void filter(ListFilter f, PageContext context) throws JspException {
         
         
         String filterByKey = ListTagUtil.makeFilterByLabel(uniqueName);
-        String filterBy = request.getParameter(filterByKey);
-        String filterValue = ListTagHelper.getFilterValue(request, uniqueName);
+        filterBy = request.getParameter(filterByKey);
+        filterValue = ListTagHelper.getFilterValue(request, uniqueName);
         
         
-        if (filter == null || filterBy == null || filterBy.length() == 0 || 
+        if (f == null || filterBy == null || filterBy.length() == 0 || 
                 filterValue == null || filterValue.length() == 0) {
             return;
         }
@@ -337,10 +354,10 @@ public class DataSetManipulator {
             HtmlTag filterClass = new HtmlTag("input");
             filterClass.setAttribute("type", "hidden");
             filterClass.setAttribute("name", ListTagUtil.makeFilterClassLabel(uniqueName));
-            filterClass.setAttribute("value", filter.getClass().getCanonicalName());
+            filterClass.setAttribute("value", f.getClass().getCanonicalName());
             ListTagUtil.write(context, filterClass.render());
                         
-            dataset = ListFilterHelper.filter(dataset, filter, filterBy, filterValue);
+            dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue);
             totalDataSetSize = dataset.size();
         }
     }

@@ -14,10 +14,11 @@
  */
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.frontend.struts.Expandable;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -70,11 +71,22 @@ public class ListFilterHelper {
         }
         
         List filteredData = new ArrayList();
-        for (Iterator iter = dataSet.iterator(); iter.hasNext();) {
-            Object object = iter.next();
-            if (filter.filter(object, filterBy, filterValue)) {
+        Expandable parent = null;
+        for (Object object : dataSet) {
+            if (object instanceof Expandable) {
+                parent = (Expandable) object;
+                for (Object obj : parent.expand()) {
+                    if (filter.filter(object, filterBy, filterValue)) {
+                        filteredData.add(parent);
+                        break;
+                    }
+                }
+                
+            }
+            else if (filter.filter(object, filterBy, filterValue)) {
                 filteredData.add(object);
             }
+
         }
         return filteredData;
     }
