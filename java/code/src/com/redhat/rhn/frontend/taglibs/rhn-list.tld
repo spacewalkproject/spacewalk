@@ -72,11 +72,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>rowclasses</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>emptykey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -113,6 +108,22 @@
     <body-content>JSP</body-content>
     <attribute>
       <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>rowrenderer</name>
+    <tag-class>com.redhat.rhn.frontend.taglibs.list.RowRendererTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>rowclasses</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

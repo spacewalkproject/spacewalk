@@ -24,6 +24,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.decorators.ListDecorator;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.row.RowRenderer;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -64,7 +65,6 @@ public class ListTag extends BodyTagSupport {
     private Object currentObject;
     private String styleClass = "list";
     private String styleId;    
-    private String[] rowClasses = { "list-row-even", "list-row-odd" };
     private int rowCounter = -1;
     private String width;
     private ListFilter filter;
@@ -73,6 +73,7 @@ public class ListTag extends BodyTagSupport {
     private String emptyKey;
     private String decoratorName = null;
     private List<ListDecorator> decorators;
+    private RowRenderer rowRender;
     private String alphaBarColumn;
     private boolean hidePageNums = false;
     private String refLink;
@@ -118,6 +119,23 @@ public class ListTag extends BodyTagSupport {
         return decorators;
     }
     
+
+
+
+    /**
+     * Set the row renderer
+     * @param newRender the row renderer
+     */
+    public void setRowRenderer(RowRenderer newRender) {
+        rowRender = newRender;
+    }
+
+    private RowRenderer getRowRenderer() {
+        if (rowRender == null) {
+            rowRender = new RowRenderer();
+        }
+        return rowRender;
+    }
 
     private ListDecorator getDecorator(String decName) throws JspException {
         if (decName != null) {
@@ -222,13 +240,6 @@ public class ListTag extends BodyTagSupport {
         styleClass = styleIn;
     }
 
-    /**
-     * Sets the styles, separated by "|" to be applied to the list's rows
-     * @param stylesIn styles
-     */
-    public void setRowclasses(String stylesIn) {
-        rowClasses = ListTagUtil.parseStyles(stylesIn);
-    }
 
     /**
      * Total width of the table, either in px or percent
@@ -354,9 +365,7 @@ public class ListTag extends BodyTagSupport {
          */
         if ((refLink != null) && (!isEmpty())) {
             ListTagUtil.write(pageContext, "<tr");
-            if (rowClasses != null && rowClasses.length > 0) {
-                renderRowClass();
-            }
+            renderRowClass();
             ListTagUtil.write(pageContext, ">");
             
             ListTagUtil.write(pageContext, "<td style=\"text-align: center;\" " +
@@ -520,9 +529,7 @@ public class ListTag extends BodyTagSupport {
                 }
                 else {
                     ListTagUtil.write(pageContext, "<tr");
-                    if (rowClasses != null && rowClasses.length > 0) {
-                        renderRowClass();
-                    }
+                    renderRowClass();
 
                     ListTagUtil.write(pageContext, ">");
                     pageContext.setAttribute(rowName, currentObject);
@@ -642,9 +649,6 @@ public class ListTag extends BodyTagSupport {
         currentObject = null;
         styleClass = "list";
         styleId = null;        
-        rowClasses = new String[2];
-        rowClasses[0] = "list-row-even";
-        rowClasses[1] = "list-row-odd";
         rowCounter = -1;
         width = null;
         columnCount = 0;
@@ -688,7 +692,7 @@ public class ListTag extends BodyTagSupport {
         rowCounter++;
 
         ListTagUtil.write(pageContext, " class=\"");
-        ListTagUtil.write(pageContext, rowClasses[rowCounter % rowClasses.length]);
+        ListTagUtil.write(pageContext, getRowRenderer().getRowStyle(getCurrentObject()));
         if (rowCounter == manip.findAlphaPosition() % pageSize) {
             ListTagUtil.write(pageContext, " alphaResult");
         }   

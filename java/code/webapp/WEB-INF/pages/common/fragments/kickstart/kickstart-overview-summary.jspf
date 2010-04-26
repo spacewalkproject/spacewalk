@@ -3,8 +3,9 @@
 			 styleclass="half-table"
 			 name="kslist"
 			 width="100%"
-			 hidepagenums="true"
-			 rowclasses="list-row-odd">
+			 hidepagenums="true">
+
+	<rl:rowrenderer name="RowRenderer" rowclasses="list-row-odd"/>
 			 
 	<rl:column bound="false"
 				sortable="false"
