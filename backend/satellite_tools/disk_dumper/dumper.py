@@ -1045,7 +1045,8 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                c.summary, c.description, c.gpg_key_url,
                ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
-               pc.label parent_channel
+               pc.label parent_channel,
+               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc,
                rhnChecksumType ct
          where c.id = :channel_id
@@ -1091,6 +1092,7 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
+            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
