@@ -422,16 +422,17 @@ class Syncer:
             self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid,
                                                     self.sslYN, self.xml_dump_version)
             if CFG.ISS_PARENT:
-                url = self.xmlWireServer.schemeAndUrl(CFG.ISS_PARENT)
+                sync_parent = CFG.ISS_PARENT
+                is_iss = 1
             else:
-                url = self.xmlWireServer.schemeAndUrl(CFG.RHN_PARENT)
+                sync_parent = CFG.RHN_PARENT
+                is_iss = 0
+
+            url = self.xmlWireServer.schemeAndUrl(sync_parent)
             log(1, ['Red Hat Network Satellite - live synchronization',
                     '   url: %s' % url,
                     '   debug/output level: %s' % CFG.DEBUG])
-            if CFG.ISS_PARENT:
-                self.xmlWireServer.setServerHandler(isIss=1)
-            else:
-                self.xmlWireServer.setServerHandler()
+            self.xmlWireServer.setServerHandler(isIss=is_iss)
 
         if not self.mountpoint:
             # check and fetch systemid (NOTE: systemid kept in memory... may or may not
