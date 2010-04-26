@@ -95,10 +95,12 @@ def writeCachedLogin():
     if not os.access(pcklDir, os.W_OK):
         try:
             os.mkdir(pcklDir)
+            os.chmod(pcklDir, 0700)
         except:
             log.log_me("Unable to write pickled loginInfo to %s" % pcklDir)
             return False
     pcklAuth = open(pcklAuthFileName, 'wb')
+    os.chmod(pcklAuthFileName, 0600)
     pickle.dump(data, pcklAuth)
     pcklAuth.close()
     expireTime = data['time'] + float(loginInfo['X-RHN-Auth-Expire-Offset'])

@@ -96,6 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
+mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 %if 0%{?suse_version}
@@ -103,6 +104,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rh
 %endif
 
 %find_lang %{name}
+
+%post
+rm %{_localstatedir}/spool/up2date/loginAuth.pkl
 
 %post -n rhn-setup-gnome
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -148,6 +152,7 @@ make -f Makefile.rhn-client-tools test
 # dirs
 %dir %{_datadir}/rhn
 %dir %{_datadir}/rhn/up2date_client
+%dir %{_localstatedir}/spool/up2date
 
 #files
 %{_datadir}/rhn/up2date_client/__init__.*
@@ -171,6 +176,8 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/__init__.*
 
 %{_sbindir}/rhn-profile-sync
+
+%ghost %attr(600,root,root) %verify(not md5 size mtime) %{_localstatedir}/spool/up2date/loginAuth.pkl
 
 #public keys and certificates
 %{_datadir}/rhn/RHNS-CA-CERT
