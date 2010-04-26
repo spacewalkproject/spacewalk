@@ -627,9 +627,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
         if not os.path.exists(full_path):
-            print "Need to download comps for %s (%s)" % (label, comps_path)
-            rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
-            stream = rpmServer.getCompsFileStream(label)
+            if self.mountpoint:
+                sourcer = xmlDiskSource.ChannelCompsDiskSource(self.mountpoint)
+                sourcer.setChannel(label)
+                stream = sourcer.load()
+            else:
+                rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+                stream = rpmServer.getCompsFileStream(label)
             f = FileManip(comps_path, timestamp, None)
             f.write_file(stream)
         data = { label : None }
