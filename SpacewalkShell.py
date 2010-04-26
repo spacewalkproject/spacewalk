@@ -531,7 +531,7 @@ For help for a specific command try 'help <cmd>'.
 
         if len(args) != 2:
             if remove:
-                self.help_system_rmchildchannel()
+                self.help_system_removechildchannel()
             else:
                 self.help_system_addchildchannel()
             return
@@ -3406,11 +3406,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_system_rmchildchannel(self):
-        print "system_rmchildchannel: Remove a child channel from a system"
-        print 'usage: system_rmchildchannel SSM|<SYSTEM ...> CHANNEL'
+    def help_system_removechildchannel(self):
+        print "system_removechildchannel: Remove a child channel from a system"
+        print 'usage: system_removechildchannel SSM|<SYSTEM ...> CHANNEL'
 
-    def complete_system_rmchildchannel(self, text, line, begidx, endidx):
+    def complete_system_removechildchannel(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
             return self.tab_completer(self.get_system_names(), text)
         elif len(line.split(' ')) == 3:
@@ -3418,7 +3418,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_completer(self.list_child_channels(system, True), 
                                       text)
 
-    def do_system_rmchildchannel(self, args):
+    def do_system_removechildchannel(self, args):
         self.manipulate_child_channels(args, True)
 
 ####################
