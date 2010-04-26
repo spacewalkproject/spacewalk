@@ -988,6 +988,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         The idea is that error_code is 0 if the file exists or something else
         otherwise
         """
+        if not path:
+            return (1, None)
         abs_path = os.path.join(CFG.MOUNT_POINT, path)
         try:
             stat_info = os.stat(abs_path)
