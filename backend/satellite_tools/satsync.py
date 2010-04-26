@@ -1033,39 +1033,41 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # Package found in the DB
         checksum_type = row['checksum_type']
-        checksum = package['checksum']
-        db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-        db_checksum = row['checksum']
-        db_package_size = row['package_size']
-        db_path = row['path']
-        final_path = db_path
+        if checksum_type in package['checksums']:
+            checksum = package['checksums'][row['checksum_type']]
 
-        path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
-        # Check the filesystem
-        # This is one ugly piece of code
-        (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-            package_size, checksum_type, checksum)
-        if errcode != 0:
-            if errcode != 1 or path == db_path:
-                # Package is modified; fix it
-                m_fs_packages.append((package_id, path))
-            else:
-                # Package is missing, and the DB path is, for some
-                # reason, not the same as the computed path.
-                (errcode, ret_path) = self._verify_file(path,
-                    l_timestamp, package_size, checksum_type, checksum)
-                if errcode != 1:
-                    # Use the computed path
-                    final_path = path
-                    if errcode != 0:
-                        # file is modified too; re-download
-                        m_fs_packages.append((package_id, final_path))
+            db_timestamp = int(rhnLib.timestamp(row['last_modified']))
+            db_checksum = row['checksum']
+            db_package_size = row['package_size']
+            db_path = row['path']
+            final_path = db_path
 
-        if (l_timestamp <= db_timestamp and
-            checksum == db_checksum and
-            package_size == db_package_size and final_path == db_path):
-            # Same package
-            return
+            path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
+            # Check the filesystem
+            # This is one ugly piece of code
+            (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
+                package_size, checksum_type, checksum)
+            if errcode != 0:
+                if errcode != 1 or path == db_path:
+                    # Package is modified; fix it
+                    m_fs_packages.append((package_id, path))
+                else:
+                    # Package is missing, and the DB path is, for some
+                    # reason, not the same as the computed path.
+                    (errcode, ret_path) = self._verify_file(path,
+                        l_timestamp, package_size, checksum_type, checksum)
+                    if errcode != 1:
+                        # Use the computed path
+                        final_path = path
+                        if errcode != 0:
+                            # file is modified too; re-download
+                            m_fs_packages.append((package_id, final_path))
+
+            if (l_timestamp <= db_timestamp and
+                checksum == db_checksum and
+                package_size == db_package_size and final_path == db_path):
+                # Same package
+                return
         # Have to re-import the package - this may be just because the
         # path has changed
         m_channel_packages.append(package_id)
