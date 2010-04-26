@@ -660,10 +660,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 dataServer.setChannel(c)
                 stream = dataServer.load()
                 h.process(stream)
+            doEOSYN=0
         else:
             dataServer = self.xmlWireServer.getChannelXmlStream
             stream = dataServer([])
             h.process(stream)
+            doEOSYN=1
 
         h.close()
 
@@ -676,10 +678,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         #satellite-sync is running with the --mount-point (-m) option. If it
         #did, it would incorrectly list channels as end-of-service if they had been 
         #synced already but aren't in the channel dump.
-        if self.mountpoint:
-            self._printChannelTree(doEOSYN=0)
-        else:
-            self._printChannelTree(doEOSYN=1)
+        self._printChannelTree(doEOSYN=doEOSYN)
 
         if self.listChannelsYN:
             # We're done here
