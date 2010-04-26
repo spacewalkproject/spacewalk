@@ -632,7 +632,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 sourcer.setChannel(label)
                 stream = sourcer.load()
             else:
-                rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+                rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
                 stream = rpmServer.getCompsFileStream(label)
             f = FileManip(comps_path, timestamp, None)
             f.write_file(stream)
