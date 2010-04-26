@@ -838,6 +838,10 @@ class _PackageFilesDumper(BaseDumper):
         data['mtime'] = _dbtime2timestamp(data['mtime'])
         data['checksum_type'] = data['checksum_type'] or ""
         data['checksum'] = data['checksum'] or ""
+        if data['checksum_type'] == 'md5':
+            # generate md5="..." attribute
+            # for compatibility with older satellites
+            data['md5'] = data['checksum']
         data['linkto'] = data['linkto'] or ""
         data['lang'] = data['lang'] or ""
         d = EmptyDumper(self._writer, 'rhn-package-file', 
