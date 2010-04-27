@@ -2,3 +2,12 @@ spacecmd - a command line interface to Spacewalk
 
 Author: Aron Parsons <aron@redhat.com>
 License: GPLv3
+
+# Interesting Features
+- system set manager (SSM) similar to the web interface
+- tab completion of just about everything
+- advanced searching of systems (e.g., by hardware, IP address)
+
+# Requirements
+- >= python-2.4
+- >= Satellite 5.3 (v10.8 of the API)
