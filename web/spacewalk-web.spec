@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Apr 27 2010 Shannon Hughes <shughes@redhat.com> 1.0.3-1
+- bump version for spacewalk 1.0 (shughes@redhat.com)
+
 * Fri Apr 16 2010 Justin Sherrill <jsherril@redhat.com> 1.0.2-1
 - version changes for spacewalk 1.0 release (shughes@redhat.com)
 - Constants DEFAULT_RHN_SATCON_TREE and DEFAULT_SATCON_DICT not longer used
