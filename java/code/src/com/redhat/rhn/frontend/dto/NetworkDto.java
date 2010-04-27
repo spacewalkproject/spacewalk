@@ -77,6 +77,14 @@ public class NetworkDto implements Identifiable {
     public void setId(Long systemIdIn) {
         this.systemId = systemIdIn;
     }
-    
+  
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("Key: %s; System Id: %s; Last Check In: %s",
+                                        getKey(), getId(), getLastCheckin());
+    }    
     
 }

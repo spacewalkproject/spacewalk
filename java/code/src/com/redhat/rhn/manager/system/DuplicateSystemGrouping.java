@@ -77,7 +77,13 @@ public class DuplicateSystemGrouping  {
        return   getSystems();
     }
 
-
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("Key: %s; Systems %s", getKey(), getSystems());
+    }
     
 }

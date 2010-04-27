@@ -20,42 +20,22 @@
 <rl:listset name="DupesListSet" legend="system">
 <rl:list 
 	emptykey="nosystems.message"
-	filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
 	>
-    <rl:decorator name="ElaborationDecorator"/>
-    <c:if test = "${empty noSystemIcons}">
-  	    <rl:decorator name="SystemIconDecorator"/>
-	    <rl:decorator name="SystemHealthIconDecorator"/>
-    </c:if>
-	<rl:decorator name="PageSizeDecorator"/>
- 	<rl:decorator name="SelectableDecorator"/>
- 	<rl:selectablecolumn value="${current.id}"
- 						selected="${current.selected}"
- 						disabled="${not current.selectable}"
- 						styleclass="first-column"/>
-
 	<!-- Name Column -->
-	<rl:column sortable="true" 
-			   bound="false"
+	<rl:column bound="true"
+				attr="key"
 	           headerkey="systemlist.jsp.system" 
-	           sortattr="name" 
-	           defaultsort="asc"
-	           styleclass="${namestyle}">
-		<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
-	</rl:column>
+	           styleclass="first-column"/>
 	
-	
-	<rl:column sortable="false"
-			attr="lastCheckin"
-			bound="true"
+	<rl:column 
 			styleclass="last-column"
-		   headerkey="systemlist.jsp.last_checked_in"/>
+		   headerkey="systemlist.jsp.last_checked_in">
+		   ${current.systems}
+	</rl:column>
 
 </rl:list>
 
-<rl:csv dataset="pageList"
-        name="systemList"
-        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlement"/>
+<rl:csv exportColumns="key"/>
 
 <rhn:submitted/>
 
