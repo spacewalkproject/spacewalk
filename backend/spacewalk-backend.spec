@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,6 +629,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Apr 27 2010 Jan Pazdziora 1.1.5-1
+- 585233 - add support for syncing comps data.
+
 * Thu Apr 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
 - networkRetries is set in /etc/sysconfig/rhn/up2date and not in rhn.conf
 
