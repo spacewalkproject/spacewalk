@@ -50,6 +50,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             'arches_extra',
             'channel_families',
             'channels',
+            'get_comps',
             'channel_packages_short',
             'packages_short',
             'packages',
@@ -360,6 +361,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         self.set_channel_family_query(channel_labels=channel_labels)
         return self.dump_channels(channel_labels=channel_labels)
 
+    def get_comps(self, channel):
+        return self.get_comps_file(channel)
+
     def channel_packages_short(self, channel_label, last_modified):
         self.set_channel_family_query(channel_labels=[channel_label])
         return self.dump_channel_packages_short(channel_label, last_modified)
@@ -392,6 +396,28 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         log_debug(1, package)
         return self._send_package_stream(package, "rhn-source-package-",
             "rhnPackageSource")
+
+    def get_comps_file(self, channel):
+        comps_query = """
+            select relative_filename
+            from rhnChannelComps
+            where channel_id = (
+                select id
+                from rhnChannel
+                where label = :channel_label
+            )
+            order by id desc
+        """
+        channel_comps_sth = rhnSQL.prepare(comps_query)
+        channel_comps_sth.execute(channel_label = channel)
+        row = channel_comps_sth.fetchone_dict()
+        if not row:
+            raise rhnFault(3015, "No comps file for channel [%s]" % channel)
+        path = os.path.join(CFG.MOUNT_POINT, row['relative_filename'])
+        if not os.path.exists(path):
+            log_error("Missing comps file [%s] for channel [%s]" % (path, channel))
+            raise rhnFault(3016, "Unable to retrieve comps file for channel [%s]" % channel)
+        return self._send_stream(path)
 
     def get_ks_file(self, ks_label, relative_path):
         log_debug(1, ks_label, relative_path)

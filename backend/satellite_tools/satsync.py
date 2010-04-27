@@ -631,6 +631,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 sourcer = xmlDiskSource.ChannelCompsDiskSource(self.mountpoint)
                 sourcer.setChannel(label)
                 stream = sourcer.load()
+            elif CFG.ISS_PARENT:
+                stream  = self.xmlWireServer.getComps(label)
             else:
                 rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
                 stream = rpmServer.getCompsFileStream(label)

@@ -304,6 +304,8 @@ maximum membership exceeded"),
      3012: _("Mismatching versions"),
      3013: _("Invalid channel version"),
      3014: _("Missing snapshot for channels"),
+     3015: _("No comps file for channel"),
+     3016: _("Unable to retrieve comps file"),
 
      # 4000 - 4999: config management errors
      4002: _("Configuration action missing"),

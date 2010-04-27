@@ -258,6 +258,10 @@ class MetadataWireSource(BaseWireSource):
         return self._openSocketStream("dump.kickstartable_trees", 
             (self.systemid, ksLabels))
 
+    def getComps(self, channel):
+        return self._openSocketStream("dump.get_comps",
+            (self.systemid, channel))
+
     def getRpm(self, nvrea, channel):
         release = nvrea[2]
         epoch = nvrea[3]
