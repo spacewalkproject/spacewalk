@@ -284,4 +284,9 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+    <function>
+        <name>expandable</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnListTagFunctions</function-class>
+        <function-signature>boolean isExpandable(java.lang.Object)</function-signature>
+    </function>    	
 </taglib>

@@ -22,10 +22,18 @@
 	emptykey="nosystems.message"
 	>
 	<!-- Name Column -->
-	<rl:column bound="true"
-				attr="key"
+	<rl:column 
 	           headerkey="systemlist.jsp.system" 
-	           styleclass="first-column last-column"/>
+	           styleclass="first-column last-column">
+		<c:choose>
+			<c:when test="${rl:expandable(current)}">
+				${current.key}
+			</c:when>
+			<c:otherwise>
+				System : ${current.id}
+			</c:otherwise>
+		</c:choose>
+	</rl:column>	           
 
 </rl:list>
 
