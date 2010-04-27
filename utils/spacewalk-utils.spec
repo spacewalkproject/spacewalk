@@ -22,7 +22,7 @@ Requires:       coreutils
 Requires:       initscripts
 Requires:       iproute
 Requires:       net-tools
-Requires:       oracle-lib-compat
+Requires:       /usr/bin/sqlplus
 Requires:       perl-Satcon
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       python, rpm-python
