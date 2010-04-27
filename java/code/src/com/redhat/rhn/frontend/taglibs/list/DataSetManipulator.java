@@ -102,8 +102,15 @@ public class DataSetManipulator {
             expanded.add(obj);
             if (obj instanceof Expandable) {
                 Expandable ex = (Expandable) obj;
-                expanded.addAll(ListFilterHelper.filter(ex.expand(),
+                List children = ex.expand();
+                if (filter != null) {
+                    expanded.addAll(ListFilterHelper.filter(children,
                             filter, filterBy, filterValue));
+                }
+                else {
+                    expanded.addAll(children);
+                }
+                      
             }
         }
         return expanded;

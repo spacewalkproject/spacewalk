@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.system;
 
 import com.redhat.rhn.frontend.dto.NetworkDto;
+import com.redhat.rhn.frontend.struts.Expandable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
  * DuplicateSystemBucket
  * @version $Rev$
  */
-public class DuplicateSystemGrouping  {
+public class DuplicateSystemGrouping implements Expandable {
 
     private String key;
     private List<NetworkDto> systems;

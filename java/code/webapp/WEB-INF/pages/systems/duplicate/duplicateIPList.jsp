@@ -25,13 +25,7 @@
 	<rl:column bound="true"
 				attr="key"
 	           headerkey="systemlist.jsp.system" 
-	           styleclass="first-column"/>
-	
-	<rl:column 
-			styleclass="last-column"
-		   headerkey="systemlist.jsp.last_checked_in">
-		   ${current.systems}
-	</rl:column>
+	           styleclass="first-column last-column"/>
 
 </rl:list>
 
