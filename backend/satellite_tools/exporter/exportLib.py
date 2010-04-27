@@ -1441,10 +1441,10 @@ class _KickstartableTreeDumper(BaseRowDumper):
     def set_iterator(self):
         kstree_id = self._row['id']
         h = rhnSQL.prepare("""
-            select relative_filename "relative-path",
-                   c.checksum_type "checksum-type",
+            select relative_filename,
+                   c.checksum_type,
                    c.checksum,
-                   file_size "file-size",
+                   file_size,
                     TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') "last-modified"
               from rhnKSTreeFile, rhnChecksumView c
              where kstree_id = :kstree_id
@@ -1457,10 +1457,29 @@ class _KickstartFilesDumper(BaseDumper):
     tag_name = 'rhn-kickstart-files'
 
     def dump_subelement(self, data):
-        last_modified = data['last-modified']
-        data['last-modified'] = _dbtime2timestamp(last_modified)
+        d = _KickstartFileEntryDumper(self._writer, data)
+        d.dump()
 
-        EmptyDumper(self._writer, 'rhn-kickstart-file', data).dump()
+class _KickstartFileEntryDumper(BaseRowDumper):
+    tag_name = 'rhn-kickstart-file'
+
+    def set_attributes(self):
+        attr = {
+            'relative-path': self._row['relative_filename'],
+            'file-size'    : self._row['file_size'],
+            'last-modified': _dbtime2timestamp(self._row['last-modified']),
+        }
+        if self._row['checksum_type'] == 'md5':
+            attr['md5sum'] = self._row['checksum']
+        return attr
+
+    def set_iterator(self):
+        # checksums
+        checksum_arr = [{'type':  self._row['checksum_type'],
+                         'value': self._row['checksum']}]
+        arr = [_ChecksumDumper(self._writer,
+                              data_iterator=ArrayIterator(checksum_arr))]
+        return ArrayIterator(arr)
 
 class _KickstartTreeTypeDumper(BaseDumper):
     tag_name = 'rhn-kickstart-tree-type'
