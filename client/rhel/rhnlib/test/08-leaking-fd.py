@@ -87,7 +87,7 @@ if __name__ == '__main__':
     while attempt.isAlive():
         res80 = os.system(port80)
         if (res80 == 0):        # Port 80 is used ERROR
-            attemt.terminate();
+            attempt.terminate();
             attempt.join();
             print "ERROR: Port 80 is used!"
             sys.exit(1);
