@@ -92,7 +92,7 @@ When the system hostname has not changed, the re-generation of a new SSL server 
             </listitem>
         </varlistentry>
         <varlistentry>
-            <term>--ssl-password=<replaceable>SSL_PASSWORD</replaceable></term>
+            <term>--ssl-ca-password=<replaceable>SSL_CA_PASSWORD</replaceable></term>
             <listitem>
                 <para>Password of the SSL CA to sign the new SSL certificate.</para>
             </listitem>
