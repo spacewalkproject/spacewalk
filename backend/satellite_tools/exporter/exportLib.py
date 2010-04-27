@@ -1063,13 +1063,21 @@ class _ErratumFilesDumper(BaseDumper):
     tag_name = 'rhn-erratum-files'
 
     def dump_subelement(self, data):
+        d = _ErratumFileEntryDumper(self._writer, data)
+        d.dump()
+
+class _ErratumFileEntryDumper(BaseRowDumper):
+    tag_name = 'rhn-erratum-file'
+
+    def set_attributes(self):
         attributes = {
-            'checksum-type'    : data['checksum_type'],
-            'checksum'    : data['checksum'],
             # XXX: band-aid - truncate to 128 chars for olde satellites.
-            'filename'  : data['filename'][:128],
-            'type'      : data['type'],
+            'filename'  : self._row['filename'][:128],
+            'type'      : self._row['type'],
         }
+        if self._row['checksum_type'] == 'md5':
+            attributes['md5sum'] = self._row['checksum']
+
         # Compute the channels for this file
         h = rhnSQL.prepare("""
             select c.label
@@ -1077,23 +1085,30 @@ class _ErratumFilesDumper(BaseDumper):
             where efc.errata_file_id = :errata_file_id
             and efc.channel_id = c.id
         """)
-        h.execute(errata_file_id=data['errata_file_id'])
+        h.execute(errata_file_id=self._row['errata_file_id'])
         channels = string.join(
             map(lambda x: x['label'], h.fetchall_dict() or []))
         if channels:
             attributes['channels'] = channels
 
         # Get the package id or source_package_id
-        if data['type'] == 'RPM':
-            package_id = data.get('package_id')
+        if self._row['type'] == 'RPM':
+            package_id = self._row['package_id']
             if package_id is not None:
                 attributes['package'] = 'rhn-package-%s' % package_id
-        elif data['type'] == 'SRPM':
-            package_id = data.get('source_package_id')
+        elif self._row['type'] == 'SRPM':
+            package_id = self._row['source_package_id']
             if package_id is not None:
                 attributes['source-package'] = 'rhn-package-source-%s' % package_id
-        d = EmptyDumper(self._writer, 'rhn-erratum-file', attributes=attributes)
-        d.dump()
+        return attributes
+
+    def set_iterator(self):
+        # checksums
+        checksum_arr = [{'type':  self._row['checksum_type'],
+                         'value': self._row['checksum']}]
+        arr = [_ChecksumDumper(self._writer,
+                         data_iterator=ArrayIterator(checksum_arr))]
+        return ArrayIterator(arr)
 
 # Arches
 class BaseArchesDumper(BaseDumper):
