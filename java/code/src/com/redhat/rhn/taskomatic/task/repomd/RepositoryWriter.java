@@ -270,7 +270,7 @@ public class RepositoryWriter {
             relativeFilename = channel.getComps().getRelativeFilename();
         }
 
-        File compsFile = new File(compsMount + relativeFilename);
+        File compsFile = new File(compsMount + File.separator + relativeFilename);
         FileInputStream stream;
         try {
             stream = new FileInputStream(compsFile);
