@@ -39,7 +39,7 @@
 <RefSect1>
     <Title>Description</Title>
     <para> After a system hostname or default IP gets changed on a &PRODUCT;, it is necessary to run &SCRIPTCOMMAND; to reconfigure to the new settings. Afterwards it may be necessary to reconfigure RHN Proxies and clients registered to the server.</para>
-    <para>&SCRIPTCOMMAND; takes one mandatory argument - <replaceable>IP_ADDRESS</replaceable> regardless of whether the IP address has changed or not. If there is a need to generate a new SSL certificate, all necessary information will be asked interactivelly, unless it is specified by the options.
+    <para>&SCRIPTCOMMAND; takes one mandatory argument - <replaceable>IP_ADDRESS</replaceable> regardless of whether the IP address has changed or not. If there is a need to generate a new SSL certificate, all necessary information will be asked interactively, unless it is specified by the options.
 When the system hostname has not changed, the re-generation of a new SSL server certificate is not necessary. However, if at least one <option>--ssl-*</option> option is specified, certificate generation is forced.</para>
 </RefSect1>
 
