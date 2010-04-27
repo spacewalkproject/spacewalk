@@ -609,7 +609,7 @@ class _PackageDumper(BaseRowDumper):
     def set_attributes(self):
         attrs = ["name", "version", "release", "package_arch",
             "package_group", "rpm_version", "package_size", "payload_size", 
-            "build_host", "source_rpm", "checksum_type", "checksum", "payload_format",
+            "build_host", "source_rpm", "payload_format",
             "compat", "cookie"]
         dict = {
             'id'            : "rhn-package-%s" % self._row['id'],
@@ -620,6 +620,9 @@ class _PackageDumper(BaseRowDumper):
         }
         for attr in attrs:
             dict[string.replace(attr, '_', '-')] = self._row[attr]
+        if self._row['checksum_type'] == 'md5':
+            # compatibility with older satellite
+            dict['md5sum'] = self._row['checksum']
         return dict
 
     def set_iterator(self):
@@ -636,6 +639,12 @@ class _PackageDumper(BaseRowDumper):
         ]
         for k, v in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
+
+        # checksums
+        checksum_arr = [{'type':  self._row['checksum_type'],
+                         'value': self._row['checksum']}]
+        arr.append(_ChecksumDumper(self._writer,
+                        data_iterator=ArrayIterator(checksum_arr)))
 
         h = rhnSQL.prepare("""
             select 
@@ -789,6 +798,24 @@ class SourcePackagesDumper(BaseDumper):
         d = EmptyDumper(self._writer, 'rhn-source-package',
             attributes=attributes)
         d.dump()
+
+##
+class _ChecksumDumper(BaseDumper):
+    tag_name = 'checksums'
+
+    def dump_subelement(self, data):
+        c = _ChecksumEntryDumper(self._writer, data)
+        c.dump()
+
+class _ChecksumEntryDumper(BaseRowDumper):
+    tag_name = 'checksum'
+
+    def set_attributes(self):
+        attrs = ['type', 'value']
+        attrdict = {}
+        for attr in attrs:
+             attrdict[attr] = self._row[attr]
+        return attrdict
 
 ##
 class _ChangelogDumper(BaseDumper):
