@@ -838,18 +838,11 @@ class _ChecksumDumper(BaseDumper):
     tag_name = 'checksums'
 
     def dump_subelement(self, data):
-        c = _ChecksumEntryDumper(self._writer, data)
+        c = EmptyDumper(self._writer, 'checksum', attributes={
+                'type' : data['type'],
+                'value': data['value'],
+        })
         c.dump()
-
-class _ChecksumEntryDumper(BaseRowDumper):
-    tag_name = 'checksum'
-
-    def set_attributes(self):
-        attrs = ['type', 'value']
-        attrdict = {}
-        for attr in attrs:
-             attrdict[attr] = self._row[attr]
-        return attrdict
 
 ##
 class _ChangelogDumper(BaseDumper):
