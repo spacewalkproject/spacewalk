@@ -395,7 +395,7 @@ class MetadataRepository:
         return template_hash
 
     def __get_checksumtype(self):
-        return self.repository.channel.checksumtype
+        return self.repository.channel.checksum_type
 
     def __getattr__(self, x):
         return getattr(self.compressed_repository, x)
