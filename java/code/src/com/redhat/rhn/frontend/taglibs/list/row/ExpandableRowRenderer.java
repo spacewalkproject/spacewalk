@@ -14,47 +14,37 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.row;
 
-import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+import com.redhat.rhn.frontend.struts.Expandable;
 
 /**
- * 
- * RowRenderer
+ *
+ * ExpandableRowRenderer
  * @version $Rev$
  */
-public class RowRenderer {
+public class ExpandableRowRenderer extends RowRenderer {
 
-    protected String[] rowClasses;
-    protected int rowNum;
 
     /**
-     * RowRenderer Construtor
+     * ExpandableRowRenderer Construtor
      */
-    public RowRenderer() {
-        rowClasses = new String[2];
-        rowClasses[0] = "list-row-even";
-        rowClasses[1] = "list-row-odd";
-        rowNum = -1;
-        
+    public ExpandableRowRenderer() {
+
     }
-    
+
     /**
      * get the row style for the current object
      * @param currentObject the current object that is being rendered
      * @return the string that is the style to add to the row
      */
     public String getRowStyle(Object currentObject) {
-        rowNum++;
-        return rowClasses[rowNum % rowClasses.length];
-    }
-    
-    /**
-     * Set the list of row styles
-     * @param stylesIn the styles
-     */
-    public void setRowClasses(String stylesIn) {
-            rowClasses = ListTagUtil.parseStyles(stylesIn);
+        if (currentObject instanceof Expandable) {
+            return rowClasses[1];
+        }
+        else {
+            return rowClasses[0];
+        }
     }
 
-    
-    
+
+
 }

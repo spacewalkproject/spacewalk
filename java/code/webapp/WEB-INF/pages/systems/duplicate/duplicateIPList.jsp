@@ -21,6 +21,9 @@
 <rl:list 
 	emptykey="nosystems.message"
 	>
+
+	<rl:rowrenderer name="ExpandableRowRenderer" />
+
 	<!-- Name Column -->
 	<rl:column 
 	           headerkey="systemlist.jsp.system" 
