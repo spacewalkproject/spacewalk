@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.row;
 
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 
 /**
@@ -38,11 +39,11 @@ public class RowRenderer {
     }
     
     /**
-     * get the row style for the current object
+     * get the row class for the current object
      * @param currentObject the current object that is being rendered
      * @return the string that is the style to add to the row
      */
-    public String getRowStyle(Object currentObject) {
+    public String getRowClass(Object currentObject) {
         rowNum++;
         return rowClasses[rowNum % rowClasses.length];
     }
@@ -54,7 +55,22 @@ public class RowRenderer {
     public void setRowClasses(String stylesIn) {
             rowClasses = ListTagUtil.parseStyles(stylesIn);
     }
+    /**
+     * Returns the row id given the list name and the current object
+     * @param listName the listname
+     * @param currentObject the current object
+     * @return the row id
+     */
+    public String getRowId(String listName, Object currentObject) {
+        return ListTagHelper.makeRowId(listName, currentObject);
+    }
 
-    
-    
+    /**
+     * get the row style for the current object
+     * @param currentObject the current object that is being rendered
+     * @return the string that is the style to add to the row
+     */
+    public String getRowStyle(Object currentObject) {
+        return "";
+    }
 }

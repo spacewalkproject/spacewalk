@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.domain.Identifiable;
+import com.redhat.rhn.frontend.struts.Selectable;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
@@ -224,5 +226,36 @@ public class ListTagHelper {
             return newValue;
         }
         
-    }    
+    }
+    /**
+     * Returns the object id given an object
+     * deals with selectable/identifiable objects
+     * or uses hashcode for general
+     * @param current the current object
+     * @return the id representing the object
+     */
+    public static String getObjectId(Object current) {
+        String id;
+        if (current instanceof Selectable) {
+            id = ((Selectable)current).getSelectionKey();
+        }
+        else if (current instanceof Identifiable) {
+            id = String.valueOf(((Identifiable)current).getId());
+        }
+        else {
+            id = String.valueOf(current.hashCode());
+        }
+        return id;
+    }
+    
+    /**
+     * Makes the tr row ids useful especially for expandable row renderers. 
+     * @param listName the name of the list
+     * @param current the object to be expanded on
+     * @return the row id value
+     */
+    public static String makeRowId(String listName, Object current) {
+        return "row_" + listName + "_" + ListTagHelper.getObjectId(current);
+    }
+    
 }

@@ -14,7 +14,8 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.row;
 
-import com.redhat.rhn.frontend.struts.Expandable;
+import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 /**
  *
@@ -33,18 +34,38 @@ public class ExpandableRowRenderer extends RowRenderer {
 
     /**
      * get the row style for the current object
-     * @param currentObject the current object that is being rendered
+     * @param current the current object that is being rendered
      * @return the string that is the style to add to the row
      */
-    public String getRowStyle(Object currentObject) {
-        if (currentObject instanceof Expandable) {
+    @Override
+    public String getRowClass(Object current) {
+        if (RhnListTagFunctions.isExpandable(current)) {
             return rowClasses[1];
         }
         else {
             return rowClasses[0];
         }
     }
-
-
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRowId(String listName, Object current) {
+        if (RhnListTagFunctions.isExpandable(current)) {
+            return super.getRowId(listName, current);
+        }
+        return "child-" + listName + "-" + ListTagHelper.getObjectId(current);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRowStyle(Object currentObject) {
+        if (!RhnListTagFunctions.isExpandable(currentObject)) {
+            return "display: none;";
+        }
+        return super.getRowStyle(currentObject);
+    }    
 }

@@ -39,5 +39,5 @@ public class NonExpandableColumnTag  extends ExpandableColumnTag {
     protected void renderIcon() throws JspException {
         ListTagUtil.write(pageContext, "<img style=\"margin-left: 4px;\"" +
                                         " src=\"/img/channel_child_node.gif\"/>");
-    }    
+    }
 }

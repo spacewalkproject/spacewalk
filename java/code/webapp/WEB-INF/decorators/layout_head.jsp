@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/css/rhn-base.css" type="text/css" />
     <script src="/javascript/prototype-1.6.0.js" type="text/javascript"> </script>
     <script src="/javascript/check_all.js" type="text/javascript"> </script>
+    
     <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/css/rhn-iecompat.css" />
     <![endif]-->

@@ -118,9 +118,6 @@ public class ListTag extends BodyTagSupport {
         }
         return decorators;
     }
-    
-
-
 
     /**
      * Set the row renderer
@@ -365,7 +362,7 @@ public class ListTag extends BodyTagSupport {
          */
         if ((refLink != null) && (!isEmpty())) {
             ListTagUtil.write(pageContext, "<tr");
-            renderRowClass();
+            renderRowClassAndId();
             ListTagUtil.write(pageContext, ">");
             
             ListTagUtil.write(pageContext, "<td style=\"text-align: center;\" " +
@@ -529,7 +526,7 @@ public class ListTag extends BodyTagSupport {
                 }
                 else {
                     ListTagUtil.write(pageContext, "<tr");
-                    renderRowClass();
+                    renderRowClassAndId();
 
                     ListTagUtil.write(pageContext, ">");
                     pageContext.setAttribute(rowName, currentObject);
@@ -688,15 +685,25 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext, "</td></tr>");
     }
 
-    private void renderRowClass() throws JspException {
+    private void renderRowClassAndId() throws JspException {
         rowCounter++;
 
         ListTagUtil.write(pageContext, " class=\"");
-        ListTagUtil.write(pageContext, getRowRenderer().getRowStyle(getCurrentObject()));
+        ListTagUtil.write(pageContext, getRowRenderer().getRowClass(getCurrentObject()));
         if (rowCounter == manip.findAlphaPosition() % pageSize) {
             ListTagUtil.write(pageContext, " alphaResult");
         }   
-        ListTagUtil.write(pageContext, "\"");
+        ListTagUtil.write(pageContext, "\" ");
+        ListTagUtil.write(pageContext, "id=\"");
+        ListTagUtil.write(pageContext, getRowRenderer().getRowId(getUniqueName(),
+                                                                getCurrentObject()));
+        ListTagUtil.write(pageContext, "\" ");
+        String style = getRowRenderer().getRowStyle(getCurrentObject());
+        if (!StringUtils.isBlank(style)) {
+            ListTagUtil.write(pageContext, "style=\"");
+            ListTagUtil.write(pageContext, style);
+            ListTagUtil.write(pageContext, "\" ");            
+        }
     }
 
     private void emitId() throws JspException {
@@ -714,11 +721,11 @@ public class ListTag extends BodyTagSupport {
             ListTagUtil.write(pageContext, styleClass);
             ListTagUtil.write(pageContext, "\"");
         }
-        if (styleId != null) {
-            ListTagUtil.write(pageContext, " id=\"");
-            ListTagUtil.write(pageContext, styleId);
-            ListTagUtil.write(pageContext, "\"");
-        }        
+
+        ListTagUtil.write(pageContext, " id=\"");
+        ListTagUtil.write(pageContext, getStyleId());
+        ListTagUtil.write(pageContext, "\"");
+        
         if (width != null) {
             ListTagUtil.write(pageContext, " width=\"");
             ListTagUtil.write(pageContext, width);
@@ -907,6 +914,9 @@ public class ListTag extends BodyTagSupport {
      * @return CSS ID for <table>
      */
     public String getStyleId() {
+        if (StringUtils.isBlank(styleId)) {
+            styleId = "list_" + getUniqueName() + "style_id";
+        }
         return styleId;
     }
 

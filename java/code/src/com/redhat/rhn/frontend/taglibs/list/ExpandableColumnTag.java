@@ -15,8 +15,7 @@
 package com.redhat.rhn.frontend.taglibs.list;
 
 import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
-
-import org.apache.commons.lang.BooleanUtils;
+import com.redhat.rhn.frontend.taglibs.list.row.ExpandableRowRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -32,13 +31,17 @@ public class ExpandableColumnTag  extends BodyTagSupport {
      */
     private static final long serialVersionUID = 9164800881253245840L;
     private boolean renderIcon;
-    
+
+    private static final String IMAGE_SCRIPT = "<a onclick=\"toggleRowVisibility('%s', " +
+                                                "rowHash%s);\" " +
+                                        "style=\"cursor: pointer;\"><img name=\"%s\"" +
+                                         " src=\"/img/list-expand.gif\"/></a>";    
     /**
      * true to render icon
      * @param render true to render icon
      */
     public void setRendericon(String render) {
-        renderIcon = BooleanUtils.toBoolean(render);
+        renderIcon = ListTagUtil.toBoolean(render);
     }
     protected Object getCurrent() {
         ListTag parent = (ListTag)
@@ -74,8 +77,12 @@ public class ExpandableColumnTag  extends BodyTagSupport {
     }
 
     protected void renderIcon() throws JspException {
-        ListTagUtil.write(pageContext, "<img name=\"id101-image\" " +
-                            "src=\"/img/list-collapse.gif\"/>");
+        String listName = getListName();
+        Object current = getCurrent();
+        String rowId = new ExpandableRowRenderer().getRowId(listName, current);
+        String imageId = rowId + "-image";
+        ListTagUtil.write(pageContext, String.format(IMAGE_SCRIPT,
+                                            rowId, listName, imageId));
     }
     
     /** {@inheritDoc} 
@@ -85,4 +92,10 @@ public class ExpandableColumnTag  extends BodyTagSupport {
         renderIcon = false;
         super.release();
     }
+    
+    protected String getListName() {
+        ListTag parent = (ListTag)
+            BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        return parent.getUniqueName();
+    }    
 }

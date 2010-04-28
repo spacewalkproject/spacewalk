@@ -302,7 +302,16 @@ public class ListTagUtil {
     }
 
 
+    /**
+     * provides the filter label (what to sort by) url key
+     * @param listName the list name
+     * @return the url key for filter value label
+     */
+    public static String makeImageNameByLabel(String listName) {
+        return "list_" + listName + "_filterattr";
+    }
 
+    
     /**
      * provides the filter name (the name value for the go button on the filter box)
      * @param listName the list name
@@ -678,7 +687,5 @@ public class ListTagUtil {
         }
         return url;
     }
-
-
 
 }
