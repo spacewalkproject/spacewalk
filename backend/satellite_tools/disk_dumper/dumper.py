@@ -1270,7 +1270,9 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
                cp.beta channel_product_beta,
                c.receiving_updates,
                ct.label checksum_type,
-               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
+               ( select max(round((rhnChannelComps.last_modified - to_date('19700101', 'YYYYMMDD')) * 86400))
+                 from rhnChannelComps
+                 where c.id = rhnChannelComps.channel_id ) as comps_last_modified
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp,
                rhnChecksumType ct
          where c.id = :channel_id

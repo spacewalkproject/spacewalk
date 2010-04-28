@@ -190,7 +190,6 @@ class _ChannelDumper(BaseRowDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
-            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -217,6 +216,7 @@ class _ChannelDumper(BaseRowDumper):
             ('rhn-channel-description', 'description'),
             ('rhn-channel-gpg-key-url', 'gpg_key_url'),
             ('rhn-channel-checksum-type', 'checksum_type'),
+            ('rhn-channel-comps-last-modified', 'comps_last_modified'),
         ]
         for k, v in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v]))
