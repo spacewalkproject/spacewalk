@@ -2,7 +2,7 @@
 
 Name:		spacecmd
 Version:	0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	CLI to Spacewalk and RHN Satellite Server
 
 Group:		Admin
@@ -12,7 +12,6 @@ Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-#BuildRequires:	
 Requires:	python >= 2.4
 
 
@@ -34,7 +33,7 @@ Please provide feedback directly to me or via GitHub.
 
 
 %build
-# nothing to build
+
 
 %install
 rm -rf %{buildroot}
@@ -50,12 +49,14 @@ install -m644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
 %clean
 rm -rf %{buildroot}
 
+
 %files
 %defattr(-,root,root,-)
 %doc README
 %{_bindir}/spacecmd
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
+
 
 %changelog
 * Wed Apr 28 2010 Aron Parsons <aparsons@redhat.com> 0.1-2
