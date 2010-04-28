@@ -190,7 +190,6 @@ class _ChannelDumper(BaseRowDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
-            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -231,6 +230,12 @@ class _ChannelDumper(BaseRowDumper):
             channel_product_details[1]))
         arr.append(SimpleDumper(self._writer, 'rhn-channel-product-beta',
             channel_product_details[2]))
+
+        comp_last_modified = self._channel_comps_last_modified()
+        if comp_last_modified != None:
+            arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
+                exportLib._dbtime2timestamp(comp_last_modified[0]))
+            )
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
@@ -342,6 +347,19 @@ class _ChannelDumper(BaseRowDumper):
             return (None, None, None)
         else:
             return (row['name'], row['version'], row['beta'])
+
+    _query_channel_comps_last_modified = rhnSQL.Statement("""
+        select to_char(last_modified, 'YYYYMMDDHH24MISS') as comps_last_modified
+        from rhnChannelComps
+        where channel_id = :channel_id
+        order by id desc
+    """)
+
+    def _channel_comps_last_modified(self):
+        channel_id = self._row['id']
+        h = rhnSQL.prepare(self._query_channel_comps_last_modified)
+        h.execute(channel_id=channel_id)
+        return h.fetchone()
 
 class ChannelDumper(_ChannelDumper):
 

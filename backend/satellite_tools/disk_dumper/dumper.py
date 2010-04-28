@@ -1170,19 +1170,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
      """)
 
     # Things that can be overwriten in subclasses
-    _query_channel_comps_last_modified = rhnSQL.Statement("""
-        select to_char(last_modified, 'YYYYMMDDHH24MISS') as comps_last_modified
-        from rhnChannelComps
-        where channel_id = :channel_id
-        order by id desc
-    """)
-
-    def _channel_comps_last_modified(self):
-        channel_id = self._row['id']
-        h = rhnSQL.prepare(self._query_channel_comps_last_modified)
-        h.execute(channel_id=channel_id)
-        return h.fetchone()
-
     def _get_package_ids(self):
         channel_id = self._row['id']
         if LOWER_LIMIT:
@@ -1284,8 +1271,7 @@ class ChannelsDumperEx(CachedDumper, exportLib.ChannelsDumper):
                cp.version channel_product_version,
                cp.beta channel_product_beta,
                c.receiving_updates,
-               ct.label checksum_type,
-               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
+               ct.label checksum_type
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc, rhnChannelProduct cp,
                rhnChecksumType ct
          where c.id = :channel_id
