@@ -690,8 +690,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             for label in requested_channels:
                 timestamp = self._channel_collection.get_channel_timestamp(label)
                 ch = self._channel_collection.get_channel(label, timestamp)
-                if ch.has_key('has_comps') and ch['has_comps'] == 'True':
-                    self._process_comps(importer.backend, label, timestamp)
+                if ch.has_key('comps_last_modified') and ch['comps_last_modified'] != None::
+                    self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
 
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %

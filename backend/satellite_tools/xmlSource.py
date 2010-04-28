@@ -463,12 +463,15 @@ class ChannelItem(BaseItem):
         'rhn-channel-product-beta'  : 'product_beta',
         'rhn-channel-receiving-updates' : 'receiving_updates',
         'rhn-channel-checksum-type' : 'checksum_type',
+        'rhn-channel-comps-last-modified' : 'comps_last_modified',
         'has-comps'                 : 'has_comps',
     }
     def populateFromElements(self, obj, elements):
         BaseItem.populateFromElements(self, obj, elements)
         if obj['checksum_type'] == 'sha':
             obj['checksum_type'] = 'sha1'
+        if not obj.has_key('comps_last_modified') and obj.has_key('has_comps'):
+            obj['comps_last_modified'] = obj['last_modified']
 addItem(ChannelItem)
 
 class BaseChecksummedItem(BaseItem):
