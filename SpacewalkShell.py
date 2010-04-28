@@ -2522,8 +2522,10 @@ For help for a specific command try 'help <cmd>'.
             return
 
         for match in matches:
-            logging.info('Removed %s' % match)
-            self.ssm.remove(match)
+            # double-check for existance in case of duplicate names
+            if match in self.ssm:
+                logging.info('Removed %s' % match)
+                self.ssm.remove(match)
 
         print 'Systems Selected: %s' % str(len(self.ssm))
 
@@ -2644,7 +2646,10 @@ For help for a specific command try 'help <cmd>'.
         else:
             if len(systems):
                 for s in sorted(systems):
-                    print '%s  %s' % (s[0].ljust(max_size), str(s[1]).strip())
+                    if key == 'name':
+                        print s[0]
+                    else:
+                        print '%s  %s' % (s[0].ljust(max_size), str(s[1]).strip())
 
 ####################
 
