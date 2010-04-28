@@ -1839,11 +1839,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
         short_package_collection = sync_handlers.ShortPackageCollection()
+        package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
         for chn, package_ids in self._channel_packages.items():
             for pid in package_ids:
                 timestamp = short_package_collection.get_package_timestamp(pid)
-                package = short_package_collection.get_package(pid, timestamp)
+                package = package_collection.get_package(pid, timestamp)
                 assert package is not None
                 channel_obj = {'label' : chn}
                 if uq_packages.has_key(pid):
