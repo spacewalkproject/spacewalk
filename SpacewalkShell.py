@@ -117,20 +117,28 @@ For help for a specific command try 'help <cmd>'.
             print
             sys.exit(0)
 
-        # should we look for an item in the history?
-        if len(line) and line[0] != '!':
-            return line
-
         parts = line.split()
-        command = parts[0]
-        args = parts[1:]
+
+        if len(parts):
+            command = parts[0]
+        else:
+            return ''
+
+        if len(parts[1:]):
+            args = ' '.join(parts[1:])
+        else:
+            args = ''
+
+        # should we look for an item in the history?
+        if command[0] != '!' or len(command) < 2:
+            return line
 
         # remove the '!*' line from the history
         self.remove_last_history_item()
 
         history_match = False
 
-        if len(line) > 0 and line[1] == '!':
+        if command[1] == '!':
             # repeat the last command
             line = readline.get_history_item(
                        readline.get_current_history_length())
@@ -167,7 +175,7 @@ For help for a specific command try 'help <cmd>'.
 
         # append the arguments to the substituted command
         if history_match:
-            line += ' %s' % ''.join(args)
+            line += ' %s' % args
             self.parse_arguments(line)
 
             readline.add_history(line)
