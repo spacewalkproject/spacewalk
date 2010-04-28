@@ -161,7 +161,14 @@ public class ChannelFactory extends HibernateFactory {
         singleton.saveObject(c);
     }    
     
-    
+    /**
+     * Insert or Update a DistChannelMap.
+     * @param dcm DistChannelMap to be stored in database.
+     */
+    public static void save(DistChannelMap dcm) {
+        singleton.saveObject(dcm);
+    }
+
     /**
      * Remove a Channel from the DB
      * @param c Action to be removed from database.
@@ -180,7 +187,15 @@ public class ChannelFactory extends HibernateFactory {
         
         m.execute(inParams, new HashMap());
     }
-    
+
+    /**
+     * Remove a DistChannelMap from the DB
+     * @param dcm Action to be removed from database.
+     */
+    public static void remove(DistChannelMap dcm) {
+        singleton.removeObject(dcm);
+    }
+
     /**
      * Returns the base channel for the given server id.
      * @param sid Server id whose base channel we want.

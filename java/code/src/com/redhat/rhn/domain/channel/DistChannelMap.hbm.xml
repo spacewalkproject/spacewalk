@@ -5,12 +5,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.channel.DistChannelMap"
         table="rhnDistChannelMap">
-        <composite-id>
 
-            <key-many-to-one name="channel"
-                class="com.redhat.rhn.domain.channel.Channel"
-                column="channel_id"/>
-            
+        <composite-id>
             <key-property name="os" column="os" type="string"
                 length="64"/>
             <key-property name="release" column="release" type="string"
@@ -21,6 +17,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="channel_arch_id"/>
             
         </composite-id>
+
+        <many-to-one name="channel"
+            class="com.redhat.rhn.domain.channel.Channel"
+            column="channel_id" />
 		
     </class>
 

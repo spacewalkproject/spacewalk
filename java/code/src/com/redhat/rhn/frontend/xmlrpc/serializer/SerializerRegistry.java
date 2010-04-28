@@ -112,6 +112,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(PackageOverviewSerializer.class);
         SERIALIZER_CLASSES.add(SnippetSerializer.class);
         SERIALIZER_CLASSES.add(NetworkDtoSerializer.class);
+        SERIALIZER_CLASSES.add(DistChannelMapSerializer.class);
     }
     
     /**

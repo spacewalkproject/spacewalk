@@ -34,4 +34,5 @@
   <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
   <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />
   <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
+  <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
 </factory>
