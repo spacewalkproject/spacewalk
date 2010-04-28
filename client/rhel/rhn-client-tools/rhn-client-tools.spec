@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -245,6 +245,10 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed Apr 28 2010 Miroslav Suchý <msuchy@redhat.com> 1.0.1-1
+- 585386 - set properly acl for /var/spool/up2date/loginAuth.pkl
+- make read_cpuinfo() more readable
+
 * Thu Apr 08 2010 Jan Pazdziora 1.0.0-1
 - Bumping up version to 1.0.0.
 
