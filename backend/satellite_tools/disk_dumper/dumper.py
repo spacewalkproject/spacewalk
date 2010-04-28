@@ -1045,8 +1045,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                c.summary, c.description, c.gpg_key_url,
                ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
-               pc.label parent_channel,
-               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
+               pc.label parent_channel
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc,
                rhnChecksumType ct
          where c.id = :channel_id
@@ -1092,7 +1091,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
-            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -1126,6 +1124,12 @@ class _ChannelsDumper(exportLib._ChannelDumper):
         arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-last-modified',
             exportLib._dbtime2timestamp(self._row['last_modified']))
         )
+
+        comp_last_modified = self._channel_comps_last_modified()
+        if comp_last_modified != None:
+            arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
+                exportLib._dbtime2timestamp(comp_last_modified[0]))
+            )
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
@@ -1166,6 +1170,19 @@ class _ChannelsDumper(exportLib._ChannelDumper):
      """)
 
     # Things that can be overwriten in subclasses
+    _query_channel_comps_last_modified = rhnSQL.Statement("""
+        select to_char(last_modified, 'YYYYMMDDHH24MISS') as comps_last_modified
+        from rhnChannelComps
+        where channel_id = :channel_id
+        order by id desc
+    """)
+
+    def _channel_comps_last_modified(self):
+        channel_id = self._row['id']
+        h = rhnSQL.prepare(self._query_channel_comps_last_modified)
+        h.execute(channel_id=channel_id)
+        return h.fetchone()
+
     def _get_package_ids(self):
         channel_id = self._row['id']
         if LOWER_LIMIT:
