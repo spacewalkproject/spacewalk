@@ -1922,9 +1922,9 @@ For help for a specific command try 'help <cmd>'.
 
     def help_package_search(self):
         print 'package_search: Find packages that meet the given criteria'
-        print 'usage: package_search PACKAGE|QUERY'
+        print 'usage: package_search NAME|QUERY'
         print
-        print 'Example: package_search kernel-2.6.18-92'
+        print 'Example: package_search kernel'
         print
         print 'Advanced Search:'
         print 'Available Fields: name, epoch, version, release, arch, ' + \
@@ -1932,8 +1932,6 @@ For help for a specific command try 'help <cmd>'.
         print 'Example: name:kernel AND version:2.6.18 AND -description:devel'
 
     def do_package_search(self, args):
-        args = self.parse_arguments(args)
-
         if not len(args):
             self.help_package_search()
             return
