@@ -117,6 +117,10 @@ For help for a specific command try 'help <cmd>'.
             print
             sys.exit(0)
 
+        if not self.session:
+            logging.warning('You are not logged in')
+            return ''
+
         parts = line.split()
 
         if len(parts):
@@ -1749,9 +1753,9 @@ For help for a specific command try 'help <cmd>'.
         try:
             api_version = self.client.api.getVersion()
         except:
-            logging.error('API version check failed')
             logging.error(sys.exc_info()[1])
             logging.debug(sys.exc_info())
+            logging.error('API version check failed')
             self.client = None
             return
 
@@ -2574,19 +2578,21 @@ For help for a specific command try 'help <cmd>'.
     def do_system_search(self, args, doreturn=False):
         args = self.parse_arguments(args)
 
-        if (len(args)) != 1:
+        if len(args) != 1:
             self.help_system_search()
             return
+    
+        query = args[0]
 
-        if re.search(':', args):
+        if re.search(':', query):
             try:
-                (field, value) = args.split(':')
+                (field, value) = query.split(':')
             except ValueError:
                 logging.error('Invalid query')
                 return []
         else:
             field = 'name'
-            value = args
+            value = query
 
         if not value:
             logging.warning('Invalid query')
@@ -2598,7 +2604,8 @@ For help for a specific command try 'help <cmd>'.
                                                                    value)
             key = 'name'
         elif field == 'id':
-            results = self.get_system_names()
+            self.generate_system_cache()
+            results = self.all_systems
             key = 'id'
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
@@ -2633,11 +2640,11 @@ For help for a specific command try 'help <cmd>'.
                 systems.append( (s.get('name'), s.get(key)) )
 
         if doreturn:
-            return [s.get('name') for s in systems]
+            return [s[0] for s in systems]
         else:
             if len(systems):
                 for s in sorted(systems):
-                    print '%s  %s' % (s[0].ljust(max_size), s[1].strip(' '))
+                    print '%s  %s' % (s[0].ljust(max_size), str(s[1]).strip())
 
 ####################
 
