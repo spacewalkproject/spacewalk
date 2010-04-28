@@ -128,11 +128,6 @@ class ShadowAction(Exception):
     """ An error class for actions that should not get to the client """
     pass
 
-def timestamp2dbtime(timestamp):
-    """ Returns the timestamp in a format the database can understand """
-    timestamp = int(timestamp)
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(timestamp))
-
 def transpose_to_hash(arr, column_names):
     """ Handy function to transpose an array from row-based to column-based,
         with named columns.
