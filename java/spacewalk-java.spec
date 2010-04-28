@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,29 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Apr 28 2010 Jan Pazdziora 1.1.7-1
+- Added new expandable and non-expandable columns. Also UI improvements
+  (paji@redhat.com)
+- adding expandable row renderer and adding it to duplicate page
+  (jsherril@redhat.com)
+- Added an 'expandable' tag function to differentiate between parent/child
+  (paji@redhat.com)
+- Got the new treeable list tag in a more stable state (paji@redhat.com)
+- Better looking Duplicate Ips page (paji@redhat.com)
+- The relativeFilename in rhnChannelComps is really relative, need to join with
+  slash.
+- converting Duplicate dtos to use new expandable interface
+  (jsherril@redhat.com)
+- Added initial entry point for duplicate ip page (paji@redhat.com)
+- Added initial mods to list tag to deal with simple trees (paji@redhat.com)
+- adding row renderer (jsherril@redhat.com)
+- creating RowRenderer to provide alternate ways to render the styles of each
+  row (jsherril@redhat.com)
+- remove @Override, since it is not an Override (tlestach@redhat.com)
+- Change from nested select to inner join (colin.coe@gmail.com)
+- Got the delete systems  confirm page completed. (paji@redhat.com)
+- Make bash the default for syntax highlighting (colin.coe@gmail.com)
+
 * Fri Apr 23 2010 Justin Sherrill <jsherril@redhat.com> 1.1.6-1
 - adding duplicate system manager layer and api calls (jsherril@redhat.com)
 - adding server delete event for duplicate profiles (shughes@redhat.com)
