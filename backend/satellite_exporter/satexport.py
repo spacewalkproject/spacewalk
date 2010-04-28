@@ -240,10 +240,10 @@ class ApacheServer(BaseApacheServer):
 class FunctionRetrievalError(Exception):
     pass
 
-apache_server = ApacheServer()
-class HandlerWrap:
-    def __init__(self, name, init=0):
-        return getattr(apache_server, name)
+from server import apacheServer
+class HandlerWrap(apacheServer.HandlerWrap):
+    def get_handler_factory(self, req):
+        return ApacheServer
 
 ### Instantiate external entry points:
 headerParserHandler = HandlerWrap("headerParserHandler")
