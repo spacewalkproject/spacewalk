@@ -708,7 +708,19 @@ public class ChannelFactory extends HibernateFactory {
         Collections.sort(list);
         return list.get(0);
     }
-    
+
+    /**
+     * List all defined dist channel maps
+     *
+     * Returns empty array if none is found.
+     *
+     * @return DistChannelMap[], empty if none is found
+     */
+    public static List<DistChannelMap> listAllDistChannelMaps() {
+
+        return singleton.listObjectsByNamedQuery("DistChannelMap.listAll", null);
+    }
+
     /**
      * Lookup the dist channel map for the given product name, release, and channel arch.
      * Returns null if none is found.
@@ -728,7 +740,27 @@ public class ChannelFactory extends HibernateFactory {
         return (DistChannelMap)singleton.lookupObjectByNamedQuery(
                 "DistChannelMap.findByProductNameReleaseAndChannelArch", params);
     }
-    
+
+    /**
+     * Lookup the dist channel map for the given os, release, and channel arch.
+     * Returns null if none is found.
+     *
+     * @param os OS
+     * @param release Version.
+     * @param channelArch Channel arch.
+     * @return DistChannelMap, null if none is found
+     */
+    public static DistChannelMap lookupDistChannelMapByOsReleaseArch(String os,
+                                            String release, ChannelArch channelArch) {
+
+        Map params = new HashMap();
+        params.put("os", os);
+        params.put("release", release);
+        params.put("channelArch", channelArch);
+        return (DistChannelMap)singleton.lookupObjectByNamedQuery(
+                "DistChannelMap.findByOsReleaseArch", params);
+    }
+
     /**
      * Lookup the dist channel map for the given channel. 
      * Returns null if none is found.
