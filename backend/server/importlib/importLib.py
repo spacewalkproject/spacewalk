@@ -200,6 +200,7 @@ class Channel(Information):
         'summary'           : StringType,
         'description'       : StringType,
         'last_modified'     : DateType,
+        'comps_last_modified' : DateType,
         'gpg_key_url'       : StringType,
         'product_name_id'   : IntType,
         'channel_product_id': IntType,

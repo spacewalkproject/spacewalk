@@ -1046,7 +1046,9 @@ class ChannelsDumper(exportLib.ChannelsDumper):
                ct.label checksum_type,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified, 
                pc.label parent_channel,
-               nvl(( select 'True' from rhnChannelComps where c.id = rhnChannelComps.channel_id and rownum = 1 ), 'False') as has_comps
+               ( select max(round((rhnChannelComps.last_modified - to_date('19700101', 'YYYYMMDD')) * 86400))
+                 from rhnChannelComps
+                 where c.id = rhnChannelComps.channel_id ) as comps_last_modified
           from rhnChannel c, rhnChannelArch ca, rhnChannel pc,
                rhnChecksumType ct
          where c.id = :channel_id
@@ -1092,7 +1094,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             'packages'      : string.join(packages),
             'channel-errata' : string.join(errata),
             'kickstartable-trees'   : string.join(ks_trees),
-            'has-comps' : self._row['has_comps'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
@@ -1119,6 +1120,7 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             ('rhn-channel-description', 'description'),
             ('rhn-channel-gpg-key-url', 'gpg_key_url'),
             ('rhn-channel-checksum-type', 'checksum_type'),
+            ('rhn-channel-comps-last-modified', 'comps_last_modified'),
         ]
         for k, v in mappings:
             arr.append(exportLib.SimpleDumper(self._writer, k, self._row[v]))
