@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.system;
 
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.struts.Expandable;
 
@@ -25,7 +26,7 @@ import java.util.List;
  * DuplicateSystemBucket
  * @version $Rev$
  */
-public class DuplicateSystemGrouping implements Expandable {
+public class DuplicateSystemGrouping implements Expandable, Identifiable {
 
     private String key;
     private List<NetworkDto> systems;
@@ -85,6 +86,14 @@ public class DuplicateSystemGrouping implements Expandable {
     @Override
     public String toString() {
         return String.format("Key: %s; Systems %s", getKey(), getSystems());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long getId() {
+        return Long.valueOf(key.hashCode());
     }
     
 }

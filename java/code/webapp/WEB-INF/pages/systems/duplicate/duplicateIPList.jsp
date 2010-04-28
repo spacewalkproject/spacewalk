@@ -23,20 +23,34 @@
 	>
 
 	<rl:rowrenderer name="ExpandableRowRenderer" />
+	 	<rl:decorator name="SelectableDecorator"/>
+	<c:choose>
+		<c:when test = "${rl:expandable(current)}">
+		<rl:selectablecolumn value="${current.key}"
+	 						selected="false"
+	 						styleclass="first-column"/>
+		</c:when>
+		<c:otherwise>
+		<rl:selectablecolumn value="${current.id}"
+	 						selected="false"
+	 						styleclass="first-column"/>
+		
+		</c:otherwise>
+	</c:choose>
+
 
 	<!-- Name Column -->
-	<rl:column 
-	           headerkey="systemlist.jsp.system" 
-	           styleclass="first-column last-column">
-		<c:choose>
-			<c:when test="${rl:expandable(current)}">
-				${current.key}
-			</c:when>
-			<c:otherwise>
-				System : ${current.id}
-			</c:otherwise>
-		</c:choose>
-	</rl:column>	           
+	<rl:column headerkey="systemlist.jsp.system">
+	    <rl:expandable rendericon="true">${current.key}</rl:expandable>
+	    
+	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       
+	</rl:column>
+	<rl:column headerkey="systemlist.jsp.last_checked_in"
+				styleclass="last-column">
+		<rl:non-expandable>
+		${current.lastCheckinString}
+	  </rl:non-expandable>						
+	</rl:column>
 
 </rl:list>
 

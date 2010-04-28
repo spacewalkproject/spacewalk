@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.action.systems.duplicate;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -42,14 +42,12 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-        if (context.wasDispatched("ssm.delete.systems.confirmbutton")) {
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        helper.execute();
+        if (helper.isDispatched()) {
+            RequestContext context = new RequestContext(request);
             return handleConfirm(context, mapping);
         }
-        
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
-
         return mapping.findForward("default");
     }
     

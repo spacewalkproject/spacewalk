@@ -130,6 +130,29 @@
   </tag>
 
   <tag>
+    <name>expandable</name>
+    <tag-class>com.redhat.rhn.frontend.taglibs.list.ExpandableColumnTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>rendericon</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+  </tag>
+
+  <tag>
+    <name>non-expandable</name>
+    <tag-class>com.redhat.rhn.frontend.taglibs.list.NonExpandableColumnTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>rendericon</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>    
+  </tag>
+
+
+  <tag>
     <name>column</name>
     <tag-class>com.redhat.rhn.frontend.taglibs.list.ColumnTag</tag-class>
     <body-content>JSP</body-content>

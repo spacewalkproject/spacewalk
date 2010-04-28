@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.Identifiable;
 
 import java.util.Date;
@@ -39,7 +40,12 @@ public class NetworkDto implements Identifiable {
         return lastCheckin;
     }
 
-
+    /**
+     * @return Returns the lastCheckin.
+     */
+    public String getLastCheckinString() {
+        return LocalizationService.getInstance().formatDate(getLastCheckin());
+    }
     
     /**
      * @param lastCheckinIn The lastCheckin to set.
