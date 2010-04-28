@@ -118,7 +118,7 @@ For help for a specific command try 'help <cmd>'.
             sys.exit(0)
 
         # should we look for an item in the history?
-        if line[0] != '!':
+        if len(line) and line[0] != '!':
             return line
 
         parts = line.split()
@@ -130,7 +130,7 @@ For help for a specific command try 'help <cmd>'.
 
         history_match = False
 
-        if line[1] == '!':
+        if len(line) > 0 and line[1] == '!':
             # repeat the last command
             line = readline.get_history_item(
                        readline.get_current_history_length())
