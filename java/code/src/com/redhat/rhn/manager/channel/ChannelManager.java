@@ -2000,8 +2000,8 @@ public class ChannelManager extends BaseManager {
 
     private static Channel getDefaultBaseChannel(String version, ChannelArch
             arch) {
-        DistChannelMap dcm = ChannelManager.lookupDistChannelMap(RHEL_PRODUCT_NAME, 
-                version, arch);
+        DistChannelMap dcm = ChannelManager.lookupDistChannelMapByPnReleaseArch(
+                RHEL_PRODUCT_NAME, version, arch);
         if (dcm == null) {
             return null;
         }
@@ -2236,14 +2236,14 @@ public class ChannelManager extends BaseManager {
      * Lookup the dist channel map for the given os, release, and channel arch. 
      * Returns null if none is found.
      * 
-     * @param os Product name.
+     * @param productName Product name.
      * @param release Version.
      * @param channelArch Channel arch.
      * @return DistChannelMap, null if none is found
      */
-    public static DistChannelMap lookupDistChannelMap(String os, String release, 
-            ChannelArch channelArch) {
-        return ChannelFactory.lookupDistChannelMap(os, release, 
+    public static DistChannelMap lookupDistChannelMapByPnReleaseArch(String productName,
+            String release, ChannelArch channelArch) {
+        return ChannelFactory.lookupDistChannelMapByPnReleaseArch(productName, release,
                 channelArch);
     }
     

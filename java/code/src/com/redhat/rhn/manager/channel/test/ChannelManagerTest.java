@@ -815,8 +815,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         
         String release = MAP_RELEASE + TestUtils.randomString();
         ChannelTestUtils.addDistMapToChannel(c, TEST_OS, release);
-        DistChannelMap dcm = ChannelManager.lookupDistChannelMap(TEST_OS, release, 
-                c.getChannelArch());
+        DistChannelMap dcm = ChannelManager.lookupDistChannelMapByPnReleaseArch(TEST_OS,
+               release, c.getChannelArch());
         assertNotNull(dcm);
         assertEquals(c.getId(), dcm.getChannel().getId());
     }

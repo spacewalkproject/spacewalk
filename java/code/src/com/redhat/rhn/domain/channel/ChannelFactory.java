@@ -710,23 +710,23 @@ public class ChannelFactory extends HibernateFactory {
     }
     
     /**
-     * Lookup the dist channel map for the given os, release, and channel arch. 
+     * Lookup the dist channel map for the given product name, release, and channel arch.
      * Returns null if none is found.
      * 
-     * @param os Product name.
+     * @param productName Product name.
      * @param release Version.
      * @param channelArch Channel arch.
      * @return DistChannelMap, null if none is found
      */
-    public static DistChannelMap lookupDistChannelMap(String os, String release, 
-            ChannelArch channelArch) {
+    public static DistChannelMap lookupDistChannelMapByPnReleaseArch(
+                        String productName, String release, ChannelArch channelArch) {
         
         Map params = new HashMap();
-        params.put("os", os);
+        params.put("productName", productName);
         params.put("release", release);
         params.put("channelArch", channelArch);
         return (DistChannelMap)singleton.lookupObjectByNamedQuery(
-                "DistChannelMap.findByOsReleaseAndChannelArch", params);
+                "DistChannelMap.findByProductNameReleaseAndChannelArch", params);
     }
     
     /**
