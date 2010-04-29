@@ -258,17 +258,13 @@ def _close_mpm(mpm):
 
 def _is_patch_set_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch set archive"""
-#    x, files = archive_parser.list()
-#    return "install_cluster" in files
-    return archive_parser.contains("install_cluster")
+    return archive_parser.contains("installcluster")
 
 
 def _is_patch_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch archive"""
     patch_name = os.path.basename(archive_parser._archive_dir) # hack
     readme = "README.%s" % patch_name
-#    x, files = archive_parser.list()
-#    return readme in files
     return archive_parser.contains(readme)
 
 
