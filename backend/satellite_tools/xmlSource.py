@@ -22,7 +22,7 @@ import string
 from xml.sax import make_parser, SAXParseException, ContentHandler, \
     ErrorHandler
 
-from common import log_debug, Traceback, rhnFlags
+from common import log_debug, Traceback, rhnFlags, CFG
 
 from server.importlib import importLib, backendLib
 
@@ -552,7 +552,7 @@ class PackageItem(IncompletePackageItem):
         # find out "primary" checksum
         have_filedigests = len([1 for i in item['requires'] if i['name'] == 'rpmlib(FileDigests)'])
         if have_filedigests:
-            for ctype in ['sha512','sha384','sha256','sha1','md5']:
+            for ctype in CFG.CHECKSUM_PRIORITY_LIST:
                 if ctype in item['checksums']:
                     item['checksum_type'] = ctype
                     break
