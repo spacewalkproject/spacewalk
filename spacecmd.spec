@@ -2,7 +2,7 @@
 
 Name:		spacecmd
 Version:	0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	CLI to Spacewalk and RHN Satellite Server
 
 Group:		Admin
@@ -39,11 +39,13 @@ Please provide feedback directly to me or via GitHub.
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/%{_bindir}
-install -m755 spacecmd %{buildroot}/%{_bindir}/
+install -m0755 spacecmd %{buildroot}/%{_bindir}/
 
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
-install -m644 __init__.py %{buildroot}/%{rhnroot}/spacecmd/
-install -m644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
+install -m0644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
+
+touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
+chmod 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 
 
 %clean
@@ -59,8 +61,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Apr 29 2010 Aron Parsons <aparsons@redhat.com> 0.1-3
+- just touch __init__.py, no reason to version control an empty file
 * Wed Apr 28 2010 Aron Parsons <aparsons@redhat.com> 0.1-2
 - moved SpacewalkShell.py to /usr/share/rhn/spacecmd
-
 * Tue Apr 27 2010 Paul Morgan <pmorgan@redhat.com> 0.1-1
 - initial packaging
