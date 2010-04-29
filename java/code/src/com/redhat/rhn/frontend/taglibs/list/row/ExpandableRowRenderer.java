@@ -40,10 +40,11 @@ public class ExpandableRowRenderer extends RowRenderer {
     @Override
     public String getRowClass(Object current) {
         if (RhnListTagFunctions.isExpandable(current)) {
-            return rowClasses[1];
+            rowNum++;
+            return rowClasses[rowNum%rowClasses.length];
         }
         else {
-            return rowClasses[0];
+            return rowClasses[rowNum%rowClasses.length];
         }
     }
     
