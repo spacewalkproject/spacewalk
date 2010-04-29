@@ -239,10 +239,8 @@ class File(Item):
         'flags'             : IntType,
         'verifyflags'       : IntType,
         'lang'              : StringType,
-        # those attributes are mutualy exclusive
-        'md5sum'            : StringType,       # xml dumps < 3.5
-        'checksum'          : StringType,       # xml dumps >= 3.5
-        'checksum_type'     : StringType,       # xml dumps >= 3.5
+        'checksum'          : StringType,
+        'checksum_type'     : StringType,
     }
     def __init__(self):
         Item.__init__(self, self.attributeTypes)

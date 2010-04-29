@@ -483,6 +483,11 @@ class BaseChecksummedItem(BaseItem):
             for csum in item['checksum_list']:
                 item['checksums'][csum['type']] = csum['value']
             del(item['checksum_list'])
+        for ctype in CFG.CHECKSUM_PRIORITY_LIST:
+            if ctype in item['checksums']:
+                item['checksum_type'] = ctype
+                item['checksum'] = item['checksums'][ctype]
+                break
         return item
 addItem(BaseChecksummedItem)
 
@@ -551,14 +556,9 @@ class PackageItem(IncompletePackageItem):
         item = IncompletePackageItem.populate(self, attributes, elements)
         # find out "primary" checksum
         have_filedigests = len([1 for i in item['requires'] if i['name'] == 'rpmlib(FileDigests)'])
-        if have_filedigests:
-            for ctype in CFG.CHECKSUM_PRIORITY_LIST:
-                if ctype in item['checksums']:
-                    item['checksum_type'] = ctype
-                    break
-        else:
+        if not have_filedigests:
             item['checksum_type'] = 'md5'
-        item['checksum'] = item['checksums'][item['checksum_type']]
+            item['checksum'] = item['checksums']['md5']
         return item
 addItem(PackageItem)
 
@@ -632,16 +632,11 @@ addItem(ObsoletesItem)
 class FileItem(BaseChecksummedItem):
     item_name = 'rhn-package-file'
     item_class = importLib.File
-    tagMap = {
-        'md5' : 'md5sum',
-        'checksum-type': 'checksum_type',
-        'checksum'     : 'checksum',
-    }
     def populate(self, attributes, elements):
+        if 'md5' in attributes:
+            attributes['checksum_type'] = 'md5'
+            attributes['checksum'] = attributes['md5']
         item = BaseChecksummedItem.populate(self, attributes, elements)
-        if not item['checksum_type']:
-            item['checksum_type'] = item['checksums'].keys()[0]
-            item['checksum'] = item['checksums'][item['checksum_type']]
         return item
 addItem(FileItem)
 
@@ -769,7 +764,6 @@ class KickstartFileItem(BaseChecksummedItem):
         'relative-path'             : 'relative_path',
         'file-size'                 : 'file_size',
         'last-modified'             : 'last_modified',
-        'checksum-type'             : 'checksum_type',
     }
 addItem(KickstartFileItem)
 
