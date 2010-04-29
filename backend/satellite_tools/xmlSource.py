@@ -470,7 +470,8 @@ class ChannelItem(BaseItem):
         BaseItem.populateFromElements(self, obj, elements)
         if obj['checksum_type'] == 'sha':
             obj['checksum_type'] = 'sha1'
-        if not obj.has_key('comps_last_modified') and obj.has_key('has_comps'):
+        if (not obj.has_key('comps_last_modified') or obj['comps_last_modified'] == None) \
+	    and (obj.has_key('has_comps') and obj['has_comps'] == 'True'):
             obj['comps_last_modified'] = obj['last_modified']
 addItem(ChannelItem)
 
