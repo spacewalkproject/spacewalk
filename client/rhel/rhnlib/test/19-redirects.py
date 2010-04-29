@@ -41,8 +41,11 @@ def main():
 
     global SYSTEM_ID
     SYSTEM_ID = open(systemid_path).read()
+    ret = 0
     for t in tests:
-        ret = apply(run_test, t)
+        ret = apply(run_test, t) or ret
+    return ret
+
 
 def run_test(url, allow_redirect, should_fail, text_message):
     global SYSTEM_ID
@@ -59,17 +62,17 @@ def run_test(url, allow_redirect, should_fail, text_message):
     except Exception, e:
         if should_fail and isinstance(e, should_fail):
             print "PASS"
-            return 1
+            return 0
 
         print "FAIL (exception: %s)" % (e.__class__.__name__)
-        return 0
+        return 1
 
     if should_fail:
         print "FAIL (no exception)"
-        return 0
+        return 1
 
     print "PASS"
-    return 1
+    return 0
         
 
 if __name__ == '__main__':
