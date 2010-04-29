@@ -1060,10 +1060,10 @@ def _compute_filename(dct):
 def _to_db_timestamp(s):
     """Convert common Solaris date convention to a unix timestamp"""
 
-    arr = s.split('/', 2)
+    arr = s.split('.', 2)
     if len(arr) != 3:
         return None
-    m, d, y = arr
+    y, m, d = arr
 
     try:
         m = int(m)
