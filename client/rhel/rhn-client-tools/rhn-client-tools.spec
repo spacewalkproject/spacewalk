@@ -97,6 +97,7 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
+touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 %if 0%{?suse_version}
