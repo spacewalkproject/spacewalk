@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -310,6 +310,16 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 29 2010 Tomas Lestach <tlestach@redhat.com> 1.1.8-1
+- introducing DistChannelHandler (tlestach@redhat.com)
+- add 2 new DistChannelMap related queries with appropriate methods
+  (tlestach@redhat.com)
+- rename {lookup,find}ByOsReleaseAndChannelArch ->
+  ByProductNameReleaseAndChannelArch (tlestach@redhat.com)
+- Added all the javascript macgic needed to show and hide stuff
+  (paji@redhat.com)
+- Fixed a Compile typo to work with 1.5 compiler (paji@redhat.com)
+
 * Wed Apr 28 2010 Jan Pazdziora 1.1.7-1
 - Added new expandable and non-expandable columns. Also UI improvements
   (paji@redhat.com)
