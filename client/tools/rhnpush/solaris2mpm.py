@@ -292,12 +292,12 @@ def create_patch_set_mpm(archive_parser, archive):
     p_name = os.path.basename(archive_parser._archive_dir)
     header['name'] = "patch-cluster-solaris-" + p_name
 
-    readme = archive_parser.read("CLUSTER_README")
+    readme = archive_parser.read("README")
     if readme is None:
         readme = archive_parser.read(p_name + ".README")
     assert readme is not None, "Couldn't fine README file for %s" % p_name
 
-    header['readme'] = archive_parser.read("CLUSTER_README")
+    header['readme'] = archive_parser.read("README")
 
     # provides fields: date, summary, and description
     dct = parse_cluster_readme(readme)
@@ -682,7 +682,7 @@ def md5sum_for_stream(data_stream):
 # patch set mpm creation -------------------------------------------------
 
 def parse_cluster_readme(readme_string):
-    """Parse the CLUSTER_README file for the summary, date and description"""
+    """Parse the README file for the summary, date and description"""
 #    if __debug__: print "DEBUG: parsing cluster readme"
 
     lines = readme_string.splitlines()
