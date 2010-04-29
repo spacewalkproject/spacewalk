@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,6 +629,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Apr 29 2010 Jan Pazdziora 1.1.7-1
+- 585233 - replace has-comps with rhn-channel-comps-last-modified.
+- 585233 - use the rhn-channel-comps-last-modified element instead of boolean
+  has-comps.
+- fixed HandlerWrap class implementation from commit
+  356bddff66b3f7c50ff06f7062d8d111c3f189ff (michael.mraka@redhat.com)
+- rhnLib's timestamp2dbtime not used anywhere, removing as dead code.
+- The checksumtype is now called checksum_type.
+
 * Tue Apr 27 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.6-1
 - implemented dump version 3.6 in rhn-satellite-exporter 
 
