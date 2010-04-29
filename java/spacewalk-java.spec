@@ -244,6 +244,11 @@ install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT/%{_sysconfdir}/logrota
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
 install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
+
+install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT/%{cobdirsnippets}/keep_system_id
+install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_reactivation_key
+install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT/%{cobdirsnippets}/redhat_register
+
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 install -d -m 755 $RPM_BUILD_ROOT/%{realcobsnippetsdir}
@@ -274,6 +279,9 @@ fi
 %dir %{cobprofdirup}
 %dir %{cobprofdirwiz}
 %dir %{cobdirsnippets}
+%config %{cobdirsnippets}/keep_system_id
+%config %{cobdirsnippets}/post_reactivation_key
+%config %{cobdirsnippets}/redhat_register
 %{appdir}/*
 %if  0%{?rhel} && 0%{?rhel} < 6
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
@@ -295,6 +303,7 @@ fi
 %config %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 %config %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 %config %{_sysconfdir}/logrotate.d/rhn_web_api
+
 
 %files lib
 %defattr(644, root, root)

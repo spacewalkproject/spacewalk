@@ -251,8 +251,13 @@ public class CobblerSnippet implements Comparable {
      * @return the base name of the snippet file  
      */
     public String getName() {
+        if (path.getParentFile().equals(getSpacewalkSnippetsDir())) {
+            return getSpacewalkSnippetsDir().getName() +
+                            File.separator + path.getName();
+        }
         return path.getName();
     }
+    
     
     /**
      * Returns the name of the directory hosting the snippet file (same as dirname)
@@ -322,6 +327,12 @@ public class CobblerSnippet implements Comparable {
     }
     
     private static boolean isCommonPath(File path) {
+        boolean isFileInsideSpacewalkTopLevelDir = path.isFile() && 
+                    path.getParentFile().equals(getSpacewalkSnippetsDir());
+        if (isFileInsideSpacewalkTopLevelDir) {
+            return true;
+        }
+        
         return !path.getAbsolutePath().startsWith(
                         getSpacewalkSnippetsDir().getAbsolutePath()) && 
                     path.getAbsolutePath().

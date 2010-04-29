@@ -73,6 +73,15 @@ public class CobblerSnippetLister extends BaseManager {
         }
     }
     
+    private void loadSnippetsInSpacewalkDir(List<CobblerSnippet> snippetFiles) {
+        for (File path : CobblerSnippet.getSpacewalkSnippetsDir().listFiles()) {
+            if (path.isFile() && !path.isHidden()) {
+                snippetFiles.add(CobblerSnippet.loadReadOnly(path));
+            }
+        }
+        
+    }
+    
     /**
      * Returns a list of snippets accessible to this user
      * @param user the user has to be atleast a 
@@ -92,6 +101,7 @@ public class CobblerSnippetLister extends BaseManager {
             List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
             loadDefaultSnippets(CobblerSnippet.getCobblerSnippetsDir(),
                                                                 snippetFiles);
+            loadSnippetsInSpacewalkDir(snippetFiles);
             return snippetFiles;
         }
 

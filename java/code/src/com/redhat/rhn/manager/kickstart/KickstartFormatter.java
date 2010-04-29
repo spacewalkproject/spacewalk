@@ -55,6 +55,12 @@ public class KickstartFormatter {
     
     private static Logger log = Logger.getLogger(KickstartFormatter.class);
     
+    
+    private static final String REDHAT_REGISTER_SNIPPET = "spacewalk/redhat_register";
+    private static final String POST_REACTIVATION_SNIPPET = 
+                                                    "spacewalk/post_reactivation_key";
+    private static final String KEEP_SYSTEM_ID_SNIPPET = "spacewalk/keep_system_id";
+    
     private static final String RAW_START = "#raw";
     private static final String RAW_END = "#end raw";
     private static final String NEWLINE = "\n";
@@ -215,16 +221,20 @@ public class KickstartFormatter {
         buf.append(getPackageOptions());
         buf.append(NEWLINE);
         buf.append(getPackages());
-        buf.append(NEWLINE);
+        buf.append(NEWLINE);       
         buf.append("%" + KickstartScript.TYPE_PRE);
         buf.append(NEWLINE);
         buf.append("$kickstart_start");
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);
+        addCobblerSnippet(buf, KEEP_SYSTEM_ID_SNIPPET);
+        buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
         buf.append(NEWLINE);
         buf.append(getNoChroot());
+        buf.append(NEWLINE);
+        addCobblerSnippet(buf, POST_REACTIVATION_SNIPPET);
         buf.append(NEWLINE);
         buf.append(getRhnPost());
         buf.append(MOTD_FOOTER);   
@@ -694,7 +704,7 @@ public class KickstartFormatter {
             retval.append("/etc/init.d/haldaemon restart" + NEWLINE);
         }
         retval.append("# begin cobbler snippet" + NEWLINE);
-        retval.append("$SNIPPET('redhat_register')" + NEWLINE);
+        addCobblerSnippet(retval, REDHAT_REGISTER_SNIPPET);
         retval.append("# end cobbler snippet" + NEWLINE);
         
         retval.append(NEWLINE);

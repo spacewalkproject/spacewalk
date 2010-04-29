@@ -1,0 +1,11 @@
+%post --interpreter /usr/bin/python
+import xmlrpclib
+import os.path
+system_id = "/root/systemid.old"
+if os.path.exists(system_id):
+    client =  xmlrpclib.Server("http://$http_server/rpc/api")
+    key = client.system.obtain_reactivation_key(open(system_id).read())
+    f = open("/tmp/key","w")
+    f.write(key)
+    f.close()
+
