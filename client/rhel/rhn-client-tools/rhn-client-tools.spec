@@ -106,7 +106,7 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rh
 %find_lang %{name}
 
 %post
-rm %{_localstatedir}/spool/up2date/loginAuth.pkl
+rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
 
 %post -n rhn-setup-gnome
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
