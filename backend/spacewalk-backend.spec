@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,7 +629,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Apr 29 2010 Jan Pazdziora 1.1.7-1
+* Thu Apr 29 2010 Jan Pazdziora 1.1.8-1
 - 585233 - replace has-comps with rhn-channel-comps-last-modified.
 - 585233 - use the rhn-channel-comps-last-modified element instead of boolean
   has-comps.
