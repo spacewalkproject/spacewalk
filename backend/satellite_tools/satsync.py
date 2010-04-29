@@ -847,13 +847,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
-            package_ids = channel_obj['all-packages']
-            avail_package_ids = channel_obj['packages']
-            if package_ids is None:
-                # Not an incremental
-                package_ids = avail_package_ids
-            self._channel_packages[chn] = set(package_ids or [])
-            self._avail_channel_packages[chn] = set(avail_package_ids or [])
+            avail_package_ids = sorted(set(channel_obj['packages'] or []))
+            package_ids = sorted(set(channel_obj['all-packages'] or [])) or avail_package_ids
+            self._channel_packages[chn] = package_ids
+            self._avail_channel_packages[chn] = avail_package_ids
 
     def processShortPackages(self):
         log(1, ["", "Retrieving short package metadata (used for indexing)"])
