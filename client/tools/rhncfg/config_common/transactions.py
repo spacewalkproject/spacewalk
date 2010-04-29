@@ -148,8 +148,11 @@ class DeployTransaction:
                 sectx = file_info.get('selinux_ctx')
                 if sectx is not None and sectx is not "":
                     log_debug(1, "selinux context: " + sectx);
-                    if lsetfilecon(temp_file_path, sectx) < 0:
-                        raise Exception("failed to set selinux context on %s" % dest_path)
+                    try:
+                        if lsetfilecon(temp_file_path, sectx) < 0:
+                            raise Exception("failed to set selinux context on %s" % dest_path)
+                    except OSError, e:
+                        raise Exception("failed to set selinux context on %s" % dest_path, e), None, sys.exc_info()[2]
 
         except OSError, e:
             if e.errno == errno.EPERM and not strict_ownership:
