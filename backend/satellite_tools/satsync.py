@@ -830,17 +830,21 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         except Exception:
             None
 
+    def _get_channel_timestamp(self, channel):
+        try:
+            timestamp = self._channel_collection.get_channel_timestamp(channel)
+        except KeyError:
+            # XXX Do something with this exception
+            raise
+        return timestamp
+
     def _compute_unique_packages(self):
         """ process package metadata for one channel at a time """
         relevant = self._channel_req.get_requested_channels()
         self._channel_packages = {}
         self._avail_channel_packages = {}
         for chn in relevant:
-            try:
-                timestamp = self._channel_collection.get_channel_timestamp(chn)
-            except KeyError:
-                # XXX Do something with this exception
-                raise
+            timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             package_ids = channel_obj['all-packages']
@@ -1184,11 +1188,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._channel_source_packages = {}
         self._avail_channel_source_packages = {}
         for chn in relevant:
-            try:
-                timestamp = self._channel_collection.get_channel_timestamp(chn)
-            except KeyError:
-                # XXX Do something with this exception
-                raise
+            timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             sps = set(channel_obj['source_packages'])
@@ -1346,11 +1346,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         self._uq_channel_kickstarts = uq_channel_kickstarts = {}
         uq_kickstarts = {}
         for chn in relevant:
-            try:
-                timestamp = self._channel_collection.get_channel_timestamp(chn)
-            except KeyError:
-                # XXX Do something with this exception
-                raise
+            timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             kickstart_trees = channel_obj['kickstartable_trees']
@@ -1376,11 +1372,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_kickstarts = {}
         h = rhnSQL.Statement(self._query_get_kickstarts)
         for chn in relevant:
-            try:
-                timestamp = self._channel_collection.get_channel_timestamp(chn)
-            except KeyError:
-                # XXX Do something with this exception
-                raise
+            timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             kickstart_trees = channel_obj['kickstartable_trees']
@@ -1635,11 +1627,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         channel_errata = {}
         for chn in relevant:
             db_ce = db_channel_errata[chn]
-            try:
-                timestamp = self._channel_collection.get_channel_timestamp(chn)
-            except KeyError:
-                # XXX Do something with this exception
-                raise
+            timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
             errata_timestamps = channel_obj['errata_timestamps']
