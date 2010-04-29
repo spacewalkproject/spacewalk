@@ -570,7 +570,7 @@ class Dumper(dumper.XML_Dumper):
                     relative_filename = self.channel_comps[channel['channel_id']]
                     full_filename = os.path.join(CFG.MOUNT_POINT, self.channel_comps[channel['channel_id']])
                     target_filename = self.fm.getChannelCompsFile(channel['label'])
-                    print "Need to copy %s to %s" % ( full_filename, target_filename )
+                    log2stderr(3, "Need to copy %s to %s" % ( full_filename, target_filename ))
 
                     # the comps.xml file will get gzipped afterwards
                     # but it's still faster to do hardlink first
