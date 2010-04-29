@@ -293,11 +293,11 @@ def create_patch_set_mpm(archive_parser, archive):
     header['name'] = "patch-cluster-solaris-" + p_name
 
     readme = archive_parser.read("README")
+    header['readme'] = readme
     if readme is None:
         readme = archive_parser.read(p_name + ".README")
     assert readme is not None, "Couldn't fine README file for %s" % p_name
 
-    header['readme'] = archive_parser.read("README")
 
     # provides fields: date, summary, and description
     dct = parse_cluster_readme(readme)
