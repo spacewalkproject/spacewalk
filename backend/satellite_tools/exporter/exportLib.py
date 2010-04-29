@@ -748,20 +748,36 @@ class ShortPackagesDumper(BaseDumper):
         return h
 
     def dump_subelement(self, data):
-        attributes = {}
-        attrs = [
-            "id", "name", "version", "release", "epoch", 
-            "package_arch", "checksum_type", "checksum", "package_size",
-        ]
-        for attr in attrs:
-            attributes[string.replace(attr, '_', '-')] = data[attr]
-        attributes['id'] = "rhn-package-%s" % data['id']
-        attributes['epoch'] = data['epoch'] or ""
-        attributes['last-modified'] = _dbtime2timestamp(data['last_modified'])
-        attributes['org-id'] =  data['org_id'] or ""
-        d = EmptyDumper(self._writer, 'rhn-package-short',
-            attributes=attributes)
+        d = ShortPackageEntryDumper(self._writer, data)
         d.dump()
+
+class ShortPackageEntryDumper(BaseRowDumper):
+    tag_name = 'rhn-package-short'
+
+    def set_attributes(self):
+        attr = {
+            'id'            : "rhn-package-%s" % self._row['id'],
+            'name'          : self._row['name'],
+            'version'       : self._row['version'],
+            'release'       : self._row['release'],
+            'epoch'         : self._row['epoch'] or "",
+            'package-arch'  : self._row['package_arch'],
+            'package-size'  : self._row['package_size'],
+            'last-modified' : _dbtime2timestamp(self._row['last_modified']),
+            'org-id'        : self._row['org_id'] or "",
+        }
+        if self._row['checksum_type'] == 'md5':
+            # compatibility with older satellite
+            attr['md5sum'] = self._row['checksum']
+        return attr
+
+    def set_iterator(self):
+        # checksums
+        checksum_arr = [{'type':  self._row['checksum_type'],
+                         'value': self._row['checksum']}]
+        arr = [_ChecksumDumper(self._writer,
+                              data_iterator=ArrayIterator(checksum_arr))]
+        return ArrayIterator(arr)
 
 ##
 class SourcePackagesDumper(BaseDumper):
