@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.8
+Version: 1.1.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -319,6 +319,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 29 2010 Partha Aji <paji@redhat.com> 1.1.9-1
+- Added new cobbler snippets to enable sytem reactivation on bare metal reprovisioning
+  (paji@redhat.com)
+- Added code to show general snippets created in spacewalk.
+- Remove spammy audit types from default search (joshua.roys@gtri.gatech.edu)
+
 * Thu Apr 29 2010 Tomas Lestach <tlestach@redhat.com> 1.1.8-1
 - introducing DistChannelHandler (tlestach@redhat.com)
 - add 2 new DistChannelMap related queries with appropriate methods
