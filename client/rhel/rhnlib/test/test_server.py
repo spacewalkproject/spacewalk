@@ -1,3 +1,8 @@
+#!/usr/bin/python
+#
+#
+# $Id$
+
 import unittest
 from rhn.rpclib import Server
 from rhn.rpclib import MalformedURIError
