@@ -43,7 +43,7 @@
 
 
 	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system">
+	<rl:column headerkey="systemlist.jsp.system" filterattr="id">
 	    <rl:expandable rendericon="true">${current.key}</rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       

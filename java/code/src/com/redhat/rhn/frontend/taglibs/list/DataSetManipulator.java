@@ -156,7 +156,7 @@ public class DataSetManipulator {
     public List getAllData() {
         List retval = new LinkedList();
         retval.addAll(dataset);
-        return retval;
+        return expand(retval);
     }
     
     /**
