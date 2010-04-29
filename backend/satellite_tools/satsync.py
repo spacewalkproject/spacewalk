@@ -405,7 +405,6 @@ class Syncer:
         self._missing_channel_errata = {}
 
         self._channel_source_packages = {}
-        self._uq_channel_source_packages = {}
 
         self._channel_kickstarts = {}
         self._uq_channel_kickstarts = {}
@@ -1182,10 +1181,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _compute_unique_source_packages(self):
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
-        self._channel_source_packages = channel_sp = {}
-        self._avail_channel_source_packages = avail_channel_source_packages = {}
-        self._uq_channel_source_packages = uq_sp = {}
-        uq = {}
+        self._channel_source_packages = {}
+        self._avail_channel_source_packages = {}
         for chn in relevant:
             try:
                 timestamp = self._channel_collection.get_channel_timestamp(chn)
@@ -1194,7 +1191,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 raise
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
-            sps = channel_obj['source_packages']
+            sps = set(channel_obj['source_packages'])
             if not sps:
                 # No source package info
                 continue
@@ -1207,29 +1204,15 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     ret_sps.append((sp['id'], sp['last_modified']))
             del sps
             ret_sps.sort()
-            channel_sp[chn] = ret_sps
-
-        avail_channel_source_packages[chn] = ret_sps
-
-        # Uniquify source packages
-        for channel_label, sps in channel_sp.items():
-            ch_sp_ids = uq_sp[channel_label] = []
-            for sp_id, timestamp in sps:
-                if uq.has_key(sp_id):
-                    # Saw this source package already
-                    continue
-                ch_sp_ids.append((sp_id, timestamp))
-                uq[sp_id] = None
-            # Be nice enough to sort the list
-            ch_sp_ids.sort()
-        del uq
+            self._channel_source_packages[chn] = ret_sps
+            self._avail_channel_source_packages[chn] = ret_sps
 
     def _compute_not_cached_source_packages(self):
         missing_sps = {}
 
         # First, determine what has to be downloaded
         sp_collection = sync_handlers.SourcePackageCollection()
-        for channel, sps in self._uq_channel_source_packages.items():
+        for channel, sps in self._channel_source_packages.items():
             missing_sps[channel] = mp = []
 
             if not sps:
@@ -1263,7 +1246,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_channel_source_packages = {}
         missing_fs_source_packages = {}
 
-        for channel_label, upids in self._uq_channel_source_packages.items():
+        for channel_label, upids in self._channel_source_packages.items():
             log(1, "Diffing source package metadata (what's missing locally?): %s" % channel_label)
             m_channel_source_packages = missing_channel_source_packages[channel_label] = []
             m_fs_source_packages = missing_fs_source_packages[channel_label] = []
