@@ -972,105 +972,96 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             source=source, checksum_type=checksum_type, checksum=checksum)
 
     def _verify_file(self, path, mtime, size, checksum_type, checksum):
-        """Verifies if the file is on the filesystem and matches the mtime and
-        checksum
-        Computing the checksum is costly, that's why we rely on mtime
-        comparisons.
-        Returns a tuple (error_code, ret_path) where:
-            if the file has the specified mtime and checksum, error_code is 0
-                and ret_path is None
-            if the file has the checksum, the function sets mtime, error_code is
-                0 and ret_path is path
-            if the file exists but has a different checksum, error_code is the
-                file's current checksum and ret_path is path
-            if the file does not exist at all, error_code is 1 and ret_path is
-                null
-        The idea is that error_code is 0 if the file exists or something else
-        otherwise
+        """
+        Verifies if the file is on the filesystem and matches the mtime and checksum.
+        Computing the checksum is costly, that's why we rely on mtime comparisons.
+        Returns errcode:
+            0   - file is ok, it has either the specified mtime and size
+                          or checksum matches (then function sets mtime)
+            1   - file does not exist at all
+            2   - file has a different checksum
         """
         if not path:
-            return (1, None)
+            return 1
         abs_path = os.path.join(CFG.MOUNT_POINT, path)
         try:
             stat_info = os.stat(abs_path)
         except OSError:
             # File is missing completely
-            return (1, None)
+            return 1
 
         l_mtime = stat_info[stat.ST_MTIME]
         l_size = stat_info[stat.ST_SIZE]
         if l_mtime == mtime and l_size == size:
             # Same mtime, and size, assume identity
-            return (0, None)
+            return 0
 
         # Have to check checksum
         l_checksum = getFileChecksum(checksum_type, filename=abs_path)
         if l_checksum != checksum:
-            # Different checksums
-            return (l_checksum, path)
+            return 2
 
         # Set the mtime
         os.utime(abs_path, (mtime, mtime))
-        return (0, path)
+        return 0
 
     def _process_package(self, package_id, package, l_timestamp, row,
             m_channel_packages, m_fs_packages, source=0):
-        nevra = []
-        for t in ['name', 'epoch', 'version', 'release', 'arch']:
-            nevra.append(package[t])
-        package_size = package['package_size']
+        path = None
+        channel_package = None
+        fs_package      = None
+        if row:
+            # package found in the DB
+            checksum_type = row['checksum_type']
+            if checksum_type in package['checksums']:
+                checksum = package['checksums'][row['checksum_type']]
+                package_size = package['package_size']
 
-        if package['org_id'] is not None:
-            orgid = OPTIONS.orgid or DEFAULT_ORG
-        else:
-            orgid = package['org_id']
+                db_timestamp = int(rhnLib.timestamp(row['last_modified']))
+                db_checksum = row['checksum']
+                db_package_size = row['package_size']
+                db_path = row['path']
 
-        if not row:
-            # Package is missing completely from the DB
-            m_channel_packages.append(package_id)
-            #m_fs_packages.append((package_id, path))
-            return
+                if not (l_timestamp <= db_timestamp and
+                        checksum == db_checksum and
+                        package_size == db_package_size):
+                        # package doesn't match
+                        channel_package = package_id
 
-        # Package found in the DB
-        checksum_type = row['checksum_type']
-        if checksum_type in package['checksums']:
-            checksum = package['checksums'][row['checksum_type']]
+                if db_path:
+                    # check the filesystem
+                    errcode = self._verify_file(db_path, l_timestamp,
+                            package_size, checksum_type, checksum)
+                    if errcode:
+                        # file doesn't match
+                        fs_package = (package_id, db_path)
 
-            db_timestamp = int(rhnLib.timestamp(row['last_modified']))
-            db_checksum = row['checksum']
-            db_package_size = row['package_size']
-            db_path = row['path']
-            final_path = db_path
+        # package is missing from the DB
+        channel_package = package_id
 
-            path = self._get_rel_package_path(nevra, orgid, source, checksum_type, checksum)
-            # Check the filesystem
-            # This is one ugly piece of code
-            (errcode, ret_path) = self._verify_file(db_path, l_timestamp,
-                package_size, checksum_type, checksum)
-            if errcode != 0:
-                if errcode != 1 or path == db_path:
-                    # Package is modified; fix it
-                    m_fs_packages.append((package_id, path))
-                else:
-                    # Package is missing, and the DB path is, for some
-                    # reason, not the same as the computed path.
-                    (errcode, ret_path) = self._verify_file(path,
-                        l_timestamp, package_size, checksum_type, checksum)
-                    if errcode != 1:
-                        # Use the computed path
-                        final_path = path
-                        if errcode != 0:
-                            # file is modified too; re-download
-                            m_fs_packages.append((package_id, final_path))
+        if not fs_package:
+            nevra = []
+            for t in ['name', 'epoch', 'version', 'release', 'arch']:
+                nevra.append(package[t])
 
-            if (l_timestamp <= db_timestamp and
-                checksum == db_checksum and
-                package_size == db_package_size and final_path == db_path):
-                # Same package
-                return
-        # Have to re-import the package - this may be just because the
-        # path has changed
-        m_channel_packages.append(package_id)
+            if package['org_id'] is not None:
+                orgid = OPTIONS.orgid or DEFAULT_ORG
+            else:
+                orgid = package['org_id']
+
+            path = self._get_rel_package_path(nevra, orgid, source,
+                                                       checksum_type, checksum)
+            errcode = self._verify_file(path,
+                            l_timestamp, package_size, checksum_type, checksum)
+            if errcode:
+                # file doesn't match
+                fs_package = (package_id, path)
+
+        if channel_package:
+            m_channel_packages.append(channel_package)
+        if fs_package:
+            m_fs_packages.append(fs_package)
+        return
 
     def download_rpms(self):
         log(1, ["", "Downloading rpm packages"])
