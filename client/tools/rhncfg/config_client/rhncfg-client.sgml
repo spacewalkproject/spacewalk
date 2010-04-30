@@ -108,6 +108,10 @@
               Quick verification to see if files are different than those
               associated with it on &RHN;.
             </para>
+            <para>
+              All files are displayed unless called with the -o or --only
+              option, in which case only files with differences are displayed.
+            </para>
         </listitem>
     </varlistentry>
     <varlistentry>
