@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.taglibs.list;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.frontend.struts.Expandable;
+import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -31,7 +33,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 public class SelectableColumnTag extends TagSupport {
     
     private static final long serialVersionUID = 2749189931275777440L;
-    
+    private static final String CHECKBOX_CLICKED_SCRIPT = 
+                    "process_checkbox_clicked(this,'%s', this.form.%s, %s)";
     private String valueExpr;
     private String selectExpr;
     private String disabledExpr;
@@ -196,6 +199,7 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, "this.form." +
                         ListTagUtil.makeSelectedItemsName(listName));
         ListTagUtil.write(pageContext, ", this.checked)");
+        
         ListTagUtil.write(pageContext, "\" />");        
     }
     private void renderCheckbox() throws JspException {
@@ -204,8 +208,7 @@ public class SelectableColumnTag extends TagSupport {
     
     private void render(String value) throws JspException {
         writeStartingTd();
-        String counterName = "list_sel_" + listName;
-        Long id = ListTagUtil.incrementPersistentCounter(pageContext, counterName);
+        String id = ListTagHelper.getObjectId(getCurrent());
         renderHiddenItem(id, value);
         ListTagUtil.write(pageContext, "<input type=\"checkbox\" ");
         if (isSelected()) {
@@ -222,9 +225,8 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, "value=\"");
         ListTagUtil.write(pageContext, value);
         ListTagUtil.write(pageContext, "\" ");
-        if (rhnSet != null) {
-            renderRhnSetOnClick();
-        }
+        renderOnClick();
+
         ListTagUtil.write(pageContext, "/>");
     }
 
@@ -232,7 +234,7 @@ public class SelectableColumnTag extends TagSupport {
         return "list_" + listName + "_sel_all";
     }    
     
-    private String makeCheckboxId(Long id) {
+    private String makeCheckboxId(String id) {
         return "list_" + listName + "_" + id;
     }    
     /**
@@ -240,15 +242,38 @@ public class SelectableColumnTag extends TagSupport {
      * //onclick="checkbox_clicked(this, '$rhnSet')"
      *
      */
-    private void renderRhnSetOnClick() throws JspException {
-        ListTagUtil.write(pageContext, " onclick=\"process_checkbox_clicked(this,'");
-        ListTagUtil.write(pageContext, rhnSet);
-        ListTagUtil.write(pageContext, "',");
-        ListTagUtil.write(pageContext, "this.form." + makeSelectAllCheckboxName());
-        ListTagUtil.write(pageContext, ")\" ");
+    private void renderOnClick() throws JspException {
+        if (!StringUtils.isBlank(rhnSet)) {
+            ListTagUtil.write(pageContext, " onclick=\"");
+            ListTagUtil.write(pageContext, String.format(CHECKBOX_CLICKED_SCRIPT,
+                                rhnSet,  makeSelectAllCheckboxName(), getChildIds()));
+            ListTagUtil.write(pageContext, "\" ");
+        }
     }
 
-    private void renderHiddenItem(Long listId, String value) throws JspException {
+    private String getChildIds() {
+        Object current = getCurrent();
+        if (RhnListTagFunctions.isExpandable(current)) {
+            StringBuilder buf = new StringBuilder();
+            for (Object child : ((Expandable)current).expand()) {
+                if (buf.length() > 0) {
+                    buf.append(",");
+                }
+                buf.append("'");
+                buf.append(makeCheckboxId(ListTagHelper.getObjectId(child)));
+                buf.append("'");
+            }
+            
+            buf.insert(0, "[");
+            buf.append("]");
+            
+            return buf.toString();
+        }
+        return "[]";
+        
+    }
+    
+    private void renderHiddenItem(String listId, String value) throws JspException {
         ListTagUtil.write(pageContext, "<input type=\"hidden\" ");
         ListTagUtil.write(pageContext, "id=\"");
         ListTagUtil.write(pageContext, "list_items_" + listName + "_" + listId);
@@ -295,5 +320,11 @@ public class SelectableColumnTag extends TagSupport {
 
         }
         ListTagUtil.write(pageContext, ">");       
+    }
+    
+    private Object getCurrent() {
+        ListTag parent = (ListTag)
+        BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        return parent.getCurrentObject();
     }
 }

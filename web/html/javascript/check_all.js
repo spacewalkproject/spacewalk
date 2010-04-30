@@ -29,6 +29,10 @@ function check_all_on_page(form, set_label) {
 }
 
 function process_check_all(set_label, cboxes, flag) {
+  update_server_set("ids", set_label, flag, process_group(set_label, cboxes, flag));
+}
+
+function process_group(set_label, cboxes, flag) {
   var i;
   var changed = new Array();
 
@@ -49,8 +53,7 @@ function process_check_all(set_label, cboxes, flag) {
     }
     cboxes.checked = flag;
   }
-
-  update_server_set("ids", set_label, flag, changed);
+  return changed;
 }
 
 function checkbox_clicked(thebox, set_label) {
@@ -59,10 +62,27 @@ function checkbox_clicked(thebox, set_label) {
     form_name = thebox.form.id;
   }
   var  checkall = eval("document.forms['" + form_name + "'].checkall");
-  process_checkbox_clicked(thebox, set_label, checkall);
+  process_checkbox_clicked(thebox, set_label, checkall, []);
 }
 
-function process_checkbox_clicked(thebox, set_label, checkall) {
+function process_checkbox_clicked(thebox, set_label, checkall, children) {
+    process_single_checkbox(thebox, set_label, checkall);
+    var a = new Array();
+    a.push(thebox.value);
+
+    var checkboxes = new Array();    
+    for (var i = 0; i < children.length; i++) {
+        var checkbox = document.getElementById(children[i]);
+        checkboxes.push(checkbox);
+        a.push(checkbox.value);
+    }
+    if (checkboxes.length > 0) {
+        process_group(set_label, checkboxes, thebox.checked);
+    }
+    update_server_set("ids", set_label, thebox.checked, a);
+}
+
+function process_single_checkbox(thebox, set_label, checkall) {
   var form_name = thebox.form.name;
   if (form_name == "") {
     form_name = thebox.form.id;
@@ -88,13 +108,11 @@ function process_checkbox_clicked(thebox, set_label, checkall) {
       all_checked = true;
     }
   }
-  var a = new Array();
-  a[0] = thebox.value;
   if (checkall) {
 	checkall.checked = all_checked;
   }
-  update_server_set("ids", set_label, thebox.checked, a);
 }
+
 
 
 function update_server_set(variable, set_label, checked, values) {
