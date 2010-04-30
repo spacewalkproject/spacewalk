@@ -41,10 +41,10 @@ public class ExpandableRowRenderer extends RowRenderer {
     public String getRowClass(Object current) {
         if (RhnListTagFunctions.isExpandable(current)) {
             rowNum++;
-            return rowClasses[rowNum%rowClasses.length];
+            return rowClasses[rowNum % rowClasses.length];
         }
         else {
-            return rowClasses[rowNum%rowClasses.length];
+            return rowClasses[rowNum % rowClasses.length];
         }
     }
     
