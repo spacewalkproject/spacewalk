@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.8
+Version: 1.1.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -629,6 +629,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 30 2010 Jan Pazdziora 1.1.9-1
+- 585233 - use log2stderr instead of the (debugging) print.
+- 585233 - fix the logic handling has_comps and missing comps_last_modified.
+- implemented <checksums> in <rhn-package-short> (michael.mraka@redhat.com)
+
 * Thu Apr 29 2010 Jan Pazdziora 1.1.8-1
 - 585233 - replace has-comps with rhn-channel-comps-last-modified.
 - 585233 - use the rhn-channel-comps-last-modified element instead of boolean
