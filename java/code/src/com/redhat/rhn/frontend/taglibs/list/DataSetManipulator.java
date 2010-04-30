@@ -357,7 +357,7 @@ public class DataSetManipulator {
             return;
         }
         else {
-            
+            filter = f;
             HtmlTag filterClass = new HtmlTag("input");
             filterClass.setAttribute("type", "hidden");
             filterClass.setAttribute("name", ListTagUtil.makeFilterClassLabel(uniqueName));

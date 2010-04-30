@@ -75,8 +75,8 @@ public class ListFilterHelper {
         for (Object object : dataSet) {
             if (object instanceof Expandable) {
                 parent = (Expandable) object;
-                for (Object obj : parent.expand()) {
-                    if (filter.filter(object, filterBy, filterValue)) {
+                for (Object child : parent.expand()) {
+                    if (filter.filter(child, filterBy, filterValue)) {
                         filteredData.add(parent);
                         break;
                     }
