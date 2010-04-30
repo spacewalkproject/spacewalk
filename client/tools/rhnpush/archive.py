@@ -93,10 +93,8 @@ class ArchiveParser(object):
         assert self._archive_dir is not None    # assigned in _explode_cmd
 
         if cmd:
-#            if __debug__: print "DEBUG: running command: %s" % cmd
             status = _my_popen(cmd)
 
-#            if __debug__: print "DEBUG: testing for %s" % self._archive_dir
             if os.path.isdir(self._archive_dir):
                 return
 
@@ -160,10 +158,6 @@ class ArchiveParser(object):
             else:
                 f.append(i)
 
-        if __debug__:
-            d.sort()
-            f.sort()
-
         return (d, f)
 
     def contains(self, file):
@@ -200,7 +194,6 @@ class ArchiveParser(object):
 
     def zip(self, prefix=""):
         """Create a zip archive of a (sub-)directory of the archive"""
-#        if __debug__: print "DEBUG: creating zip file for %s" % dir
 
         dir = os.path.join(self._archive_dir, prefix)
         zip_dir = os.path.basename(dir)
@@ -223,7 +216,6 @@ class ArchiveParser(object):
 
     def cpio(self, prefix):
         """Create a cpio archive of a (sub-)directory of the archive"""
-#        if __debug__: print "DEBUG: creating cpio archive file for %s" % prefix
 
         cpio_file = os.path.join(self._temp_dir, "%s.pkg" % prefix)
 
@@ -339,7 +331,6 @@ def _my_popen(cmd):
 
 def _decompress(archive):
     """[internal] Decompress compressed archives and return the new archive name"""
-#    if __debug__: print "DEBUG decompressing '%s'" % archive
 
     cmd = ""
     sfx_list = None
