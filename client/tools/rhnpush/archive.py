@@ -50,7 +50,7 @@ class ArchiveParser(object):
         """Initialize an archive parser"""
         assert os.path.exists(archive)
 
-        self._archive = None
+        self._archive = archive
         self._archive_dir = None
 
         # bug 164756: allow optional working directory
@@ -73,18 +73,6 @@ class ArchiveParser(object):
 
     # methods called by constructor --------------------------------------
 
-    def _copy_archive(self, archive):
-        """[internal] Copy the archive to a temporary directory"""
-#        if __debug__: print "DEBUG: copying archive to %s" % self._temp_dir
-
-        # copy the archive to the temporary directory
-        a_name = os.path.basename(archive)
-        a_path = os.path.join(self._temp_dir, a_name)
-
-        shutil.copyfile(archive, a_path)
-
-        self._archive = a_path
-
     def _get_archive_dir(self):
         """[internal] find the archive's top level directory name"""
 
@@ -99,7 +87,6 @@ class ArchiveParser(object):
     def _explode(self, archive):
         """[internal] Explode a archive for neutral parsing"""
 
-        self._copy_archive(archive)
         cmd = self._explode_cmd()
 
         assert self._archive is not None        # assigned in _copy_archive
