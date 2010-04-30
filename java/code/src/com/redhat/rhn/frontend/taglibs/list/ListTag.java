@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
 import com.redhat.rhn.frontend.taglibs.list.decorators.ListDecorator;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -63,6 +64,7 @@ public class ListTag extends BodyTagSupport {
     private List pageData;
     private Iterator iterator;
     private Object currentObject;
+    private Object parentObject;
     private String styleClass = "list";
     private String styleId;    
     private int rowCounter = -1;
@@ -341,6 +343,14 @@ public class ListTag extends BodyTagSupport {
     }
 
     /**
+     * The parent if this list is dealing with expandable objects
+     * @return the parent of the current object being displayed
+     */
+    public Object getParentObject() {
+        return parentObject;
+    }
+    
+    /**
      * Name used to store the currentObject in the page
      * @param nameIn row name
      * @throws JspException if row name is empty
@@ -514,7 +524,11 @@ public class ListTag extends BodyTagSupport {
                 ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
                         ListCommand.RENDER);
                 if (iterator.hasNext()) {
-                    currentObject = iterator.next();
+                    Object obj = iterator.next();
+                    if (RhnListTagFunctions.isExpandable(obj)) {
+                        parentObject = obj;
+                    }
+                    currentObject = obj; 
                 }
                 else {
                     currentObject = null;
@@ -644,6 +658,7 @@ public class ListTag extends BodyTagSupport {
         pageData = null;
         iterator = null;
         currentObject = null;
+        parentObject = null;
         styleClass = "list";
         styleId = null;        
         rowCounter = -1;

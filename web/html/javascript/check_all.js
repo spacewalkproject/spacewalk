@@ -62,14 +62,33 @@ function checkbox_clicked(thebox, set_label) {
     form_name = thebox.form.id;
   }
   var  checkall = eval("document.forms['" + form_name + "'].checkall");
-  process_checkbox_clicked(thebox, set_label, checkall, []);
+  process_checkbox_clicked(thebox, set_label, checkall, [], [],"");
 }
 
-function process_checkbox_clicked(thebox, set_label, checkall, children) {
-    process_single_checkbox(thebox, set_label, checkall);
+
+/**
+ * This method is called when a single checkbox is clicked
+ * thebox - The check box that was clicked
+ * set_label  - The rhnSet label of the checkbox that was clicked
+ * checkall - The link to the select all box
+ * 
+ * If this list tag is using some sort of tree/grouping structure
+ * 
+ * children - if this is a parent node then list the children or [] otherwise
+ * members - if this is a child node then list the siblings and include the child or [] otherwise
+ * parent_id - if this is a child node then list the parent_id or [] otherwise
+ **/
+
+function process_checkbox_clicked(thebox, set_label, checkall, children, members, parent_id  ) {
+    var form_name = thebox.form.name;
+    if (form_name == "") {
+        form_name = thebox.form.id;
+    }
+    var cboxes = eval("document.forms['" + form_name + "']." + thebox.name);
+    process_single_checkbox(cboxes, checkall);
     var a = new Array();
     a.push(thebox.value);
-
+    
     var checkboxes = new Array();    
     for (var i = 0; i < children.length; i++) {
         var checkbox = document.getElementById(children[i]);
@@ -79,17 +98,21 @@ function process_checkbox_clicked(thebox, set_label, checkall, children) {
     if (checkboxes.length > 0) {
         process_group(set_label, checkboxes, thebox.checked);
     }
+
+    if (parent_id) {
+        var parentBox = document.getElementById(parent_id);
+        var boxes = new Array();
+        for (var i = 0; i < members.length; i++) {
+            var checkbox = document.getElementById(members[i]);
+            boxes.push(checkbox);
+        }
+        process_single_checkbox(boxes, parentBox);
+    }
     update_server_set("ids", set_label, thebox.checked, a);
 }
 
-function process_single_checkbox(thebox, set_label, checkall) {
-  var form_name = thebox.form.name;
-  if (form_name == "") {
-    form_name = thebox.form.id;
-  }
+function process_single_checkbox(cboxes, checkall) {
   var i;
-  var cboxes = eval("document.forms['" + form_name + "']." + thebox.name);
-
   var count_checked_or_disabled = 0;
   var all_checked = false;
   if (cboxes.length) {

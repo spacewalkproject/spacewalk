@@ -34,7 +34,7 @@ public class SelectableColumnTag extends TagSupport {
     
     private static final long serialVersionUID = 2749189931275777440L;
     private static final String CHECKBOX_CLICKED_SCRIPT = 
-                    "process_checkbox_clicked(this,'%s', this.form.%s, %s)";
+                    "process_checkbox_clicked(this,'%s', this.form.%s, %s, %s, '%s')";
     private String valueExpr;
     private String selectExpr;
     private String disabledExpr;
@@ -244,18 +244,39 @@ public class SelectableColumnTag extends TagSupport {
      */
     private void renderOnClick() throws JspException {
         if (!StringUtils.isBlank(rhnSet)) {
+            Object current = getCurrent();
+            Object parent = getParentObject();
+            String childIds = "[]";
+            String memberIds = "[]";
+            String parentId = "";
+            
+            if (RhnListTagFunctions.isExpandable(current)) {
+                childIds = getChildIds(current);
+            }
+            else {
+                parentId = getParentId(current, parent);
+                memberIds = getMemberIds(current, parent);
+            }
+
             ListTagUtil.write(pageContext, " onclick=\"");
             ListTagUtil.write(pageContext, String.format(CHECKBOX_CLICKED_SCRIPT,
-                                rhnSet,  makeSelectAllCheckboxName(), getChildIds()));
+                                rhnSet,  makeSelectAllCheckboxName(), 
+                                childIds, memberIds, parentId));
             ListTagUtil.write(pageContext, "\" ");
         }
     }
 
-    private String getChildIds() {
-        Object current = getCurrent();
-        if (RhnListTagFunctions.isExpandable(current)) {
+    private String getParentId(Object current, Object parent) {
+        if (parent != null && parent !=  current) {
+            return makeCheckboxId(ListTagHelper.getObjectId(parent));
+        }
+        return "";
+    }
+
+    private String getChildIds(Object parent) {
+        if (RhnListTagFunctions.isExpandable(parent)) {
             StringBuilder buf = new StringBuilder();
-            for (Object child : ((Expandable)current).expand()) {
+            for (Object child : ((Expandable)parent).expand()) {
                 if (buf.length() > 0) {
                     buf.append(",");
                 }
@@ -272,6 +293,15 @@ public class SelectableColumnTag extends TagSupport {
         return "[]";
         
     }
+
+    private String getMemberIds(Object current, Object parent) {
+        if (parent != null && parent != current) {
+            return getChildIds(parent);
+        }
+        return "[]";
+        
+    }    
+    
     
     private void renderHiddenItem(String listId, String value) throws JspException {
         ListTagUtil.write(pageContext, "<input type=\"hidden\" ");
@@ -327,4 +357,10 @@ public class SelectableColumnTag extends TagSupport {
         BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         return parent.getCurrentObject();
     }
+
+    private Object getParentObject() {
+        ListTag parent = (ListTag)
+        BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        return parent.getParentObject();
+    }    
 }
