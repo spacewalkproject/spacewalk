@@ -2128,7 +2128,10 @@ public class ChannelManager extends BaseManager {
         // Find all of the obvious matches
         for (EssentialChannelDto ecd : channels) {
             Channel c = ChannelFactory.lookupByIdAndUser(ecd.getId().longValue(), u);
-            log.debug("   " + c.getName());
+            if (log.isDebugEnabled()) {
+                log.debug(c == null ? "<null>" : c.getName());    
+            }
+            
             if (c != null && 
                 (c.getOrg() != null || 
                 inChan.getChannelArch().equals(c.getChannelArch())) &&
