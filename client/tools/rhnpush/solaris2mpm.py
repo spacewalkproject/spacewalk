@@ -292,7 +292,7 @@ def create_patch_set_mpm(archive_parser, archive):
     p_name = os.path.basename(archive_parser._archive_dir)
     header['name'] = "patch-cluster-solaris-" + p_name
 
-    readme = archive_parser.read("README")
+    readme = archive_parser.direct_read("README")
     header['readme'] = readme
     if readme is None:
         readme = archive_parser.read(p_name + ".README")
