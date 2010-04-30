@@ -25,6 +25,7 @@ PORT = "1234"
 HANDLER = "/XMLRPC"
 try:
     SERVER = sys.argv[1]
+    PORT = sys.argv[2]
 except:
     pass
 
