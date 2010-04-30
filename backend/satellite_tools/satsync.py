@@ -2149,7 +2149,6 @@ def _validate_package_org(batch):
      If custom and package org is not valid default to org 1
     """
     orgid = OPTIONS.orgid or None
-    orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
     for pkg in batch:
         if not pkg['org_id'] or pkg['org_id'] == 'None':
             # default to Null so do nothing
