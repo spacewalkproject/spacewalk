@@ -128,10 +128,22 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
         }
         for k, dclass in mapping.items():
             l = []
-            #for dinfo in header.get(k, []):
-            #    finst = dclass()
-            #    finst.populate(dinfo)
-            #    l.append(finst)
+            values = header[k]
+            if values != None:
+                val = string.join(values.split(), "")  # remove whitespaces
+                val = val.split(',')  # split packages
+                for v in val:
+                    nv = v.split('(')
+                    name = nv[0]
+                    # TODO FIX VERSION AND FLAGS
+                    if (len(nv) > 1):
+                        version = nv[1].rstrip(')')
+                    else:
+                        version = ''
+                    hash = {'name' : name, 'version' : version, 'flags' : 0}
+                    finst = dclass()
+                    finst.populate(hash)
+                    l.append(finst)
             self[k] = l
 
     def _populateChangeLog(self, header):

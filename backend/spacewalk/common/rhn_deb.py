@@ -129,10 +129,22 @@ class deb_Header:
             return self.deb.debcontrol().get_as_string('Maintainer')
         elif name == 'package_group':
             return self.deb.debcontrol().get_as_string('Section')
-        if self.deb.debcontrol().has_key(name):
+        elif name == 'requires':
+            if self.deb.debcontrol().has_key('Depends'):
+                return self.deb.debcontrol().get_as_string('Depends')
+        elif name == 'provides':
+            if self.deb.debcontrol().has_key('Provides'):
+                return self.deb.debcontrol().get_as_string('Provides')
+        elif name == 'conflicts':
+            if self.deb.debcontrol().has_key('Conflicts'):
+                return self.deb.debcontrol().get_as_string('Conflicts')
+        elif name == 'obsoletes':
+            if self.deb.debcontrol().has_key('Replaces'):
+                return self.deb.debcontrol().get_as_string('Replaces')
+        elif self.deb.debcontrol().has_key(name):
             return self.deb.debcontrol().get_as_string(name)
-        else:
-            return None
+
+        return None
 """
     def __setitem__(self, name, item):
         self.hdr[name] = item
