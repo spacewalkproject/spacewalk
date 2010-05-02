@@ -80,12 +80,6 @@ function checkbox_clicked(thebox, set_label) {
  **/
 
 function process_checkbox_clicked(thebox, set_label, checkall, children, members, parent_id  ) {
-    var form_name = thebox.form.name;
-    if (form_name == "") {
-        form_name = thebox.form.id;
-    }
-    var cboxes = eval("document.forms['" + form_name + "']." + thebox.name);
-    process_single_checkbox(cboxes, checkall);
     var a = new Array();
     a.push(thebox.value);
     
@@ -108,6 +102,13 @@ function process_checkbox_clicked(thebox, set_label, checkall, children, members
         }
         process_single_checkbox(boxes, parentBox);
     }
+    var form_name = thebox.form.name;
+    if (form_name == "") {
+        form_name = thebox.form.id;
+    }
+    var cboxes = eval("document.forms['" + form_name + "']." + thebox.name);
+    process_single_checkbox(cboxes, checkall);
+
     update_server_set("ids", set_label, thebox.checked, a);
 }
 
