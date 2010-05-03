@@ -318,10 +318,6 @@ class IncompletePackage(BaseInformation):
         return "%s-%s-%s.%s.rpm" % (self.name, self.evr[1], self.evr[2],
             self.arch)
 
-    def get_nevrao(self):
-        return (self.name, self['name'], self['epoch'], self['version'],
-            self['release'], self['arch'], self['org_id'])
-
 class Package(IncompletePackage):
     """
     A package is a hash of attributes
