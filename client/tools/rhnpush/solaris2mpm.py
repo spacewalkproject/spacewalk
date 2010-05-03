@@ -968,7 +968,7 @@ def _normalize_arch(arch):
             arch = "sparc"
 
     # fix the arch label
-    if arch in ("intel", "i86pc", "i386.i86pc", "i386 i386.i86pc"):
+    if arch in ("intel", "i86pc", "i386.i86pc", "i386 i386.i86pc", "x86"):
         arch = "i386"
 
     elif re.match(".*sun4.*", arch, re.IGNORECASE):
