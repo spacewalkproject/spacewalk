@@ -24,8 +24,7 @@ SERVER = "longusername0123456789:longpassword0123456789@localhost"
 PORT = "1234"
 HANDLER = "/XMLRPC"
 try:
-    SERVER = sys.argv[1]
-    PORT = sys.argv[2]
+    PORT = sys.argv[1]
 except:
     pass
 
