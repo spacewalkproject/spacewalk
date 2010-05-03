@@ -1498,7 +1498,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     dest_path = os.path.join(base_path, relative_path)
                     timestamp = rhnLib.timestamp(f['last_modified'])
                     file_size = f['file_size']
-                    (errcode, ret_path) = self._verify_file(dest_path,
+                    errcode = self._verify_file(dest_path,
                         timestamp, file_size, f['checksum_type'], f['checksum'])
                     if errcode != 0:
                         # Have to download it
