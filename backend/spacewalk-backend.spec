@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.10
+Version: 1.1.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 03 2010 Jan Pazdziora 1.1.11-1
+- 585233 - the has-comps attribute will no longer be used by hosted.
+- add dependency information for DEB packages (lukas.durfina@gmail.com)
+
 * Fri Apr 30 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.10-1
 - Support for uploading deb packages (lukas.durfina@gmail.com)
 
