@@ -305,7 +305,7 @@ def _my_popen(cmd):
     """Execute a command as a subprocess and return its exit status"""
 
     popen = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                 stderr=subprocess.PIPE, close_fds=True)
+                 stderr=subprocess.PIPE, close_fds=True, shell=True)
     popen.stdin.close()
 
     txt = ""
