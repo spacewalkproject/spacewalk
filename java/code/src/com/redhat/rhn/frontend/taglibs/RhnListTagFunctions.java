@@ -36,4 +36,17 @@ public class RhnListTagFunctions {
     public static boolean isExpandable(Object current) {
         return current instanceof Expandable;
     }
+    
+    /**
+     * Quick check to see if the passed in object is expandable.
+     * 
+     * @param current The object to be checked
+     * @return true if the current object is expandable
+     */
+    public static int getChildrenCount(Object current) {
+        if (!isExpandable(current)) {
+            return 0;
+        }
+        return ((Expandable)current).expand().size();
+    }    
 }

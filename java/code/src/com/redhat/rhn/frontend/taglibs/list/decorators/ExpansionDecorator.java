@@ -33,7 +33,7 @@ public class ExpansionDecorator extends BaseListDecorator {
             "style=\"cursor: pointer;\">Hide All</a>";
     
     private static final String NEW_VAR_SCRIPT = "<script type=\"text/javascript\">var " +
-                                                        "rowHash%s = new Array();</script>";
+                                                       "rowHash%s = new Array();</script>";
     
     private static final String LOAD_SCRIPT = "<script type=\"text/javascript\">" +
                                             "onLoadStuff(%s, '%s', rowHash%s);</script>";
@@ -44,8 +44,16 @@ public class ExpansionDecorator extends BaseListDecorator {
     @Override
     public void beforeList() throws JspException {
         ListTagUtil.write(pageContext, String.format(NEW_VAR_SCRIPT, listName));
-        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT, listName, listName));
-        
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void beforeTopPagination() throws JspException {
+        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT,
+                                            listName, listName));   
     }
     
     /**

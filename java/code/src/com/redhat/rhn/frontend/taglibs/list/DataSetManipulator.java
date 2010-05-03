@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.taglibs.list;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DynamicComparator;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
@@ -59,6 +60,7 @@ public class DataSetManipulator {
     private int alphaPosition = -1;
     private boolean ascending = true;
     private int unfilteredDataSize;
+    private boolean parentIsAnElement;
     
     private String defaultSortAttribute;
     private static final String IMG_FIRST = "/img/list-allbackward.gif";
@@ -85,15 +87,19 @@ public class DataSetManipulator {
      * @param datasetIn dataset to be displayed
      * @param requestIn HttpServletRequest of the caller
      * @param listNameIn name of the list
+     * @param parentIsElement true of the parent value 
+     *          in the list should be considered as an element
+     *          this is useful for tree like data
      */
     public DataSetManipulator(int pageSizeIn, List datasetIn, 
-            HttpServletRequest requestIn, String listNameIn) {
+            HttpServletRequest requestIn, String listNameIn, boolean parentIsElement) {
         pageSize = pageSizeIn;
         dataset = datasetIn;
         request = requestIn;
         uniqueName = listNameIn;
         totalDataSetSize = dataset.size();
         unfilteredDataSize = dataset.size();
+        parentIsAnElement = parentIsElement;
     }
     
     private List expand(List data) {
@@ -163,7 +169,7 @@ public class DataSetManipulator {
      * Returns the starting element index for a page (1 based)
      * @return int
      */
-    public int getPageStartIndex() {
+    private int getPageStartIndex() {
         //no data ==> no start index...
         if (getTotalDataSetSize() == 0) {
             return 0;
@@ -174,30 +180,64 @@ public class DataSetManipulator {
         if (startOffset < 0) {
             startOffset = 0;
         }
-        return startOffset + 1;
+        List parentList = dataset.subList(0, startOffset);
+        List data = expand(parentList);
+        int ret = data.size() + 1;
+        
+        if (!parentIsAnElement) {
+            ret = ret - parentList.size();
+        }
+        return ret;
     }
     
     /**
      * Returns the ending element index for a page (1 based)
      * @return int
      */
-    public int getPageEndIndex() {
+    private int getPageEndIndex() {
         int startOffset = getCurrentPageNumber() * pageSize;
         if (startOffset < 0) {
             startOffset = 0;
         }
+        
         int endOffset = startOffset + pageSize;
         if (endOffset > dataset.size()) {
             endOffset = dataset.size();
         }
-        return endOffset;
+        List parentList = dataset.subList(0, endOffset);
+        List data = expand(parentList);
+        
+        if (!parentIsAnElement) {
+            return data.size() - parentList.size();
+        }
+        
+        return data.size();
     }
+    
+    private int getExpandedDataSize() {
+        if (!parentIsAnElement) {
+            return expand(dataset).size() - dataset.size();
+        }
+        return expand(dataset).size();
+    }
+    
+    /**
+     * Returns the pagination message (1 - 2 of 3 for example) 
+     * @return the pagination message
+     */
+    public String getPaginationMessage() {
+        LocalizationService ls = LocalizationService.getInstance();
+        return ls.getMessage("message.range", getPageStartIndex(), 
+                    getPageEndIndex(), getExpandedDataSize());
+
+    }
+    
     
     /**
      * Determines the current page number based on URL params
      * @return current page number
      */
-    public int getCurrentPageNumber() {
+    private  int getCurrentPageNumber() {
         
         if (AlphaBarHelper.getInstance().isSelected(uniqueName, request)) {
             int pos = findAlphaPosition();
@@ -239,6 +279,12 @@ public class DataSetManipulator {
         return pageNumber;
     }
 
+    /**
+     * Binds information pertaining to pagination to the request
+     */
+    public void bindPaginationInfo() {
+        request.setAttribute("pageNum", String.valueOf(getCurrentPageNumber()));
+    }
     /**
      * Returns the pagination param (|<, <, >, >|) that was selected
      * returns null if no pagination action was selected.

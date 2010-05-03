@@ -83,6 +83,7 @@ public class ListTag extends BodyTagSupport {
     private String refLinkKeyArg0;
     private String title;
     private boolean sortable;
+    private boolean parentIsElement;
     
     /**
      * method to let the list tag know
@@ -478,8 +479,7 @@ public class ListTag extends BodyTagSupport {
             startTable();
             HttpServletRequest request = (HttpServletRequest) pageContext
                     .getRequest();
-            request.setAttribute("pageNum", String.valueOf(manip
-                    .getCurrentPageNumber()));
+            manip.bindPaginationInfo();
             request.setAttribute("dataSize", String
                     .valueOf(pageData.size() + 1));
             ListTagUtil.setCurrentCommand(pageContext, getUniqueName(),
@@ -586,7 +586,8 @@ public class ListTag extends BodyTagSupport {
         setupPageData();
         setPageSize();
         manip = new DataSetManipulator(pageSize, pageData,
-                (HttpServletRequest) pageContext.getRequest(), getUniqueName());
+                (HttpServletRequest) pageContext.getRequest(), 
+                getUniqueName(), isParentAnElement());
         int retval = BodyTagSupport.EVAL_BODY_INCLUDE;
         emitId();
 
@@ -676,7 +677,7 @@ public class ListTag extends BodyTagSupport {
         decoratorName = null;
         title = null;
         sortable = false;
-        
+        parentIsElement = true;
         super.release();
     }
 
@@ -788,13 +789,7 @@ public class ListTag extends BodyTagSupport {
         ListTagUtil.write(pageContext,
                 "<td valign=\"middle\" class=\"list-infotext\">");
         if (!isEmpty() && !hidePageNums) {
-            Object[] range = new Integer[3];
-            range[0] = new Integer(manip.getPageStartIndex());
-            range[1] = new Integer(manip.getPageEndIndex());
-            range[2] = new Integer(manip.getTotalDataSetSize());
-            LocalizationService ls = LocalizationService.getInstance();
-            String msg = ls.getMessage("message.range", range);
-            ListTagUtil.write(pageContext, msg);
+            ListTagUtil.write(pageContext, manip.getPaginationMessage());
         }
         
         if (!manip.isListEmpty()) {
@@ -919,11 +914,28 @@ public class ListTag extends BodyTagSupport {
      * @param value true or false
      */
     public void setHidepagenums(String value) {
-        if (value.equals("true") || value.equals("True")) {
-            hidePageNums = true;
-        }
+        hidePageNums = ListTagUtil.toBoolean(value);
     }
 
+    /**
+     * if set to true, the parent in a tree setup will
+     * be considered as an element by itself 
+     * @param value true or false
+     */
+    public void setParentiselement(String value) {
+        parentIsElement = ListTagUtil.toBoolean(value);
+    }
+    
+    /**
+     * if set to true, the parent in a tree setup will
+     * be considered as an element by itself
+     * @return true if the parent itself is an element
+     */
+    public boolean isParentAnElement() {
+        return parentIsElement;
+    }
+    
+    
     /**
      * 
      * @return CSS ID for <table>

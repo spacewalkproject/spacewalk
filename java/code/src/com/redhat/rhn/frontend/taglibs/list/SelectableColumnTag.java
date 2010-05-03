@@ -34,7 +34,8 @@ public class SelectableColumnTag extends TagSupport {
     
     private static final long serialVersionUID = 2749189931275777440L;
     private static final String CHECKBOX_CLICKED_SCRIPT = 
-                    "process_checkbox_clicked(this,'%s', this.form.%s, %s, %s, '%s')";
+                    "process_checkbox_clicked(this,'%s', this.form.%s, %s, %s, '%s', %s)";
+    private static final String CHECK_ALL_SCRIPT = "process_check_all('%s', %s, %s, %s)";
     private String valueExpr;
     private String selectExpr;
     private String disabledExpr;
@@ -188,19 +189,14 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, " name=\"");
         ListTagUtil.write(pageContext, makeSelectAllCheckboxName());
         ListTagUtil.write(pageContext, "\" ");
-        ListTagUtil.write(pageContext, "onclick=\"");        
-        ListTagUtil.write(pageContext, "process_check_all(");
-        ListTagUtil.write(pageContext, "'");
-        
-        if (rhnSet != null) {
-            ListTagUtil.write(pageContext, rhnSet);
-        }
-        ListTagUtil.write(pageContext, "', ");
-        ListTagUtil.write(pageContext, "this.form." +
-                        ListTagUtil.makeSelectedItemsName(listName));
-        ListTagUtil.write(pageContext, ", this.checked)");
-        
-        ListTagUtil.write(pageContext, "\" />");        
+        ListTagUtil.write(pageContext, "onclick=\"");
+        String script =  String.format(CHECK_ALL_SCRIPT, 
+                            StringUtils.defaultString(rhnSet), 
+                            "this.form." +  ListTagUtil.
+                                makeSelectedItemsName(listName), "this.checked",
+                                getIgnorableParentIds());
+        ListTagUtil.write(pageContext, script);
+        ListTagUtil.write(pageContext, "\" />");
     }
     private void renderCheckbox() throws JspException {
         render(valueExpr);
@@ -249,6 +245,8 @@ public class SelectableColumnTag extends TagSupport {
             String childIds = "[]";
             String memberIds = "[]";
             String parentId = "";
+            ListTag parentTag = (ListTag)
+                BodyTagSupport.findAncestorWithClass(this, ListTag.class);
             
             if (RhnListTagFunctions.isExpandable(current)) {
                 childIds = getChildIds(current);
@@ -261,7 +259,8 @@ public class SelectableColumnTag extends TagSupport {
             ListTagUtil.write(pageContext, " onclick=\"");
             ListTagUtil.write(pageContext, String.format(CHECKBOX_CLICKED_SCRIPT,
                                 rhnSet,  makeSelectAllCheckboxName(), 
-                                childIds, memberIds, parentId));
+                                childIds, memberIds, parentId,
+                                parentTag.isParentAnElement()));
             ListTagUtil.write(pageContext, "\" ");
         }
     }
@@ -362,5 +361,27 @@ public class SelectableColumnTag extends TagSupport {
         ListTag parent = (ListTag)
         BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         return parent.getParentObject();
+    }
+    
+    private String getIgnorableParentIds() {
+        ListTag parent = (ListTag)
+                BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        if (!parent.isParentAnElement()) {
+            StringBuilder buf = new StringBuilder();
+            for (Object current : parent.getPageData()) {
+                if (RhnListTagFunctions.isExpandable(current)) {
+                    if (buf.length() > 0) {
+                        buf.append(",");
+                    }
+                    buf.append("'");
+                    buf.append(makeCheckboxId(ListTagHelper.getObjectId(current)));
+                    buf.append("'");
+                }
+            }
+            buf.insert(0, "[");
+            buf.append("]");            
+            return buf.toString();
+        }
+        return "[]";
     }    
 }

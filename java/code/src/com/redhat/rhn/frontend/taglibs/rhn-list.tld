@@ -86,6 +86,12 @@
     	<required>false</required>
     	<rtexprvalue>true</rtexprvalue>
    	</attribute>
+   	<attribute>
+      <name>parentiselement</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+   	
 	<attribute>
 		<name>reflink</name>
 		<required>false</required>
@@ -311,5 +317,10 @@
         <name>expandable</name>
         <function-class>com.redhat.rhn.frontend.taglibs.RhnListTagFunctions</function-class>
         <function-signature>boolean isExpandable(java.lang.Object)</function-signature>
-    </function>    	
+    </function>
+	<function>
+        <name>countChildren</name>
+        <function-class>com.redhat.rhn.frontend.taglibs.RhnListTagFunctions</function-class>
+        <function-signature>int getChildrenCount(java.lang.Object)</function-signature>
+    </function>
 </taglib>
