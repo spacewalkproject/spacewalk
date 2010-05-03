@@ -61,6 +61,7 @@ from server.importlib.errataCache import schedule_errata_cache_update
 
 from server.importlib.importLib import InvalidChannelFamilyError
 from server.importlib.importLib import MissingParentChannelError
+from server.importlib.importLib import get_nevra
 
 import satCerts
 import req_channels
@@ -1935,9 +1936,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             checksum = package['checksum']
             package_size = package['package_size']
             if not path:
-                nevra = []
-                for t in ['name', 'epoch', 'version', 'release', 'arch']:
-                    nevra.append(package[t])
+                nevra = get_nevra(package)
                 orgid = None
                 if package['org_id']:
                     orgid = OPTIONS.orgid or DEFAULT_ORG
