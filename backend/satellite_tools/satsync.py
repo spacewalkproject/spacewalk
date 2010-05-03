@@ -407,7 +407,6 @@ class Syncer:
         self._channel_source_packages = {}
 
         self._channel_kickstarts = {}
-        self._uq_channel_kickstarts = {}
 
     def initialize(self):
         """Initialization that requires IO, etc."""
@@ -1318,22 +1317,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     def _compute_unique_kickstarts(self):
         """ process package metadata for one channel at a time"""
         relevant = self._channel_req.get_requested_channels()
-        self._channel_kickstarts = channel_kickstarts = {}
-        self._uq_channel_kickstarts = uq_channel_kickstarts = {}
-        uq_kickstarts = {}
+        self._channel_kickstarts = {}
         for chn in relevant:
             timestamp = self._get_channel_timestamp(chn)
 
             channel_obj = self._channel_collection.get_channel(chn, timestamp)
-            kickstart_trees = channel_obj['kickstartable_trees']
-            cks = channel_kickstarts[chn] = kickstart_trees
-            uq_cks = uq_channel_kickstarts[chn] = []
-            for kt in kickstart_trees:
-                if uq_kickstarts.has_key(kt):
-                    # Found this one already
-                    continue
-                uq_kickstarts[kt] = None
-                uq_cks.append(kt)
+            self._channel_kickstarts[chn] = \
+			sorted(set(channel_obj['kickstartable_trees'] or []))
 
     _query_get_kickstarts = rhnSQL.Statement("""
         select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
@@ -1400,7 +1390,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             s = self.xmlWireServer.getKickstartsXmlStream
             stream_loader.set_wire_loader(s)
 
-        for channel, ktids in self._uq_channel_kickstarts.items():
+        for channel, ktids in self._channel_kickstarts.items():
             kt_count = len(ktids)
 
             log(1, messages.kickstart_parsing % (channel,
@@ -1494,7 +1484,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         missing_ks_files = {}
         # download files for the ks trees
-        for channel, ktids in self._uq_channel_kickstarts.items():
+        for channel, ktids in self._channel_kickstarts.items():
             missing_ks_files[channel] = missing = []
             for ktid in ktids:
                 # No timestamp for kickstartable trees
