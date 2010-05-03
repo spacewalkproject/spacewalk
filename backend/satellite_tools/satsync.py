@@ -401,7 +401,7 @@ class Syncer:
         self._failed_fs_packages = {}
         self._extinct_packages = {}
 
-        self._uq_channel_errata = {}
+        self._channel_errata = {}
         self._missing_channel_errata = {}
 
         self._channel_source_packages = {}
@@ -1537,7 +1537,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         # First, determine what has to be downloaded
         errata_collection = sync_handlers.ErrataCollection()
-        for channel, errata in self._uq_channel_errata.items():
+        for channel, errata in self._channel_errata.items():
             missing_errata[channel] = mp = []
 
             if not errata:
@@ -1620,19 +1620,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             channel_errata[chn] = errata
 
         # Uniquify the errata
-        self._uq_channel_errata = uq_channel_errata = {}
-        uq_errata = {}
         for channel, errata in channel_errata.items():
-            ch_erratum_ids = uq_channel_errata[channel] = []
-            for eid, timestamp, advisory_name in errata:
-                if uq_errata.has_key(eid):
-                    # Saw this erratum already
-                    continue
-                ch_erratum_ids.append((eid, timestamp, advisory_name))
-                uq_errata[eid] = None
-            # Be nice enough to sort the list
-            ch_erratum_ids.sort()
-        del uq_errata
+            self._channel_errata[channel] = sorted(list(set(errata)))
 
     def _diff_db_errata(self):
         """ Compute errata that are missing from the satellite
@@ -1642,7 +1631,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         errata_collection = sync_handlers.ErrataCollection()
         self._missing_channel_errata = missing_channel_errata = {}
         db_channel_errata = self._get_db_channel_errata()
-        for channel, errata in self._uq_channel_errata.items():
+        for channel, errata in self._channel_errata.items():
             ch_erratum_ids = missing_channel_errata[channel] = []
             for eid, timestamp, advisory_name in errata:
                 if timestamp is not None:
