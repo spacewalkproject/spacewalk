@@ -179,7 +179,7 @@ class ArchiveParser(object):
         """ Returns the contens of the file, file is relative path in archive.
             Top most level (_get_archive_dir) is automaticaly added.
          """
-        f = os.path.join(os.path.abspath(self._archive_dir), self._get_archive_dir(), file)
+        f = os.path.join(os.path.abspath(self._archive_dir), file)
         contents = None
 
         if os.path.isfile(f) and os.access(f, os.R_OK):
