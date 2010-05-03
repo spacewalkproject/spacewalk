@@ -1942,7 +1942,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             package['path'] = path
             package_collection.add_package(package)
 
-            errcode = self._verify_file(path, l_timestamp, package_size,
+            errcode = self._verify_file(path, rhnLib.timestamp(timestamp), package_size,
                                                 checksum_type, checksum)
             if errcode == 0:
                 # file is already there
