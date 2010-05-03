@@ -844,9 +844,17 @@ def copy_package(fd, basedir, relpath, checksum_type, checksum, force=None):
 
 
 # Returns a list of containing nevra for the given RPM header
+NEVRA_TAGS = ['name', 'epoch', 'version', 'release', 'arch']
 def get_nevra(header):
     # Get nevra
     nevra = []
-    for tag in ['name', 'epoch', 'version', 'release', 'arch']:
+    for tag in NEVRA_TAGS:
         nevra.append(header[tag])
+    return nevra
+
+def get_nevra_dict(header):
+    # Get nevra
+    nevra = {}
+    for tag in NEVRA_TAGS:
+        nevra[tag] = header[tag]
     return nevra

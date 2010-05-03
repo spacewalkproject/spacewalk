@@ -61,7 +61,7 @@ from server.importlib.errataCache import schedule_errata_cache_update
 
 from server.importlib.importLib import InvalidChannelFamilyError
 from server.importlib.importLib import MissingParentChannelError
-from server.importlib.importLib import get_nevra
+from server.importlib.importLib import get_nevra, get_nevra_dict
 
 import satCerts
 import req_channels
@@ -897,7 +897,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
-        nvrea_keys = ['name', 'epoch', 'version', 'release', 'arch']
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -923,17 +922,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 l_timestamp = rhnLib.timestamp(p_timestamp)
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
-                nevra = {}
-                for t in nvrea_keys:
-                    nevra[t] = package[t] or ""
 
                 if package['org_id'] is not None:
-                    nevra['org_id'] = OPTIONS.orgid or DEFAULT_ORG
                     package['org_id'] = OPTIONS.orgid  or DEFAULT_ORG
-                else:
-                    nevra['org_id'] = package['org_id']
+                nevra = get_nevra_dict(package)
+                nevra['org_id'] = package['org_id']
 
-                apply(h.execute, (), nevra)
+                h.execute(**nevra)
                 row = None
                 for r in (h.fetchall_dict() or []):
                     # let's check which checksum we have in database
