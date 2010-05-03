@@ -220,9 +220,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/osa_dispatcher.py*
 %{rhnroot}/osad/dispatcher_client.py*
 %{rhnroot}/osad/rhn_log.py*
+%config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %config %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
+%config %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
+%config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/tnsnames.ora
+%config(noreplace) %{_sysconfdir}/rhn/tns_admin/osa-dispatcher/sqlnet.ora
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
+%attr(770,root,apache) %dir %{_var}/log/rhn/oracle
+%attr(770,root,root) %dir %{_var}/log/rhn/oracle/osa-dispatcher
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
 

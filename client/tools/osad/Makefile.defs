@@ -35,11 +35,13 @@ INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
 DIRS		+= $(addprefix $(PREFIX), \
 			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))
 
-all :: $(INSTALL_FILES)
+all :: $(INSTALL_FILES) $(INSTALL_LINKS)
 
-install :: all $(DIRS) $(INSTALL_FILES)
+install :: all $(DIRS) $(INSTALL_FILES) $(INSTALL_LINKS)
 	@$(foreach f,$(INSTALL_FILES), \
 		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
+	@$(foreach f,$(INSTALL_LINKS), \
+		ln -s `echo $(f)` $(PREFIX)$(INSTALL_DEST)/$(f) ; )
 
 $(DIRS):
 	$(INSTALL_DIR) $@

@@ -20,6 +20,11 @@
 # Source networking configuration.
 . /etc/sysconfig/network
 
+# Source prog-specific configuration
+if [ -f /etc/sysconfig/@@PROG@@ ]; then
+	. /etc/sysconfig/@@PROG@@
+fi
+
 # Check that networking is up.
 [ ${NETWORKING} = "no" ] && exit 0
 

@@ -1,0 +1,3 @@
+
+log_directory_client = /var/log/rhn/oracle/osa-dispatcher
+

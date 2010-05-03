@@ -1,0 +1,4 @@
+
+TNS_ADMIN=/etc/rhn/tns_admin/osa-dispatcher
+export TNS_ADMIN
+

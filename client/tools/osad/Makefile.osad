@@ -7,11 +7,11 @@ VERSION = $(shell echo `awk '{ print $$1 }' version`)
 RELEASE = $(shell echo `awk '{ print $$2 }' version`)
 
 CODE_DIRS = src
-CONF_DIRS   = rhn-conf osad-conf logrotate
+CONF_DIRS   = rhn-conf osad-conf logrotate sysconfig tns-admin-osa-dispatcher
 
 # We look for config files in "well known" locations (rhn-conf,
 # httpd-conf, logrotate)
-EXTRA_DIRS = /var/log/rhn $(BINDIR) $(SBINDIR) $(INITDIR)
+EXTRA_DIRS = /var/log/rhn /var/log/rhn/oracle /var/log/rhn/oracle/osa-dispatcher $(BINDIR) $(SBINDIR) $(INITDIR)
 BINDIR	    = /usr/bin
 SBINDIR	    = /usr/sbin
 INITDIR     = /etc/rc.d/init.d

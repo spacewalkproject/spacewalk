@@ -1,8 +1,16 @@
-# logrotation file for Red Hat Network Server
-#
-# $Id$
+# logrotation file for RHN Satellite's osa-dispatcher
 
 /var/log/rhn/osa-dispatcher.log {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+    size 100M
+}
+
+/var/log/rhn/oracle/osa-dispatcher/sqlnet.ora {
     weekly
     rotate 5
     copytruncate
