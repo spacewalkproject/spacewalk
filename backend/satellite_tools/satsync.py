@@ -1034,33 +1034,21 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                             package_size, checksum_type, checksum)
                     if errcode:
                         # file doesn't match
-                        fs_package = (package_id, db_path)
-
-        # package is missing from the DB
-        channel_package = package_id
-
-        if not fs_package:
-            nevra = []
-            for t in ['name', 'epoch', 'version', 'release', 'arch']:
-                nevra.append(package[t])
-
-            if package['org_id'] is not None:
-                orgid = OPTIONS.orgid or DEFAULT_ORG
-            else:
-                orgid = package['org_id']
-
-            path = self._get_rel_package_path(nevra, orgid, source,
-                                                       checksum_type, checksum)
-            errcode = self._verify_file(path,
-                            l_timestamp, package_size, checksum_type, checksum)
-            if errcode:
-                # file doesn't match
-                fs_package = (package_id, path)
+                        fs_package = package_id
+                    path = db_path
+                else:
+                    # upload package and reimport metadata
+                    channel_package = package_id
+                    fs_package = package_id
+        else:
+            # package is missing from the DB
+            channel_package = package_id
+            fs_package = package_id
 
         if channel_package:
             m_channel_packages.append(channel_package)
         if fs_package:
-            m_fs_packages.append(fs_package)
+            m_fs_packages.append((fs_package, path))
         return
 
     def download_rpms(self):
@@ -1849,8 +1837,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 # not in the cache
                 raise Exception("Package Not Found in Cache, Clear the Cache to \
 		                 Regenerate it.")
-            # Now set the path
-# FIXME            package['path'] = file_path
             batch.append(package)
         return batch
 
@@ -1948,12 +1934,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
 
     def _fetch_packages(self, channel, missing_fs_packages, sources=0):
+        short_package_collection = sync_handlers.ShortPackageCollection()
         if sources:
         #    acronym = "SRPM"
             package_collection = sync_handlers.SourcePackageCollection()
         else:
         #    acronym = "RPM"
-            package_collection = sync_handlers.ShortPackageCollection()
+            package_collection = sync_handlers.PackageCollection()
 
         self._failed_fs_packages.clear()
         self._extinct_packages.clear()
@@ -1962,8 +1949,31 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         cfg = config.initUp2dateConfig()
         for package_id, path in missing_fs_packages:
             pkg_current = pkg_current + 1
-            timestamp = package_collection.get_package_timestamp(package_id)
+            timestamp = short_package_collection.get_package_timestamp(package_id)
             package = package_collection.get_package(package_id, timestamp)
+
+            checksum_type = package['checksum_type']
+            checksum = package['checksum']
+            package_size = package['package_size']
+            if not path:
+                nevra = []
+                for t in ['name', 'epoch', 'version', 'release', 'arch']:
+                    nevra.append(package[t])
+                orgid = None
+                if package['org_id']:
+                    orgid = OPTIONS.orgid or DEFAULT_ORG
+                path = self._get_rel_package_path(nevra, orgid, sources,
+                                                checksum_type, checksum)
+
+            # update package path
+            package['path'] = path
+            package_collection.add_package(package)
+
+            errcode = self._verify_file(path, l_timestamp, package_size,
+                                                checksum_type, checksum)
+            if errcode == 0:
+                # file is already there
+                continue
 
             rpmManip = RpmManip(package, path)
             nvrea = rpmManip.nvrea()
