@@ -84,7 +84,25 @@ public class ListTag extends BodyTagSupport {
     private String title;
     private boolean sortable;
     private boolean parentIsElement;
+    private boolean searchParent = true;
+    private boolean searchChild;
     
+    
+    /**
+     * @param searchParentIn The searchParent to set.
+     */
+    public void setSearchparent(String searchParentIn) {
+        searchParent = ListTagUtil.toBoolean(searchParentIn);
+    }
+
+    
+    /**
+     * @param searchChildIn The searchChild to set.
+     */
+    public void setSearchchild(String searchChildIn) {
+        searchChild = ListTagUtil.toBoolean(searchChildIn);
+    }
+
     /**
      * method to let the list tag know
      * that atleast one of its columns
@@ -587,7 +605,7 @@ public class ListTag extends BodyTagSupport {
         setPageSize();
         manip = new DataSetManipulator(pageSize, pageData,
                 (HttpServletRequest) pageContext.getRequest(), 
-                getUniqueName(), isParentAnElement());
+                getUniqueName(), isParentAnElement(), searchParent, searchChild);
         int retval = BodyTagSupport.EVAL_BODY_INCLUDE;
         emitId();
 
@@ -678,6 +696,8 @@ public class ListTag extends BodyTagSupport {
         title = null;
         sortable = false;
         parentIsElement = true;
+        searchParent = true;
+        searchChild = false;
         super.release();
     }
 

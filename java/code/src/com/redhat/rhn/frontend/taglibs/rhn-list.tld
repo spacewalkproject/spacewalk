@@ -91,7 +91,16 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
-   	
+   	<attribute>
+      <name>searchparent</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+   	<attribute>
+      <name>searchchild</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>       	
 	<attribute>
 		<name>reflink</name>
 		<required>false</required>

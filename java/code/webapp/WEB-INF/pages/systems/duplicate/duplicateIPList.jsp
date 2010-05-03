@@ -23,6 +23,8 @@
 <rl:list 
 	emptykey="nosystems.message"
 	parentiselement = "false"
+	searchparent="true"
+	searchchild="false"
 	>
 
 	<rl:rowrenderer name="ExpandableRowRenderer" />
@@ -44,7 +46,7 @@
 
 
 	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system" filterattr="id">
+	<rl:column headerkey="systemlist.jsp.system" filterattr="key">
 	    <rl:expandable rendericon="true">${current.key} <em>(${rl:countChildren(current)} systems)</em> </rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       

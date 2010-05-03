@@ -62,6 +62,9 @@ public class DataSetManipulator {
     private int unfilteredDataSize;
     private boolean parentIsAnElement;
     
+    private boolean searchParent;
+    private boolean searchChild;
+    
     private String defaultSortAttribute;
     private static final String IMG_FIRST = "/img/list-allbackward.gif";
     private static final String IMG_FIRST_UNFOCUSED = 
@@ -90,9 +93,15 @@ public class DataSetManipulator {
      * @param parentIsElement true of the parent value 
      *          in the list should be considered as an element
      *          this is useful for tree like data
+     * @param doSearchParent true if we want to search the parent value
+     *          in the list when filtering. 
+     * @param doSearchChild true if we want to search the child value
+     *          in the list when filtering.
      */
     public DataSetManipulator(int pageSizeIn, List datasetIn, 
-            HttpServletRequest requestIn, String listNameIn, boolean parentIsElement) {
+            HttpServletRequest requestIn, String listNameIn, 
+            boolean parentIsElement, boolean doSearchParent,
+            boolean doSearchChild) {
         pageSize = pageSizeIn;
         dataset = datasetIn;
         request = requestIn;
@@ -100,6 +109,8 @@ public class DataSetManipulator {
         totalDataSetSize = dataset.size();
         unfilteredDataSize = dataset.size();
         parentIsAnElement = parentIsElement;
+        searchParent = doSearchParent;
+        searchChild = doSearchChild;
     }
     
     private List expand(List data) {
@@ -109,9 +120,9 @@ public class DataSetManipulator {
             if (obj instanceof Expandable) {
                 Expandable ex = (Expandable) obj;
                 List children = ex.expand();
-                if (filter != null) {
+                if (searchChild  && filter != null) {
                     expanded.addAll(ListFilterHelper.filter(children,
-                            filter, filterBy, filterValue));
+                            filter, filterBy, filterValue, searchParent, searchChild));
                 }
                 else {
                     expanded.addAll(children);
@@ -410,7 +421,8 @@ public class DataSetManipulator {
             filterClass.setAttribute("value", f.getClass().getCanonicalName());
             ListTagUtil.write(context, filterClass.render());
                         
-            dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue);
+            dataset = ListFilterHelper.filter(dataset, f, filterBy, filterValue,
+                                                        searchParent, searchChild);
             totalDataSetSize = dataset.size();
         }
     }

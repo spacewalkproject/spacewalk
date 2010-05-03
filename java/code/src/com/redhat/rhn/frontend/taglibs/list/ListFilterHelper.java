@@ -39,10 +39,14 @@ public class ListFilterHelper {
      * @param filter the filter to use
      * @param filterBy which value to filter by in the bean
      * @param filterValue the value to filter on
+     * @param searchParent true if we want to search the parent value
+     *          in the list when filtering. 
+     * @param searchChild true if we want to search the child value
+     *          in the list when filtering.
      * @return the filtered list
      */
     public static List filter(List dataSet, ListFilter filter, String filterBy, 
-            String filterValue) {
+            String filterValue, boolean searchParent, boolean searchChild) {
         String tmp = null;
         try {
             tmp = URLDecoder.decode(filterBy, "UTF-8");
@@ -74,14 +78,18 @@ public class ListFilterHelper {
         Expandable parent = null;
         for (Object object : dataSet) {
             if (object instanceof Expandable) {
-                parent = (Expandable) object;
-                for (Object child : parent.expand()) {
-                    if (filter.filter(child, filterBy, filterValue)) {
-                        filteredData.add(parent);
-                        break;
+                if (searchParent && filter.filter(object, filterBy, filterValue)) {
+                    filteredData.add(object);
+                }
+                if (searchChild) {
+                    parent = (Expandable) object;
+                    for (Object child : parent.expand()) {
+                        if (filter.filter(child, filterBy, filterValue)) {
+                            filteredData.add(parent);
+                            break;
+                        }
                     }
                 }
-                
             }
             else if (filter.filter(object, filterBy, filterValue)) {
                 filteredData.add(object);
