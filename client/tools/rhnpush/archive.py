@@ -233,7 +233,10 @@ class ZipParser(ArchiveParser):
 
     def _get_archive_dir(self):
         list_cmd = "unzip -l %s" % (self._archive,)
-        return os.popen(list_cmd).readlines()[3].split()[3][:-1]
+        file = os.popen(list_cmd).readlines()[3].split()[3][:-1]
+        # file is usually top most dir... but not always
+        # take first directory from relative path
+        return file.split('/')[0]
 
     def _explode_cmd(self):
         """Return the appropriate command for exploding a zip archive"""
