@@ -103,7 +103,9 @@ public class BaseSetHelper {
                     filterList = ListFilterHelper.filter(dataSet, klass,
                             request.getParameter(
                                     ListTagUtil.makeFilterByLabel(uniqueName)),
-                                    ListTagHelper.getFilterValue(request, uniqueName));
+                                    ListTagHelper.getFilterValue(request, uniqueName),
+                                    ListTagHelper.canSearchByParent(request, uniqueName),
+                                    ListTagHelper.canSearchByChild(request, uniqueName));
                 }
             }
             else {

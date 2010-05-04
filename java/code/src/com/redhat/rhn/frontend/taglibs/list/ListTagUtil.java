@@ -46,6 +46,8 @@ import javax.servlet.jsp.tagext.Tag;
  * @version $Rev $
  */
 public class ListTagUtil {
+    private static final String HIDDEN_TEXT = "<input type=\"hidden\" " +
+                                                "name=\"%s\" value=\"%s\"/>";
     private static final String IE_MAGIC_SNIPPET = "<!--[if IE]><input type=\"text\" " +
             "style=\"display: none;\" disabled=\"disabled\" size=\"1\" /><![endif]-->";
     
@@ -292,6 +294,25 @@ public class ListTagUtil {
         return "list_" + listName + "_filterval";
     }
 
+    /**
+     * provides the filter label on the boolean search parent
+     * @param listName the list name
+     * @return the url key for filter value label
+     */
+    public static String makeFilterSearchParentLabel(String listName) {
+        return "list_" + listName + "_search_parent";
+    }
+
+    /**
+     * provides the filter label on the boolean search child
+     * @param listName the list name
+     * @return the url key for filter value label
+     */
+    public static String makeFilterSearchChildLabel(String listName) {
+        return "list_" + listName + "_search_child";
+    }
+    
+    
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -573,10 +594,13 @@ public class ListTagUtil {
      * @param uniqueName name of the list
      * @param width width of the list
      * @param columnCount list's column count
+     * @param searchParent true if list tag allows searching of parent
+     * @param searchChild true if the list tag allows searching of child
      * @throws JspException if something bad happens writing to the page
      */
     public static void renderFilterUI(PageContext pageContext, ListFilter filter,
-            String uniqueName, String width, int columnCount) throws JspException {
+            String uniqueName, String width, int columnCount, 
+             boolean searchParent, boolean searchChild) throws JspException {
         LocalizationService ls = LocalizationService.getInstance();
         HttpServletRequest request = (HttpServletRequest) pageContext
                 .getRequest();
@@ -586,15 +610,16 @@ public class ListTagUtil {
         String filterName = makeFilterNameByLabel(uniqueName);
         String filterValue =  ListTagHelper.getFilterValue(pageContext.getRequest(),
                 uniqueName);
-
+        
+        
         //We set this so we know next time around what the old filter value was
-        ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
-        ListTagUtil.write(pageContext, makeOldFilterValueByLabel(uniqueName));
-        ListTagUtil.write(pageContext, "\" value=\"");
-        ListTagUtil.write(pageContext, filterValue);
-        ListTagUtil.write(pageContext, "\" />");
-
-
+        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                        makeOldFilterValueByLabel(uniqueName), filterValue));
+        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                        makeFilterSearchParentLabel(uniqueName), searchParent));
+        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                        makeFilterSearchChildLabel(uniqueName), searchChild));        
+        
         ListTagUtil.write(pageContext, "<td");
         ListTagUtil.write(pageContext, " align=\"left\">");
         List fields = filter.getFieldNames();

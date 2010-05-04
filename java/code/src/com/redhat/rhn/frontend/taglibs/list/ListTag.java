@@ -461,7 +461,8 @@ public class ListTag extends BodyTagSupport {
             setupFilterUI();
             if (filter != null && !isEmpty()) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
-                            getUniqueName(), width, columnCount);
+                            getUniqueName(), width, columnCount,
+                            searchParent, searchChild);
             }
             if (isSortable()) {
                 String sortByLabel = ListTagUtil.makeSortByLabel(getUniqueName());
@@ -642,6 +643,9 @@ public class ListTag extends BodyTagSupport {
                 excludeParams.add(ListTagUtil.makeFilterByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeFilterValueByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeOldFilterValueByLabel(getUniqueName()));
+                excludeParams.add(ListTagUtil.makeFilterSearchChildLabel(getUniqueName()));
+                excludeParams.add(ListTagUtil.
+                        makeFilterSearchParentLabel(getUniqueName()));                
                              
                 ListTagUtil.write(pageContext,  
                         ListTagUtil.makeParamsLink(pageContext.getRequest(), name, 
