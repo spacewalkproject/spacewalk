@@ -221,6 +221,11 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>	    
     </attribute>
+	<attribute>
+      <name>filtermessage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>	    
+    </attribute>    
   </tag>
   <tag>
     <name>selectablecolumn</name>

@@ -45,7 +45,7 @@
 
 
 	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system" filterattr="key">
+	<rl:column headerkey="systemlist.jsp.system" filterattr="key" filtermessage="row.ip">
 	    <rl:expandable rendericon="true">${current.key} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       

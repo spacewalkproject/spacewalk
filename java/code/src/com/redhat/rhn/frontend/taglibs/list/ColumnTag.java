@@ -48,6 +48,15 @@ public class ColumnTag extends BodyTagSupport {
     protected boolean sortable;
     private String defaultSortDir;
     private String filterAttr;
+    private String filterMessage;
+    
+    /**
+     * @param filterMessageIn The filterMessage to set.
+     */
+    public void setFiltermessage(String filterMessageIn) {
+        filterMessage = filterMessageIn;
+    }
+
     /**
      * Sets sortable attribute
      * True values: true, t, yes, y, 1
@@ -186,6 +195,7 @@ public class ColumnTag extends BodyTagSupport {
         headerClass = null;
         filterAttr = null;
         sortable = false;
+        filterMessage = null;
     }
 
     protected void renderHeader() throws JspException {
@@ -439,7 +449,11 @@ public class ColumnTag extends BodyTagSupport {
     private void setupColumnFilter() throws JspException {
         ListTag parent = (ListTag)
                 BodyTagSupport.findAncestorWithClass(this, ListTag.class);
-        ColumnFilter f = new ColumnFilter(headerKey, filterAttr);
+        String key = headerKey;
+        if (!StringUtils.isBlank(filterMessage)) {
+            key = filterMessage;
+        }
+        ColumnFilter f = new ColumnFilter(key, filterAttr);
         parent.setColumnFilter(f);
     }
 }

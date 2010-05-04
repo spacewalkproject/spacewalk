@@ -48,20 +48,26 @@
 
     <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
     <group>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/profiles/Details</context>
+        </context-group>
 
         <trans-unit id="row.name">
             <source>Name</source>
-            <context-group name="ctx">
-                <context context-type="sourcefile">/rhn/profiles/Details</context>
-            </context-group>
         </trans-unit>
-
         <trans-unit id="row.description">
             <source>Description</source>
-            <context-group name="ctx">
-                <context context-type="sourcefile">/rhn/profiles/Details</context>
-            </context-group>
         </trans-unit>
+        <trans-unit id="row.ip">
+            <source>IP Address</source>
+        </trans-unit>
+		<trans-unit id="row.hostname">
+            <source>Hostname</source>
+        </trans-unit>
+
+		<trans-unit id="row.macaddress">
+            <source>Network Address</source>
+        </trans-unit>        
     </group>
 
     <!-- Generic buttons. The intent is that these can be reused across multiple pages.-->
