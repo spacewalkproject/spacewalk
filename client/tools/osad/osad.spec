@@ -168,7 +168,7 @@ fi
 %posttrans -n osa-dispatcher-selinux
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-  rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+  rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
   /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 fi
 
@@ -188,7 +188,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 
 %endif
