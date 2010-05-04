@@ -8,7 +8,9 @@ for selinuxvariant in mls strict targeted
         /usr/share/selinux/${selinuxvariant}/osa-dispatcher.pp || :
   done
 
-/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 || :
+/usr/sbin/semanage port -l \
+	| grep '^osa_dispatcher_upstream_notif_server_port_t\b.*\btcp\b.*\b1290\b' > /dev/null \
+	|| /usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290
 
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
