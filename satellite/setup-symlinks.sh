@@ -116,10 +116,6 @@ symlink $SVNDIR/eng/java/conf/workers.properties
 chdir /etc/init.d
 symlink $SVNDIR/eng/satellite/config/etc/init.d/satellite-httpd
 
-chdir /etc/sysconfig
-symlink $SVNDIR/eng/satellite/config/etc/sysconfig/satellite-httpd
-sudo sed -i 's/@@serverDOTnls_lang@@/english.UTF8/g' /etc/sysconfig/satellite-httpd
-
 chdir /var/www
 symlink $SVNDIR/eng/web/html
 
