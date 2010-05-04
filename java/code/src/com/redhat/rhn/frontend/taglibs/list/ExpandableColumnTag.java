@@ -83,6 +83,7 @@ public class ExpandableColumnTag  extends BodyTagSupport {
         String imageId = rowId + "-image";
         ListTagUtil.write(pageContext, String.format(IMAGE_SCRIPT,
                                             rowId, listName, imageId));
+        ListTagUtil.write(pageContext, "&nbsp;");
     }
     
     /** {@inheritDoc} 
