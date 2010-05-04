@@ -88,7 +88,6 @@ class Runner:
         'channels'                  : ['channel-families'],
         'channel-families'          : ['blacklists'],
         'blacklists'                : ['arches'],
-        'short'                     : [''],
         'download-errata'           : ['errata'],
         'download-packages'         : [''],
         'download-source-packages'  : [''],
@@ -103,7 +102,6 @@ class Runner:
         'arches',
         'channels',
         'blacklists',
-        'short',
         'download-packages',
         'rpms',
         'packages',
@@ -299,16 +297,6 @@ class Runner:
 
     def _step_blacklists(self):
         return self.syncer.processBlacklists()
-
-    def _step_short(self):
-        try:
-            return self.syncer.processShortPackages()
-        except xmlDiskSource.MissingXmlDiskSourceFileError, e:
-            msg= "ERROR: The dump is missing package data, use --no-rpms to skip this step or fix the content to include package data."
-            log2disk(-1, msg)
-            log2stderr(-1, msg, cleanYN=1)
-            sys.exit(25)
-            
 
     def _step_download_packages(self):
         return self.syncer.download_package_metadata()
@@ -852,37 +840,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             self._channel_packages[chn] = package_ids
             self._avail_channel_packages[chn] = avail_package_ids
 
-    def processShortPackages(self):
-        log(1, ["", "Retrieving short package metadata (used for indexing)"])
-
-        # Compute the unique packages and populate self._channel_packages
-        self._compute_unique_packages()
-
-        h = sync_handlers.get_short_package_handler()
-        stream_loader = StreamProducer(h)
-        if self.mountpoint:
-            s = xmlDiskSource.ShortPackageDiskSource(self.mountpoint)
-            stream_loader.set_disk_loader(s)
-        else:
-            s = self.xmlWireServer.getChannelShortPackagesXmlStream
-            stream_loader.set_wire_loader(s)
-
-        # OK, now uq_channel_packages only has the unique packages
-        for channel_label, package_ids in self._channel_packages.items():
-            # Pretend we fetch all packages
-            log(1, "   Retrieving / parsing short package metadata: %s (%s)" %
-                (channel_label, len(package_ids)))
-
-            lm = self._channel_collection.get_channel_timestamp(channel_label)
-            channel_last_modified = int(rhnLib.timestamp(lm))
-
-            stream_loader.set_args(channel_label, channel_last_modified)
-            stream_loader.process(package_ids)
-
-        h.close()
-
-        self._diff_packages()
-
     _query_compare_packages = """
         select p.id, c.checksum_type, c.checksum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
@@ -896,7 +853,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
     """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
-        package_collection = sync_handlers.ShortPackageCollection()
+        package_collection = sync_handlers.PackageCollection()
         h = rhnSQL.prepare(self._query_compare_packages)
 
         missing_channel_packages = {}
@@ -1067,7 +1024,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         missing_packages = {}
 
         # First, determine what has to be downloaded
-        short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
         for channel, pids in self._missing_channel_packages.items():
             missing_packages[channel] = mp = []
@@ -1078,7 +1034,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
             for pid in pids:
                 # XXX Catch errors
-                timestamp = short_package_collection.get_package_timestamp(pid)
+                timestamp = package_collection.get_package_timestamp(pid)
                 if not package_collection.has_package(pid, timestamp):
                     # not in the cache
                     mp.append(pid)
@@ -1086,9 +1042,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         return missing_packages
 
     def download_package_metadata(self):
-        log(1, ["", "Downloading package metadata"])
-        # Get the missing but uncached packages
-        missing_packages = self._missing_not_cached_packages()
+
+        # Compute the unique packages and populate self._channel_packages
+        self._compute_unique_packages()
 
         h = sync_handlers.get_package_handler()
         stream_loader = StreamProducer(h)
@@ -1099,7 +1055,12 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             s = self.xmlWireServer.getPackageXmlStream
             stream_loader.set_wire_loader(s)
 
-        for channel, pids in missing_packages.items():
+        log(1, ["", "Downloading package metadata"])
+        # Get the missing but uncached packages
+#        missing_packages = self._missing_not_cached_packages()
+
+
+        for channel, pids in self._channel_packages.items():
             package_count = len(pids)
 
             log(1, messages.package_parsing % (channel,
@@ -1114,6 +1075,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 pb.redrawYN = 0
             pb.printAll(1)
 
+	    lm = self._channel_collection.get_channel_timestamp(channel)
+	    channel_last_modified = int(rhnLib.timestamp(lm))
+
             ss = SequenceServer(pids[:], nevermorethan=self._batch_size)
             while not ss.doneYN():
                 chunk = ss.getChunk()
@@ -1125,6 +1089,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             pb.printComplete()
 
         h.close()
+
+        self._diff_packages()
 
         # Double-check that we got all the packages
         missing_packages = self._missing_not_cached_packages()
@@ -1760,12 +1726,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
     def _link_channel_packages(self):
         log(1, ["", messages.link_channel_packages])
-        short_package_collection = sync_handlers.ShortPackageCollection()
         package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
         for chn, package_ids in self._channel_packages.items():
             for pid in package_ids:
-                timestamp = short_package_collection.get_package_timestamp(pid)
+                timestamp = package_collection.get_package_timestamp(pid)
                 package = package_collection.get_package(pid, timestamp)
                 assert package is not None
                 channel_obj = {'label' : chn}
@@ -1799,14 +1764,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         """ short-circuit the most common case"""
         if not chunk:
             return []
-        short_package_collection = sync_handlers.ShortPackageCollection()
         if sources:
             package_collection = sync_handlers.SourcePackageCollection()
         else:
             package_collection = sync_handlers.PackageCollection()
         batch = []
         for pid in chunk:
-            timestamp = short_package_collection.get_package_timestamp(pid)
+            timestamp = package_collection.get_package_timestamp(pid)
             package = package_collection.get_package(pid, timestamp)
             if package is None:
                 # not in the cache
@@ -1853,7 +1817,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
     def _fix_erratum(self, erratum):
         """ Replace the list of packages with references to short packages"""
-        sp_coll = sync_handlers.ShortPackageCollection()
+        sp_coll = sync_handlers.PackageCollection()
         pids = unique(erratum['packages'])
         # map all the pkgs objects to the erratum
         packages = []
@@ -1909,7 +1873,6 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
 
     def _fetch_packages(self, channel, missing_fs_packages, sources=0):
-        short_package_collection = sync_handlers.ShortPackageCollection()
         if sources:
         #    acronym = "SRPM"
             package_collection = sync_handlers.SourcePackageCollection()
@@ -1924,7 +1887,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         cfg = config.initUp2dateConfig()
         for package_id, path in missing_fs_packages:
             pkg_current = pkg_current + 1
-            timestamp = short_package_collection.get_package_timestamp(package_id)
+            timestamp = package_collection.get_package_timestamp(package_id)
             package = package_collection.get_package(package_id, timestamp)
 
             checksum_type = package['checksum_type']
@@ -2419,7 +2382,6 @@ def processCommandline():
 
     if actionDict['no-packages']:
         actionDict['packages'] = 0
-        actionDict['short'] = 0
         actionDict['download-packages'] = 0
         actionDict['rpms'] = 0
         

@@ -288,9 +288,6 @@ class PackageCollection(ShortPackageCollection):
     def _init_cache(self):
         self._cache = syncCache.PackageCache()
 
-    def get_package_timestamp(self, package_id):
-        raise NotImplementedError
-
 class PackageContainer(xmlSource.PackageContainer):
 
     def endItemCallback(self):
