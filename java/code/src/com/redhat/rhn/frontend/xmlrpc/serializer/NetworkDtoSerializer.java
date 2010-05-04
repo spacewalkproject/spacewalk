@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -52,6 +54,11 @@ public class NetworkDtoSerializer implements XmlRpcCustomSerializer {
         NetworkDto net = (NetworkDto)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("systemId", net.getId());
+        String name = net.getName();
+        if (StringUtils.isBlank(name)) {
+            name = "unknown";
+        }
+        helper.add("systemName", name);
         helper.add("last_checkin", net.getLastCheckin());
         helper.writeTo(output);
     }

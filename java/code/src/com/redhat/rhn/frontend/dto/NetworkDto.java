@@ -25,8 +25,8 @@ import java.util.Date;
  * @version $Rev$
  */
 public class NetworkDto implements Identifiable {
- 
-    
+
+    private String name;
     private Long systemId;
     private String key;
     private Date lastCheckin;
@@ -83,7 +83,23 @@ public class NetworkDto implements Identifiable {
     public void setId(Long systemIdIn) {
         this.systemId = systemIdIn;
     }
-  
+
+    /**
+     * @return Returns the name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    
+    /**
+     * @param nameIn The name to set.
+     */
+    public void setName(String nameIn) {
+        name = nameIn;
+    }
+
+    
     /**
      * {@inheritDoc}
      */

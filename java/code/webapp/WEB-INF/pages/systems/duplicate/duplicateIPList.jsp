@@ -48,7 +48,17 @@
 	<rl:column headerkey="systemlist.jsp.system" filterattr="key" filtermessage="row.ip">
 	    <rl:expandable rendericon="true">${current.key} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
 	    
-	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       
+	    <rl:non-expandable rendericon="true">
+			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
+			<c:choose>
+				<c:when test="${empty current.name}">
+					<bean:message key="sdc.details.overview.unknown"/>
+				</c:when>
+				<c:otherwise>
+					<c:out value="${current.name}</a>" escapeXml="false" />
+				</c:otherwise>
+			</c:choose>
+	    </rl:non-expandable>       
 	</rl:column>
 	<rl:column headerkey="systemlist.jsp.last_checked_in"
 				styleclass="last-column">
