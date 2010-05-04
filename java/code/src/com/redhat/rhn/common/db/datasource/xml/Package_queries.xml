@@ -789,44 +789,34 @@ ORDER BY  UPPER(PN.name)
 
 <mode name="system_upgradable_package_list_no_errata_info">
   <query params="sid">
-SELECT  distinct
-        pn.name,
+SELECT  PN.name,
         NVL(PE.epoch, ' ') as FROM_EPOCH,
         NVL(PE.version, ' ') as FROM_VERSION,
         NVL(PE.release, ' ') as FROM_RELEASE,
         NVL(full_list.evr.epoch, ' ') as TO_EPOCH,
         NVL(full_list.evr.version, ' ') as TO_VERSION,
         NVL(full_list.evr.release, ' ') as TO_RELEASE,
+        full_list.arch_label as ARCH,
         P.id as TO_PACKAGE_ID
   FROM  (
          SELECT  SOP.package_name_id name_id,
-                 MAX(pe.evr) evr,
-                 SOP.server_id server_id,
-                 SOP.errata_id errata_id,
-                 SOP.errata_advisory errata_advisory,
-                 pe.id as evr_id
-           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+                 MAX(PE.evr) evr,
+                 MAX(PE.id) evr_id,
+                 SP.package_arch_id,
+                 PA.label as arch_label
+           FROM  rhnServerOutdatedPackages SOP
+                 INNER JOIN rhnServerPackage SP ON SP.server_id = SOP.server_id
+                 INNER JOIN rhnPackageEVR PE ON SOP.package_evr_id = PE.id
+                 LEFT JOIN rhnPackageArch PA ON PA.id = SP.package_arch_id
           WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id,
-        SOP.errata_advisory, pe.id
-        ) full_list,
-        rhnPackageEVR PE,
-        rhnPackageName PN,
-        rhnChannelNewestPackage CNP,
-        rhnServerChannel SC,
-        rhnServerPackage SP,
-        rhnPackage P
- WHERE  SC.server_id = :sid
-   AND  SP.server_id = :sid
-   AND  SP.name_id = PN.id
-   AND  SP.evr_id = PE.id
-   AND  SC.channel_id = CNP.channel_id
-   AND  CNP.name_id = full_list.name_id
-   AND  CNP.evr_id = full_list.evr_id
-   AND  full_list.name_id = PN.id
-   AND  P.evr_id = full_list.evr_id
-   AND  P.name_id = PN.id
+            AND  SOP.package_name_id = SP.name_id
+        GROUP BY SOP.package_name_id, SP.package_arch_id, PA.label
+        ) full_list
+        INNER JOIN rhnServerPackage SP ON ( full_list.name_id = SP.name_id AND full_list.package_arch_id = SP.package_arch_id )
+        INNER JOIN rhnPackageName PN ON ( PN.id = full_list.name_id )
+        INNER JOIN rhnPackageEVR PE ON ( SP.evr_id = PE.id )
+        INNER JOIN rhnPackage P on ( P.name_id = full_list.name_id AND P.evr_id = full_list.evr_id AND P.package_arch_id = full_list.package_arch_id )
+ WHERE  SP.server_id = :sid
   </query>
 </mode>
 
