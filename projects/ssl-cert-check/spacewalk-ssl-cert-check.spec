@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue May 04 2010 Jan Pazdziora 2.0-1
+- 461270 - replace our own ssl-cert-check with stock certwatch.
+
 * Thu Sep 24 2009 Miroslav Suchý <msuchy@redhat.com> 1.9-1
 - 524053 - Force to "upgrade" to older version of rhn-ssl-cert-check
 
