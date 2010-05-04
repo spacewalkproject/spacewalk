@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.decorators;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.taglibs.list.ListTag;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 
@@ -28,9 +29,9 @@ public class ExpansionDecorator extends BaseListDecorator {
 
     private static final String SHOW_ALL_SCRIPT = 
             "<a href=\"javascript:showAllRows(rowHash%s);\"" +
-            " style=\"cursor: pointer;\">Show All</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
+            " style=\"cursor: pointer;\">%s</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
             "<a href=\"javascript:hideAllRows(rowHash%s);\" " +
-            "style=\"cursor: pointer;\">Hide All</a>";
+            "style=\"cursor: pointer;\">%s</a>";
     
     private static final String NEW_VAR_SCRIPT = "<script type=\"text/javascript\">var " +
                                                        "rowHash%s = new Array();</script>";
@@ -52,8 +53,11 @@ public class ExpansionDecorator extends BaseListDecorator {
      */
     @Override
     public void beforeTopPagination() throws JspException {
-        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT,
-                                            listName, listName));   
+        LocalizationService ls = LocalizationService.getInstance();
+        ListTagUtil.write(pageContext, "<td class=\"list-sizeselector\">");
+        ListTagUtil.write(pageContext, String.format(SHOW_ALL_SCRIPT, listName, 
+                          ls.getMessage("show.all"), listName, ls.getMessage("hide.all")));
+        ListTagUtil.write(pageContext, "</td>");
     }
     
     /**

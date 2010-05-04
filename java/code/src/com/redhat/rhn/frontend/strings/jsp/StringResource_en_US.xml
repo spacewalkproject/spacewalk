@@ -76,6 +76,21 @@
 
     </group>
 
+      <trans-unit id="manysystems.message">
+<source>{0} systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+		  <context context-type="paramnotes">"6 systems"</context>
+        </context-group>
+     </trans-unit>
+      <trans-unit id="onesystem.message">
+<source>1 system</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
+		  <context context-type="paramnotes">"1 system"</context>
+        </context-group>
+     </trans-unit>
+
       <trans-unit id="nosystems.message">
 <source>No systems.</source>
         <context-group name="ctx">
@@ -12851,20 +12866,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
 		  <context context-type="paramnotes">"38 total"</context>
-        </context-group>
-     </trans-unit>
-      <trans-unit id="channelOverview.jsp.systems">
-<source>{0} systems</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-		  <context context-type="paramnotes">"6 systems"</context>
-        </context-group>
-     </trans-unit>
-      <trans-unit id="channelOverview.jsp.system">
-<source>{0} system</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/ChannelOverview.do</context>
-		  <context context-type="paramnotes">"1 system"</context>
         </context-group>
      </trans-unit>
       <trans-unit id="channelOverview.jsp.systems-subscribed">

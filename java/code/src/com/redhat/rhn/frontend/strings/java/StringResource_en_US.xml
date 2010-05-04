@@ -1645,6 +1645,20 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           </context>
         </context-group>
       </trans-unit>
+      
+      <trans-unit id="show.all">
+<source>Show All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hide.all">
+<source>Hide All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
+        </context-group>
+      </trans-unit>            
+      
       <trans-unit id="bad-class">
 <source>Class does not implement AclHandler: {0}</source>
         <context-group name="ctx">

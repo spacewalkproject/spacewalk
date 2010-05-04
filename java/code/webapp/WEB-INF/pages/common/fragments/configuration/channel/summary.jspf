@@ -25,12 +25,12 @@
 		<c:choose>
 			<c:when test="${summary.numSystems == 1}">
 				<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
-					key="channelOverview.jsp.system" arg0="${summary.numSystems}" /></a>
+					key="onesystem.message"/></a>
 				<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
 			</c:when>
 			<c:when test="${summary.numSystems > 1}">
 				<td><a href="/rhn/configuration/channel/ChannelSystems.do?ccid=${channel.id}"><bean:message
-					key="channelOverview.jsp.systems" arg0="${summary.numSystems}" /></a>
+					key="manysystems.message" arg0="${summary.numSystems}" /></a>
 				<bean:message key="channelOverview.jsp.systems-subscribed" /></td>
 			</c:when>
 			<c:otherwise>

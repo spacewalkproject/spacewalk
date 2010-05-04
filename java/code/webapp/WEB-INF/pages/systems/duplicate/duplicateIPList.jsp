@@ -23,7 +23,6 @@
 <rl:list 
 	emptykey="nosystems.message"
 	parentiselement = "false"
-	searchparent="true"
 	searchchild="false"
 	>
 
@@ -47,7 +46,7 @@
 
 	<!-- Name Column -->
 	<rl:column headerkey="systemlist.jsp.system" filterattr="key">
-	    <rl:expandable rendericon="true">${current.key} <em>(${rl:countChildren(current)} systems)</em> </rl:expandable>
+	    <rl:expandable rendericon="true">${current.key} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">${current.id}</rl:non-expandable>       
 	</rl:column>
