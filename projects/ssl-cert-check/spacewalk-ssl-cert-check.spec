@@ -5,11 +5,11 @@ License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Epoch:	 1
-Version: 1.9
+Version: 2.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: openssl
+Requires:  /etc/cron.daily/certwatch
 Obsoletes: rhn-ssl-cert-check < %{epoch}:%{version}
 Provides:  rhn-ssl-cert-check = %{epoch}:%{version}
 
@@ -27,10 +27,8 @@ administrator.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/%{_datadir}/ssl
 install -d $RPM_BUILD_ROOT/etc/cron.daily
 
-install -m755 ssl-cert-check $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
 install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 
 %clean
@@ -39,7 +37,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-) 
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
-%attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
 %doc LICENSE
 
 %changelog
