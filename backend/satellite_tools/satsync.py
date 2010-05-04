@@ -2036,37 +2036,6 @@ class StreamProducer:
             return
         raise Exception("No action for this stream producer")
 
-def _provisioningCapableYN():
-    """ 1 or 0, should be sync kickstart and other provisioning data?
-        NOTE: not currently used.
-    """
-
-    try:
-        h = rhnSQL.prepare("""\
-            SELECT 1
-            FROM web_contact WC,
-                 rhnOrgEntitlements OE,
-                 rhnOrgEntitlementType OET
-            WHERE WC.login_uc = 'NEUROID'
-              AND WC.org_id = OE.org_id
-              AND OET.id = OE.entitlement_id
-              AND OET.label = 'rhn_provisioning'
-        """)
-        h.execute()
-        if h.fetchone_dict():
-            return 1
-        else:
-            return 0
-    except (SQLError, SQLSchemaError, SQLConnectError), e:
-        # An SQL error is fatal... crash and burn
-        tbOut = cStringIO.StringIO()
-        Traceback(mail=0, ostream=tbOut, with_locals=1)
-        log(-1, 'SQL ERROR during xml processing: %s' % e, stream=sys.stderr)
-        log(-1, 'TRACEBACK: %s' % tbOut.getvalue(), stream=sys.stderr)
-        sys.exit(15)
-    return 1
-
-
 def _verifyPkgRepMountPoint():
     """ Checks the base package repository directory tree for
         existance and permissions.
