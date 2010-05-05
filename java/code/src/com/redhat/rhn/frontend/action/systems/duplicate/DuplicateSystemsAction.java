@@ -28,6 +28,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,10 +40,12 @@ import javax.servlet.http.HttpServletResponse;
  * SystemListAction
  * @version $Rev$
  */
-public class DuplicateIPListAction extends RhnAction  implements Listable {
+public class DuplicateSystemsAction extends RhnAction  implements Listable {
 
     private static final String INACTIVE_COUNT = "inactive_count";
-
+    private static final String MAC_ADDRESS = "macaddress";
+    private static final String HOSTNAME = "hostname";
+    private static final String IP_ADDRESS = "ip";
 
     /**
      * 
@@ -54,6 +57,7 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
             HttpServletResponse response) {
 
         RequestContext ctx = new RequestContext(request);
+        request.setAttribute(mapping.getParameter(), mapping.getParameter());
 
         long inactiveHours = 24;
         if (request.getParameter(INACTIVE_COUNT) != null) {
@@ -62,7 +66,8 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
         request.setAttribute(INACTIVE_COUNT, inactiveHours);
 
 
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request,
+                                    Collections.EMPTY_MAP, mapping.getParameter());
         helper.execute();
         if (helper.isDispatched()) {
             RequestContext context = new RequestContext(request);
@@ -103,6 +108,13 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
      */
     public List getResult(RequestContext contextIn) {
         Long count = (Long) contextIn.getRequest().getAttribute(INACTIVE_COUNT);
+        if (contextIn.getRequest().getAttribute(HOSTNAME) != null) {
+            return SystemManager.listDuplicatesByHostname
+                                (contextIn.getLoggedInUser(), count);
+        }
+        else if (contextIn.getRequest().getAttribute(MAC_ADDRESS) != null) {
+            return SystemManager.listDuplicatesByMac(contextIn.getLoggedInUser(), count);
+        }
         return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), count);
     }
 

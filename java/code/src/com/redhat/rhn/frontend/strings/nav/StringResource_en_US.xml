@@ -104,13 +104,40 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
       </trans-unit>
-
       <trans-unit id="Virtual Systems">
 <source>Virtual Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Systems Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Duplicate Systems">
+<source>Duplicate Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="duplicate.systems.nav.ips">
+<source>Duplicate IP Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Duplicate Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="duplicate.systems.nav.mac_address">
+<source>Duplicate MAC Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="duplicate.systems.nav.hostname">
+<source>Duplicate Hostname</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Systems Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      
 
       <trans-unit id="system.nav.outofdate">
 <source>Out of Date</source>

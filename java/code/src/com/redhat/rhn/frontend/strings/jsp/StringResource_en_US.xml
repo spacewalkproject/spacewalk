@@ -66,7 +66,7 @@
         </trans-unit>
 
 		<trans-unit id="row.macaddress">
-            <source>Network Address</source>
+            <source>MAC Address</source>
         </trans-unit>        
     </group>
 
@@ -5748,6 +5748,21 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
         </context-group>
       </trans-unit>
+
+      
+<!--- System Duplicates pages -->
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
+       </context-group>
+      <trans-unit id="duplicates.jsp.header">
+         <source>Duplicate System Profiles</source>
+     </trans-unit>
+    <trans-unit id="duplicate.jsp.message">
+         <source>Inactive system profiles are highlighted below.</source>
+     </trans-unit>
+     </group>
+
       
 <!--- System groups pages -->
      <group>

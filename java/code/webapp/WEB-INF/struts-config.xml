@@ -2406,16 +2406,44 @@
 
     <action path="/systems/DuplicateIPList"
         scope="request"
-        input="/WEB-INF/pages/systems/duplicate/duplicateIPList.jsp"
-        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateIPListAction"
+        input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
+        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateSystemsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-        parameter="dispatch">
+        parameter="ip">
         <forward name="default"
-                 path="/WEB-INF/pages/systems/duplicate/duplicateIPList.jsp"/>
+                 path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="success"
                   path="/systems/Overview.do"
                   redirect="true"/>                 
     </action>
+
+    <action path="/systems/DuplicateHostName"
+        scope="request"
+        input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
+        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="hostname">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
+         <forward name="success"
+                  path="/systems/Overview.do"
+                  redirect="true"/>                 
+    </action>
+    
+    <action path="/systems/DuplicateMacAddress"
+        scope="request"
+        input="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"
+        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="macaddress">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
+         <forward name="success"
+                  path="/systems/Overview.do"
+                  redirect="true"/>                 
+    </action>
+    
+            		 
     		  
     <action path="/systems/OutOfDate"
         scope="request"

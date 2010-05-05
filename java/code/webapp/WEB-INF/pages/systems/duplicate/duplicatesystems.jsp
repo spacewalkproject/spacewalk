@@ -13,16 +13,25 @@
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
  helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-ood">
-  <bean:message key="duplicate-ip.jsp.header"/>
+  <bean:message key="duplicates.jsp.header"/>
 </rhn:toolbar>
-<p>
-<bean:message key="duplicate-ip.jsp.message"/>
-</p>
+
+<c:choose>
+	<c:when test="${not empty requestScope.hostname}">
+		<c:set var="filtermessage" value="row.hostname"/>
+	</c:when>
+	<c:when test="${not empty requestScope.ip}">
+		<c:set var="filtermessage" value="row.ip"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="filtermessage" value="row.macaddress"/>
+	</c:otherwise>
+</c:choose>
+
 
 <rl:listset name="DupesListSet" legend="system">
 
-
-		<div align="right">
+		<p><bean:message key="duplicate.jsp.message"/><br/>
 			<bean:message key="duplicate-ip.jsp.inactive.header"/>
 			<select name="inactive_count" onChange="this.form.submit();">
 				<option value="4" 		<c:if test="${4 == inactive_count}">selected="selected"</c:if>  >
@@ -44,17 +53,14 @@
 					<bean:message key="duplicate-ip.jsp.inactive.sixmonths"/>
 				</option>
 			</select>
-		</div>
-
-
+		</p>
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/duplicate_systems_tabs.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <rl:list 
 	emptykey="nosystems.message"
 	parentiselement = "false"
 	searchchild="false"
 	>
-
-
-
 
 	<rl:rowrenderer name="ExpandableRowRenderer" />
 	<rl:decorator name="SelectableDecorator"/>
@@ -74,7 +80,7 @@
 
 
 	<!-- Name Column -->
-	<rl:column headerkey="systemlist.jsp.system" filterattr="key" filtermessage="row.ip">
+	<rl:column headerkey="systemlist.jsp.system" filterattr="key" filtermessage="${filtermessage}">
 	    <rl:expandable rendericon="true">${current.key} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">
@@ -97,9 +103,6 @@
 	</rl:column>
 
 </rl:list>
-
-<rl:csv exportColumns="key"/>
-
 <rhn:submitted/>
 
 </rl:listset>

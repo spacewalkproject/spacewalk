@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="duplicate_tabs" invisible="1" title-depth="1" 
+    acl_mixins="com.redhat.rhn.common.security.acl.action.ActionAclHandler">
+  <rhn-tab name="duplicate.systems.nav.ips">
+    <rhn-tab-url>/rhn/systems/DuplicateIPList.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="duplicate.systems.nav.hostname">
+    <rhn-tab-url>/rhn/systems/DuplicateHostName.do</rhn-tab-url>
+ </rhn-tab>
+  <rhn-tab name="duplicate.systems.nav.mac_address">
+    <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>
