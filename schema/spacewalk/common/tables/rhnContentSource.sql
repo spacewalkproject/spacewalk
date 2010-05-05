@@ -17,13 +17,10 @@
 --
 
 create table
-rhnChannelContentSource
+rhnContentSource
 (
         id		number NOT NULL
 			constraint rhn_ccs_id_pk primary key,
-        channel_id      number NOT NULL
-                        constraint rhn_ccs_c_fk
-                                references rhnChannel(id) on delete cascade,
         type_id         number NOT NULL
                         constraint rhn_ccs_type_fk
                                 references rhnContentSourceType(id),
@@ -41,7 +38,7 @@ create sequence rhn_chan_content_src_id_seq start with 500;
 
 
 create unique index rhn_ccs_uq
-	on rhnChannelContentSource(channel_id, type_id, source_url)
+	on rhnContentSource(channel_id, type_id, source_url)
 	tablespace [[64k_tbs]]
   ;
 
