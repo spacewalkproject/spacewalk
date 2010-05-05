@@ -233,8 +233,16 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, "id=\"");
         
         ListTagUtil.write(pageContext, checkboxId);
-        ListTagUtil.write(pageContext, "\" name=\"" + ListTagUtil.
-                                            makeSelectedItemsName(listName) + "\" ");
+        
+        
+        String itemsName = ListTagUtil.makeSelectedItemsName(listName);
+        ListTag parent = (ListTag)
+                    BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        if (!parent.isParentAnElement() &&
+                    RhnListTagFunctions.isExpandable(getCurrent())) {
+            itemsName = "parent_" + itemsName ;
+        }   
+        ListTagUtil.write(pageContext, "\" name=\"" + itemsName + "\" ");
         ListTagUtil.write(pageContext, "value=\"");
         ListTagUtil.write(pageContext, value);
         ListTagUtil.write(pageContext, "\" ");
@@ -359,8 +367,14 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, "<input type=\"hidden\" ");
         ListTagUtil.write(pageContext, "id=\"");
         ListTagUtil.write(pageContext, "list_items_" + listName + "_" + listId);
-        ListTagUtil.write(pageContext, "\" name=\"" + 
-                            ListTagUtil.makePageItemsName(listName) + "\" ");
+        String pageItems = ListTagUtil.makePageItemsName(listName);
+        ListTag parent = (ListTag)
+                    BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        if (!parent.isParentAnElement() &&
+                RhnListTagFunctions.isExpandable(getCurrent())) {
+            pageItems = "parent_" + pageItems ;
+        }
+        ListTagUtil.write(pageContext, "\" name=\"" + pageItems + "\" ");
         ListTagUtil.write(pageContext, "value=\"");
         ListTagUtil.write(pageContext, value);
         ListTagUtil.write(pageContext, "\" />\n");        

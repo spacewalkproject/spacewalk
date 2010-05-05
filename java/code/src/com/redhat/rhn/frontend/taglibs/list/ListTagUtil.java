@@ -586,6 +586,16 @@ public class ListTagUtil {
             }
         }
     }
+    
+    /**
+     * Returns the name of the attribute that holds the  parent is an element
+     * value (used by list tag)
+     * @param listName the list name
+     * @return the label of the parent is an element attribute
+     */
+    public static String makeParentIsAnElementLabel(String listName) {
+        return "list_" + listName + "_parent_is_an_element";
+    }    
 
     /**
      * Renders the filter UI
@@ -615,10 +625,7 @@ public class ListTagUtil {
         //We set this so we know next time around what the old filter value was
         ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
                         makeOldFilterValueByLabel(uniqueName), filterValue));
-        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                        makeFilterSearchParentLabel(uniqueName), searchParent));
-        ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
-                        makeFilterSearchChildLabel(uniqueName), searchChild));        
+
         
         ListTagUtil.write(pageContext, "<td");
         ListTagUtil.write(pageContext, " align=\"left\">");
