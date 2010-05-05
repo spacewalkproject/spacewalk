@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.9
+Version: 1.1.10
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -319,6 +319,30 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed May 05 2010 Tomas Lestach <tlestach@redhat.com> 1.1.10-1
+- 585901 - recursive comps search (tlestach@redhat.com)
+- More work on select all magic (paji@redhat.com)
+- 588901 - Fix listLatestUpgradablePackages API results
+  (joshua.roys@gtri.gatech.edu)
+- Fixed an accidental compile error that occured due to a previous commit
+  (paji@redhat.com)
+- Added some magic to show the system names and url instead of ids in the dups
+  page (paji@redhat.com)
+- added an nbsp to space the text better (paji@redhat.com)
+- Added a new tag attribute to filter by ip address (paji@redhat.com)
+- More list tag enhancements (paji@redhat.com)
+- Updated the list tag to deal with parent vs child filtering (paji@redhat.com)
+- More changes to properly handle selection javascript magic (paji@redhat.com)
+- Needed to add more JS magic to get selections to work (paji@redhat.com)
+- Quick fix to deal with a null pointer that would ve occued on a logdebg
+  (paji@redhat.com)
+- Added code to get checkbox grouping to work (paji@redhat.com)
+- Got the tree filters working (paji@redhat.com)
+- Fixed a checkstyle error (paji@redhat.com)
+- fixing RowRenderer, to do coloring more like the mockups
+  (jsherril@redhat.com)
+- Made the post reactivation key logic more fail safe.. (paji@redhat.com)
+
 * Thu Apr 29 2010 Partha Aji <paji@redhat.com> 1.1.9-1
 - Added new cobbler snippets to enable sytem reactivation on bare metal reprovisioning
   (paji@redhat.com)
