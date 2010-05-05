@@ -25,11 +25,30 @@ import java.util.Date;
  * @version $Rev$
  */
 public class NetworkDto implements Identifiable {
+
+
     private String name;
-    private Long systemId;
+    private Long id;
     private String key;
     private Date lastCheckin;
-    
+    private Long inactive;
+
+    /**
+     * Returns >0 if inactive
+     * @return if it is inactive
+     */
+    public Long getInactive() {
+        return inactive;
+    }
+
+    /**
+     * Set if it is inactive
+     * @param inactiveIn set to 1 or higher if inactive
+     */
+    public void setInactive(Long inactiveIn) {
+        this.inactive = inactiveIn;
+    }
+
     /**
      * @return Returns the lastCheckin.
      */
@@ -71,14 +90,14 @@ public class NetworkDto implements Identifiable {
      * @return Returns the systemId.
      */
     public Long getId() {
-        return systemId;
+        return id;
     }
     
     /**
      * @param systemIdIn The systemId to set.
      */
     public void setId(Long systemIdIn) {
-        this.systemId = systemIdIn;
+        this.id = systemIdIn;
     }
 
     /**

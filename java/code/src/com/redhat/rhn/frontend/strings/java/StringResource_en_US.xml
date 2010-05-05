@@ -8464,6 +8464,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.manage.merge.finished">
         <source>{0} Package(s) have been added and {1} Package(s) have been removed from the channel.</source>
      </trans-unit>
+     <trans-unit id="system.select.inactive">
+        <source>Select Inactive</source>
+     </trans-unit>
      <trans-unit id="package.jsp.key">
         <source>Signing Key</source>
      </trans-unit>

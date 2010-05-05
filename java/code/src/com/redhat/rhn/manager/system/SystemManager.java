@@ -78,8 +78,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
+import java.sql.Date;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -2662,12 +2664,20 @@ public class SystemManager extends BaseManager {
         return retval;
     }
     
-    private static List listDuplicates(User user, String query, List ignored) {
+    private static List listDuplicates(User user, String query,
+                                List ignored, Long inactiveHours) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, (0 - inactiveHours.intValue()));
+
         SelectMode ipMode = ModeFactory.getMode("System_queries",
-        query);
+                query);
+
+        Date d = new Date(cal.getTimeInMillis());
     
         Map params = new HashMap();
         params.put("uid", user.getId());
+        params.put("inactive_date", d);
         DataResult<NetworkDto> nets;
         if (ignored.isEmpty()) {
             nets = ipMode.execute(params);
@@ -2696,36 +2706,42 @@ public class SystemManager extends BaseManager {
     /**
      * List duplicate systems by ip address
      * @param user the user doing the search
+     * @param inactiveHours the number of hours a system hasn't checked in
+     *          to consider it inactive
      * @return List of DuplicateSystemGrouping objects
      */
-    public static List listDuplicatesByIP(User user) {
+    public static List listDuplicatesByIP(User user, long inactiveHours) {
         List ignoreIps = new ArrayList();
         ignoreIps.add("127.0.0.1");
         ignoreIps.add("127.0.0.01");
         ignoreIps.add("0");
-        return listDuplicates(user, "duplicate_system_ids_ip", ignoreIps);
+        return listDuplicates(user, "duplicate_system_ids_ip", ignoreIps, inactiveHours);
     }
     
     /**
      * List duplicate systems by mac address
      * @param user the user doing the search
+     * @param inactiveHours the number of hours a system hasn't checked in
+     *          to consider it inactive
      * @return List of DuplicateSystemGrouping objects
      */
-    public static List listDuplicatesByMac(User user) {
+    public static List listDuplicatesByMac(User user, Long inactiveHours) {
         List ignoreMacs = new ArrayList();
         ignoreMacs.add("00:00:00:00:00:00");
         ignoreMacs.add("fe:ff:ff:ff:ff:ff");
-        return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs);
+        return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs, 0L);
     }
     
     /**
      * List duplicate systems by hostname
      * @param user the user doing the search
+     * @param inactiveHours the number of hours a system hasn't checked in
+     *          to consider it inactive
      * @return List of DuplicateSystemBucket objects
      */
-    public static List listDuplicatesByHostname(User user) {
+    public static List listDuplicatesByHostname(User user, Long inactiveHours) {
         return listDuplicates(user, "duplicate_system_ids_hostname", 
-                Collections.EMPTY_LIST);
+                Collections.EMPTY_LIST, 0L);
     }
     
     

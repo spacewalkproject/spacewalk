@@ -14,17 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.systems.duplicate;
 
+import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.system.DuplicateSystemGrouping;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +40,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class DuplicateIPListAction extends RhnAction  implements Listable {
+
+    private static final String INACTIVE_COUNT = "inactive_count";
+
+
     /**
      * 
      * {@inheritDoc}
@@ -42,15 +52,46 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
+
+        RequestContext ctx = new RequestContext(request);
+
+        long inactiveHours = 24;
+        if (request.getParameter(INACTIVE_COUNT) != null) {
+            inactiveHours = Long.parseLong(request.getParameter(INACTIVE_COUNT));
+        }
+        request.setAttribute(INACTIVE_COUNT, inactiveHours);
+
+
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
         helper.execute();
         if (helper.isDispatched()) {
             RequestContext context = new RequestContext(request);
             return handleConfirm(context, mapping);
         }
+
+
+        String inactiveButton = ListTagUtil.makeExtraButtonName(helper.getUniqueName());
+        if (!StringUtils.isBlank(request.getParameter(inactiveButton))) {
+            List<DuplicateSystemGrouping> list = getResult(ctx);
+            Set set = new HashSet();
+            for (DuplicateSystemGrouping grp : list) {
+                for (NetworkDto dto : grp.getSystems()) {
+                    if (dto.getInactive() > 0) {
+                        set.add(dto.getId().toString());
+                    }
+                }
+            }
+            helper.getSet().addAll(set);
+            helper.resync(request);
+        }
+
+
+
+        request.setAttribute(inactiveButton,
+                "system.select.inactive");
         return mapping.findForward("default");
     }
-    
+
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
 
@@ -61,6 +102,9 @@ public class DuplicateIPListAction extends RhnAction  implements Listable {
      * {@inheritDoc}
      */
     public List getResult(RequestContext contextIn) {
-        return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser());
+        Long count = (Long) contextIn.getRequest().getAttribute(INACTIVE_COUNT);
+        return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), count);
     }
+
+
 }

@@ -179,6 +179,13 @@ public class ListHelper {
         return listName;
     }
 
+    /**
+     * @return the listName but in it's unique form
+     */
+    public String getUniqueName() {
+        return TagHelper.generateUniqueName(getListName());
+    }
+
     
     /**
      * the list name. This is the name that uniquely

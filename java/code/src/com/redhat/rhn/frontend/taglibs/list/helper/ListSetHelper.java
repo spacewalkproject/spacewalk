@@ -91,6 +91,8 @@ abstract class ListSetHelper extends ListHelper {
     private boolean preSelectAll = false;
     private boolean parentIsElement = true;
     private Set initSet = Collections.EMPTY_SET; 
+    private List dataList;
+
     /**
      * constructor
      * @param inp takes in a ListSubmitable
@@ -166,12 +168,12 @@ abstract class ListSetHelper extends ListHelper {
             }
         }
         
-        List dataSet = getDataSet();
+        dataList = getDataSet();
         
 
         if (!context.isSubmitted() && alphaBarPressed == null && preSelectAll) {
             Set selSet = new HashSet();
-            for (BaseDto bdto : (List<BaseDto>) dataSet) {
+            for (BaseDto bdto : (List<BaseDto>) dataList) {
                 selSet.add(bdto.getId());
             }
             add(selSet);
@@ -179,12 +181,12 @@ abstract class ListSetHelper extends ListHelper {
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(getListName(), request) != null) {
-            execute(dataSet);
+            execute(dataList);
         }
 
         // if I have a previous set selections populate data using it       
         if (size() > 0) {
-            syncSelections(dataSet, request);
+            syncSelections(dataList, request);
         }
         ListTagHelper.setSelectedAmount(getListName(),
                                                 size(), request);
@@ -205,6 +207,18 @@ abstract class ListSetHelper extends ListHelper {
         }
     }
     
+    /**
+     * resync the selected objects in case you have added anything to set after
+     *  it was executed
+     * @param request the request
+     */
+    public void resync(HttpServletRequest request) {
+        syncSelections(dataList, request);
+        ListTagHelper.setSelectedAmount(getListName(),
+                size(), request);
+    }
+
+
     /**
      * Returns the name of the selections key.
      * @param listName the name of the list 

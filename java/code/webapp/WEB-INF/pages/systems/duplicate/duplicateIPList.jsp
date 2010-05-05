@@ -20,15 +20,46 @@
 </p>
 
 <rl:listset name="DupesListSet" legend="system">
+
+
+		<div align="right">
+			<bean:message key="duplicate-ip.jsp.inactive.header"/>
+			<select name="inactive_count" onChange="this.form.submit();">
+				<option value="4" 		<c:if test="${4 == inactive_count}">selected="selected"</c:if>  >
+					<bean:message key="duplicate-ip.jsp.inactive.fourhours"/>
+				</option>
+				<option value="12"  <c:if test="${12 == inactive_count}">selected="selected"</c:if> >
+					<bean:message key="duplicate-ip.jsp.inactive.twelvehours"/>
+				</option>
+				<option value="24" <c:if test="${24 == inactive_count}">selected="selected"</c:if> >
+					<bean:message key="duplicate-ip.jsp.inactive.oneday"/>
+				</option>
+				<option value="168" <c:if test="${168 == inactive_count}">selected="selected"</c:if> >
+					<bean:message key="duplicate-ip.jsp.inactive.oneweek"/>
+				</option>
+				<option value="720" <c:if test="${720 == inactive_count}">selected="selected"</c:if> >
+					<bean:message key="duplicate-ip.jsp.inactive.onemonth"/>
+				</option>
+				<option value="4320" <c:if test="${4320 == inactive_count}">selected="selected"</c:if> >
+					<bean:message key="duplicate-ip.jsp.inactive.sixmonths"/>
+				</option>
+			</select>
+		</div>
+
+
 <rl:list 
 	emptykey="nosystems.message"
 	parentiselement = "false"
 	searchchild="false"
 	>
 
+
+
+
 	<rl:rowrenderer name="ExpandableRowRenderer" />
 	<rl:decorator name="SelectableDecorator"/>
 	<rl:decorator name="ExpansionDecorator"/>
+	<rl:decorator name="ExtraButtonDecorator"/>
 	<c:choose>
 		<c:when test = "${rl:expandable(current)}">
 		<rl:selectablecolumn value="${current.key}"

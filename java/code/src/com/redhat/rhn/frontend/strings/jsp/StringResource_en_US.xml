@@ -21638,7 +21638,27 @@ given channel.</source>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       </trans-unit>
-
+	<trans-unit id="duplicate-ip.jsp.inactive.fourhours">
+		<source>4 Hours</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.twelvehours">
+		<source>12 Hours</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.oneday">
+		<source>1 Day</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.oneweek">
+		<source>1 Week</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.onemonth">
+		<source>1 Month</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.sixmonths">
+		<source>6 Month</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.header">
+		<source>A system profile is inactive if its system has not checked in for:</source>
+	</trans-unit>
   </body>
   </file>
 </xliff>
