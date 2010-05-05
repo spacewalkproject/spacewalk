@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -238,6 +238,9 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed May 05 2010 Justin Sherrill <jsherril@redhat.com> 1.0.5-1
+- 
+
 * Wed May 05 2010 Jan Pazdziora 1.0.2-1
 - 589100 - address issue when clients were not able to register to the server.
 
