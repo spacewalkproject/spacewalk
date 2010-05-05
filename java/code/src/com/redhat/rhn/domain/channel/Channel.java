@@ -847,16 +847,18 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return ChannelFactory.containsDistributions(this);
     }
 
-
+    /**
+     *
+     * @param sourceIn source repo to add
+     */
     public void addYumContentSource(ContentSource sourceIn) {
-
+        this.getSources().add(sourceIn);
         ChannelFactory.save(this);
     }
-    
 
     /**
      * get the compatible checksum type to be used for repomd.xml
-     * based on channel release. 
+     * based on channel release.
      * If its a custom channel use the checksum_type_id from db set at creation time
      * If its RHEL-5 we use sha1 anything newer will be sha256.
      * @return checksumType
