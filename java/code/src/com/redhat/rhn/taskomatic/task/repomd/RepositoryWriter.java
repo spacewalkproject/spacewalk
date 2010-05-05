@@ -94,160 +94,185 @@ public class RepositoryWriter {
         
         PackageManager.createRepoEntrys(channel.getId());
         
-        log.info("Generating new repository metatada for channel '" +
-                channel.getLabel() + "' " + channel.getPackageCount() +
-                " packages, " + channel.getErrataCount() + " updates");
-        String prefix = mountPoint + File.separator + pathPrefix +
-                File.separator + channel.getLabel() + File.separator;
-
-        if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
-            throw new RepomdRuntimeException("Unable to create directory: " +
-                    prefix);
-        }
-
-        CompressingDigestOutputWriter primaryFile;
-        CompressingDigestOutputWriter filelistsFile;
-        CompressingDigestOutputWriter otherFile;
-                
-        // Get compatible checksumType
-        this.checksumtype = channel.getChecksumTypeLabel();
+        String prefix = mountPoint + File.separator + pathPrefix
+            + File.separator + channel.getLabel() + File.separator;
         
-        log.info("Checksum Type Value" + this.checksumtype);
+        if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
+            log.info("Generating new DEB repository for channel " + channel.getLabel());
+            generateDebRepository(channel, prefix);
+        }
+        else {
+            log.info("Generating new repository metatada for channel '"
+                    + channel.getLabel() + "' " + channel.getPackageCount()
+                    + " packages, " + channel.getErrataCount() + " updates");
 
-        // java.security.MessageDigest recognizes:
-        // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
-        String checksumAlgo = this.checksumtype;
-        if (checksumAlgo.toUpperCase().startsWith("SHA")) {
-            checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
-                           this.checksumtype.substring(3);
-        }
-        // translate sha1 to sha for xml repo files
-        String checksumLabel = this.checksumtype;
-        if (checksumLabel.equals("sha1")) {
-            checksumLabel = "sha";
-        }
-        
-        try {
-            primaryFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + PRIMARY_FILE), checksumAlgo);
-            filelistsFile = new CompressingDigestOutputWriter(
-                    new FileOutputStream(prefix + FILELISTS_FILE), checksumAlgo);
-            otherFile = new CompressingDigestOutputWriter(new FileOutputStream(
-                    prefix + OTHER_FILE), checksumAlgo);
-        }
-        catch (IOException e) {
-            throw new RepomdRuntimeException(e);
-        }
-        catch (NoSuchAlgorithmException e) {
-            throw new RepomdRuntimeException(e);
-        }
+            if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
+                throw new RepomdRuntimeException("Unable to create directory: "
+                        + prefix);
+            }
 
-        BufferedWriter primaryBufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(primaryFile));
-        BufferedWriter filelistsBufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(filelistsFile));
-        BufferedWriter otherBufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(otherFile));
-        PrimaryXmlWriter primary = new PrimaryXmlWriter(primaryBufferedWriter);
-        FilelistsXmlWriter filelists = new FilelistsXmlWriter(
-                filelistsBufferedWriter);
-        OtherXmlWriter other = new OtherXmlWriter(otherBufferedWriter);
-        Date start = new Date();
-        
-        primary.begin(channel);
-        filelists.begin(channel);
-        other.begin(channel);
-        
-        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
-        while (iter.hasNext()) {
-            PackageDto pkgDto = (PackageDto) iter.next();
-            primary.addPackage(pkgDto);
-            filelists.addPackage(pkgDto);
-            other.addPackage(pkgDto);
+            CompressingDigestOutputWriter primaryFile;
+            CompressingDigestOutputWriter filelistsFile;
+            CompressingDigestOutputWriter otherFile;
+
+            // Get compatible checksumType
+            this.checksumtype = channel.getChecksumTypeLabel();
+
+            log.info("Checksum Type Value" + this.checksumtype);
+
+            // java.security.MessageDigest recognizes:
+            // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
+            String checksumAlgo = this.checksumtype;
+            if (checksumAlgo.toUpperCase().startsWith("SHA")) {
+                checksumAlgo = this.checksumtype.substring(0, 3) + "-"
+                        + this.checksumtype.substring(3);
+            }
+            // translate sha1 to sha for xml repo files
+            String checksumLabel = this.checksumtype;
+            if (checksumLabel.equals("sha1")) {
+                checksumLabel = "sha";
+            }
+
             try {
-                primaryFile.flush();
-                filelistsFile.flush();
-                otherFile.flush();
+                primaryFile = new CompressingDigestOutputWriter(
+                        new FileOutputStream(prefix + PRIMARY_FILE),
+                        checksumAlgo);
+                filelistsFile = new CompressingDigestOutputWriter(
+                        new FileOutputStream(prefix + FILELISTS_FILE),
+                        checksumAlgo);
+                otherFile = new CompressingDigestOutputWriter(
+                        new FileOutputStream(prefix + OTHER_FILE), checksumAlgo);
             }
             catch (IOException e) {
                 throw new RepomdRuntimeException(e);
             }
-        }
-        primary.end();
-        filelists.end();
-        other.end();
-        try {
-            primaryBufferedWriter.close();
-            filelistsBufferedWriter.close();
-            otherBufferedWriter.close();
-        }
-        catch (IOException e) {
-            throw new RepomdRuntimeException(e);
-        }
-        
-        RepomdIndexData primaryData = new RepomdIndexData(primaryFile
-                .getCompressedChecksum(),
-                primaryFile.getUncompressedChecksum(), channel
-                        .getLastModified());
-        RepomdIndexData filelistsData = new RepomdIndexData(filelistsFile
-                .getCompressedChecksum(), filelistsFile
-                .getUncompressedChecksum(), channel.getLastModified());
-        RepomdIndexData otherData = new RepomdIndexData(otherFile
-                .getCompressedChecksum(), otherFile.getUncompressedChecksum(),
-                channel.getLastModified());
+            catch (NoSuchAlgorithmException e) {
+                throw new RepomdRuntimeException(e);
+            }
 
-        log.info("Starting updateinfo generation for '" + channel.getLabel() +
-                '"');
-        log.info("Checksum Type Value for generate updateinfo" + this.checksumtype);
-        RepomdIndexData updateinfoData = generateUpdateinfo(channel, prefix, 
-                checksumAlgo);
+            BufferedWriter primaryBufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(primaryFile));
+            BufferedWriter filelistsBufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(filelistsFile));
+            BufferedWriter otherBufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(otherFile));
+            PrimaryXmlWriter primary = new PrimaryXmlWriter(
+                    primaryBufferedWriter);
+            FilelistsXmlWriter filelists = new FilelistsXmlWriter(
+                    filelistsBufferedWriter);
+            OtherXmlWriter other = new OtherXmlWriter(otherBufferedWriter);
+            Date start = new Date();
 
-        RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
+            primary.begin(channel);
+            filelists.begin(channel);
+            other.begin(channel);
 
-        //Set the type so yum can read and perform checksum
-        primaryData.setType(checksumLabel);
-        filelistsData.setType(checksumLabel);
-        otherData.setType(checksumLabel);
-        if (updateinfoData != null) {
-            updateinfoData.setType(checksumLabel);
+            Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
+            while (iter.hasNext()) {
+                PackageDto pkgDto = (PackageDto) iter.next();
+                primary.addPackage(pkgDto);
+                filelists.addPackage(pkgDto);
+                other.addPackage(pkgDto);
+                try {
+                    primaryFile.flush();
+                    filelistsFile.flush();
+                    otherFile.flush();
+                }
+                catch (IOException e) {
+                    throw new RepomdRuntimeException(e);
+                }
+            }
+            primary.end();
+            filelists.end();
+            other.end();
+            try {
+                primaryBufferedWriter.close();
+                filelistsBufferedWriter.close();
+                otherBufferedWriter.close();
+            }
+            catch (IOException e) {
+                throw new RepomdRuntimeException(e);
+            }
+
+            RepomdIndexData primaryData = new RepomdIndexData(primaryFile
+                    .getCompressedChecksum(), primaryFile
+                    .getUncompressedChecksum(), channel.getLastModified());
+            RepomdIndexData filelistsData = new RepomdIndexData(filelistsFile
+                    .getCompressedChecksum(), filelistsFile
+                    .getUncompressedChecksum(), channel.getLastModified());
+            RepomdIndexData otherData = new RepomdIndexData(otherFile
+                    .getCompressedChecksum(), otherFile
+                    .getUncompressedChecksum(), channel.getLastModified());
+
+            log.info("Starting updateinfo generation for '"
+                    + channel.getLabel() + '"');
+            log.info("Checksum Type Value for generate updateinfo"
+                    + this.checksumtype);
+            RepomdIndexData updateinfoData = generateUpdateinfo(channel,
+                    prefix, checksumAlgo);
+
+            RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
+
+            // Set the type so yum can read and perform checksum
+            primaryData.setType(checksumLabel);
+            filelistsData.setType(checksumLabel);
+            otherData.setType(checksumLabel);
+            if (updateinfoData != null) {
+                updateinfoData.setType(checksumLabel);
+            }
+
+            if (groupsData != null) {
+                groupsData.setType(checksumLabel);
+            }
+
+            log.info("Primary xml's type" + primaryData.getType());
+            log.info("filelists xml's type" + filelistsData.getType());
+            log.info("other xml's type" + otherData.getType());
+
+            FileWriter indexFile;
+
+            try {
+                indexFile = new FileWriter(prefix + REPOMD_FILE);
+            }
+            catch (IOException e) {
+                throw new RepomdRuntimeException(e);
+            }
+
+            RepomdIndexWriter index = new RepomdIndexWriter(indexFile,
+                    primaryData, filelistsData, otherData, updateinfoData,
+                    groupsData);
+
+            index.writeRepomdIndex();
+
+            try {
+                indexFile.close();
+            }
+            catch (IOException e) {
+                throw new RepomdRuntimeException(e);
+            }
+
+            renameFiles(prefix, channel.getLastModified().getTime(),
+                    updateinfoData != null);
+
+            log.info("Repository metadata generation for '"
+                    + channel.getLabel() + "' finished in "
+                    + (int) (new Date().getTime() - start.getTime()) / 1000
+                    + " seconds");
         }
-        
-        if (groupsData != null) {
-            groupsData.setType(checksumLabel);
+    }
+    
+    /**
+     * Create repository for APT
+     * @param channel
+     */
+    private void generateDebRepository(Channel channel, String prefix) {
+        DebPackageWriter writer = new DebPackageWriter(channel, prefix);
+        Iterator iter = TaskManager.getChannelPackageDtoIterator(channel);
+        while (iter.hasNext()) {
+            PackageDto pkgDto = (PackageDto) iter.next();
+            writer.addPackage(pkgDto);
         }
-        
-        log.info("Primary xml's type" + primaryData.getType());
-        log.info("filelists xml's type" + filelistsData.getType());
-        log.info("other xml's type" + otherData.getType());
-        
-        FileWriter indexFile;
-
-        try {
-            indexFile = new FileWriter(prefix + REPOMD_FILE);
-        }
-        catch (IOException e) {
-            throw new RepomdRuntimeException(e);
-        }
-
-        RepomdIndexWriter index = new RepomdIndexWriter(indexFile, primaryData,
-                filelistsData, otherData, updateinfoData, groupsData);
-
-        index.writeRepomdIndex();
-
-        try {
-            indexFile.close();
-        }
-        catch (IOException e) {
-            throw new RepomdRuntimeException(e);
-        }
-
-        renameFiles(prefix, channel.getLastModified().getTime(),
-                updateinfoData != null);
-
-        log.info("Repository metadata generation for '" + channel.getLabel() +
-                "' finished in " +
-                (int) (new Date().getTime() - start.getTime()) / 1000 +
-                " seconds");
+        writer.generatePackagesGz();
     }
 
     private String getCompsRelativeFilename(Channel channel) {
