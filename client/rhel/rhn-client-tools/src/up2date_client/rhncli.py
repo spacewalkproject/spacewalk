@@ -42,6 +42,9 @@ from up2date_client import up2dateErrors
 from up2date_client import up2dateLog
 from up2date_client import up2dateUtils
 
+
+cfg = config.initUp2dateConfig()
+
 _optionsTable = [
     Option("-v", "--verbose", action="count", default=0,
         help=_("Show additional output")),
