@@ -28,7 +28,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +44,6 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
     private static final String INACTIVE_COUNT = "inactive_count";
     private static final String MAC_ADDRESS = "macaddress";
     private static final String HOSTNAME = "hostname";
-    private static final String IP_ADDRESS = "ip";
-
     /**
      * 
      * {@inheritDoc}
@@ -66,8 +63,8 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
         request.setAttribute(INACTIVE_COUNT, inactiveHours);
 
 
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request,
-                                    Collections.EMPTY_MAP, mapping.getParameter());
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        helper.setWillClearSet(false);
         helper.execute();
         if (helper.isDispatched()) {
             RequestContext context = new RequestContext(request);
