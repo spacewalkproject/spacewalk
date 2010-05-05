@@ -18,6 +18,9 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
+import com.redhat.rhn.frontend.taglibs.list.SelectableColumnTag;
+
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspException;
 
@@ -28,6 +31,9 @@ import javax.servlet.jsp.JspException;
  */
 public class SelectableDecorator extends BaseListDecorator {
     private static final String NULL_SELECTION = "0";
+    private static final String JAVASCRIPT_TAG =
+                    "<script type=\"text/javascript\">%s</script>";    
+    
     /**
      * {@inheritDoc}
      */
@@ -59,11 +65,16 @@ public class SelectableDecorator extends BaseListDecorator {
      */    
     public void afterList() throws JspException {
         renderSelectButtons();
+        String script = SelectableColumnTag.
+                        getPostScript(listName, pageContext.getRequest());
+        if (!StringUtils.isBlank(script)) {
+            ListTagUtil.write(pageContext, String.format(JAVASCRIPT_TAG, script));    
+        }
     }
     
     private void renderSelectedCaption(boolean isHeader) throws JspException {
         if (!currentList.isEmpty()) {
-            String selectedName = "list_" + listName + "_selected_amt";
+            String selectedName = ListTagUtil.makeSelectedAmountName(listName);
             String selected = (String) pageContext.getRequest().getAttribute(selectedName);
             if (selected == null) {
                 selected = NULL_SELECTION;
@@ -115,5 +126,4 @@ public class SelectableDecorator extends BaseListDecorator {
             ListTagUtil.write(pageContext, buf.toString());
         }
     }
-
 }

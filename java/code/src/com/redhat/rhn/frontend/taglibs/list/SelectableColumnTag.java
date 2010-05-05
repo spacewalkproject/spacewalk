@@ -17,9 +17,13 @@ package com.redhat.rhn.frontend.taglibs.list;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.struts.Expandable;
 import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Map;
+
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -34,8 +38,12 @@ public class SelectableColumnTag extends TagSupport {
     
     private static final long serialVersionUID = 2749189931275777440L;
     private static final String CHECKBOX_CLICKED_SCRIPT = 
-                    "process_checkbox_clicked(this,'%s', this.form.%s, %s, %s, '%s', %s)";
-    private static final String CHECK_ALL_SCRIPT = "process_check_all('%s', %s, %s, %s)";
+                    "%s(%s,'%s', document.getElementById('%s'), %s, %s, '%s', %s);";
+    private static final String CLICKED_COMPLETE = "process_checkbox_clicked";
+    private static final String CLICKED_CLIENT_SIDE = 
+                                        "process_checkbox_clicked_client_side";
+    
+    private static final String CHECK_ALL_SCRIPT = "process_check_all('%s', %s, %s, %s);";
     private String valueExpr;
     private String selectExpr;
     private String disabledExpr;
@@ -45,6 +53,7 @@ public class SelectableColumnTag extends TagSupport {
     private String headerKey;
     private String listName;
     private String rhnSet;
+
     /**
      * Sets the column width
      * @param widthIn column width
@@ -187,8 +196,13 @@ public class SelectableColumnTag extends TagSupport {
     private void renderOnClickForSelectAll() throws JspException {
         ListTagUtil.write(pageContext, "<input type=\"checkbox\" ");
         ListTagUtil.write(pageContext, " name=\"");
-        ListTagUtil.write(pageContext, makeSelectAllCheckboxName());
+        ListTagUtil.write(pageContext, makeSelectAllCheckboxName(listName));
         ListTagUtil.write(pageContext, "\" ");
+        
+        ListTagUtil.write(pageContext, " id=\"");
+        ListTagUtil.write(pageContext, makeSelectAllCheckboxId(listName));
+        ListTagUtil.write(pageContext, "\" ");        
+        
         ListTagUtil.write(pageContext, "onclick=\"");
         String script =  String.format(CHECK_ALL_SCRIPT, 
                             StringUtils.defaultString(rhnSet), 
@@ -205,9 +219,11 @@ public class SelectableColumnTag extends TagSupport {
     private void render(String value) throws JspException {
         writeStartingTd();
         String id = ListTagHelper.getObjectId(getCurrent());
+        String checkboxId = makeCheckboxId(listName, id);
         renderHiddenItem(id, value);
         ListTagUtil.write(pageContext, "<input type=\"checkbox\" ");
-        if (isSelected()) {
+        boolean selected = isSelected(); 
+        if (selected) {
             ListTagUtil.incrementPersistentCounter(pageContext, listName + "_selected");
             ListTagUtil.write(pageContext, "checked ");
         }
@@ -215,7 +231,8 @@ public class SelectableColumnTag extends TagSupport {
             ListTagUtil.write(pageContext, "disabled ");
         }
         ListTagUtil.write(pageContext, "id=\"");
-        ListTagUtil.write(pageContext, makeCheckboxId(id));
+        
+        ListTagUtil.write(pageContext, checkboxId);
         ListTagUtil.write(pageContext, "\" name=\"" + ListTagUtil.
                                             makeSelectedItemsName(listName) + "\" ");
         ListTagUtil.write(pageContext, "value=\"");
@@ -224,13 +241,37 @@ public class SelectableColumnTag extends TagSupport {
         renderOnClick();
 
         ListTagUtil.write(pageContext, "/>");
+        if (selected && !StringUtils.isBlank(rhnSet)) {
+            String scriptId = "document.getElementById('" + checkboxId + "')";
+            addPostScript(getOnClickScript(CLICKED_CLIENT_SIDE, scriptId), 
+                                            listName, pageContext.getRequest());
+        }
     }
 
-    private String makeSelectAllCheckboxName() {
+    /**
+     * Given list name returns the name of the select all box
+     * @param listName the name of the list
+     * @return the name of the select all check box
+     */
+    public static String makeSelectAllCheckboxName(String listName) {
         return "list_" + listName + "_sel_all";
     }    
     
-    private String makeCheckboxId(String id) {
+    /**
+     * Given list name returns the name of the select all box
+     * @param listName the name of the list
+     * @return the name of the select all check box
+     */
+    public static String makeSelectAllCheckboxId(String listName) {
+        return "list_" + listName + "_sel_all_id";
+    }
+    /**
+     * Given list name returns the name of a check box
+     * @param listName the name of the id
+     * @param id the object id of the check box value object
+     * @return the checkbox id
+     */
+    public static String makeCheckboxId(String listName, String id) {
         return "list_" + listName + "_" + id;
     }    
     /**
@@ -240,34 +281,46 @@ public class SelectableColumnTag extends TagSupport {
      */
     private void renderOnClick() throws JspException {
         if (!StringUtils.isBlank(rhnSet)) {
-            Object current = getCurrent();
-            Object parent = getParentObject();
-            String childIds = "[]";
-            String memberIds = "[]";
-            String parentId = "";
-            ListTag parentTag = (ListTag)
-                BodyTagSupport.findAncestorWithClass(this, ListTag.class);
-            
-            if (RhnListTagFunctions.isExpandable(current)) {
-                childIds = getChildIds(current);
-            }
-            else {
-                parentId = getParentId(current, parent);
-                memberIds = getMemberIds(current, parent);
-            }
-
             ListTagUtil.write(pageContext, " onclick=\"");
-            ListTagUtil.write(pageContext, String.format(CHECKBOX_CLICKED_SCRIPT,
-                                rhnSet,  makeSelectAllCheckboxName(), 
-                                childIds, memberIds, parentId,
-                                parentTag.isParentAnElement()));
+            ListTagUtil.write(pageContext, getOnClickScript(CLICKED_COMPLETE, "this"));
             ListTagUtil.write(pageContext, "\" ");
         }
     }
 
+    /**
+     * renders
+     * //onclick="checkbox_clicked(this, '$rhnSet')"
+     *
+     */
+    private String getOnClickScript(String funcName, String boxName) {
+        Object current = getCurrent();
+        Object parent = getParentObject();
+        String childIds = "[]";
+        String memberIds = "[]";
+        String parentId = "";
+        ListTag parentTag = (ListTag)
+            BodyTagSupport.findAncestorWithClass(this, ListTag.class);
+        
+        if (RhnListTagFunctions.isExpandable(current)) {
+            childIds = getChildIds(current);
+        }
+        else {
+            parentId = getParentId(current, parent);
+            memberIds = getMemberIds(current, parent);
+        }
+
+        return String.format(CHECKBOX_CLICKED_SCRIPT, funcName, boxName,
+                            rhnSet,  makeSelectAllCheckboxId(listName), 
+                            childIds, memberIds, parentId,
+                            parentTag.isParentAnElement());
+
+    }
+
+    
+    
     private String getParentId(Object current, Object parent) {
         if (parent != null && parent !=  current) {
-            return makeCheckboxId(ListTagHelper.getObjectId(parent));
+            return makeCheckboxId(listName, ListTagHelper.getObjectId(parent));
         }
         return "";
     }
@@ -280,7 +333,7 @@ public class SelectableColumnTag extends TagSupport {
                     buf.append(",");
                 }
                 buf.append("'");
-                buf.append(makeCheckboxId(ListTagHelper.getObjectId(child)));
+                buf.append(makeCheckboxId(listName, ListTagHelper.getObjectId(child)));
                 buf.append("'");
             }
             
@@ -314,10 +367,17 @@ public class SelectableColumnTag extends TagSupport {
     }
     
     private boolean isSelected() throws JspException {
-        if (selectExpr != null && selectExpr.equalsIgnoreCase("true")) {
-            return true;
-        }
-        return false;
+        if (!StringUtils.isBlank(selectExpr)) {
+            return selectExpr.equalsIgnoreCase("true");
+        }     
+        
+        ListTag parent = (ListTag)BodyTagSupport.
+                        findAncestorWithClass(this, ListTag.class);
+        
+        String selectionsKey = ListSessionSetHelper.makeSelectionsName(parent.getName());
+        Map selections = (Map)pageContext.getRequest().getAttribute(selectionsKey);
+         
+        return selections != null && selections.containsKey(valueExpr);
     }
     
     private boolean isDisabled() throws JspException {
@@ -374,7 +434,8 @@ public class SelectableColumnTag extends TagSupport {
                         buf.append(",");
                     }
                     buf.append("'");
-                    buf.append(makeCheckboxId(ListTagHelper.getObjectId(current)));
+                    buf.append(makeCheckboxId(listName,
+                                        ListTagHelper.getObjectId(current)));
                     buf.append("'");
                 }
             }
@@ -383,5 +444,37 @@ public class SelectableColumnTag extends TagSupport {
             return buf.toString();
         }
         return "[]";
+    }
+    
+    private static String makePostScriptKey(String listName) {
+        return "list_" + listName + "_post_script";
+    }
+    
+    private static void addPostScript(String script, String listName,
+                                                ServletRequest request) {
+        String key  = makePostScriptKey(listName);
+        StringBuilder test = (StringBuilder)request.getAttribute(key);
+        if (test == null) {
+            test = new StringBuilder();
+            request.setAttribute(key, test);
+        }
+        test.append(script);
+    }
+    
+    /**
+     * Returns any bound post java script
+     * to be used by the selectable decorator
+     * @param listName the name of the list
+     * @param request the request param
+     * @return the post script
+     */
+    public static String getPostScript(String listName,
+                                                ServletRequest request) {
+        String key  = makePostScriptKey(listName);
+        StringBuilder test = (StringBuilder)request.getAttribute(key);
+        if (test != null) {
+            return test.toString(); 
+        }
+        return "";
     }    
 }

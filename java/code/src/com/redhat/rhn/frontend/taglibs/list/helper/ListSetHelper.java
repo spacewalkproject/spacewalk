@@ -196,12 +196,20 @@ abstract class ListSetHelper extends ListHelper {
             if (dataSet.get(0) instanceof Selectable) {
                 syncSelections(dataSet);
             }
-            else {
-                request.setAttribute(
-                        getListName() + "Selections",
-                        getSelections());
-            }
+            request.setAttribute(
+                    makeSelectionsName(getListName()),
+                    getSelections());
         }
+    }
+    
+    /**
+     * Returns the name of the selections key.
+     * @param listName the name of the list 
+     * i.e. the value specifidied in <rl:list name=>
+     * @return
+     */
+    public static String makeSelectionsName(String listName) {
+        return listName + "Selections";
     }
     
     /**

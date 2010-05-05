@@ -237,6 +237,14 @@ public class ListTag extends BodyTagSupport {
     public void setName(String nameIn) {
         name = nameIn;
     }
+    
+    /**
+     * The name of the list
+     * @return the list name
+     */
+    public String getName() {
+        return name;
+    }    
 
     /**
      * Build the list's unique name Algorithm for the unique name is: Take the

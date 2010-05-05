@@ -100,16 +100,18 @@ public class BaseSetHelper {
                 if (klass != null) {
                     Context threadContext = Context.getCurrentContext();
                     klass.prepare(threadContext.getLocale());
-                    filterList = ListFilterHelper.filter(dataSet, klass,
-                            request.getParameter(
-                                    ListTagUtil.makeFilterByLabel(uniqueName)),
-                                    ListTagHelper.getFilterValue(request, uniqueName),
-                                    ListTagHelper.canSearchByParent(request, uniqueName),
-                                    ListTagHelper.canSearchByChild(request, uniqueName));
                 }
+                filterList = ListFilterHelper.filterChildren(dataSet, klass,
+                        request.getParameter(
+                                ListTagUtil.makeFilterByLabel(uniqueName)),
+                                ListTagHelper.getFilterValue(request, uniqueName),
+                                ListTagHelper.canSearchByParent(request, uniqueName),
+                                ListTagHelper.canSearchByChild(request, uniqueName));
             }
             else {
-                filterList = dataSet;
+                filterList = ListFilterHelper.filterChildren(dataSet, null, null, null, 
+                        ListTagHelper.canSearchByParent(request, uniqueName),
+                        ListTagHelper.canSearchByChild(request, uniqueName));
             }
 
             selectAll(set, listName, filterList);

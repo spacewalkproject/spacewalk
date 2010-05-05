@@ -33,7 +33,6 @@
  			<rl:decorator name="PageSizeDecorator"/>
  		<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.id}"
-	 			selected="${not empty requestScope.listSelections[current.id]}"
 	 			styleclass="first-column"/>
 	 			
   	   <!--Name Column -->

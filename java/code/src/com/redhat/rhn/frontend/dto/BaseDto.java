@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.struts.Selectable;
 
@@ -25,7 +26,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * select all.
  * @version $Rev: 60953 $
  */
-public abstract class BaseDto implements Selectable { 
+public abstract class BaseDto implements Selectable, Identifiable { 
     
     private boolean selected;
     protected static final Integer ONE = new Integer(1);

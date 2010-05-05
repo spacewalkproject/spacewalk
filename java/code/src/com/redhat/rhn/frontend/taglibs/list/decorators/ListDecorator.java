@@ -48,7 +48,7 @@ public interface ListDecorator {
      * @throws JspException something bad happened
      */
     void afterTopPagination() throws JspException;
-
+    
     /**
      * Notifies the decorator that bottom pagination controls have been rendered
      * @throws JspException something bad happened

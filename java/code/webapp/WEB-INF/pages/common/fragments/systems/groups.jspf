@@ -46,7 +46,6 @@
  		 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
  		 	<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.id}"
-	 			selected="${not empty requestScope.listSelections[current.id]}"
 	 			styleclass="first-column"/>
 		</rhn:require>
   	   <!--Name Column -->

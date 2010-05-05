@@ -25,13 +25,10 @@ import java.util.Date;
  * @version $Rev$
  */
 public class NetworkDto implements Identifiable {
-
     private String name;
     private Long systemId;
     private String key;
     private Date lastCheckin;
-    
-    
     
     /**
      * @return Returns the lastCheckin.
@@ -99,14 +96,4 @@ public class NetworkDto implements Identifiable {
         name = nameIn;
     }
 
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return String.format("Key: %s; System Id: %s; Last Check In: %s",
-                                        getKey(), getId(), getLastCheckin());
-    }    
-    
 }

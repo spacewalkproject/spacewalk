@@ -32,12 +32,10 @@
 	<c:choose>
 		<c:when test = "${rl:expandable(current)}">
 		<rl:selectablecolumn value="${current.key}"
-	 						selected="false"
 	 						styleclass="first-column"/>
 		</c:when>
 		<c:otherwise>
 		<rl:selectablecolumn value="${current.id}"
-	 						selected="false"
 	 						styleclass="first-column"/>
 		
 		</c:otherwise>
