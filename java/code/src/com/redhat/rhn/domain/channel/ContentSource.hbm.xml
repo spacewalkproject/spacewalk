@@ -24,9 +24,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             name="type"
             class="com.redhat.rhn.domain.channel.ContentSourceType"
             column="type_id"/>
-   
+
+        <set name="channels" lazy="true" table="rhnChannelContentSource"
+            cascade="save-update">
+            <key column="source_id"/>
+            <many-to-many
+                class="com.redhat.rhn.domain.channel.Channel"
+                column="channel_id"/>
+        </set>
+
     </class>
-    
+
     
     <query name="ContentSource.findById">
         <![CDATA[from com.redhat.rhn.domain.channel.ContentSource as c where c.id = :id]]>

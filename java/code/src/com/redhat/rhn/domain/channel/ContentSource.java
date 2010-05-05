@@ -14,9 +14,11 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
-
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
  * ContentSourceType
@@ -30,9 +32,7 @@ public class ContentSource extends BaseDomainHelper {
     private String sourceUrl;
     private Date lastSynced;
     private String label;
-
-
-    
+    private Set<Channel> channels = new HashSet<Channel>();
     /**
      * @return Returns the label.
      */
@@ -126,6 +126,20 @@ public class ContentSource extends BaseDomainHelper {
         this.lastSynced = lastSyncedIn;
     }
 
- 
+    /**
+     *
+     * @param set of channels this repo is pushed to
+     */
+    public void setChannels(Set<Channel> channelsIn) {
+        this.channels = channelsIn;
+    }
+
+    /**
+     *
+     * @return set of channels that this repo will be pushed to
+     */
+    public Set<Channel> getChannels() {
+        return channels;
+    }
 
 }

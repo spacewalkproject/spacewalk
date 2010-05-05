@@ -70,15 +70,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         
         <one-to-one name="comps" property-ref="channel"
             class="com.redhat.rhn.domain.channel.Comps" cascade="all" lazy="proxy"/>        
-        
-        <set name="contentSources" lazy="true" table="rhnChannelContentSource" 
-	     cascade="all-delete-orphan" inverse="true">
-            <key column="channel_id"/>
-            <one-to-many 
-                class="com.redhat.rhn.domain.channel.ContentSource" />
-        </set>        
-        
-        
+
         <set name="trustedOrgs" lazy="true" table="rhnChannelTrust" 
          cascade="save-update">
             <key column="channel_id"/>
@@ -104,6 +96,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="package_id"/>
         </set>
         
+        <set name="sources" lazy="true" table="rhnChannelContentSource"
+            cascade="save-update">
+            <key column="channel_id"/>
+            <many-to-many
+                class="com.redhat.rhn.domain.channel.ContentSource"
+                column="source_id"/>
+        </set>
+
         <many-to-one name="product"
                     column="channel_product_id"
                     class="com.redhat.rhn.domain.channel.ChannelProduct"/>
