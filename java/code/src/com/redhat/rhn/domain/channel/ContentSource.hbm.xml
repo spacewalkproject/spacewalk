@@ -4,7 +4,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.channel.ContentSource" 
-        table="rhnChannelContentSource" >
+        table="rhnContentSource" >
         
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -24,12 +24,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             name="type"
             class="com.redhat.rhn.domain.channel.ContentSourceType"
             column="type_id"/>
-        
-        <many-to-one
-            name="channel"
-            class="com.redhat.rhn.domain.channel.Channel"
-            column="channel_id" />        
-        
    
     </class>
     
