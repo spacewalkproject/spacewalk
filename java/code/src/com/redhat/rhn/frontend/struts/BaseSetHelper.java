@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
+import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
 import com.redhat.rhn.frontend.taglibs.list.ListFilter;
 import com.redhat.rhn.frontend.taglibs.list.ListFilterHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -144,7 +145,7 @@ public class BaseSetHelper {
         }
     }
 
-
+    
     protected boolean lookupEquals(String lookupKey, String value) {
         if (value == null) {
             return false;
@@ -256,21 +257,25 @@ public class BaseSetHelper {
     public void selectAll(Set set,
                                     String listName,
                                     List dataSet) {
+        boolean everyThingIsAnElement = ListTagHelper.
+                            isParentAnElement(request, listName);
         for (Object obj : dataSet) {
-            if (obj instanceof Selectable) {
-                Selectable next = (Selectable) obj;
-                if (next.isSelectable()) {
-                    set.add(next.getSelectionKey());
+            if (everyThingIsAnElement || !RhnListTagFunctions.isExpandable(obj)) {
+                if (obj instanceof Selectable) {
+                    Selectable next = (Selectable) obj;
+                    if (next.isSelectable()) {
+                        set.add(next.getSelectionKey());
+                    }
                 }
-            }
-            else if (obj instanceof Map) {
-                Map next = (Map) obj;
-                set.add((String)next.get(SessionSetHelper.KEY));
-            }
-            else {
-               Identifiable next = (Identifiable) obj;
-               set.add(next.getId());
-            }
+                else if (obj instanceof Map) {
+                    Map next = (Map) obj;
+                    set.add((String)next.get(SessionSetHelper.KEY));
+                }
+                else {
+                   Identifiable next = (Identifiable) obj;
+                   set.add(next.getId().toString());
+                }
+            }            
         }
         storeSet(set);
         ListTagHelper.setSelectedAmount(listName, set.size(), request);

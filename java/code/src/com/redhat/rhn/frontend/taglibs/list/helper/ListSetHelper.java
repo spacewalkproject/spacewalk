@@ -89,7 +89,7 @@ abstract class ListSetHelper extends ListHelper {
     private boolean ignoreEmptySelection = false;
     private boolean willClearSet = true;
     private boolean preSelectAll = false;
-    
+    private boolean parentIsElement = true;
     private Set initSet = Collections.EMPTY_SET; 
     /**
      * constructor
@@ -127,6 +127,10 @@ abstract class ListSetHelper extends ListHelper {
         return dispatched;
     }
 
+    
+    protected boolean isParentAnElement() {
+        return parentIsElement;
+    }
     
     /** {@inheritDoc} */
     public void execute() {
@@ -172,7 +176,6 @@ abstract class ListSetHelper extends ListHelper {
             }
             add(selSet);
         }
-
 
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(getListName(), request) != null) {

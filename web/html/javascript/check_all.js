@@ -28,9 +28,15 @@ function check_all_on_page(form, set_label) {
   process_check_all(set_label, cboxes, flag, []);
 }
 
-function process_check_all(set_label, cboxes, flag, ignorables_ids) {
-    var boxes = process_group(set_label, cboxes, flag);
+function process_check_all(set_label, cbox_items, flag, ignorables_ids) {
     var ignorables = ids_to_elements(ignorables_ids);
+    var cboxes = new Array();
+    cboxes = cboxes.concat(ignorables); 
+    for (var i = 0 ; i < cbox_items.length; i++) {
+        cboxes.push(cbox_items[i]);
+    }
+ 
+    var boxes = process_group(set_label, cboxes, flag);
     var includes = new Array();
     for (var i = 0; i < boxes.length; i++) {
         var include = true;

@@ -32,12 +32,13 @@ public class ExpansionDecorator extends BaseListDecorator {
             " style=\"cursor: pointer;\">%s</a>&nbsp;&nbsp;|&nbsp;&nbsp;" +
             "<a href=\"javascript:hideAllRows(rowHash%s);\" " +
             "style=\"cursor: pointer;\">%s</a>";
-    
+
     private static final String NEW_VAR_SCRIPT = "<script type=\"text/javascript\">var " +
                                                        "rowHash%s = new Array();</script>";
     
     private static final String LOAD_SCRIPT = "<script type=\"text/javascript\">" +
-                                            "onLoadStuff(%s, '%s', rowHash%s);</script>";
+                                            "onLoadStuff(%s, '%s', rowHash%s);" +
+                                                "showAllRows(rowHash%s);</script>";
     
     /**
      * {@inheritDoc}
@@ -67,6 +68,6 @@ public class ExpansionDecorator extends BaseListDecorator {
     public void afterList() throws JspException {
         ListTag list = getCurrentList();
         ListTagUtil.write(pageContext, String.format(LOAD_SCRIPT, 
-                            list.getColumnCount(), list.getStyleId(), listName));
+                            list.getColumnCount(), list.getStyleId(), listName, listName));
     }    
 }

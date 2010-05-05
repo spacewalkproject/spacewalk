@@ -51,7 +51,8 @@ public class ListTag extends BodyTagSupport {
     private static final long serialVersionUID = 8581790371344355223L;
     private static final String[] PAGINATION_NAMES = { "allBackward",
             "backward", "forward", "allForward" };
-
+    private static final String HIDDEN_TEXT = "<input type=\"hidden\" " +
+                                                "name=\"%s\" value=\"%s\"/>";
     private boolean haveColsEnumerated = false;
     private boolean haveTblHeadersRendered = false;
     private boolean haveTblFootersRendered = false;
@@ -465,7 +466,12 @@ public class ListTag extends BodyTagSupport {
                 dec.setCurrentList(this);
                 dec.beforeList();
             }
-            
+            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                    ListTagUtil.makeFilterSearchParentLabel(uniqueName), searchParent));
+            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                    ListTagUtil.makeFilterSearchChildLabel(uniqueName), searchChild));
+            ListTagUtil.write(pageContext, String.format(HIDDEN_TEXT,
+                    ListTagUtil.makeParentIsAnElementLabel(uniqueName), parentIsElement));
             setupFilterUI();
             if (filter != null && !isEmpty()) {
                 ListTagUtil.renderFilterUI(pageContext, filter,
@@ -653,7 +659,9 @@ public class ListTag extends BodyTagSupport {
                 excludeParams.add(ListTagUtil.makeOldFilterValueByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeFilterSearchChildLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.
-                        makeFilterSearchParentLabel(getUniqueName()));                
+                        makeFilterSearchParentLabel(getUniqueName()));
+                excludeParams.add(ListTagUtil.
+                        makeParentIsAnElementLabel(getUniqueName()));
                              
                 ListTagUtil.write(pageContext,  
                         ListTagUtil.makeParamsLink(pageContext.getRequest(), name, 
