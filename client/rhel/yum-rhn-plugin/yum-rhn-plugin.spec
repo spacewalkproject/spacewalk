@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed May 05 2010 Justin Sherrill <jsherril@redhat.com> 1.0.2-1
+- 589120 - fixing issue with traceback from rhn_chec "no attribute cfg"
+  (jsherril@redhat.com)
+
 * Mon Apr 19 2010 Justin Sherrill <jsherril@redhat.com> 1.0.1-1
 - version changes for spacewalk 1.0 release (shughes@redhat.com)
 
