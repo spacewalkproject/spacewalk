@@ -2697,6 +2697,25 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Returns an id of the original channel
+     * @param channel The cloned channel
+     * @return A original channel id
+     */
+    public static Long lookupOriginalId(Channel channel) {
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+
+        SelectMode mode = ModeFactory.getMode(
+                "Channel_queries", "cloned_original_id");
+        List<Map> list = (List) mode.execute(params);
+        if (!list.isEmpty()) {
+            Map map = list.get(0);
+            return (Long) map.get("id");
+        }
+        return null;
+    }
+
+    /**
      * List errata that is within a channel that needs to be resynced
      *  This is determined by the packages in the channel
      *

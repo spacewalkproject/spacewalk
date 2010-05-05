@@ -1184,6 +1184,13 @@ GROUP BY C.id, C.name
   </query>
 </mode>
 
+<mode name="cloned_original_id">
+    <query params="cid">
+    SELECT original_id AS id
+    FROM rhnChannelCloned
+    WHERE id = :cid
+    </query>
+</mode>
 
 
 </datasource_modes>

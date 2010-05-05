@@ -18,8 +18,9 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ClonedChannel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.task.TaskManager;
 
@@ -249,7 +250,27 @@ public class RepositoryWriter {
                 " seconds");
     }
 
-    
+    private String getCompsRelativeFilename(Channel channel) {
+        String relativeFilename = null;
+
+        if (channel.getComps() == null) {
+            relativeFilename = getCompsFilePath(channel);
+        }
+        else {
+            relativeFilename = channel.getComps().getRelativeFilename();
+        }
+
+        // if we didn't find anything, let's check channel's original
+        if (relativeFilename == null && channel.isCloned()) {
+            // use a hack not to use ClonedChannel and it's getOriginal() method
+            Long originalChannelId = ChannelManager.lookupOriginalId(channel);
+            Channel originalChannel = ChannelFactory.lookupById(originalChannelId);
+            return getCompsRelativeFilename(originalChannel);
+        }
+
+        return relativeFilename;
+    }
+
     /**
      * 
      * @param channel channel indo
@@ -257,18 +278,8 @@ public class RepositoryWriter {
      * @return repomd index for given channel
      */
     private RepomdIndexData loadCompsFile(Channel channel, String checksumAlgo) {
-        String relativeFilename;
         String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
- 
-        if (channel.getComps() == null) {
-            relativeFilename = getCompsFilePath(channel);
-            if (relativeFilename == null) {
-                return null;
-            }
-        }
-        else {
-            relativeFilename = channel.getComps().getRelativeFilename();
-        }
+        String relativeFilename = getCompsRelativeFilename(channel);
 
         File compsFile = new File(compsMount + File.separator + relativeFilename);
         FileInputStream stream;
@@ -344,13 +355,6 @@ public class RepositoryWriter {
  
         if (compsMapping.containsKey(channel.getLabel())) {
             compsPath = compsMapping.get(channel.getLabel());
-        }
-        else if (channel.isCloned()) {
-            // If its a cloned channel see if we can get the comps
-            // from the original channel.
-            ClonedChannel clonedCh = (ClonedChannel) channel;
-            Channel origChannel = clonedCh.getOriginal();
-            compsPath = compsMapping.get(origChannel.getLabel());
         }
 
         return compsPath;
