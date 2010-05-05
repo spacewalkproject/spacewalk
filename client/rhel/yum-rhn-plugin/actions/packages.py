@@ -58,8 +58,8 @@ class YumAction(yum.YumBase):
 
     def __init__(self):
         yum.YumBase.__init__(self)
-
-        self.doConfigSetup(debuglevel=rhncli.cfg["debug"])
+        cfg = config.initUp2dateConfig()
+        self.doConfigSetup(debuglevel=cfg["debug"])
 
         self.doTsSetup()
         self.doRpmDBSetup()
