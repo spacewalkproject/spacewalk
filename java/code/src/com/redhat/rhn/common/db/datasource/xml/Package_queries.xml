@@ -801,7 +801,7 @@ SELECT  PN.name,
   FROM  (
          SELECT  SOP.package_name_id name_id,
                  MAX(PE.evr) evr,
-                 MAX(PE.id) evr_id,
+                 PE.id evr_id,
                  SP.package_arch_id,
                  PA.label as arch_label
            FROM  rhnServerOutdatedPackages SOP
@@ -810,7 +810,7 @@ SELECT  PN.name,
                  LEFT JOIN rhnPackageArch PA ON PA.id = SP.package_arch_id
           WHERE  SOP.server_id = :sid
             AND  SOP.package_name_id = SP.name_id
-        GROUP BY SOP.package_name_id, SP.package_arch_id, PA.label
+        GROUP BY SOP.package_name_id, SP.package_arch_id, PA.label, PE.id
         ) full_list
         INNER JOIN rhnServerPackage SP ON ( full_list.name_id = SP.name_id AND full_list.package_arch_id = SP.package_arch_id )
         INNER JOIN rhnPackageName PN ON ( PN.id = full_list.name_id )
