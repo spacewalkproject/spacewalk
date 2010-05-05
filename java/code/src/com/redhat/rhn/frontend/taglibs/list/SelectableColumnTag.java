@@ -240,7 +240,7 @@ public class SelectableColumnTag extends TagSupport {
                     BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         if (!parent.isParentAnElement() &&
                     RhnListTagFunctions.isExpandable(getCurrent())) {
-            itemsName = "parent_" + itemsName ;
+            itemsName = "parent_" + itemsName;
         }   
         ListTagUtil.write(pageContext, "\" name=\"" + itemsName + "\" ");
         ListTagUtil.write(pageContext, "value=\"");
@@ -372,7 +372,7 @@ public class SelectableColumnTag extends TagSupport {
                     BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         if (!parent.isParentAnElement() &&
                 RhnListTagFunctions.isExpandable(getCurrent())) {
-            pageItems = "parent_" + pageItems ;
+            pageItems = "parent_" + pageItems;
         }
         ListTagUtil.write(pageContext, "\" name=\"" + pageItems + "\" ");
         ListTagUtil.write(pageContext, "value=\"");
