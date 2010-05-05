@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -246,6 +246,10 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Wed May 05 2010 Justin Sherrill <jsherril@redhat.com> 1.1.4-1
+- 589120 - fixing error "no attribute cfg" when trying to install a package
+  (jsherril@redhat.com)
+
 * Wed May 05 2010 Jan Pazdziora 1.1.3-1
 - 589100 - address issue when clients were not able to register to the server.
 
