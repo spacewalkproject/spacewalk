@@ -238,9 +238,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
-* Wed May 05 2010 Justin Sherrill <jsherril@redhat.com> 1.0.5-1
-- 
-
 * Wed May 05 2010 Jan Pazdziora 1.0.2-1
 - 589100 - address issue when clients were not able to register to the server.
 
