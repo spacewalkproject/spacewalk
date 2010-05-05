@@ -847,13 +847,15 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return ChannelFactory.containsDistributions(this);
     }
         
-
+    /**
+     * 
+     * @param sourceIn source repo to add 
+     */
     public void addYumContentSource(ContentSource sourceIn) {
-        
+        this.getSources().add(sourceIn);
         ChannelFactory.save(this);
     }
     
-
     /**
      * get the compatible checksum type to be used for repomd.xml
      * based on channel release. 
