@@ -14,23 +14,6 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.common.ChecksumType;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.system.IncompatibleArchException;
-import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,6 +21,22 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
+import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.common.ChecksumType;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.system.IncompatibleArchException;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * Channel
@@ -81,15 +80,14 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String summary;
     private Set erratas = new HashSet();
     private Set packages = new HashSet();
+    private Set<ContentSource> sources =  new HashSet<ContentSource>();
     private Set channelFamilies = new HashSet();
     private Set distChannelMaps = new HashSet();
     private Set trustedOrgs = new HashSet();
     private String maintainerName;
     private String maintainerEmail;
     private String maintainerPhone;
-    private String supportPolicy;
-    private Set<ContentSource> contentSources = new HashSet();
-    
+    private String supportPolicy;        
     
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
@@ -416,6 +414,23 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setPackages(Set packagesIn) {
         this.packages = packagesIn;
     }
+    
+    /**
+     * 
+     * @param sourcesIn The set of yum repo sources
+     */
+    public void setSources(Set<ContentSource> sourcesIn) {
+        this.sources = sourcesIn;
+    }
+    
+    /**
+     *    
+     * @return set of yum repos for this channel
+     */
+    public Set<ContentSource> getSources() {
+        return sources;
+    }
+    
 
     /**
      * Adds a single package to the channel
@@ -831,49 +846,10 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public boolean containsDistributions() {
         return ChannelFactory.containsDistributions(this);
     }
-    
-    /**
-     * @return Returns the contentSources.
-     */
-    public Set<ContentSource> getContentSources() {
-        return contentSources;
-    }
+        
 
-    
-    /**
-     * @param contentSourcesIn The contentSources to set.
-     */
-    public void setContentSources(Set<ContentSource> contentSourcesIn) {
-        this.contentSources = contentSourcesIn;
-    }
-    
-    /**
-     * Set the yum content source, if one is already set, it will be replaced
-     *   if null or '' is passed in, all content sources will be removed.
-     * @param url  the url of the yum repo
-     * @param labelIn the label of the content source 
-     */
-    public void setYumContentSource(String url, String labelIn) {
-        if (StringUtils.isEmpty(url)) {
-            if (!this.getContentSources().isEmpty()) {
-                this.getContentSources().clear();
-            }
-        }
-        else {
-            if (this.getContentSources().isEmpty()) {
-                ContentSource cs = new ContentSource();
-                cs.setChannel(this);
-                cs.setSourceUrl(url);
-                cs.setLabel(labelIn);
-                cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
-                this.getContentSources().add(cs);
-            }
-            else {
-                ContentSource cs = this.getContentSources().iterator().next();
-                cs.setSourceUrl(url);
-                cs.setLabel(labelIn);
-            }
-        }
+    public void addYumContentSource(ContentSource sourceIn) {
+        
         ChannelFactory.save(this);
     }
     

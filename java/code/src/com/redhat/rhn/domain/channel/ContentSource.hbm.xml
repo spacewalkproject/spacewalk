@@ -23,7 +23,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one
             name="type"
             class="com.redhat.rhn.domain.channel.ContentSourceType"
-            column="type_id"/>                
+            column="type_id"/>  
+            
+        <set name="channels" lazy="true" table="rhnChannelContentSource"
+            cascade="save-update">
+            <key column="source_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.channel.Channel" 
+                column="channel_id"/>
+        </set>              
    
     </class>
     
