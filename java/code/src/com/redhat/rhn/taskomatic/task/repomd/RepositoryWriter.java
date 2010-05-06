@@ -281,6 +281,10 @@ public class RepositoryWriter {
         String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
         String relativeFilename = getCompsRelativeFilename(channel);
 
+        if (relativeFilename == null) {
+            return null;
+        }
+
         File compsFile = new File(compsMount + File.separator + relativeFilename);
         FileInputStream stream;
         try {
