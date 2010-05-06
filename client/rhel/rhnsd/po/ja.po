@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 15:56\n"
 "Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -16,46 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "MINS 分毎に Red Hat Network に接続"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "全てのアクションを syslog にログ"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "フォアグランドで実行"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network サービスデーモン"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "root のみがこのプログラムを実行できます\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "引数の誤った数"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "既に実行中"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "著作 : %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "MINS 分毎に Red Hat Network に接続"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "全てのアクションを syslog にログ"
+
+#~ msgid "Run in foreground"
+#~ msgstr "フォアグランドで実行"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat Network サービスデーモン"

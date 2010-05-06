@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 14:54+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -16,46 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "매 MINS분마다 Red Hat Network에 연결합니다"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "syslog에 모든 작업을 기록합니다"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "포그라운드에서 실행합니다"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network 서비스 데몬"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "root 계정으로만 이 프로그램을 실행할 수 있습니다\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "인수가 잘못되었습니다"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "이미 실행중입니다"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s에 의해 쓰여졌습니다.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "매 MINS분마다 Red Hat Network에 연결합니다"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "syslog에 모든 작업을 기록합니다"
+
+#~ msgid "Run in foreground"
+#~ msgstr "포그라운드에서 실행합니다"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat Network 서비스 데몬"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhnsd cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-11-16 21:51+0200\n"
 "Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -17,46 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Conectare la Red Hat Network la fiecare MINS minute"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Loghează toate acţiunile în syslog"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Rulează în faţă"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Demonul Red Hat Network Services"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Doar root poate rula acest program\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "număr greşit de argumente"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "rulează deja"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Scris de %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Conectare la Red Hat Network la fiecare MINS minute"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Loghează toate acţiunile în syslog"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Rulează în faţă"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Demonul Red Hat Network Services"

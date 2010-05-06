@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-12-01 16:56+0530\n"
 "Last-Translator: shankar prasad <svenkate@redhat.com>\n"
 "Language-Team: kannada\n"
@@ -16,46 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "ಪ್ರತೀ MINS ನಿಮಿಷಕ್ಕೆ Red Hat ಜಾಲಬಂಧಕ್ಕೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸು "
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "ಎಲ್ಲಾ ಕ್ರಿಯೆಗಳನ್ನು syslog ಗೆ ಪ್ರವೇಶಿಸುವಂತೆ ಮಾಡು"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "ಮುಂಭಾಗದಲ್ಲಿ ಚಾಲಿಸು"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network Services Daemon"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "ಮೂಲವು ಮಾತ್ರ ಈ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಚಾಲಿಸ ಬಲ್ಲದು\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "ತಪ್ಪು ಸಂಖ್ಯೆಯ ಆರ್ಗ್ಯುಮೆಂಟುಗಳು"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "ಈಗಾಗಲೆ ಚಾಲನೆಯಲ್ಲಿದೆ"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "ಹಕ್ಕು (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "ಬರೆದವರು %s. \n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "ಪ್ರತೀ MINS ನಿಮಿಷಕ್ಕೆ Red Hat ಜಾಲಬಂಧಕ್ಕೆ ಸಂಪರ್ಕ ಕಲ್ಪಿಸು "
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "ಎಲ್ಲಾ ಕ್ರಿಯೆಗಳನ್ನು syslog ಗೆ ಪ್ರವೇಶಿಸುವಂತೆ ಮಾಡು"
+
+#~ msgid "Run in foreground"
+#~ msgstr "ಮುಂಭಾಗದಲ್ಲಿ ಚಾಲಿಸು"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat Network Services Daemon"

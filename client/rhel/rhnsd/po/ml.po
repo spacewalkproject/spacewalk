@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 11:12+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
@@ -18,46 +18,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "എല്ലാ MINS മിനിട്ടുകളിലും Red Hat നെറ്റ്‍വര്‍ക്കിലേക്ക് കണക്ട് ചെയ്യുക"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "എല്ലാ പ്രവര്‍ത്തികളും syslog-ലേക്ക് ലോഗ് ചെയ്യുക"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "മുന്നില്‍ പ്രവര്‍ത്തിക്കുക"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat നെറ്റ്‍വര്‍ക്ക് സര്‍വീസുകളുടെ ഡെമണ്‍"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "ഈ പ്രോഗ്രാം root-ന് മാത്രമേ പ്രവര്‍ത്തിക്കുവാന്‍ സാധ്യമാകുള്ളൂ\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "ആര്‍ഗ്യുമെന്‍റുകളുടെ തെറ്റായ എണ്ണം"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "നിലവില്‍ പ്രവര്‍ത്തനത്തില്‍"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s രചിച്ചിരിക്കുന്നു.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "എല്ലാ MINS മിനിട്ടുകളിലും Red Hat നെറ്റ്‍വര്‍ക്കിലേക്ക് കണക്ട് ചെയ്യുക"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "എല്ലാ പ്രവര്‍ത്തികളും syslog-ലേക്ക് ലോഗ് ചെയ്യുക"
+
+#~ msgid "Run in foreground"
+#~ msgstr "മുന്നില്‍ പ്രവര്‍ത്തിക്കുക"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat നെറ്റ്‍വര്‍ക്ക് സര്‍വീസുകളുടെ ഡെമണ്‍"

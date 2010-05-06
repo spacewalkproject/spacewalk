@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 11:15+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -18,46 +18,40 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "ପ୍ରତ୍ଯେକ MINS ମିନିଟରେ Red Hat ନେଟୱାର୍କ ସହିତ ସଂଯୋଗ କରନ୍ତୁ।"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "ପ୍ରତ୍ଯେକ କାର୍ଯ୍ଯକୁ syslog ରେ ଲଗ କରନ୍ତୁ"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "ଅଗ୍ରଭାଗରେ ଚଳାନ୍ତୁ"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat ନେଟୱାର୍କ ସେବା ଡେମନ"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "କେବଳ ରୁଟ (ପ୍ରମୂଖ ଚାଳକ) ଏହି ପ୍ରୋଗ୍ରାମକୁ ଚଳାଇ ପାରିବ\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "ଭୂଲ ସଂଖ୍ଯକ ସ୍ବତନ୍ତ୍ରଚର"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "ପୂର୍ବରୁ ଚାଲୁଅଛି"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "ସ୍ବତ୍ତ୍ବାଧୀକାର (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s ଦ୍ବାରା ଲେଖାଯାଇଛି।\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "ପ୍ରତ୍ଯେକ MINS ମିନିଟରେ Red Hat ନେଟୱାର୍କ ସହିତ ସଂଯୋଗ କରନ୍ତୁ।"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "ପ୍ରତ୍ଯେକ କାର୍ଯ୍ଯକୁ syslog ରେ ଲଗ କରନ୍ତୁ"
+
+#~ msgid "Run in foreground"
+#~ msgstr "ଅଗ୍ରଭାଗରେ ଚଳାନ୍ତୁ"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat ନେଟୱାର୍କ ସେବା ଡେମନ"

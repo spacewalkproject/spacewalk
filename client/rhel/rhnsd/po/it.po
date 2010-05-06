@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 12:49+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
@@ -15,46 +15,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MIN"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Collega a Red Hat Network ogni MINS minuti"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Registra tutte le azioni su syslog"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Esegui in primo piano"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Demode dei servizi di Red Hat Network"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Solo un utente root può eseguire questo programma\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "numero errato di argomenti"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "già in esecuzione"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Scritto da %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MIN"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Collega a Red Hat Network ogni MINS minuti"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Registra tutte le azioni su syslog"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Esegui in primo piano"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Demode dei servizi di Red Hat Network"

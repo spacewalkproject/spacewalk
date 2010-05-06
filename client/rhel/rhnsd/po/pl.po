@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2010-05-05 21:20+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -13,46 +13,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MIN"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Łączy się z usługą Red Hat Network co MIN minut"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Zapisuje wszystkie działania do dziennika systemowego"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Uruchamia na pierwszym planie"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Demon usług Red Hat Network"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Tylko root może uruchamiać ten program\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "błędna liczba parametrów"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "już uruchomione"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napisane przez %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MIN"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Łączy się z usługą Red Hat Network co MIN minut"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Zapisuje wszystkie działania do dziennika systemowego"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Uruchamia na pierwszym planie"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Demon usług Red Hat Network"

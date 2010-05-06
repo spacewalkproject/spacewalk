@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-28 15:29+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <http://translator-shop.org>\n"
@@ -12,46 +12,40 @@ msgstr ""
 "X-Poedit-Language: Croatian\n"
 "X-Poedit-Country: CROATIA\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Poveži se s Red Hat Mrežom svakih MINS minuta"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Zabilježi sve aktivnosti u syslog"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Pokreni u prednjem planu"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Demon usluga Red Hat Mreže"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Ovaj program može pokrenuti samo korijenski korisnik\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "pogrešan broj argumenata"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "već je pokrenut"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Autorska prava (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napisao: %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Poveži se s Red Hat Mrežom svakih MINS minuta"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Zabilježi sve aktivnosti u syslog"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Pokreni u prednjem planu"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Demon usluga Red Hat Mreže"

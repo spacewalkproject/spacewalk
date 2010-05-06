@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 14:42+1000\n"
 "Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
 "Language-Team: \n"
@@ -16,46 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Интервал подключения к Red Hat Network (в минутах) - MINS"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Записывать все действия в syslog"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Фоновый режим"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Демон сервисов Red Hat Network"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Только пользователь root может выполнять эту программу\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "неверное число аргументов"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "уже выполняется"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Разработано: %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Интервал подключения к Red Hat Network (в минутах) - MINS"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Записывать все действия в syslog"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Фоновый режим"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Демон сервисов Red Hat Network"
