@@ -210,6 +210,8 @@ def _run(archives=sys.argv[1:]):
                 write_mpm(set_mpm)
                 # create the individual patch mpms
                 patches, x = archive_parser.list()
+                if patches == ['patches']:
+                    patches, x = archive_parser.list('patches/')
                 for dir in patches:
                     patch_mpm = create_patch_mpm(archive_parser, prefix=dir)
                     write_mpm(patch_mpm)
@@ -346,7 +348,7 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
     package = rhn_mpm.MPM_Package()
 
     # basics
-    p_name = prefix or os.path.basename(archive_parser._archive_dir)
+    p_name = os.path.basename(prefix or archive_parser._archive_dir)
     p_array = p_name.split("-")
     header['name'] = "patch-solaris-" + p_array[0]
     header['version'] = p_array[1]
@@ -369,7 +371,11 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
         header.update(dct)
 
     # a patch can patch multiple packages
-    pkgs, x = archive_parser.list(prefix)
+    subdir = ''
+    # recent format has files in patches subdir
+    if os.path.isdir(os.path.join(archive_parser._archive_dir, 'patches/', prefix)):
+        subdir = 'patches/'
+    pkgs, x = archive_parser.list(os.path.join(subdir, prefix))
 
     for pkg in pkgs:
         pkginfo_file = os.path.join(prefix, pkg, 'pkginfo')
@@ -403,7 +409,7 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
         header['package_size'] = os.path.getsize(archive)
         package.payload_stream = open(archive)
     else:
-        zip_file = archive_parser.zip(prefix)
+        zip_file = archive_parser.zip(os.path.join(subdir,prefix))
         _temp_files.append(zip_file)
 
         header['package_name'] = os.path.basename(zip_file)

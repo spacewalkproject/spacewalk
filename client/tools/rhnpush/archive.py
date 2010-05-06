@@ -204,7 +204,7 @@ class ArchiveParser(object):
 
         zip_file = os.path.join(self._parent_dir, "%s.zip" % zip_dir)
 
-        cmd = "zip -q -r %s %s" % (zip_file, prefix)
+        cmd = "zip -q -r %s %s" % (zip_file, zip_dir)
         stat = _my_popen(cmd)
 
         os.chdir(cwd)
