@@ -20,11 +20,12 @@ CREATE TABLE rhnTaskQueue
                    CONSTRAINT rhn_task_queue_org_id_fk
                        REFERENCES web_customer (id)
                        ON DELETE CASCADE,
-    task_name  VARCHAR2(64) NOT NULL,
-    task_data  NUMBER,
-    priority   NUMBER
+    task_name      VARCHAR2(64) NOT NULL,
+    task_data      NUMBER,
+    task_data_two  NUMBER,
+    priority       NUMBER
                    DEFAULT (0),
-    earliest   DATE
+    earliest       DATE
                    DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
