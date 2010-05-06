@@ -8,7 +8,6 @@
 <html>
 <head>
     <meta name="page-decorator" content="none" />
-    <script src="/javascript/tree.js" type="text/javascript"></script>
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
