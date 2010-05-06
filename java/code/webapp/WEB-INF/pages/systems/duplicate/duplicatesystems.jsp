@@ -56,6 +56,7 @@
 		</p>
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/duplicate_systems_tabs.xml"
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+<br/>
 <rl:list 
 	emptykey="nosystems.message"
 	parentiselement = "false"
