@@ -290,6 +290,7 @@ public class CreateChannelCommand {
         // need to save before calling stored proc below
         ChannelFactory.save(c);
         
+        ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
         
         if (syncRepo && !c.getContentSources().isEmpty()) {
