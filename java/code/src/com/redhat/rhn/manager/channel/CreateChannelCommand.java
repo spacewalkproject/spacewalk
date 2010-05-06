@@ -279,8 +279,7 @@ public class CreateChannelCommand {
         c.setMaintainerName(maintainerName);
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
-        c.setSupportPolicy(supportPolicy);
-        c.setYumContentSource(yumUrl, repoLabel);
+        c.setSupportPolicy(supportPolicy);        
 
         // handles either parent id or label
         setParentChannel(c, user, parentLabel, parentId);
@@ -293,9 +292,9 @@ public class CreateChannelCommand {
         ChannelManager.queueChannelChange(c.getLabel(), "createchannel", "createchannel");
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
         
-        if (syncRepo && !c.getContentSources().isEmpty()) {
+        if (syncRepo && !c.getSources().isEmpty()) {
             TaskFactory.createTask(user.getOrg(), RepoSyncTask.DISPLAY_NAME,
-                    c.getContentSources().iterator().next().getId());
+                    c.getSources().iterator().next().getId());
         }
         
         return c;

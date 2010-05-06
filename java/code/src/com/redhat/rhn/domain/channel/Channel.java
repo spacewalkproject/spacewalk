@@ -855,6 +855,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
         this.getSources().add(sourceIn);
         ChannelFactory.save(this);
     }
+       
     
     /**
      * get the compatible checksum type to be used for repomd.xml

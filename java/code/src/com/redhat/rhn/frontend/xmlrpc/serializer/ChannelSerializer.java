@@ -95,13 +95,13 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("gpg_key_fp",
                 StringUtils.defaultString(c.getGPGKeyFp()));
 
-        if (c.getContentSources().isEmpty()) {
+        if (c.getSources().isEmpty()) {
             helper.add("yumrepo_source_url", "");
             helper.add("yumrepo_label", "");
             helper.add("yumrepo_last_sync", "");
         }
         else {
-            ContentSource cs = c.getContentSources().iterator().next();
+            ContentSource cs = c.getSources().iterator().next();
             helper.add("yumrepo_source_url", cs.getSourceUrl());
             helper.add("yumrepo_label", cs.getLabel());
             if (cs.getLastSynced() != null) {
