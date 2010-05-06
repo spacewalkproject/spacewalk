@@ -2729,7 +2729,7 @@ public class SystemManager extends BaseManager {
         List ignoreMacs = new ArrayList();
         ignoreMacs.add("00:00:00:00:00:00");
         ignoreMacs.add("fe:ff:ff:ff:ff:ff");
-        return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs, 0L);
+        return listDuplicates(user, "duplicate_system_ids_mac", ignoreMacs, inactiveHours);
     }
     
     /**
@@ -2741,7 +2741,7 @@ public class SystemManager extends BaseManager {
      */
     public static List listDuplicatesByHostname(User user, Long inactiveHours) {
         return listDuplicates(user, "duplicate_system_ids_hostname", 
-                Collections.EMPTY_LIST, 0L);
+                Collections.EMPTY_LIST, inactiveHours);
     }
     
     

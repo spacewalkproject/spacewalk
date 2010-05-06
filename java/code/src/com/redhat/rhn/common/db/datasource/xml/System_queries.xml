@@ -1597,7 +1597,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
           	 	from rhnServerNetInterface NI2 inner join 
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
           	 	where USP2.user_id = :uid and 
-          	 		NI2.ip_addr not in(%s)
+				NI2.ip_addr not in(%s) and NI2.name not like 'vnet%' and NI2.name not like 'virbr%'
           	 	group by NI2.ip_addr) SUMM on SUMM.ip_addr = NI.ip_addr
         where USP.user_id = :uid and
         	  SUMM.syscount > 1

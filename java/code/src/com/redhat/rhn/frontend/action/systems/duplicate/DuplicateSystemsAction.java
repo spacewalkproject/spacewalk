@@ -28,6 +28,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +64,8 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
         request.setAttribute(INACTIVE_COUNT, inactiveHours);
 
 
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request,
+                Collections.EMPTY_MAP, mapping.getParameter());
         helper.setWillClearSet(false);
         helper.execute();
         if (helper.isDispatched()) {
