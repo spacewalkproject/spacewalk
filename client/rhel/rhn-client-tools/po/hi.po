@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-27 11:54-0400\n"
+"POT-Creation-Date: 2010-05-06 16:22+0200\n"
 "PO-Revision-Date: 2007-02-05 15:11+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../src/up2date_client/capabilities.py:86
+#: ../src/up2date_client/capabilities.py:88
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -35,108 +35,104 @@ msgstr ""
 "%s के समर्थन के लिए इस क्लाइंट को सर्वर की आवश्यकता है, जिसे मौजूदा सर्वर समर्थन नहीं देता "
 "है."
 
-#: ../src/up2date_client/config.py:138
+#: ../src/up2date_client/config.py:139
 #, python-format
 msgid "%s was not found"
 msgstr "%s नहीं मिला"
 
-#: ../src/up2date_client/gui.py:203 ../src/up2date_client/gui.py:217
-#: ../data/gui.glade.h:7
-msgid "Registering for software updates"
-msgstr "सॉफ्टवेयर अद्यतन के लिये पंजीयन कर रहा है"
-
-#: ../src/up2date_client/gui.py:408
+#: ../src/up2date_client/gui.py:298
 msgid "_Finish"
 msgstr "समाप्त (_F)"
 
 #. Finish Window
-#: ../src/up2date_client/gui.py:409
-#: ../src/up2date_client/rhnreg_constants.py:169
+#: ../src/up2date_client/gui.py:299
+#: ../src/up2date_client/rhnreg_constants.py:97
 msgid "Finish setting up software updates"
 msgstr "सॉफ्टवेयर अद्यतन के लिये जमावट समाप्त करें"
 
-#: ../src/up2date_client/gui.py:411
-msgid "_Exit software update setup"
-msgstr "सॉफ्टवेयर अद्यतन सेटअप से बाहर निकलें (_E)"
+#: ../src/up2date_client/gui.py:301
+msgid "_Exit"
+msgstr ""
 
-#: ../src/up2date_client/gui.py:412
-msgid "software updates setup unsuccessful"
-msgstr "सॉफ्टवेयर अद्यतन सेटअप विफल"
+#: ../src/up2date_client/gui.py:302
+#, fuzzy
+msgid "Software updates setup unsuccessful"
+msgstr "सॉफ्टवेयर अद्यतन सेटअप सफल"
 
-#: ../src/up2date_client/gui.py:422
+#: ../src/up2date_client/gui.py:312
 msgid "You must run rhn_register as root."
 msgstr "आप जरूर rhn_register बतौर रूट चलायें"
 
-#: ../src/up2date_client/gui.py:446
+#: ../src/up2date_client/gui.py:336
 #, python-format
 msgid "There was some sort of I/O error: %s"
 msgstr "यहाँ कुछ प्रकार की I/O त्रुटि थी: %s "
 
-#: ../src/up2date_client/hardware.py:894
+#: ../src/up2date_client/hardware.py:655
 msgid "Error reading cpu information:"
 msgstr "cpu जानकारी पढ़ने में समस्या:"
 
-#: ../src/up2date_client/hardware.py:901
+#: ../src/up2date_client/hardware.py:662
 msgid "Error reading system memory information:"
 msgstr "सिस्टम स्मृति सूचना पढ़ने में त्रुटि:"
 
-#: ../src/up2date_client/hardware.py:909
+#: ../src/up2date_client/hardware.py:672
 msgid "Error reading networking information:"
 msgstr "संजाल सूचना पढ़ने में त्रुटि"
 
-#: ../src/up2date_client/hardware.py:930
+#: ../src/up2date_client/hardware.py:693
 msgid "Error reading install method information:"
 msgstr "अधिष्ठापन विधि सूचना पढ़ने में त्रुटि"
 
-#: ../src/up2date_client/hardware.py:937
+#: ../src/up2date_client/hardware.py:701
 msgid "Error reading network interface information:"
 msgstr "संजाल अंतरफलक सूचना पढ़ने में त्रुटि:"
 
-#: ../src/up2date_client/messageWindow.py:93
+#: ../src/up2date_client/messageWindow.py:94
 msgid "Error:"
 msgstr "त्रुटि:"
 
-#: ../src/up2date_client/messageWindow.py:100
+#: ../src/up2date_client/messageWindow.py:101
 msgid "Warning:"
 msgstr "चेतावनीः"
 
-#: ../src/up2date_client/messageWindow.py:107
+#: ../src/up2date_client/messageWindow.py:108
 msgid "OK dialog:"
 msgstr "ठीक संवाद:"
 
-#: ../src/up2date_client/messageWindow.py:115
+#: ../src/up2date_client/messageWindow.py:116
 msgid "Yes/No dialog:"
 msgstr "हाँ/नहीं संवाद:"
 
-#: ../src/up2date_client/messageWindow.py:122
+#: ../src/up2date_client/messageWindow.py:123
 msgid "Question dialog:"
 msgstr "प्रश्न संवादः"
 
-#: ../src/up2date_client/rhnChannel.py:110
+#: ../src/up2date_client/rhnChannel.py:97
 msgid "Unable to Locate SystemId"
 msgstr ""
 
-#: ../src/up2date_client/rhnChannel.py:127
+#: ../src/up2date_client/rhnChannel.py:114
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "यह सिस्टम अद्यतन नहीं होगा जबतक कि यह चैनल से जुड़ता नहीं है."
 
-#: ../src/up2date_client/rhncli.py:38
+#: ../src/up2date_client/rhncli.py:47
 msgid "Show additional output"
 msgstr "अतिरिक्त आउटपुट दिखाएँ"
 
-#: ../src/up2date_client/rhncli.py:40
+#: ../src/up2date_client/rhncli.py:49
 msgid "Specify an http proxy to use"
 msgstr "प्रयोग हेतु एक http प्रॉक्सी निर्दिष्ट करें"
 
-#: ../src/up2date_client/rhncli.py:42
+#: ../src/up2date_client/rhncli.py:51
 msgid "Specify a username to use with an authenticated http proxy"
 msgstr "एक प्रामाणिक http प्रॉक्सी के साथ प्रयोग के लिए एक उपयोक्ता नाम निर्दिष्ट करें"
 
-#: ../src/up2date_client/rhncli.py:44
+#: ../src/up2date_client/rhncli.py:53
 msgid "Specify a password to use with an authenticated http proxy"
 msgstr "एक प्रामाणिक http प्रॉक्सी के साथ प्रयोग के लिए एक शब्दकूट निर्दिष्ट करें"
 
-#: ../src/up2date_client/rhncli.py:67
+#: ../src/up2date_client/rhncli.py:76
 msgid ""
 "\n"
 "Aborted.\n"
@@ -144,32 +140,32 @@ msgstr ""
 "\n"
 "स्थगित.\n"
 
-#: ../src/up2date_client/rhncli.py:70
+#: ../src/up2date_client/rhncli.py:79
 #, python-format
 msgid "An unexpected OS error occurred: %s\n"
 msgstr "एक अप्रत्याशित OS त्रुटि घटित हुआ: %s\n"
 
-#: ../src/up2date_client/rhncli.py:74
+#: ../src/up2date_client/rhncli.py:83
 #, fuzzy
 msgid "A connection was attempted with a malformed URI.\n"
 msgstr "एक संबंधन गलत URI के साथ प्रयास किया गया.\n"
 
-#: ../src/up2date_client/rhncli.py:76
+#: ../src/up2date_client/rhncli.py:85
 #, fuzzy, python-format
 msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "एक संबंधन गलत URI के साथ प्रयास किया गया: %s.\n"
 
-#: ../src/up2date_client/rhncli.py:78
+#: ../src/up2date_client/rhncli.py:87
 #, python-format
 msgid "There was some sort of I/O error: %s\n"
 msgstr "किसी प्रकार का I/O त्रुटि था: %s\n"
 
-#: ../src/up2date_client/rhncli.py:81
+#: ../src/up2date_client/rhncli.py:90
 #, python-format
 msgid "There was an SSL error: %s\n"
 msgstr "एक SSL त्रुटि था: %s\n"
 
-#: ../src/up2date_client/rhncli.py:82
+#: ../src/up2date_client/rhncli.py:91
 msgid ""
 "A common cause of this error is the system time being incorrect. Verify that "
 "the time on this system is correct.\n"
@@ -177,47 +173,47 @@ msgstr ""
 "सिस्टम का समय सही नहीं होने से ही यह त्रुटि आयी है. सत्यापन करें कि इस सिस्टम पर समय "
 "ठीक है.\n"
 
-#: ../src/up2date_client/rhncli.py:86
+#: ../src/up2date_client/rhncli.py:95
 #, python-format
 msgid "There was a SSL crypto error: %s\n"
 msgstr "एक SSL गोपन त्रुटि थी: %s\n"
 
-#: ../src/up2date_client/rhncli.py:90
+#: ../src/up2date_client/rhncli.py:99
 #, python-format
 msgid "There was an authentication error: %s\n"
 msgstr "एक सत्यापन त्रुटि थी: %s\n"
 
-#: ../src/up2date_client/rhncli.py:103
+#: ../src/up2date_client/rhncli.py:112
 #, python-format
 msgid "You must be root to run %s"
 msgstr "आप %s को चलाने के लिये जरूर रूट रहें"
 
-#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:168
+#: ../src/up2date_client/rhncli.py:142 ../src/up2date_client/rhncli.py:177
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "gui खोलने में असमर्थ. `up2date --nox` का प्रयोग करके देखें"
 
-#: ../src/up2date_client/rhncli.py:175
-#, python-format
+#: ../src/up2date_client/rhncli.py:184
+#, fuzzy, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
-"Copyright (C) 1999-2006 Red Hat, Inc.\n"
-"Licensed under the terms of the GPL."
+"Copyright (C) 1999--2010 Red Hat, Inc.\n"
+"Licensed under the terms of the GPLv2."
 msgstr ""
 "%%prog (Red Hat Network Client Tools) %s\n"
 "Copyright (C) 1999-2006 Red Hat, Inc.\n"
 "Licensed under the terms of the GPL."
 
-#: ../src/up2date_client/rhncli.py:195
+#: ../src/up2date_client/rhncli.py:204
 msgid "An error has occurred:"
 msgstr "एक त्रुटि हुई:"
 
-#: ../src/up2date_client/rhncli.py:203
+#: ../src/up2date_client/rhncli.py:212
 msgid "See /var/log/up2date for more information"
 msgstr "सूचना के लिये /var/log/up2date देखें"
 
-#: ../src/up2date_client/rhnreg_constants.py:12
+#: ../src/up2date_client/rhnreg_constants.py:13
 #, fuzzy
-msgid "Copyright © 2006  Red Hat, Inc. All rights reserved."
+msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
 msgstr "कॉपीराइट Â© 2006  Red Hat, Inc. सर्वाधिकार सुरक्षित."
 
 #. Connect Window
@@ -261,22 +257,16 @@ msgstr ""
 " * Red Hat Network सैटेलाइट या प्रॉक्सी (वैकल्पिक) का स्थान\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:34
-msgid ""
-"If you do not have a Red Hat Login, this assistant will allow you to create "
-"one."
-msgstr "अगर आपके पास एक Red Hat लॉगिन नहीं है तो एक सहायक आपको बनाने में मदद करेगा."
-
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:92
+#: ../src/up2date_client/rhnreg_constants.py:36 ../data/rh_register.glade.h:91
 msgid "Why Should I Connect to RHN? ..."
 msgstr "क्यों मुझे RHN से जुड़ना चाहिये? ..."
 
-#: ../src/up2date_client/rhnreg_constants.py:39
+#: ../src/up2date_client/rhnreg_constants.py:37
 msgid "Why connect to Red Hat Network?"
 msgstr "क्यों Red Hat Network से जुड़ना चाहिये?"
 
-#: ../src/up2date_client/rhnreg_constants.py:40 ../data/rh_register.glade.h:44
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:45
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -284,23 +274,23 @@ msgstr ""
 "अपने सिस्टम को Red Hat Network से जोड़ना आपको अनुमति देगा भुगतान किये सदस्यता के पूर्ण "
 "लाभ की , इसके साथ:"
 
-#: ../src/up2date_client/rhnreg_constants.py:42
+#: ../src/up2date_client/rhnreg_constants.py:40
 msgid "Security & Updates:"
 msgstr "सुरक्षा व अद्यतन:"
 
-#: ../src/up2date_client/rhnreg_constants.py:43
+#: ../src/up2date_client/rhnreg_constants.py:41
 msgid "Downloads & Upgrades:"
 msgstr "डाउनलोड व अद्यतन:"
 
-#: ../src/up2date_client/rhnreg_constants.py:44
+#: ../src/up2date_client/rhnreg_constants.py:42
 msgid "Support:"
 msgstr "समर्थन:"
 
-#: ../src/up2date_client/rhnreg_constants.py:45
+#: ../src/up2date_client/rhnreg_constants.py:43
 msgid "Compliance:"
 msgstr "सुसंगतता:"
 
-#: ../src/up2date_client/rhnreg_constants.py:46
+#: ../src/up2date_client/rhnreg_constants.py:44
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system updated and secure."
@@ -308,14 +298,14 @@ msgstr ""
 "नवीनतम सॉफ्टवेयर अद्यतन पायें, सुरक्षा अद्यतन के साथ, इस Red Hat Enterprise Linux "
 "सिस्टम को अद्यतन और सुरक्षित रखते हुये."
 
-#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:46
+#: ../src/up2date_client/rhnreg_constants.py:46 ../data/rh_register.glade.h:47
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr ""
 "Red Hat Enterprise Linux रिलीज के लिये अधिष्ठापन बिंब डाउनलोड करें, नये रिलीज के साथ."
 
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:32
+#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:33
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
@@ -323,7 +313,7 @@ msgstr ""
 "Red Hat या Red Hat के साझेदार से मदद के लिये तकनीकी समर्थन विशेषज्ञ के पास अभिगम जिसे "
 "आप इस सिस्टम के साथ सामना कर सकते हैं."
 
-#: ../src/up2date_client/rhnreg_constants.py:52 ../data/rh_register.glade.h:82
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:81
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
@@ -331,7 +321,7 @@ msgstr ""
 "अपने सदस्यता मसौदे के साथ सुसंगत रहें और आपके खाता से http://rhn.redhat.com पर जुड़े "
 "सिस्टम के लिये सदस्यता प्रबंधित करें."
 
-#: ../src/up2date_client/rhnreg_constants.py:56
+#: ../src/up2date_client/rhnreg_constants.py:54
 msgid ""
 "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
 "privacy_statement.html"
@@ -339,91 +329,44 @@ msgstr ""
 "संकेत: Red Hat आपकी गोपनीयता को महत्व देता है: http://www.redhat.com/legal/"
 "privacy_statement.html"
 
-#: ../src/up2date_client/rhnreg_constants.py:58
-#: ../src/up2date_client/rhnreg_constants.py:83
+#: ../src/up2date_client/rhnreg_constants.py:56
+#: ../src/up2date_client/rhnreg_constants.py:64
 msgid "Take me back to the setup process."
 msgstr "सेटअप प्रक्रिया में मुझे वापस ले चलें"
 
-#. Privacy Window
-#: ../src/up2date_client/rhnreg_constants.py:61
-msgid "Step 1: Review the Red Hat Privacy Statement"
-msgstr "चरण 1: Red Hat गोपनीय वक्तव्य का पुनरावलोकन करें"
-
-#: ../src/up2date_client/rhnreg_constants.py:62
-msgid "Review the Red Hat Network Terms And Conditions"
-msgstr "Red Hat नेटवर्क के नियम और शर्तों को पुनः देखें"
-
 #. Confirm Quit Window
-#: ../src/up2date_client/rhnreg_constants.py:65
+#: ../src/up2date_client/rhnreg_constants.py:59
 msgid "Software update setup unsuccessful"
 msgstr "सॉफ्टवेयर अद्यतन सेटअप सफल"
 
-#: ../src/up2date_client/rhnreg_constants.py:66
+#: ../src/up2date_client/rhnreg_constants.py:60
+#, fuzzy
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
-"\n"
-"Security & Updates:\n"
-"Receive the latest software updates, including security updates, keeping "
-"this Red Hat Enterprise Linux system updated and secure.\n"
-"\n"
-"Downloads & Upgrades:\n"
-"Download installation images for Red Hat Enterprise Linux releases, "
-"including new releases.\n"
-"\n"
-"Support:\n"
-"Access to the technical support experts at Red Hat or Red Hat's partners for "
-"help with any issues you might encounter with this system.\n"
-"\n"
-"Compliance:\n"
-"Stay in compliance with your subscription agreement and manage subscriptions "
-"for systems connected to your account at http://rhn.redhat.com/.\n"
-"\n"
+msgstr ""
+"क्या आप निश्चित हैं कि आप अपने सिस्टम को Red Hat Network से नहीं जोड़ना चाहते हैं? आप "
+"Red Hat Enterprise Linux सदस्यता के फायदों से वंचित रहेंगे:"
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+#, fuzzy
+msgid ""
 "You will not be able to take advantage of these subscription privileges "
 "without connecting your system to Red Hat Network.\n"
-"\n"
-"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
-"privacy_statement.html"
 msgstr ""
-"क्या आप निश्चित हैं कि आप अपने सिस्टम को Red Hat Network से जोड़ना नहीं चाहते हैं? आप "
-"Red Hat Enterprise Linux सदस्यता से वंचित रहेंगे:\n"
-"\n"
-"सुरक्षा व अद्यतन:\n"
-"नवीनतम सॉफ्टवेयर अद्यतन पायें, सुरक्षा अद्यतन के साथ, इस Red Hat Enterprise Linux "
-"सिस्टम को अद्यतन और सुरक्षित रखते हुये.\n"
-"\n"
-"डाउनलोड व अद्यतन:\n"
-"Red Hat Enterprise Linux रिलीज के लिये अधिष्ठापन बिंब डाउनलोड करें, नये रिलीज के "
-"साथ.\n"
-"\n"
-"समर्थन:\n"
-"Red Hat या Red Hat पार्टनर के तकनीकी समर्थन वास्ते मदद के लिये अभिगम किसी मुद्दे के साथ "
-"जो आप इस सिस्टम के साथ सामना करते हैं.\n"
-"\n"
-"संगत:\n"
-"अपने सदस्यता मसौदे के साथ संगत रहें औऱ सिस्मट के लिये सदस्यता प्रबंधित करें http://rhn."
-"redhat.com/ पर अपने खाता में.\n"
-"\n"
-"आप इन सदस्यता सुविधा का लाभ लेने में समर्थ नहीं होंगे अपने सिस्टम को Red Hat Network में "
-"बिना जोड़ें.\n"
-"\n"
-"संकेत: Red Hat के लिये आपकी गोपनीयता महत्वपूर्ण है: http://www.redhat.com/legal/"
-"privacy_statement.html"
+"आप इन सदस्यता सुविधा का बिना अपने सिस्टम को Red Hat Network में जोड़े लाभ लेने में समर्थ "
+"<b>नहीं</b>हो सकेंगे."
 
-#: ../src/up2date_client/rhnreg_constants.py:84
-msgid "No thanks.  I'll connect later."
-msgstr "नहीं धन्यवाद.  मैं बाद में संबंधित होउंगा."
-
-#: ../src/up2date_client/rhnreg_constants.py:85
+#: ../src/up2date_client/rhnreg_constants.py:65
 msgid "I'll register later."
 msgstr "मैं बाद में पजीकृत करूंगा"
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:12
+#: ../src/up2date_client/rhnreg_constants.py:68
 msgid "Setting up software updates"
 msgstr "सॉफ्टवेयर अद्यतन सेटअप कर रहा है"
 
-#: ../src/up2date_client/rhnreg_constants.py:89
+#: ../src/up2date_client/rhnreg_constants.py:69
 #, python-format
 msgid ""
 "Please enter your login information for the %s Red Hat Network Satellite:\n"
@@ -432,57 +375,35 @@ msgstr ""
 "कृपया अपनी लॉगिन सूचना %s Red Hat Network सैटेलाइट के लिये दें:\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:91
-msgid "Create a New Login ..."
-msgstr "एक नया लॉगिन बनाएं ..."
-
-#: ../src/up2date_client/rhnreg_constants.py:92
+#: ../src/up2date_client/rhnreg_constants.py:71
 msgid "Red Hat Login:"
 msgstr "Red Hat लॉगिन:"
 
-#: ../src/up2date_client/rhnreg_constants.py:93
+#: ../src/up2date_client/rhnreg_constants.py:72
+#: ../src/up2date_client/tui.py:116
 msgid "Login:"
 msgstr "लॉगिन:"
 
-#: ../src/up2date_client/rhnreg_constants.py:94
+#: ../src/up2date_client/rhnreg_constants.py:73
 msgid "Password:"
 msgstr "शब्दकूटः"
 
-#: ../src/up2date_client/rhnreg_constants.py:95
+#: ../src/up2date_client/rhnreg_constants.py:74
 msgid ""
 "Tip: Forgot your login or password?  Contact your Satellite's Organization "
 "Administrator."
 msgstr "संकेत: अपना लॉगिन या शब्दकूट भूल गये हैं? अपने सैटेलाइट संगठन प्रशासक को संपर्क करें."
 
-#: ../src/up2date_client/rhnreg_constants.py:97
+#: ../src/up2date_client/rhnreg_constants.py:76
 msgid "Please enter a desired login."
 msgstr "वांछिंत लॉगिन डालें."
 
-#: ../src/up2date_client/rhnreg_constants.py:98
+#: ../src/up2date_client/rhnreg_constants.py:77
 msgid "Please enter and verify a password."
 msgstr "एक शब्दकूट दें और जांचें."
 
-#: ../src/up2date_client/rhnreg_constants.py:99
-msgid ""
-"The two passwords you entered don't match.  Please re-type your passwords."
-msgstr ""
-"आपके द्वारा दिया दो शब्दकूट मेल नहीं खा रहा है.\n"
-"कृपया अपने शब्दकूट को फिर टंकित करें."
-
 #. Product Window
-#: ../src/up2date_client/rhnreg_constants.py:103
-msgid "Create a new Red Hat login"
-msgstr "एक नया Red Hat लॉगिन बनाएं"
-
-#: ../src/up2date_client/rhnreg_constants.py:104
-msgid ""
-"Fill in the form below to create a new Red Hat login for use with Red Hat "
-"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
-msgstr ""
-"एक नया Red Hat लॉगिन बनाने के लिये Red Hat Network (http://rhn.redhat.com) के "
-"साथ प्रयोग के लिये नीचे फॉर्म भरें. जरूरी सूचना एक '*' से चिह्नित है:"
-
-#: ../src/up2date_client/rhnreg_constants.py:107
+#: ../src/up2date_client/rhnreg_constants.py:80
 msgid ""
 "Please enter your login information for Red Hat Network (http://rhn.redhat."
 "com/):\n"
@@ -491,7 +412,7 @@ msgstr ""
 "अपनी खाता सूचना <b>Red Hat Network</b> (http://rhn.redhat.com) के लिये डालें:\n"
 "\n"
 
-#: ../src/up2date_client/rhnreg_constants.py:109
+#: ../src/up2date_client/rhnreg_constants.py:82
 #, fuzzy
 msgid ""
 "Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
@@ -500,163 +421,20 @@ msgstr ""
 "<small>संकेत: अपना लॉगिन या शब्दकूट भूल गये हैं? इसके लिये यहां देखें \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#: ../src/up2date_client/rhnreg_constants.py:111
-msgid "*Desired Login:"
-msgstr "*इच्छित लॉगिन:"
-
-#: ../src/up2date_client/rhnreg_constants.py:112
-msgid "Examples: user@domain.com"
-msgstr "उदाहरण: user@domain.com"
-
-#: ../src/up2date_client/rhnreg_constants.py:113
-msgid "*Desired Password:"
-msgstr "*इच्छित शब्दकूट:"
-
-#: ../src/up2date_client/rhnreg_constants.py:114
-msgid "*Confirm Password:"
-msgstr "* शब्दकूट सुनिश्चित करें:"
-
-#: ../src/up2date_client/rhnreg_constants.py:115
+#: ../src/up2date_client/rhnreg_constants.py:84
 msgid "*Email Address:"
 msgstr "*ई-डाक पता:"
 
-#: ../src/up2date_client/rhnreg_constants.py:116
-msgid "Tip: Leave blank if not with a company."
-msgstr "संकेत: कृपया खाली छोड़ें अगर कंपनी के साथ जुड़ा नहीं है."
+#: ../src/up2date_client/rhnreg_constants.py:86 ../data/rh_register.glade.h:61
+msgid "It appears this system has already been set up for software updates:"
+msgstr "ऐसा लगता है कि यह सिस्टम सॉफ्टवेयर अद्यतन के लिये पहले से सेटअप है:"
 
-#: ../src/up2date_client/rhnreg_constants.py:117
-msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
-msgstr ""
-"संकेत: Red Hat आपकी गोपनीयता को महत्व देता है.  हमारी गोपनीयता नीति यहां पर देखें:  "
-"http://"
-
-#: ../src/up2date_client/rhnreg_constants.py:121
-msgid "Please enter your first name."
-msgstr "आप अपना पहला नाम डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:122
-msgid "Please enter your last name."
-msgstr "आप अपना अंतिम नाम डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:123
-msgid "Please enter your email address."
-msgstr "आप एक ई-डाक पता डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:124
-msgid "Please enter a valid email address."
-msgstr "कृपया एक वैध ई-डाक पता डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:125
-msgid "Please enter your country."
-msgstr "कृपया अपना देश डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:126
-msgid "Please enter a longer login."
-msgstr "कृपया एक लंबा लॉगिन डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:127
-msgid "Please enter a longer password."
-msgstr "कृपया एक लंबा शब्दकूट जरूर डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:128
-msgid "Please enter a shorter password."
-msgstr "कृपया एक छोटा शब्दकूट डालें."
-
-#: ../src/up2date_client/rhnreg_constants.py:131
-msgid ""
-"It appears this system has attempted to register to the Red Hat Network.\n"
-"The system may already be set up for software updates.\n"
-"\n"
-"Are you sure you would like to continue?"
-msgstr ""
-"ऐसा लगता है कि यह सिस्टम Red Hat Network में पंजीयन का प्रयास किया है.\n"
-"सिस्टम सॉफ्टवेयर अद्यतन के लिये पहले से तौयार है.\n"
-"\n"
-"क्या आप निश्चित हैं कि आप जारी रखना चाहेंगे?"
-
-#. Org selection window.
-#: ../src/up2date_client/rhnreg_constants.py:136
-msgid "Select Organization"
-msgstr "संगठन चुनें"
-
-#: ../src/up2date_client/rhnreg_constants.py:137
-#, python-format
-msgid ""
-"Your login, %s, is associated with multiple organizations.  You will need to "
-"select an organization to connect this system to."
-msgstr ""
-"आपका लॉगिन %s कई संगठन से जुड़ा है. आपको एक संगठन चुनना होगा इसमें इस सिस्टम को पंजीकृत "
-"करने के लिये."
-
-#: ../src/up2date_client/rhnreg_constants.py:140
-msgid "Organization:"
-msgstr "संगठन में जुड़ने के लिये:"
-
-#: ../src/up2date_client/rhnreg_constants.py:141
-msgid "You must select an organization."
-msgstr "आप एक संगठन अवश्य चुनें."
-
-#. Subscription window.
-#: ../src/up2date_client/rhnreg_constants.py:144 ../data/gui.glade.h:1
-msgid "Access a subscription"
-msgstr "एक सदस्यता का अभिगम करें"
-
-#: ../src/up2date_client/rhnreg_constants.py:145
-#: ../data/rh_register.glade.h:107
-msgid ""
-"Your system will need to access a subscription. This will allow you to keep "
-"your system updated, secure, and supported."
-msgstr ""
-"आपके सिस्टम के लिये एक सदस्यता का अभिगम जरूरी है. यह आपके सिस्टम को अद्यतन, सुरक्षित, और "
-"समर्थित रखेगा."
-
-#: ../src/up2date_client/rhnreg_constants.py:147
-msgid ""
-"You have no active subscriptions available in your account.  You will need "
-"to do one of the following to create an active subscription in your account "
-"before this system can connect to Red Hat Network:"
-msgstr ""
-"आपके पास आपके खाता में कोई सक्रिय सदस्यता उपलब्ध नहीं है.  आपको निम्न में से एक करने की "
-"जरूरत अपने खाता में एक सक्रिय सदस्यता बनाने के लिये होगी इससे पहले कि यह सिस्टम Red Hat "
-"Network में जुड़ सके:"
-
-#: ../src/up2date_client/rhnreg_constants.py:151
-#: ../data/rh_register.glade.h:62
-msgid ""
-"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
-"RHN > Subscription Management > System Entitlements."
-msgstr ""
-"http://rhn.redhat.com/ में लॉगिन हों और अपने Your RHN > Subscription Management "
-"> System Entitlements पर एक निष्क्रिय सिस्टम गैर एंटाइटेल करें."
-
-#: ../src/up2date_client/rhnreg_constants.py:153
-#: ../data/rh_register.glade.h:71
-msgid ""
-"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
-"redhat.com/store/."
-msgstr ""
-"एक अतिरिक्त Red Hat Enterprise Linux सदस्यता http://www.redhat.com/store/ पर लें."
-
-#: ../src/up2date_client/rhnreg_constants.py:155
-msgid "Activate a new subscription with an installation number:"
-msgstr "एक अधिष्ठापन संख्या के साथ एक नयी सदस्यता सक्रिय करें:"
-
-#: ../src/up2date_client/rhnreg_constants.py:156
-msgid ""
-"You have already activated this installation number during this registration."
-msgstr "आपने इस अधिष्ठापन संख्या को इस पंजीयन के दौरान सक्रिय किया है."
-
-#: ../src/up2date_client/rhnreg_constants.py:158
-msgid "Installation Number:"
-msgstr "अधिष्ठापन संख्या:"
-
-#: ../src/up2date_client/rhnreg_constants.py:159
-#, fuzzy
-msgid "Example: XXXX-XXXX-XXXX-XXXX"
-msgstr "उदाहरण: XXXX-XXXX-XXXX-XXXX-XXXX"
+#: ../src/up2date_client/rhnreg_constants.py:87 ../data/rh_register.glade.h:38
+msgid "Are you sure you would like to continue?"
+msgstr "क्या आप जारी रखने के लिये निश्चित हैं?"
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:162
+#: ../src/up2date_client/rhnreg_constants.py:90
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -670,28 +448,7 @@ msgstr ""
 "करें और कोई सूचना नहीं भेजी जायेगी.  आप पंजीयन प्रोग्राम को बाद में चला सकते हैं "
 "`rhn_register` को कमांड लाइन पर टंकित करके."
 
-#: ../src/up2date_client/rhnreg_constants.py:170
-msgid ""
-"Congratulations, you have successfully completed software updates set up for "
-"this system.\n"
-"\n"
-"Your system is now ready to receive the software updates that will keep it "
-"secure and supported.\n"
-"\n"
-"You'll know when software updates are available when a package icon appears "
-"in the notification area of you desktop (usually in the upper-right corner.) "
-"Clicking on this icon, when available, will guide you through applying any "
-"updates that are available."
-msgstr ""
-"बधाई, आपने सफलतापूर्वक सॉफ्टवेयर अद्यतन पूर्ण किया है इस सिस्टम के पास.\n"
-"\n"
-"आपका सिस्टम अब सॉफ्टवेयर अद्यतन पाने को तैयार है जो कि इसे सुरक्षित व समर्थित रखेगा.\n"
-"\n"
-"आप जानेंगे कि कब सॉफ्टवेयर अद्यतन उपलब्ध है जब एक संकुल प्रतीक प्रकट होता है आपेक डेस्कटॉप के "
-"अधिसूचना क्षेत्र में (प्रायः ऊपर के दांयें कोने में.) इस आइकन पर क्लिक करना, जब उपलब्ध हो, "
-"किसी उपलब्ध अद्यतन के लिये लिये निवेदन करने में गाइड करेगा:"
-
-#: ../src/up2date_client/rhnreg_constants.py:178
+#: ../src/up2date_client/rhnreg_constants.py:98
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Network. You will need to run this "
@@ -708,20 +465,16 @@ msgstr ""
 "में RHN संदर्भ गाइड का, 'मदद' बटन मुख्य Red Hat Network वेब अंतरफलक से उपलब्ध.)"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:189 ../data/gui.glade.h:9
+#: ../src/up2date_client/rhnreg_constants.py:109 ../data/gui.glade.h:6
 msgid "Review system subscription details"
 msgstr "सिस्टम सदस्यता विवरण की समीक्षा करें"
 
-#: ../src/up2date_client/rhnreg_constants.py:190
-#: ../data/rh_register.glade.h:66
+#: ../src/up2date_client/rhnreg_constants.py:110
+#: ../data/rh_register.glade.h:67
 msgid "Please review the subscription details below:"
 msgstr "कृपया सदस्यता विवरण की नीचे समीक्षा करें:"
 
-#: ../src/up2date_client/rhnreg_constants.py:191
-msgid "Subscriptions Activated:"
-msgstr "सदस्यता सक्रिय:"
-
-#: ../src/up2date_client/rhnreg_constants.py:192
+#: ../src/up2date_client/rhnreg_constants.py:111
 #, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
@@ -730,23 +483,23 @@ msgstr ""
 "इस सिस्टम के आरंभिक संबंधन में Red Hat Network के साथ के दौरान इस अधिष्ठापन संख्या %s को "
 "सक्रिय किया गया था."
 
-#: ../src/up2date_client/rhnreg_constants.py:194
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
 msgstr "यह सदस्यता सक्रिय किया गया है निम्नलिखित Red Hat उत्पाद/सेवा के लिये:"
 
-#: ../src/up2date_client/rhnreg_constants.py:196
+#: ../src/up2date_client/rhnreg_constants.py:115
 msgid "Software channel subscriptions:"
 msgstr "सॉफ्टवेयर चैनल सदस्यता:"
 
-#: ../src/up2date_client/rhnreg_constants.py:197
+#: ../src/up2date_client/rhnreg_constants.py:116
 msgid ""
 "This system will receive updates from the following Red Hat Network software "
 "channels:"
 msgstr "यह सिस्टम Red Hat Network सॉफ्टवेयर चैनल से अद्यतन पायेगा:"
 
-#: ../src/up2date_client/rhnreg_constants.py:199
+#: ../src/up2date_client/rhnreg_constants.py:118
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -761,7 +514,7 @@ msgstr ""
 "सिस्मट की सदस्यता लें इस उत्पाद के लिये अद्यतन पाने के लिये. ज्यादा विस्तार से जानकारी के "
 "लिये केबेस आलेख 6227 देखें. (http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
 
-#: ../src/up2date_client/rhnreg_constants.py:210
+#: ../src/up2date_client/rhnreg_constants.py:129
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -776,7 +529,7 @@ msgstr ""
 "इस उत्पाद के लिये अद्यतन पाने के लिये. ज्यादा विस्तार से जानकारी के लिये केबेस आलेख 6227 "
 "देखें. (http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
 
-#: ../src/up2date_client/rhnreg_constants.py:221
+#: ../src/up2date_client/rhnreg_constants.py:140
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
@@ -784,7 +537,7 @@ msgstr ""
 "आप निम्न सॉफ्टवेयर चैनल के साथ सदस्यता लेने में असमर्थ थे क्योंकि वहां अपर्याप्त सदस्यता थी "
 "आपके खाता में उपलब्ध:"
 
-#: ../src/up2date_client/rhnreg_constants.py:225
+#: ../src/up2date_client/rhnreg_constants.py:144
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. There "
@@ -810,11 +563,11 @@ msgstr ""
 "ब्रॉउज कर सकते हैं और सॉफ्टवेयर > सॉफ्टवेयर चैनल टैब से होकर सॉफ्टवेयर चैनल में इस सिस्मट में "
 "सदस्यता ले सकते हैं."
 
-#: ../src/up2date_client/rhnreg_constants.py:236
+#: ../src/up2date_client/rhnreg_constants.py:155
 msgid "RHN service level:"
 msgstr "RHN सेवा स्तर:"
 
-#: ../src/up2date_client/rhnreg_constants.py:237
+#: ../src/up2date_client/rhnreg_constants.py:156
 msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
@@ -823,7 +576,7 @@ msgstr ""
 "इसपर निर्भर रहते हुये कि RHN मॉड्यूल सिस्टम के साथ जुड़ा था, आप Red Hat Network के अलग "
 "फायदों का लाभ लेंगे. निम्न इस सिस्टम के साथ जुड़ा RHN मॉड्यूल है:"
 
-#: ../src/up2date_client/rhnreg_constants.py:241
+#: ../src/up2date_client/rhnreg_constants.py:160
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
@@ -831,27 +584,27 @@ msgstr ""
 "यह सिस्टम निम्नलिखित RHN मॉड्यूल के साथ जुड़ने में असमर्थ था क्योंकि आपके खाता में अपर्याप्त "
 "सदस्यता उपलब्ध था:"
 
-#: ../src/up2date_client/rhnreg_constants.py:244
+#: ../src/up2date_client/rhnreg_constants.py:163
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
 msgstr "अद्यतन मॉड्यूल: पूर्व सिस्टम अध्यतन, इरेटा अद्यतन"
 
-#: ../src/up2date_client/rhnreg_constants.py:246
+#: ../src/up2date_client/rhnreg_constants.py:165
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling"
 msgstr ""
 "प्रबंघन मॉड्यूल: स्वचालित अद्यतन,सिस्टम समूहन, सिस्टम अनुमति, सिस्टम संकुल प्रोफाइलिंग"
 
-#: ../src/up2date_client/rhnreg_constants.py:248
+#: ../src/up2date_client/rhnreg_constants.py:167
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
 msgstr ""
 "प्रोविजनिंग मॉड्यूल: बेअर मेटल प्रोविजनिंग, मौजूदा स्टेट प्रोविजनिंग, रॉलबैक, विन्यास प्रबंधन"
 
-#: ../src/up2date_client/rhnreg_constants.py:250
+#: ../src/up2date_client/rhnreg_constants.py:169
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
@@ -859,7 +612,7 @@ msgstr ""
 "मॉनिटरिंग मॉड्यूल: पूर्व निर्धारित और पसंदीदा सिस्टम प्रदर्शन जांच, सिस्टम प्रदर्शन ईमेल "
 "अधिसूचना, सिस्टम प्रदर्शन का आलेख"
 
-#: ../src/up2date_client/rhnreg_constants.py:254
+#: ../src/up2date_client/rhnreg_constants.py:173
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
@@ -867,7 +620,7 @@ msgstr ""
 "वर्चुअलाइजेशन मॉड्यूल: इस सिस्टम पर वर्चुअल अतिथियों के लिये सीमित संख्या के लिये सॉफ्टवेयर "
 "अद्यतन."
 
-#: ../src/up2date_client/rhnreg_constants.py:257
+#: ../src/up2date_client/rhnreg_constants.py:176
 msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
@@ -876,7 +629,7 @@ msgstr ""
 "वर्चुअलाइजेशन प्लेटफॉर्म मॉड्यूल: इस सिस्टम के वर्चुअल अतिथि की असीमित संख्या के लिये "
 "सॉफ्टवेयर अद्यतन, इस सिस्टम में अतिथि के लिये अतिरिक्त सॉफ्टवेयर चैनल में पहुंच."
 
-#: ../src/up2date_client/rhnreg_constants.py:261
+#: ../src/up2date_client/rhnreg_constants.py:180
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -892,7 +645,7 @@ msgstr ""
 "सिस्टम में लागू करने की अगर आप इस सिस्टम के वर्चुअल अतिथि के लिये अलग से सिस्टम की खपत "
 "नहीं करना चाहते हैं."
 
-#: ../src/up2date_client/rhnreg_constants.py:269
+#: ../src/up2date_client/rhnreg_constants.py:188
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -918,7 +671,7 @@ msgstr ""
 "ब्रॉउज कर सकते हैं, प्रोफाइल मिटा सकते हैं, और Red Hat Network में सिस्टम फिर संबंधित कर "
 "सकते हैं."
 
-#: ../src/up2date_client/rhnreg_constants.py:281
+#: ../src/up2date_client/rhnreg_constants.py:200
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -940,40 +693,16 @@ msgstr ""
 "help/reference/)\n"
 "सार्वभौमिक मूलभूत सक्रियकरण कुंजी: %s"
 
-#: ../src/up2date_client/rhnreg_constants.py:291
-msgid ""
-"A subscription-activating installation number was found on disk, but we were "
-"not able to activate it (An unknown error occurred.) We used existing active "
-"subscription slots available in the rhn account instead. You may wish to "
-"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
-"apps/support/"
-msgstr ""
-"एक सदस्यता सक्रियकरण अधिष्ठापन संख्या डिस्क पर पाया गया, लेकिन हमलोग इसे सक्रिय करने में "
-"समर्थ नहीं थे (एक अनजान त्रुटि हुई.) हमने मौजूदा सक्रिय सदस्यता स्लॉट प्रयोग किया है बदले "
-"में rhn खाता के. आपको Red Hat उपभोक्ता सेवा से इस मुद्दे पर संपर्क करने की इच्छा हो सकती "
-"है: http://www.redhat.com/apps/support/"
-
-#: ../src/up2date_client/rhnreg_constants.py:296
-msgid "A installation number was found on disk, but we "
-msgstr "डिस्क पर अधिष्ठापन संख्या पायी गयी, लेकिन हम"
-
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:303
+#: ../src/up2date_client/rhnreg_constants.py:212
 msgid "Fatal Error"
 msgstr "घातक त्रुटि"
 
-#: ../src/up2date_client/rhnreg_constants.py:304
-#: ../src/up2date_client/rhnreg_constants.py:391
-#: ../src/up2date_client/tui.py:425
-msgid "Error"
-msgstr "त्रुटि"
-
-#: ../src/up2date_client/rhnreg_constants.py:305
+#: ../src/up2date_client/rhnreg_constants.py:213
 msgid "Warning"
 msgstr "चेतावनी"
 
-#: ../src/up2date_client/rhnreg_constants.py:306
-#: ../src/up2date_client/rhnreg_constants.py:313
+#: ../src/up2date_client/rhnreg_constants.py:214
 #, python-format
 msgid ""
 "We can't contact the Red Hat Network Server.\n"
@@ -996,12 +725,12 @@ msgstr ""
 "यह सिस्टम सफलतापूर्वक सॉफ्टवेयर अद्यतन पाने में सक्षम नहीं होगा Red Hat से बिना Red Hat "
 "Network सर्वर से जुड़े"
 
-#: ../src/up2date_client/rhnreg_constants.py:319
+#: ../src/up2date_client/rhnreg_constants.py:221
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "ऑर्किटेक्चर: %s, OS रिलीज: %s, OS संस्करण: %s"
 
-#: ../src/up2date_client/rhnreg_constants.py:321
+#: ../src/up2date_client/rhnreg_constants.py:223
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
@@ -1009,54 +738,13 @@ msgstr ""
 "यह सर्वर प्रकार्यात्मकता का समर्थन नहीं करता है सॉफ्टवेयर अद्यतन सेटअप क्लाइंट के इस संस्करण "
 "के द्वारा जरूरी. कृपया नये सर्वर के साथ फिर कोशिश करें"
 
-#: ../src/up2date_client/rhnreg_constants.py:325
-#, python-format
-msgid ""
-"The installation number you have provided (%s) is invalid.\n"
-"\n"
-"Please check the number and try again or try another option listed on the "
-"'Access a Subscription' screen."
-msgstr ""
-"आपके द्वारा दिया अधिष्ठापन संख्या (%s) अवैध है.\n"
-"\n"
-"कृपया संख्या जांचें और फिर कोशिश करें या फिर 'एक सदस्यता का अभिगम' स्क्रीन पर अन्य विकल्प "
-"के लिये कोशिश करें."
-
-#: ../src/up2date_client/rhnreg_constants.py:330
-msgid ""
-"The installation number you provided is valid but was already activated and "
-"the subscriptions have already been used by systems in your organization or "
-"is not usable for this system.\n"
-"\n"
-"Please try a different number or try another option listed on the 'Access a "
-"Subscription' screen."
-msgstr ""
-"अधिष्ठापन संख्या जो आपने दी है वह वैध है लेकिन पहले से सक्रियकृत था और सदस्यता अपने संगठन में "
-"प्रयुक्त है या इस सिस्टम के लिये प्रयुक्त नहीं है.\n"
-"\n"
-"कृपया एक अलग संख्या की कोशिश करें या अन्य विकल्प की कोशिश करें 'एक सदस्यता अभिगम करें' "
-"स्क्रीन में."
-
-#: ../src/up2date_client/rhnreg_constants.py:337
-msgid ""
-"The installation number you provided does not have subscriptions associated "
-"with it.\n"
-"\n"
-"Please try a different number or try another option listed in the 'Access a "
-"Subscription' screen."
-msgstr ""
-"अधिष्ठापन संख्या जो आपने दी है वह अपने साथ सदस्यता जुड़ा नही रखता है.\n"
-"\n"
-"कृपया एक अलग संख्या की कोशिश करें या अन्य विकल्प की कोशिश करें 'एक सदस्यता अभिगम करें' "
-"स्क्रीन में."
-
-#: ../src/up2date_client/rhnreg_constants.py:345
-#, python-format
+#: ../src/up2date_client/rhnreg_constants.py:229
+#, fuzzy, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
 "\n"
 "The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
-"Network server at <b>%s</b>.You may want to double-check that you have "
+"Network server at <b>%s</b>. You may want to double-check that you have "
 "provided a valid certificate file. Are you sure you have provided the "
 "correct certificate, and that the certificate file has not been corrupted?\n"
 "\n"
@@ -1070,7 +758,7 @@ msgstr ""
 "\n"
 "एक अलग प्रमाणपत्र फाइल के साथ फिर कोशिश करें."
 
-#: ../src/up2date_client/rhnreg_constants.py:353
+#: ../src/up2date_client/rhnreg_constants.py:237
 msgid ""
 "<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
 "\n"
@@ -1078,11 +766,11 @@ msgid ""
 "and your system time is correct."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:357
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
 msgstr "sslCACert के मान को /etc/sysconfig/rhn/up2date में जांचें"
 
-#: ../src/up2date_client/rhnreg_constants.py:360
+#: ../src/up2date_client/rhnreg_constants.py:244
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -1101,20 +789,20 @@ msgstr ""
 "सक्रियकरण कुंजी निष्क्रिय करने के लिये. Red Hat नॉलेजबेस आलेख में #7924 at http://kbase."
 "redhat.com/faq/FAQ_61_7924.shtm में जायें ज्यादा विस्तृत जानकारी के लिये."
 
-#: ../src/up2date_client/rhnreg_constants.py:373
+#: ../src/up2date_client/rhnreg_constants.py:257
 msgid ""
 "\n"
 " Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
 "\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:376
+#: ../src/up2date_client/rhnreg_constants.py:260
 msgid ""
 "Warning:You will not be able to limit this system to minor release that is "
 "older than the recent minor release if you select this option.\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:381
+#: ../src/up2date_client/rhnreg_constants.py:265
 #, python-format
 msgid ""
 "Your system will be subscribed to %s \n"
@@ -1125,59 +813,62 @@ msgid ""
 msgstr ""
 
 #. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:390
-#: ../src/up2date_client/tui.py:425
+#: ../src/up2date_client/rhnreg_constants.py:274
+#: ../src/up2date_client/tui.py:371
 msgid "OK"
 msgstr "ठीक"
 
-#: ../src/up2date_client/rhnreg_constants.py:392
+#: ../src/up2date_client/rhnreg_constants.py:275
+#: ../src/up2date_client/tui.py:371
+msgid "Error"
+msgstr "त्रुटि"
+
+#: ../src/up2date_client/rhnreg_constants.py:276
 msgid "Next"
 msgstr "आगे"
 
-#: ../src/up2date_client/rhnreg_constants.py:393
+#: ../src/up2date_client/rhnreg_constants.py:277
 msgid "Back"
 msgstr "पीछे"
 
-#: ../src/up2date_client/rhnreg_constants.py:394
+#: ../src/up2date_client/rhnreg_constants.py:278
 msgid "Cancel"
 msgstr "रद्द करें"
 
-#: ../src/up2date_client/rhnreg_constants.py:395
+#: ../src/up2date_client/rhnreg_constants.py:279
 msgid "No, Cancel"
 msgstr "नहीं रद्द करें"
 
-#: ../src/up2date_client/rhnreg_constants.py:396
+#: ../src/up2date_client/rhnreg_constants.py:280
 msgid "Yes, Continue"
 msgstr "हां जारी रखें"
 
-#: ../src/up2date_client/rhnreg_constants.py:397
+#: ../src/up2date_client/rhnreg_constants.py:281
 msgid "Press <space> to deselect the option."
 msgstr "विकल्प विचयन के लिये <space> दबायें."
 
 #: ../src/up2date_client/rhnregGui.py:113
-#: ../src/up2date_client/rhnregGui.py:153
-msgid "Notice"
-msgstr "सूचना"
-
-#: ../src/up2date_client/rhnregGui.py:119
-#: ../src/up2date_client/rhnregGui.py:130
 msgid "Automatic Subscription Activation"
 msgstr "स्वचालित सदस्यता सक्रियकरण"
 
-#: ../src/up2date_client/rhnregGui.py:142
+#: ../src/up2date_client/rhnregGui.py:125
 msgid "Subscription Activation"
 msgstr "सदस्यता सक्रियकरण"
 
-#: ../src/up2date_client/rhnregGui.py:278
+#: ../src/up2date_client/rhnregGui.py:136
+msgid "Notice"
+msgstr "सूचना"
+
+#: ../src/up2date_client/rhnregGui.py:261
 #, fuzzy
 msgid "There was an error while applying your choice."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:303
+#: ../src/up2date_client/rhnregGui.py:287
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "आपने एक अवैध प्रोटोकॉल निर्दिष्ट किया है. सिर्फ https और http अनुमति प्राप्त है."
 
-#: ../src/up2date_client/rhnregGui.py:325
+#: ../src/up2date_client/rhnregGui.py:300
 #, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
@@ -1186,17 +877,17 @@ msgstr ""
 "आप इन सदस्यता सुविधा का बिना अपने सिस्टम को Red Hat Network में जोड़े लाभ लेने में समर्थ "
 "<b>नहीं</b>हो सकेंगे."
 
-#: ../src/up2date_client/rhnregGui.py:345
+#: ../src/up2date_client/rhnregGui.py:325
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "आप Red Hat Network (%s) से संपर्क नहीं कर सके."
 
-#: ../src/up2date_client/rhnregGui.py:347
-#: ../src/up2date_client/rhnregGui.py:360
+#: ../src/up2date_client/rhnregGui.py:327
+#: ../src/up2date_client/rhnregGui.py:340
 msgid "Make sure the network connection on this system is operational."
 msgstr "सुनिश्चित करें कि संजाल संबंधन इस सिस्टम पर ऑपरेशनल है."
 
-#: ../src/up2date_client/rhnregGui.py:349
+#: ../src/up2date_client/rhnregGui.py:329
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
@@ -1204,12 +895,12 @@ msgstr ""
 "क्या आप एक Red Hat Network सैटेलाइट या प्रॉक्सी में पंजीकृत करना चाहते हैं? अगर ऐसा है, "
 "आप एक सैटेलाइट या प्रॉक्सी स्थान बदले में डालना चाहते हैं."
 
-#: ../src/up2date_client/rhnregGui.py:355
+#: ../src/up2date_client/rhnregGui.py:335
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "आप '%s' पर सैटेलाइट या प्रॉक्सी को संपर्क नहीं कर सके.सके."
 
-#: ../src/up2date_client/rhnregGui.py:357
+#: ../src/up2date_client/rhnregGui.py:337
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
@@ -1217,19 +908,19 @@ msgid ""
 msgstr ""
 "दोहरा जांच स्थान का - क्या '%s' सही है? अगर नहीं, आप इसे जोड़ सकते हैं और फिर कोशिश करें."
 
-#: ../src/up2date_client/rhnregGui.py:370
+#: ../src/up2date_client/rhnregGui.py:350
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Red Hat Network के साथ संचार में त्रुटि हुई."
 
-#: ../src/up2date_client/rhnregGui.py:371
+#: ../src/up2date_client/rhnregGui.py:351
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "सर्वर ऑउटेज मोड में हो सकता है. आप बाद में जुड़ने की कोशिश कर सकते हैं."
 
-#: ../src/up2date_client/rhnregGui.py:373
+#: ../src/up2date_client/rhnregGui.py:353
 msgid "You may be running a client that is incompatible with the server."
 msgstr "आप एक क्लाइंट चला सकते हैं जो कि सर्वर से सुसंगत नहीं है."
 
-#: ../src/up2date_client/rhnregGui.py:419
+#: ../src/up2date_client/rhnregGui.py:396
 #, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
@@ -1238,95 +929,63 @@ msgstr ""
 "कृपया अपनी लॉगिन सूचना %s Red Hat Network सैटेलाइट के लिये दें:\n"
 "\n"
 
-#: ../src/up2date_client/rhnregGui.py:468
+#: ../src/up2date_client/rhnregGui.py:445
 msgid "You must enter a login."
 msgstr "आप एक लॉगिन अवश्य डालें."
 
-#: ../src/up2date_client/rhnregGui.py:474
+#: ../src/up2date_client/rhnregGui.py:451
 msgid "You must enter a password."
 msgstr "आप एक शब्दकूट जरूर डालें."
 
-#: ../src/up2date_client/rhnregGui.py:488
+#: ../src/up2date_client/rhnregGui.py:465
 #, fuzzy
 msgid "There was an error while logging in."
 msgstr "लॉगिंग में समस्या थी."
 
-#: ../src/up2date_client/rhnregGui.py:515
+#: ../src/up2date_client/rhnregGui.py:489
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "पंजीयन सर्वर के साथ संप्रेषण करने में एक त्रुटि था. संदेश था:\n"
 
-#: ../src/up2date_client/rhnregGui.py:527
-#, python-format
-msgid ""
-"There was a problem logging in:\n"
-"%s"
-msgstr ""
-"लॉगिग में समस्या थी:\n"
-"%s"
-
-#: ../src/up2date_client/rhnregGui.py:532
-msgid "There was problem logging in."
-msgstr "लॉगिंग में समस्या थी."
-
-#: ../src/up2date_client/rhnregGui.py:598
-#, fuzzy
-msgid "There was an error while getting the list of organizations."
-msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
-
-#: ../src/up2date_client/rhnregGui.py:706
-#, fuzzy
-msgid "You must enter an installation number."
-msgstr "आप एक अधिष्ठापन संख्या अवश्य डालें."
-
-#: ../src/up2date_client/rhnregGui.py:719
-#, fuzzy
-msgid "There was an error activating your number."
-msgstr "Red Hat Network के साथ संचार में त्रुटि हुई."
-
-#: ../src/up2date_client/rhnregGui.py:761
-msgid "This installation number has already been activated."
-msgstr "यह अधिष्ठापन संख्या पहले से सक्रियकृत है."
-
-#: ../src/up2date_client/rhnregGui.py:910
+#: ../src/up2date_client/rhnregGui.py:631
 #, fuzzy
 msgid "There was an error while assembling information for the profile."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:931
+#: ../src/up2date_client/rhnregGui.py:652
 msgid "Error running hardware profile"
 msgstr "हार्डवेयर प्रोफाइल चलाने में त्रुटि"
 
-#: ../src/up2date_client/rhnregGui.py:957
+#: ../src/up2date_client/rhnregGui.py:679
 msgid "There was an error while populating the profile."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:977
+#: ../src/up2date_client/rhnregGui.py:699
 msgid "You must choose a name for this profile."
 msgstr "आपको इस प्रोफाइल के लिए एक नाम चुनना जरुरी है."
 
-#: ../src/up2date_client/rhnregGui.py:992
+#: ../src/up2date_client/rhnregGui.py:714
 #, fuzzy
 msgid "There was an error while creating the profile."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:1003
+#: ../src/up2date_client/rhnregGui.py:725
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "आपकी प्रोफाइल जानकारी Red Hat नेटवर्क को भेज रहा है. कृपया प्रतीक्षा करें."
 
-#: ../src/up2date_client/rhnregGui.py:1022
+#: ../src/up2date_client/rhnregGui.py:744
 msgid "Registering System"
 msgstr "सिस्टम पंजीकरण"
 
-#: ../src/up2date_client/rhnregGui.py:1036
-#: ../src/up2date_client/rhnregGui.py:1040
-#: ../src/up2date_client/rhnregGui.py:1044 ../src/up2date_client/tui.py:1138
-#: ../src/up2date_client/tui.py:1141 ../src/up2date_client/tui.py:1144
+#: ../src/up2date_client/rhnregGui.py:758
+#: ../src/up2date_client/rhnregGui.py:762
+#: ../src/up2date_client/rhnregGui.py:766 ../src/up2date_client/tui.py:835
+#: ../src/up2date_client/tui.py:838 ../src/up2date_client/tui.py:841
 msgid "Problem registering system:\n"
 msgstr "सिस्टम पंजीयन में समस्या:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1047
+#: ../src/up2date_client/rhnregGui.py:769
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
@@ -1335,23 +994,23 @@ msgstr ""
 "दी गई अधिष्ठापन संख्या [ %s ] एक वैध सदस्यता संख्या नहीं है. कृपया पिछले स्क्रीन पर जायें "
 "और इसे ठीक करें."
 
-#: ../src/up2date_client/rhnregGui.py:1058 ../src/up2date_client/tui.py:1150
+#: ../src/up2date_client/rhnregGui.py:779 ../src/up2date_client/tui.py:847
 msgid "Problem registering system."
 msgstr "सिस्टम पंजीकरण में समस्या."
 
-#: ../src/up2date_client/rhnregGui.py:1068 ../src/up2date_client/tui.py:1155
+#: ../src/up2date_client/rhnregGui.py:789 ../src/up2date_client/tui.py:852
 msgid "Problem writing out system id to disk."
 msgstr "डिस्क को सिस्टम id लिखने में समस्या."
 
-#: ../src/up2date_client/rhnregGui.py:1074
+#: ../src/up2date_client/rhnregGui.py:795
 msgid "There was a problem registering this system."
 msgstr "सिस्टम पंजीकरण में समस्या थी."
 
-#: ../src/up2date_client/rhnregGui.py:1087
+#: ../src/up2date_client/rhnregGui.py:808
 msgid "Sending hardware information"
 msgstr "हार्डवेयर सूचना भेज रहा है: "
 
-#: ../src/up2date_client/rhnregGui.py:1092
+#: ../src/up2date_client/rhnregGui.py:813
 msgid "Problem sending hardware information."
 msgstr "हार्डवेयर सूचना भेजने में समस्या."
 
@@ -1364,97 +1023,88 @@ msgstr "हार्डवेयर सूचना भेजने में �
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:1118
+#: ../src/up2date_client/rhnregGui.py:837
 msgid "Sending package information"
 msgstr "संकुल जानकारी भेज रहा है"
 
-#: ../src/up2date_client/rhnregGui.py:1123
+#: ../src/up2date_client/rhnregGui.py:842
 msgid "Problem sending package information."
 msgstr "संकुल सूचना भेजने में समस्या."
 
-#: ../src/up2date_client/rhnregGui.py:1157
-#: ../src/up2date_client/rhnregGui.py:1174 ../src/up2date_client/tui.py:1169
-#: ../src/up2date_client/tui.py:1183
+#: ../src/up2date_client/rhnregGui.py:876
+#: ../src/up2date_client/rhnregGui.py:893 ../src/up2date_client/tui.py:866
+#: ../src/up2date_client/tui.py:880
 msgid "Problem registering personal information:\n"
 msgstr "व्यक्तिगत जानकारी पंजीकृत करने में समस्या:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1162
-#: ../src/up2date_client/rhnregGui.py:1179 ../src/up2date_client/tui.py:1175
-#: ../src/up2date_client/tui.py:1187
+#: ../src/up2date_client/rhnregGui.py:881
+#: ../src/up2date_client/rhnregGui.py:898 ../src/up2date_client/tui.py:872
+#: ../src/up2date_client/tui.py:884
 msgid "Problem registering personal information"
 msgstr "व्यक्तिगत जानकारी पंजीकरण में समस्या"
 
-#: ../src/up2date_client/rhnregGui.py:1224
+#: ../src/up2date_client/rhnregGui.py:940
 #, fuzzy
 msgid "There was an error while installing the certificate."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:1250
+#: ../src/up2date_client/rhnregGui.py:966
 msgid "You must select a certificate."
 msgstr "आपको एक प्रमाणपत्र अवश्य चुनना है."
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:1302
+#: ../src/up2date_client/rhnregGui.py:999
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr "एक SSL त्रुटि थी. यह इसलिये कि फाइल जिसे आपने चुना एक प्रमाणपत्र फाइल नहीं था."
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:1312
+#: ../src/up2date_client/rhnregGui.py:1006
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "नये प्रमाणपत्र के अधिष्ठापन के दौरान कुछ गलती हुई:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1364
-#: ../src/up2date_client/rhnregGui.py:1365
-#: ../src/up2date_client/rhnregGui.py:1366
+#: ../src/up2date_client/rhnregGui.py:1058
+#: ../src/up2date_client/rhnregGui.py:1059
+#: ../src/up2date_client/rhnregGui.py:1060
 msgid "unknown"
 msgstr "अनजान"
 
-#: ../src/up2date_client/rhnregGui.py:1454
-#, fuzzy
-msgid "There was an error retrieving the privacy statement."
-msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
-
-#: ../src/up2date_client/rhnregGui.py:1460
-msgid "Unable to access the server. Please check your network settings."
-msgstr "सर्वर के अभिगम में असमर्थ. कृपया अपना संजाल जमावट जांचें."
-
-#: ../src/up2date_client/rhnregGui.py:1486
+#: ../src/up2date_client/rhnregGui.py:1138
 #, fuzzy
 msgid "There was an error getting the list of hardware."
 msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
 
-#: ../src/up2date_client/rhnregGui.py:1498 ../src/up2date_client/tui.py:910
+#: ../src/up2date_client/rhnregGui.py:1150 ../src/up2date_client/tui.py:631
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1502
+#: ../src/up2date_client/rhnregGui.py:1154
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1546
+#: ../src/up2date_client/rhnregGui.py:1198
 #, fuzzy
 msgid "There was an error building the list of packages."
 msgstr "संकुल के अधिष्ठापन में घातक त्रुटि था:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1561
+#: ../src/up2date_client/rhnregGui.py:1213
 msgid "Package"
 msgstr "संकुल"
 
-#: ../src/up2date_client/rhnregGui.py:1566
+#: ../src/up2date_client/rhnregGui.py:1218
 msgid "Arch"
 msgstr "Arch"
 
-#: ../src/up2date_client/rhnregGui.py:1573
+#: ../src/up2date_client/rhnregGui.py:1225
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr ""
 "आपके सिस्टम पर अधिष्ठापित सारे RPM संकुलों की एक सूची बना रहा है. कृपया प्रतीक्षा करें."
 
-#: ../src/up2date_client/rhnregGui.py:1604
+#: ../src/up2date_client/rhnregGui.py:1256
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
@@ -1462,7 +1112,7 @@ msgstr ""
 "आपके विन्यास को भारित करने में एक त्रुटि था. निश्चित करें कि आपको \n"
 "/etc/sysconfig/rhn से पढ़ने के लिए अभिगम है."
 
-#: ../src/up2date_client/rhnregGui.py:1646
+#: ../src/up2date_client/rhnregGui.py:1298
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
@@ -1471,7 +1121,7 @@ msgstr ""
 "आपके विन्यास को सुरक्षित करने में एक त्रुटि था. आप यह निश्चित करें\n"
 " कि %s आपका स्वयं का है."
 
-#: ../src/up2date_client/rhnregGui.py:1675
+#: ../src/up2date_client/rhnregGui.py:1327
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1482,85 +1132,95 @@ msgstr ""
 "bugzilla.redhat.com पर एक बग फाइल करें. '%s' का संबंधित हिस्सा काफी मददगार होगा. "
 "धन्यवाद!"
 
-#: ../src/up2date_client/rhnreg.py:76
+#: ../src/up2date_client/rhnreg.py:55
 msgid "Warning: unable to enable rhnsd with chkconfig"
 msgstr "चेतावनीः chkconfig के साथ rhnsd को समर्थ करने में असमर्थ"
 
-#: ../src/up2date_client/rhnreg.py:86
+#: ../src/up2date_client/rhnreg.py:65
 #, fuzzy
 msgid "Warning: unable to run rhn_check"
 msgstr "चेतावनीः chkconfig के साथ rhnsd को समर्थ करने में असमर्थ"
 
-#: ../src/up2date_client/rpcServer.py:165
+#: ../src/up2date_client/rpcServer.py:47
+msgid "Error: Server Unavailable. Please try later."
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:171
 msgid "ERROR: can not find RHNS CA file"
 msgstr "त्रुटि: RHNS CA फाइल नहीं पा सकता है"
 
-#: ../src/up2date_client/rpcServer.py:197
+#: ../src/up2date_client/rpcServer.py:207
 msgid "Connection aborted by the user"
 msgstr "उपयोक्ता के द्वारा संबंध नष्ट किए गया है"
 
-#: ../src/up2date_client/rpcServer.py:242
+#: ../src/up2date_client/rpcServer.py:252
 msgid "Server has refused connection due to high load"
 msgstr "अधिक भार के कारण सर्वर ने संबंधन मना किया था"
 
-#: ../src/up2date_client/rpmUtils.py:133
+#: ../src/up2date_client/rpmUtils.py:123
 msgid "Getting list of packages installed on the system"
 msgstr "सिस्टम पर अधिष्ठापित संकुलों की सूची प्राप्त कर रहा है"
 
-#: ../src/up2date_client/tui.py:136
-msgid ""
-"The server you are attempting to register against does not support this "
-"version of the client."
-msgstr "सर्वर जिसे आप क्लाइंट के इस संस्करण के साथ पंजीयन का प्रयास किया गया है."
+#: ../src/up2date_client/tui.py:112 ../data/rh_register.glade.h:83
+msgid "System software updates already set up"
+msgstr "सिस्टम सॉफ्टवेयर अद्यतन पहले से सेटअप"
 
-#: ../src/up2date_client/tui.py:425
+#: ../src/up2date_client/tui.py:115
+#, fuzzy
+msgid "Red Hat Network Location:"
+msgstr "Red Hat नेटवर्क लॉगिन (_L):"
+
+#: ../src/up2date_client/tui.py:117
+#, fuzzy
+msgid "System ID:"
+msgstr ""
+"\n"
+"सिस्टम ID: "
+
+#: ../src/up2date_client/tui.py:371
 msgid "The server indicated an error:\n"
 msgstr "सर्वर ने एक त्रुटि प्रदर्शित किया है:\n"
 
-#: ../src/up2date_client/tui.py:429
+#: ../src/up2date_client/tui.py:375
 #, fuzzy
 msgid "There was an error communicating with the registration server:\n"
 msgstr "पंजीयन सर्वर के साथ संप्रेषण करने में एक त्रुटि था. संदेश था:\n"
 
-#: ../src/up2date_client/tui.py:689
-msgid "You must enter an Installation Number that "
-msgstr "आप एक अधिष्ठापन संख्या अवश्य डालें जो"
-
-#: ../src/up2date_client/tui.py:710
+#: ../src/up2date_client/tui.py:434
 msgid "Select Operating System Release"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:714
+#: ../src/up2date_client/tui.py:438
 msgid "Operating System version:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:716
+#: ../src/up2date_client/tui.py:440
 msgid "Limited Updates Only"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:728
+#: ../src/up2date_client/tui.py:452
 msgid " Minor Release: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:746
+#: ../src/up2date_client/tui.py:467
 msgid "All available updates"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:799
+#: ../src/up2date_client/tui.py:520
 msgid "Confirm operating system release selection"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:807
+#: ../src/up2date_client/tui.py:528
 msgid ""
 "Your system will be subscribed to the base software channel to receive all "
 "available updates."
 msgstr ""
 
-#: ../src/up2date_client/tui.py:851
+#: ../src/up2date_client/tui.py:572
 msgid "Register a System Profile - Hardware"
 msgstr "एक सिस्टम प्रोफाइल पंजीकृत करें - हार्डवेयर"
 
-#: ../src/up2date_client/tui.py:854
+#: ../src/up2date_client/tui.py:575
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
@@ -1569,44 +1229,44 @@ msgstr ""
 "प्रोफाइल नाम एक वर्णनात्मक नाम है जो आप Red Hat नेटवर्क वेब पेजों पर इस सिस्टम प्रोफाइल "
 "की पहचान के लिए चुनते हैं. वैकल्पिक तौर पर, एक कंप्यूटर क्रम या पहचान संख्या शामिल करें."
 
-#: ../src/up2date_client/tui.py:860
+#: ../src/up2date_client/tui.py:581
 msgid "Profile name:"
 msgstr "प्रोफाइल नामः"
 
-#: ../src/up2date_client/tui.py:869 ../src/up2date_client/tui.py:871
+#: ../src/up2date_client/tui.py:590 ../src/up2date_client/tui.py:592
 msgid "Include the following information about hardware and network:"
 msgstr "हार्डवेयर और संजाल के बारे में निम्न जानकारी शामिल करें:"
 
-#: ../src/up2date_client/tui.py:882 ../src/up2date_client/tui.py:883
+#: ../src/up2date_client/tui.py:603 ../src/up2date_client/tui.py:604
 msgid "Version: "
 msgstr "संस्करणः "
 
-#: ../src/up2date_client/tui.py:889
+#: ../src/up2date_client/tui.py:610
 msgid "CPU model: "
 msgstr "CPU मॉडलः "
 
-#: ../src/up2date_client/tui.py:895
+#: ../src/up2date_client/tui.py:616
 msgid "Hostname: "
 msgstr "मेजबाननाम: "
 
-#: ../src/up2date_client/tui.py:906
+#: ../src/up2date_client/tui.py:627
 msgid "CPU speed: "
 msgstr "CPU गतिः "
 
-#: ../src/up2date_client/tui.py:912
+#: ../src/up2date_client/tui.py:633
 msgid "IP Address: "
 msgstr "IP पताः "
 
-#: ../src/up2date_client/tui.py:918
+#: ../src/up2date_client/tui.py:639
 msgid "Memory: "
 msgstr "स्मृतिः "
 
-#: ../src/up2date_client/tui.py:922
+#: ../src/up2date_client/tui.py:643
 #, python-format
 msgid "%s megabytes"
 msgstr "%s मेगाबाइट्स"
 
-#: ../src/up2date_client/tui.py:927
+#: ../src/up2date_client/tui.py:648
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
@@ -1614,11 +1274,11 @@ msgstr ""
 "इस प्रोफाइल में अतिरिक्त हार्डवेयर कि जानकारी है जिसमें PCI युक्तियों, डिस्क आकारों और "
 "आरोह स्थान भी शामिल है."
 
-#: ../src/up2date_client/tui.py:964
+#: ../src/up2date_client/tui.py:685
 msgid "Register a System Profile - Packages"
 msgstr "एक सिस्टम प्रोफाइल पंजीकृत करें - संकुल "
 
-#: ../src/up2date_client/tui.py:969
+#: ../src/up2date_client/tui.py:690
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
@@ -1626,208 +1286,166 @@ msgstr ""
 "RPM जानकारी महत्वपूर्ण है यह निर्धारित करने के लिए कि कौन सा अद्यतन सॉफ्टवेयर संकुल इस "
 "सिस्टम के लिए उपयुक्त है."
 
-#: ../src/up2date_client/tui.py:973
+#: ../src/up2date_client/tui.py:694
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr "मेरी सिस्टम प्रोफाइल में इस सिस्टम पर अधिष्ठापित RPM संकुल संलग्न करें"
 
-#: ../src/up2date_client/tui.py:977
+#: ../src/up2date_client/tui.py:698
 msgid "You may deselect individual packages by unchecking them below."
 msgstr "निम्नांकित एकल संकुल को अचिन्हित करके आप उन्हें विचयनित कर सकते हैं."
 
-#: ../src/up2date_client/tui.py:986
+#: ../src/up2date_client/tui.py:707
 msgid "Building Package List"
 msgstr "संकुल सूची बना रहा है"
 
-#: ../src/up2date_client/tui.py:1049
+#: ../src/up2date_client/tui.py:768
 msgid "Send Profile Information to Red Hat Network"
 msgstr "Red Hat नेटवर्क को प्रोफाइल जानकारी भेजें"
 
-#: ../src/up2date_client/tui.py:1094
-msgid "Finish"
-msgstr "समाप्त"
-
-#: ../src/up2date_client/tui.py:1100
+#: ../src/up2date_client/tui.py:805
 msgid "Sending Profile to Red Hat Network"
 msgstr "Red Hat नेटवर्क को प्रोफाइल जानकारी भेजें"
 
-#: ../src/up2date_client/tui.py:1112
-msgid "Problem registering login name:\n"
-msgstr "लॉगिन नाम पंजीयन में समस्या:\n"
-
-#: ../src/up2date_client/tui.py:1115
-msgid "Problem registering login name."
-msgstr "लॉगिन नाम पंजीकरण में समस्या."
-
-#: ../src/up2date_client/tui.py:1197
+#: ../src/up2date_client/tui.py:894
 msgid "Problem sending hardware profile:\n"
 msgstr "हार्डवेयर प्रोफाइल को भेजने में समस्या:\n"
 
-#: ../src/up2date_client/tui.py:1201
+#: ../src/up2date_client/tui.py:898
 msgid "Problem sending hardware profile."
 msgstr "हार्डवेयर प्रोफाइल भेजने में समस्या."
 
-#: ../src/up2date_client/tui.py:1210
+#: ../src/up2date_client/tui.py:907
 msgid "Problem sending package list:\n"
 msgstr "संकुल सूची भेजने में समस्या:\n"
 
-#: ../src/up2date_client/tui.py:1213
+#: ../src/up2date_client/tui.py:910
 msgid "Problem sending package list."
 msgstr "संकुल सूची भेजने में समस्या."
 
-#: ../src/up2date_client/tui.py:1286 ../src/up2date_client/tui.py:1291
-msgid ", quantity:"
-msgstr ", मात्रा:"
+#: ../src/up2date_client/tui.py:953
+msgid "Finish"
+msgstr "समाप्त"
 
-#: ../src/up2date_client/tui.py:1395
+#: ../src/up2date_client/tui.py:1067
 msgid "You specified an invalid protocol."
 msgstr "आपने एक अवैध प्रोटोकॉल निर्दिष्ट किया है."
 
-#: ../src/up2date_client/tui.py:1425
+#: ../src/up2date_client/tui.py:1106
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> तत्वों के बीच           |  <Space> चुनते हैं  |  <F12> अगला प्रपट"
 
-#: ../src/up2date_client/tui.py:1685
+#: ../src/up2date_client/tui.py:1200
 msgid "You must run the RHN registration program as root."
 msgstr "आपको रूट होकर RHN पंजीयन कार्यक्रम चलाना जरुरी है."
 
-#: ../src/up2date_client/tui.py:1700 ../data/rh_register.glade.h:84
-msgid "System software updates already set up"
-msgstr "सिस्टम सॉफ्टवेयर अद्यतन पहले से सेटअप"
-
-#: ../src/up2date_client/tui.py:1702
-msgid ""
-"\n"
-"\n"
-"Red Hat Network Location: "
-msgstr ""
-"\n"
-"\n"
-"Red Hat Network स्थान: "
-
-#: ../src/up2date_client/tui.py:1704
-msgid ""
-"\n"
-"RHN Login: "
-msgstr ""
-"\n"
-"RHN लॉगिन: "
-
-#: ../src/up2date_client/tui.py:1705
-msgid ""
-"\n"
-"System ID: "
-msgstr ""
-"\n"
-"सिस्टम ID: "
-
-#: ../src/up2date_client/up2dateErrors.py:30
+#: ../src/up2date_client/up2dateErrors.py:31
 msgid "Disk error.  The message was:\n"
 msgstr "डिस्क त्रुटि. संदेश थाः\n"
 
-#: ../src/up2date_client/up2dateErrors.py:38
+#: ../src/up2date_client/up2dateErrors.py:39
 msgid "RPM error.  The message was:\n"
 msgstr "RPM त्रुटि. संदेश थाः\n"
 
-#: ../src/up2date_client/up2dateErrors.py:49
+#: ../src/up2date_client/up2dateErrors.py:50
 msgid "There was a fatal error installing the package:\n"
 msgstr "संकुल के अधिष्ठापन में घातक त्रुटि था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:62
+#: ../src/up2date_client/up2dateErrors.py:63
 msgid "Password error. The message was:\n"
 msgstr "शब्दकूट त्रुटि. संदेश थाः\n"
 
-#: ../src/up2date_client/up2dateErrors.py:73
+#: ../src/up2date_client/up2dateErrors.py:74
 msgid "RPM package conflict error.  The message was:\n"
 msgstr "RPM संकुल संघर्ष त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:85
+#: ../src/up2date_client/up2dateErrors.py:86
 msgid "RPM file conflict error. The message was:\n"
 msgstr "RPM फाइल तालमेल त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:99
+#: ../src/up2date_client/up2dateErrors.py:100
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM अधीनता त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:113
+#: ../src/up2date_client/up2dateErrors.py:114
 msgid "RPM  error. The message was:\n"
 msgstr "RPM त्रुटि. संदेश थाः\n"
 
-#: ../src/up2date_client/up2dateErrors.py:126
-#: ../src/up2date_client/up2dateErrors.py:139
+#: ../src/up2date_client/up2dateErrors.py:127
+#: ../src/up2date_client/up2dateErrors.py:140
 msgid "RPM dependency error.  The message was:\n"
 msgstr "RPM निर्भरता त्रुटि.संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:150
+#: ../src/up2date_client/up2dateErrors.py:151
 msgid "Package Skip List error.  The message was:\n"
 msgstr "संकुल त्याग सूची त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:163
+#: ../src/up2date_client/up2dateErrors.py:164
 msgid "File Skip List or config file overwrite error. The message was:\n"
 msgstr "छोड़ी गई फाइल सूची या विन्यास फाइल अधिलेखन त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:173
+#: ../src/up2date_client/up2dateErrors.py:174
 msgid "Error communicating with server. The message was:\n"
 msgstr "सर्वर के साथ संचार करने में त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:184
+#: ../src/up2date_client/up2dateErrors.py:185
 msgid "File Not Found: \n"
 msgstr "फाइल नहीं मिलीः\n"
 
-#: ../src/up2date_client/up2dateErrors.py:195
+#: ../src/up2date_client/up2dateErrors.py:196
 msgid "Delay error from server.  The message was:\n"
 msgstr "सर्वर से देर होने की त्रुटि. संदेश था:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:203
+#: ../src/up2date_client/up2dateErrors.py:204
 #, python-format
 msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
 msgstr "\"%s\" संकुल हटा नहीं सकते थे. यह RemoveSkipList सूची पर था."
 
-#: ../src/up2date_client/up2dateErrors.py:226
+#: ../src/up2date_client/up2dateErrors.py:227
 msgid "GPG is not installed properly."
 msgstr "GPG सही तरीके से अधिष्ठापित नहीं है."
 
-#: ../src/up2date_client/up2dateErrors.py:236
+#: ../src/up2date_client/up2dateErrors.py:237
 msgid ""
 "GPG keyring does not include the Red Hat, Inc. public package-signing key"
 msgstr "GPG कीरिंग में Red Hat, Inc के जन संकुल-चिन्हित कुंजी नहीं है"
 
-#: ../src/up2date_client/up2dateErrors.py:248
+#: ../src/up2date_client/up2dateErrors.py:249
 #, python-format
 msgid ""
 "The package %s failed its gpg signature verification. This means the package "
 "is corrupt."
 msgstr "%s संकुल के gpg हस्ताक्षर सत्यापन असफल हुआ . इसका मतलब संकुल भ्रष्ट है."
 
-#: ../src/up2date_client/up2dateErrors.py:262
+#: ../src/up2date_client/up2dateErrors.py:263
 #, python-format
 msgid "Package %s does not have a GPG signature.\n"
 msgstr "%s संकुल में GPG चिन्ह नहीं है.\n"
 
-#: ../src/up2date_client/up2dateErrors.py:275
+#: ../src/up2date_client/up2dateErrors.py:276
 #, python-format
 msgid "Package %s has a untrusted GPG signature.\n"
 msgstr "%s संकुल में एक अविश्वसनीय GPG हस्ताक्षर है.\n"
 
-#: ../src/up2date_client/up2dateErrors.py:288
+#: ../src/up2date_client/up2dateErrors.py:289
 #, python-format
 msgid "Package %s has a unknown GPG signature.\n"
 msgstr "%s संकुल का एक अज्ञात GPG हस्ताक्षर है.\n"
 
-#: ../src/up2date_client/up2dateErrors.py:338
+#: ../src/up2date_client/up2dateErrors.py:339
 msgid "Error validating data at server:\n"
 msgstr "सर्वर पर आंकड़ा वैधीकृत करने में त्रुटि:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:349
+#: ../src/up2date_client/up2dateErrors.py:350
 msgid "The installation number is invalid"
 msgstr "अधिष्ठापन संख्या अमान्य है"
 
-#: ../src/up2date_client/up2dateErrors.py:356
+#: ../src/up2date_client/up2dateErrors.py:357
 msgid "Error parsing the oemInfo file at field:\n"
 msgstr "इस क्षेत्र पर oemInfo फाइल के विश्लेषण करने में त्रुटि:\n"
 
-#: ../src/up2date_client/up2dateErrors.py:538
+#: ../src/up2date_client/up2dateErrors.py:546
 msgid ""
 "\n"
 "    Your organization does not have enough Management entitlements to "
@@ -1849,29 +1467,11 @@ msgid ""
 "    requiring a Management entitlement."
 msgstr ""
 
-#: ../src/firstboot/rhn_activate_gui.py:48
-msgid "Access Subscription"
-msgstr "अभिगम सदस्यता"
-
-#: ../src/firstboot/rhn_activate_gui.py:50
-#: ../src/firstboot/rhn_create_profile_gui.py:50
-#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
-msgid "Connect to Red Hat Network"
-msgstr "Red Hat नेटवर्क से जोड़ें"
-
-#: ../src/firstboot/rhn_choose_org_gui.py:36
-msgid "Choose Organization"
-msgstr "संगठन चुनें"
-
-#: ../src/firstboot/rhn_choose_org_gui.py:38
-msgid "Choose an organization to use with this username"
-msgstr "इस उपयोक्ता नाम के प्रयोग के लिये संगठन चुनें"
-
-#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:42
+#: ../src/firstboot/rhn_choose_server_gui.py:40 ../data/rh_register.glade.h:43
 msgid "Choose Server"
 msgstr "सर्वर चुनें"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:40
+#: ../src/firstboot/rhn_choose_server_gui.py:42
 msgid "Choose a Red Hat Network server"
 msgstr "एक Red Hat नेटवर्क सर्वर चुनें"
 
@@ -1879,81 +1479,82 @@ msgstr "एक Red Hat नेटवर्क सर्वर चुनें"
 msgid "Create Profile"
 msgstr "प्रोफाइल बनायें"
 
-#: ../src/firstboot/rhn_finish_gui.py:36
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:41 ../src/firstboot/rhn_review_gui.py:40
+msgid "Connect to Red Hat Network"
+msgstr "Red Hat नेटवर्क से जोड़ें"
+
+#: ../src/firstboot/rhn_finish_gui.py:39
 msgid "Finish Updates Setup"
 msgstr "अद्यतन सेटअप समाप्त करें"
 
-#: ../src/firstboot/rhn_login_gui.py:53
+#: ../src/firstboot/rhn_login_gui.py:54
 msgid "Red Hat Login"
 msgstr "Red Hat लॉगिन"
 
-#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+#: ../src/firstboot/rhn_login_gui.py:56 ../src/firstboot/rhn_start_gui.py:41
 msgid "Register with Red Hat Network"
 msgstr "Red Hat नेटवर्क के साथ पंजीयन"
 
-#: ../src/firstboot/rhn_login_gui.py:102
+#: ../src/firstboot/rhn_login_gui.py:105
 #, python-format
 msgid "There was a communication error with the server: %s"
 msgstr "सर्वर के साथ संचार त्रुटि था: %s"
 
-#: ../src/firstboot/rhn_login_gui.py:103
+#: ../src/firstboot/rhn_login_gui.py:106
 msgid ""
 "Would you like to try changing the network configuration and trying again?"
 msgstr "क्या आप संजाल विन्यास करने की कोशिश करेंगे या फिर कोशिश करेंगे?"
 
-#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
 msgid "Provide Certificate"
 msgstr "प्रमाणपत्र दें"
 
-#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+#: ../src/firstboot/rhn_provide_certificate_gui.py:42
 msgid "Provide a certificate for this Red Hat Network server"
 msgstr "इस Red Hat Network सर्वर के लिये एक प्रमाणपत्र दें"
 
-#: ../src/firstboot/rhn_review_gui.py:36
+#: ../src/firstboot/rhn_review_gui.py:38
 msgid "Review Subscription"
 msgstr "सदस्यता की समीक्षा करें"
 
-#: ../src/firstboot/rhn_start_gui.py:38
+#: ../src/firstboot/rhn_start_gui.py:39
 msgid "Set Up Software Updates"
 msgstr "सॉफ्टवेयर अद्यतन सेटअप करें"
 
-#: ../src/bin/rhn-profile-sync.py:33
+#: ../src/bin/rhn-profile-sync.py:34
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
 "option"
 msgstr "आपको इस सिस्टम को पंजीकृत करना है `rhn_register` को इस विकल्प के पहले चलाकर"
 
-#: ../src/bin/rhn-profile-sync.py:41
+#: ../src/bin/rhn-profile-sync.py:42
 msgid "Updating package profile..."
 msgstr "संकुल प्रोफाइल अद्यतन कर रहा है..."
 
-#: ../src/bin/rhn-profile-sync.py:44
+#: ../src/bin/rhn-profile-sync.py:45
 msgid "Updating hardware profile..."
 msgstr "हार्डवेयर प्रोफाइल को अद्यतन कर रहा है..."
 
-#: ../src/bin/rhn-profile-sync.py:48
+#: ../src/bin/rhn-profile-sync.py:49
 msgid "Updating virtualization profile..."
 msgstr "वर्चुअलाइजेश प्रोफाइल अद्यतन कर रहा है..."
 
-#: ../src/bin/rhn_register.py:43
+#: ../src/bin/rhn_register.py:36
 msgid "Do not attempt to use X"
 msgstr "X प्रयोग करने का प्रयास न करें"
 
-#: ../src/bin/rhnreg_ks.py:42
+#: ../src/bin/rhnreg_ks.py:44
 msgid "Specify a profilename"
 msgstr "एक प्रोफाइलनाम निर्दिष्ट करें"
 
-#: ../src/bin/rhnreg_ks.py:44
+#: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a username"
 msgstr "एक उपयोक्तानाम निर्दिष्ट करें"
 
-#: ../src/bin/rhnreg_ks.py:46
+#: ../src/bin/rhnreg_ks.py:48
 msgid "Specify a password"
 msgstr "एक शब्दकूट निर्दिष्ट करें"
-
-#: ../src/bin/rhnreg_ks.py:48
-msgid "Specify an email address"
-msgstr "एक ई-डाक पता निर्दिष्ट करें."
 
 #: ../src/bin/rhnreg_ks.py:50
 msgid "Specify an organizational id for this system"
@@ -1972,66 +1573,61 @@ msgid "Specify an activation key"
 msgstr "एक सक्रियकरण कुंजी निर्दिष्ट करें"
 
 #: ../src/bin/rhnreg_ks.py:58
-#, fuzzy
-msgid "Specify a installation number to use"
-msgstr "प्रयोग के लिये सदस्यता संख्या निर्दिष्ट करें"
-
-#: ../src/bin/rhnreg_ks.py:60
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:62
+#: ../src/bin/rhnreg_ks.py:60
 #, fuzzy
 msgid "[Deprecated] Read contact info from stdin"
 msgstr "stdin से संपर्क जानकारी पढ़े"
 
-#: ../src/bin/rhnreg_ks.py:64
+#: ../src/bin/rhnreg_ks.py:62
 msgid "Do not probe or upload any hardware info"
 msgstr "किसी हार्डवेयर जानकारी को भारित या खोज न करें"
 
-#: ../src/bin/rhnreg_ks.py:66
+#: ../src/bin/rhnreg_ks.py:64
 msgid "Do not profile or upload any package info"
 msgstr "किसी संकुल जानकारी को प्रोफाइल या भारित न करें"
 
-#: ../src/bin/rhnreg_ks.py:68
+#: ../src/bin/rhnreg_ks.py:66
 msgid "Do not upload any virtualization info"
 msgstr "किसी वर्चुअलाइजेशन सूचना अपलोड मत करें"
 
-#: ../src/bin/rhnreg_ks.py:70
+#: ../src/bin/rhnreg_ks.py:68
 msgid "Do not start rhnsd after completion"
 msgstr "rhnsd को पूरे होने के बाद मत आरंभ करें"
 
-#: ../src/bin/rhnreg_ks.py:72
+#: ../src/bin/rhnreg_ks.py:70
 msgid "Register the system even if it is already registered"
 msgstr "अगर पहले से पंजीकृत है फिर भी सिस्टम को पंजीकृत करें"
 
-#: ../src/bin/rhnreg_ks.py:82
+#: ../src/bin/rhnreg_ks.py:80
 msgid "A username and password are required to register a system."
 msgstr "एक सिस्टम को पंजीकृत करने के लिए एक उपयोक्ता नाम और शब्दकूट की आवश्यकता है."
 
-#: ../src/bin/rhnreg_ks.py:87
+#: ../src/bin/rhnreg_ks.py:85
 msgid "This system is already registered. Use --force to override"
 msgstr "यह सिस्टम पहले से पंजीकृत है. अध्यारोहन के लिए --force प्रयोग करें"
 
-#: ../src/bin/rhnreg_ks.py:130
+#: ../src/bin/rhnreg_ks.py:119
 msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:133
+#: ../src/bin/rhnreg_ks.py:122
 #, fuzzy
 msgid "The server you are registering against does not support EUS."
 msgstr "सर्वर जिसे आप क्लाइंट के इस संस्करण के साथ पंजीयन का प्रयास किया गया है."
 
-#: ../src/bin/rhnreg_ks.py:163
+#: ../src/bin/rhnreg_ks.py:152
 msgid ""
 "Warning: --contactinfo option has been deprecated. Please login to the "
 "server web user Interface and update your contactinfo. "
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:203
+#: ../src/bin/rhnreg_ks.py:192
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
@@ -2039,37 +1635,29 @@ msgstr ""
 "प्रोफाइल निर्दिष्ट नहीं था, मेजबान नाम और IP पता को एक प्रोफाइल नाम की तरह प्रयोग के "
 "लिए निश्चित नहीं कर सकता था, कृपया एक निर्दिष्ट करें."
 
-#: ../data/gui.glade.h:2
+#: ../data/gui.glade.h:1
 msgid "Choose an update location"
 msgstr "एक अद्यतन स्थान चुनें"
 
-#: ../data/gui.glade.h:3
+#: ../data/gui.glade.h:2
 msgid "Create your system profile"
 msgstr "अपना सिस्टम प्रोफाइल बनायें"
 
-#: ../data/gui.glade.h:4
+#: ../data/gui.glade.h:3
 msgid "Enter your account information"
 msgstr "अपनी खाता जानकारी दें:"
 
-#: ../data/gui.glade.h:5
-msgid "Important Registration Info"
-msgstr "महत्वपूर्ण पंजीयन जानकारी"
-
-#: ../data/gui.glade.h:6
+#: ../data/gui.glade.h:4
 msgid "Provide a security certificate"
 msgstr "एक सुरक्षा प्रमाणपत्र दें"
 
-#: ../data/gui.glade.h:8
-msgid "Registration information"
-msgstr "पंजीयन जानकारी"
+#: ../data/gui.glade.h:5
+msgid "Registering for software updates"
+msgstr "सॉफ्टवेयर अद्यतन के लिये पंजीयन कर रहा है"
 
-#: ../data/gui.glade.h:10
+#: ../data/gui.glade.h:7
 msgid "Select operating system release"
 msgstr ""
-
-#: ../data/gui.glade.h:11
-msgid "Select organization"
-msgstr "संगठन चुनें"
 
 #: ../data/progress.glade.h:1
 msgid "Progress Dialog"
@@ -2150,6 +1738,10 @@ msgstr ""
 "कि यह सिस्टम पंजीकृत हो सके:"
 
 #: ../data/rh_register.glade.h:16
+msgid "<b>Your system was registered for updates during installation.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
 msgid ""
 "<b>_All available updates</b> will be provided to this system.  This system, "
 "if kept updated, will always be equivalent to the latest available minor "
@@ -2157,42 +1749,47 @@ msgid ""
 "'Red Hat Enterprise Linux 5' software channel."
 msgstr ""
 
-#: ../data/rh_register.glade.h:17
+#: ../data/rh_register.glade.h:18
 msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:18
+#: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
 msgstr ""
 
-#: ../data/rh_register.glade.h:19
+#: ../data/rh_register.glade.h:20
 msgid "<big><b>Profile Data</b></big>"
 msgstr "<big><b>प्रोफाइल आंकड़ा</b></big>"
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:21
 msgid "<big><b>System Name</b></big>"
 msgstr "<big><b>सिस्टम नाम</b></big>"
 
-#: ../data/rh_register.glade.h:21
+#: ../data/rh_register.glade.h:22
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
 msgstr "<small><b>उदाहरण:</b> https://satellite.example.com</small>"
 
-#: ../data/rh_register.glade.h:22
+#: ../data/rh_register.glade.h:23
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
 msgstr "<small><b>उदाहरण:</b> squid.example.com:3128</small>"
 
-#: ../data/rh_register.glade.h:23
+#: ../data/rh_register.glade.h:24
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>उदाहरण</b>: XXXX-XXXX-XXXX-XXXX</small>"
 
-#: ../data/rh_register.glade.h:24
-msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
-msgstr "<small><b>संकेत:</b> Red Hat आपकी गोपनीयता को मान देता है.</small>"
-
 #: ../data/rh_register.glade.h:25
+#, fuzzy
+msgid ""
+"<small><b>Tip:</b> Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html.</small>"
+msgstr ""
+"संकेत: Red Hat आपकी गोपनीयता को महत्व देता है: http://www.redhat.com/legal/"
+"privacy_statement.html"
+
+#: ../data/rh_register.glade.h:26
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
@@ -2200,7 +1797,7 @@ msgstr ""
 "<small>संकेत: अपना लॉगिन या शब्दकूट भूल गये हैं? अपने सैटेलाइट के <i>संगठन प्रशासक</i> को "
 "संपर्क करें.</small>"
 
-#: ../data/rh_register.glade.h:26
+#: ../data/rh_register.glade.h:27
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
@@ -2208,7 +1805,7 @@ msgstr ""
 "<small>संकेत: अपना लॉगिन या शब्दकूट भूल गये हैं? इसके लिये यहां देखें \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#: ../data/rh_register.glade.h:29
+#: ../data/rh_register.glade.h:30
 #, no-c-format
 msgid ""
 "A security certificate compatible with <b>%s</b> was not found on this "
@@ -2223,20 +1820,20 @@ msgstr ""
 "SSL तकनीक का प्रयोग करता सुरक्षा प्रमाणपत्र सुनिश्चित करता है कि इस सिस्टम और Red Hat "
 "Network (लॉगिन व शब्दकूट के साथ) के बीच आंकड़ा संचार सुरक्षित है."
 
-#: ../data/rh_register.glade.h:33
+#: ../data/rh_register.glade.h:34
 msgid ""
 "Activate a previously purchased subscription you have not yet activated."
 msgstr "पहले खरीदे गये सदस्यता सक्रिय करें जिसे आपने सक्रिय नहीं किया है."
 
-#: ../data/rh_register.glade.h:34
+#: ../data/rh_register.glade.h:35
 msgid "Advanced Network Configuration"
 msgstr "उन्नत संजाल विन्यास"
 
-#: ../data/rh_register.glade.h:35
+#: ../data/rh_register.glade.h:36
 msgid "Advanced _Network Configuration ..."
 msgstr "उन्नत संजाल विन्यास (_N) ..."
 
-#: ../data/rh_register.glade.h:36
+#: ../data/rh_register.glade.h:37
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
@@ -2244,60 +1841,56 @@ msgstr ""
 "क्या आप निश्चित हैं कि आप अपने सिस्टम को Red Hat Network से नहीं जोड़ना चाहते हैं? आप "
 "Red Hat Enterprise Linux सदस्यता के फायदों से वंचित रहेंगे:"
 
-#: ../data/rh_register.glade.h:37
-msgid "Are you sure you would like to continue?"
-msgstr "क्या आप जारी रखने के लिये निश्चित हैं?"
-
-#: ../data/rh_register.glade.h:38
+#: ../data/rh_register.glade.h:39
 msgid "CPU Model:"
 msgstr "CPU मॉडलः"
 
-#: ../data/rh_register.glade.h:39
+#: ../data/rh_register.glade.h:40
 msgid "CPU Speed:"
 msgstr "CPU गतिः"
 
-#: ../data/rh_register.glade.h:40
+#: ../data/rh_register.glade.h:41
 msgid "Certificate _Location:"
 msgstr "प्रमाणपत्र अवस्थिति (_L):"
 
-#: ../data/rh_register.glade.h:41
+#: ../data/rh_register.glade.h:42
 #, fuzzy
 msgid "Choose Channel"
 msgstr "संगठन चुनें"
 
-#: ../data/rh_register.glade.h:43
+#: ../data/rh_register.glade.h:44
 msgid "Confirm operation system release selection"
 msgstr ""
 
-#: ../data/rh_register.glade.h:45
+#: ../data/rh_register.glade.h:46
 msgid "Create profile"
 msgstr "प्रोफाइल बनायें"
 
-#: ../data/rh_register.glade.h:47
+#: ../data/rh_register.glade.h:48
 msgid "ERROR"
 msgstr "त्रुटि"
 
-#: ../data/rh_register.glade.h:48
+#: ../data/rh_register.glade.h:49
 msgid "Enter Your Account Information"
 msgstr "अपनी खाता जानकारी डालें:"
 
-#: ../data/rh_register.glade.h:49
+#: ../data/rh_register.glade.h:50
 msgid "Enter in the format hostname(:port)"
 msgstr "मेजबाननाम (:port) प्रारूप में डालें"
 
-#: ../data/rh_register.glade.h:50
+#: ../data/rh_register.glade.h:51
 msgid "Hardware Info"
 msgstr "हार्डवेयर सूचना"
 
-#: ../data/rh_register.glade.h:51
+#: ../data/rh_register.glade.h:52
 msgid "Hardware Profile"
 msgstr "हार्डवेयर प्रोफाइल"
 
-#: ../data/rh_register.glade.h:52
+#: ../data/rh_register.glade.h:53
 msgid "Hostname:"
 msgstr "मेजबाननाम:"
 
-#: ../data/rh_register.glade.h:53
+#: ../data/rh_register.glade.h:54
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
@@ -2305,7 +1898,7 @@ msgstr ""
 "मेरे पास <b>नहीं है </b> एक SSL प्रमाणपत्र. मैं अपने सिस्टम प्रशासक को मदद के लिये संपर्क "
 "करूंगा और बाद में पंजीकृत करूंगा (_d)."
 
-#: ../data/rh_register.glade.h:54
+#: ../data/rh_register.glade.h:55
 msgid ""
 "I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
@@ -2314,15 +1907,15 @@ msgstr ""
 "मेरे पास <b>Red Hat Network सैटेलाइट</b> या <b>Red Hat Network Proxy</b> में अभिगम "
 "है. मैं नीचे से सैटेलाइट या प्रॉक्सी से सॉफ्टवेयर अद्यतन पाना चाहूंगा:"
 
-#: ../data/rh_register.glade.h:55
+#: ../data/rh_register.glade.h:56
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr "मेरे पास <b>_SSL certificate</b> है Red Hat Network से संचार करने के लिये:"
 
-#: ../data/rh_register.glade.h:56
+#: ../data/rh_register.glade.h:57
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr "मैं Red Hat Network से एक HTTP प्रॉक्सी से जुड़ना चाहूंगा (_H)."
 
-#: ../data/rh_register.glade.h:57
+#: ../data/rh_register.glade.h:58
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
@@ -2330,40 +1923,40 @@ msgstr ""
 "मैं <b>Red Hat Network</b> से नीचे से सॉफ्टवेयर अद्यतन पाना चाहूंगा (मेरे पास Red Hat "
 "Network सैटेलाइट या प्रॉक्सी में अभिगम नहीं है.)"
 
-#: ../data/rh_register.glade.h:58
+#: ../data/rh_register.glade.h:59
 msgid "IP Address:"
 msgstr "IP पताः"
 
-#: ../data/rh_register.glade.h:59
+#: ../data/rh_register.glade.h:60
 msgid "Installation _Number:"
 msgstr "अधिष्ठापन संख्या (_N):"
 
-#: ../data/rh_register.glade.h:60
-msgid "It appears this system has already been set up for software updates:"
-msgstr "ऐसा लगता है कि यह सिस्टम सॉफ्टवेयर अद्यतन के लिये पहले से सेटअप है:"
-
-#: ../data/rh_register.glade.h:61
+#: ../data/rh_register.glade.h:62
 msgid "Link To Subscription"
 msgstr "सदस्यता से लिंक करें"
 
 #: ../data/rh_register.glade.h:63
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+"http://rhn.redhat.com/ में लॉगिन हों और अपने Your RHN > Subscription Management "
+"> System Entitlements पर एक निष्क्रिय सिस्टम गैर एंटाइटेल करें."
+
+#: ../data/rh_register.glade.h:64
 msgid "Memory:"
 msgstr "स्मृतिः"
 
-#: ../data/rh_register.glade.h:64
+#: ../data/rh_register.glade.h:65
 msgid "Package Information"
 msgstr "संकुल जानकारी"
 
-#: ../data/rh_register.glade.h:65
+#: ../data/rh_register.glade.h:66
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
 msgstr ""
 "कृपया अपना खाता सूचना <b>Red Hat Network</b> (http://rhn.redhat.com) के लिये डालें"
-
-#: ../data/rh_register.glade.h:67
-msgid "Privacy Statement"
-msgstr "गोपनीय वक्तव्य"
 
 #: ../data/rh_register.glade.h:68
 msgid "Provide a Security Certificate"
@@ -2376,6 +1969,13 @@ msgstr "प्रॉक्सी शब्दकूट (_a):"
 #: ../data/rh_register.glade.h:70
 msgid "Proxy _Username:"
 msgstr "प्रॉक्सी उपयोक्तानाम (_U):"
+
+#: ../data/rh_register.glade.h:71
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+"एक अतिरिक्त Red Hat Enterprise Linux सदस्यता http://www.redhat.com/store/ पर लें."
 
 #: ../data/rh_register.glade.h:72
 msgid ""
@@ -2394,38 +1994,34 @@ msgid "Red Hat Network _Location:"
 msgstr "Red Hat नेटवर्क लॉगिन (_L):"
 
 #: ../data/rh_register.glade.h:75
-msgid "Red Hat Privacy Statement"
-msgstr "Red Hat गोपनीयता वक्तव्य"
-
-#: ../data/rh_register.glade.h:76
 msgid "Review system..."
 msgstr "सिस्टम की समीक्षा करें..."
 
-#: ../data/rh_register.glade.h:77
+#: ../data/rh_register.glade.h:76
 msgid "Select A File"
 msgstr "एक फाइल चुनें"
 
-#: ../data/rh_register.glade.h:78
+#: ../data/rh_register.glade.h:77
 msgid "Send _hardware profile"
 msgstr "हार्डवेयर प्रोफाइल भेजें (_h)"
 
-#: ../data/rh_register.glade.h:79
+#: ../data/rh_register.glade.h:78
 msgid "Send _package profile"
 msgstr "संकुल प्रोफाइल भेजें (_p)"
 
-#: ../data/rh_register.glade.h:80
+#: ../data/rh_register.glade.h:79
 msgid "Software update setup has been completed for this system."
 msgstr "सॉफ्टवेयर अद्यतन सेटअप को इस सिस्टम के लिये पूरा किया जा रहा है."
 
-#: ../data/rh_register.glade.h:81
+#: ../data/rh_register.glade.h:80
 msgid "Start Window"
 msgstr "विंडो आरंभ करें"
 
-#: ../data/rh_register.glade.h:83
+#: ../data/rh_register.glade.h:82
 msgid "System _Name:"
 msgstr "सिस्टम नाम (_N):"
 
-#: ../data/rh_register.glade.h:85
+#: ../data/rh_register.glade.h:84
 msgid ""
 "This assistant will guide you through connecting your system  to Red Hat "
 "Network (RHN) for software updates, such as:"
@@ -2433,7 +2029,7 @@ msgstr ""
 "यह सहायक Red Hat Network (RHN) में सॉफ्टवेयर अद्यतन के लिये आपके सिस्टम को जोड़ने में "
 "गाइड करेगा. इसे कुछ सूचना चाहिये जैसे कि:"
 
-#: ../data/rh_register.glade.h:86
+#: ../data/rh_register.glade.h:85
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -2451,25 +2047,25 @@ msgstr ""
 "सुविधानुसार पंजीकृत करें. आप इस पंजीयन औजार का अभिगम <b>Software Updater</b> को "
 "<b>Applications > System Tools</b> मेनू में चलाकर कर सकते हैं."
 
-#: ../data/rh_register.glade.h:89
+#: ../data/rh_register.glade.h:88
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "सत्यापन का प्रयोग HTTP प्रॉक्सी के साथ करें (_t):"
 
-#: ../data/rh_register.glade.h:90
+#: ../data/rh_register.glade.h:89
 msgid "V_iew Package Profile ..."
 msgstr "संकुल प्रोफाइल देखें (_i) ..."
 
-#: ../data/rh_register.glade.h:91
+#: ../data/rh_register.glade.h:90
 msgid "Why Register"
 msgstr "क्यों पंजीकृत करें"
 
-#: ../data/rh_register.glade.h:93
+#: ../data/rh_register.glade.h:92
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr "क्या आप अपने सिस्टम को अभी पंजीकृत करना चाहेंगे? <b>(उच्च अनुशंसित.)</b>"
 
-#: ../data/rh_register.glade.h:94
+#: ../data/rh_register.glade.h:93
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
@@ -2479,7 +2075,7 @@ msgstr ""
 "Hat Network सैटेलाइट </b> या <b>Red Hat Network प्रॉक्सी </b> से सॉफ्टवेयर अद्यतन के "
 "लिये संबंधित कर सकते हैं."
 
-#: ../data/rh_register.glade.h:95
+#: ../data/rh_register.glade.h:94
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
@@ -2487,7 +2083,7 @@ msgstr ""
 "आप इन सदस्यता सुविधा का बिना अपने सिस्टम को Red Hat Network में जोड़े लाभ लेने में समर्थ "
 "<b>नहीं</b>हो सकेंगे."
 
-#: ../data/rh_register.glade.h:96
+#: ../data/rh_register.glade.h:95
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -2504,7 +2100,7 @@ msgstr ""
 "सुविधानुसार RHN पर संबंधित करें. आप इस पंजीयन औजार का अभिगम सॉफ्टवेयर अद्यतनकर्ता को "
 "सिस्टम औजार मेनू को चलाकर कर सकते हैं."
 
-#: ../data/rh_register.glade.h:99
+#: ../data/rh_register.glade.h:98
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
@@ -2512,7 +2108,7 @@ msgstr ""
 "आपको अपने सिस्टम पर अधिष्ठापित संकुल व हार्डवेयर का एक प्रोफाइल भेजने की जरूरत होगी "
 "ताकि हम निर्धारित कर सकें कि कौन सा अद्यतन उपलब्ध है."
 
-#: ../data/rh_register.glade.h:100
+#: ../data/rh_register.glade.h:99
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
@@ -2520,20 +2116,11 @@ msgstr ""
 "आपको इस सिस्टम के लिये एक नाम चुनना होगा ताकि आप इसे Red Hat Network अंतरफलक में "
 "पहचान सकें."
 
-#: ../data/rh_register.glade.h:101
-#, fuzzy
-msgid ""
-"Your account is associated with multiple <b>organizations</b>. You will need "
-"to select an organization to register this system to."
-msgstr ""
-"आपका खाता कई <b>संगठन</b> से जुड़ा है. आपको एक संगठन चुनना होगा इसमें इस सिस्टम को "
-"पंजीकृत करने के लिये."
-
-#: ../data/rh_register.glade.h:102
+#: ../data/rh_register.glade.h:100
 msgid "Your system is not setup for software updates."
 msgstr "आपका सिस्टम सॉफ्टवेयर अद्यतन के लिये सेटअप नहीं है."
 
-#: ../data/rh_register.glade.h:103
+#: ../data/rh_register.glade.h:101
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -2549,7 +2136,24 @@ msgstr ""
 "अधिसूचना क्षेत्र में (प्रायः ऊपर के दांयें कोने में, नीचे घेरा हुआ.) इस आइकन पर क्लिक करना, जब "
 "उपलब्ध हो, किसी उपलब्ध अद्यतन के लिये लिये निवेदन करने में गाइड करेगा:"
 
-#: ../data/rh_register.glade.h:106
+#: ../data/rh_register.glade.h:104
+#, fuzzy
+msgid ""
+"Your system is ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+"आपका सिस्टम अब सॉफ्टवेयर अद्यतन पाने को तैयार है जो कि इसे सुरक्षित व समर्थित रखेगा.\n"
+"\n"
+"आप जानेंगे कि कब सॉफ्टवेयर अद्यतन उपलब्ध है जब एक संकुल प्रतीक प्रकट होता है आपेक डेस्कटॉप के "
+"अधिसूचना क्षेत्र में (प्रायः ऊपर के दांयें कोने में, नीचे घेरा हुआ.) इस आइकन पर क्लिक करना, जब "
+"उपलब्ध हो, किसी उपलब्ध अद्यतन के लिये लिये निवेदन करने में गाइड करेगा:"
+
+#: ../data/rh_register.glade.h:107
 msgid ""
 "Your system will be subscribed to the base software channel.  You will not "
 "be able to move this system to an earlier minor release channel if you "
@@ -2557,40 +2161,44 @@ msgid ""
 msgstr ""
 
 #: ../data/rh_register.glade.h:108
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+"आपके सिस्टम के लिये एक सदस्यता का अभिगम जरूरी है. यह आपके सिस्टम को अद्यतन, सुरक्षित, और "
+"समर्थित रखेगा."
+
+#: ../data/rh_register.glade.h:109
 msgid "_Activate a subscription now..."
 msgstr "एक सदस्यता सक्रिय करें (_A)..."
 
-#: ../data/rh_register.glade.h:109
+#: ../data/rh_register.glade.h:110
 msgid "_Close"
 msgstr "बंद करें (_C)"
 
-#: ../data/rh_register.glade.h:110
+#: ../data/rh_register.glade.h:111
 msgid "_Login:"
 msgstr "लॉगिन (_L):"
 
-#: ../data/rh_register.glade.h:111
+#: ../data/rh_register.glade.h:112
 msgid "_Minor release:"
 msgstr ""
 
-#: ../data/rh_register.glade.h:112
+#: ../data/rh_register.glade.h:113
 msgid "_No thanks, I'll connect later."
 msgstr "नहीं धन्यवाद.  मैं बाद में संबंधित होऊंगा (_N)"
 
-#: ../data/rh_register.glade.h:113
+#: ../data/rh_register.glade.h:114
 msgid "_No, Cancel"
 msgstr "नहीं रद्द करें (_N)"
 
-#: ../data/rh_register.glade.h:114
+#: ../data/rh_register.glade.h:115
 msgid "_No, I prefer to register at a later time."
 msgstr "नहीं , मैं बाद में पंजीयन करना पसंद करूंगा (_N)."
 
-#: ../data/rh_register.glade.h:115
+#: ../data/rh_register.glade.h:116
 msgid "_Operating system version:"
 msgstr ""
-
-#: ../data/rh_register.glade.h:116
-msgid "_Organization:"
-msgstr "संगठन (_O):"
 
 #: ../data/rh_register.glade.h:117
 msgid "_Password:"
@@ -2643,6 +2251,384 @@ msgstr "• आपके Red Hat Network सैटेलाइट (वैकल�
 #: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• आपका Red Hat Network या Red Hat Network सैटेलाइट लॉगिन"
+
+#~ msgid "_Exit software update setup"
+#~ msgstr "सॉफ्टवेयर अद्यतन सेटअप से बाहर निकलें (_E)"
+
+#~ msgid "software updates setup unsuccessful"
+#~ msgstr "सॉफ्टवेयर अद्यतन सेटअप विफल"
+
+#~ msgid ""
+#~ "If you do not have a Red Hat Login, this assistant will allow you to "
+#~ "create one."
+#~ msgstr ""
+#~ "अगर आपके पास एक Red Hat लॉगिन नहीं है तो एक सहायक आपको बनाने में मदद करेगा."
+
+#~ msgid "Step 1: Review the Red Hat Privacy Statement"
+#~ msgstr "चरण 1: Red Hat गोपनीय वक्तव्य का पुनरावलोकन करें"
+
+#~ msgid "Review the Red Hat Network Terms And Conditions"
+#~ msgstr "Red Hat नेटवर्क के नियम और शर्तों को पुनः देखें"
+
+#~ msgid ""
+#~ "Are you sure you don't want to connect your system to Red Hat Network? "
+#~ "You'll miss out on the benefits of a Red Hat Enterprise Linux "
+#~ "subscription:\n"
+#~ "\n"
+#~ "Security & Updates:\n"
+#~ "Receive the latest software updates, including security updates, keeping "
+#~ "this Red Hat Enterprise Linux system updated and secure.\n"
+#~ "\n"
+#~ "Downloads & Upgrades:\n"
+#~ "Download installation images for Red Hat Enterprise Linux releases, "
+#~ "including new releases.\n"
+#~ "\n"
+#~ "Support:\n"
+#~ "Access to the technical support experts at Red Hat or Red Hat's partners "
+#~ "for help with any issues you might encounter with this system.\n"
+#~ "\n"
+#~ "Compliance:\n"
+#~ "Stay in compliance with your subscription agreement and manage "
+#~ "subscriptions for systems connected to your account at http://rhn.redhat."
+#~ "com/.\n"
+#~ "\n"
+#~ "You will not be able to take advantage of these subscription privileges "
+#~ "without connecting your system to Red Hat Network.\n"
+#~ "\n"
+#~ "Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+#~ "privacy_statement.html"
+#~ msgstr ""
+#~ "क्या आप निश्चित हैं कि आप अपने सिस्टम को Red Hat Network से जोड़ना नहीं चाहते हैं? आप "
+#~ "Red Hat Enterprise Linux सदस्यता से वंचित रहेंगे:\n"
+#~ "\n"
+#~ "सुरक्षा व अद्यतन:\n"
+#~ "नवीनतम सॉफ्टवेयर अद्यतन पायें, सुरक्षा अद्यतन के साथ, इस Red Hat Enterprise Linux "
+#~ "सिस्टम को अद्यतन और सुरक्षित रखते हुये.\n"
+#~ "\n"
+#~ "डाउनलोड व अद्यतन:\n"
+#~ "Red Hat Enterprise Linux रिलीज के लिये अधिष्ठापन बिंब डाउनलोड करें, नये रिलीज के "
+#~ "साथ.\n"
+#~ "\n"
+#~ "समर्थन:\n"
+#~ "Red Hat या Red Hat पार्टनर के तकनीकी समर्थन वास्ते मदद के लिये अभिगम किसी मुद्दे के "
+#~ "साथ जो आप इस सिस्टम के साथ सामना करते हैं.\n"
+#~ "\n"
+#~ "संगत:\n"
+#~ "अपने सदस्यता मसौदे के साथ संगत रहें औऱ सिस्मट के लिये सदस्यता प्रबंधित करें http://rhn."
+#~ "redhat.com/ पर अपने खाता में.\n"
+#~ "\n"
+#~ "आप इन सदस्यता सुविधा का लाभ लेने में समर्थ नहीं होंगे अपने सिस्टम को Red Hat Network "
+#~ "में बिना जोड़ें.\n"
+#~ "\n"
+#~ "संकेत: Red Hat के लिये आपकी गोपनीयता महत्वपूर्ण है: http://www.redhat.com/legal/"
+#~ "privacy_statement.html"
+
+#~ msgid "No thanks.  I'll connect later."
+#~ msgstr "नहीं धन्यवाद.  मैं बाद में संबंधित होउंगा."
+
+#~ msgid "Create a New Login ..."
+#~ msgstr "एक नया लॉगिन बनाएं ..."
+
+#~ msgid ""
+#~ "The two passwords you entered don't match.  Please re-type your passwords."
+#~ msgstr ""
+#~ "आपके द्वारा दिया दो शब्दकूट मेल नहीं खा रहा है.\n"
+#~ "कृपया अपने शब्दकूट को फिर टंकित करें."
+
+#~ msgid "Create a new Red Hat login"
+#~ msgstr "एक नया Red Hat लॉगिन बनाएं"
+
+#~ msgid ""
+#~ "Fill in the form below to create a new Red Hat login for use with Red Hat "
+#~ "Network (http://rhn.redhat.com/).  Required information is marked with a "
+#~ "'*':"
+#~ msgstr ""
+#~ "एक नया Red Hat लॉगिन बनाने के लिये Red Hat Network (http://rhn.redhat.com) के "
+#~ "साथ प्रयोग के लिये नीचे फॉर्म भरें. जरूरी सूचना एक '*' से चिह्नित है:"
+
+#~ msgid "*Desired Login:"
+#~ msgstr "*इच्छित लॉगिन:"
+
+#~ msgid "Examples: user@domain.com"
+#~ msgstr "उदाहरण: user@domain.com"
+
+#~ msgid "*Desired Password:"
+#~ msgstr "*इच्छित शब्दकूट:"
+
+#~ msgid "*Confirm Password:"
+#~ msgstr "* शब्दकूट सुनिश्चित करें:"
+
+#~ msgid "Tip: Leave blank if not with a company."
+#~ msgstr "संकेत: कृपया खाली छोड़ें अगर कंपनी के साथ जुड़ा नहीं है."
+
+#~ msgid ""
+#~ "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+#~ msgstr ""
+#~ "संकेत: Red Hat आपकी गोपनीयता को महत्व देता है.  हमारी गोपनीयता नीति यहां पर "
+#~ "देखें:  http://"
+
+#~ msgid "Please enter your first name."
+#~ msgstr "आप अपना पहला नाम डालें."
+
+#~ msgid "Please enter your last name."
+#~ msgstr "आप अपना अंतिम नाम डालें."
+
+#~ msgid "Please enter your email address."
+#~ msgstr "आप एक ई-डाक पता डालें."
+
+#~ msgid "Please enter a valid email address."
+#~ msgstr "कृपया एक वैध ई-डाक पता डालें."
+
+#~ msgid "Please enter your country."
+#~ msgstr "कृपया अपना देश डालें."
+
+#~ msgid "Please enter a longer login."
+#~ msgstr "कृपया एक लंबा लॉगिन डालें."
+
+#~ msgid "Please enter a longer password."
+#~ msgstr "कृपया एक लंबा शब्दकूट जरूर डालें."
+
+#~ msgid "Please enter a shorter password."
+#~ msgstr "कृपया एक छोटा शब्दकूट डालें."
+
+#~ msgid ""
+#~ "It appears this system has attempted to register to the Red Hat Network.\n"
+#~ "The system may already be set up for software updates.\n"
+#~ "\n"
+#~ "Are you sure you would like to continue?"
+#~ msgstr ""
+#~ "ऐसा लगता है कि यह सिस्टम Red Hat Network में पंजीयन का प्रयास किया है.\n"
+#~ "सिस्टम सॉफ्टवेयर अद्यतन के लिये पहले से तौयार है.\n"
+#~ "\n"
+#~ "क्या आप निश्चित हैं कि आप जारी रखना चाहेंगे?"
+
+#~ msgid "Select Organization"
+#~ msgstr "संगठन चुनें"
+
+#~ msgid ""
+#~ "Your login, %s, is associated with multiple organizations.  You will need "
+#~ "to select an organization to connect this system to."
+#~ msgstr ""
+#~ "आपका लॉगिन %s कई संगठन से जुड़ा है. आपको एक संगठन चुनना होगा इसमें इस सिस्टम को "
+#~ "पंजीकृत करने के लिये."
+
+#~ msgid "Organization:"
+#~ msgstr "संगठन में जुड़ने के लिये:"
+
+#~ msgid "You must select an organization."
+#~ msgstr "आप एक संगठन अवश्य चुनें."
+
+#~ msgid "Access a subscription"
+#~ msgstr "एक सदस्यता का अभिगम करें"
+
+#~ msgid ""
+#~ "You have no active subscriptions available in your account.  You will "
+#~ "need to do one of the following to create an active subscription in your "
+#~ "account before this system can connect to Red Hat Network:"
+#~ msgstr ""
+#~ "आपके पास आपके खाता में कोई सक्रिय सदस्यता उपलब्ध नहीं है.  आपको निम्न में से एक करने की "
+#~ "जरूरत अपने खाता में एक सक्रिय सदस्यता बनाने के लिये होगी इससे पहले कि यह सिस्टम Red "
+#~ "Hat Network में जुड़ सके:"
+
+#~ msgid "Activate a new subscription with an installation number:"
+#~ msgstr "एक अधिष्ठापन संख्या के साथ एक नयी सदस्यता सक्रिय करें:"
+
+#~ msgid ""
+#~ "You have already activated this installation number during this "
+#~ "registration."
+#~ msgstr "आपने इस अधिष्ठापन संख्या को इस पंजीयन के दौरान सक्रिय किया है."
+
+#~ msgid "Installation Number:"
+#~ msgstr "अधिष्ठापन संख्या:"
+
+#, fuzzy
+#~ msgid "Example: XXXX-XXXX-XXXX-XXXX"
+#~ msgstr "उदाहरण: XXXX-XXXX-XXXX-XXXX-XXXX"
+
+#~ msgid ""
+#~ "Congratulations, you have successfully completed software updates set up "
+#~ "for this system.\n"
+#~ "\n"
+#~ "Your system is now ready to receive the software updates that will keep "
+#~ "it secure and supported.\n"
+#~ "\n"
+#~ "You'll know when software updates are available when a package icon "
+#~ "appears in the notification area of you desktop (usually in the upper-"
+#~ "right corner.) Clicking on this icon, when available, will guide you "
+#~ "through applying any updates that are available."
+#~ msgstr ""
+#~ "बधाई, आपने सफलतापूर्वक सॉफ्टवेयर अद्यतन पूर्ण किया है इस सिस्टम के पास.\n"
+#~ "\n"
+#~ "आपका सिस्टम अब सॉफ्टवेयर अद्यतन पाने को तैयार है जो कि इसे सुरक्षित व समर्थित रखेगा.\n"
+#~ "\n"
+#~ "आप जानेंगे कि कब सॉफ्टवेयर अद्यतन उपलब्ध है जब एक संकुल प्रतीक प्रकट होता है आपेक "
+#~ "डेस्कटॉप के अधिसूचना क्षेत्र में (प्रायः ऊपर के दांयें कोने में.) इस आइकन पर क्लिक करना, जब "
+#~ "उपलब्ध हो, किसी उपलब्ध अद्यतन के लिये लिये निवेदन करने में गाइड करेगा:"
+
+#~ msgid "Subscriptions Activated:"
+#~ msgstr "सदस्यता सक्रिय:"
+
+#~ msgid ""
+#~ "A subscription-activating installation number was found on disk, but we "
+#~ "were not able to activate it (An unknown error occurred.) We used "
+#~ "existing active subscription slots available in the rhn account instead. "
+#~ "You may wish to contact Red Hat customer service regarding this issue: "
+#~ "http://www.redhat.com/apps/support/"
+#~ msgstr ""
+#~ "एक सदस्यता सक्रियकरण अधिष्ठापन संख्या डिस्क पर पाया गया, लेकिन हमलोग इसे सक्रिय "
+#~ "करने में समर्थ नहीं थे (एक अनजान त्रुटि हुई.) हमने मौजूदा सक्रिय सदस्यता स्लॉट प्रयोग "
+#~ "किया है बदले में rhn खाता के. आपको Red Hat उपभोक्ता सेवा से इस मुद्दे पर संपर्क करने की "
+#~ "इच्छा हो सकती है: http://www.redhat.com/apps/support/"
+
+#~ msgid "A installation number was found on disk, but we "
+#~ msgstr "डिस्क पर अधिष्ठापन संख्या पायी गयी, लेकिन हम"
+
+#~ msgid ""
+#~ "The installation number you have provided (%s) is invalid.\n"
+#~ "\n"
+#~ "Please check the number and try again or try another option listed on the "
+#~ "'Access a Subscription' screen."
+#~ msgstr ""
+#~ "आपके द्वारा दिया अधिष्ठापन संख्या (%s) अवैध है.\n"
+#~ "\n"
+#~ "कृपया संख्या जांचें और फिर कोशिश करें या फिर 'एक सदस्यता का अभिगम' स्क्रीन पर अन्य "
+#~ "विकल्प के लिये कोशिश करें."
+
+#~ msgid ""
+#~ "The installation number you provided is valid but was already activated "
+#~ "and the subscriptions have already been used by systems in your "
+#~ "organization or is not usable for this system.\n"
+#~ "\n"
+#~ "Please try a different number or try another option listed on the 'Access "
+#~ "a Subscription' screen."
+#~ msgstr ""
+#~ "अधिष्ठापन संख्या जो आपने दी है वह वैध है लेकिन पहले से सक्रियकृत था और सदस्यता अपने "
+#~ "संगठन में प्रयुक्त है या इस सिस्टम के लिये प्रयुक्त नहीं है.\n"
+#~ "\n"
+#~ "कृपया एक अलग संख्या की कोशिश करें या अन्य विकल्प की कोशिश करें 'एक सदस्यता अभिगम "
+#~ "करें' स्क्रीन में."
+
+#~ msgid ""
+#~ "The installation number you provided does not have subscriptions "
+#~ "associated with it.\n"
+#~ "\n"
+#~ "Please try a different number or try another option listed in the 'Access "
+#~ "a Subscription' screen."
+#~ msgstr ""
+#~ "अधिष्ठापन संख्या जो आपने दी है वह अपने साथ सदस्यता जुड़ा नही रखता है.\n"
+#~ "\n"
+#~ "कृपया एक अलग संख्या की कोशिश करें या अन्य विकल्प की कोशिश करें 'एक सदस्यता अभिगम "
+#~ "करें' स्क्रीन में."
+
+#~ msgid ""
+#~ "There was a problem logging in:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "लॉगिग में समस्या थी:\n"
+#~ "%s"
+
+#~ msgid "There was problem logging in."
+#~ msgstr "लॉगिंग में समस्या थी."
+
+#, fuzzy
+#~ msgid "There was an error while getting the list of organizations."
+#~ msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
+
+#, fuzzy
+#~ msgid "You must enter an installation number."
+#~ msgstr "आप एक अधिष्ठापन संख्या अवश्य डालें."
+
+#, fuzzy
+#~ msgid "There was an error activating your number."
+#~ msgstr "Red Hat Network के साथ संचार में त्रुटि हुई."
+
+#~ msgid "This installation number has already been activated."
+#~ msgstr "यह अधिष्ठापन संख्या पहले से सक्रियकृत है."
+
+#, fuzzy
+#~ msgid "There was an error retrieving the privacy statement."
+#~ msgstr "प्रोफाइल के भरने में एक त्रुटि थी."
+
+#~ msgid "Unable to access the server. Please check your network settings."
+#~ msgstr "सर्वर के अभिगम में असमर्थ. कृपया अपना संजाल जमावट जांचें."
+
+#~ msgid ""
+#~ "The server you are attempting to register against does not support this "
+#~ "version of the client."
+#~ msgstr "सर्वर जिसे आप क्लाइंट के इस संस्करण के साथ पंजीयन का प्रयास किया गया है."
+
+#~ msgid "You must enter an Installation Number that "
+#~ msgstr "आप एक अधिष्ठापन संख्या अवश्य डालें जो"
+
+#~ msgid "Problem registering login name:\n"
+#~ msgstr "लॉगिन नाम पंजीयन में समस्या:\n"
+
+#~ msgid "Problem registering login name."
+#~ msgstr "लॉगिन नाम पंजीकरण में समस्या."
+
+#~ msgid ", quantity:"
+#~ msgstr ", मात्रा:"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Red Hat Network Location: "
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Red Hat Network स्थान: "
+
+#~ msgid ""
+#~ "\n"
+#~ "RHN Login: "
+#~ msgstr ""
+#~ "\n"
+#~ "RHN लॉगिन: "
+
+#~ msgid "Access Subscription"
+#~ msgstr "अभिगम सदस्यता"
+
+#~ msgid "Choose Organization"
+#~ msgstr "संगठन चुनें"
+
+#~ msgid "Choose an organization to use with this username"
+#~ msgstr "इस उपयोक्ता नाम के प्रयोग के लिये संगठन चुनें"
+
+#~ msgid "Specify an email address"
+#~ msgstr "एक ई-डाक पता निर्दिष्ट करें."
+
+#, fuzzy
+#~ msgid "Specify a installation number to use"
+#~ msgstr "प्रयोग के लिये सदस्यता संख्या निर्दिष्ट करें"
+
+#~ msgid "Important Registration Info"
+#~ msgstr "महत्वपूर्ण पंजीयन जानकारी"
+
+#~ msgid "Registration information"
+#~ msgstr "पंजीयन जानकारी"
+
+#~ msgid "Select organization"
+#~ msgstr "संगठन चुनें"
+
+#~ msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+#~ msgstr "<small><b>संकेत:</b> Red Hat आपकी गोपनीयता को मान देता है.</small>"
+
+#~ msgid "Privacy Statement"
+#~ msgstr "गोपनीय वक्तव्य"
+
+#~ msgid "Red Hat Privacy Statement"
+#~ msgstr "Red Hat गोपनीयता वक्तव्य"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your account is associated with multiple <b>organizations</b>. You will "
+#~ "need to select an organization to register this system to."
+#~ msgstr ""
+#~ "आपका खाता कई <b>संगठन</b> से जुड़ा है. आपको एक संगठन चुनना होगा इसमें इस सिस्टम को "
+#~ "पंजीकृत करने के लिये."
+
+#~ msgid "_Organization:"
+#~ msgstr "संगठन (_O):"
 
 #~ msgid ""
 #~ "were not able to activate it (An unknown error occurred.) We used "
