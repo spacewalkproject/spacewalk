@@ -184,9 +184,9 @@ public class ChannelTest extends BaseTestCaseWithUser {
         cs.setSourceUrl("fake url");
         cs.setChannel(c);
         cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
-        c.getContentSources().add(cs);
+        c.getSources().add(cs);
         c = (Channel) TestUtils.saveAndReload(c);
-        assertNotEmpty(c.getContentSources());
+        assertNotEmpty(c.getSources());
     }
     
     

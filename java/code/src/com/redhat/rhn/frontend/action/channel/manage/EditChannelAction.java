@@ -593,13 +593,13 @@ public class EditChannelAction extends RhnAction implements Listable {
                                        .getMessage("generic.jsp.none"));
             }
 
-            if (c.getContentSources().isEmpty()) {
+            if (c.getSources().isEmpty()) {
                 form.set("yum_repo", "");
                 form.set("repo_label", "");
                 request.setAttribute("last_sync", "");
             }
             else {
-                ContentSource cs = c.getContentSources().iterator().next();
+                ContentSource cs = c.getSources().iterator().next();
                 form.set("yum_repo", cs.getSourceUrl());
                 form.set("repo_label", cs.getLabel());
                 String lastSync = LocalizationService.getInstance().getMessage(
