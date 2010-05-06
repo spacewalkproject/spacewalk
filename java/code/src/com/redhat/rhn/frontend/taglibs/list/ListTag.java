@@ -84,7 +84,7 @@ public class ListTag extends BodyTagSupport {
     private String refLinkKeyArg0;
     private String title;
     private boolean sortable;
-    private boolean parentIsElement;
+    private boolean parentIsElement = true;
     private boolean searchParent = true;
     private boolean searchChild;
     
