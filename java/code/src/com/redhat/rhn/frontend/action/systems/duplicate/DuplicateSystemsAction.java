@@ -100,8 +100,9 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
 
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
-
-        return mapping.findForward("success");
+        getStrutsDelegate().saveMessage("duplicate.systems.delete.confirm.message",
+                context.getRequest());
+        return mapping.findForward("confirm");
     }
 
     /**

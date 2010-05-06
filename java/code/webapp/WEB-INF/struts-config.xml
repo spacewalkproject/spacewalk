@@ -2412,8 +2412,8 @@
         parameter="ip">
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
-         <forward name="success"
-                  path="/systems/Overview.do"
+         <forward name="confirm"
+                  path="/systems/ssm/DeleteConfirm.do"
                   redirect="true"/>                 
     </action>
 
@@ -2425,8 +2425,8 @@
         parameter="hostname">
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
-         <forward name="success"
-                  path="/systems/Overview.do"
+         <forward name="confirm"
+                  path="/systems/ssm/DeleteConfirm.do"
                   redirect="true"/>                 
     </action>
     
@@ -2438,8 +2438,8 @@
         parameter="macaddress">
         <forward name="default"
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
-         <forward name="success"
-                  path="/systems/Overview.do"
+         <forward name="confirm"
+                  path="/systems/ssm/DeleteConfirm.do"
                   redirect="true"/>                 
     </action>
     
