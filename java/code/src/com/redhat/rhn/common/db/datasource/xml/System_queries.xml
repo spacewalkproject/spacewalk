@@ -1586,8 +1586,9 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 
 <mode name="duplicate_system_ids_ip" class="com.redhat.rhn.frontend.dto.NetworkDto">
-    <query params="uid">
-        SELECT distinct S.id as id, S.name as name, NI.ip_addr as key, si.checkin as last_checkin
+    <query params="uid, inactive_date">
+        SELECT distinct S.id as id, S.name as name, NI.ip_addr as key, si.checkin as last_checkin,
+		 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
@@ -1596,7 +1597,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
           	 	from rhnServerNetInterface NI2 inner join 
           	 		rhnUserServerPerms USP2 on NI2.server_id = USP2.server_id
           	 	where USP2.user_id = :uid and 
-          	 		NI2.ip_addr not in(%s)
+				NI2.ip_addr not in(%s) and NI2.name not like 'vnet%' and NI2.name not like 'virbr%'
           	 	group by NI2.ip_addr) SUMM on SUMM.ip_addr = NI.ip_addr
         where USP.user_id = :uid and
         	  SUMM.syscount > 1
@@ -1605,8 +1606,9 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 
 
 <mode name="duplicate_system_ids_mac" class="com.redhat.rhn.frontend.dto.NetworkDto">
-    <query params="uid">
-        SELECT distinct S.id as id, S.name as name, NI.hw_addr as key, si.checkin as last_checkin
+    <query params="uid, inactive_date">
+        SELECT distinct S.id as id, S.name as name, NI.hw_addr as key, si.checkin as last_checkin,
+		 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetInterface NI on NI.server_id = S.id inner join 
@@ -1623,8 +1625,9 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 </mode>
 
 <mode name="duplicate_system_ids_hostname" class="com.redhat.rhn.frontend.dto.NetworkDto">
-    <query params="uid">
-        SELECT distinct S.id as id, S.name as name, NI.hostname as key, si.checkin as last_checkin
+    <query params="uid, inactive_date">
+        SELECT distinct S.id as id, S.name as name, NI.hostname as key, si.checkin as last_checkin,
+			 (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; :inactive_date) as inactive
         from rhnServer S inner join
           	 rhnUserServerPerms USP on S.id = USP.server_id inner join 
           	 rhnServerNetwork NI on NI.server_id = S.id inner join 

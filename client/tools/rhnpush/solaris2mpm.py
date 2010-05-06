@@ -43,8 +43,6 @@ from spacewalk.common import rhn_mpm
 
 from archive import get_archive_parser
 
-if __debug__: from pprint import pprint
-
 __revision__ = "0.101"
 __copyright__ = "Copyright (c) 2005, Red Hat Inc."
 
@@ -212,7 +210,8 @@ def _run(archives=sys.argv[1:]):
                 write_mpm(set_mpm)
                 # create the individual patch mpms
                 patches, x = archive_parser.list()
-                if __debug__: patches.sort()
+                if patches == ['patches']:
+                    patches, x = archive_parser.list('patches/')
                 for dir in patches:
                     patch_mpm = create_patch_mpm(archive_parser, prefix=dir)
                     write_mpm(patch_mpm)
@@ -227,7 +226,6 @@ def _run(archives=sys.argv[1:]):
             # package
             elif _is_package_archive(archive_parser):
                 pkgs, x = archive_parser.list()
-                if __debug__: pkgs.sort()
                 for dir in pkgs:
                     pkg_mpm = create_pkg_mpm(archive_parser, prefix=dir)
                     write_mpm(pkg_mpm)
@@ -240,7 +238,6 @@ def _run(archives=sys.argv[1:]):
 
         except Exception, e:
             print "Error creating mpm for %s:" % archive
-            if __debug__: traceback.print_exc()
             # print str(e)
 
         # cleanup as we go
@@ -258,17 +255,13 @@ def _close_mpm(mpm):
 
 def _is_patch_set_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch set archive"""
-#    x, files = archive_parser.list()
-#    return "install_cluster" in files
-    return archive_parser.contains("install_cluster")
+    return archive_parser.contains("installcluster")
 
 
 def _is_patch_archive(archive_parser):
     """[internal] Returns true iff the parser contains a patch archive"""
     patch_name = os.path.basename(archive_parser._archive_dir) # hack
     readme = "README.%s" % patch_name
-#    x, files = archive_parser.list()
-#    return readme in files
     return archive_parser.contains(readme)
 
 
@@ -283,7 +276,6 @@ def _is_package_archive(archive_parser):
 
 def create_patch_set_mpm(archive_parser, archive):
     """Create an mpm package from a parser holding a patch set archive"""
-#    if __debug__: print "DEBUG: creating patch set mpm for %s" % archive
 
     # header
     header = copy.deepcopy(_solaris_header_fields)
@@ -296,12 +288,12 @@ def create_patch_set_mpm(archive_parser, archive):
     p_name = os.path.basename(archive_parser._archive_dir)
     header['name'] = "patch-cluster-solaris-" + p_name
 
-    readme = archive_parser.read("CLUSTER_README")
+    readme = archive_parser.direct_read("README")
+    header['readme'] = readme
     if readme is None:
         readme = archive_parser.read(p_name + ".README")
     assert readme is not None, "Couldn't fine README file for %s" % p_name
 
-    header['readme'] = archive_parser.read("CLUSTER_README")
 
     # provides fields: date, summary, and description
     dct = parse_cluster_readme(readme)
@@ -344,7 +336,6 @@ def create_patch_set_mpm(archive_parser, archive):
 
 def create_patch_mpm(archive_parser, prefix="", archive=""):
     """Create an mpm package from a parser holding a patch archive"""
-#    if __debug__: print "DEBUG: creating patch mpm for %s" % (prefix or archive)
 
     # have to have one or the other
     assert prefix or archive
@@ -357,7 +348,7 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
     package = rhn_mpm.MPM_Package()
 
     # basics
-    p_name = prefix or os.path.basename(archive_parser._archive_dir)
+    p_name = os.path.basename(prefix or archive_parser._archive_dir)
     p_array = p_name.split("-")
     header['name'] = "patch-solaris-" + p_array[0]
     header['version'] = p_array[1]
@@ -380,8 +371,11 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
         header.update(dct)
 
     # a patch can patch multiple packages
-    pkgs, x = archive_parser.list(prefix)
-    if __debug__: pkgs.sort()
+    subdir = ''
+    # recent format has files in patches subdir
+    if os.path.isdir(os.path.join(archive_parser._archive_dir, 'patches/', prefix)):
+        subdir = 'patches/'
+    pkgs, x = archive_parser.list(os.path.join(subdir, prefix))
 
     for pkg in pkgs:
         pkginfo_file = os.path.join(prefix, pkg, 'pkginfo')
@@ -411,15 +405,13 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
 
     # payload
     if archive:
-#        if __debug__: print "DEBUG: payload file: %s" % archive
         header['package_name'] = os.path.basename(archive)
         header['package_size'] = os.path.getsize(archive)
         package.payload_stream = open(archive)
     else:
-        zip_file = archive_parser.zip(prefix)
+        zip_file = archive_parser.zip(os.path.join(subdir,prefix))
         _temp_files.append(zip_file)
 
-#        if __debug__: print "DEBUG: payload file: %s" % zip_file
         header['package_name'] = os.path.basename(zip_file)
         header['package_size'] = os.path.getsize(zip_file)
         package.payload_stream = open(zip_file)
@@ -434,7 +426,6 @@ def create_patch_mpm(archive_parser, prefix="", archive=""):
 def create_pkg_mpm(archive_parser, prefix=""):
     """create a pacakge mpm from an archive parser holding the package
     archive"""
-#    if __debug__: print "DEBUG: creating package mpm for %s" % prefix
 
     # header
     header = copy.deepcopy(_solaris_header_fields)
@@ -510,11 +501,8 @@ def parse_pkginfo(pkginfo_str):
 
     version_match = _ver_regex.match(dct.get('version', ''))
     if version_match:
-        #version = _illegal_ver_regex.sub("_", version_match.group("ver")) or "0"
-       #if __debug__: print "DEBUG: version is  %s" % version_match.group("ver")
         version = _sanitize_string_version(string.rstrip(version_match.group("ver"))) or "0"
         release = version_match.group("rev")
-       #if __debug__: print "DEBUG: release is %s" % version_match.group("rev")
 
     dct['version'] = version
     if release:
@@ -686,8 +674,7 @@ def md5sum_for_stream(data_stream):
 # patch set mpm creation -------------------------------------------------
 
 def parse_cluster_readme(readme_string):
-    """Parse the CLUSTER_README file for the summary, date and description"""
-#    if __debug__: print "DEBUG: parsing cluster readme"
+    """Parse the README file for the summary, date and description"""
 
     lines = readme_string.splitlines()
     trans_dict = { "NAME:":                 "summary",
@@ -707,7 +694,6 @@ def parse_cluster_readme(readme_string):
 def parse_patch_readme(readme_string):
     """Parse the patch readme and return a dict containing fields: date,
     summary, solaris_rel, sunos_rel, and target_arch"""
-#    if __debug__: print "DEBUG: parsing patch readme"
 
     lines = readme_string.splitlines()
     trans_dict = { "Date:":                     "date",
@@ -921,10 +907,6 @@ def write_mpm(mpm):
 
     if mpm is None: return
 
-#    if __debug__:
-#        print "DEBUG: mpm header"
-#        pprint(mpm.header.hdr)
-
     dest = _compute_filename(mpm.header)
     print "Writing %s" % dest
 
@@ -968,7 +950,7 @@ def _normalize_arch(arch):
             arch = "sparc"
 
     # fix the arch label
-    if arch in ("intel", "i86pc", "i386.i86pc", "i386 i386.i86pc", "x86"):
+    if arch in ("intel", "i86pc", "i386.i86pc", "i386 i386.i86pc", "x86", "X86"):
         arch = "i386"
 
     elif re.match(".*sun4.*", arch, re.IGNORECASE):
@@ -981,7 +963,7 @@ def _normalize_arch(arch):
         arch = "sparc"
 
     # bug 170722, check that the arch is something sane
-    if __debug__: assert arch in ("i386", "sparc", "noarch"), "Unknown arch %s" % arch
+    assert arch in ("i386", "sparc", "noarch"), "Unknown arch %s" % arch
 
     return arch
 
@@ -1064,10 +1046,10 @@ def _compute_filename(dct):
 def _to_db_timestamp(s):
     """Convert common Solaris date convention to a unix timestamp"""
 
-    arr = s.split('/', 2)
+    arr = s.split('.', 2)
     if len(arr) != 3:
         return None
-    m, d, y = arr
+    y, m, d = arr
 
     try:
         m = int(m)

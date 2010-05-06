@@ -50,7 +50,7 @@ class ArchiveParser(object):
         """Initialize an archive parser"""
         assert os.path.exists(archive)
 
-        self._archive = None
+        self._archive = archive
         self._archive_dir = None
 
         # bug 164756: allow optional working directory
@@ -73,18 +73,6 @@ class ArchiveParser(object):
 
     # methods called by constructor --------------------------------------
 
-    def _copy_archive(self, archive):
-        """[internal] Copy the archive to a temporary directory"""
-#        if __debug__: print "DEBUG: copying archive to %s" % self._temp_dir
-
-        # copy the archive to the temporary directory
-        a_name = os.path.basename(archive)
-        a_path = os.path.join(self._temp_dir, a_name)
-
-        shutil.copyfile(archive, a_path)
-
-        self._archive = a_path
-
     def _get_archive_dir(self):
         """[internal] find the archive's top level directory name"""
 
@@ -99,17 +87,14 @@ class ArchiveParser(object):
     def _explode(self, archive):
         """[internal] Explode a archive for neutral parsing"""
 
-        self._copy_archive(archive)
         cmd = self._explode_cmd()
 
         assert self._archive is not None        # assigned in _copy_archive
         assert self._archive_dir is not None    # assigned in _explode_cmd
 
         if cmd:
-#            if __debug__: print "DEBUG: running command: %s" % cmd
             status = _my_popen(cmd)
 
-#            if __debug__: print "DEBUG: testing for %s" % self._archive_dir
             if os.path.isdir(self._archive_dir):
                 return
 
@@ -120,7 +105,7 @@ class ArchiveParser(object):
     # private helper methods ---------------------------------------------
 
     def _find(self, file):
-        """[internal] Returns the absolute path to a file in the archive"""
+        """[internal] Returns the relative path to a file in the archive"""
 
         file_path = None
         contents = os.listdir(self._archive_dir)
@@ -144,8 +129,7 @@ class ArchiveParser(object):
                 contents.extend(e_contents)
             else:
                 if entry.endswith(file):
-                    file_path = os.path.join(os.path.abspath(self._archive_dir), entry)
-                    assert os.path.isfile(file_path), "[_find] invalid path: %s" % file_path
+                    file_path = entry
                     break
 
         else:
@@ -174,10 +158,6 @@ class ArchiveParser(object):
             else:
                 f.append(i)
 
-        if __debug__:
-            d.sort()
-            f.sort()
-
         return (d, f)
 
     def contains(self, file):
@@ -185,9 +165,21 @@ class ArchiveParser(object):
         return self._find(file) is not None
 
     def read(self, file):
-        """Returns the contents of the file, or None on error"""
+        """Returns the contents of the file, or None on error
+           First occurence of that file in archive is returned
+        """
 
-        f = self._find(file) or ''
+        f = self._find(file)
+        if f:
+            return self.direct_read(f)
+        else:
+            return None
+
+    def direct_read(self, file):
+        """ Returns the contens of the file, file is relative path in archive.
+            Top most level (_get_archive_dir) is automaticaly added.
+         """
+        f = os.path.join(os.path.abspath(self._archive_dir), file)
         contents = None
 
         if os.path.isfile(f) and os.access(f, os.R_OK):
@@ -202,7 +194,6 @@ class ArchiveParser(object):
 
     def zip(self, prefix=""):
         """Create a zip archive of a (sub-)directory of the archive"""
-#        if __debug__: print "DEBUG: creating zip file for %s" % dir
 
         dir = os.path.join(self._archive_dir, prefix)
         zip_dir = os.path.basename(dir)
@@ -213,7 +204,7 @@ class ArchiveParser(object):
 
         zip_file = os.path.join(self._parent_dir, "%s.zip" % zip_dir)
 
-        cmd = "zip -q -r %s %s" % (zip_file, prefix)
+        cmd = "zip -q -r %s %s" % (zip_file, zip_dir)
         stat = _my_popen(cmd)
 
         os.chdir(cwd)
@@ -225,7 +216,6 @@ class ArchiveParser(object):
 
     def cpio(self, prefix):
         """Create a cpio archive of a (sub-)directory of the archive"""
-#        if __debug__: print "DEBUG: creating cpio archive file for %s" % prefix
 
         cpio_file = os.path.join(self._temp_dir, "%s.pkg" % prefix)
 
@@ -243,7 +233,10 @@ class ZipParser(ArchiveParser):
 
     def _get_archive_dir(self):
         list_cmd = "unzip -l %s" % (self._archive,)
-        return os.popen(list_cmd).readlines()[3].split()[3][:-1]
+        file = os.popen(list_cmd).readlines()[3].split()[3][:-1]
+        # file is usually top most dir... but not always
+        # take first directory from relative path
+        return file.split('/')[0]
 
     def _explode_cmd(self):
         """Return the appropriate command for exploding a zip archive"""
@@ -315,7 +308,7 @@ def _my_popen(cmd):
     """Execute a command as a subprocess and return its exit status"""
 
     popen = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                 stderr=subprocess.PIPE, close_fds=True)
+                 stderr=subprocess.PIPE, close_fds=True, shell=True)
     popen.stdin.close()
 
     txt = ""
@@ -341,7 +334,6 @@ def _my_popen(cmd):
 
 def _decompress(archive):
     """[internal] Decompress compressed archives and return the new archive name"""
-#    if __debug__: print "DEBUG decompressing '%s'" % archive
 
     cmd = ""
     sfx_list = None

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 13:20+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali India\n"
@@ -18,46 +18,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Red Hat Network'র সাথে প্রতি MINS মিনিটে সংযোগ স্থাপন করা হবে"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "সর্বধরনের কর্ম syslog'এ লগ করা হবে"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "অগ্রভুমিতে সঞ্চালিত হবে"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network Services Daemon"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "এই প্রোগ্রাম শুধুমাত্র root দ্বারা সঞ্চালন করা সম্ভব হবে\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "আর্গুমেন্টের সংখ্যা সঠিক নয়"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "বর্তমানে চলছে"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "স্বত্বাধিকার (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s দ্বারা রচিত।\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Red Hat Network'র সাথে প্রতি MINS মিনিটে সংযোগ স্থাপন করা হবে"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "সর্বধরনের কর্ম syslog'এ লগ করা হবে"
+
+#~ msgid "Run in foreground"
+#~ msgstr "অগ্রভুমিতে সঞ্চালিত হবে"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat Network Services Daemon"

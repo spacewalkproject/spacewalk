@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-05 17:39-0400\n"
+"POT-Creation-Date: 2010-05-06 16:28+0200\n"
 "PO-Revision-Date: 2006-11-30 17:57+1000\n"
 "Last-Translator: Xi Huang <xhuang@redhat.com>\n"
 "Language-Team:  <zh@li.org>\n"
@@ -18,66 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnplugin.py:41
+#: ../rhnplugin.py:47
 msgid "There was an error communicating with RHN."
 msgstr "有一个 RHN 的连接错误。"
 
-#: ../rhnplugin.py:63
+#: ../rhnplugin.py:69
 msgid "RHN support will be disabled."
 msgstr "RHN 支持将被禁用。"
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:75
+#: ../rhnplugin.py:81
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
 
-#: ../rhnplugin.py:89
+#: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "RHN 代理服务器设置解释错误。"
 
-#: ../rhnplugin.py:100
+#: ../rhnplugin.py:106
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:106
+#: ../rhnplugin.py:112
 msgid "Either --version, or no commands entered"
 msgstr "输入 --version 或不输入命令"
 
-#: ../rhnplugin.py:120
+#: ../rhnplugin.py:126
 msgid "This system is not registered with RHN."
 msgstr "这个系统没有注册到 RHN。"
 
-#: ../rhnplugin.py:125
+#: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
 msgstr "RHN 频道支持将被禁用。"
 
-#: ../rhnplugin.py:129
+#: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
 msgstr "这个系统没有订阅到任何频道。"
 
-#: ../rhnplugin.py:133
+#: ../rhnplugin.py:139
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
 
-#: ../rhnplugin.py:202
+#: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
 msgstr "软件包配置档案信息无法发送。"
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
 #. bz: 438175
-#: ../rhnplugin.py:209
+#: ../rhnplugin.py:220
 msgid "Error Message:"
 msgstr ""
 
-#: ../rhnplugin.py:210
+#: ../rhnplugin.py:221
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 
-#: ../rhnplugin.py:286
+#: ../rhnplugin.py:298
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "缺少 RHN: %s 所要求的登录信息"

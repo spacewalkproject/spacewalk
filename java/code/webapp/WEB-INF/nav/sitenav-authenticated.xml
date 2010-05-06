@@ -37,6 +37,11 @@
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy); user_role(org_admin)"/>
+      <rhn-tab name="Duplicate Systems" url="/rhn/systems/DuplicateIPList.do">
+          <rhn-tab-url>/rhn/systems/DuplicateIPList.do</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/DuplicateHostName.do</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>          
+      </rhn-tab>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>       

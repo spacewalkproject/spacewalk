@@ -66,7 +66,7 @@
         </trans-unit>
 
 		<trans-unit id="row.macaddress">
-            <source>Network Address</source>
+            <source>MAC Address</source>
         </trans-unit>        
     </group>
 
@@ -5748,6 +5748,21 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
         </context-group>
       </trans-unit>
+
+      
+<!--- System Duplicates pages -->
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
+       </context-group>
+      <trans-unit id="duplicates.jsp.header">
+         <source>Duplicate System Profiles</source>
+     </trans-unit>
+    <trans-unit id="duplicate.jsp.message">
+         <source>Inactive system profiles are highlighted below.</source>
+     </trans-unit>
+     </group>
+
       
 <!--- System groups pages -->
      <group>
@@ -21638,7 +21653,27 @@ given channel.</source>
       <trans-unit id="filedetails.details.jspf.revnum">
 		<source>Next revision number:</source>
       </trans-unit>
-
+	<trans-unit id="duplicate-ip.jsp.inactive.fourhours">
+		<source>4 Hours</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.twelvehours">
+		<source>12 Hours</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.oneday">
+		<source>1 Day</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.oneweek">
+		<source>1 Week</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.onemonth">
+		<source>1 Month</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.sixmonths">
+		<source>6 Month</source>
+	</trans-unit>
+	<trans-unit id="duplicate-ip.jsp.inactive.header">
+		<source>A system profile is inactive if its system has not checked in for:</source>
+	</trans-unit>
   </body>
   </file>
 </xliff>

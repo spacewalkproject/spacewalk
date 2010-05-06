@@ -50,12 +50,16 @@ pre code em, pre code span, pre code code { display: inline; }
   color:		#444;
 }
 
-.note .guibutton, .note .keycap, .note .guilabel,
+.note .guibutton, .note .keycap, 
 .tip .guibutton, .tip .keycap, .tip .guilabel,
-.important .guibutton, .important .keycap, .important .guilabel,
+.important .guibutton, .important .keycap,
 .caution .guibutton, .caution .keycap, .caution .guilabel,
-.warning .guibutton, .warning .keycap, .warning .guilabel {
+.warning .guibutton, .warning .keycap,{
 color: white;
+}
+
+div.note .guilabel, div.important .guilabel, div.warning .guilabel {
+	color:#e3dcc0;
 }
 
 .note h2, .tip h2, .important h2, .caution h2, .warning h2 { border: none; }
@@ -142,16 +146,43 @@ pre code, code{white-space:normal;}
 
 /*Notifications*/
 div.note,div.tip ,div.important ,div.caution ,div.warning{
-	background: #555753; color:white;padding:1em;padding-bottom:20px;border:1px solid #444;margin-bottom:1.5em;background-repeat:no-repeat; background-position:10px 10px;
+	background: #555753; 
+	color:white;
+	padding:1em;
+	padding-bottom:20px;
+	margin-top: .5em;
+	margin-bottom:1.5em;
+	background-repeat:no-repeat; 
+	background-position:1em 1em;
 }
 
-div.note pre,div.tip pre ,div.important pre ,div.caution pre ,div.warning pre{background-color:#333; color:white;}
-div.note,div.tip ,div.important ,div.caution ,div.warning{margin-top:.5em;}
-div.note{background-image:url(../img/docs/note.png)}
+div.note pre, div.important pre, div.warning pre {
+	background-color: #333;
+	color: white;
+	margin-left: 4.5em;
+}
+
+div.note {
+	background-image:url(../img/docs/note.png);
+	background-color:#8e9f00;
+	color:white;
+}
+
+div.important  {
+	background-color:#d08e13;
+	color:white;
+	background-image:url(../img/docs/important.png);
+}
+
+div.warning {
+	background-color:#9e292b;
+	color:white;
+	background-image:url(../img/docs/warning.png);
+}
+
 div.tip{background-image:url(../img/docs/tip.png)}
-div.important{background-image:url(/img/docs/important.png)}
 div.caution{background-image:url(../img/docs/caution.png)}
-div.warning{background-image:url(../img/docs/warning.png)}
+
 div.note .replaceable,div.tip .replaceable,div.important .replaceable,div.caution .replaceable,div.warning .replaceable{
 	color:#e3dcc0;
 }
@@ -159,14 +190,15 @@ div.note .replaceable,div.tip .replaceable,div.important .replaceable,div.cautio
 pre .replaceable, tt .replaceable{
 	color:#444 !important;
 }
-div.note h2,div.tip h2,div.important h2,div.caution h2,div.warning h2{height:32px;font-size:1.3em;color:white;}
-div.note .guilabel,div.tip .guilabel,div.important .guilabel,div.caution .guilabel,div.warning .guilabel{color:white !important;}
 
-/*
-div.note h2,div.tip h2,div.important h2,div.caution h2,div.warning h2{
-	background-color:transparent;background-position:top left;background-repeat:no-repeat;height:48px;font-size:1.3em;color:#ede7c8;
+/* Admonition Headings */
+div.note h2, div.important h2, div.warning h2, div.tip h2, div.caution h2  {
+	height:32px;
+	font-size:1.3em;
+	color:white;
 }
-*/
+
+div.note .guilabel,div.tip .guilabel,div.important .guilabel,div.caution .guilabel,div.warning .guilabel{color:white !important;}
 
 div.note li,div.tip li,div.caution li,div.warning li,div.important li{
 	padding-left:10px;margin:0em;
@@ -188,13 +220,13 @@ div.warning a:visited,div.note a:link ,div.tip a:link ,div.important a:link ,div
 }
 
 /*notification icons*/
-div.note h2,div.note p,div.tip h2,div.tip p,div.caution h2,div.caution p,div.warning h2,div.warning p,div.important h2,.important p {padding:0em;margin:0em;padding-left:56px;}
-/*div.note h2{background-image:url(../images/note.png)}
-div.tip h2{background-image:url(../images/tip.png)}
-div.caution h2{background-image:url(../images/caution.png)}
-div.warning h2{background-image:url(../images/warning.png)}
-div.important h2{background-image:url(../images/important.png)}
-*/
+div.note h2,div.note p,div.tip h2,div.tip p,div.caution h2,div.caution p,div.warning h2,div.warning p,div.important h2,.important p,
+div.note .para, div.tip .para, div.caution .para, div.warning .para, .important .para {
+	padding:0em;
+	margin:0em;
+	padding-left:56px !important;
+}
+
 /*Page Title*/
 #title strong{display:none;}
 #title a{display:block;height:45px;width:110px;padding-left:200px;background:transparent url(../images/rhlogo.png) top left no-repeat;}
@@ -319,15 +351,18 @@ div.preface, div.chapter, div.section {padding-top:2em;}
 
 .revhistory{font-size:}
 
-pre .replaceable,
+
 pre .keycap{color:white;}
 pre{font-family:"liberation mono", "bitstream vera mono", "dejavu mono" monospace;}
+pre .replaceable, tt .replaceable {
+	color:#444;
+}
 
-div.note .replaceable,
-div.tip  .replaceable,
-div.important .replaceable,
-div.caution  .replaceable,
-div.warning .replaceable,
+/* Admonition Inlines */
+div.note .replaceable, div.important .replaceable,  div.warning .replaceable {
+	color:#e3dcc0;
+}
+
 div.note .keycap,
 div.tip  .keycap,
 div.important .keycap,
@@ -341,4 +376,120 @@ div.abstract{font-size:larger;}
 .author, .editor, .translator, .othercredit{display:block;}
 
 ul li p:last-child{margin-bottom:0em; padding-bottom:0em;}
+
+/*document navigation*/
+.docnav a, .docnav strong {
+	border:none;
+	text-decoration:none;
+	font-weight:normal;
+}
+
+.docnav {
+	list-style:none;
+	margin:0em;
+	padding:0em;
+	position:relative;
+	width:100%;
+	padding-bottom:2em;
+	padding-top:1em;
+	border-top:1px dotted #ccc;
+}
+
+.docnav li {
+	list-style:none;
+	margin:0em;
+	padding:0em;
+	display:inline;
+	font-size:.8em;
+}
+
+.docnav li:before {
+	content:" ";
+}
+
+.docnav li.previous, .docnav li.next {
+	position:absolute;
+	top:1em;
+}
+
+.docnav li.up, .docnav li.home {
+	margin:0em 1.5em;
+}
+
+.docnav li.previous {
+	left:0px;
+	text-align:left;
+}
+
+.docnav li.next {
+	right:0px;
+	text-align:right;
+}
+
+.docnav li.previous strong, .docnav li.next strong {
+	height:22px;
+	display:block;
+}
+
+.docnav {
+	margin:0 auto;
+	text-align:center;
+}
+
+.docnav li.next a strong {
+	background:  url(../img/docs/stock-go-forward.png) top right no-repeat;
+	padding-top:3px;
+	padding-bottom:4px;
+	padding-right:28px;
+	font-size:1.2em;
+}
+
+.docnav li.previous a strong {
+	background: url(../img/docs/stock-go-back.png) top left no-repeat;
+	padding-top:3px;
+	padding-bottom:4px;
+	padding-left:28px;
+	padding-right:0.5em;
+	font-size:1.2em;
+}
+
+.docnav li.home a strong {
+	background: url(../img/docs/stock-home.png) top left no-repeat;
+	padding:5px;
+	padding-left:28px;
+	font-size:1.2em;
+}
+
+.docnav li.up a strong {
+	background: url(../img/docs/stock-go-up.png) top left no-repeat;
+	padding:5px;
+	padding-left:28px;
+	font-size:1.2em;
+}
+
+.docnav a:link, .docnav a:visited {
+	color:#666;
+}
+
+.docnav a:hover, .docnav a:focus, .docnav a:active {
+	color:black;
+}
+
+.docnav a {
+	max-width: 10em;
+	overflow:hidden;
+}
+
+.docnav a:link strong {
+	text-decoration:none;
+}
+
+.docnav {
+	margin:0 auto;
+	text-align:center;
+}
+
+ul.docnav {
+	margin-bottom: 1em;
+}
 

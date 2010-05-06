@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-05 17:39-0400\n"
+"POT-Creation-Date: 2010-05-06 16:28+0200\n"
 "PO-Revision-Date: 2006-11-30 13:12+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: CROATIAN <http//:translator-shop.org>\n"
@@ -10,66 +10,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../rhnplugin.py:41
+#: ../rhnplugin.py:47
 msgid "There was an error communicating with RHN."
 msgstr "Tijekom komuniciranja s RHM došlo je do pogreške."
 
-#: ../rhnplugin.py:63
+#: ../rhnplugin.py:69
 msgid "RHN support will be disabled."
 msgstr "RHM podrška bit će onemogućena."
 
 #. If non-root notify user RHN repo not accessible
-#: ../rhnplugin.py:75
+#: ../rhnplugin.py:81
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
 msgstr ""
 
-#: ../rhnplugin.py:89
+#: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "Tijekom raščlanjivanja proxy postavki za RHM došlo je do pogreške."
 
-#: ../rhnplugin.py:100
+#: ../rhnplugin.py:106
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:106
+#: ../rhnplugin.py:112
 msgid "Either --version, or no commands entered"
 msgstr "Nije unesen argument \"--version\" ili ikakva naredba"
 
-#: ../rhnplugin.py:120
+#: ../rhnplugin.py:126
 msgid "This system is not registered with RHN."
 msgstr "Ovaj sustav nije registriran pri RHM."
 
-#: ../rhnplugin.py:125
+#: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
 msgstr "RHM podrška za kanale bit će onemogućena."
 
-#: ../rhnplugin.py:129
+#: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
 msgstr "Ovaj sustav nije pretplaćen na ikakav kanal."
 
-#: ../rhnplugin.py:133
+#: ../rhnplugin.py:139
 msgid ""
 "This system may not be a registered to RHN. SystemId could not be acquired.\n"
 msgstr ""
 
-#: ../rhnplugin.py:202
+#: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
 msgstr "Podatke o profilu pakete nije moguće poslati."
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
 #. bz: 438175
-#: ../rhnplugin.py:209
+#: ../rhnplugin.py:220
 msgid "Error Message:"
 msgstr ""
 
-#: ../rhnplugin.py:210
+#: ../rhnplugin.py:221
 msgid "Please run rhn_register as root on this client"
 msgstr ""
 
-#: ../rhnplugin.py:286
+#: ../rhnplugin.py:298
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Nedostaju potrebno podaci za prijavu pri RHM: %s"

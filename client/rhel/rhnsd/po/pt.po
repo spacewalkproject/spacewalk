@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhnsd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 14:14+0100\n"
 "Last-Translator: José Nuno Coelho Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -11,46 +11,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-POFile-SpellExtra: Network syslog MINS Hat Red Inc\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Ligar à Red Hat Network a cada MINS minutos"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Registar todas as acções no 'syslog'"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Correr em primeiro plano"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Módulo dos Serviços da Red Hat Network"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Apenas o 'root' poderá executar este programa\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "número errado de argumentos"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "já em execução"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Criado por %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Ligar à Red Hat Network a cada MINS minutos"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Registar todas as acções no 'syslog'"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Correr em primeiro plano"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Módulo dos Serviços da Red Hat Network"

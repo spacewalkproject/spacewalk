@@ -4335,7 +4335,8 @@ public class SystemHandler extends BaseHandler {
      **/
     public List listDuplicatesByIp(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        List<DuplicateSystemGrouping> list = SystemManager.listDuplicatesByIP(loggedInUser);
+        List<DuplicateSystemGrouping> list =
+            SystemManager.listDuplicatesByIP(loggedInUser, 0L);
         return transformDuplicate(list, "ip");
     }
     
@@ -4360,7 +4361,7 @@ public class SystemHandler extends BaseHandler {
     public List listDuplicatesByMac(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list = 
-            SystemManager.listDuplicatesByMac(loggedInUser);
+            SystemManager.listDuplicatesByMac(loggedInUser, 0L);
         return transformDuplicate(list, "mac");
     }
     
@@ -4385,7 +4386,7 @@ public class SystemHandler extends BaseHandler {
     public List listDuplicatesByHostname(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         List<DuplicateSystemGrouping> list = 
-            SystemManager.listDuplicatesByHostname(loggedInUser);
+            SystemManager.listDuplicatesByHostname(loggedInUser, 0L);
         return transformDuplicate(list, "hostname");
     }
 }

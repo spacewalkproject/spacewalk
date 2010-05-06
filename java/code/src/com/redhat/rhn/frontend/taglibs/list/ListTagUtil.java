@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.taglibs.list;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.decorators.ExtraButtonDecorator;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -370,6 +371,17 @@ public class ListTagUtil {
     public static String makeSelectActionName(String listName) {
         return "list_" + listName + "_selectAction";
     }
+
+    /**
+     * Returns the name of the extra buttonattribute
+     * @param listName the name of the table tag
+     * @return the label of the select action
+     */
+    public static String makeExtraButtonName(String listName) {
+        return "list_" + listName + "_" + ExtraButtonDecorator.EXTRA_BUTTON;
+    }
+
+
 
     /**
      * Returns the name of the attribute that holds the selected amount

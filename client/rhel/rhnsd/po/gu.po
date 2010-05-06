@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-10-26 11:01+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -18,46 +18,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Red Hat Network સાથે દર MINS મિનિટોએ જોડાવ"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "બધી ક્રિયાઓનો syslog માં લોગ રાખો"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "અગ્રભાગમાં ચલાવો"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Red Hat Network સેવાઓ ડિમન"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "માત્ર રુટ આ કાર્યક્રમ ચલાવી શકે છે\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "ખોટી સંખ્યાની દલીલો"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "પહેલાથી જ ચાલી રહ્યું છે"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s દ્વારા લખાયેલ છે.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Red Hat Network સાથે દર MINS મિનિટોએ જોડાવ"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "બધી ક્રિયાઓનો syslog માં લોગ રાખો"
+
+#~ msgid "Run in foreground"
+#~ msgstr "અગ્રભાગમાં ચલાવો"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Red Hat Network સેવાઓ ડિમન"

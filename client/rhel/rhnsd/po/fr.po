@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhnsd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-11-29 22:47+0100\n"
 "Last-Translator: Alain PORTAL <aportal@univ-montp2.fr>\n"
 "Language-Team: Français <traduc@traduc.org>\n"
@@ -17,46 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "MINS"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Se connecte à Red Hat Network toutes les MINS minutes"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Enregistre toutes les actions dans syslog"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Démarre en premier plan"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Démon des services de Red Hat Network"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Seul le superutilisateur peut démarrer ce programme\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "mauvais nombre d'arguments"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "déjà démarré"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Écrit par %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "MINS"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Se connecte à Red Hat Network toutes les MINS minutes"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Enregistre toutes les actions dans syslog"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Démarre en premier plan"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Démon des services de Red Hat Network"

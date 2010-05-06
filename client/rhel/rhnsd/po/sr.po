@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhnsd\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"POT-Creation-Date: 2010-05-06 16:17+0200\n"
 "PO-Revision-Date: 2006-11-12 16:56+0100\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
@@ -15,46 +15,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../rhnsd.c:50
-msgid "MINS"
-msgstr "МИН"
-
-#: ../rhnsd.c:51
-msgid "Connect to Red Hat Network every MINS minutes"
-msgstr "Повежи се на Red Hat Network сваких МИН минута"
-
-#: ../rhnsd.c:53
-msgid "Log all actions to syslog"
-msgstr "Записуј све радње у системски дневник"
-
-#: ../rhnsd.c:55
-msgid "Run in foreground"
-msgstr "Извршавај у првом плану"
-
-#. Short description of program.
-#: ../rhnsd.c:60
-msgid "Red Hat Network Services Daemon"
-msgstr "Демон Red Hat Network сервиса"
-
-#: ../rhnsd.c:97
+#: rhnsd.c:116
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Само root може покренути овај програм\n"
 
-#: ../rhnsd.c:112
+#: rhnsd.c:136
 msgid "wrong number of arguments"
 msgstr "погрешан број аргумената"
 
-#: ../rhnsd.c:119
+#: rhnsd.c:143
 msgid "already running"
 msgstr "већ је покренут"
 
-#: ../rhnsd.c:226
+#: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Ауторска права %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:229
+#: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Написао је %s.\n"
+
+#~ msgid "MINS"
+#~ msgstr "МИН"
+
+#~ msgid "Connect to Red Hat Network every MINS minutes"
+#~ msgstr "Повежи се на Red Hat Network сваких МИН минута"
+
+#~ msgid "Log all actions to syslog"
+#~ msgstr "Записуј све радње у системски дневник"
+
+#~ msgid "Run in foreground"
+#~ msgstr "Извршавај у првом плану"
+
+#~ msgid "Red Hat Network Services Daemon"
+#~ msgstr "Демон Red Hat Network сервиса"
