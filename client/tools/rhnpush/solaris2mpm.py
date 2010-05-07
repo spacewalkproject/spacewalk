@@ -53,7 +53,7 @@ _temp_files = []
 # package dependency parsing regular expressions -------------------------
 
 _dep_regex = re.compile("(?P<code>[PIR]) +(?P<name>[^ \t]+)")
-_arch_ver_regex = re.compile("^ *\((?P<arch>[a-zA-Z0-9]+)\)"
+_arch_ver_regex = re.compile("^ *(?:\((?P<arch>[a-zA-Z0-9]+)\))?"
                          " *(?P<ver>[^,]+)(,[ \t\S]*REV=(?P<rev>[^,\s]+))?")
 _ver_regex = re.compile("(?P<ver>[^,]+)(,[ \t\S]*REV=(?P<rev>[^,\s]+))?")
 _illegal_ver_regex = re.compile("[/\\\?\*:\|\"'<>\~\$\(\)[\]{}&=\s,]")
