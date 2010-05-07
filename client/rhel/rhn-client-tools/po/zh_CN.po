@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:42+1000\n"
 "Last-Translator: Xi HUANG <xhuang@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -2166,6 +2166,20 @@ msgstr "您的红帽网络 Satellite 的位置（可选）"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• 您的红帽网络或红帽网络 Satellite 登录"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "注册码(_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "在 Red Hat 网络上注册"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "退出软件更新设置(_E)"
 
@@ -2540,9 +2554,6 @@ msgstr "• 您的红帽网络或红帽网络 Satellite 登录"
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "注册码(_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "来在您的帐号中激活订阅。"

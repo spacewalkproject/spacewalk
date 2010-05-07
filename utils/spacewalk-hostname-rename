@@ -22,7 +22,6 @@ fi
 LOG=/var/log/rhn/rhn_hostname_rename.log
 RHN_CONF_FILE=/etc/rhn/rhn.conf
 SSL_BUILD_DIR=/root/ssl-build
-HOSTS_FILE=/etc/hosts
 ETC_JABBERD_DIR=/etc/jabberd
 NOCPULSE_INI=/etc/NOCpulse.ini
 BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
@@ -124,12 +123,6 @@ function initial_system_hostname_check {
     if [ "$HOSTNAME" != "$HN_NETWORK" ]
     then
         echo_err "Wrong hostname in /etc/sysconfig/network: \"$HN_NETWORK\""
-        return 1
-    fi
-
-    if [ -z "$(awk "/$HOSTNAME/ && ! /127.0./ && ! /^::1/ && ! /^[[:space:]]*#/" $HOSTS_FILE)" ]
-    then
-        echo_err "Missing line \"IP $HOSTNAME\" in your $HOSTS_FILE"
         return 1
     fi
 
@@ -398,11 +391,11 @@ echo -n "Testing DB connection ... " | tee -a $LOG
 # for spacewalk only:
 if [ -e "$ORACLE_XE_LISTENER_ORA_FILE" ]
 then
-    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_LISTENER_ORA_FILE
+    sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_LISTENER_ORA_FILE
 fi
 if [ -e $ORACLE_XE_TNSNAMES_ORA_FILE ]
 then
-    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_TNSNAMES_ORA_FILE
+    sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_TNSNAMES_ORA_FILE
 fi
 
 SQL_RET=$(
@@ -422,14 +415,20 @@ print_status 0  # just simulate end
 re-generate_server_ssl_certificate
 
 echo -n "Regenerating new bootstrap client-config-overrides.txt ... " | tee -a $LOG
-backup_file ${BOOTSTRAP_SH}
-backup_file ${BOOTSTRAP_CCO}
 # it's easier to subst HOSTNAME with sed
 # than to re-generate and keep current configuration
 # rhn-bootstrap >> /dev/null 2>&1
-sed -i "s/\(HOSTNAME=\).*/\1$HOSTNAME/" ${BOOTSTRAP_SH}
-sed -i "s/\(noSSLServerURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
-sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+if [ -e "$BOOTSTRAP_SH" ]
+then
+    backup_file ${BOOTSTRAP_SH}
+    sed -i "s/\(HOSTNAME=\).*/\1$HOSTNAME/" ${BOOTSTRAP_SH}
+fi
+if [ -e "$BOOTSTRAP_CCO" ]
+then
+    backup_file ${BOOTSTRAP_CCO}
+    sed -i "s/\(noSSLServerURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+    sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+fi
 print_status 0  # just simulate end
 
 if [ -e "${NOCPULSE_INI}" ]
@@ -459,7 +458,7 @@ if [ "$MONITORING_ENABLED" != "0" ]
 then
     if [ "$MONITORING_SCOUT_ENABLED" != "0" ]
     then
-        echo -n "Pushing monitoring scounts ... " | tee -a $LOG
+        echo -n "Pushing monitoring scouts ... " | tee -a $LOG
         push_monitoring_scounts
         print_status 0  # just simulate end
     fi

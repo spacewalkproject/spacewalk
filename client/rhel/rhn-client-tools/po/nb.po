@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2005-09-21 15:40+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
@@ -2138,6 +2138,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registreringsnummer"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Registrer deg hos Red Hat Network"
+
 #, fuzzy
 #~ msgid "_Exit software update setup"
 #~ msgstr "Starter up2date på nytt"
@@ -2308,10 +2322,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registreringsnummer"
 
 #, fuzzy
 #~ msgid "activates subscriptions in your account."

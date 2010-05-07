@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 12:03+1000\n"
 "Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
 "Language-Team: \n"
@@ -2318,6 +2318,20 @@ msgstr "• Адрес Red Hat Network Satellite (не обязателен)"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Ваше имя входа Red Hat Network или Red Hat Network Satellite"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registration_number"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Регистрация в Red Hat Network"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "В_ыход из настройки обновлений ПО"
 
@@ -2717,9 +2731,6 @@ msgstr "• Ваше имя входа Red Hat Network или Red Hat Network Sa
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "registration_number"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "активации подписок вашей учетной записи."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-01-28 10:50+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -2162,6 +2162,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registrationNumber"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Zaregistrovat se u Red Hat Network"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "_Přerušit nastavení aktualizace programů"
 
@@ -2345,10 +2359,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registrationNumber"
 
 #, fuzzy
 #~ msgid "activates subscriptions in your account."

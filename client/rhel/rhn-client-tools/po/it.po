@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 02:01+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
@@ -2395,6 +2395,20 @@ msgstr "• L'indirizzo per il vostro Red Hat Network Satellite (facoltativo)"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Il vostro Red Hat Network o login di Red Hat Network Satellite"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "numero_registrazione"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Registrazione a Red Hat Network"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "(_E)Abbandona impostazione aggiornamenti software"
 
@@ -2820,9 +2834,6 @@ msgstr "• Il vostro Red Hat Network o login di Red Hat Network Satellite"
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "numero_registrazione"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "attivare le sottoscrizioni nel vostro account."

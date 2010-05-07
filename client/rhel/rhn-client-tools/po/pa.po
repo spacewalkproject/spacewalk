@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 13:47+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -2251,6 +2251,20 @@ msgstr "• ਤੁਹਾਡੇ Red Hat ਨੈੱਟਵਰਕ ਸੈਟੇਲਾ�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• ਤੁਹਾਡਾ Red Hat ਨੈੱਟਵਰਕ ਜਾਂ Red Hat ਨੈੱਟਵਰਕ ਸੈਟੇਲਾਈਟ ਲਾਗਇਨ "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "ਰਜਿਸਟਰੇਸ਼ਨ-ਨੰਬਰ"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat ਨੈੱਟਵਰਕ ਨਾਲ ਰਜਿਸਟਰ ਕਰੋ"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ ਸੈੱਟਅੱਪ ਬੰਦ(_E)"
 
@@ -2643,9 +2657,6 @@ msgstr "• ਤੁਹਾਡਾ Red Hat ਨੈੱਟਵਰਕ ਜਾਂ Red Hat �
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "ਰਜਿਸਟਰੇਸ਼ਨ-ਨੰਬਰ"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਮੈਂਬਰੀ ਸਰਗਰਮ ਕਰਦਾ ਹੈ।"

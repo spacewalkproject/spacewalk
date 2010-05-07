@@ -48,7 +48,8 @@ POTFILES = \
 	$(wildcard ../src/firstboot/*.py) \
 	$(wildcard ../src/bin/*.py) \
 	$(wildcard ../src/actions/*.py) \
-	$(wildcard ../data/*.glade)
+	$(wildcard ../data/*.glade) \
+	../rhn_register.desktop.in
 
 CATALOGS = $(GMOFILES)
 
@@ -167,6 +168,8 @@ update-po: Makefile POTFILES.in $(PACKAGE).pot
 	  fi; \
 	done
 	$(MAKE) update-gmo
+	cd $(top_srcdir) \
+	intltool-merge -d po rhn_register.desktop.in rhn_register.desktop
 
 update-gmo: Makefile $(GMOFILES)
 	@:

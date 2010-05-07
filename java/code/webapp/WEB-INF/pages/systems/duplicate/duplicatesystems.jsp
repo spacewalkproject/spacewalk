@@ -8,7 +8,6 @@
 <html>
 <head>
     <meta name="page-decorator" content="none" />
-    <script src="/javascript/tree.js" type="text/javascript"></script>
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
@@ -104,6 +103,15 @@
 	</rl:column>
 
 </rl:list>
+
+  <div align="right">
+
+    <hr />
+    <html:submit property="dispatch">
+        <bean:message key="Delete Selected"/>
+    </html:submit>
+      
+  </div>
 <rhn:submitted/>
 
 </rl:listset>

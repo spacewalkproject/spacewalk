@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-01-16 23:33+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -2074,6 +2074,20 @@ msgstr "• Het adres naar uw Red Hat Network Satellite (optioneel)"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Uw Red Hat Network of Red Hat Network Satellite login "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registratie_nummer"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Registreer via Red Hat Network"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "Software update setup _beëindigen"
 
@@ -2189,9 +2203,6 @@ msgstr "• Uw Red Hat Network of Red Hat Network Satellite login "
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "registratie_nummer"
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "Fout bij het inlezen van de hardware-informatie:"

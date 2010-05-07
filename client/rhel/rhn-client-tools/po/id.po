@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date-4.3.47-5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2004-12-16 09:56+0700\n"
 "Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
 "Language-Team: BlankOn <http://www.blankonlinux.or.id>\n"
@@ -2005,6 +2005,19 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "Up2date - Informasi Pendaftaran"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr ""
+
 #, fuzzy
 #~ msgid "Create a New Login ..."
 #~ msgstr "Buat Login"
@@ -2022,10 +2035,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Access Subscription"
 #~ msgstr "Diskripsi"
-
-#, fuzzy
-#~ msgid "Registration information"
-#~ msgstr "Up2date - Informasi Pendaftaran"
 
 #, fuzzy
 #~ msgid "C_reate new login"

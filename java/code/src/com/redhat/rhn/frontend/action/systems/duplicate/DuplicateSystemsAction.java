@@ -14,12 +14,15 @@
  */
 package com.redhat.rhn.frontend.action.systems.duplicate;
 
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.DuplicateSystemGrouping;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -28,10 +31,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,8 +64,7 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
         request.setAttribute(INACTIVE_COUNT, inactiveHours);
 
 
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request,
-                Collections.EMPTY_MAP, mapping.getParameter());
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
         helper.setWillClearSet(false);
         helper.execute();
         if (helper.isDispatched()) {
@@ -77,7 +76,8 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
         String inactiveButton = ListTagUtil.makeExtraButtonName(helper.getUniqueName());
         if (!StringUtils.isBlank(request.getParameter(inactiveButton))) {
             List<DuplicateSystemGrouping> list = getResult(ctx);
-            Set set = new HashSet();
+            
+            RhnSet set = helper.getSet();
             for (DuplicateSystemGrouping grp : list) {
                 for (NetworkDto dto : grp.getSystems()) {
                     if (dto.getInactive() > 0) {
@@ -85,8 +85,10 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
                     }
                 }
             }
-            helper.getSet().addAll(set);
+            
+            RhnSetManager.store(set);
             helper.resync(request);
+            
         }
 
 
@@ -98,8 +100,9 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
 
     private ActionForward handleConfirm(RequestContext context,
             ActionMapping mapping) {
-
-        return mapping.findForward("success");
+        getStrutsDelegate().saveMessage("duplicate.systems.delete.confirm.message",
+                context.getRequest());
+        return mapping.findForward("confirm");
     }
 
     /**
@@ -117,5 +120,8 @@ public class DuplicateSystemsAction extends RhnAction  implements Listable {
         return SystemManager.listDuplicatesByIP(contextIn.getLoggedInUser(), count);
     }
 
-
+    private RhnSetDecl getSetDecl() {
+        return RhnSetDecl.SYSTEMS;
+    }
+    
 }

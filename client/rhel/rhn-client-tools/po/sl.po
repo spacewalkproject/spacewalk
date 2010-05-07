@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2004-04-06 22:55+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: slovenščina <translation-team-sl@lists.sourceforge.net>\n"
@@ -2150,6 +2150,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "Vnesti morate uporabniško ime."
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Registriraj z Red Hat Network"
+
 #, fuzzy
 #~ msgid "_Exit software update setup"
 #~ msgstr "Restavriram up2date"
@@ -2312,10 +2326,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Vnesti morate uporabniško ime."
 
 #, fuzzy
 #~ msgid "Error reading hardware information:"

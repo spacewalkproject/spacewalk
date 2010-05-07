@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2005-04-25 15:34+0600\n"
 "Last-Translator: Samia Niamatullah <mailsamia2001@yahoo.com>\n"
 "Language-Team: Bengali <redhat-translation@bengalinux.org>\n"
@@ -2323,6 +2323,22 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+# modified for RHEL
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registrationNumber"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+# modified for RHEL
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat নেটওয়ার্কে নিবন্ধিত করুন"
+
 # msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
 # modfied for RHEL
 #, fuzzy
@@ -2534,11 +2550,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-# modified for RHEL
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "registrationNumber"
 
 # modified for RHEL
 #, fuzzy

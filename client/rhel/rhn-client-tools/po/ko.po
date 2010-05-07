@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:21+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -2278,6 +2278,20 @@ msgstr "Red Hat Network Satellite (선택 사항)에 있는 주소"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "Red Hat Network 또는 Red Hat Network Satellite 로그인"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "등록 번호(_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network에 등록"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "소프트웨어 업데이트가 설정 종료(_E)"
 
@@ -2676,9 +2690,6 @@ msgstr "Red Hat Network 또는 Red Hat Network Satellite 로그인"
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "등록 번호(_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "설치 번호를 입력해 주십시오."
