@@ -30,6 +30,7 @@ public class Task implements Serializable {
 
     private String name;
     private Long data;
+    private Long data2;
     private int priority;
     private Date earliest;
     private Org org;
@@ -47,6 +48,22 @@ public class Task implements Serializable {
      */
     public void setData(Long dataIn) {
         this.data = dataIn;
+    }
+    
+    /**
+     * 
+     * @return the data
+     */
+    public Long getData2() {
+        return data2;       
+    }
+    
+   /**
+    * 
+    * @param dataIn data to set
+    */
+    public void setData2(Long dataIn) {
+        this.data2 = dataIn;
     }
     
     /**
