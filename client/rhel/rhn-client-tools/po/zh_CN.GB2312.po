@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2date\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2002-04-14 13:17GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -2115,6 +2115,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "你必须作为根用户运行更新代理。"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat 网络配置"
+
 #, fuzzy
 #~ msgid "Review the Red Hat Network Terms And Conditions"
 #~ msgstr "Red Hat 网络配置"
@@ -2257,10 +2271,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "你必须作为根用户运行更新代理。"
 
 #, fuzzy
 #~ msgid "Error reading hardware information:"

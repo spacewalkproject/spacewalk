@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 15:28+0530\n"
 "Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
@@ -2263,6 +2263,20 @@ msgstr "• ඔබේ Red Hat Network Satellite සඳහා වන ලිපි
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• ඔබේ Red Hat Network හෝ Red Hat Network Satellite සඳහා වන පිවිසුම"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "ලියාපදිංචි අංකය(_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network සමඟ ලියාපදිංචි වන්න"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "මෘදුකාංග ප්‍රගමන සැකසුමෙන් ඉවත් වන්න(_E)"
 
@@ -2658,9 +2672,6 @@ msgstr "• ඔබේ Red Hat Network හෝ Red Hat Network Satellite සඳහ
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "ලියාපදිංචි අංකය(_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "ඔබේ ගිණුම තුල ග්‍රාහකත්වයන් සක්‍රීය කරයි"

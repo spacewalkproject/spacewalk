@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2004-02-03 00:36+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
@@ -2146,6 +2146,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Εγγραφή στο Δίκτυο Red Hat"
+
 #, fuzzy
 #~ msgid "_Exit software update setup"
 #~ msgstr "Γίνεται επαννεκίνηση του up2date"
@@ -2301,10 +2315,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
 
 #, fuzzy
 #~ msgid "Error reading hardware information:"

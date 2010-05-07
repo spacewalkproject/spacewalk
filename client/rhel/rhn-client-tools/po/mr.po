@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:46+0530\n"
 "Last-Translator: Rahul Bhalerao <rahul.bhalerao@redhat.com>\n"
 "Language-Team: Marathi\n"
@@ -2253,6 +2253,20 @@ msgstr "• तुमच्या Red Hat Network Satellite साठी पत�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• तुमचे Red Hat Network किंवा Red Hat Network Satellite लॉगीन "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registration_number"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network सह नोंदणी करा"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "सॉफ्टवेयर अद्यतने व्यवस्थेतून बाहेर(_E)"
 
@@ -2649,9 +2663,6 @@ msgstr "• तुमचे Red Hat Network किंवा Red Hat Network Sate
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "registration_number"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "तुमच्या खात्यामध्ये सभासदत्व कार्यान्वित करतो."

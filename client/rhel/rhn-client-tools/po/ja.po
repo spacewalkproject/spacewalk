@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:02+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
@@ -2409,6 +2409,20 @@ msgstr "• ご使用の Red Hat Network Satellite へのアドレス(オプシ�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Red Hat Network または Red Hat Network Satellite のログイン"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "登録番号(_N)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network に登録します"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "ソフトウェア更新の設定を終了する(_E)"
 
@@ -2828,9 +2842,6 @@ msgstr "• Red Hat Network または Red Hat Network Satellite のログイン"
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "登録番号(_N)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "インストール番号を入力する必要があります。"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2004-01-23 13:45+0200\n"
 "Last-Translator: YILDIZ KARDEŞLER <turkishprogram@xposta.com>\n"
 "Language-Team: Turkish <C@li.org>\n"
@@ -2157,6 +2157,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "Bir kullanıcı adı girmelisiniz."
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Ağıan Kaydet"
+
 #, fuzzy
 #~ msgid "_Exit software update setup"
 #~ msgstr "Up2date yeniden başlatılıyor"
@@ -2319,10 +2333,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Bir kullanıcı adı girmelisiniz."
 
 #, fuzzy
 #~ msgid "Error reading hardware information:"

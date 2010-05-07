@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 13:41+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <assam@mm.assam-glug.org>\n"
@@ -2284,6 +2284,20 @@ msgstr "• আপোনাৰ Red Hat Network Satellite (বিকল্পি�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• আপোনাৰ Red Hat Network or Red Hat Network Satellite ৰ প্ৰৱেশ"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "পঞ্জিকৰণ সংখ্যা (_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network ৰ সৈতে পঞ্জিকৰণ কৰক"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "চালনাজ্ঞান উন্নয়নৰ প্ৰতিষ্ঠাৰ পৰা বাহিৰ হওক (_E)"
 
@@ -2680,9 +2694,6 @@ msgstr "• আপোনাৰ Red Hat Network or Red Hat Network Satellite ৰ 
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "পঞ্জিকৰণ সংখ্যা (_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "আপোনাৰ হিচাপৰ বৰঙনি সক্ৰিয় কৰিব ।"

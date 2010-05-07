@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 12:05+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
@@ -2284,6 +2284,20 @@ msgstr ""
 "• നിങ്ങളുടെ Red Hat നെറ്റ്‌വറ്‍ക്ക് അല്ലെങ്കില്‍ Red Hat നെറ്റ്‌വറ്‍ക്ക് സാറ്റിലൈറ്റ് ഉപയോഗിക്കുന്ന "
 "പേര് "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registration_number"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat നെറ്റ്‌വറ്‍ക്കുമായി രജിസ്ടര്‍ ചെയ്യുക"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "സോഫ്റ്റ്‌വെയറ്‍ അപ്ഡേറ്റ് സെറ്റപ്പില്‍ നിന്നും പുറത്ത് കടക്കുക (_E)"
 
@@ -2687,9 +2701,6 @@ msgstr ""
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "registration_number"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "നിങ്ങളുടെ അക്കൌണ്ടിന് അംഗത്വം സജ്ജമാക്കുന്നു."

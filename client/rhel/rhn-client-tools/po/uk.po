@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: up2rhn-client-tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-01-24 17:37+0200\n"
 "Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -2280,6 +2280,20 @@ msgstr "• Адреса Red Hat Network Satellite (не обов'язково)"
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• Ваше реєстраційне ім'я Red Hat Network чи Red Hat Network Satellite"
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "registration_number"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Реєстрація у Red Hat Network"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "Ви_йти з налаштовування оновлення ПЗ"
 
@@ -2679,9 +2693,6 @@ msgstr "• Ваше реєстраційне ім'я Red Hat Network чи Red H
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "registration_number"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "активації передплат вашого облікового запису."

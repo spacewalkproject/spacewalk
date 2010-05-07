@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:05+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -2249,6 +2249,20 @@ msgstr "• మీ Red Hat Network సాటిలైటుకి (ఐచ్ఛ�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• మీ Red Hat Network లేదా Red Hat Network శాటిలైటు ప్రవేశం "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "నమోదు_సంఖ్య (_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat నెట్వర్కుతో నమోదు చేయి"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "సాఫ్టువేరు నవీకరణలను బయటకు తీసుకురా"
 
@@ -2614,9 +2628,6 @@ msgstr "• మీ Red Hat Network లేదా Red Hat Network శాటిల�
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "నమోదు_సంఖ్య (_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "మీ ఖాతాలో సబ్ స్క్రిప్షన్లను క్రియాశీలం చేస్తాయి."

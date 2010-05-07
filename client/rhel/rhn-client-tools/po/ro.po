@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Up2date 2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2002-04-15 18:35-04:00\n"
 "Last-Translator: Cristian Gafton\n"
 "Language-Team: Romanian <gafton+po@redhat.com>\n"
@@ -2121,6 +2121,20 @@ msgstr ""
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "Trebuie să rulaţi Update Agent ca root."
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Configurare Red Hat Network"
+
 #, fuzzy
 #~ msgid "Review the Red Hat Network Terms And Conditions"
 #~ msgstr "Configurare Red Hat Network"
@@ -2263,10 +2277,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "https://rhn.redhat.com"
-
-#, fuzzy
-#~ msgid "registration_number"
-#~ msgstr "Trebuie să rulaţi Update Agent ca root."
 
 #, fuzzy
 #~ msgid "Error reading hardware information:"

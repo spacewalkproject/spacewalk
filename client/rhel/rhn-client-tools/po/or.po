@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-06 16:22+0200\n"
+"POT-Creation-Date: 2010-05-07 13:34+0200\n"
 "PO-Revision-Date: 2007-02-01 11:40+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -2279,6 +2279,20 @@ msgstr "• ଆପଣଙ୍କ Red Hat Network ସେଟେଲାଇଟର ଠ�
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• ଆପଣଙ୍କ Red Hat Network କିମ୍ବା Red Hat Netwok ସେଟେଲାଇଟ ଲଗଇନ ନାମ "
 
+#: ../rhn_register.desktop.in.h:1
+#, fuzzy
+msgid "RHN Registration"
+msgstr "ପଞ୍ଜୀକରଣ ସଂଖ୍ଯା (_n)"
+
+#: ../rhn_register.desktop.in.h:2
+msgid "Register for software updates from Spacewalk/Satellite/Red Hat Network"
+msgstr ""
+
+#: ../rhn_register.desktop.in.h:3
+#, fuzzy
+msgid "Register to Spacewalk/Satellite/Red Hat Network."
+msgstr "Red Hat Network ରେ ପଞ୍ଜୀକୃତ କରନ୍ତୁ"
+
 #~ msgid "_Exit software update setup"
 #~ msgstr "ସଫ୍ଟୱେର ଅଦ୍ଯତନ ବ୍ଯବସ୍ଥାପନ ବନ୍ଦ କରନ୍ତୁ (_E)"
 
@@ -2676,9 +2690,6 @@ msgstr "• ଆପଣଙ୍କ Red Hat Network କିମ୍ବା Red Hat Netwok
 
 #~ msgid "http://www.redhat.com/apps/support/"
 #~ msgstr "http://www.redhat.com/apps/support/"
-
-#~ msgid "registration_number"
-#~ msgstr "ପଞ୍ଜୀକରଣ ସଂଖ୍ଯା (_n)"
 
 #~ msgid "activates subscriptions in your account."
 #~ msgstr "ଆପଣଙ୍କ ଖାତାରେ ସଦସ୍ଯତାକୁ ସକ୍ରିୟ କରିବ।"
