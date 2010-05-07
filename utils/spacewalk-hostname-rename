@@ -459,7 +459,7 @@ if [ "$MONITORING_ENABLED" != "0" ]
 then
     if [ "$MONITORING_SCOUT_ENABLED" != "0" ]
     then
-        echo -n "Pushing monitoring scounts ... " | tee -a $LOG
+        echo -n "Pushing monitoring scouts ... " | tee -a $LOG
         push_monitoring_scounts
         print_status 0  # just simulate end
     fi
