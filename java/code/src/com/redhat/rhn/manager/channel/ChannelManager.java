@@ -2822,7 +2822,7 @@ public class ChannelManager extends BaseManager {
      * @param cs the channel content source you want the latest log file for
      * @return the string of the filename (fully qualified)
      */
-    public static String getLatestSyncLogFile(ContentSource cs) {
+    public static String getLatestSyncLogFile(ContentSource cs, Channel c) {
 
         String logPath = Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_PATH,
                 "/var/log/rhn/reposync/");
@@ -2831,7 +2831,7 @@ public class ChannelManager extends BaseManager {
         File dir = new File(logPath);
         List<String> possibleList = new ArrayList<String>();
         for (String file : dir.list()) {
-            if (file.contains(cs.getChannel().getLabel() + '-' + repoLabel)) {
+            if (file.contains(c.getLabel() + '-' + repoLabel)) {
                 possibleList.add(file);
             }
         }

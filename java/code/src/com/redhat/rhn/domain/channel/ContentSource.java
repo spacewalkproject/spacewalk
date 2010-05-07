@@ -27,7 +27,6 @@ import com.redhat.rhn.domain.BaseDomainHelper;
 public class ContentSource extends BaseDomainHelper {
 
     private Long id;
-    private Channel channel;
     private ContentSourceType type;
     private String sourceUrl;
     private Date lastSynced;
@@ -60,23 +59,6 @@ public class ContentSource extends BaseDomainHelper {
      */
     public void setId(Long idIn) {
         this.id = idIn;
-    }
-
-    
-    
-    /**
-     * @return Returns the chan.
-     */
-    public Channel getChannel() {
-        return channel;
-    }
-
-    
-    /**
-     * @param chanIn The chan to set.
-     */
-    public void setChannel(Channel chanIn) {
-        this.channel = chanIn;
     }
 
     

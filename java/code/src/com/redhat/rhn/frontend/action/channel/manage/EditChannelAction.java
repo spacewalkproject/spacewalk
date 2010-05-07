@@ -609,7 +609,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                             cs.getLastSynced());
                 }
                 request.setAttribute("last_sync", lastSync);
-                if (ChannelManager.getLatestSyncLogFile(cs) != null) {
+                if (ChannelManager.getLatestSyncLogFile(cs,c) != null) {
                     request.setAttribute("log_url",
                             DownloadManager.getChannelSyncLogDownloadPath(cs,
                                     ctx.getLoggedInUser()));

@@ -89,6 +89,7 @@ public class DownloadFile extends DownloadAction {
     private static final String PATH = "path";
     private static final String SESSION = "session";
     private static final String URL = "url";
+    private static final String CHANNEL = "cid";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -372,9 +373,10 @@ public class DownloadFile extends DownloadAction {
                         (int) patch.getReadme().length()));
             }         
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
+                Channel c = ChannelFactory.lookupById((Long)params.get(CHANNEL));
                 ContentSource cs = ChannelFactory.lookupContentSource(fileId);
                 ChannelManager.verifyChannelAdmin(user, fileId);
-                File file = new File(ChannelManager.getLatestSyncLogFile(cs));
+                File file = new File(ChannelManager.getLatestSyncLogFile(cs, c));
 
                 StringBuilder output = new StringBuilder();
                 BufferedReader input =  new BufferedReader(new FileReader(file));
