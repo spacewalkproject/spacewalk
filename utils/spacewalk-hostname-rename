@@ -398,11 +398,11 @@ echo -n "Testing DB connection ... " | tee -a $LOG
 # for spacewalk only:
 if [ -e "$ORACLE_XE_LISTENER_ORA_FILE" ]
 then
-    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_LISTENER_ORA_FILE
+    sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_LISTENER_ORA_FILE
 fi
 if [ -e $ORACLE_XE_TNSNAMES_ORA_FILE ]
 then
-    sed -i$BACKUP_EXT "s/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1$HOSTNAME\2/" $ORACLE_XE_TNSNAMES_ORA_FILE
+    sed -i$BACKUP_EXT 's/\(.*(HOST[[:space:]]*=[[:space:]]*\)[^)]*\().*$\)/\1localhost\2/' $ORACLE_XE_TNSNAMES_ORA_FILE
 fi
 
 SQL_RET=$(
