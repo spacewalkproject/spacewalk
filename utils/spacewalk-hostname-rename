@@ -422,14 +422,20 @@ print_status 0  # just simulate end
 re-generate_server_ssl_certificate
 
 echo -n "Regenerating new bootstrap client-config-overrides.txt ... " | tee -a $LOG
-backup_file ${BOOTSTRAP_SH}
-backup_file ${BOOTSTRAP_CCO}
 # it's easier to subst HOSTNAME with sed
 # than to re-generate and keep current configuration
 # rhn-bootstrap >> /dev/null 2>&1
-sed -i "s/\(HOSTNAME=\).*/\1$HOSTNAME/" ${BOOTSTRAP_SH}
-sed -i "s/\(noSSLServerURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
-sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+if [ -e "$BOOTSTRAP_SH" ]
+then
+    backup_file ${BOOTSTRAP_SH}
+    sed -i "s/\(HOSTNAME=\).*/\1$HOSTNAME/" ${BOOTSTRAP_SH}
+fi
+if [ -e "$BOOTSTRAP_CCO" ]
+then
+    backup_file ${BOOTSTRAP_CCO}
+    sed -i "s/\(noSSLServerURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+    sed -i "s/\(serverURL=https\?:\/\/\).*\(\/XMLRPC\)/\1$HOSTNAME\2/" ${BOOTSTRAP_CCO}
+fi
 print_status 0  # just simulate end
 
 if [ -e "${NOCPULSE_INI}" ]
