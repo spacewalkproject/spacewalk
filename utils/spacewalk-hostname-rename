@@ -22,7 +22,6 @@ fi
 LOG=/var/log/rhn/rhn_hostname_rename.log
 RHN_CONF_FILE=/etc/rhn/rhn.conf
 SSL_BUILD_DIR=/root/ssl-build
-HOSTS_FILE=/etc/hosts
 ETC_JABBERD_DIR=/etc/jabberd
 NOCPULSE_INI=/etc/NOCpulse.ini
 BOOTSTRAP_SH=/var/www/html/pub/bootstrap/bootstrap.sh
@@ -124,12 +123,6 @@ function initial_system_hostname_check {
     if [ "$HOSTNAME" != "$HN_NETWORK" ]
     then
         echo_err "Wrong hostname in /etc/sysconfig/network: \"$HN_NETWORK\""
-        return 1
-    fi
-
-    if [ -z "$(awk "/$HOSTNAME/ && ! /127.0./ && ! /^::1/ && ! /^[[:space:]]*#/" $HOSTS_FILE)" ]
-    then
-        echo_err "Missing line \"IP $HOSTNAME\" in your $HOSTS_FILE"
         return 1
     fi
 
