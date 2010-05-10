@@ -4,7 +4,7 @@
 %{!?pythongen:%define pythongen %(%{__python} -c "import sys ; print sys.version[:3]")}
 
 Name: osad
-Summary: OSAD agent
+Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
