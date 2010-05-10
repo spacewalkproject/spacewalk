@@ -15,9 +15,11 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerInfo;
 import com.redhat.rhn.domain.server.VirtualInstance;
@@ -25,6 +27,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -83,6 +86,25 @@ public class ServerTest extends BaseTestCaseWithUser {
         assertEquals(4, host.getValidAddonEntitlementsForServer().size());
         
     }
+    
+    
+    public void testCapabilities() throws Exception {
+        UserTestUtils.addProvisioning(user.getOrg());
+        Server s = ServerFactoryTest.createTestServer(user, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        SystemManagerTest.giveCapability(s.getId(), 
+                SystemManager.CAP_CONFIGFILES_DEPLOY, 1L);
+        assertFalse(s.getCapabilities().isEmpty());
+        boolean containsDeploy = false;
+        for (Capability c : s.getCapabilities()) {
+            if (SystemManager.CAP_CONFIGFILES_DEPLOY.equals(c.getName())) {
+                containsDeploy = true;
+                break;
+            }
+        }
+        assertTrue(containsDeploy);
+    }
+    
     
     public void testNetworkInterfaces() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
