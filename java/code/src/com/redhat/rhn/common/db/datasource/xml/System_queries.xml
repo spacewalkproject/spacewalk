@@ -1604,6 +1604,19 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     </query>
 </mode>
 
+<mode name="duplicate_system_ids_ip_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
+    <query params="uid, key">
+        SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin
+        from rhnServer S 
+        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
+        	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
+        	 	inner join rhnServerInfo si on si.server_id = S.id
+        where
+        	 USP.user_id = :uid 
+        	 and NI.ip_addr = :key
+    </query>
+</mode>
+
 
 <mode name="duplicate_system_ids_mac" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid, inactive_date">
@@ -1624,6 +1637,22 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     </query>
 </mode>
 
+
+<mode name="duplicate_system_ids_mac_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
+    <query params="uid, key">
+        SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin
+        from rhnServer S 
+        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
+        	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
+        	 	inner join rhnServerInfo si on si.server_id = S.id
+        where
+        	 USP.user_id = :uid 
+        	 and NI.hw_addr = :key
+    </query>
+</mode>
+
+
+
 <mode name="duplicate_system_ids_hostname" class="com.redhat.rhn.frontend.dto.NetworkDto">
     <query params="uid, inactive_date">
         SELECT distinct S.id as id, S.name as name, NI.hostname as key, si.checkin as last_checkin,
@@ -1639,6 +1668,20 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
           	 	group by NI2.hostname) SUMM on SUMM.hostname = NI.hostname
         where USP.user_id = :uid and
         	  SUMM.syscount > 1
+    </query>
+</mode>
+
+
+<mode name="duplicate_system_ids_hostname_key" class="com.redhat.rhn.frontend.dto.SystemOverview">
+    <query params="uid, key">
+        SELECT distinct S.id as id, S.name as name, si.checkin as last_checkin
+        from rhnServer S 
+        	 	inner join rhnUserServerPerms USP on S.id = USP.server_id 
+        	 	inner join rhnServerNetInterface NI on NI.server_id = S.id
+        	 	inner join rhnServerInfo si on si.server_id = S.id
+        where
+        	 USP.user_id = :uid 
+        	 and NI.hostname = :key
     </query>
 </mode>
 

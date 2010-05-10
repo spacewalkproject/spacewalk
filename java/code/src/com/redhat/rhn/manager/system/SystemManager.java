@@ -2664,6 +2664,16 @@ public class SystemManager extends BaseManager {
         return retval;
     }
     
+    private static DataResult<SystemOverview> listDuplicates(User user,
+                                            String query, String key) {
+        SelectMode mode = ModeFactory.getMode("System_queries", query);
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        params.put("key", key);
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, null, mode);
+    }    
+    
     private static List listDuplicates(User user, String query,
                                 List ignored, Long inactiveHours) {
 
@@ -2719,6 +2729,16 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * List duplicate systems by ip address
+     * @param user the user doing the search
+     * @param ip  ip address of the system
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static List listDuplicatesByIP(User user, String ip) {
+        return listDuplicates(user, "duplicate_system_ids_ip_key", ip);
+    }    
+    
+    /**
      * List duplicate systems by mac address
      * @param user the user doing the search
      * @param inactiveHours the number of hours a system hasn't checked in
@@ -2733,6 +2753,16 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * List duplicate systems by mac address
+     * @param user the user doing the search
+     * @param mac the mac address of the system
+     * @return List of DuplicateSystemGrouping objects
+     */
+    public static List listDuplicatesByMac(User user, String mac) {
+        return listDuplicates(user, "duplicate_system_ids_mac_key", mac);
+    }
+    
+    /**
      * List duplicate systems by hostname
      * @param user the user doing the search
      * @param inactiveHours the number of hours a system hasn't checked in
@@ -2744,5 +2774,15 @@ public class SystemManager extends BaseManager {
                 Collections.EMPTY_LIST, inactiveHours);
     }
     
+    /**
+     * List duplicate systems by hostName
+     * @param user the user doing the search
+     * @param hostName host name of the system
+     * @return List of DuplicateSystemGrouping objects
+     */    
+    public static List listDuplicatesByHostname(User user, String hostName) {
+        return listDuplicates(user, "duplicate_system_ids_hostname_key", 
+                hostName);
+    }    
     
 }

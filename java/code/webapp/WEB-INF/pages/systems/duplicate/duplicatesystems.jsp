@@ -18,12 +18,15 @@
 <c:choose>
 	<c:when test="${not empty requestScope.hostname}">
 		<c:set var="filtermessage" value="row.hostname"/>
+		<c:set var="key_type" value="hostname"/>
 	</c:when>
 	<c:when test="${not empty requestScope.ip}">
 		<c:set var="filtermessage" value="row.ip"/>
+		<c:set var="key_type" value="ip"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="filtermessage" value="row.macaddress"/>
+		<c:set var="key_type" value="macaddress"/>
 	</c:otherwise>
 </c:choose>
 
@@ -97,9 +100,8 @@
 	</rl:column>
 	<rl:column headerkey="systemlist.jsp.last_checked_in"
 				styleclass="last-column">
-		<rl:non-expandable>
-		${current.lastCheckinString}
-	  </rl:non-expandable>						
+		<rl:expandable><a href="/rhn/systems/DuplicateSystemsCompare.do?key=${current.key}&key_type=${key_type}"><bean:message key="Compare Systems"/></a></rl:expandable>
+		<rl:non-expandable>${current.lastCheckinString}</rl:non-expandable>						
 	</rl:column>
 
 </rl:list>

@@ -1,9 +1,9 @@
                       <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
 						<c:choose>
-						<c:when test="${current.virtualGuest}">
+						<c:when test="${current.virtualGuest && empty nosystemicons}">
 						          <img src="/img/rhn-listicon-virtguest.gif" alt="<bean:message key="systemlist.jsp.virtguest"/>" />
 						        </c:when>
-						        <c:when test="${current.virtualHost}">
+						        <c:when test="${current.virtualHost && empty nosystemicons}">
 						          <img src="/img/rhn-listicon-virthost.gif" alt="<bean:message key="systemlist.jsp.virthost"/>" />
 						        </c:when>
 						        <c:otherwise>

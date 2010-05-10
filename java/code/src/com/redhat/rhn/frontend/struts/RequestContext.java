@@ -455,6 +455,22 @@ public class RequestContext {
         }
         return result;
     }
+
+    /**
+     * Get the parameter <code>paramName</code> from the request 
+     * A BadParameterException is thrown if the
+     * parameter is not present in the request or is empty
+     * @param paramName the name of the parameter
+     * @return the parameter value converted to a <code>Long</code>
+     */
+    public String getRequiredParamAsString(String paramName) {
+        String p = request.getParameter(paramName);
+        if (StringUtils.isBlank(p)) {
+            throw new BadParameterException("The parameter " + paramName + 
+                    " is required.");
+        }
+        return p;
+    }    
     
     /**
      * If this current Request includes a parameter to indicate the User is attempting
