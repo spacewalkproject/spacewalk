@@ -2414,7 +2414,7 @@
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="confirm"
                   path="/systems/ssm/DeleteConfirm.do"
-                  redirect="true"/>                 
+                  redirect="true"/>
     </action>
 
     <action path="/systems/DuplicateHostName"
@@ -2427,7 +2427,7 @@
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="confirm"
                   path="/systems/ssm/DeleteConfirm.do"
-                  redirect="true"/>                 
+                  redirect="true"/>
     </action>
     
     <action path="/systems/DuplicateMacAddress"
@@ -2440,9 +2440,28 @@
                  path="/WEB-INF/pages/systems/duplicate/duplicatesystems.jsp"/>
          <forward name="confirm"
                   path="/systems/ssm/DeleteConfirm.do"
-                  redirect="true"/>                 
+                  redirect="true"/>
     </action>
     
+
+    <action path="/systems/DuplicateSystemsCompare"
+        scope="request"
+        input="/WEB-INF/pages/systems/duplicate/duplicatesystemscompare.jsp"
+        type="com.redhat.rhn.frontend.action.systems.duplicate.DuplicateSystemsCompareAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="macaddress">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/duplicate/duplicatesystemscompare.jsp"/>
+         <forward name="hostname"
+                  path="/systems/DuplicateHostName"
+                  redirect="true"/>
+		<forward name="ip"
+                  path="/systems/DuplicateIPList"
+                  redirect="true"/>
+		<forward name="macaddress"
+                  path="/systems/DuplicateMacAddress"
+                  redirect="true"/>
+    </action>
             		 
     		  
     <action path="/systems/OutOfDate"

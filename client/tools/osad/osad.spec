@@ -4,7 +4,7 @@
 %{!?pythongen:%define pythongen %(%{__python} -c "import sys ; print sys.version[:3]")}
 
 Name: osad
-Summary: OSAD agent
+Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
@@ -33,11 +33,11 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description 
-OSAD agent receive commands over jabber protocol from Spacewalk Server and 
+OSAD agent receives commands over jabber protocol from Spacewalk Server and
 commands are instantly executed.
 
-This package effectively replace rhn_check command which check in Spacewalk
-Server only in some period.
+This package effectively replaces the behaviour of rhnsd/rhn_check that
+only poll the Spacewalk Server from time to time.
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
@@ -52,9 +52,9 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description -n osa-dispatcher
-OSA dispatcher get message from Spacewalk server that some command is need
-to execute on client. The message is transported via jabber protocol to OSAD
-agent.
+OSA dispatcher is supposed to run on the Spacewalk server. It gets information
+from the Spacewalk server that some command needs to be execute on the client;
+that message is transported via jabber protocol to OSAD agent on the clients.
 
 %if 0%{?rhel} && 0%{?rhel} <= 4
 %define include_selinux_package 0

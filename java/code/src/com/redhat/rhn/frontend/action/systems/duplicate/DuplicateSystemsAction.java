@@ -40,11 +40,11 @@ import javax.servlet.http.HttpServletResponse;
  * SystemListAction
  * @version $Rev$
  */
-public class DuplicateSystemsAction extends RhnAction  implements Listable {
+public class DuplicateSystemsAction extends RhnAction implements Listable {
 
     private static final String INACTIVE_COUNT = "inactive_count";
-    private static final String MAC_ADDRESS = "macaddress";
-    private static final String HOSTNAME = "hostname";
+    public static final String MAC_ADDRESS = "macaddress";
+    public static final String HOSTNAME = "hostname";
     /**
      * 
      * {@inheritDoc}

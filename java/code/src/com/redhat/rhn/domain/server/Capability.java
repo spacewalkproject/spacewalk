@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.server;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -24,7 +22,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * Capability
  * @version $Rev$
  */
-public class Capability extends BaseDomainHelper {
+public class Capability {
     private Long id;
     private String name;
     
