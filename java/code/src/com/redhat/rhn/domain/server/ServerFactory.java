@@ -577,7 +577,19 @@ public class ServerFactory extends HibernateFactory {
     public static List<Server> listConfigEnabledSystems() {
         return (List<Server>) singleton.listObjectsByNamedQuery(
                         "Server.listConfigEnabledSystems", Collections.EMPTY_MAP);
-    }    
+    }
+
+    /**
+     * Returns a global multi org spanning list of
+     * servers that are config-diff enabled.
+     * Basically used by taskomatic.
+     * @return a list of config-diff enabled systems
+     */
+    public static List<Server> listConfigDiffEnabledSystems() {
+        return (List<Server>) singleton.listObjectsByNamedQuery(
+                        "Server.listConfigDiffEnabledSystems", Collections.EMPTY_MAP);
+    }
+
     /**
      * List snapshots associated with a server.
      *
