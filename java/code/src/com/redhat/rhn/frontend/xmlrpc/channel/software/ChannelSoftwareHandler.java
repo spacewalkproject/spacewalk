@@ -1769,16 +1769,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
                     mergeTo.getLabel()));
         }
 
-        List<Errata> differentErrata = new ArrayList<Errata>();
-
         Set<Errata> toErrata = mergeTo.getErratas();
         Set<Errata> fromErrata = mergeFrom.getErratas();
-       
-        for (Errata errata : fromErrata) {
-            if (!toErrata.contains(errata)) {
-                differentErrata.add(errata);
-            }
-        }
+        Set<Errata> differentErrata = errataDiff(fromErrata, toErrata);
+
         mergeTo.getErratas().addAll(differentErrata);
         ChannelFactory.save(mergeTo);
         return differentErrata.toArray();
@@ -1826,20 +1820,33 @@ public class ChannelSoftwareHandler extends BaseHandler {
                     mergeTo.getLabel()));
         }
 
-        List<Errata> differentErrata = new ArrayList<Errata>();
-
         Set<Errata> toErrata = mergeTo.getErratas();
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
+        Set<Errata> differentErrata = errataDiff(new HashSet(fromErrata), toErrata);
 
-        for (Errata errata : fromErrata) {
-            if (!toErrata.contains(errata)) {
-                differentErrata.add(errata);
-            }
-        }
         mergeTo.getErratas().addAll(differentErrata);
         ChannelFactory.save(mergeTo);
         return differentErrata.toArray();
+    }
+
+    private Set<Errata> errataDiff(Set<Errata> from, Set<Errata> to) {
+        Set<Errata> diff = new HashSet<Errata>();
+        for (Errata errata : from) {
+            if (!errataInSet(to, errata)) {
+                diff.add(errata);
+            }
+        }
+        return diff;
+    }
+
+    private boolean errataInSet(Set<Errata> where, Errata what) {
+        for (Errata errata : where) {
+            if (errata.equals(what)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
