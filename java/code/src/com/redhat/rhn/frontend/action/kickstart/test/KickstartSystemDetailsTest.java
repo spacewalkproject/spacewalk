@@ -93,6 +93,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
         ksdata = (KickstartData) TestUtils.reload(ksdata);
 
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
+        addRequestParameter("registrationType", "reactivation");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
                 SELinuxMode.ENFORCING.getValue());
@@ -111,6 +112,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
 
         assertNotNull(ksdata.getCommand("selinux"));
         setRequestPathInfo("/kickstart/SystemDetailsEdit");
+        addRequestParameter("registrationType", "reactivation");
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
                 SELinuxMode.ENFORCING.getValue());
@@ -129,6 +131,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     
     private void setupForEdit(KickstartData k) throws Exception {
         setupForDisplay(k);
-        addRequestParameter("submitted", "true");                        
+        addRequestParameter("submitted", "true");
+        addRequestParameter("registrationType", "reactivation");
     }
 }
