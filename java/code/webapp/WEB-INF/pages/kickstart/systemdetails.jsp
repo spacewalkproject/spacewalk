@@ -70,6 +70,19 @@ boolean staticIfDisabled = Boolean.valueOf(
         </tr>
       </table>
     </c:if>
+
+      <h2><bean:message key="kickstart.systemdetails.jsp.registration-header"/></h2>
+      <table class="details">
+        <tr>
+          <th><bean:message key="kickstart.registration.type.jsp.label" />:</th>
+          <td>
+              <html:radio property="registrationType" value="reactivation" /><bean:message key="kickstart.registration.type.reactivation.jsp.label" /><br />
+              <html:radio property="registrationType" value="deletion" /><bean:message key="kickstart.registration.type.deletion.jsp.label" /><br />
+              <html:radio property="registrationType" value="none" /><bean:message key="kickstart.registration.type.none.jsp.label" />
+          </td>
+        </tr>
+      </table>
+    
     <h2><bean:message key="kickstart.systemdetails.jsp.header3"/></h2>
       <table class="details">
        <tr>

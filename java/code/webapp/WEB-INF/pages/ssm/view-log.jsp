@@ -49,7 +49,7 @@
         </rl:column>
 
         <rl:column headerkey="ssm.operations.viewlog.modified" bound="false" styleclass="last-column">
-            <c:out value="${current.modified}"/>
+            <c:out value="${current.modifiedDateString}"/>
         </rl:column>
 
     </rl:list>

@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
@@ -82,19 +83,18 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         // Verify
 
         //   Verify counts for all and in progress operations
-        DataResult all = SsmOperationManager.allOperations(ssmUser);
-        DataResult inProgress = SsmOperationManager.inProgressOperations(ssmUser);
+        DataResult<OperationDetailsDto> all = SsmOperationManager.allOperations(ssmUser);
+        DataResult<OperationDetailsDto> inProgress = SsmOperationManager.
+                                                    inProgressOperations(ssmUser);
 
         assertEquals(2, all.size());
         assertEquals(1, inProgress.size());
 
         //   Verify the completed operation has its progress set to 100
-        for (int ii = 0; ii < all.size(); ii++) {
-            Map<String, Object> operation = (Map<String, Object>) all.get(ii);
-
-            if (operation.get("id").equals(completeMeId)) {
+        for (OperationDetailsDto operation : all) {
+            if (operation.getId() == completeMeId) {
                 assertEquals(SsmOperationStatus.COMPLETED.getText(),
-                    operation.get("status"));
+                    operation.getStatus());
             }
         }
     }
@@ -105,27 +105,25 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
             SsmOperationManager.createOperation(ssmUser,
                 "Test operation 1", serverSetLabel);
         
-        DataResult operation = SsmOperationManager.findOperationById(ssmUser, operationId);
+        OperationDetailsDto operation = SsmOperationManager.
+                                    findOperationById(ssmUser, operationId);
         
         // Verify
         assertNotNull(operation);
-        assertEquals(1, operation.size());
         
-        Map<String, Object> operationData = (Map<String, Object>) operation.get(0);
-        
-        assertEquals("Test operation 1", operationData.get("description"));
-        assertEquals(SsmOperationStatus.IN_PROGRESS.getText(), operationData.get("status"));
-        assertNotNull(operationData.get("started"));
-        assertNotNull(operationData.get("modified"));
+        assertEquals("Test operation 1", operation.getDescription());
+        assertEquals(SsmOperationStatus.IN_PROGRESS.getText(), operation.getStatus());
+        assertNotNull(operation.getStarted());
+        assertNotNull(operation.getModified());
     }
 
     public void testFindNonExistentOperation() {
         // Test
-        DataResult result = SsmOperationManager.findOperationById(ssmUser, 100000L);
+        OperationDetailsDto result = SsmOperationManager.
+                                        findOperationById(ssmUser, 100000L);
 
         // Verify
-        assertNotNull(result);
-        assertEquals(0, result.size());
+        assertNull(result);
     }
 
     public void testFindServerDataForOperation() throws Exception {

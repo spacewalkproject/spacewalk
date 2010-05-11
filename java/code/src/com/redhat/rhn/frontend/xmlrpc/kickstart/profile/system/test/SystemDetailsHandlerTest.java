@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.RegistrationType;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
@@ -33,6 +34,7 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
+import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
@@ -409,5 +411,22 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         int result = fpHandler.create(adminKey, "list1", files);
         assertEquals(1, result);
         return CommonFactory.lookupFileList("list1", admin.getOrg());
+    }
+    
+    public void testRegistrationType() throws Exception {
+        KickstartData profile = createProfile();
+        handler.setRegistrationType(adminKey, profile.getLabel(), 
+                        RegistrationType.DELETION.getType());
+        
+        assertEquals(RegistrationType.DELETION.getType(), 
+                handler.getRegistrationType(adminKey, profile.getLabel()));
+        try {
+            handler.setRegistrationType(adminKey, profile.getLabel(), 
+                    TestUtils.randomString());
+            fail("It let it set random values for registration type");
+        }
+        catch (Exception e) {
+            //success
+        }
     }
 }

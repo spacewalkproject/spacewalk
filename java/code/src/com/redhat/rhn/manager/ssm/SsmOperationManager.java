@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.commons.logging.Log;
@@ -50,7 +51,7 @@ public class SsmOperationManager extends BaseManager {
      * @param user operations returned only for this user; cannot be <code>null</code>
      * @return list of maps containing the data describing each operation
      */
-    public static DataResult allOperations(User user) {
+    public static DataResult<OperationDetailsDto> allOperations(User user) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -70,7 +71,7 @@ public class SsmOperationManager extends BaseManager {
      * @param user operations returned only for this user; cannot be <code>null</code>
      * @return list of maps containing the data describing each matching operation
      */
-    public static DataResult inProgressOperations(User user) {
+    public static DataResult<OperationDetailsDto> inProgressOperations(User user) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -92,7 +93,7 @@ public class SsmOperationManager extends BaseManager {
      * @param user operations returned only for this user; cannot be <code>null</code>
      * @return list of maps containing the data describing each matching operation
      */
-    public static DataResult completedOperations(User user) {
+    public static DataResult<OperationDetailsDto> completedOperations(User user) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -114,11 +115,9 @@ public class SsmOperationManager extends BaseManager {
      * @param user        verifies that the user isn't trying to load someone else's
      *                    operation; cannot be <code>null</code>
      * @param operationId database ID of the operation to load
-     * @return list of size 1 if the operation was found, containing a map of database
-     *         column to value for the given operation; list of size 0 if no matches
-     *         were found in the database
+     * @return OperationsDto given an operation id or null.
      */
-    public static DataResult findOperationById(User user, long operationId) {
+    public static OperationDetailsDto findOperationById(User user, long operationId) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -129,8 +128,11 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("op_id", operationId);
 
-        DataResult result = m.execute(params);
-        return result;
+        DataResult<OperationDetailsDto> result = m.execute(params);
+        if (!result.isEmpty()) {
+            return result.get(0);
+        }
+        return null;
     }
 
     /**

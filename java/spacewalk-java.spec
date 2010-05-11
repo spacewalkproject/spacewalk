@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.10
+Version: 1.1.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -247,6 +247,7 @@ install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/
 
 install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT/%{cobdirsnippets}/keep_system_id
 install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_reactivation_key
+install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_delete_system
 install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT/%{cobdirsnippets}/redhat_register
 
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
@@ -281,6 +282,7 @@ fi
 %dir %{cobdirsnippets}
 %config %{cobdirsnippets}/keep_system_id
 %config %{cobdirsnippets}/post_reactivation_key
+%config %{cobdirsnippets}/post_delete_system
 %config %{cobdirsnippets}/redhat_register
 %{appdir}/*
 %if  0%{?rhel} && 0%{?rhel} < 6
@@ -319,6 +321,42 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon May 10 2010 Partha Aji <paji@redhat.com> 1.1.11-1
+- Added an option to selectively delete instead of reactivate when a system is
+  being reprovisioned (paji@redhat.com)
+- Made ssm operations use OperationDetailsDto instead of just dealing with
+  plain maps and random attributes (paji@redhat.com)
+- unit tset fix (jsherril@redhat.com)
+- 528884 - fixing issue where cloning ks profiles wouldnt clone virt info
+  (jsherril@redhat.com)
+- Added stubs for the duplicate profiles compare page (paji@redhat.com)
+- Fixed a hibernate bug on capabilities object. Removed created and modified
+  from mapping (paji@redhat.com)
+- 568962 - get correct set of errata to merge (tlestach@redhat.com)
+- Fix a NPE in the Audit code (joshua.roys@gtri.gatech.edu)
+- Added the import tree.js part to the expansion decorator so its used on a
+  need to use bases (paji@redhat.com)
+- Added the logic to handle Delete from the Dup Systems page (paji@redhat.com)
+- Made the dup systems page use ssm (paji@redhat.com)
+- Made the expansion decorator show the show all|hide all correctly
+  (paji@redhat.com)
+- queuing channel repo generation for new channels (jsherril@redhat.com)
+- Fixed a pagination issue that occured on first page load (paji@redhat.com)
+- ignoring virt bonded interfaces, changing dups page to not sure the same set,
+  and fixing inactive counts on mac and hostname pages (jsherril@redhat.com)
+- 585901 - add an extra null condition (tlestach@redhat.com)
+- Added a form var to keep track of inactive count (paji@redhat.com)
+- Added logic for all the 3 tabs to use the same set as they refer to the same
+  list (paji@redhat.com)
+- Added Nav Tabs + hostname /mac address functionality + cleaned up the i18n
+  Strings (paji@redhat.com)
+- adding inactive drop down box and select inactive button
+  (jsherril@redhat.com)
+- Changed the tree behaviour to always expand (paji@redhat.com)
+- Fixed checkstyle (paji@redhat.com)
+- Commiting the Select All magic stuff (paji@redhat.com)
+- 588901 - fix to_package_id (joshua.roys@gtri.gatech.edu)
+
 * Wed May 05 2010 Tomas Lestach <tlestach@redhat.com> 1.1.10-1
 - 585901 - recursive comps search (tlestach@redhat.com)
 - More work on select all magic (paji@redhat.com)

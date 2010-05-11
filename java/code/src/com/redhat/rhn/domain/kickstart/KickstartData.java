@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -72,7 +73,7 @@ public class KickstartData {
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
     private String cobblerId;
-
+    
     private Set cryptoKeys;
     private Set childChannels;
     private Set defaultRegTokens;
@@ -94,7 +95,6 @@ public class KickstartData {
     
     public static final String TYPE_WIZARD = "wizard";
     public static final String TYPE_RAW = "raw";
-
     private static String[] advancedOptions = 
         {"partitions", "raids", "logvols", "volgroups", "include", 
             "repo", "custom", "custom_partition"};
@@ -1574,6 +1574,35 @@ public class KickstartData {
         }
         return Profile.lookupById(con, getCobblerId());
     }
+    
+    /**
+     * Gets the Registration Type (i.e. the code that determines if 
+     * the ks script needs to generate a reactivation key or not)
+     * @param user the user object needed to load the profile from cobbler
+     * @return the registration type
+     */
+    public RegistrationType getRegistrationType(User user) {
+        Profile prof = getCobblerObject(user);
+        if (prof == null) {
+            return RegistrationType.getDefault();
+        }
+        
+        return RegistrationType.find((String)prof.getKsMeta().get(
+                            RegistrationType.COBBLER_VAR));
+    }
+    
+    /**
+     * Sets the registration type 
+     * @param type the refgistration type
+     * @param user the user needed to load the profile form cobbler
+     */
+    public void  setRegistrationType(RegistrationType type, User user) {
+        Profile prof = getCobblerObject(user);
+        Map<String, Object> meta = prof.getKsMeta();
+        meta.put(RegistrationType.COBBLER_VAR, type.getType());
+        prof.setKsMeta(meta);
+        prof.save();
+    }    
 
     /**
      * Method to determine if the profile

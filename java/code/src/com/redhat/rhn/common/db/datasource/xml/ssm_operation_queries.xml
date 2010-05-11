@@ -7,7 +7,7 @@
 
 <!-- Loads all SSM operation details associated with the user regardless of status. In
      addition, this query will return the number of servers involved in each operation. -->
-<mode name="find_all_operations">
+<mode name="find_all_operations" class="com.redhat.rhn.frontend.dto.OperationDetailsDto">
   <query params="user_id">
      SELECT op.id,
             op.description,
@@ -29,7 +29,7 @@
      
      The values for status should be taken from the enumeration SsmOperationStatus.
      -->
-<mode name="find_operations_with_status">
+<mode name="find_operations_with_status" class="com.redhat.rhn.frontend.dto.OperationDetailsDto">
    <query params="user_id, status">
       SELECT op.id,
              op.description,
@@ -47,7 +47,7 @@
 </mode>
    
 <!-- Loads the SSM operation details identified by the given user and operation ID. -->
-<mode name="find_operation_by_id">
+<mode name="find_operation_by_id" class="com.redhat.rhn.frontend.dto.OperationDetailsDto">
    <query params="user_id, op_id">
       SELECT op.id,
              op.description,

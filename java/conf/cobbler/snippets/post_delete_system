@@ -1,0 +1,14 @@
+%post --interpreter /usr/bin/python
+import xmlrpclib
+import os.path
+system_id = "/root/systemid.old"
+try:
+    if os.path.exists(system_id):
+        client =  xmlrpclib.Server("http://$http_server/rpc/api")
+        client.system.delete_system(open(system_id).read())
+except:
+    # xml rpc due to  a old/bad system id
+    # we don't care about those
+    # we'll register those as new. 
+    pass
+
