@@ -633,6 +633,7 @@
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="kickstart" type="com.redhat.rhn.domain.kickstart.KickstartData" />
             <form-property name="selinuxMode" type="java.lang.String" />
+            <form-property name="registrationType" type="java.lang.String" />
             <form-property name="configManagement" type="java.lang.String" />
             <form-property name="remoteCommands" type="java.lang.String" />
             <form-property name="rootPassword" type="java.lang.String" />

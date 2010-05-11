@@ -15,11 +15,11 @@
 package com.redhat.rhn.frontend.xmlrpc.system.test;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
@@ -74,10 +74,12 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.events.SsmDeleteServersAction;
 import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
@@ -100,6 +102,7 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
@@ -109,6 +112,8 @@ import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -162,6 +167,14 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             //success
         }
         
+    }
+
+    public void testObtainReactivationKeyWithCert() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true, 
+                ServerConstants.getServerGroupTypeProvisioningEntitled());        
+        ClientCertificate cert = SystemManager.createClientCertificate(server);
+        cert.validate(server.getSecret());
+        assertFalse(StringUtils.isBlank(handler.obtainReactivationKey(cert.toString())));
     }
     
     public void xxxtestUpgradeEntitlement() throws Exception {
@@ -698,6 +711,15 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
     }
     
+    public void testDeleteSystemWithCert() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        Long sid = server.getId();
+        ClientCertificate cert = SystemManager.createClientCertificate(server);
+        cert.validate(server.getSecret());
+        assertEquals(1, handler.deleteSystem(cert.toString()));
+        assertNull(ServerFactory.lookupById(sid));
+    }    
+    
     public void testDeleteSystems() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         Long sid = server.getId();
@@ -708,26 +730,18 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         //ok, we have an admin with a server he has access to
         List sids = new ArrayList();
         sids.add(id);
-        
-        int result = handler.deleteSystems(adminKey, sids);
-        assertEquals(1, result);
-        
-        //since the server has been deleted, we should get a fault exception this time
         try {
-            result = handler.deleteSystems(adminKey, sids);
-            fail("SystemHandler.deleteSystems allowed deletion of non-existant system");
+            handler.deleteSystems(regularKey, sids);
+            fail("SystemHandler.deleteSystems allowed unauthorized deletion");
         }
         catch (FaultException e) {
             //success
         }
+        assertEquals(1, handler.deleteSystems(adminKey, sids));
         
-        //and make sure the server is, in fact, really gone
-        try {
-            test = SystemManager.lookupByIdAndUser(sid, admin);
-            fail("Found deleted server");
-        }
-        catch (LookupException e) {
-            //success
+        List<OperationDetailsDto> ops = SsmOperationManager.allOperations(admin);
+        for (OperationDetailsDto op : ops) {
+            assertEquals(op.getDescription(), SsmDeleteServersAction.OPERATION_NAME);
         }
     }
     

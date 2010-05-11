@@ -247,6 +247,7 @@ install -m 644 conf/log4j.properties.taskomatic $RPM_BUILD_ROOT/%{_datadir}/rhn/
 
 install -m 644 conf/cobbler/snippets/keep_system_id  $RPM_BUILD_ROOT/%{cobdirsnippets}/keep_system_id
 install -m 644 conf/cobbler/snippets/post_reactivation_key  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_reactivation_key
+install -m 644 conf/cobbler/snippets/post_delete_system  $RPM_BUILD_ROOT/%{cobdirsnippets}/post_delete_system
 install -m 644 conf/cobbler/snippets/redhat_register  $RPM_BUILD_ROOT/%{cobdirsnippets}/redhat_register
 
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
@@ -281,6 +282,7 @@ fi
 %dir %{cobdirsnippets}
 %config %{cobdirsnippets}/keep_system_id
 %config %{cobdirsnippets}/post_reactivation_key
+%config %{cobdirsnippets}/post_delete_system
 %config %{cobdirsnippets}/redhat_register
 %{appdir}/*
 %if  0%{?rhel} && 0%{?rhel} < 6

@@ -24,6 +24,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.action.Action;
@@ -72,6 +73,7 @@ import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -211,7 +213,7 @@ public class SystemHandler extends BaseHandler {
      *   - The server corresponding to the sid cannot be found
      *   - The server doesn't have the "agent smith" feature
      * @throws MethodInvalidParamException thrown if certificate is invalid.
-     * @since 10.9
+     * @since 10.10
      * @xmlrpc.doc Obtains a reactivation key for this server.
      * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
      * @xmlrpc.returntype string
@@ -240,7 +242,7 @@ public class SystemHandler extends BaseHandler {
             log.error("InvalidCertificateException - Trying to access a " +
                     "system with an invalid certificate", e);
             throw new MethodInvalidParamException();
-        }        
+        }
         return getReactivationKey(server.getOrg().getActiveOrgAdmins().get(0), server);
     }    
     
@@ -1151,7 +1153,8 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * Delete systems given a list of system ids
+     * Delete systems given a list of system ids.
+     * This call queues the systems for deletion 
      * @param sessionKey The sessionKey containing the logged in user
      * @param systemIds A list of systems ids to delete
      * @return Returns the number of systems deleted if successful, fault exception 
@@ -1164,42 +1167,95 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteSystems(String sessionKey, List systemIds) throws FaultException {
+    public int deleteSystems(String sessionKey, List<Integer> systemIds)
+                                                        throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         
-        // Keep track of the number of systems deleted and the number that were skipped.
-        int numDeleted = 0;
-        List skippedSids = new ArrayList();
-        
+        List <Integer> skippedSids = new ArrayList<Integer>();
+        List <Long> deletion = new LinkedList<Long>();         
         // Loop through the sids and try to delete the server
-        for (Iterator sysIter = systemIds.iterator(); sysIter.hasNext();) {
-            Integer sidAsInt = (Integer) sysIter.next();
-            Long sid = new Long(sidAsInt.longValue());
+        for (Integer sysId : systemIds) {
             try {
-                SystemManager.deleteServer(loggedInUser, sid);
-                numDeleted++;
+                if (SystemManager.isAvailableToUser(loggedInUser, sysId.longValue())) {
+                    deletion.add(sysId.longValue());
+                }
+                else {
+                    skippedSids.add(sysId);
+                }
             }
             catch (Exception e) {
                 System.out.println("Exception: " + e);
                 e.printStackTrace();
-                skippedSids.add(sidAsInt);
+                skippedSids.add(sysId);
             }
         }
         
+        // Fire the request off asynchronously
+        SsmDeleteServersEvent event =
+            new SsmDeleteServersEvent(loggedInUser, deletion);
+        MessageQueue.publish(event);
+        
         // If we skipped any systems, create an error message and throw a FaultException
         if (skippedSids.size() > 0) {
-            StringBuffer msg = new StringBuffer("The following systems were NOT deleted: ");
-            for (Iterator itr = skippedSids.iterator(); itr.hasNext();) {
-                Integer sid = (Integer) itr.next();
+            StringBuilder msg = new StringBuilder(
+                    "The following systems were NOT deleted: ");
+            for (Integer sid :  skippedSids) {
                 msg.append("\n" + sid);
             }
             throw new SystemsNotDeletedException(msg.toString());
         }
         
-        // Else return the number of systems that were deleted.
-        return numDeleted;
+        return 1;
     }
+    
+    
+    /**
+     * Delete a system given its cilent certificate.
+     *
+     * @param clientCert  client certificate of the system.
+     * @return 1 on success
+     * @throws FaultException A FaultException is thrown if:
+     *   - The server corresponding to the sid cannot be found
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     * @since 10.10
+     * @xmlrpc.doc Delete a system given its cilent certificate.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    
+    public int deleteSystem(String clientCert) throws FaultException {
+        
+        StringReader rdr = new StringReader(clientCert);
+        Server server = null;
+
+        ClientCertificate cert;
+        try {
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            server = SystemManager.lookupByCert(cert);
+        }
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        
+        SystemManager.deleteServer(server.getOrg().getActiveOrgAdmins().get(0),
+                                                server.getId());
+        return 1;
+    }    
+    
+    
     
     /**
      * Get the IP and hostname for a given server

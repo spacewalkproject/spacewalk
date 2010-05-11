@@ -720,4 +720,78 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
+    
+    
+    /**
+     * Sets the registration type of a given kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param registrationType   registration type 
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The kickstartLabel is invalid
+     *   - registration type is not reactivation/deletion/none
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc Sets the registration type of a given kickstart profile.
+     * Registration Type can be one of reactivation/deletion/none
+     * These types determine the behaviour of the re registration when using
+     * this profile. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #param("string","registrationType")
+     *      #options()
+     *         #item_desc ("reactivation", "to try and generate a reactivation key 
+     *              and use that to register the system when reprovisioning a system.")
+     *         #item_desc ("deletion", "to try and delete the existing system profile  
+     *              and reregister the system being reprovisioned as new")
+     *         #item_desc ("none", "to preserve the status quo and leave the current system
+     *              as a duplicate on a reprovision.")
+     *      #options_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setRegistrationType(String sessionKey, String kickstartLabel, 
+                                                        String registrationType) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        SystemDetailsCommand command = getSystemDetailsCommand(kickstartLabel, user);
+        command.setRegistrationType(registrationType);
+        command.store();
+        return 1;
+    }
+    
+    
+    /**
+     * Returns the registration type of a given kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The kickstartLabel is invalid
+     * @return the registration type -> one of reactivation/deletion/none
+     * 
+     * @xmlrpc.doc returns the registration type of a given kickstart profile.
+     * Registration Type can be one of reactivation/deletion/none
+     * These types determine the behaviour of the registration when using
+     * this profile for reprovisioning. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.returntype 
+     * #param("string", "registrationType")
+     *      #options()
+     *         #item ("reactivation")
+     *         #item ("deletion")
+     *         #item ("none")
+     *      #options_end()
+     */    
+    public String  getRegistrationType(String sessionKey, String kickstartLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                    user.getOrg().getId());
+        return data.getRegistrationType(user).getType();
+    }    
 }

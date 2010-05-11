@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
+import com.redhat.rhn.domain.kickstart.RegistrationType;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.user.User;
 
@@ -130,5 +131,21 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
             defaults.setCreated(new Date());
         }
         defaults.setRemoteCommandFlag(enable);        
-    }  
+    }
+    
+    /**
+     * Sets the registration type of the kickstart data
+     * @param registrationType the registration type
+     */
+    public void setRegistrationType(String registrationType) {
+        RegistrationType tp = RegistrationType.findDefault(registrationType, null);
+        if (tp == null) {
+            String msg = "Invalid registration type must be one of ['%s', '%s', '%s']";
+            throw new ValidatorException(String.format(msg, 
+                                RegistrationType.REACTIVATION.getType(),
+                                RegistrationType.DELETION.getType(),
+                                RegistrationType.NONE.getType()));
+        }        
+        ksdata.setRegistrationType(tp, user);
+    }    
 }

@@ -136,6 +136,9 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static KickstartData lookupKickstartDataByLabelAndOrgId(
             String label, Long orgId) {
+        if (StringUtils.isBlank(label)) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }        
         return (KickstartData) HibernateFactory.getSession().
                                       getNamedQuery("KickstartData.findByLabelAndOrg")
                                       .setString("label", label)
@@ -150,6 +153,9 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static KickstartData lookupKickstartDataByLabel(
             String label) {
+        if (StringUtils.isBlank(label)) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
         return (KickstartData) HibernateFactory.getSession().
                                       getNamedQuery("KickstartData.findByLabel")
                                       .setString("label", label)

@@ -50,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemDetailsEditAction extends RhnAction {
 
     public static final String SE_LINUX_PARAM = "selinuxMode";
+    public static final String REGISTRATION_TYPE_PARAM = "registrationType";
 
     /**
      * {@inheritDoc}
@@ -159,6 +160,7 @@ public class SystemDetailsEditAction extends RhnAction {
         if (!ksdata.isLegacyKickstart()) {
             command.setMode(SELinuxMode.lookup(form.getString(SE_LINUX_PARAM)));
         }
+        command.setRegistrationType(form.getString(REGISTRATION_TYPE_PARAM));
         transferFlagEdits(form, command);
         command.store();
     }
@@ -166,6 +168,7 @@ public class SystemDetailsEditAction extends RhnAction {
     private void prepareForm(DynaActionForm dynaForm, KickstartData ksdata,
             RequestContext ctx) {
         prepareSELinuxConfig(dynaForm, ksdata);
+        prepareRegistrationTypeConfig(dynaForm, ksdata, ctx.getLoggedInUser());
         prepareFlags(dynaForm, ksdata);
         dynaForm.set("submitted", Boolean.TRUE);
     }
@@ -174,6 +177,11 @@ public class SystemDetailsEditAction extends RhnAction {
             KickstartData ksdata) {
         dynaForm.set(SE_LINUX_PARAM, ksdata.getSELinuxMode().getValue());
     }
+    private void prepareRegistrationTypeConfig(DynaActionForm dynaForm,
+            KickstartData ksdata, User user) {
+        dynaForm.set(REGISTRATION_TYPE_PARAM, 
+                ksdata.getRegistrationType(user).getType());
+    }    
 
 
     private void prepareFlags(DynaActionForm dynaForm, KickstartData ksdata) {

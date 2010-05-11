@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.kickstart.KickstartPackage;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.kickstart.RegistrationType;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
@@ -59,6 +60,8 @@ public class KickstartFormatter {
     private static final String REDHAT_REGISTER_SNIPPET = "spacewalk/redhat_register";
     private static final String POST_REACTIVATION_SNIPPET = 
                                                     "spacewalk/post_reactivation_key";
+    private static final String POST_DELETION_SNIPPET = 
+                                        "spacewalk/post_delete_system";    
     private static final String KEEP_SYSTEM_ID_SNIPPET = "spacewalk/keep_system_id";
     
     private static final String RAW_START = "#raw";
@@ -208,7 +211,8 @@ public class KickstartFormatter {
      * @return String containing kickstart file
      */
     public String getFileData() {
-        StringBuffer buf = new StringBuffer();
+        RegistrationType regType = ksdata.getRegistrationType(user);
+        StringBuilder buf = new StringBuilder();
         buf.append(getHeader());
         buf.append(getCommands());
         
@@ -228,14 +232,22 @@ public class KickstartFormatter {
         buf.append(NEWLINE);
         addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);
-        addCobblerSnippet(buf, KEEP_SYSTEM_ID_SNIPPET);
-        buf.append(NEWLINE);
+        if (!RegistrationType.NONE.equals(regType)) {
+            addCobblerSnippet(buf, KEEP_SYSTEM_ID_SNIPPET);
+            buf.append(NEWLINE);
+        }
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
         buf.append(NEWLINE);
         buf.append(getNoChroot());
         buf.append(NEWLINE);
-        addCobblerSnippet(buf, POST_REACTIVATION_SNIPPET);
-        buf.append(NEWLINE);
+        
+        if (RegistrationType.REACTIVATION.equals(regType)) {
+            addCobblerSnippet(buf, POST_REACTIVATION_SNIPPET);    
+        }
+        else if (RegistrationType.DELETION.equals(regType)) {
+            addCobblerSnippet(buf, POST_DELETION_SNIPPET);
+        }
+        
         buf.append(getRhnPost());
         buf.append(MOTD_FOOTER);   
         buf.append(NEWLINE);
@@ -251,7 +263,7 @@ public class KickstartFormatter {
         return retval;
     }
 
-    private void addCobblerSnippet(StringBuffer buf, String contents) {
+    private void addCobblerSnippet(StringBuilder buf, String contents) {
         CobblerSnippet.makeFragment(contents);
         buf.append(CobblerSnippet.makeFragment(contents));
         buf.append(NEWLINE);
@@ -588,7 +600,7 @@ public class KickstartFormatter {
     
     private String getRhnPost() {
         log.debug("getRhnPost called.");
-        StringBuffer retval = new StringBuffer();
+        StringBuilder retval = new StringBuilder();
         retval.append(BEGINRHN);
                 
         retval.append(renderKeys() + NEWLINE);
