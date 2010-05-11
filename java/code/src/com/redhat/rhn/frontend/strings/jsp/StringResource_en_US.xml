@@ -10211,7 +10211,7 @@ Please note that some manual configuration of these scripts may still be require
     		<source>@@PRODUCT_NAME@@ Profile</source>
 	  </trans-unit>
       <trans-unit id="kickstart.registration.type.jsp.message">
-    		<source>If a @@PRODUCT_NAME@@ system profile already exists for a re-provisioned system</source>
+    		<source>If a @@PRODUCT_NAME@@ system profile already exists for a re-provisioned system outside @@PRODUCT_NAME@@ UI</source>
 	  </trans-unit>
 	  <trans-unit id="kickstart.registration.type.reactivation.jsp.label">
     		<source>Re-connect to the existing system profile. Do not create a new system profile.</source>
