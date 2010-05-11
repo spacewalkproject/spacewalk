@@ -21,6 +21,9 @@ rhnContentSource
 (
         id		number NOT NULL
 			constraint rhn_ccs_id_pk primary key,
+        org_id		number
+			constraint rhn_cs_org_fk
+                                references web_customer (id),
         type_id         number NOT NULL
                         constraint rhn_ccs_type_fk
                                 references rhnContentSourceType(id),
