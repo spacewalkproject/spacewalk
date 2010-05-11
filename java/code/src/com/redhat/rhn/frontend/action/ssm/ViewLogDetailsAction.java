@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.ssm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
@@ -58,8 +59,8 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
 
-        DataResult operationList = SsmOperationManager.findOperationById(user, oid);
-        Map operationData = (Map) operationList.get(0);
+        OperationDetailsDto operationData = SsmOperationManager.
+                                                findOperationById(user, oid);
         request.setAttribute("operationData", operationData);
         
         // List stuff for the server list

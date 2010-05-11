@@ -29,7 +29,8 @@ import java.util.List;
  * @version $Revision$
  */
 public class SsmDeleteServersAction extends AbstractDatabaseAction {
-
+    public static final String OPERATION_NAME = "Server Delete";
+    
     /** {@inheritDoc} */
     protected void doExecute(EventMessage msg) {
         SsmDeleteServersEvent event = (SsmDeleteServersEvent) msg;
@@ -37,7 +38,7 @@ public class SsmDeleteServersAction extends AbstractDatabaseAction {
         List<Long> sids = event.getSids();
        
         long operationId = SsmOperationManager.createOperation(user,
-            "Server Delete", null);
+                        OPERATION_NAME, null);
         
         SsmOperationManager.associateServersWithOperation(operationId, 
                                                         user.getId(), sids);
