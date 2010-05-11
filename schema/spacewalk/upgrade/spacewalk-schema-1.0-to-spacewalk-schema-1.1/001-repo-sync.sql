@@ -29,17 +29,26 @@ ALTER TABLE rhnChannelContentSource
     ADD CONSTRAINT rhn_ccs_uq UNIQUE (source_id, channel_id)
     USING INDEX TABLESPACE [[4m_tbs]];
 
+ALTER TABLE rhnContentSource
+    ADD org_id number
+        CONSTRAINT rhn_cs_org_fk
+        REFERENCES WEB_CUSTOMER(id);
+
 DECLARE
   -- grab any rows that need the channel to be migrated to new channel content mapping tbl
   CURSOR content is
-    select id, channel_id
-    from rhnContentSource
+    select cs.id, cs.channel_id, c.org_id
+    from rhnContentSource cs, rhnChannel c
     where 1=1
+    AND c.id = cs.channel_id
 BEGIN
   FOR content_rec IN content
   LOOP
       INSERT INTO rhnChannelContentSource (source_id, channel_id)
              VALUES (content_rec.id, content_rec.channel_id);
+      UPDATE rhnConentSource set org_id = content_rec.org_id
+      WHERE 1=1
+      AND channel_id = content_rec.channel_id;
   END LOOP;
   commit;
 END;
