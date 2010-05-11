@@ -71,18 +71,6 @@ boolean staticIfDisabled = Boolean.valueOf(
       </table>
     </c:if>
 
-      <h2><bean:message key="kickstart.systemdetails.jsp.registration-header"/></h2>
-      <table class="details">
-        <tr>
-          <th><bean:message key="kickstart.registration.type.jsp.label" />:</th>
-          <td>
-              <html:radio property="registrationType" value="reactivation" /><bean:message key="kickstart.registration.type.reactivation.jsp.label" /><br />
-              <html:radio property="registrationType" value="deletion" /><bean:message key="kickstart.registration.type.deletion.jsp.label" /><br />
-              <html:radio property="registrationType" value="none" /><bean:message key="kickstart.registration.type.none.jsp.label" />
-          </td>
-        </tr>
-      </table>
-    
     <h2><bean:message key="kickstart.systemdetails.jsp.header3"/></h2>
       <table class="details">
        <tr>
@@ -97,6 +85,15 @@ boolean staticIfDisabled = Boolean.valueOf(
              <span class="small-text"><bean:message key="kickstart.remote.cmd.tip.jsp.label" /></span>
          </td>         
        </tr>
+		<tr>
+          <th><bean:message key="kickstart.registration.type.jsp.label" />:</th>
+          <td><bean:message key="kickstart.registration.type.jsp.message" />:<br />
+              <html:radio property="registrationType" value="reactivation" /><bean:message key="kickstart.registration.type.reactivation.jsp.label" /><br />
+              <html:radio property="registrationType" value="deletion" /><bean:message key="kickstart.registration.type.deletion.jsp.label" /><br />
+              <html:radio property="registrationType" value="none" /><bean:message key="kickstart.registration.type.none.jsp.label" />
+          </td>
+        </tr>
+       
       </table>
     <h2><bean:message key="kickstart.systemdetails.jsp.header4"/></h2>
     <table class="details">

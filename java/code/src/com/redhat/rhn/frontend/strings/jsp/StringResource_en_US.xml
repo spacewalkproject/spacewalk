@@ -10203,6 +10203,30 @@ Please note that some manual configuration of these scripts may still be require
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
+  <group>
+      <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+      <trans-unit id="kickstart.registration.type.jsp.label">
+    		<source>@@PRODUCT_NAME@@ Profile</source>
+	  </trans-unit>
+      <trans-unit id="kickstart.registration.type.jsp.message">
+    		<source>If a @@PRODUCT_NAME@@ system profile already exists for a re-provisioned system</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.reactivation.jsp.label">
+    		<source>Re-connect to the existing system profile. Do not create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.deletion.jsp.label">
+    		<source>Delete the existing system profile and create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.none.jsp.label">
+    		<source>Leave the existing system profile in place, but do not re-connect to it. Instead, create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.none.jsp.unentitle">
+    		<source>De-entitle the existing system profile.</source>
+	  </trans-unit>	  
+  </group>
+  
 
   <trans-unit id="kickstart.sysarch.jsp.label">
     <source>System &lt;br /&gt;Architecture</source>
