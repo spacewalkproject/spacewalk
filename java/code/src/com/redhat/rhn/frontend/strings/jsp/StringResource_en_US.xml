@@ -9145,14 +9145,12 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="cobbler.jsp.header2">
           <source>Run Cobbler Sync</source>
         </trans-unit>        
-        
         <trans-unit id="cobbler.jsp.sync">
           <source>Run Cobbler Sync</source>
         </trans-unit>
 		<trans-unit id="cobbler.jsp.synced">
   		  <source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
 		</trans-unit>
-
 		<trans-unit id="cobbler.jsp.summary1">
   		  <source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
 		</trans-unit>
@@ -9165,10 +9163,27 @@ Please note that some manual configuration of these scripts may still be require
 		<trans-unit id="update">
 		  <source>Update</source>
 		</trans-unit>
-		
     </group>
 
-
+<!-- Repo Sync -->
+        <trans-unit id="repos.jsp.toolbar">
+          <source>Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.summary">
+          <source>Summary for repos here</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.note.default">
+          <source>note here</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.norepos">
+          <source>No repos in the db</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.label">
+          <source>Label</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.lastsync">
+          <source>Last Synced</source>
+        </trans-unit>
 
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
