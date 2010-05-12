@@ -350,7 +350,7 @@ sub potential_for_cloned_channel_provider {
 
       $default_action ||= 'merge_' . $ranked[0]->{ID};
 
-      $row->{OWNED_ERRATA_LIST} = join("<br/>\n", map { PXT::HTML->link('/network/errata/manage/edit.pxt?eid=' . $_->{ID},$_->{ADVISORY_NAME}) . ' (' .
+      $row->{OWNED_ERRATA_LIST} = join("<br/>\n", map { PXT::HTML->link('/rhn/errata/manage/Edit.do?eid=' . $_->{ID},$_->{ADVISORY_NAME}) . ' (' .
 						        ($_->{PUBLISHED} ? '+pub' : '-pub') . ', ' .
 						        ($_->{LOCALLY_MODIFIED} ? '+mod' : '-mod') . ')' } @owned);
       push(@options, map { { label => 'Merge w/' . $_->{ADVISORY_NAME},
