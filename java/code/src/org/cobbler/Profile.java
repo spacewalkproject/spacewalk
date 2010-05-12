@@ -351,15 +351,15 @@ public class Profile extends CobblerObject {
       /**
       * @param virtFileSizeIn the VirtFileSize
       */
-      public void  setVirtFileSize(long virtFileSizeIn) {
+      public void  setVirtFileSize(int virtFileSizeIn) {
           modify(VIRT_FILE_SIZE, virtFileSizeIn);
       }
 
       /**
       * @param virtRamIn the VirtRam
       */
-      public void  setVirtRam(long virtRamIn) {
-          modify(VIRT_RAM, virtRamIn);
+      public void  setVirtRam(int virtRamIn) {
+          modify(VIRT_RAM, (int) virtRamIn);
       }
 
       /**
