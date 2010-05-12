@@ -2,8 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -29,12 +28,12 @@ msgstr ""
 msgid "already running"
 msgstr ""
 
-#: rhnsd.c:243
-#, c-format
-msgid "Copyright (C) %s Red Hat, Inc.\n"
-msgstr ""
-
 #: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
-msgstr ""
+msgstr "Napsal %s.\n"
+
+#: rhnsd.c:243
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "Copyright (C) %s Red Hat, Inc.\n"
