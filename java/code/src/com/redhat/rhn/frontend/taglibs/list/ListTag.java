@@ -632,9 +632,8 @@ public class ListTag extends BodyTagSupport {
     private void setupManipulator() throws JspException {
         manip.setAlphaColumn(alphaBarColumn);
         manip.filter(filter, pageContext);
-        if (ListTagHelper.getFilterValue(pageContext.getRequest(), uniqueName) != null && 
-                ListTagHelper.getFilterValue(pageContext.getRequest(), 
-                        uniqueName).length() > 0) {
+        if (!StringUtils.isBlank(ListTagHelper.
+                getFilterValue(pageContext.getRequest(), uniqueName))) {
             LocalizationService ls = LocalizationService.getInstance();
             
             ListTagUtil.write(pageContext, "<div class=\"site-info\">");

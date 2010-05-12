@@ -32,14 +32,14 @@ public class MonitoredServer extends Server {
     /**
      * @return Returns the probes.
      */
-    public List getProbes() {
+    public List<ServerProbe> getProbes() {
         return probes;
     }
 
     /**
      * @param probesIn The probes to set.
      */
-    public void setProbes(List probesIn) {
+    public void setProbes(List<ServerProbe> probesIn) {
         this.probes = probesIn;
     }
     

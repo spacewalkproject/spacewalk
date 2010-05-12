@@ -14,17 +14,22 @@
  */
 package com.redhat.rhn.frontend.action.systems.duplicate;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.frontend.dto.SystemCompareDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DuplicateSystemsCompareAction extends RhnAction implements Listable {
     public static final String KEY = "key";
     public static final String KEY_TYPE = "key_type";
-    public static final String REFRESH_BUTTON = "refresh";
+    private static final int MAX_LIMIT = 3;
 
     /**
      * {@inheritDoc}
@@ -54,31 +59,51 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
         Map params = new HashMap();
         params.put(KEY, context.getRequiredParamAsString(KEY));
         params.put(KEY_TYPE, context.getRequiredParamAsString(KEY_TYPE));
-        
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        request.setAttribute("maxLimit", MAX_LIMIT);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.execute();
-        if (helper.isDispatched()) {
-            return handleConfirm(context, mapping);
-        }
-        
-        if (request.getParameter(REFRESH_BUTTON) != null) {
-            //TODO - Logic to delete profiles 
-        }        
-        
-        List<Long> sids = new LinkedList<Long>();
-        for (String sid : helper.getSet()) {
-            sids.add(Long.valueOf(sid));
-        }
-        request.setAttribute("systems", 
-                SystemManager.hydrateServerFromIds(sids, context.getLoggedInUser()));
-        return mapping.findForward("default");
-    }
+        if (context.isSubmitted()) {
+            boolean resync = false;
+            for (Iterator<String> itr = helper.getSet().iterator(); itr.hasNext();) {
+                String sid = itr.next();
+                if (request.getParameter("btn" + sid) != null) {
+                    Long id = Long.valueOf(sid);
+                    Server server = SystemManager.lookupByIdAndUser(id,
+                                                    context.getLoggedInUser());
+                    String name = server.getName();
+                    server = null;
+                    SystemManager.deleteServer(context.getLoggedInUser(), id);
+                    getStrutsDelegate().saveMessage("message.serverdeleted.param", 
+                                                    new String[] {name}, request);
+                    itr.remove();
+                    resync = true;
+                }
+            }
+            if (resync) { 
+                helper.execute();
+            }
 
-    private ActionForward handleConfirm(RequestContext context,
-            ActionMapping mapping) {
-        getStrutsDelegate().saveMessage("duplicate.systems.delete.confirm.message",
-                context.getRequest());
-        return mapping.findForward("confirm");
+            if (helper.getSet().size() > MAX_LIMIT) {
+                LocalizationService ls = LocalizationService.getInstance();
+                ActionErrors errors = new ActionErrors();
+                getStrutsDelegate().addError(errors, 
+                                "duplicate.compares.max_limit.message",
+                        String.valueOf(MAX_LIMIT),  ls.getMessage("Refresh Comparison"));
+                getStrutsDelegate().saveMessages(request, errors);
+            }
+            else {
+                List<Long> sids = new LinkedList<Long>();
+                for (String sid : helper.getSet()) {
+                    sids.add(Long.valueOf(sid));
+                }
+                List<Server> systems = SystemManager.
+                hydrateServerFromIds(sids, context.getLoggedInUser());
+                request.setAttribute("systems",
+                        new SystemCompareDto(systems, context.getLoggedInUser())); 
+            }
+        }
+
+        return mapping.findForward("default");
     }
 
     /**
