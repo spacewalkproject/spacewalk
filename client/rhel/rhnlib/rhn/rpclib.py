@@ -190,6 +190,9 @@ class Server:
         self.set_refresh_callback(refreshCallback)
         self.set_progress_callback(progressCallback)
 
+        # referer, which redirect us to new handler
+        self.send_handler=None
+
         self._headers = UserDictCase()
 
     def default_transport(self, type, proxy=None, username=None, password=None):
@@ -516,8 +519,6 @@ class GETServer(Server):
         self._orig_handler = self._handler
         # Download resumption
         self.set_range(offset=None, amount=None)
-        # referer, which redirect us to new handler
-        self.send_handler=None
 
     def _req_body(self, params, methodname):
         if not params or len(params) < 1:
