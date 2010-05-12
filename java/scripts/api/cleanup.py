@@ -18,7 +18,7 @@ if False:
 
 
 #clean up users
-if True:
+if False:
    list = client.user.listUsers(key)
    for i in range(0, len(list)):
       t = list.pop()
@@ -26,31 +26,38 @@ if True:
          print "deleting user: " + str(t['login'])
          client.user.delete(key, t['login'])
 
-if True:
+if False:
    list = client.kickstart.listKickstarts(key)
    for i in list:
       print "deleting kickstart" + i['label']
       client.kickstart.deleteProfile(key, i['label'])
 
 
-if True:
+if False:
    list = client.activationkey.listActivationKeys(key)
    for i in list:
       print "deleting activation key" + i['key']
       client.activationkey.delete(key, i['key'])
 
-if True:
+if False:
    list = client.systemgroup.listAllGroups(key)
    for i in list:
       print "deleting group: " + i['name']
       client.systemgroup.delete(key, i['name'])
 
+if True: 
+   list = client.kickstart.tree.list(key)
+   print list
+   for i in list:
+       print "deleting Distro " + i['label']
+       client.kickstart.tree.deleteTreeAndProfiles(key, i['label'])
+
 if True:
    for j in range(1,3):
       list = client.channel.listSoftwareChannels(key)
       for i in list:
-         print "deleting channel:" + i['channel_name']
+         print "deleting channel:" + i['name']
          try: 
-            client.channel.software.delete(key, i['channel_label'])
+            client.channel.software.delete(key, i['label'])
          except:
             print sys.exc_info()[0]

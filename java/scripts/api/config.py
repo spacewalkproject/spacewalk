@@ -10,10 +10,10 @@ except ImportError, e:
     print """ Create a file called sat_config.py
         anywhere in your python path with the following values
 # Satellite to test against:
-SATELLITE_HOST = "<SATFQDN>" #no protocol prepending just fqdn
+SATELLITE_HOST = "localhost" #no protocol prepending just fqdn
                              #Example "spacewalk.foo.com"
-SATELLITE_LOGIN = "<uname>"
-SATELLITE_PASSWORD = "<passwd>" """
+SATELLITE_LOGIN = "admin"
+SATELLITE_PASSWORD = "redhat" """
     sys.exit(0)
 
 SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
