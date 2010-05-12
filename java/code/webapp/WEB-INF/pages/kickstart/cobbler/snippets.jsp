@@ -7,15 +7,17 @@
 <html>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
-               creationUrl="RepoCreate.do"
-               creationType="repos"
+               creationUrl="CobblerSnippetCreate.do"
+               creationType="snippets"
                imgAlt="info.alt.img">
-  <bean:message key="repos.jsp.toolbar"/>
+  <bean:message key="snippets.jsp.toolbar"/>
 </rhn:toolbar>
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/snippet_tabs.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary">
-<p><bean:message key="repos.jsp.summary"/></p>
+<p><bean:message key="snippets.jsp.summary"/></p>
 <c:if test="${not empty requestScope.default}">
-	<rhn:note key = "repos.jsp.note.default"/>
+	<rhn:note key = "snippets.jsp.note.default"/>
 </c:if>
 </div>
 
@@ -25,7 +27,7 @@
          width="100%"
          name="keysList"
          styleclass="list"
-         emptykey="cobbler.repo.jsp.norepos"
+         emptykey="cobbler.snippet.jsp.nosnippets"
          alphabarcolumn="name">
 
         <rl:decorator name="PageSizeDecorator"/>
@@ -33,20 +35,28 @@
         <!-- Description name column -->
         <rl:column bound="false"
                    sortable="true"
-                   headerkey="channel.repo.label"
+                   headerkey="cobbler.snippet.name"
                    styleclass="first-column"
-                   sortattr= "label"
-                   filterattr="label">
+                   sortattr= "name"
+                   filterattr="name">
               <c:choose>
-                <c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />
+		<c:when test = "${current.editable}">
+			<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetEdit.do?name=${current.name}\">${current.name}</a>" escapeXml="false" />
+		</c:when>
+		<c:otherwise>
+			<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetView.do?path=${current.displayPath}\">${current.name}</a>" escapeXml="false" />
+		</c:otherwise>
+
               </c:choose>
         </rl:column>
-            <rl:column headerkey="channel.repo.lastsync"  styleclass="last-column">
-		<c:out value="${current.sync}"/>
+            <rl:column headerkey="cobbler.snippet.macro"  styleclass="last-column">
+		<c:out value="${current.fragment}"/>
             </rl:column>
       </rl:list>
      </rl:listset>
-    
+
+		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
+
 </body>
 </html>
 
