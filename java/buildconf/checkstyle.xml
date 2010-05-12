@@ -138,7 +138,7 @@
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
         <module name="EmptyForIteratorPad"/>
         <module name="NoWhitespaceAfter">
-          <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS, TYPECAST, GENERIC_START"/>
+          <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS, GENERIC_START"/>
         </module> 
         <module name="NoWhitespaceBefore">
           <property name="tokens" value="SEMI, POST_DEC, POST_INC, GENERIC_START, GENERIC_END"/>
