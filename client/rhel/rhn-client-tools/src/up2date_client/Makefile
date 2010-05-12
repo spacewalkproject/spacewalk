@@ -4,7 +4,7 @@
 # rhn-client-tools and not here.
 
 FILES		:= config gui hardware progress \
-		   haltree hardware_hal hardware_gudev\
+		   haltree hardware_hal hardware_gudev hwdata \
 		   up2dateUtils getMethod tui \
 		   up2dateLog rpmUtils rhnreg transaction \
 		   up2dateErrors rpcServer up2dateAuth \
