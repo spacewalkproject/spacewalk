@@ -478,6 +478,14 @@ For help for a specific command try 'help <cmd>'.
 
                 if len(results):
                     systems.extend(results)
+            elif re.match('channel:', item):
+                item = re.sub('channel:', '', item)
+                members = self.do_softwarechannel_listsystems(item, True)
+
+                if len(members):
+                    systems.extend(members)
+                else:
+                    logging.warning('No systems subscribed to %s' % item)
             else:
                 try:
                     # determine the system name if passed an ID
@@ -2291,7 +2299,7 @@ For help for a specific command try 'help <cmd>'.
     def complete_softwarechannel_listsystems(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_softwarechannel_list('', True), text)
 
-    def do_softwarechannel_listsystems(self, args):
+    def do_softwarechannel_listsystems(self, args, doreturn=False):
         args = self.parse_arguments(args)
 
         if not len(args):
@@ -2304,10 +2312,13 @@ For help for a specific command try 'help <cmd>'.
             self.client.channel.software.listSubscribedSystems(self.session,
                                                                channel)
 
-        systems = sorted([s.get('name') for s in systems])
+        systems = [s.get('name') for s in systems]
 
-        if len(systems):
-            print '\n'.join(systems)
+        if doreturn:
+            return systems
+        else:
+            if len(systems):
+                print '\n'.join(sorted(systems))
 
 ####################
 
@@ -2445,18 +2456,22 @@ For help for a specific command try 'help <cmd>'.
         print 'The System Set Manager (SSM) is a group of systems that you '
         print 'can perform tasks on as a group.'
         print
-        print 'Example:'
+        print 'Adding Systems:'
         print '> ssm_add group:rhel5-x86_64'
+        print '> ssm_add channel:rhel-x86_64-server-5'
         print '> ssm_add search:device:vmware'
-        print '> ssm_add someotherhost.example.com'
-        print '> system_details ssm'
+        print '> ssm_add host.example.com'
+        print
+        print 'Using the SSM:'
+        print '> system_installpackage ssm zsh'
+        print '> system_runscript ssm'
 
 ####################
 
     def help_ssm_add(self):
         print 'ssm_add: Add systems to the SSM, which can then be operated'
         print '         on as a single group'
-        print 'usage: ssm_add SYSTEM|group:GROUP|search:QUERY ...'
+        print 'usage: ssm_add SYSTEM|group:GROUP|channel:CHANNEL|search:QUERY'
 
     def complete_ssm_add(self, text, line, begidx, endidx):
         if re.match('group:', text):
@@ -2464,6 +2479,11 @@ For help for a specific command try 'help <cmd>'.
             groups = ['group:%s' % g for g in self.do_group_list('', True)]
 
             return self.tab_completer(groups, text)
+        elif re.match('channel:', text):
+            channels = ['channel:%s' % s \
+                for s in self.do_softwarechannel_list('', True)]
+
+            return self.tab_completer(channels, text)
         else:
             return self.tab_completer(self.get_system_names(), text)
 
@@ -2496,7 +2516,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_ssm_rm(self):
         print 'ssm_rm: Remove systems from the SSM'
-        print 'usage: ssm_rm SYSTEM|group:GROUP|search:QUERY ...'
+        print 'usage: ssm_rm SYSTEM|group:GROUP|channel:CHANNEL|search:QUERY'
 
     def complete_ssm_rm(self, text, line, begidx, endidx):
         if re.match('group:', text):
@@ -2504,6 +2524,11 @@ For help for a specific command try 'help <cmd>'.
             groups = ['group:%s' % g for g in self.do_group_list('', True)]
 
             return self.tab_completer(groups, text)
+        elif re.match('channel:', text):
+            channels = ['channel:%s' % s \
+                for s in self.do_softwarechannel_list('', True)]
+
+            return self.tab_completer(channels, text)
         else:
             return self.tab_completer(sorted(self.ssm), text)
 
