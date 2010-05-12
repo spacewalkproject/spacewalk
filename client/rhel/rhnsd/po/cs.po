@@ -15,19 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: rhnsd.c:116
-#, c-format
-msgid "Only root can run this program\n"
-msgstr ""
-
-#: rhnsd.c:136
-msgid "wrong number of arguments"
-msgstr ""
-
-#: rhnsd.c:143
-msgid "already running"
-msgstr ""
-
 #: rhnsd.c:246
 #, c-format
 msgid "Written by %s.\n"
@@ -37,3 +24,16 @@ msgstr "Napsal %s.\n"
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Copyright (C) %s Red Hat, Inc.\n"
+
+#: rhnsd.c:116
+#, c-format
+msgid "Only root can run this program\n"
+msgstr "Pouze root může spustit tento program\n"
+
+#: rhnsd.c:143
+msgid "already running"
+msgstr "již běží"
+
+#: rhnsd.c:136
+msgid "wrong number of arguments"
+msgstr "špatný počet argumentů"
