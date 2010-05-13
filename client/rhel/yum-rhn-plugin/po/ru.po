@@ -1,25 +1,26 @@
-# translation of ru.po to 
+# translation of ru.po to
 # translation of ru.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
 #
+# Yulia <ypoyarko@redhat.com>, 2006, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-06 16:28+0200\n"
-"PO-Revision-Date: 2006-11-29 09:24+1000\n"
-"Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2010-05-14 09:01\n"
+"Last-Translator: Yulia <ypoyarko@redhat.com>\n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../rhnplugin.py:47
 msgid "There was an error communicating with RHN."
-msgstr "Ошибка обращения к RHN."
+msgstr "Ошибка при обращении к RHN."
 
 #: ../rhnplugin.py:69
 msgid "RHN support will be disabled."
@@ -30,23 +31,23 @@ msgstr "Поддержка RHN будет отключена."
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
+msgstr "*Примечание* Этот список не содержит репозитории Red Hat Network. Чтобы получить к ним доступ, выполните эту команду в режиме root."
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
-msgstr "Ошибка обработки установок RHN proxy."
+msgstr "Ошибка при обработке настроек RHN proxy."
 
 #: ../rhnplugin.py:106
 msgid "Cleaning"
-msgstr ""
+msgstr "Очистка"
 
 #: ../rhnplugin.py:112
 msgid "Either --version, or no commands entered"
-msgstr "Не задана версия или команды"
+msgstr "Не указан ключ --version или не заданы команды"
 
 #: ../rhnplugin.py:126
 msgid "This system is not registered with RHN."
-msgstr "Данная система не зарегистрирована в RHN."
+msgstr "Эта система не зарегистрирована в RHN."
 
 #: ../rhnplugin.py:131
 msgid "RHN channel support will be disabled."
@@ -54,29 +55,29 @@ msgstr "Поддержка каналов RHN будет отключена."
 
 #: ../rhnplugin.py:135
 msgid "This system is not subscribed to any channels."
-msgstr "Данная система не имеет подписки на каналы."
+msgstr "Эта система не подписана на каналы."
 
 #: ../rhnplugin.py:139
-msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
+msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr "Возможно, эта система не зарегистрирована в RHN. Не удалось получить SystemID.\n"
 
 #: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
-msgstr "Информация о профиле пакета не будет отправлена."
+msgstr "Не удалось отправить информацию о профиле пакета."
 
 #. This is compensating for hosted/satellite returning back an error
 #. message instructing RHEL5 clients to run "up2date --register"
 #. bz: 438175
 #: ../rhnplugin.py:220
 msgid "Error Message:"
-msgstr ""
+msgstr "Сообщение:"
 
 #: ../rhnplugin.py:221
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "Выполните rhn_register в режиме root на этом клиенте"
 
 #: ../rhnplugin.py:298
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Отсутствует необходимая информация для входа в RHN: %s"
+
