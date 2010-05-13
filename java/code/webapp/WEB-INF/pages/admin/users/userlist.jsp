@@ -20,7 +20,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="userListSet">
-	<rl:list dataset="pageList"
+	<rl:list
          width="100%"        
          name="userList"
          styleclass="list"
@@ -28,6 +28,8 @@
          emptykey="activelist.jsp.noUsers"
  		 alphabarcolumn="userLogin">
  		
+
+
 		<rl:column bound="false" 
 			sortable="true" 
 			headerkey="username.nopunc.displayname" 
