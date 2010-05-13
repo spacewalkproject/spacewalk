@@ -17,7 +17,9 @@ package com.redhat.rhn.manager.channel;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -42,10 +44,19 @@ public class RepoLister extends BaseManager {
     public static RepoLister getInstance() {
         return INSTANCE;
     }
+    
+    public DataResult<ContentSource> sourcesInOrg(Org orgIn) {
+
+        //need to determine if we want to use Hibernate or DataSource query here
+        DataResult<ContentSource> returnDataResult = null;
+       
+        return returnDataResult;
+    }
 
         
     public List<ContentSource> list(User user) {
-        List <ContentSource> repos = new LinkedList<ContentSource>();        
+        List <ContentSource> repos = new LinkedList<ContentSource>();
+        repos.addAll(sourcesInOrg(user.getOrg()));
         return repos;
     }
 }
