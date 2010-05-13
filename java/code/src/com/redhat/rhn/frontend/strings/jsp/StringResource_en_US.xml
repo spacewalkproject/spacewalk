@@ -9393,6 +9393,12 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.lastsync">
           <source>Last Synced</source>
         </trans-unit>
+        <trans-unit id="toolbar.create.repos">
+          <source>create new repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
+          </context-group>
+        </trans-unit>
 
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
