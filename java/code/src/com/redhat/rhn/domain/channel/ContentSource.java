@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.org.Org;
 
 /**
  * ContentSourceType
@@ -27,6 +28,7 @@ import com.redhat.rhn.domain.BaseDomainHelper;
 public class ContentSource extends BaseDomainHelper {
 
     private Long id;
+    private Org org;
     private ContentSourceType type;
     private String sourceUrl;
     private Date lastSynced;
@@ -45,6 +47,22 @@ public class ContentSource extends BaseDomainHelper {
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
+    }
+
+    /**
+     *
+     * @return Org this content source belongs to
+     */
+    public Org getOrg() {
+        return org;
+    }
+
+    /**
+     *
+     * @param orgIn Org to set
+     */
+    public void setOrg(Org orgIn) {
+        org = orgIn;
     }
 
     /**
