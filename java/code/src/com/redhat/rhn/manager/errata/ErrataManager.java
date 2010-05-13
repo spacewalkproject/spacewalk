@@ -25,6 +25,7 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Bug;
@@ -36,6 +37,7 @@ import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
@@ -44,11 +46,14 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -59,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -1332,5 +1338,46 @@ public class ErrataManager extends BaseManager {
        ErrataFactory.syncErrataDetails(cloned);
    }
 
+   /**
+    * Apply errata updates to a system at a specified time.
+    * @param loggedInUser The logged in user
+    * @param sid ID of the server
+    * @param errataIds List of errata IDs to apply (as Integers)
+    * @param earliestOccurrence Earliest occurrence of the errata update
+    */
+   public static void applyErrataHelper(User loggedInUser, Integer sid, List errataIds,
+           Date earliestOccurrence) {
+       Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
+               loggedInUser);
 
+       // Check to make sure the given errata are applicable to and unscheduled for the
+       // system in question. This catches three scenarios, errata that don't apply to
+       // this system, are already scheduled, or don't exist in the first place.
+       // TODO: fail silently in some of these cases?
+       Set unscheduledErrataIds = new HashSet();
+       List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser,
+               server.getId(), null);
+       for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
+           Errata e = (Errata)it.next();
+           unscheduledErrataIds.add(new Integer(e.getId().intValue()));
+       }
+       for (Iterator it = errataIds.iterator(); it.hasNext();) {
+           Integer currentId = (Integer)it.next();
+           if (!unscheduledErrataIds.contains(currentId)) {
+               throw new InvalidErrataException();
+           }
+       }
+
+       for (Iterator it = errataIds.iterator(); it.hasNext();) {
+           Integer currentId = (Integer)it.next();
+           Errata errata = ErrataManager.lookupErrata(new Long(currentId.longValue()),
+                   loggedInUser);
+           Action update = ActionManager.createErrataAction(loggedInUser, errata);
+           if (earliestOccurrence != null) {
+               update.setEarliestAction(earliestOccurrence);
+           }
+           ActionManager.addServerToAction(server.getId(), update);
+           ActionManager.storeAction(update);
+       }
+   }
 }
