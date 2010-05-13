@@ -14,25 +14,22 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage.repo;
 
-import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.manager.channel.RepoLister;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerSnippetLister;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.redhat.rhn.common.util.DynamicComparator;
+import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.channel.RepoLister;
 
 /**
  * RepoListSetupAction : class to list repos
@@ -53,7 +50,7 @@ public class RepoListSetupAction extends RhnAction {
         User user = context.getLoggedInUser();
         List<ContentSource> result;
 
-        result = RepoLister.getInstance().list(user)
+        result = RepoLister.getInstance().list(user);
         Collections.sort(result, LABEL_COMPARATOR);
         request.setAttribute("pageList", result);
         request.setAttribute("parentUrl", request.getRequestURI());
