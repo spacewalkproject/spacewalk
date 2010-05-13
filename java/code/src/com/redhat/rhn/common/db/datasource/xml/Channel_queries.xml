@@ -1031,6 +1031,14 @@ SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
     </query>
 </mode>
 
+<mode name="contentsrc_for_org" class="com.redhat.rhn.frontend.dto.ContentSourceDto">
+  <query params="org_id">
+    SELECT CS.id, CS.label, CS.last_synced
+    FROM rhnContentSource CS
+    WHERE CS.org_id = :org_id
+  </query>
+</mode>
+
 <mode name="latest_package_equal_in_tree">
     <query params="cid, name">
 SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
