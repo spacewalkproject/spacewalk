@@ -25,8 +25,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.common.util.DynamicComparator;
-import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ContentSourceDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.channel.RepoLister;
@@ -48,7 +48,7 @@ public class RepoListSetupAction extends RhnAction {
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        List<ContentSource> result;
+        List<ContentSourceDto> result;
 
         result = RepoLister.getInstance().list(user);
         Collections.sort(result, LABEL_COMPARATOR);

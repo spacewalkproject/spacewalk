@@ -14,13 +14,17 @@
  */
 package com.redhat.rhn.manager.channel;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ContentSourceDto;
 import com.redhat.rhn.manager.BaseManager;
 
 /**
@@ -45,17 +49,20 @@ public class RepoLister extends BaseManager {
         return INSTANCE;
     }
 
-    public DataResult<ContentSource> sourcesInOrg(Org orgIn) {
+    public DataResult<ContentSourceDto> sourcesInOrg(Org orgIn) {
 
-        //need to determine if we want to use Hibernate or DataSource query here
-        DataResult<ContentSource> returnDataResult = null;
-
+        SelectMode m = ModeFactory.getMode("Channel_queries", "contentsrc_for_org");
+        Map params = new HashMap();
+        params.put("org_id", orgIn.getId());
+        Map elabParams = new HashMap();
+        DataResult<ContentSourceDto> returnDataResult = makeDataResult(params,
+                                                            elabParams, null, m);
         return returnDataResult;
     }
 
 
-    public List<ContentSource> list(User user) {
-        List <ContentSource> repos = new LinkedList<ContentSource>();
+    public List<ContentSourceDto> list(User user) {
+        List <ContentSourceDto> repos = new LinkedList<ContentSourceDto>();
         repos.addAll(sourcesInOrg(user.getOrg()));
         return repos;
     }
