@@ -5784,7 +5784,7 @@ value for this entitlement, excluding the default organization's consumption.</s
          <source>The systems below are potential duplicates of one another. You may select a combination of &lt;strong&gt;{0} systems at once&lt;/strong&gt; for detailed comparison</source>
      </trans-unit>
      <trans-unit id="duplicate.compares.max_limit.message">
-         <source>You have crossed the maximum limit for system comparison. Select a combination of at most &lt;strong&gt;{0} systems&lt;/strong&gt; to compare and select &lt;strong&gt;{1}&lt;/strong&gt;</source>
+         <source>You have selected more than {0} system profiles for comparison. Please select a combination of &lt;strong&gt;{0} systems or less&lt;/strong&gt; to compare and select &lt;strong&gt;{1}&lt;/strong&gt;</source>
      </trans-unit>     
      <trans-unit id="Delete System Profile">
          <source>Delete System Profile</source>
