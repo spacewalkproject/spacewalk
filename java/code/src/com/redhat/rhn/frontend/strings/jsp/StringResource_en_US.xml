@@ -5807,6 +5807,9 @@ value for this entitlement, excluding the default organization's consumption.</s
      <trans-unit id="Click Here To Hide">
          <source>Click Here To Hide</source>
      </trans-unit>
+     <trans-unit id="Click Here To Show">
+         <source>Click Here To Show</source>
+     </trans-unit>
      <trans-unit id="Registration Date">
          <source>Registration Date</source>
      </trans-unit>
