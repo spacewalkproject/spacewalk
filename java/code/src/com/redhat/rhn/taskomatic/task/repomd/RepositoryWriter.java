@@ -94,21 +94,21 @@ public class RepositoryWriter {
         
         PackageManager.createRepoEntrys(channel.getId());
         
-        String prefix = mountPoint + File.separator + pathPrefix
-            + File.separator + channel.getLabel() + File.separator;
+        String prefix = mountPoint + File.separator + pathPrefix +
+        File.separator + channel.getLabel() + File.separator;
         
         if (channel.getChannelArch().getArchType().getLabel().equalsIgnoreCase("deb")) {
             log.info("Generating new DEB repository for channel " + channel.getLabel());
             generateDebRepository(channel, prefix);
         }
         else {
-            log.info("Generating new repository metatada for channel '"
-                    + channel.getLabel() + "' " + channel.getPackageCount()
-                    + " packages, " + channel.getErrataCount() + " updates");
+            log.info("Generating new repository metatada for channel '" +
+                    channel.getLabel() + "' " + channel.getPackageCount() +
+                    " packages, " + channel.getErrataCount() + " updates");
 
             if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
-                throw new RepomdRuntimeException("Unable to create directory: "
-                        + prefix);
+                throw new RepomdRuntimeException("Unable to create directory: " +
+                        prefix);
             }
 
             CompressingDigestOutputWriter primaryFile;
@@ -124,8 +124,8 @@ public class RepositoryWriter {
             // MD2, MD5, SHA-1, SHA-256, SHA-384, SHA-512
             String checksumAlgo = this.checksumtype;
             if (checksumAlgo.toUpperCase().startsWith("SHA")) {
-                checksumAlgo = this.checksumtype.substring(0, 3) + "-"
-                        + this.checksumtype.substring(3);
+                checksumAlgo = this.checksumtype.substring(0, 3) + "-" +
+                this.checksumtype.substring(3);
             }
             // translate sha1 to sha for xml repo files
             String checksumLabel = this.checksumtype;
@@ -204,10 +204,10 @@ public class RepositoryWriter {
                     .getCompressedChecksum(), otherFile
                     .getUncompressedChecksum(), channel.getLastModified());
 
-            log.info("Starting updateinfo generation for '"
-                    + channel.getLabel() + '"');
-            log.info("Checksum Type Value for generate updateinfo"
-                    + this.checksumtype);
+            log.info("Starting updateinfo generation for '" +
+                    channel.getLabel() + '"');
+            log.info("Checksum Type Value for generate updateinfo" +
+                    this.checksumtype);
             RepomdIndexData updateinfoData = generateUpdateinfo(channel,
                     prefix, checksumAlgo);
 
@@ -254,10 +254,9 @@ public class RepositoryWriter {
             renameFiles(prefix, channel.getLastModified().getTime(),
                     updateinfoData != null);
 
-            log.info("Repository metadata generation for '"
-                    + channel.getLabel() + "' finished in "
-                    + (int) (new Date().getTime() - start.getTime()) / 1000
-                    + " seconds");
+            log.info("Repository metadata generation for '" +
+                    channel.getLabel() + "' finished in " +
+                    (int) (new Date().getTime() - start.getTime()) / 1000 + " seconds");
         }
     }
     
