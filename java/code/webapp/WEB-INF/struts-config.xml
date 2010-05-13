@@ -6614,11 +6614,11 @@
     <action path="/channels/manage/repos/RepoList"
         scope="request"
         parameter="all"
-        input="/WEB-INF/pages/channels/manage/repo/repos.jsp"
+        input="/WEB-INF/pages/channel/manage/repo/repos.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default"
-                 path="/WEB-INF/pages/channels/manage/repo/repos.jsp"/>
+                 path="/WEB-INF/pages/channel/manage/repo/repos.jsp"/>
     </action>
 
 <!-- end repo -->
