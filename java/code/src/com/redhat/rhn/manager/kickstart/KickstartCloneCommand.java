@@ -62,9 +62,9 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         Profile cloned = clonedKickstart.getCobblerObject(user);
         cloned.setKsMeta(original.getKsMeta());
         
-        cloned.setVirtRam(((Integer) original.getVirtRam()).longValue());
+        cloned.setVirtRam(((Integer) original.getVirtRam()));
         cloned.setVirtCpus(original.getVirtCpus());
-        cloned.setVirtFileSize(((Integer) original.getVirtFileSize()).longValue());
+        cloned.setVirtFileSize(((Integer) original.getVirtFileSize()));
         cloned.setVirtBridge(original.getVirtBridge());
         cloned.setVirtPath(original.getVirtBridge());
         cloned.save();

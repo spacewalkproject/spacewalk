@@ -233,8 +233,8 @@ class _ChannelDumper(BaseRowDumper):
 
         comp_last_modified = self._channel_comps_last_modified()
         if comp_last_modified != None:
-            arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
-                exportLib._dbtime2timestamp(comp_last_modified[0]))
+            arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
+                _dbtime2timestamp(comp_last_modified[0]))
             )
 
         h = rhnSQL.prepare(self._query_channel_families)

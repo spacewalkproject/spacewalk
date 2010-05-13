@@ -1272,7 +1272,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * Set of add-on entitlements for the Server.
      * @return Set of entitlements that are add-on entitlements for the server
      */
-    public Set getAddOnEntitlements() {
+    public Set<Entitlement> getAddOnEntitlements() {
         Set s = new HashSet();
         
         Iterator i = getEntitledGroups().iterator();
@@ -1581,13 +1581,13 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 }
             }
             if (retval.size() == 0) {
-                return null;
+                return Collections.EMPTY_SET;
             }
             else {
                 return retval;
             }
         }
-        return null;
+        return Collections.EMPTY_SET;
     }
 
     /**

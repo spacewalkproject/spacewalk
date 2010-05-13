@@ -255,10 +255,12 @@ public class BaseSetHelper {
      *                These are required for use with rhnset.
      */
     public void selectAll(Set set,
-                                    String listName,
-                                    List dataSet) {
+                                String listName,
+                                 List dataSet) {
+        
         boolean everyThingIsAnElement = ListTagHelper.
-                            isParentAnElement(request, listName);
+                            isParentAnElement(request,
+                                    TagHelper.generateUniqueName(listName));
         for (Object obj : dataSet) {
             if (everyThingIsAnElement || !RhnListTagFunctions.isExpandable(obj)) {
                 if (obj instanceof Selectable) {
@@ -285,7 +287,6 @@ public class BaseSetHelper {
         if (set instanceof RhnSet) {
             RhnSetManager.store((RhnSet) set);
         }
-
     }
 
 }

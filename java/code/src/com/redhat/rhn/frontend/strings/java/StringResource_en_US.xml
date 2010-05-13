@@ -3907,7 +3907,14 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails</context>
         </context-group>
       </trans-unit>
-      
+
+      <trans-unit id="message.serverdeleted.param">
+<source>System profile &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Overview</context>
+        </context-group>
+      </trans-unit>
+            
       <trans-unit id="message.serverdeleted">
 <source>System profile deleted.</source>
         <context-group name="ctx">

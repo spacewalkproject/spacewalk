@@ -238,7 +238,7 @@ public class ActivationKeyFactory extends HibernateFactory {
      * @param server that is associated with ActivationKey
      * @return ActivationKey assocaited with session
      */
-    public static List lookupByServer(Server server) {
+    public static List<ActivationKey> lookupByServer(Server server) {
         if (server == null) {
             return null;
         }

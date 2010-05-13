@@ -5766,9 +5766,63 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
     <trans-unit id="duplicate.systems.delete.confirm.message">
          <source> There may be system profiles selected for deletion below that were not selected on the Duplicate System Profiles page. Please check the list below carefully to prevent accidental deletion of profiles that may have been in the System Set Manager.</source>
-     </trans-unit>     
+     </trans-unit>
+	 <trans-unit id="Compare Systems">
+         <source>Compare Systems</source>
+     </trans-unit>          
      </group>
 
+<!--- System Duplicates Compare pages -->
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/systems/DuplicateSystemsCompare.do</context>
+       </context-group>
+      <trans-unit id="duplicate.compare.jsp.header">
+         <source>Duplicate System Compare</source>
+     </trans-unit>
+     <trans-unit id="duplicate.compares.jsp.message">
+         <source>The systems below are potential duplicates of one another. You may select a combination of &lt;strong&gt;{0} systems at once&lt;/strong&gt; for detailed comparison</source>
+     </trans-unit>
+     <trans-unit id="duplicate.compares.max_limit.message">
+         <source>You have crossed the maximum limit for system comparison. Select a combination of at most &lt;strong&gt;{0} systems&lt;/strong&gt; to compare and select &lt;strong&gt;{1}&lt;/strong&gt;</source>
+     </trans-unit>     
+     <trans-unit id="Delete System Profile">
+         <source>Delete System Profile</source>
+     </trans-unit>
+      <trans-unit id="Refresh Comparison">
+         <source>Refresh Comparison</source>
+     </trans-unit>
+      <trans-unit id="System Comparison">
+         <source>System Comparison</source>
+     </trans-unit>
+      <trans-unit id="System Identity Properties">
+         <source>System Identity Properties</source>
+     </trans-unit>
+     <trans-unit id="System Content And Monitoring">
+         <source>System Content And Monitoring</source>
+     </trans-unit>
+     <trans-unit id="Extended System Identity Properties">
+         <source>Extended System Identity Properties</source>
+     </trans-unit>
+     <trans-unit id="Click Here To Hide">
+         <source>Click Here To Hide</source>
+     </trans-unit>
+     <trans-unit id="Registration Date">
+         <source>Registration Date</source>
+     </trans-unit>
+     <trans-unit id="System ID">
+         <source>System ID</source>
+     </trans-unit>
+     <trans-unit id="Child Software Channels">
+         <source>Child Software Channelse</source>
+     </trans-unit>
+	 <trans-unit id="Monitoring Probes">
+         <source>Monitoring Probes</source>
+     </trans-unit>
+     	 <trans-unit id="Software Entitlements">
+         <source>Software Entitlements</source>
+     </trans-unit>
+     </group>
       
 <!--- System groups pages -->
      <group>
@@ -10218,6 +10272,30 @@ Please note that some manual configuration of these scripts may still be require
       <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
     </context-group>
   </trans-unit>
+  <group>
+      <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/kickstart/KickstartSystemDetailsEdit</context>
+    </context-group>
+      <trans-unit id="kickstart.registration.type.jsp.label">
+    		<source>@@PRODUCT_NAME@@ Profile</source>
+	  </trans-unit>
+      <trans-unit id="kickstart.registration.type.jsp.message">
+    		<source>If a @@PRODUCT_NAME@@ system profile already exists for a re-provisioned system outside of the @@PRODUCT_NAME@@ UI</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.reactivation.jsp.label">
+    		<source>Re-connect to the existing system profile. Do not create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.deletion.jsp.label">
+    		<source>Delete the existing system profile and create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.none.jsp.label">
+    		<source>Leave the existing system profile in place, but do not re-connect to it. Instead, create a new system profile.</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.registration.type.none.jsp.unentitle">
+    		<source>De-entitle the existing system profile.</source>
+	  </trans-unit>	  
+  </group>
+  
 
   <trans-unit id="kickstart.sysarch.jsp.label">
     <source>System &lt;br /&gt;Architecture</source>

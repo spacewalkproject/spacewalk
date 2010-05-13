@@ -2,8 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -16,25 +15,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: rhnsd.c:116
+#: rhnsd.c:246
 #, c-format
-msgid "Only root can run this program\n"
-msgstr ""
-
-#: rhnsd.c:136
-msgid "wrong number of arguments"
-msgstr ""
-
-#: rhnsd.c:143
-msgid "already running"
-msgstr ""
+msgid "Written by %s.\n"
+msgstr "Napsal %s.\n"
 
 #: rhnsd.c:243
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
-msgstr ""
+msgstr "Copyright (C) %s Red Hat, Inc.\n"
 
-#: rhnsd.c:246
+#: rhnsd.c:116
 #, c-format
-msgid "Written by %s.\n"
-msgstr ""
+msgid "Only root can run this program\n"
+msgstr "Pouze root může spustit tento program\n"
+
+#: rhnsd.c:143
+msgid "already running"
+msgstr "již běží"
+
+#: rhnsd.c:136
+msgid "wrong number of arguments"
+msgstr "špatný počet argumentů"

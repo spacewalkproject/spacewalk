@@ -27,7 +27,6 @@ import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.log4j.Logger;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -39,7 +38,7 @@ import java.util.Set;
  *
  * @version $Rev$
  */
-public class CompareConfigFilesTask implements Job {
+public class CompareConfigFilesTask extends SingleThreadedTask {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -57,17 +56,18 @@ public class CompareConfigFilesTask implements Job {
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext context)
+    public void run(JobExecutionContext context)
             throws JobExecutionException {
 
         log.info("running config compare");
 
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
-        for (Server server : ServerFactory.listConfigEnabledSystems()) {
+        for (Server server : ServerFactory.listConfigDiffEnabledSystems()) {
             if (server.isInactive()) {
                 continue;
             }
+
             Action act = ActionFactory.createAction(ActionFactory.TYPE_CONFIGFILES_DIFF);
             ConfigAction cfact = (ConfigAction) act;
             // set up needed fields for the action
@@ -94,6 +94,7 @@ public class CompareConfigFilesTask implements Job {
                 continue;
             }
 
+            log.info("  saving comparison for " + server.getId());
             ActionFactory.save(act);
         }
     }

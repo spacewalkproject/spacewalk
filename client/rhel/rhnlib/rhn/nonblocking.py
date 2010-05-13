@@ -5,13 +5,13 @@
 
 import select
 import fcntl
-
+import os
 
 class NonBlockingFile:
     def __init__(self, fd):
         # Keep a copy of the file descriptor
         self.fd = fd
-        fcntl.fcntl(self.fd.fileno(), fcntl.F_SETFL, fcntl.O_NDELAY | fcntl.FNDELAY)
+        fcntl.fcntl(self.fd.fileno(), fcntl.F_SETFL, os.O_NDELAY)
         # Set the callback-related stuff
         self.read_fd_set = []
         self.write_fd_set = []
@@ -24,7 +24,7 @@ class NonBlockingFile:
         self.read_fd_set = read_fd_set
         # Make the objects non-blocking
         for f in self.read_fd_set:
-            fcntl.fcntl(f.fileno(), fcntl.F_SETFL, fcntl.O_NDELAY | fcntl.FNDELAY)
+            fcntl.fcntl(f.fileno(), fcntl.F_SETFL, os.O_NDELAY)
             
         self.write_fd_set = write_fd_set
         self.exc_fd_set = exc_fd_set

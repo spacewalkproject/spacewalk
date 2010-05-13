@@ -40,7 +40,8 @@
       <rhn-tab name="Duplicate Systems" url="/rhn/systems/DuplicateIPList.do">
           <rhn-tab-url>/rhn/systems/DuplicateIPList.do</rhn-tab-url>
           <rhn-tab-url>/rhn/systems/DuplicateHostName.do</rhn-tab-url>
-          <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>          
+          <rhn-tab-url>/rhn/systems/DuplicateMacAddress.do</rhn-tab-url>
+          <rhn-tab-url>/rhn/systems/DuplicateSystemsCompare.do</rhn-tab-url>          
       </rhn-tab>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
