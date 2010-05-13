@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.systems.duplicate;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.dto.SystemCompareDto;
+import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
@@ -29,10 +30,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +64,16 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
         params.put(KEY_TYPE, context.getRequiredParamAsString(KEY_TYPE));
         request.setAttribute("maxLimit", MAX_LIMIT);
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        
+        if (!context.isSubmitted()) {
+            List<SystemOverview> result = getResult(context);
+            Set<String> preSelect = new HashSet<String>();
+            for (int i = 0; i < Math.min(MAX_LIMIT, result.size()); i++) {
+                preSelect.add(result.get(i).getId().toString());
+            }
+            helper.preSelect(preSelect);
+        }
+        
         helper.execute();
         if (context.isSubmitted()) {
             boolean resync = false;
@@ -82,26 +95,26 @@ public class DuplicateSystemsCompareAction extends RhnAction implements Listable
             if (resync) { 
                 helper.execute();
             }
-
-            if (helper.getSet().size() > MAX_LIMIT) {
-                LocalizationService ls = LocalizationService.getInstance();
-                ActionErrors errors = new ActionErrors();
-                getStrutsDelegate().addError(errors, 
-                                "duplicate.compares.max_limit.message",
-                        String.valueOf(MAX_LIMIT),  ls.getMessage("Refresh Comparison"));
-                getStrutsDelegate().saveMessages(request, errors);
-            }
-            else {
-                List<Long> sids = new LinkedList<Long>();
-                for (String sid : helper.getSet()) {
-                    sids.add(Long.valueOf(sid));
-                }
-                List<Server> systems = SystemManager.
-                hydrateServerFromIds(sids, context.getLoggedInUser());
-                request.setAttribute("systems",
-                        new SystemCompareDto(systems, context.getLoggedInUser())); 
-            }
         }
+        if (helper.getSet().size() > MAX_LIMIT) {
+            LocalizationService ls = LocalizationService.getInstance();
+            ActionErrors errors = new ActionErrors();
+            getStrutsDelegate().addError(errors, 
+                            "duplicate.compares.max_limit.message",
+                    String.valueOf(MAX_LIMIT),  ls.getMessage("Refresh Comparison"));
+            getStrutsDelegate().saveMessages(request, errors);
+        }
+        else {
+            List<Long> sids = new LinkedList<Long>();
+            for (String sid : helper.getSet()) {
+                sids.add(Long.valueOf(sid));
+            }
+            List<Server> systems = SystemManager.
+            hydrateServerFromIds(sids, context.getLoggedInUser());
+            request.setAttribute("systems",
+                    new SystemCompareDto(systems, context.getLoggedInUser())); 
+        }        
+
 
         return mapping.findForward("default");
     }

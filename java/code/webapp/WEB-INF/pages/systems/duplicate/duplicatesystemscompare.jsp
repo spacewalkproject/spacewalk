@@ -39,6 +39,7 @@
 	<rl:column sortattr="lastCheckinDate"
 					attr="lastCheckin"
 					bound="true"
+					styleclass="last-column"
 				   headerkey="systemlist.jsp.last_checked_in"/>
 
 </rl:list>

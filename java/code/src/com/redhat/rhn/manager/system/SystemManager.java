@@ -2734,7 +2734,7 @@ public class SystemManager extends BaseManager {
      * @param ip  ip address of the system
      * @return List of DuplicateSystemGrouping objects
      */
-    public static List listDuplicatesByIP(User user, String ip) {
+    public static  List<SystemOverview> listDuplicatesByIP(User user, String ip) {
         return listDuplicates(user, "duplicate_system_ids_ip_key", ip);
     }    
     
@@ -2758,7 +2758,7 @@ public class SystemManager extends BaseManager {
      * @param mac the mac address of the system
      * @return List of DuplicateSystemGrouping objects
      */
-    public static List listDuplicatesByMac(User user, String mac) {
+    public static List<SystemOverview> listDuplicatesByMac(User user, String mac) {
         return listDuplicates(user, "duplicate_system_ids_mac_key", mac);
     }
     
@@ -2780,7 +2780,8 @@ public class SystemManager extends BaseManager {
      * @param hostName host name of the system
      * @return List of DuplicateSystemGrouping objects
      */    
-    public static List listDuplicatesByHostname(User user, String hostName) {
+    public static List<SystemOverview> listDuplicatesByHostname(User user, 
+                                                            String hostName) {
         return listDuplicates(user, "duplicate_system_ids_hostname_key", 
                 hostName);
     }    
