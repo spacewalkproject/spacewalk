@@ -45,6 +45,8 @@ def get_devices():
             'class':    _clasify_class(device),
             'desc':     _get_device_desc(device),
         }
+        if result_item['class'] is None:
+            result_item['class'] = 'OTHER'
         if result_item['driver'] is None:
             result_item['driver'] = 'unknown'
         if subsystem == 'block':
