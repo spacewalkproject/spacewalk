@@ -432,7 +432,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     
     public void testGetChildChannels() throws Exception {
         Server s1 = ServerTestUtils.createTestSystem(usr);
-        assertNull(s1.getChildChannels());
+        assertTrue(s1.getChildChannels().isEmpty());
 
         s1.addChannel(ChannelTestUtils.createChildChannel(usr, s1.getBaseChannel()));
         s1.addChannel(ChannelTestUtils.createChildChannel(usr, s1.getBaseChannel()));
