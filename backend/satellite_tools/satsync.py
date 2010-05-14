@@ -1728,7 +1728,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         log(1, ["", messages.link_channel_packages])
         package_collection = sync_handlers.PackageCollection()
         uq_packages = {}
-        for chn, package_ids in self._channel_packages.items():
+        for chn, package_ids in self._missing_channel_packages.items():
             for pid in package_ids:
                 timestamp = package_collection.get_package_timestamp(pid)
                 package = package_collection.get_package(pid, timestamp)
