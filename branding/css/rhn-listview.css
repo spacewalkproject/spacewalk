@@ -571,6 +571,11 @@ tr.alphaResult td.sortedCol {
   background-color: #e4e4e4;
 }
 
+.inactive {
+  background-color: #fef5ad;
+  margin-bottom: 5px;
+}
+
 .compare-list .inactive {
   background-color: #fef5ad;
   margin-bottom: 5px;

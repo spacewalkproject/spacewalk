@@ -47,7 +47,7 @@ public class ExpandableRowRenderer extends RowRenderer {
         else {
             NetworkDto dto = (NetworkDto) current;
             if (dto.getInactive() > 0) {
-                return rowClasses[rowNum % rowClasses.length] + " alphaResult";
+                return " inactive";
             }
             return rowClasses[rowNum % rowClasses.length];
         }
