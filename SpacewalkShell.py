@@ -2452,6 +2452,18 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_softwarechannel_regenerateneededcache(self):
+        print 'softwarechannel_regenerateneededcache: '
+        print 'Regenerate the needed errata and package cache for all systems'
+        print
+        print 'usage: softwarechannel_regnerateneededcache'
+
+    def do_softwarechannel_regenerateneededcache(self, args):
+        if self.user_confirm('Are you sure [y/N]: '):
+            self.client.channel.software.regenerateNeededCache(self.session)
+
+####################
+
     def help_ssm(self):
         print 'The System Set Manager (SSM) is a group of systems that you '
         print 'can perform tasks on as a group.'
