@@ -26,8 +26,6 @@ from common import log_debug, Traceback, rhnFlags, CFG
 
 from server.importlib import importLib, backendLib
 
-typesHasUnicode = hasattr(types, "UnicodeType")
-
 # Terminology used throughout this file:
 # Item: an atomic entity from the database's perspective.
 #   A channel, or a package, or an erratum is an item.
@@ -336,7 +334,7 @@ class BaseItem:
 def _is_string(obj):
     if isinstance(obj, types.StringType):
         return 1
-    if typesHasUnicode and isinstance(obj, types.UnicodeType):
+    if isinstance(obj, types.UnicodeType):
         return 1
     return 0
 
@@ -344,16 +342,12 @@ def _stringify(data):
     # Accelerate the most common cases
     if isinstance(data, types.StringType):
         return data
-    if typesHasUnicode:
-        try: return data.encode('UTF8')
-        except AttributeError: pass
+    try: return data.encode('UTF8')
+    except AttributeError: pass
     return str(data)
 
 def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
-    if not typesHasUnicode:
-        # Nothing to do
-        return d
     ret = {}
     for k, v in d.items():
         try: k = k.encode('UTF8')
