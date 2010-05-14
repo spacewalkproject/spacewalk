@@ -167,6 +167,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <sql-query name="ServerGroup.lookupActiveServerIds">
+        <return-scalar type="long" column="id"/>
         <![CDATA[
 				SELECT S.id
 					FROM rhnServerGroupMembers SGM

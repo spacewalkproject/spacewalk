@@ -2605,7 +2605,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
-        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey), sid, errataIds, null);
+        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey), sid.longValue(),
+                errataIds, null);
         return 1;
     }
     
@@ -2625,10 +2626,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds, 
+    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds,
             Date earliestOccurrence) {
         ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
-                sid, errataIds, earliestOccurrence);
+                sid.longValue(), errataIds, earliestOccurrence);
         return 1;
     }
 

@@ -30,9 +30,11 @@ import com.redhat.rhn.frontend.xmlrpc.LookupServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.ServerGroupAccessChangeException;
 import com.redhat.rhn.frontend.xmlrpc.ServerNotInGroupException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -410,11 +412,14 @@ public class ServerGroupHandler extends BaseHandler {
      */
     public List<Long> listActiveSystemsInGroup(String sessionKey, String systemGroupName) {
         User loggedInUser =  getLoggedInUser(sessionKey);
+        return activeSystemsInGroup(loggedInUser, systemGroupName);
+    }
+
+    private List<Long> activeSystemsInGroup(User loggedInUser, String systemGroupName) {
         ServerGroup sg = lookup(systemGroupName, loggedInUser);
         Long threshold = new Long(Config.get().getInt(
                 ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
         return ServerGroupManager.getInstance().listActiveServers(sg, threshold);
-        
     }
     
     /**
@@ -466,5 +471,49 @@ public class ServerGroupHandler extends BaseHandler {
         return listInactiveSystemsInGroup(sessionKey, systemGroupName, 
                 threshold.intValue());
     }
+
+    /**
+     * Schedules an action to apply errata updates to active systems from a group.
+     * @param sessionKey The user's session key.
+     * @param systemGroupName the system group
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to active systems
+     * from a group.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "systemGroupName")
+     * @xmlrpc.param  #array_single("int", "errataId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+                                                                    List errataIds) {
+        return scheduleApplyErrataToActive(sessionKey, systemGroupName, errataIds, null);
+    }
     
+    /**
+     * Schedules an action to apply errata updates to active systems from a group
+     * at a specified time.
+     * @param sessionKey The user's session key.
+     * @param systemGroupName the system group
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the errata update
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to active systems
+     * from a group at a given date/time.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "systemGroupName")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int scheduleApplyErrataToActive(String sessionKey, String systemGroupName,
+                                List<Integer> errataIds, Date earliestOccurrence) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<Long> systemIds = activeSystemsInGroup(loggedInUser, systemGroupName);
+        ErrataManager.applyErrataHelper(loggedInUser, systemIds, errataIds,
+                earliestOccurrence);
+        return 1;
+    }
 }

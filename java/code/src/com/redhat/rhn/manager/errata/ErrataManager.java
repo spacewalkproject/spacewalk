@@ -1345,39 +1345,69 @@ public class ErrataManager extends BaseManager {
     * @param errataIds List of errata IDs to apply (as Integers)
     * @param earliestOccurrence Earliest occurrence of the errata update
     */
-   public static void applyErrataHelper(User loggedInUser, Integer sid, List errataIds,
+   public static void applyErrataHelper(User loggedInUser, Long sid, List errataIds,
            Date earliestOccurrence) {
        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                loggedInUser);
+       // check whether the whole errata list applicable to the system
+       checkApplicableErrata(loggedInUser, errataIds, sid);
+       // apply it
+       applyErrata(loggedInUser, errataIds, earliestOccurrence, sid);
+   }
 
+   /**
+    * Apply errata updates to a system list at a specified time.
+    * @param loggedInUser The logged in user
+    * @param systemIds list of system IDs
+    * @param errataIds List of errata IDs to apply (as Integers)
+    * @param earliestOccurrence Earliest occurrence of the errata update
+    */
+   public static void applyErrataHelper(User loggedInUser, List<Long> systemIds,
+                                    List<Integer> errataIds, Date earliestOccurrence) {
+       // first check, whether the errata list is applicable to the whole system list
+       // if not, exception is thrown
+       for (Long sid : systemIds) {
+           checkApplicableErrata(loggedInUser, errataIds, sid);
+       }
+       // at this point all errata is applicable to all systems, so let's apply
+       for (Long sid : systemIds) {
+           applyErrata(loggedInUser, errataIds, earliestOccurrence, sid);
+       }
+   }
+
+   private static void checkApplicableErrata(User loggedInUser, List<Integer> errataIds,
+            Long serverId) {
        // Check to make sure the given errata are applicable to and unscheduled for the
        // system in question. This catches three scenarios, errata that don't apply to
        // this system, are already scheduled, or don't exist in the first place.
        // TODO: fail silently in some of these cases?
        Set unscheduledErrataIds = new HashSet();
        List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser,
-               server.getId(), null);
+               serverId, null);
        for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
            Errata e = (Errata)it.next();
-           unscheduledErrataIds.add(new Integer(e.getId().intValue()));
+           unscheduledErrataIds.add(e.getId());
        }
        for (Iterator it = errataIds.iterator(); it.hasNext();) {
            Integer currentId = (Integer)it.next();
-           if (!unscheduledErrataIds.contains(currentId)) {
+           if (!unscheduledErrataIds.contains(currentId.longValue())) {
                throw new InvalidErrataException();
            }
        }
-
-       for (Iterator it = errataIds.iterator(); it.hasNext();) {
-           Integer currentId = (Integer)it.next();
-           Errata errata = ErrataManager.lookupErrata(new Long(currentId.longValue()),
-                   loggedInUser);
-           Action update = ActionManager.createErrataAction(loggedInUser, errata);
-           if (earliestOccurrence != null) {
-               update.setEarliestAction(earliestOccurrence);
-           }
-           ActionManager.addServerToAction(server.getId(), update);
-           ActionManager.storeAction(update);
-       }
    }
+
+    private static void applyErrata(User loggedInUser, List errataIds,
+            Date earliestOccurrence, Long serverId) {
+        for (Iterator it = errataIds.iterator(); it.hasNext();) {
+            Integer currentId = (Integer)it.next();
+            Errata errata = ErrataManager.lookupErrata(currentId.longValue(),
+                    loggedInUser);
+            Action update = ActionManager.createErrataAction(loggedInUser, errata);
+            if (earliestOccurrence != null) {
+                update.setEarliestAction(earliestOccurrence);
+            }
+            ActionManager.addServerToAction(serverId, update);
+            ActionManager.storeAction(update);
+        }
+    }
 }
