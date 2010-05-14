@@ -574,9 +574,7 @@ public class ErrataSearchAction extends RhnAction {
             return "(name:(" + query + ") filename:(" + query + "))";
         }
         else if (OPT_CVE.equals(mode)) {
-            if (query.trim().toLowerCase().indexOf("cve-") == -1) {
-                query = "CVE-" + query;
-            }
+            query = "%" + query.toLowerCase() + "%";
             return "listErrataByCVE:(" + query + ")";
         }
 
