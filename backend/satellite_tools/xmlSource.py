@@ -168,7 +168,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         self.container_dispatch[obj.container_name] = obj
 
     def get_container(self, name):
-        if not self.container_dispatch.has_key(name):
+        if name not in self.container_dispatch:
             # Return a dummy container
             c = ContainerHandler()
             c.container_name = name
@@ -177,7 +177,7 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
         return self.container_dispatch[name]
 
     def has_container(self, name):
-        return self.container_dispatch.has_key(name)
+        return (name in self.container_dispatch)
     
     # Overwrite the functions required by SAX
     def setDocumentLocator(self, locator):
@@ -295,8 +295,8 @@ class BaseItem:
     def populateFromAttributes(self, obj, sourceDict):
         # Populates dict with items from sourceDict
         for key, value in sourceDict.items():
-            if not self.tagMap.has_key(key):
-                if not obj.has_key(key):
+            if key not in self.tagMap:
+                if key not in obj:
                     # Unsupported key
                     continue
             else:
@@ -322,10 +322,10 @@ class BaseItem:
                 obj[keys[0]] = element
                 continue
             name = element.name
-            if not obj.has_key(name) and not self.tagMap.has_key(name):
+            if name not in obj and name not in self.tagMap:
                 # Unsupported key
                 continue
-            if self.tagMap.has_key(name):
+            if name in self.tagMap:
                 # Have to map this element
                 name = self.tagMap[name]
 
@@ -371,7 +371,7 @@ def addItem(classobj):
 
 def _createItem(element):
     # Creates an Item object from the specified element
-    if not __itemDispatcher.has_key(element.name):
+    if element.name not in __itemDispatcher:
         # No item processor
         return None
     item = __itemDispatcher[element.name]()
@@ -858,7 +858,7 @@ class ContainerHandler:
             # Nothing to do with this object
             return
 
-        if item.has_key('error'):
+        if 'error' in item:
             # Special case errors
             log_debug(0, 'XML parser error: found "rhn-error" item: %s' %
                 item['error'])

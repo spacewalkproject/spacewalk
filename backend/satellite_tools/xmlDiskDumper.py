@@ -257,7 +257,7 @@ class ShortPackageDumper(Dumper):
             if self.compression:
                 filename = filename + '.gz'
 
-            if diskfiles.has_key(filename):
+            if filename in diskfiles:
                 # The file is on the disk
                 del diskfiles[filename]
             else:
