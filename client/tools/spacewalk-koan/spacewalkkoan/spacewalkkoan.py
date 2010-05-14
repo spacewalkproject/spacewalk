@@ -188,6 +188,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         k.no_gfx              = 1
         k.add_reinstall_entry = None
         k.kopts_override      = None
+        k.virt_auto_boot      = None
         k.run()
 
         # refresh current virtualization state on the server
