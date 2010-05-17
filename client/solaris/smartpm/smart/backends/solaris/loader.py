@@ -547,7 +547,11 @@ def parsePatchData(text):
 def createPatchInfo(patch, packages, requires, obsoletes, conflicts):
     info = {"provides": [], "depends": [], "conflicts": [], "upgrades": []}
     m = PNAMERE.match(patch)
-    (name, prvversion) = m.groups()
+    if m:
+        (name, prvversion) = m.groups()
+    else: # some custom patch with unkown format of SUNW_PATCHID, let fake up something
+        name = patch
+        prvversion = '1'
     name = "patch-solaris-" + name
     version = prvversion + "-1"
     info["name"] = name
