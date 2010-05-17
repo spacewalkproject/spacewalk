@@ -145,9 +145,11 @@ public class ConfirmErrataAction extends RhnListAction {
         
         //if we are not using package association (and thus the queries aren't handling
         //arch solving, then we need to validate the packages
-        List<PackageOverview> validList;
+        List<PackageOverview> validList = packageResult;
+        if (!packageAssoc) {
             validList = validatePackages(packageResult, 
                 currentChan);
+        }
         
         storePackagesInSet(user, validList, currentChan);
         
