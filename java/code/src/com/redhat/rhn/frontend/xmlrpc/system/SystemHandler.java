@@ -79,7 +79,6 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
@@ -2606,7 +2605,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds) {
-        applyErrataHelper(sessionKey, sid, errataIds, null);
+        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey), sid.longValue(),
+                errataIds, null);
         return 1;
     }
     
@@ -2626,56 +2626,13 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param dateTime.iso8601 earliestOccurrence
      * @xmlrpc.returntype #return_int_success()
      */
-    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds, 
+    public int scheduleApplyErrata(String sessionKey, Integer sid, List errataIds,
             Date earliestOccurrence) {
-        applyErrataHelper(sessionKey, sid, errataIds, earliestOccurrence);
+        ErrataManager.applyErrataHelper(getLoggedInUser(sessionKey),
+                sid.longValue(), errataIds, earliestOccurrence);
         return 1;
     }
-    
-    /**
-     * Apply errata updates to a system at a specified time.
-     * @param sessionKey The user's session key.
-     * @param sid ID of the server
-     * @param errataIds List of errata IDs to apply (as Integers)
-     * @param earliestOccurrence Earliest occurrence of the errata update
-     */
-    private void applyErrataHelper(String sessionKey, Integer sid, List errataIds, 
-            Date earliestOccurrence) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
-                loggedInUser);
-        
-        // Check to make sure the given errata are applicable to and unscheduled for the 
-        // system in question. This catches three scenarios, errata that don't apply to
-        // this system, are already scheduled, or don't exist in the first place.
-        // TODO: fail silently in some of these cases?
-        Set unscheduledErrataIds = new HashSet();
-        List unscheduledErrata = SystemManager.unscheduledErrata(loggedInUser, 
-                server.getId(), null);
-        for (Iterator it = unscheduledErrata.iterator(); it.hasNext();) {
-            Errata e = (Errata)it.next();
-            unscheduledErrataIds.add(new Integer(e.getId().intValue()));
-        }
-        for (Iterator it = errataIds.iterator(); it.hasNext();) {
-            Integer currentId = (Integer)it.next();
-            if (!unscheduledErrataIds.contains(currentId)) {
-                throw new InvalidErrataException();
-            }
-        }
-        
-        for (Iterator it = errataIds.iterator(); it.hasNext();) {
-            Integer currentId = (Integer)it.next();
-            Errata errata = ErrataManager.lookupErrata(new Long(currentId.longValue()), 
-                    loggedInUser);
-            Action update = ActionManager.createErrataAction(loggedInUser, errata);
-            if (earliestOccurrence != null) {
-                update.setEarliestAction(earliestOccurrence);
-            }
-            ActionManager.addServerToAction(server.getId(), update);
-            ActionManager.storeAction(update);
-        }
-    }
-    
+
     /**
      * Compares the packages installed on two systems.
      * 

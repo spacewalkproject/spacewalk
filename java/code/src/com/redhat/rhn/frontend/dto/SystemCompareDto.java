@@ -62,13 +62,13 @@ public class SystemCompareDto {
      * as the systems were added
      * @return the last checkin dates
      */
-    public List<String> getLastCheckinDates() {
+    public List<Item> getLastCheckinDates() {
         LocalizationService ls = LocalizationService.getInstance();
         List<String> ret = new LinkedList<String>();
         for (Server server : servers) {
             ret.add(ls.formatDate(server.getLastCheckin()));
         }
-        return ret;
+        return compare(ret);
     }
    
     /**

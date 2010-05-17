@@ -7,8 +7,27 @@
 <html:xhtml/>
 <html>
 <head>
-    <meta name="page-decorator" content="none" />
-    <script src="/javascript/tree.js" type="text/javascript"></script>
+<meta name="page-decorator" content="none" />
+<script type="text/javascript">
+
+	function toggleElement(row) {
+		if (row.style.display == '') {
+			 row.style.display = 'none';
+		}
+		else {
+		 row.style.display = '';
+		 }
+	}
+
+	function pageToggleRows(linkId, ids){
+		for (var i = 0 ; i < ids.length; i++) {
+			toggleElement(document.getElementById(ids[i]));
+		}
+		toggleElement(document.getElementById(linkId + 'Show'));
+		toggleElement(document.getElementById(linkId + 'Hide'));
+	}
+	
+</script>
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
@@ -39,6 +58,7 @@
 	<rl:column sortattr="lastCheckinDate"
 					attr="lastCheckin"
 					bound="true"
+					styleclass="last-column"
 				   headerkey="systemlist.jsp.last_checked_in"/>
 
 </rl:list>
@@ -54,7 +74,7 @@
 <br/>
 <h2><bean:message key='System Comparison'/></h2>
 <c:choose> <c:when test="${requestScope.systems.size > 0}">
-<table cellpadding="0" cellspacing="0" class="list">
+<table cellpadding="0" cellspacing="0" class="list compare-list">
 	<thead><tr> 
 	<th> Property</th>
 	<c:forEach items="${requestScope.systems.servers}" var="current">
@@ -62,100 +82,118 @@
 	</c:forEach>
 	</tr></thead>
 	<tbody>
-	<tr class="list-row-even" >
-		<td><%-- Empty --%></td>
-		<c:forEach items="${requestScope.systems.systemIds}" var="current">
-	  		<td><input type="submit" name="btn${current.value}" value="${rhn:localize('Delete System Profile')}"/></td>
+	<tr class="list-button-row" >
+		<td class="first-column"><%-- Empty --%></td>
+		<c:forEach items="${requestScope.systems.systemIds}" var="current" varStatus="loop">
+			<c:choose>
+				<c:when test ="${loop.last}">
+				<td class="last-column">
+				</c:when>
+				<c:otherwise><td></c:otherwise>
+			</c:choose>
+				<input type="submit" name="btn${current.value}" value="${rhn:localize('Delete System Profile')}"/></td>
 		</c:forEach>
 	</tr>
 	<tr>
-		<th colspan="${requestScope.systems.size + 1}"><bean:message key="System Identity Properties"/> <a href=""><bean:message key="Click Here To Hide"/> </a></th>
+		<th colspan="${requestScope.systems.size + 1}"><bean:message key="System Identity Properties"/>&nbsp;
+			 <a  id='sysIdHide' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','systemGroupsRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='sysIdShow' href="javascript:pageToggleRows('sysId', ['lastCheckinRow', 'macAddressRow','ipAddressRow','systemGroupsRow'])"><bean:message key="Click Here To Show"/> </a>
+	    </th>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="systemlist.jsp.last_checked_in"/></td>
-		<c:forEach items="${requestScope.systems.lastCheckinDates}" var="current">
-	  		<td>${current}</td>
-		</c:forEach>
+	<tr class="list-row-odd" id="lastCheckinRow">
+		<c:set var ="key" value="systemlist.jsp.last_checked_in"/>
+		<c:set var ="items_list" value="${requestScope.systems.lastCheckinDates}"/>
+		<c:set var ="href" value=""/>
+		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="row.macaddress"/></td>
+	<tr class="list-row-even" id="macAddressRow">
+		<c:set var ="key" value="row.macaddress"/>
 		<c:set var ="items_list" value="${requestScope.systems.macAddresses}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>		
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="row.ip"/></td>
+	<tr class="list-row-odd" id = "ipAddressRow">
+		<c:set var ="key" value="row.ip"/>
 		<c:set var ="items_list" value="${requestScope.systems.ipAddresses}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="System Groups"/></td>
+	<tr class="list-row-even"  id = "systemGroupsRow">
+		<c:set var ="key" value="System Groups"/>
 		<c:set var ="items_list" value="${requestScope.systems.systemGroups}"/>
 		<c:set var ="href" value="/network/systems/groups/details.pxt?sgid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>
-		<th colspan="${requestScope.systems.size + 1}"><bean:message key="Extended System Identity Properties"/> <a href=""><bean:message key="Click Here To Hide"/> </a></th>
+		<th colspan="${requestScope.systems.size + 1}"><bean:message key="Extended System Identity Properties"/> &nbsp;
+			 <a  id='extendedSysIdHide' href="javascript:pageToggleRows('extendedSysId', ['registrationDateRow', 'systemIdRow','activationKeysRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='extendedSysIdShow' href="javascript:pageToggleRows('sysId', ['registrationDateRow', 'systemIdRow','activationKeysRow'])"><bean:message key="Click Here To Show"/> </a>
+       </th>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="Registration Date"/></td>
+	<tr class="list-row-odd" id = "registrationDateRow">
+		<c:set var ="key" value="Registration Date"/>
 		<c:set var ="items_list" value="${requestScope.systems.registrationDates}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="System ID"/></td>
+	<tr class="list-row-even" id = "systemIdRow">
+		<c:set var ="key" value="System ID"/>
 		<c:set var ="items_list" value="${requestScope.systems.systemIds}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list.jspf" %>
 	</tr>
 	
-	<tr class="list-row-even" >
-		<td><bean:message key="Activation Keys"/></td>
+	<tr class="list-row-odd" id = "activationKeysRow">
+		<c:set var ="key" value="Activation Keys"/>
 		<c:set var ="items_list" value="${requestScope.systems.activationKeys}"/>
 		<c:set var ="href" value="/rhn/activationkeys/Edit.do?tid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>
-		<th colspan="${requestScope.systems.size + 1}"><bean:message key="System Content And Monitoring"/> <a href=""><bean:message key="Click Here To Hide"/> </a></th>
+		<th colspan="${requestScope.systems.size + 1}"><bean:message key="System Content And Monitoring"/> &nbsp;
+			 <a  id='sysContentIdHide' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow','monitoringProbesRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='sysContentIdShow' href="javascript:pageToggleRows('sysContentId', ['baseChannelRow', 'childChannelsRow','configChannelsRow','monitoringProbesRow'])"><bean:message key="Click Here To Show"/> </a>
+	    </th>
 	</tr>
 
-	<tr class="list-row-even"> 
-		<td><bean:message key="kickstart.channel.label.jsp"/></td>
+	<tr class="list-row-odd" id = "baseChannelRow"> 
+		<c:set var ="key" value="kickstart.channel.label.jsp"/>
 		<c:set var ="items_list" value="${requestScope.systems.baseChannels}"/>
 		<c:set var ="href" value="/rhn/channels/ChannelDetail.do?cid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="Child Software Channels"/></td>
+	<tr class="list-row-even" id="childChannelsRow">
+		<c:set var ="key" value="Child Software Channels"/>
 		<c:set var ="items_list" value="${requestScope.systems.childChannels}"/>
 		<c:set var ="href" value="/rhn/channels/ChannelDetail.do?cid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="org.config.channels.jsp"/></td>
+	<tr class="list-row-odd"  id="configChannelsRow">
+		<c:set var ="key" value="org.config.channels.jsp"/>
 		<c:set var ="items_list" value="${requestScope.systems.childChannels}"/>
 		<c:set var ="href" value="/rhn/configuration/ChannelOverview.do?ccid="/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="Monitoring Probes"/></td>
+	<tr class="list-row-even" id="monitoringProbesRow">
+		<c:set var ="key" value="Monitoring Probes"/>
 		<c:set var ="items_list" value="${requestScope.systems.monitoringProbes}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
 	<tr>
-		<th colspan="${requestScope.systems.size + 1}"><bean:message key="softwareEntitlementDetails.header.entitlementUsage"/> <a href=""><bean:message key="Click Here To Hide"/> </a></th>
+		<th colspan="${requestScope.systems.size + 1}"><bean:message key="softwareEntitlementDetails.header.entitlementUsage"/> &nbsp;
+			 <a  id='sysEntUsageIdHide' href="javascript:pageToggleRows('sysEntUsageId', ['systemEntitlementsRow', 'softwareEntitlementsRow'])"><bean:message key="Click Here To Hide"/> </a>
+			 <a  style="display:none" id='sysEntUsageIdShow' href="javascript:pageToggleRows('sysEntUsageId', ['systemEntitlementsRow', 'softwareEntitlementsRow'])"><bean:message key="Click Here To Show"/> </a>
+	    </th>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="System Entitlements"/></td>
+	<tr class="list-row-odd" id = "systemEntitlementsRow">
+		<c:set var ="key" value="System Entitlements"/>
 		<c:set var ="items_list" value="${requestScope.systems.systemEntitlements}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>
 	</tr>
-	<tr class="list-row-even" >
-		<td><bean:message key="Software Entitlements"/></td>
+	<tr class="list-row-even" id="softwareEntitlementsRow">
+		<c:set var ="key" value="Software Entitlements"/>
 		<c:set var ="items_list" value="${requestScope.systems.softwareEntitlements}"/>
 		<c:set var ="href" value=""/>
 		<%@ include file="/WEB-INF/pages/common/fragments/systems/duplicates/render-item-list-list.jspf" %>

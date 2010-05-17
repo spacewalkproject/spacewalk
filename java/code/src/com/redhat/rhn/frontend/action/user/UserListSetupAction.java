@@ -16,17 +16,49 @@ package com.redhat.rhn.frontend.action.user;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * UserListSetupAction
  * @version $Rev$
  */
-public class UserListSetupAction extends BaseUserListSetupAction {
+public class UserListSetupAction extends RhnAction implements Listable {
 
-    /** {@inheritDoc} */
-    protected DataResult getDataResult(User user, PageControl pc) {
-        return UserManager.usersInOrg(user, pc);
+    /**
+     * ${@inheritDoc}
+     */
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+        RequestContext context = new RequestContext(request);
+        User user = context.getLoggedInUser();
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        DataResult dr = UserManager.usersInOrg(user, null);
+        dr.elaborate();
+        return dr;
     }
 }

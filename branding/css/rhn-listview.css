@@ -547,6 +547,45 @@ tr.alphaResult td.sortedCol {
       background-position: left center;
 }
 
+.compare-list .first-column {
+  border-right: 1px solid #C0C0C0;
+  background-color: #e4e4e4;
+  text-align: right;
+}
+
+.list-button-row,
+.list-button-row td {
+  background-color: #888 !important;
+  border-right: none !important;
+}
+
+.list-button-row td {
+  padding: 10px 5px;
+}
+
+.list-row-even .list-column-even {
+  background-color: #eee;
+}
+
+.list-row-odd .list-column-even {
+  background-color: #e4e4e4;
+}
+
+.inactive {
+  background-color: #fef5ad;
+  margin-bottom: 5px;
+}
+
+.compare-list .inactive {
+  background-color: #fef5ad;
+  margin-bottom: 5px;
+}
+
+.compare-list ul {
+  list-style: none outside !important;
+  padding: 0px;
+}
+
 /** CSV download widget **/
 
 

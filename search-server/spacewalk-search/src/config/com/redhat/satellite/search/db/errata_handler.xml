@@ -23,7 +23,7 @@
                 ac.org_id = wc.org_id and
                 ps.web_user_id = wc.id and
                 ps.id = #sessionId# and
-                cve.name = #param0#
+                LOWER(cve.name) like #param0#
    </select>
 
    <select id="listErrataByIssueDateRange"
