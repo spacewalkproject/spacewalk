@@ -227,17 +227,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
-# firstboot is smart enough now to skip these modules
-# if the modules say to
-%{_datadir}/firstboot/modules/rhn_login_gui.*
-%{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
-%{_datadir}/firstboot/modules/rhn_start_gui.*
-%{_datadir}/firstboot/modules/rhn_choose_server_gui.*
-%{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
-%{_datadir}/firstboot/modules/rhn_create_profile_gui.*
-%{_datadir}/firstboot/modules/rhn_review_gui.*
-%{_datadir}/firstboot/modules/rhn_finish_gui.*
-
 %files -n rhn-setup-gnome
 %defattr(-,root,root,-)
 %{_datadir}/rhn/up2date_client/messageWindow.*
@@ -251,6 +240,14 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
 %{_datadir}/applications/rhn_register.desktop
+%{_datadir}/firstboot/modules/rhn_login_gui.*
+%{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
+%{_datadir}/firstboot/modules/rhn_start_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_server_gui.*
+%{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
+%{_datadir}/firstboot/modules/rhn_create_profile_gui.*
+%{_datadir}/firstboot/modules/rhn_review_gui.*
+%{_datadir}/firstboot/modules/rhn_finish_gui.*
 
 %changelog
 * Wed May 05 2010 Jan Pazdziora 1.1.3-1
