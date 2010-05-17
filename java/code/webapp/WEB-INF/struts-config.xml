@@ -817,6 +817,12 @@
             <form-property name="bootimage" type="java.lang.String"/>
             <form-property name="channelid" type="java.lang.Long"/>       
         </form-bean>
+        
+        <form-bean name="contentSourceForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="url" type="java.lang.String"/>
+            <form-property name="label" type="java.lang.String"/>
+        </form-bean>
                 
         <form-bean name="cobblerSnippetsForm"
                    type="com.redhat.rhn.frontend.struts.ContentsForm">
