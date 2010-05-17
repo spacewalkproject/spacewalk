@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	1.1.4
+Version:	1.1.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -69,6 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon May 17 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
+- changing package description (tlestach@redhat.com)
+- do not check /etc/hosts file for actual hostname (tlestach@redhat.com)
+- check for presence of bootstrap files before modifying them
+  (tlestach@redhat.com)
+- fixed typo (tlestach@redhat.com)
+- set localhost instead of hostname to tnsnames.ora and listener.ora
+  (tlestach@redhat.com)
+- fixed a typo in the man page (tlestach@redhat.com)
+
 * Tue Apr 27 2010 Tomas Lestach <tlestach@redhat.com> 1.1.4-1
 - fixed Requires (tlestach@redhat.com)
 - spacewalk-hostname-rename code cleanup (tlestach@redhat.com)
