@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.48.13
+Version:      0.48.12
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -100,9 +100,6 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed May 05 2010 Shannon Hughes <shughes@redhat.com> 0.48.13-1
-- 
-
 * Wed Mar 31 2010 Miroslav Suchý <msuchy@redhat.com> 0.48.12-1
 - do not care about sending email, transfer the worries to perl-MailTools
 
