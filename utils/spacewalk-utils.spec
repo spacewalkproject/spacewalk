@@ -35,9 +35,7 @@ Requires:       spacewalk-config
 Requires:       spacewalk-setup
 
 %description
-Generic utilities that may be run against a Spacewalk server.  This package
-contains utilities that may be installed on a client and run against the
-server.
+Generic utilities that may be run against a Spacewalk server.
 
 
 %prep
