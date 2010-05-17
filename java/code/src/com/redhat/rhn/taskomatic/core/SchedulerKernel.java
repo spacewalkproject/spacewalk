@@ -48,6 +48,9 @@ public class SchedulerKernel {
     private byte[] shutdownLock = new byte[0];
     private Scheduler scheduler = null;
     private ChainedListener chainedJobListener = null;
+    private String dataSourceConfigPath = "org.quartz.jobStore.dataSource";
+    private String dataSourcePrefix = "org.quartz.dataSource";
+    private String defaultDataSource = "rhnDs";
 
     /**
      * Kernel main driver behind Taskomatic
@@ -55,6 +58,24 @@ public class SchedulerKernel {
      */
     public SchedulerKernel() throws InstantiationException {
         Properties props = Config.get().getNamespaceProperties("org.quartz");
+        String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
+        String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
+        String dbName = Config.get().getString(ConfigDefaults.DB_NAME);
+        String dbUser = Config.get().getString(ConfigDefaults.DB_USER);
+        String dbPass = Config.get().getString(ConfigDefaults.DB_PASSWORD);
+        props.setProperty(dataSourceConfigPath, defaultDataSource);
+        String ds = dataSourcePrefix + "." + defaultDataSource;
+        props.setProperty(ds + ".user", dbUser);
+        props.setProperty(ds + ".password", dbPass);
+        // props.setProperty(ds + ".maxConnections", 30);
+
+        if (ConfigDefaults.get().isOracle()) {
+            props.setProperty("org.quartz.jobStore.driverDelegateClass",
+                    "org.quartz.impl.jdbcjobstore.oracle.OracleDelegate");
+            props.setProperty(ds + ".driver", "oracle.jdbc.driver.OracleDriver");
+            props.setProperty(ds + ".URL", "jdbc:oracle:thin:@" +
+                    dbHost + ":" + dbPort + ":" + dbName);
+        }
         // create a this.schedulerFactory
         try {
             SchedulerFactory fact = new StdSchedulerFactory(props);
