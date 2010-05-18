@@ -342,18 +342,18 @@ def _stringify(data):
     # Accelerate the most common cases
     if isinstance(data, types.StringType):
         return data
-    try: return data.encode('UTF8')
-    except AttributeError: pass
+    elif isinstance(data, types.UnicodeType):
+        return data.encode('UTF8')
     return str(data)
 
 def _dict_to_utf8(d):
     # Convert the dictionary to have non-unocide key-value pairs
     ret = {}
     for k, v in d.items():
-        try: k = k.encode('UTF8')
-        except AttributeError: pass
-        try: v = v.encode('UTF8')
-        except AttributeError: pass
+        if isinstance(k,types.UnicodeType):
+            k = k.encode('UTF8')
+        if isinstance(v, types.UnicodeType):
+            v = v.encode('UTF8')
         ret[k] = v
     return ret
             
