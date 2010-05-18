@@ -225,6 +225,8 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
+%{_datadir}/setuptool/setuptool.d/99rhn_register
+
 %files -n rhn-setup-gnome
 %defattr(-,root,root,-)
 %{_datadir}/rhn/up2date_client/messageWindow.*
