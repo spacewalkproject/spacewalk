@@ -157,6 +157,8 @@
       <rhn-tab name="Manage Repositories" acl="user_role(channel_admin)"  node-id="manage_repos">
         <rhn-tab-directory>/rhn/channels/manage/repos</rhn-tab-directory>
         <rhn-tab-url>/rhn/channels/manage/repos/RepoList.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/channels/manage/repos/RepoEdit.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/channels/manage/repos/RepoCreate.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
