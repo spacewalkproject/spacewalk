@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.4.14
+Version:       5.5.1
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -50,6 +50,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Tue May 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.1-1
+- 470154 - arch can be optional, do not freak out if it is not present
+- 514805 - recognize X86 arch as i386
+- 516898 - workaround for patches which do not have packed most top directory
+- no need to copy file, we can operate directly on original
+- do not read one file twice
+- 559092 - recognize new sun patch cluster format
+- 569946 - normalize solaris "x86" value to rhn known value
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.14-1
 - 563630 - Enable proxy support for rhnpush
 
