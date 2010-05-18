@@ -1,0 +1,31 @@
+/etc/sysconfig /opt/redhat/rhn/solaris/etc/sysconfig
+/usr/bin /opt/redhat/rhn/solaris/usr/bin
+/usr/sbin /opt/redhat/rhn/solaris/usr/sbin
+/var/log /opt/redhat/rhn/solaris/var/log
+/var/run /opt/redhat/rhn/solaris/var/run
+/usr/lib/python1.5 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/lib/python2.2 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/lib/python2.3 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/lib/python2.4 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/local/lib/python2.2 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/local/lib/python2.3 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/local/lib/python2.4 /opt/redhat/rhn/solaris/lib/python2.4
+/usr/share/doc /opt/redhat/rhn/solaris/doc
+/usr/share/man /opt/redhat/rhn/solaris/man
+
+# rhncfg-* relocations
+/usr/share/rhn/config_common /opt/redhat/rhn/solaris/lib/python2.4/site-packages/config_common
+/usr/share/rhn/actions /opt/redhat/rhn/solaris/lib/python2.4/site-packages/rhn/actions
+/usr/share/rhn/config_client /opt/redhat/rhn/solaris/lib/python2.4/site-packages/config_client
+/usr/share/rhn/config_management /opt/redhat/rhn/solaris/lib/python2.4/site-packages/config_management
+/usr/share/rhn/rhnpush /opt/redhat/rhn/solaris/lib/python2.4/site-packages/rhnpush
+
+# Generic relocate
+/usr/share/rhn /opt/redhat/rhn/solaris/usr/share/rhn
+
+# Symlink relocation
+../../usr/share/rhn/config_common ../../lib/python2.4/site-packages/config_common
+../../usr/share/rhn/actions ../../lib/python2.4/site-packages/rhn/actions
+../../usr/share/rhn/config_client ../../lib/python2.4/site-packages/config_client
+../../usr/share/rhn/config_management ../../lib/python2.4/site-packages/config_management
+#../../usr/share/rhn ../../lib/python2.4/site-packages/
