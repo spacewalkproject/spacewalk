@@ -31,7 +31,7 @@ def localtime(timestamp):
     return _format_time(time.localtime(float(timestamp)))
 
 def _format_time(time_tuple):
-    return "%d-%02d-%02d %02d:%02d:%02d" % time_tuple[:6]
+    return time.strftime("%Y-%m-%d %H:%M:%S", time_tuple)
 
 # Database datatypes
 class DBtype:
