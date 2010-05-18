@@ -6627,6 +6627,34 @@
                  path="/WEB-INF/pages/channel/manage/repo/repos.jsp"/>
     </action>
 
+    <action path="/channels/manage/repos/RepoCreate"
+        scope="request"
+        validate="false"
+        name="contentSourceForm"
+        parameter="create_mode"
+        type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/repo/repodetails.jsp"/>
+        <forward name="success"
+                 path="/channels/manage/repo/RepoEdit.do" redirect = "true"
+                 />
+    </action>
+
+    <action path="/channels/manage/repos/RepoEdit"
+        scope="request"
+        name="contentSourceForm"
+        parameter="edit_mode"
+        type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/repo/repodetails.jsp"/>
+        <forward name="success"
+                 path="/channels/manage/repo/RepoEdit.do" redirect = "true"/>
+    </action>
+
 <!-- end repo -->
       
    <action path="/common/DownloadFile"
