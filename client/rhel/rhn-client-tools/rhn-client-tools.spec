@@ -40,8 +40,6 @@ BuildRequires: desktop-file-utils
 %if 0%{?fedora} >= 12
 BuildRequires: python-coverage
 BuildRequires: rhnlib
-# python-setuptools can be removed when 556290 gets fixed
-BuildRequires: python-setuptools
 BuildRequires: rpm-python
 %endif
 
