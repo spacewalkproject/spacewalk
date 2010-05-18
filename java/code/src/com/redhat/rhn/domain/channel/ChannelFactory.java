@@ -459,6 +459,14 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Creates an empty Repo
+     * @return empty Repo
+     */
+    public static ContentSource createRepo() {
+        return new ContentSource();
+    }
+
+    /**
      * Utility to call {@link #refreshNewestPackageCache(Long, String)} given a channel.
      *
      * @param c     channel to be refreshed
