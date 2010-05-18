@@ -1,0 +1,192 @@
+#!/bin/bash
+
+# set -x
+
+usage() {
+	echo <<EOF
+Usage: $0 name-version-release.arch.rpm pkg_name
+
+pkg_name is without RHAT prefix. Resulting package will be stored as:
+ RHATpkg_namename-version-release.arch.pkg
+EOF
+	exit 1
+}
+
+munge () { dir=$1
+
+	# Match non-path character
+	NPC="[^A-Za-z0-9_\\.-]"
+
+	find $dir -type f | while read filepath ; do
+		if file $filepath | grep "ELF.*bit .SB " 2>&1 > /dev/null; then
+			echo "      skipping file [$filepath] (ELF binary)"
+			continue
+		fi
+		if file $filepath | grep "gzip compressed data" 2>&1 > /dev/null; then
+			echo "      skipping file [$filepath] (gzipped data)"
+			continue
+		fi
+		sed -i.origorig \
+			-e "s|#!/usr/bin/python|#!/opt/redhat/rhn/solaris/bin/python|g" \
+			-e "s|\($NPC\)/usr/sbin/rhn_check|\1/opt/redhat/rhn/solaris/usr/sbin/rhn_check|g" \
+			-e "s|\($NPC\)/usr/share/rhn|\1/opt/redhat/rhn/solaris/usr/share/rhn|g" \
+			-e "s|\($NPC\)/etc/sysconfig/rhn|\1/opt/redhat/rhn/solaris/etc/sysconfig/rhn|g" \
+			-e 's|^PREFIX="/"$|PREFIX="/opt/redhat/rhn/solaris/"|g' $filepath
+		if cmp -s $filepath.origorig $filepath ; then
+			mv $filepath.origorig $filepath
+		else
+			echo "      [$filepath] munged"
+			rm -f $filepath.origorig
+		fi
+	done
+}
+
+unpack_man_pages () {
+	dir=$1
+
+	find $dir/opt/redhat/rhn/solaris/man -name '*.[1-9].gz' | while read file ; do
+		echo "    ungzipping man page [$file]"
+		gunzip $file
+	done
+}
+
+relocate () {
+	dir=$1
+
+	grep '/.* /' $RELOCATION_DEFINITIONS | while read src dst ; do
+		if [ -f "$dir$src" ] ; then
+			echo "    relocating file [$src] to [$dst]"
+			mv "$dir$src" "$dir$dst"
+		elif [ -d "$dir$src" ] ; then
+			if [ -d "$dir$dst" ] ; then
+				echo "    relocating dir [$src] to [$dst], moving content"
+				for i in $dir$src/* ; do mv $i $dir$dst ; done
+				rm -rf $dir$src
+			else
+				echo "    relocating dir [$src] to [$dst]"
+				mkdir -p $( dirname $dir$dst )
+				mv $dir$src $dir$dst
+			fi
+		fi
+	done
+
+	find $dir -type l | while read link ; do
+		target=$( readlink $link )
+		cat $RELOCATION_DEFINITIONS | while read src dst ; do
+			if [ -n "$src" -a -n "$dst" -a ${target:0:${#src}} = $src ] ; then
+				result=$dst${target:${#src}}
+				echo "      updating symlink [$link] from [$target] to [$result]"
+				ln -sf $result $link
+				continue
+			fi
+		done
+
+	done
+
+	found_empty=1
+	while [ $found_empty -eq 1 ] ; do
+		found_empty=0
+		while read d ; do
+			echo "    purging empty dir [$d]"
+			rmdir $d
+			found_empty=1
+		done < <( find $dir -type d -empty )
+	done
+}
+
+[ $# -ne 2 ] && usage
+
+RELOCATION_DEFINITIONS=`dirname $0`/rpm2pkg-reloc.txt
+if [ ! -f $RELOCATION_DEFINITIONS ] ; then
+	echo "$0: relocation definition file [$RELOCATION_DEFINITIONS] does not exist."
+	exit 1
+fi
+
+RPM_FILE=$1
+if [ ! -f $RPM_FILE ] ; then
+	echo "$0: input file [$RPM_FILE] does not exist."
+	exit 1
+fi
+echo "rpm file [$RPM_FILE]"
+RPM_DIR=${RPM_FILE%.rpm}
+if [ $RPM_DIR = $RPM_FILE ] ; then
+	RPM_DIR="$RPM_DIR-dir"
+fi
+
+echo "  unpacking to directory [$RPM_DIR]"
+rm -rf $RPM_DIR
+mkdir -p $RPM_DIR/root
+rpm2cpio $RPM_FILE | ( cd $RPM_DIR/root && cpio --quiet -idm )
+
+echo "    munging paths in files in [$RPM_DIR/root]"
+munge $RPM_DIR/root
+
+relocate $RPM_DIR/root
+
+unpack_man_pages $RPM_DIR/root
+
+PKG_NAME=RHAT$2
+
+{
+	read RPM_NAME
+	read RPM_VERSION
+	read RPM_RELEASE
+	read RPM_ARCH
+	if [ "$RPM_ARCH" == 'sparc64' ] ; then RPM_ARCH='sparce' ; fi
+	read RPM_SUMMARY
+} < <( rpm -qp --nosignature --qf '%{name}\n%{version}\n%{release}\n%{arch}\n%{summary}\n' $RPM_FILE )
+PKG_FILE=$( echo $RPM_FILE | sed -e 's!\.noarch\.rpm$!.rpm!' -e "s!^.*\(-.*-.*\)\.rpm\$!$PKG_NAME\1.pkg!" )
+
+STAMP=$( date '+%Y%m%d-%H%M%S' )
+if [ -f $PKG_FILE ] ; then
+	echo "making backup of [$PKG_FILE] to [$PKG_FILE.$STAMP]"
+	mv $PKG_FILE $PKG_FILE.$STAMP
+fi
+
+echo "package [$PKG_NAME]"
+echo "  creating [pkginfo]"
+cat <<EOS > $RPM_DIR/pkginfo
+PKG="$PKG_NAME"
+NAME="$RPM_NAME $RPM_VERSION"
+VERSION="$RPM_VERSION,REV=$RPM_RELEASE"
+ARCH="$RPM_ARCH"
+CATEGORY="utility"
+DESC="$RPM_SUMMARY"
+PSTAMP=RHAT_RHN
+CLASSES=none
+VENDOR="Red Hat"
+SUNW_PKG_THISZONE=true
+EOS
+
+PROTO_FILE=$PKG_NAME.proto
+PROTO_FILENAME=$RPM_DIR/$PROTO_FILE
+echo "  creating prototype [$PROTO_FILE]"
+echo "i pkginfo" > $PROTO_FILENAME
+( cd $RPM_DIR && find root/ ) | sed 's!^root!!' |
+	while read p ; do
+		if [ -L $RPM_DIR/root$p ] ; then
+			target=$( readlink $RPM_DIR/root$p )
+			echo "s none $p=$target"
+		elif [ -d $RPM_DIR/root$p ] ; then
+			echo "d none $p ? ? ?"
+		elif [ -f $RPM_DIR/root$p ] ; then
+			stat=$( stat --printf '0%a' $RPM_DIR/root$p )
+			echo "f none $p $stat root root"
+		else
+			"unsupported type [$RPM_DIR/root$p]"
+			exit 1
+		fi
+	done >> $PROTO_FILENAME
+
+echo "running pkgmk with root [$RPM_DIR/root] out [$RPM_DIR/pkg] prototype [$PROTO_FILENAME]"
+mkdir $RPM_DIR/pkg
+pkgmk -o -r $RPM_DIR/root -d $RPM_DIR/pkg -f $PROTO_FILENAME
+
+echo "running pkgtrans [$RPM_DIR/pkg] to [$PKG_FILE] for [$PKG_NAME]"
+pkgtrans -o -s $RPM_DIR/pkg ../../$PKG_FILE "$PKG_NAME.*"
+
+echo "cleaning up $RPM_DIR"
+rm -rf $RPM_DIR
+
+exit 0
+
