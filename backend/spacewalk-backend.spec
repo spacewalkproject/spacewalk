@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.13
+Version: 1.1.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue May 18 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.14-1
+- satellite-sync optimization
+
 * Fri May 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.13-1
 - fixed performance issue in satellite-sync
 - update po files
