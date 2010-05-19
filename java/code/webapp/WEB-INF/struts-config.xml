@@ -6636,7 +6636,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/channel/repo/repodetails.jsp"/>
+                 path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success"
                  path="/channels/manage/repo/RepoEdit.do" redirect = "true"
                  />
@@ -6650,7 +6650,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/channel/repo/repodetails.jsp"/>
+                 path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success"
                  path="/channels/manage/repo/RepoEdit.do" redirect = "true"/>
     </action>
