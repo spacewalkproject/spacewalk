@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2 and Python
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.21
+Version: 5.9.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed May 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.22-1
+- 593563 - fixed debug rutines according to checksum changes
+
 * Tue May 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.9.21-1
 - 515637 - add newline at the end so solaris will not strip last line
 - 515637 - add newline at the end of file
