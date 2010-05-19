@@ -29,8 +29,6 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
-import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -113,43 +111,6 @@ public class RepoDetailsAction extends RhnAction {
     }
 
 
-    /**
-     * Helper method to get a cobbler snippet.. This code is in this
-     * action because we need it to throw a "BadParameterException"
-     * if the set up complains... Also it gets info from the request object
-     * so this is the right place...
-     * @param request  the request
-     * @param lookupParam the parameter to which the snippet name is bound..
-     * @return the cobbler snippet parameter "name"
-     */
-    private static CobblerSnippet loadEditableSnippet(HttpServletRequest request,
-                                    String lookupParam) {
-        RequestContext context = new RequestContext(request);
-        try {
-            String name = context.getParam(lookupParam, true);
-            return  CobblerSnippet.loadEditable(name,
-                        context.getLoggedInUser().getOrg());
-        }
-        catch (ValidatorException ve) {
-            LOG.error(ve);
-            throw new BadParameterException(
-                    "The parameter " + LABEL + " is required.");
-        }
-    }
-
-
-    /**
-     * Helper method to get a cobbler snippet.. This code is in this
-     * action because we need it to throw a "BadParameterException"
-     * if the set up complains... Also it gets info from the request object
-     * so this is the right place...
-     * @param request  the request
-     * @return the cobbler snippet parameter "name"
-     */
-    static CobblerSnippet loadEditableRepo(HttpServletRequest request) {
-        return loadEditableSnippet(request, LABEL);
-    }
-
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
             ContentSource repo) {
 
@@ -161,7 +122,7 @@ public class RepoDetailsAction extends RhnAction {
     }
 
     /**
-     * Method to bind the cobbler snippet to a request
+     * Method to bind the repo to a request
      * @param request the servlet request
      * @param snip the snippet to bind
      */
@@ -171,6 +132,8 @@ public class RepoDetailsAction extends RhnAction {
 
     private ContentSource submit(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
+
+
         String label = isCreateMode(request) ?
                     form.getString(LABEL) : form.getString(OLD_LABEL);
 
