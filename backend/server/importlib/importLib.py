@@ -695,10 +695,11 @@ class GenericPackageImport(Import):
 
         if not self.package_arches.has_key(package.arch):
             self.package_arches[package.arch] = None
-
-        checksumTuple = (package['checksum_type'], package['checksum'])
-        if not self.checksums.has_key(checksumTuple):
-            self.checksums[checksumTuple] = None
+   
+        for type, chksum in package['checksums'].iteritems():
+            checksumTuple = (type, chksum)
+            if not checksumTuple in self.checksums:
+                self.checksums[checksumTuple] = None
 
     def _postprocessPackageNEVRA(self, package):
         arch = self.package_arches[package.arch]

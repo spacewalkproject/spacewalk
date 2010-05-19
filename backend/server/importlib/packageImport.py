@@ -113,7 +113,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         pass
 
     def submit(self):
-        self.backend.lookupPackages(self.batch)
+        self.backend.lookupPackages(self.batch, self.checksums)
         try:
             affected_channels = self.backend.subscribeToChannels(self.batch, 
                 strict=self._strict_subscription)

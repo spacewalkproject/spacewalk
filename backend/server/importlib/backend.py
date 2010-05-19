@@ -500,14 +500,26 @@ class Backend:
     def lookupPackageGroups(self, hash):
         self.__processHash('rhnPackageGroup', 'name', hash)
 
-    def lookupPackages(self, packages, ignore_missing = 0):
+    def lookupPackages(self, packages, checksums, ignore_missing = 0):
         # If nevra is enabled use checksum as primary key
         self.validate_pks()
         for package in packages:
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, found %s" % \
                                 str(type(package)))
-        self.__lookupObjectCollection(packages, 'rhnPackage', ignore_missing)
+        for package in packages:
+            exception = None
+            for type, chksum  in package['checksums'].iteritems():
+                package['checksum_id']  = checksums[(type, chksum)]
+                try:
+                    self.__lookupObjectCollection([package], 'rhnPackage', ignore_missing)
+                    exception = None
+                    break
+                except InvalidPackageError, e:
+                    exception = e
+            if exception:
+                raise exception 
+                    
 
     def lookupSolarisPackages(self, packages, ignore_missing=0):
         for pkg in packages:
