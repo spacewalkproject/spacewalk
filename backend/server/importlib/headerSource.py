@@ -35,6 +35,7 @@ class rpmPackage(IncompletePackage):
         # We set them differently
 	'checksum'          : None,
 	'checksum_type'     : None,
+	'checksum_list'     : None,
         'sigchecksum'       : None,
         'sigchecksum_type'  : None,
     }
