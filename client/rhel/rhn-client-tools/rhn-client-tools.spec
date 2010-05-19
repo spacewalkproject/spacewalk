@@ -75,8 +75,14 @@ Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
-Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas 
+Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
 Requires: usermode-gtk
+%if 0%{?fedora} > 9 || 0%{?rhel} > 5
+Requires: gnome-python2-gnome gnome-python2-bonobo
+%endif
+%if 0%{?fedora} > 10 || 0%{?rhel} > 5
+Requires: liberation-sans-fonts
+%endif
 
 %description -n rhn-setup-gnome
 rhn-setup-gnome contains a GTK+ graphical interface for configuring and
