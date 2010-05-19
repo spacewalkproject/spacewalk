@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.org.Org;
 
 /**
  * CreateRepoCommand - Command to create a repo
@@ -31,6 +32,7 @@ public class CreateRepoCommand {
 
     private String label;
     private String url;
+    private Org org;
     private ContentSource newRepo;
     private List<ValidatorError> errors;
 
@@ -43,9 +45,26 @@ public class CreateRepoCommand {
      * @param passwordIn to set for first user
      * @param emailIn to set for first user
      */
-    public CreateRepoCommand(String labelIn, String urlIn) {
+    public CreateRepoCommand(String labelIn, String urlIn, Org orgIn) {
         this.label = labelIn;
         this.url = urlIn;
+        this.org = orgIn;
+    }
+
+    /**
+     *
+     * @return Org of repo
+     */
+    public Org getOrg() {
+        return org;
+    }
+
+    /**
+     *
+     * @param org to set for repo
+     */
+    public void setOrg(Org org) {
+        this.org = org;
     }
 
     /**
@@ -94,6 +113,7 @@ public class CreateRepoCommand {
             ContentSource repo = ChannelFactory.createRepo();
             repo.setLabel(this.label);
             repo.setSourceUrl(this.url);
+            repo.setOrg(this.org);
             ChannelFactory.save(repo);
             this.newRepo = repo;
         }

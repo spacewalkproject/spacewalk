@@ -29,10 +29,12 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
 
 
 /**
@@ -133,21 +135,14 @@ public class RepoDetailsAction extends RhnAction {
     private ContentSource submit(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
 
-
         String label = isCreateMode(request) ?
                     form.getString(LABEL) : form.getString(OLD_LABEL);
+        String url = form.getString(URL);
+        Org org = context.getLoggedInUser().getOrg();
 
-        /*
-        CobblerSnippet snip = CobblerSnippet.createOrUpdate(
-                isCreateMode(request),
-                name,
-                form.getString(CONTENTS),
-                context.getLoggedInUser().getOrg());
-        if (!isCreateMode(request) &&
-                !form.getString(NAME).equals(form.getString(OLD_NAME))) {
-            snip.rename(form.getString(NAME));
-        }
-        */
-        return null;
+        CreateRepoCommand repoCmd = new CreateRepoCommand(label, url, org);
+        repoCmd.store();
+
+        return repoCmd.getNewRepo();
     }
 }
