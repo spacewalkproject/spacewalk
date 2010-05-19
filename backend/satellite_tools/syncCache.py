@@ -56,17 +56,13 @@ class BaseCache:
 
     def _hash_object_id(self, object_id, factor):
         """Given an object id (assumed to be <label>-<number>), returns the
-        last few digits for the number. For instance, (812345, 1000) should
+        last few digits for the number. For instance, (812345, 3) should
         return 345"""
-        object_id = str(object_id)
-        # Compute the number of digits we need from the hash
-        format = int(math.ceil(math.log10(factor)))
-        # Format the template
-        format = '%0' + str(format) + 'd'
         # Grab the digits after -
         num_id = string.split(object_id, '-')[-1]
-        num_id = int(num_id) % factor
-        return format % num_id
+        # get last 'factor' numbers
+        num_id = num_id[-factor:]
+        return num_id.rjust(factor,'0')
 
 class ChannelCache(BaseCache):
     def _get_key(self, object_id):
@@ -75,7 +71,7 @@ class ChannelCache(BaseCache):
 class BasePackageCache(BaseCache):
     _subdir = "__unknown__"
     def _get_key(self, object_id):
-        hash_val = self._hash_object_id(object_id, 100)
+        hash_val = self._hash_object_id(object_id, 2)
         return os.path.join("satsync", self._subdir, hash_val, str(object_id))
 
 class ShortPackageCache(BasePackageCache):
@@ -91,7 +87,7 @@ class SourcePackageCache(BasePackageCache):
 class ErratumCache(BaseCache):
     _subdir = "errata"
     def _get_key(self, object_id):
-        hash_val = self._hash_object_id(object_id, 10)
+        hash_val = self._hash_object_id(object_id, 1)
         return os.path.join("satsync", self._subdir, hash_val, str(object_id))
 
 class KickstartableTreesCache(BaseCache):

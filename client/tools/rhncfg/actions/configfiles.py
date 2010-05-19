@@ -343,7 +343,8 @@ def format_file_string(file_list, keylist):
         outstr
         for key in keylist:
             formatstr = "\n%s: %s"
-            outstr = outstr + formatstr % (key, afile[key])
+            if key in afile:
+                outstr = outstr + formatstr % (key, afile[key])
         outstr = outstr + "\n"
     return outstr
 
@@ -366,6 +367,8 @@ def create_key_list():
                     'delim_start',
                     'delim_end',
                     'md5sum',
+                    'checksum_type',
+                    'checksum',
                     'file_contents',
                 ]
     #This dictionary associates each debug level (the key) with the index into key_list (the value) at which
@@ -376,7 +379,7 @@ def create_key_list():
                         2 : 6,
                         3 : 8,
                         4 : 10,
-                        5 : 12, 
+                        5 : 14,
                    }
     curr_debug = get_debug_level()
     if curr_debug > 5:

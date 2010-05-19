@@ -6,7 +6,7 @@ PREFIX		?=
 MANPATH		?= /usr/share/man
 
 # Dirs we need to walk into
-SUBDIRS		= data etc-conf man po src
+SUBDIRS		= data etc-conf man po setuptool.d src
 
 # Handy defines 
 VERSION         := $(shell echo `grep ^Version: rhn-client-tools.spec | awk '{ print $$2 }'`)

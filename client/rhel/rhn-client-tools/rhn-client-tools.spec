@@ -21,7 +21,7 @@ Requires: sh-utils
 Requires: dbus-python
 %if 0%{?fedora} > 12 || 0%{?rhel} > 5
 Requires: python-gudev
-Requires: hwdata
+Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
 %endif
@@ -75,8 +75,14 @@ Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
-Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas 
+Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
 Requires: usermode-gtk
+%if 0%{?fedora} > 9 || 0%{?rhel} > 5
+Requires: gnome-python2-gnome gnome-python2-bonobo
+%endif
+%if 0%{?fedora} > 10 || 0%{?rhel} > 5
+Requires: liberation-sans-fonts
+%endif
 
 %description -n rhn-setup-gnome
 rhn-setup-gnome contains a GTK+ graphical interface for configuring and
@@ -164,7 +170,6 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/config.*
 %{_datadir}/rhn/up2date_client/haltree.*
 %{_datadir}/rhn/up2date_client/hardware*
-%{_datadir}/rhn/up2date_client/hwdata.*
 %{_datadir}/rhn/up2date_client/up2dateUtils.*
 %{_datadir}/rhn/up2date_client/up2dateLog.*
 %{_datadir}/rhn/up2date_client/up2dateErrors.*
@@ -224,6 +229,8 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/rhnreg.*
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
+
+%{_datadir}/setuptool/setuptool.d/99rhn_register
 
 %files -n rhn-setup-gnome
 %defattr(-,root,root,-)

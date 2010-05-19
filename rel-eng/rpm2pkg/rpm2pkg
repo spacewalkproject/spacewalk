@@ -135,7 +135,10 @@ PKG_NAME=RHAT$2
 	if [ "$RPM_ARCH" == 'sparc64' ] ; then RPM_ARCH='sparce' ; fi
 	read RPM_SUMMARY
 } < <( rpm -qp --nosignature --qf '%{name}\n%{version}\n%{release}\n%{arch}\n%{summary}\n' $RPM_FILE )
-PKG_FILE=$( echo $RPM_FILE | sed -e 's!\.noarch\.rpm$!.rpm!' -e "s!^.*\(-.*-.*\)\.rpm\$!$PKG_NAME\1.pkg!" )
+PKG_FILE=$( echo $RPM_FILE | sed -e 's!\.noarch\.rpm$!.rpm!' -e "s!^.*\(-.*-[0-9]*\)[^-]*\.rpm\$!$PKG_NAME\1.pkg!" )
+
+# remove dist tag
+RPM_RELEASE=$( echo RPM_RELEASE | sed -e 's!^\([0-9]*\).*!\1!' )
 
 STAMP=$( date '+%Y%m%d-%H%M%S' )
 if [ -f $PKG_FILE ] ; then
