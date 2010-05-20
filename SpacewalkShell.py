@@ -736,9 +736,7 @@ For help for a specific command try 'help <cmd>'.
                                                                    group)
                 groups.append(group_details.get('name'))
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Key:               %s' % details.get('key')
@@ -915,9 +913,7 @@ For help for a specific command try 'help <cmd>'.
                                                          filenames)
 
         for file in files:
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'File:     %s' % file.get('path')
@@ -964,9 +960,7 @@ For help for a specific command try 'help <cmd>'.
             files = self.client.configchannel.listFiles(self.session,
                                                         channel)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Label:       %s' % details.get('label')
@@ -1021,9 +1015,7 @@ For help for a specific command try 'help <cmd>'.
                 logging.debug(sys.exc_info())
                 return
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Description: %s' % details.get('description')
@@ -1032,6 +1024,66 @@ For help for a specific command try 'help <cmd>'.
             print
             print details.get('content')
 
+####################
+
+    def help_errata_listaffectedsystems(self):
+        print 'errata_listaffectedsystems: List of systems affected by this' + \
+              ' errata or CVE'
+        print 'usage: errata_listaffectedsystems ERRATA|CVE ...'
+
+    def do_errata_listaffectedsystems(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_errata_listaffectedsystems()
+            return
+
+        add_separator = False
+
+        for query in args:
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            errata_names = []
+            if re.match('CVE', query, re.I):
+                print 'Query:  %s' % query
+
+                errata = self.client.errata.findByCve(self.session, query)
+
+                if len(errata):
+                    for e in errata:
+                        logging.debug('Found %s' % e.get('advisory_name'))
+                        errata_names.append(e.get('advisory_name'))
+                else:
+                    logging.warning('No errata found')
+                    continue
+            else:
+                try:
+                    results = self.client.errata.getDetails(self.session, query)
+                except:
+                    print 'Query: %s' % query
+                    logging.warning('No errata found')
+                    continue
+
+                errata_names.append(query)
+
+            systems = []
+            for name in sorted(errata_names):
+                print 'Errata: %s' % name
+
+                results = self.client.errata.listAffectedSystems(self.session, 
+                                                                 name)
+
+                for r in results:
+                    if r.get('name') not in systems:
+                        systems.append(r.get('name'))
+
+            if len(systems):
+                for system in sorted(systems):
+                    print '  %s' % system
+            else:
+                logging.warning('No systems affected')
+        
 ####################
 
     def help_errata_details(self):
@@ -1062,9 +1114,7 @@ For help for a specific command try 'help <cmd>'.
                 logging.debug(sys.exc_info())
                 continue
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Name:       %s' % name
@@ -1409,9 +1459,7 @@ For help for a specific command try 'help <cmd>'.
                 logging.debug(sys.exc_info())
                 return
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Name               %s' % details.get('name')
@@ -1615,9 +1663,7 @@ For help for a specific command try 'help <cmd>'.
             add_separator = False
 
             for s in scripts:
-                if add_separator:
-                    print self.SEPARATOR
-
+                if add_separator: print self.SEPARATOR
                 add_separator = True
 
                 print '  Type:        %s' % s.get('script_type')
@@ -1716,9 +1762,7 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('%s is not a valid snippet' % name)
                 continue
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Name:   %s' % snippet.get('name')
@@ -1895,9 +1939,7 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for package in args:
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             try:
@@ -2095,9 +2137,7 @@ For help for a specific command try 'help <cmd>'.
 
         add_separator = False
         for r in results:
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'System:      %s' % 'UNKNOWN'
@@ -2170,9 +2210,7 @@ For help for a specific command try 'help <cmd>'.
             add_separator = False
 
             for i in range(0, limit):
-                if add_separator:
-                    print self.SEPARATOR
-
+                if add_separator: print self.SEPARATOR
                 add_separator = True
 
                 systems = self.client.schedule.listInProgressSystems(\
@@ -2202,9 +2240,7 @@ For help for a specific command try 'help <cmd>'.
             add_separator = False
 
             for i in range(0, limit):
-                if add_separator:
-                    print self.SEPARATOR
-
+                if add_separator: print self.SEPARATOR
                 add_separator = True
 
                 systems = self.client.schedule.listCompletedSystems(\
@@ -2234,9 +2270,7 @@ For help for a specific command try 'help <cmd>'.
             add_separator = False
 
             for i in range(0, limit):
-                if add_separator:
-                    print self.SEPARATOR
-
+                if add_separator: print self.SEPARATOR
                 add_separator = True
 
                 systems = self.client.schedule.listFailedSystems(\
@@ -2266,9 +2300,7 @@ For help for a specific command try 'help <cmd>'.
             add_separator = False
 
             for i in range(0, limit):
-                if add_separator:
-                    print self.SEPARATOR
-
+                if add_separator: print self.SEPARATOR
                 add_separator = True
 
                 self.print_action_summary(actions[i])
@@ -2382,9 +2414,7 @@ For help for a specific command try 'help <cmd>'.
 
             trees = self.client.kickstart.tree.list(self.session, channel)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Label:              %s' % details.get('label')
@@ -2445,9 +2475,7 @@ For help for a specific command try 'help <cmd>'.
 
             self.print_errata_list(errata)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
 ####################
@@ -2844,9 +2872,7 @@ For help for a specific command try 'help <cmd>'.
             except xml.parsers.expat.ExpatError:
                 dmi = None
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             if len(systems) > 1:
@@ -3235,9 +3261,7 @@ For help for a specific command try 'help <cmd>'.
                 self.client.system.listLatestUpgradablePackages(self.session,
                                                                 system_id)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             if len(systems) > 1:
@@ -3294,9 +3318,7 @@ For help for a specific command try 'help <cmd>'.
             packages = self.client.system.listPackages(self.session,
                                                        system_id)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             if len(systems) > 1:
@@ -3513,9 +3535,7 @@ For help for a specific command try 'help <cmd>'.
             registered = self.client.system.getRegistrationDate(self.session,
                                                                 system_id)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
             print 'Name:          %s' % system
@@ -3632,9 +3652,7 @@ For help for a specific command try 'help <cmd>'.
 
             self.print_errata_list(errata)
 
-            if add_separator:
-                print self.SEPARATOR
-
+            if add_separator: print self.SEPARATOR
             add_separator = True
 
 ####################
