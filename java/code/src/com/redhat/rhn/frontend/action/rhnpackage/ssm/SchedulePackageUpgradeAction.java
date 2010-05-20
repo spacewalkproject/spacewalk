@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 
 import com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent;
@@ -107,13 +108,13 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
 
             // bz465892 - As the selected packages are parsed, remove duplicates
             // keeping the highest EVR
-            Map<Long, PackageListItem> packageNameIdsToItems =
-                new HashMap<Long, PackageListItem>(data.size());
+            Map<String, PackageListItem> packageNameIdsToItems =
+                new HashMap<String, PackageListItem>(data.size());
             
             for (String idCombo : data) {
                 PackageListItem item = PackageListItem.parse(idCombo);
                 
-                PackageListItem existing = packageNameIdsToItems.get(item.getIdOne()); 
+                PackageListItem existing = packageNameIdsToItems.get(item.getIdOne() + "|"+ item.getIdThree()); 
                 if (existing != null) {
                     String[] existingParts = splitEvr(existing.getNvre());
                     String[] itemParts = splitEvr(item.getNvre());
@@ -129,11 +130,11 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
                     itemEvr.setRelease(itemParts[2]);
 
                     if (existingEvr.compareTo(itemEvr) < 0) {
-                        packageNameIdsToItems.put(item.getIdOne(), item);
+                        packageNameIdsToItems.put(item.getIdOne() + "|"+ item.getIdThree(), item);
                     }
                 }
                 else {
-                    packageNameIdsToItems.put(item.getIdOne(), item);
+                    packageNameIdsToItems.put(item.getIdOne() + "|"+ item.getIdThree(), item);
                 }
             }
 
