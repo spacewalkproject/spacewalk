@@ -46,6 +46,7 @@ public class EnvironmentFilter implements Filter {
     private static String[] nosslurls = {"/rhn/kickstart/DownloadFile",
                                          "/rhn/common/DownloadFile",
                                          "/rhn/rpc/api",
+                                         "/rhn/rpc/internal",
                                          "/rhn/ty/TinyUrl"};
     
     // It is ok to maintain an instance because PxtSessionDelegate does not maintain client

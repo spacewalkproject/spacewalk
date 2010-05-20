@@ -1,0 +1,3 @@
+<factory>
+  <template name="api" classname="com.redhat.rhn.frontend.xmlrpc.api.ApiHandler" />
+</factory>

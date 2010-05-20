@@ -15,8 +15,11 @@
 
 package com.redhat.rhn.frontend.xmlrpc;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.manifestfactory.ClassBuilder;
 import com.redhat.rhn.common.util.manifestfactory.ManifestFactory;
+
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Collection;
 
@@ -28,15 +31,29 @@ import java.util.Collection;
  */
 
 public class HandlerFactory {
+    public static final String HANDLER_MANIFEST = "handler-manifest";
+    
     private ManifestFactory factory;
     private static final String PKG_NAME = "com.redhat.rhn.frontend.xmlrpc";
-    
-    /** private constructor */
+    public static final String DEFAULT_MANIFEST = "handler-manifest.xml"; 
+    /** Handler constructor */
     public HandlerFactory() {
-        this(new ClassBuilder(PKG_NAME, "handler-manifest.xml"));
+        String manifest = StringUtils.defaultIfEmpty(Config.get().
+                        getString("handler-manifest"), DEFAULT_MANIFEST);
+        setup(manifest);
     }
+
+    /**
+     * Constructor that takes in a given handler manifest file
+     * mainly used for unit test
+     * @param handlerManifest the name of the manifest-xml
+     */
+    public HandlerFactory(String handlerManifest) {
+        setup(handlerManifest);
+    }    
     
-    protected HandlerFactory(ClassBuilder builder) {
+    protected void setup(String handlerManifest) {
+        ClassBuilder builder = new ClassBuilder(PKG_NAME, handlerManifest);
         factory = new ManifestFactory(builder);
     }
 
@@ -57,4 +74,20 @@ public class HandlerFactory {
     public Collection getKeys() {
         return factory.getKeys();
     }
+    
+    /**
+     * Sets the handler manifest config entry
+     * @param value the handler manifest xml location
+     */
+    public static void setDefaultHandlerManifest(String value) {
+        Config.get().setString(HANDLER_MANIFEST, value);
+    }
+    
+    /**
+     * @return the handler manifest location
+     */
+    public static String getHandlerManifest() {
+        return StringUtils.defaultIfEmpty(Config.get().
+                getString(HANDLER_MANIFEST), DEFAULT_MANIFEST);        
+    }    
 }

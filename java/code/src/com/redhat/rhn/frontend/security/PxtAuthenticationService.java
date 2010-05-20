@@ -50,6 +50,7 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/rhn/ReLogin");
         set.add("/rhn/newuser");
         set.add("/rhn/rpc/api");
+        set.add("/rhn/rpc/internal");
         set.add("/rhn/servlet/");
         set.add("/rhn/services/");
         set.add("/rhn/help/");

@@ -179,13 +179,30 @@
   </servlet>
 
   <!-- 
+      XMLRPC servlet target for XMLRPC stored procedure requests or other internal calls
+  -->
+  <servlet>
+    <servlet-name>XMLRPC-INTERNAL</servlet-name>
+    <servlet-class>com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet</servlet-class>
+    <init-param>
+      <param-name>handler-manifest</param-name>
+      <param-value>internal-handler-manifest.xml</param-value>
+    </init-param>    
+  </servlet> 
+
+  <!-- 
       XMLRPC servlet target for XMLRPC web service requests
   -->
   <servlet>
     <servlet-name>XMLRPC</servlet-name>
     <servlet-class>com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet</servlet-class>
-  </servlet>
+    <init-param>
+      <param-name>handler-manifest</param-name>
+      <param-value>handler-manifest.xml</param-value>
+    </init-param>      
+  </servlet> 
   
+ 
   <!-- 
       REST interface for Errata
    -->
@@ -258,9 +275,15 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>XMLRPC-INTERNAL</servlet-name>
+    <url-pattern>/rpc/internal/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>XMLRPC</servlet-name>
     <url-pattern>/rpc/api/*</url-pattern>
   </servlet-mapping>
+
 
   <servlet-mapping>
   	<servlet-name>RedirectServlet</servlet-name>

@@ -56,17 +56,20 @@ public class XmlRpcServlet extends HttpServlet {
      * @param sf SerializerFactory to use.
      */
     public XmlRpcServlet(HandlerFactory hf, SerializerFactory sf) {
-        handlers = hf;
-        serializers = sf;
+        setup(hf, sf);
     }
 
     /**
      * default constructor
      */
     public XmlRpcServlet() {
-        this(new HandlerFactory(), new SerializerFactory());
     }
 
+    private void setup(HandlerFactory hf, SerializerFactory sf) {
+        handlers = hf;
+        serializers = sf;
+    }
+    
     private void passControl(HttpServletRequest request,
                             HttpServletResponse response)
         throws ServletException, IOException {
@@ -77,6 +80,12 @@ public class XmlRpcServlet extends HttpServlet {
      * initialize the servlet
      */
     public void init() {
+        if (handlers == null) {
+            HandlerFactory.setDefaultHandlerManifest(getServletConfig().
+                                getInitParameter(HandlerFactory.HANDLER_MANIFEST));
+            setup(new HandlerFactory(), new SerializerFactory());            
+        }
+
         server = new RhnXmlRpcServer();
         
         registerInvocationHandlers(server);
