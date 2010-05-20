@@ -758,20 +758,32 @@ SELECT  PN.id AS id,
         INNER JOIN rhnPackageEVR PE on SP.evr_id = PE.id
         LEFT JOIN rhnPackageArch PA on SP.package_arch_id = PA.id,
         (
-         SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr, 
-                 SP.package_arch_id as arch_id, PA.label as arch_label
-           FROM  rhnServerOutdatedPackages SOP
-                 INNER JOIN rhnServerPackage SP on SP.server_id = SOP.server_id
-                 INNER JOIN rhnPackageEVR PE on SOP.package_evr_id = PE.id
-                 LEFT JOIN rhnPackageArch PA on PA.id = SP.package_arch_id
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_name_id = SP.name_id
-       GROUP BY  SOP.package_name_id, SP.package_arch_id, PA.label
+         SELECT  P.name_id AS name_id, MAX(PE.evr) evr,
+                 P.package_arch_id as arch_id, PA.label as arch_label
+          FROM   rhnServerNeededCache SNC inner join
+                 rhnPackage P on SNC.package_Id = P.id inner join
+                 rhnPackageEVR PE on P.evr_id = PE.id inner join
+                 rhnPackageArch PA on PA.id = P.package_arch_id
+          WHERE  SNC.server_id = :sid
+       GROUP BY  P.name_id, P.package_arch_id, PA.label
        ) latest
  WHERE  latest.name_id = PN.id
    AND  SP.server_id = :sid
    AND  SP.name_id = PN.id
-   AND  (SP.package_arch_id IS NULL OR SP.package_arch_id = latest.arch_id)
+   AND  (SP.package_arch_id IS NULL OR SP.package_arch_id = 
+                 -- If the server has more than one package of this name installed
+                 -- Then group by arch, otherwise just use whever is there
+   	             NVL2(
+                     (select 1 from rhnServerPackage sp2
+                               where
+                               sp2.name_id = latest.name_id and
+                                sp2.server_id = :sid
+                                group by sp2.name_id having count(*) > 1
+                        ),
+                        latest.arch_id,
+                        SP.package_arch_id)
+                        
+   	)
 ORDER BY  UPPER(PN.name)
   </query>
   <elaborator multiple="t" params="sid">
