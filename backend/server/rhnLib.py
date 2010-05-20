@@ -28,7 +28,7 @@ from rhnMapping import check_package_arch
 # Utility function that removes \n\r from a string
 def removeNewlines(str):
     # Remove \n and \r from the string str
-    return string.translate(str, string.maketrans("", ""), "\n\r")
+    return string.translate(str, None, "\n\r")
 
 def computeSignature(*fields):
     # Init the hash
