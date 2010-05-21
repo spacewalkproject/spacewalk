@@ -29,11 +29,7 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -88,6 +84,13 @@ public class SchedulerKernel {
             this.chainedJobListener = new ChainedListener();
             this.chainedJobListener.addListener(new TaskEnvironmentListener());
             this.chainedJobListener.addListener(new LoggingListener());
+
+            try {
+                this.scheduler.addTriggerListener(this.chainedJobListener);
+            }
+            catch (SchedulerException e) {
+                throw new ConfigException(e.getLocalizedMessage(), e);
+            }
         }
         catch (SchedulerException e) {
             // TODO Auto-generated catch block
@@ -137,78 +140,6 @@ public class SchedulerKernel {
         Thread t = new Thread(shutdownTask);
         t.setDaemon(true);
         t.start();
-    }
-
-    /**
-     * Configures the system.
-     * @param config Configuration object containing config values.
-     * @throws ConfigException thrown if there is a problem creating jobs by name.
-     */
-    public void configure(Config config) throws ConfigException {
-        configure(config, null);
-    }
-
-    /**
-     * Configures the system.
-     * @param config Configuration object containing config values.
-     * @param overrides Map containing configuration overrides based on cli params
-     * @throws ConfigException thrown if there is a problem creating jobs by name.
-     */
-    public void configure(Config config, Map overrides) throws ConfigException {
-        if (log.isDebugEnabled()) {
-            log.debug("Scheduling tasks");
-        }
-        Map pendingJobs = new HashMap();
-        List jobImpls = new ArrayList();
-        if (log.isDebugEnabled()) {
-            log.debug("No manual overrides detected...Using configuration");
-        }
-
-        // get the default tasks first
-        String[] jobs = config.getStringArray(ConfigDefaults.TASKOMATIC_DEFAULT_TASKS);
-        if (jobs != null && jobs.length > 0) {
-            jobImpls.addAll(Arrays.asList(jobs));
-        }
-
-        // get other tasks
-        String[] addlJobs = config.getStringArray(ConfigDefaults.TASKOMATIC_TASKS);
-        if (addlJobs != null && addlJobs.length > 0) {
-            jobImpls.addAll(Arrays.asList(addlJobs));
-        }
-
-        // Bail if there is nothing to configure
-        if (jobImpls == null || jobImpls.size() == 0) {
-            log.warn("No tasks to schedule");
-            throw new ConfigException("No tasks to schedule");
-        }
-        int count = 0;
-        for (Iterator iter = jobImpls.iterator(); iter.hasNext();) {
-            String jobImpl = (String) iter.next();
-            if (log.isDebugEnabled()) {
-                log.debug("Scheduling " + jobImpl);
-            }
-            String schedulerEntry = config.getString("taskomatic." + jobImpl + ".schedule");
-            if (schedulerEntry != null && schedulerEntry.length() > 0) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Scheduler entry for " + jobImpl + ": " + schedulerEntry);
-                }
-                String[] data = new String[2];
-                data[0] = jobImpl;
-                data[1] = schedulerEntry;
-                pendingJobs.put(String.valueOf(count), data);
-            }
-            else {
-                log.warn("No schedule found for " + jobImpl + ". Skipping...");
-            }
-            count++;
-        }
-        try {
-            this.scheduler.addTriggerListener(this.chainedJobListener);
-        }
-        catch (SchedulerException e) {
-            throw new ConfigException(e.getLocalizedMessage(), e);
-        }
-        scheduleJobs(pendingJobs);
     }
 
     /**

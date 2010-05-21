@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.core;
 
-import com.redhat.rhn.common.conf.Config;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
@@ -98,7 +96,6 @@ public class TaskomaticDaemon  extends BaseDaemon {
         }
         try {
             this.kernel = new SchedulerKernel();
-            this.kernel.configure(Config.get(), overrides);
             Runnable r = new Runnable() {
                 public void run() {
                     try {
