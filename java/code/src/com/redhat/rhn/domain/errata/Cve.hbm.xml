@@ -13,4 +13,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
         <property name="name" column="name" type="string" length="13" />
     </class>    
+    <query name="Cve.lookupByName">
+        <![CDATA[from com.redhat.rhn.domain.errata.Cve as cve
+                 where cve.name = :name]]>
+    </query>
 </hibernate-mapping>
