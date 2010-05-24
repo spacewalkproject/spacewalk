@@ -28,7 +28,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="maintainerEmail" type="string" column="maint_email"/>
         <property name="maintainerPhone" type="string" column="maint_phone"/>
         <property name="supportPolicy" type="string" column="support_policy"/>
-        
+        <property name="lastSynced" type="timestamp" column="last_synced"/>
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"

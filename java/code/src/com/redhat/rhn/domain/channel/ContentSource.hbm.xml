@@ -14,7 +14,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
   
         <property name="sourceUrl" type="string" column="source_url"/>
-        <property name="lastSynced" type="timestamp" column="last_synced"/>
         <property name="created" type="timestamp" column="created"  insert="false" update="false" />
         <property name="modified" type="timestamp" column="modified" insert="false" update="false" />
         <property name="label" type="string" column="label"/>

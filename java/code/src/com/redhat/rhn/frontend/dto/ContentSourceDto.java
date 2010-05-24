@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import java.util.Date;
-
 
 /**
  * ContentSourceDto
@@ -25,23 +23,6 @@ public class ContentSourceDto extends BaseDto {
 
     private Long id;
     private String label;
-    private Date lastSynced;
-
-    /**
-     *
-     * @return laste date repo was synced
-     */
-    public Date getLastSynced() {
-        return lastSynced;
-    }
-
-    /**
-     *
-     * @param lastSyncedIn date to set of last sync
-     */
-    public void setLastSynced(Date lastSyncedIn) {
-        this.lastSynced = lastSyncedIn;
-    }
 
     /**
      * {@inheritDoc}

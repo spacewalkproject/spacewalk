@@ -70,6 +70,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Long id;
     private String label;
     private Date lastModified;
+    private Date lastSynced;
     private String name;
     private String access = PRIVATE;
     private Org org;
@@ -299,6 +300,20 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public void setLastModified(Date l) {
         this.lastModified = l;
+    }
+
+    /**
+     * @return Returns the lastSynced.
+     */
+    public Date getLastSynced() {
+        return lastSynced;
+    }
+
+    /**
+     * @param lastSyncedIn The lastSynced to set.
+     */
+    public void setLastSynced(Date lastSyncedIn) {
+        this.lastSynced = lastSyncedIn;
     }
 
     /**
