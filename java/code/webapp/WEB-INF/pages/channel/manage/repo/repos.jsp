@@ -40,7 +40,7 @@
 			<c:out value="<a href=\"/rhn/channel/manage/RepoEdit.do?label=${current.label}\">${current.label}</a>" escapeXml="false" />
         </rl:column>
             <rl:column headerkey="repos.jsp.lastsync"  styleclass="last-column">
-		<c:out value="${current.sync}"/>
+		<c:out value="${current.lastSynced}"/>
             </rl:column>
       </rl:list>
      </rl:listset>
