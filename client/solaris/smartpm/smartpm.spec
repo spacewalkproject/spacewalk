@@ -11,7 +11,7 @@ Name: smartpm
 Source0: smartpm-%{version}.tar.gz
 Epoch:   1 
 Version: 0.2
-Release: 2
+Release: 3
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -60,6 +60,10 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Mon May 24 2010 Miroslav Suchý <msuchy@redhat.com> 0.2-3
+- return smartpm back to 0.2 version and bump up epoch
+- 555659 - do not freak out when SUNW_PATCHID do not have SUN format
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 0.5-1
 - updated copyrights
 
