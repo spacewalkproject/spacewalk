@@ -49,6 +49,15 @@
             </c:if>
         </td>
     </tr>
+    <tr>
+        <th>
+		<rhn:required-field key = "repos.jsp.create.url"/>
+        </th>
+        <td>
+			<html:text property="url"/>
+        </td>
+    </tr>
+
     </table>
 
     <hr />
@@ -58,10 +67,10 @@
 		<td></td>
 		<c:choose>
 		<c:when test = "${empty requestScope.create_mode}">
-			<td align="right"><html:submit><bean:message key="snippetupdate.jsp.submit"/></html:submit></td>
+			<td align="right"><html:submit><bean:message key="repos.jsp.update.submit"/></html:submit></td>
 		</c:when>
 		<c:otherwise>
-			<td align="right"><html:submit><bean:message key="snippetcreate.jsp.submit"/></html:submit></td>
+			<td align="right"><html:submit><bean:message key="repos.jsp.create.submit"/></html:submit></td>
 		</c:otherwise>
 		</c:choose>
 	  </tr>
