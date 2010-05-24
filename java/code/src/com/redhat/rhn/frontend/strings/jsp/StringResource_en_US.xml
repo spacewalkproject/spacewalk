@@ -9399,6 +9399,22 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="repos.jsp.toolbar">
+          <source>Create New Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.header2">
+          <source>Create Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.header2">
+          <source>Create Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.create.label">
+          <source>Repository Label</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.create.url">
+          <source>Repository URL</source>
+        </trans-unit>
+
 
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
