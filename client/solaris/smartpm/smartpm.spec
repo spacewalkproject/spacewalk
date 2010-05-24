@@ -9,8 +9,9 @@
 Summary: Next generation package handling tool
 Name: smartpm
 Source0: smartpm-%{version}.tar.gz
-Version: 0.5
-Release: 1
+Epoch:   1 
+Version: 0.2
+Release: 2
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
