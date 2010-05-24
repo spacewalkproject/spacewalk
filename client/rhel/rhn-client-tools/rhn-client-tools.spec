@@ -36,6 +36,13 @@ BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: desktop-file-utils
 
+%if 0%{?fedora}
+BuildRequires: fedora-logos
+%endif
+%if 0%{?rhel} > 4
+BuildRequires: redhat-logos
+%endif
+
 # The following BuildRequires are for check only
 %if 0%{?fedora} >= 12
 BuildRequires: python-coverage

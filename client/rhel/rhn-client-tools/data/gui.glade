@@ -33,7 +33,7 @@
 	<widget class="GnomeDruidPageStandard" id="startPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Registering for software updates</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onStartPageNext"/>
 	  <signal name="prepare" handler="onStartPagePrepare"/>
 
@@ -56,7 +56,7 @@
 	<widget class="GnomeDruidPageStandard" id="chooseServerPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Choose an update location</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onChooseServerPageNext"/>
 	  <signal name="back" handler="onChooseServerPageBack"/>
 	  <signal name="prepare" handler="onChooseServerPagePrepare"/>
@@ -80,7 +80,7 @@
 	<widget class="GnomeDruidPageStandard" id="loginPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Enter your account information</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onLoginPageNext"/>
 	  <signal name="back" handler="onLoginPageBack"/>
 	  <signal name="prepare" handler="onLoginPagePrepare"/>
@@ -104,7 +104,7 @@
 	<widget class="GnomeDruidPageStandard" id="chooseChannelPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Select operating system release</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onChooseChannelPageNext" last_modification_time="Fri, 22 Jun 2007 16:04:40 GMT"/>
 	  <signal name="back" handler="onChooseChannelPageBack" last_modification_time="Fri, 22 Jun 2007 16:05:05 GMT"/>
 	  <signal name="prepare" handler="onChooseChannelPagePrepare" last_modification_time="Fri, 22 Jun 2007 18:48:33 GMT"/>
@@ -128,7 +128,7 @@
 	<widget class="GnomeDruidPageStandard" id="createProfilePage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Create your system profile</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onCreateProfilePageNext"/>
 	  <signal name="back" handler="onCreateProfilePageBack"/>
 	  <signal name="prepare" handler="onCreateProfilePagePrepare"/>
@@ -152,7 +152,7 @@
 	<widget class="GnomeDruidPageStandard" id="reviewSubscriptionPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Review system subscription details</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onReviewSubscriptionPageNext"/>
 	  <signal name="prepare" handler="onReviewSubscriptionPagePrepare"/>
 
@@ -175,7 +175,7 @@
 	<widget class="GnomeDruidPageStandard" id="provideCertificatePage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes">Provide a security certificate</property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="next" handler="onProvideCertificatePageNext"/>
 	  <signal name="back" handler="onProvideCertificatePageBack"/>
 
@@ -198,7 +198,7 @@
 	<widget class="GnomeDruidPageStandard" id="finishPage">
 	  <property name="visible">True</property>
 	  <property name="title" translatable="yes"></property>
-	  <property name="logo">shadowman-round-48.png</property>
+	  <property name="logo">@@logo@@</property>
 	  <signal name="finish" handler="onFinishPageFinish"/>
 	  <signal name="prepare" handler="onFinishPagePrepare"/>
 

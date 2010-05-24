@@ -125,7 +125,7 @@ class ErrataImport(GenericPackageImport):
             #fix oval info to populate the relevant dbtables
             self._fix_erratum_oval_info(erratum)
             
-        self.backend.lookupPackages(self.packages.values(), self.ignoreMissing)
+        self.backend.lookupPackages(self.packages.values(), self.checksums, self.ignoreMissing)
         for erratum in self.batch:
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
