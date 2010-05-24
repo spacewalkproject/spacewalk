@@ -30,8 +30,7 @@ public class ContentSource extends BaseDomainHelper {
     private Long id;    
     private Org org;
     private ContentSourceType type;
-    private String sourceUrl;
-    private Date lastSynced;
+    private String sourceUrl;    
     private String label;
     private Set<Channel> channels = new HashSet<Channel>();    
     /**
@@ -109,21 +108,6 @@ public class ContentSource extends BaseDomainHelper {
      */
     public void setSourceUrl(String sourceUrlIn) {
         this.sourceUrl = sourceUrlIn;
-    }
-
-    /**
-     * @return Returns the lastSynced.
-     */
-    public Date getLastSynced() {
-        return lastSynced;
-    }
-
-    
-    /**
-     * @param lastSyncedIn The lastSynced to set.
-     */
-    public void setLastSynced(Date lastSyncedIn) {
-        this.lastSynced = lastSyncedIn;
     }
     
     /**

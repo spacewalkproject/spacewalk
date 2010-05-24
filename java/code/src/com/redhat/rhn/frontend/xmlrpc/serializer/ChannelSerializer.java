@@ -104,8 +104,8 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
             ContentSource cs = c.getSources().iterator().next();
             helper.add("yumrepo_source_url", cs.getSourceUrl());
             helper.add("yumrepo_label", cs.getLabel());
-            if (cs.getLastSynced() != null) {
-                helper.add("yumrepo_last_sync", cs.getLastSynced());
+            if (c.getLastSynced() != null) {
+                helper.add("yumrepo_last_sync", c.getLastSynced());
             }
             else {
                 helper.add("yumrepo_last_sync", "");

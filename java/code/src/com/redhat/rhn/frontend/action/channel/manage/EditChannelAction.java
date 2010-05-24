@@ -604,9 +604,9 @@ public class EditChannelAction extends RhnAction implements Listable {
                 form.set("repo_label", cs.getLabel());
                 String lastSync = LocalizationService.getInstance().getMessage(
                         "channel.edit.repo.neversynced");
-                if (cs.getLastSynced() != null) {
+                if (c.getLastSynced() != null) {
                     lastSync = LocalizationService.getInstance().formatDate(
-                            cs.getLastSynced());
+                            c.getLastSynced());
                 }
                 request.setAttribute("last_sync", lastSync);
                 if (ChannelManager.getLatestSyncLogFile(cs,c) != null) {
