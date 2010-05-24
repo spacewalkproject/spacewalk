@@ -7639,6 +7639,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
     </trans-unit>
+
         
 	  <trans-unit id="sdc.channels.edit.failed_channels">
 <source>Note:  Some channel subscriptions could not be updated because there were no available subscriptions.</source>
@@ -7652,7 +7653,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">SELinuxMode</context>
         </context-group>
     </trans-unit>    
-
 
 	  <trans-unit id="softwareEntitlementSubs.successMessage">
 <source>Updated entitlement count for '{0}'</source>

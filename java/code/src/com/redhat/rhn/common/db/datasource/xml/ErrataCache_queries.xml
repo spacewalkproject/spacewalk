@@ -49,12 +49,22 @@ DELETE FROM rhnServerNeededCache
   </query>
 </write-mode>
 
-<write-mode name="delete_needed_package_cache_all">
+<write-mode name="delete_needed_cache_all">
   <query params="server_id">
 DELETE FROM rhnServerNeededCache
       WHERE server_id = :server_id
   </query>
 </write-mode>
+
+<write-mode name="insert_needed_cache_all">
+  <query params="server_id">
+        INSERT INTO rhnServerNeededCache
+            (SELECT server_id, errata_id, package_id
+           FROM rhnServerNeededView
+              WHERE server_id = :server_id)
+  </query>
+</write-mode>
+
 
 <write-mode name="insert_needed_errata_cache">
   <query params="server_id, errata_id, package_id">

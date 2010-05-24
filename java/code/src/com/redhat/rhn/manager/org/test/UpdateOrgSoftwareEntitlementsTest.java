@@ -42,7 +42,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
     
     private void reloadFamilies() {
         fam = (ChannelFamily) reload(fam);
-        Iterator i = fam.getPrivateChannelFamilies().iterator();
+        Iterator i = fam.getChannelFamilyOrgAllocations().iterator();
         while (i.hasNext()) {
             TestUtils.reload(i.next());
         }
@@ -75,7 +75,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
                 fam.getLabel(), user.getOrg(), firstAllocation);
         assertNull(cmd.store());
         TestUtils.reload(fam);
-        for (PrivateChannelFamily privFam : fam.getPrivateChannelFamilies()) {
+        for (PrivateChannelFamily privFam : fam.getChannelFamilyOrgAllocations()) {
             if (privFam.getOrg().getId().equals(OrgFactory.getSatelliteOrg().getId())) {
                 TestUtils.reload(privFam);
             }
@@ -127,7 +127,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
     }
 
     public void testNullChanFam() throws Exception {
-        Iterator i = fam.getPrivateChannelFamilies().iterator();
+        Iterator i = fam.getChannelFamilyOrgAllocations().iterator();
         while (i.hasNext()) {
             PrivateChannelFamily p = (PrivateChannelFamily) i.next();
             if (p.getOrg().getId().equals(user.getOrg().getId())) {

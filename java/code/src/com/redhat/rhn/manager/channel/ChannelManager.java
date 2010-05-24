@@ -1013,7 +1013,7 @@ public class ChannelManager extends BaseManager {
             msg.append(" either does not have subscribe privileges to Channel: ");
             msg.append(cid);
             msg.append(" or ChannelManager.QRY_ROLE_SUBSCRIBE is defined wrong.");
-            log.debug(msg.toString(), e);
+            log.warn(msg.toString(), e);
             return false;
         }
     }
@@ -2831,5 +2831,6 @@ public class ChannelManager extends BaseManager {
         Collections.sort(possibleList);
         return logPath + possibleList.get(possibleList.size() - 1);
     }
+    
 
 }

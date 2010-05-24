@@ -173,18 +173,31 @@ public class ErrataCacheManager extends HibernateFactory {
     }
 
     /**
-     * Delete all records from NeededPackage cache for the server provided.
+     * Inserts all records from ServerNeeded cache for the server provided.
      * @param sid Server Id
      * @return number of rows affected.
      */
-    public static int deleteNeededPackageCache(Long sid) {
+    public static int deleteServerNeededCache(Long sid) {
         WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "delete_needed_package_cache_all");
+                "delete_needed_cache_all");
         Map params = new HashMap();
         params.put("server_id", sid);
         return m.executeUpdate(params);
     }
 
+    /**
+     * Delete all records from Server Needed cache for the server provided.
+     * @param sid Server Id
+     * @return number of rows affected.
+     */
+    public static int insertServerNeededCache(Long sid) {
+        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+                "insert_needed_cache_all");
+        Map params = new HashMap();
+        params.put("server_id", sid);
+        return m.executeUpdate(params);
+    }    
+    
     /**
      * Inserts record into NeededErrata cache table
      * @param sid Server Id

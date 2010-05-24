@@ -232,4 +232,19 @@ public class ChannelHandler extends BaseHandler {
         dr.elaborate();
         return dr.toArray();
     }
+    
+    /**
+     * TODO
+     * @param sessionKey TODO
+     * @param serverId TODO
+     * @param channelId TODO
+     * @param options TODO
+     * @return TODO
+     */
+    public int subscribeServer(String sessionKey,  Integer serverId, 
+                        Integer channelId, Map<String, Object> options) {
+        return 1;
+        
+    }
+    
 }

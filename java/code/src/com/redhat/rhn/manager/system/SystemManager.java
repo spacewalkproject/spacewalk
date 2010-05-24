@@ -68,6 +68,7 @@ import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.ChannelProcedure;
 import com.redhat.rhn.manager.channel.MultipleChannelsWithPackageException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
@@ -1132,67 +1133,8 @@ public class SystemManager extends BaseManager {
                                                     Server server, 
                                                     Channel channel,
                                                     boolean flush) {
-        
-        // do not allow non-satellite or non-proxy servers to 
-        // be subscribed to satellite or proxy channels respectively.
-        if (channel.isSatellite()) {
-            if (!server.isSatellite()) {
-                return server;
-            }
-        }
-        else if (channel.isProxy()) {
-            if (!server.isProxy()) {
-                return server;
-            }
-        }
-        
-        if (user != null && !ChannelManager.verifyChannelSubscribe(user, channel.getId())) {
-            //Throw an exception with a nice error message so the user
-            //knows what went wrong.
-            LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User does not have" +
-                    " permission to subscribe this server to this channel.");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.subscribechannel"));
-            pex.setLocalizedSummary(
-                    ls.getMessage("permission.jsp.summary.subscribechannel"));
-            throw pex;
-        }
-        
-        if (!verifyArchCompatibility(server, channel)) {
-            throw new IncompatibleArchException(
-                    server.getServerArch(), channel.getChannelArch());
-        }
-        
-        log.debug("calling subscribe_server_to_channel");
-        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
-                "subscribe_server_to_channel");
-        
-        Map in = new HashMap();
-        in.put("server_id", server.getId());
-        if (user != null) {
-            in.put("user_id", user.getId());
-        }
-        else {
-            in.put("user_id", null);
-        }
-        in.put("channel_id", channel.getId());
-        
-        m.execute(in, new HashMap());
-        
-        /*
-         * This is f-ing hokey, but we need to be sure to refresh the 
-         * server object since    
-         * we modified it outside of hibernate :-/      
-         * This will update the server.channels set.
-         */        
-        log.debug("returning with a flush? " + flush);
-        if (flush) {
-            return (Server) HibernateFactory.reload(server);    
-        }
-        else {
-            HibernateFactory.getSession().refresh(server);
-            return server;
-        }
+        ChannelProcedure.getInstance().subscribeServer(user, server, channel);
+        return server;
     }
     
     /**

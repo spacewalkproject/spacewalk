@@ -40,7 +40,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				column="VIRT_SUB_LEVEL_ID" />
 		</set>
 
-        <set name="privateChannelFamilies" inverse="true" cascade="delete">
+        <set name="channelFamilyOrgAllocations" inverse="true" cascade="delete">
             <key column="channel_family_id"/>
             <one-to-many class="com.redhat.rhn.domain.channel.PrivateChannelFamily"/>
         </set>

@@ -57,7 +57,7 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         assertTrue(getActualForward().contains("oid=" + user.getOrg().getId()));
         verifyActionMessage("org.entitlements.syssoft.success");
         cfm = (ChannelFamily) TestUtils.reload(cfm);
-        Iterator i = cfm.getPrivateChannelFamilies().iterator();
+        Iterator i = cfm.getChannelFamilyOrgAllocations().iterator();
         while (i.hasNext()) {
             TestUtils.reload(i.next());
         }

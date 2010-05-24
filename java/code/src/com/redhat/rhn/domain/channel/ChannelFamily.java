@@ -23,7 +23,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -31,7 +30,6 @@ import java.util.Set;
  * @version $Rev$
  */
 public class ChannelFamily extends BaseDomainHelper {
-    
     private Long id;
     private String name;
     private String label;
@@ -40,7 +38,8 @@ public class ChannelFamily extends BaseDomainHelper {
     private Set<Channel> channels = new HashSet<Channel>();
     private Set virtSubscriptionLevels = new HashSet();
     
-    private Set<PrivateChannelFamily> privateChannelFamilies;
+    private Set<PrivateChannelFamily> channelFamilyOrgAllocations =
+                                    new HashSet<PrivateChannelFamily>();
 
     /**
      * @return Returns the channels.
@@ -121,6 +120,22 @@ public class ChannelFamily extends BaseDomainHelper {
     }
 
     /**
+     * Returns the channel family allocations for a given org
+     * @param orgIn org for which we need the allocation information
+     * @return the allocation object
+     */
+    public PrivateChannelFamily getChannelFamilyAllocationFor(Org orgIn) {
+        if (this.getChannelFamilyOrgAllocations() != null) {
+            for (PrivateChannelFamily pcf : getChannelFamilyOrgAllocations()) {
+                if (pcf.getOrg().getId().equals(orgIn.getId())) {
+                    return pcf;
+                }                
+            }
+        }
+        return null;
+    }
+    
+    /**
      * {@inheritDoc}
      */
     public boolean equals(final Object other) {
@@ -129,11 +144,11 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         ChannelFamily castOther = (ChannelFamily) other;
          
-        return new EqualsBuilder().append(id, castOther.id)
-                                  .append(label, castOther.label)
-                                  .append(name, castOther.name)
-                                  .append(org, castOther.org)
-                                  .append(productUrl, castOther.productUrl)
+        return new EqualsBuilder().append(getId(), castOther.getId())
+                                  .append(getLabel(), castOther.getLabel())
+                                  .append(getName(), castOther.getName())
+                                  .append(getOrg(), castOther.getOrg())
+                                  .append(getProductUrl(), castOther.getProductUrl())
                                   .isEquals();
     }
     
@@ -141,11 +156,11 @@ public class ChannelFamily extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(id)
-                                    .append(label)
-                                    .append(name)
-                                    .append(org)
-                                    .append(productUrl)
+        return new HashCodeBuilder().append(getId())
+                                    .append(getLabel())
+                                    .append(getName())
+                                    .append(getOrg())
+                                    .append(getProductUrl())
                                     .toHashCode();
     }
     
@@ -190,18 +205,9 @@ public class ChannelFamily extends BaseDomainHelper {
      * @return maxmembers of this channelfamily.  NULL == unlimited
      */
     public Long getMaxMembers(Org orgIn) {
-        Long retval = null;
-        if (this.privateChannelFamilies != null && 
-                this.privateChannelFamilies.size() > 0) {
-            Iterator i = this.privateChannelFamilies.iterator();
-            while (i.hasNext()) {
-                PrivateChannelFamily pcf = (PrivateChannelFamily) i.next();
-                if (pcf.getOrg().getId().equals(orgIn.getId())) {
-                    retval = pcf.getMaxMembers();
-                }
-            }
-        }
-        return retval;
+        PrivateChannelFamily pcf = getChannelFamilyAllocationFor(orgIn);
+        return pcf.getMaxMembers();
+        
     }
     
     /**
@@ -210,35 +216,46 @@ public class ChannelFamily extends BaseDomainHelper {
      * @return currentMembers of this channelfamily.
      */
     public Long getCurrentMembers(Org orgIn) {
-        Long retval = null;
-        if (this.privateChannelFamilies != null && 
-                this.privateChannelFamilies.size() > 0) {
-            Iterator i = this.privateChannelFamilies.iterator();
-            while (i.hasNext()) {
-                PrivateChannelFamily pcf = (PrivateChannelFamily) i.next();
-                if (pcf.getOrg().equals(orgIn)) {
-                    retval = pcf.getCurrentMembers();
-                }
-            }
-        }
-        return retval;
+        PrivateChannelFamily pcf = getChannelFamilyAllocationFor(orgIn);
+        return pcf.getCurrentMembers(); 
     }
-
+    /**
+     * Update the channelfamily current member counts in a given org   
+     * @param orgIn the org to be updated
+     * @param currentMembersIn the current members
+     */
+    public void setCurrentMembers(Org orgIn, Long currentMembersIn) {
+        getChannelFamilyAllocationFor(orgIn).setCurrentMembers(currentMembersIn);
+    }
+    
+    /**
+     * Returns true if there are ant available subscriptions
+     * @param orgIn the org which needs to be checked
+     * @return true if there are ant available subscriptions
+     */
+    public boolean hasAvailableSlots(Org orgIn) {
+        Long max = getMaxMembers(orgIn);
+        //max = null means infinite slots
+        if (max == null) {
+            return true;
+        }
+        return max - getCurrentMembers(orgIn) > 0;
+    }
     
     /**
      * @return Returns the privateChannelFamilies.
      */
-    public Set<PrivateChannelFamily> getPrivateChannelFamilies() {
-        return privateChannelFamilies;
+    public Set<PrivateChannelFamily> getChannelFamilyOrgAllocations() {
+        return channelFamilyOrgAllocations;
     }
 
     
     /**
      * @param privateChannelFamiliesIn The privateChannelFamilies to set.
      */
-    protected void setPrivateChannelFamilies(
+    protected void setChannelFamilyOrgAllocations(
             Set<PrivateChannelFamily> privateChannelFamiliesIn) {
-        this.privateChannelFamilies = privateChannelFamiliesIn;
+        this.channelFamilyOrgAllocations = privateChannelFamiliesIn;
     }
     
     /**
@@ -246,12 +263,11 @@ public class ChannelFamily extends BaseDomainHelper {
      * @param pcfIn to set
      */
     public void addPrivateChannelFamily(PrivateChannelFamily pcfIn) {
-        if (this.privateChannelFamilies == null) {
-            this.privateChannelFamilies = new HashSet<PrivateChannelFamily>();
+        if (this.channelFamilyOrgAllocations == null) {
+            this.channelFamilyOrgAllocations = new HashSet<PrivateChannelFamily>();
         }
-        this.privateChannelFamilies.add(pcfIn);
+        this.channelFamilyOrgAllocations.add(pcfIn);
     }
-    
     
 }
 

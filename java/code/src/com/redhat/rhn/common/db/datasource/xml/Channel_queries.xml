@@ -1193,5 +1193,41 @@ GROUP BY C.id, C.name
 </mode>
 
 
+<mode name="lock_current_members">
+    <query params="org_id,  cfid">    
+        select current_members 
+        from rhnPrivateChannelFamily
+        where org_id = :org_id and channel_family_id = :cfid
+        for update of current_members
+    </query>
+</mode>
+
+<mode name="compute_channel_family_curent_members">
+    <query params="org_id,  cfid">    
+  select  count(distinct server_id) as count
+          from  rhnChannelFamilyServerPhysical cfsp
+         where  cfsp.channel_family_id = :cfid
+           and  cfsp.customer_id = :org_id
+    </query>
+</mode>
+<mode name="can_consume_virt_channel">
+    <query params="sid,  cfid">    
+            select 1
+            from
+                rhnChannelFamilyVirtSubLevel cfvsl,
+                rhnSGTypeVirtSubLevel sgtvsl,
+                rhnVirtualInstance vi
+            where
+                vi.virtual_system_id = :sid 
+                and sgtvsl.virt_sub_level_id = cfvsl.virt_sub_level_id
+                and cfvsl.channel_family_id = :cfid
+                and exists (
+                    select 1
+                    from rhnServerEntitlementView sev
+                    where vi.host_system_id = sev.server_id
+                    and sev.server_group_type_id = sgtvsl.server_group_type_id )
+    </query>
+</mode>
+    
 </datasource_modes>
 
