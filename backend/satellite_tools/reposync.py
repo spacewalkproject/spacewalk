@@ -137,6 +137,7 @@ class RepoSync:
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
+        is_non_local_repo = (self.url.find("file://") < 0)
         for (index, pack) in enumerate(to_download):
             """download each package"""
             # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
@@ -155,7 +156,7 @@ class RepoSync:
                        raise
                    continue
             finally:
-                if self.url.find("file://")  < 0:
+                if is_non_local_repo:
                     os.remove(path)
     
     def upload_package(self, package, path):

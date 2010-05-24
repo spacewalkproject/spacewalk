@@ -25,9 +25,20 @@ INSTALL         = install -p --verbose
 INSTALL_DIR     = $(INSTALL) -m 755 -d 
 INSTALL_DATA    = $(INSTALL) -m 644 
 
-# Handy defines 
-PIXMAPS         = /usr/share/firstboot/pixmaps/
-SHADOWMAN       = shadowman-round-48.png
+# Fedora
+ifeq ($(shell test -f /usr/share/icons/hicolor/48x48/apps/fedora-logo-icon.png && echo "exists" ), exists)
+LOGO = /usr/share/icons/hicolor/48x48/apps/fedora-logo-icon.png
+endif
+
+# RHEL-5
+ifeq ($(shell test -f /usr/share/pixmaps/redhat/shadowman-round-48.png && echo "exists" ), exists)
+LOGO = /usr/share/pixmaps/redhat/shadowman-round-48.png
+endif
+
+# RHEL-6
+ifeq ($(shell test -f /usr/share/icons/hicolor/48x48/apps/system-logo-icon.png && echo "exists" ), exists)
+LOGO = /usr/share/icons/hicolor/48x48/apps/system-logo-icon.png
+endif
 
 # For subdirs, required exports 
 
@@ -48,7 +59,7 @@ install:: $(DIRS)
 	$(INSTALL_DATA) up2date-icons/48x48/up2date.png $(PNG48_DIR)/ 
 
 	# this is lame and should be dealt with in the code
-	sed -i -e "s|$(SHADOWMAN)|$(PIXMAPS)/$(SHADOWMAN)|g" \
+	sed -i -e "s|@@logo@@|$(LOGO)|g" \
 		$(RHNSHARE_DIR)/up2date_client/*glade
 	# This sucks. We should be able to use PIXMAP_DIR, but then when making
 	# an rpm prefix is set to something different than where it'll be when

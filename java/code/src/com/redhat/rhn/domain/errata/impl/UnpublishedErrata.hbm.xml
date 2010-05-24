@@ -61,6 +61,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <many-to-many class="com.redhat.rhn.domain.rhnpackage.Package" 
                 column="package_id"/>
         </set>
+        <set name="cves" lazy="true" cascade="all-delete-orphan" table="rhnErrataCve">
+		<key column="errata_id"/>
+		<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
+        </set>
         <joined-subclass
                 name="com.redhat.rhn.domain.errata.impl.UnpublishedClonedErrata"
                 table="rhnErrataClonedTmp">

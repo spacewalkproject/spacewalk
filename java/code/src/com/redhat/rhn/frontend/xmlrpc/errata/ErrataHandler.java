@@ -22,6 +22,8 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.errata.Bug;
+import com.redhat.rhn.domain.errata.Cve;
+import com.redhat.rhn.domain.errata.CveFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
@@ -282,6 +284,9 @@ public class ErrataHandler extends BaseHandler {
      *          #prop_desc("array", "keywords", "'keywords' is the key into the struct")
      *              #array_single("string", "keyword - List of keywords to associate 
      *                  with the errata.")
+     *          #prop_desc("array", "CVEs", "'cves' is the key into the struct")
+     *              #array_single("string", "cves - List of CVEs to associate
+     *                  with the errata.")
      *     #struct_end()
      *     
      *  @xmlrpc.returntype #return_int_success()
@@ -302,6 +307,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("solution");
         validKeys.add("bugs");
         validKeys.add("keywords");
+        validKeys.add("cves");
         validateMap(validKeys, details);
 
         validKeys.clear();
@@ -387,6 +393,21 @@ public class ErrataHandler extends BaseHandler {
                 errata.addKeyword(keyword);
             }
         }
+        if (details.containsKey("cves")) {
+            if (errata.getCves() != null) {
+                errata.getCves().clear();
+                HibernateFactory.getSession().flush();
+            }
+            for (String cveName : (ArrayList<String>) details.get("cves")) {
+                Cve c = CveFactory.lookupByName(cveName);
+                if (c == null) {
+                    c = new Cve();
+                    c.setName(cveName);
+                    CveFactory.save(c);
+                }
+                errata.getCves().add(c);
+            }
+        }
         
         // ALWAYS change the advisory to match, as we do in the UI.
         errata.setAdvisory(errata.getAdvisoryName() + "-" +
@@ -394,7 +415,7 @@ public class ErrataHandler extends BaseHandler {
 
         //Save the errata
         ErrataManager.storeErrata(errata);
-        
+
         return 1;
     }
 
