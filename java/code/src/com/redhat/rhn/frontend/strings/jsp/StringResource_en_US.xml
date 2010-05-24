@@ -9223,9 +9223,6 @@ Please note that some manual configuration of these scripts may still be require
     </group>
 
 <!-- Repo Sync -->
-        <trans-unit id="repos.jsp.toolbar">
-          <source>Repository</source>
-        </trans-unit>
         <trans-unit id="repos.jsp.summary">
           <source>Summary for repos here</source>
         </trans-unit>
@@ -9253,9 +9250,6 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.header2">
           <source>Create Repository</source>
         </trans-unit>
-        <trans-unit id="repos.jsp.header2">
-          <source>Create Repository</source>
-        </trans-unit>
         <trans-unit id="repos.jsp.create.label">
           <source>Repository Label</source>
         </trans-unit>
@@ -9267,6 +9261,9 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="repos.jsp.update.submit">
           <source>Create Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.create.success">
+          <source>Repository created successfully</source>
         </trans-unit>
 
 

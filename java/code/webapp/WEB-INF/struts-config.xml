@@ -821,6 +821,7 @@
         <form-bean name="contentSourceForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="url" type="java.lang.String"/>
+            <form-property name="oldLabel" type="java.lang.String" />
             <form-property name="label" type="java.lang.String"/>
         </form-bean>
                 
@@ -6618,11 +6619,10 @@
         parameter="create_mode"
         type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success"
-                 path="/channels/manage/repo/RepoEdit.do" redirect = "true"
+                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"
                  />
     </action>
 
@@ -6632,7 +6632,6 @@
         parameter="edit_mode"
         type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success" 

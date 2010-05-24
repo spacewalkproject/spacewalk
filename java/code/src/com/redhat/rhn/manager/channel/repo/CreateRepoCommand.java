@@ -113,7 +113,8 @@ public class CreateRepoCommand {
             ContentSource repo = ChannelFactory.createRepo();
             repo.setLabel(this.label);
             repo.setSourceUrl(this.url);
-            repo.setOrg(this.org);
+            repo.setOrg(this.org);            
+            repo.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
             ChannelFactory.save(repo);
             this.newRepo = repo;
         }
