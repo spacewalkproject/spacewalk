@@ -49,7 +49,7 @@ public class RepoDetailsAction extends RhnAction {
     public static final String REPO = "repo";
     public static final String URL = "url";
     public static final String LABEL = "label";
-    public static final String OLD_LABEL = "old_label";
+    public static final String OLD_LABEL = "oldLabel";
 
     private static final String VALIDATION_XSD =
                 "/com/redhat/rhn/frontend/action/channel/" +
@@ -79,11 +79,11 @@ public class RepoDetailsAction extends RhnAction {
                     ContentSource repo = submit(request, form);
                     if (isCreateMode(request)) {
                         createSuccessMessage(request,
-                                "repo.create.success", repo.getLabel());
+                                "repos.jsp.create.success", repo.getLabel());
                     }
                     else {
                         createSuccessMessage(request,
-                                "repo.update.success", repo.getLabel());
+                                "repos.jsp.update.success", repo.getLabel());
                     }
 
                     request.removeAttribute(CREATE_MODE);
