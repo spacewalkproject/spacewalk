@@ -33,22 +33,33 @@ ALTER TABLE rhnContentSource
     ADD org_id number
         CONSTRAINT rhn_cs_org_fk
         REFERENCES WEB_CUSTOMER(id);
+-- add sync column to rhnChannel
+ALTER TABLE rhnChannel
+    ADD last_synced date;
 
 DECLARE
   -- grab any rows that need the channel to be migrated to new channel content mapping tbl
   CURSOR content is
-    select cs.id, cs.channel_id, c.org_id
+    select cs.id, cs.channel_id, cs.last_synced, c.org_id
     from rhnContentSource cs, rhnChannel c
     where 1=1
     AND c.id = cs.channel_id
 BEGIN
   FOR content_rec IN content
   LOOP
+      -- add mapping
       INSERT INTO rhnChannelContentSource (source_id, channel_id)
              VALUES (content_rec.id, content_rec.channel_id);
+
+      -- save org id
       UPDATE rhnConentSource set org_id = content_rec.org_id
       WHERE 1=1
       AND channel_id = content_rec.channel_id;
+
+      -- migrate sync date to channel
+      UPDATE rhnChannel set last_synced = content_rec.last_synced
+      WHERE id = content_rec.channel_id;
+
   END LOOP;
   commit;
 END;
@@ -56,3 +67,4 @@ END;
 
 -- we don't need the channel_id column anymore since mapping table will handle it
 ALTER TABLE rhnContentSource DROP (channel_id);
+ALTER TABLE rhnContentSource DROP (last_synced);
