@@ -21,7 +21,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Handles performing subscription changes for servers in the SSM.
@@ -36,7 +36,7 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
         SsmChangeChannelSubscriptionsEvent event = (SsmChangeChannelSubscriptionsEvent) msg;
 
         User user = event.getUser();
-        List<ChannelActionDAO> changes = event.getChanges();
+        Collection<ChannelActionDAO> changes = event.getChanges();
 
         // Parse and store the changes into RhnSets
         SsmManager.populateSsmChannelServerSets(user, changes);

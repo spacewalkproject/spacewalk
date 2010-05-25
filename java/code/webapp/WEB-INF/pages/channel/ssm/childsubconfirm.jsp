@@ -21,9 +21,9 @@
   <rl:listset name="channelchanges">
     <html:hidden property="submitted" value="true"/>  
 	<!-- Start of active users list -->
-	<rl:list dataset="channelchanges"
+	<rl:list 
          width="100%"
-         name="channelchanges"
+        
          styleclass="list"
          emptykey="ssmchildsubconfirm.jsp.noSystems">
         
@@ -40,8 +40,8 @@
 	<rl:column bound="false" 
 	           sortable="false" 
 	           headerkey="ssmchildsubconfirm.jsp.canSub">
-	  <c:forEach items="${current.subsAllowed}" var="chan">
-	  	<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
+	  <c:forEach items="${current.subNames}" var="chan">
+	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>
 	
@@ -50,8 +50,8 @@
 			   sortable="false"
 	           headerkey="ssmchildsubconfirm.jsp.canUnsub"
 	           styleclass="last-column">
-	  <c:forEach items="${current.unsubsAllowed}" var="chan">
-	  	<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
+	  <c:forEach items="${current.unsubNames}" var="chan">
+	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>
 	           

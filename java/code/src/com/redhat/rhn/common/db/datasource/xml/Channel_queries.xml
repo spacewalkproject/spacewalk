@@ -1184,6 +1184,42 @@ GROUP BY C.id, C.name
   </query>
 </mode>
 
+
+<mode name="ssm_systems_for_child_subscription">
+  <query params="set_label, uid">
+        select  S.id, C.id as channel_id, S.name, C.name as channel_name
+           from rhnServer S inner join
+                rhnServerChannel SC on SC.server_id = S.id,
+               rhnChannel C,
+               rhnServerChannelArchCompat SCAC,
+               RhnSet rset
+           where
+                rset.label = :set_label and
+                rset.user_id = :uid and
+                C.parent_channel = SC.channel_id and
+                SCAC.server_arch_id = S.server_arch_id and
+                SCAC.channel_arch_id = C.channel_arch_id and
+                C.id in (%s) and
+                S.id not in (select SC2.server_id
+                                from rhnServerChannel SC2
+                                where SC2.channel_id = C.id)
+  </query>
+</mode>
+
+<mode name="ssm_systems_for_child_unsubscription">
+  <query params="set_label, uid">
+	select  S.id, C.id as channel_id, S.name, C.name as channel_name
+	   from rhnServer S inner join
+	       rhnServerChannel SC on SC.server_id = S.id  inner join
+	       rhnChannel C on C.id = SC.channel_id inner join 
+	       rhnSet rset on rset.element = S.id
+	   where SC.channel_id in (%s)
+	       and  rset.user_id = :uid
+	       and  rset.label = :set_label
+  </query>
+</mode>
+
+
 <mode name="cloned_original_id">
     <query params="cid">
     SELECT original_id AS id
