@@ -1,3 +1,5 @@
 <factory>
   <template name="api" classname="com.redhat.rhn.frontend.xmlrpc.api.ApiHandler" />
+  <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.internal.ChannelProcedureHandler" />
+  
 </factory>
