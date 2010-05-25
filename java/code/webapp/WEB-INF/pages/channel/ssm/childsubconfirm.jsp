@@ -40,7 +40,7 @@
 	<rl:column bound="false" 
 	           sortable="false" 
 	           headerkey="ssmchildsubconfirm.jsp.canSub">
-	  <c:forEach items="${current.subNames}" var="chan">
+	  <c:forEach items="${current.subscribeNames}" var="chan">
 	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>
@@ -50,7 +50,7 @@
 			   sortable="false"
 	           headerkey="ssmchildsubconfirm.jsp.canUnsub"
 	           styleclass="last-column">
-	  <c:forEach items="${current.unsubNames}" var="chan">
+	  <c:forEach items="${current.unsubcribeNames}" var="chan">
 	  	<c:out value="${chan}" /><br />
 	  </c:forEach>
 	</rl:column>

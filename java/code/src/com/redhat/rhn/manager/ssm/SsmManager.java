@@ -14,8 +14,8 @@
  */
 package com.redhat.rhn.manager.ssm;
 
+import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
@@ -98,7 +98,10 @@ public class SsmManager {
                         ChannelManager.getAvailableEntitlements(user.getOrg(), channel);
                     channelToAvailableEntitlements.put(channel, availableEntitlements);
                 }
-                
+                //Most likely acustom channel1
+                if (availableEntitlements == null) {
+                    continue;
+                }
                 if (availableEntitlements > 0) {                    
                         // Update our cached count for what will happen when 
                         // the subscribe is done
@@ -133,74 +136,46 @@ public class SsmManager {
      * </ul>
      *
      * @param user user performing the action creations
+     * @param sysMapping a collection of ChannelActionDAOs
      */
-    public static void performChannelActions(User user) {
+    public static void performChannelActions(User user, 
+                    Collection<ChannelActionDAO> sysMapping) {
 
-        long start, duration;
-
-        RhnSet subscribeSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
-        RhnSet unsubscribeSet = RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.get(user);
-
-        Map<String, Object> params = new HashMap<String, Object>();
-
-        // New Subscriptions
-        if (subscribeSet.size() > 0) {
-            start = System.currentTimeMillis();
-            WriteMode doSubscriptionsMode = ModeFactory.getWriteMode("ssm_queries",
-                "subscribe_server_channels_in_set");
-            doSubscriptionsMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to create all subscriptions: " + duration);
-
-            start = System.currentTimeMillis();
-            WriteMode logSubscriptionsMode = ModeFactory.getWriteMode("ssm_queries",
-                "log_subscribe_server_channels_in_set");
-            logSubscriptionsMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to log all subscriptions: " + duration);
-
-            start = System.currentTimeMillis();
-            params.put("set_label", "ssm_channel_subscribe");
-            WriteMode subscribeFlagMode = ModeFactory.getWriteMode("ssm_queries",
-                "flag_server_channels_changed_in_set");
-            subscribeFlagMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to flag for all subscriptions: " + duration);
+        for (ChannelActionDAO system : sysMapping) {
+            for (Long cid : system.getSubscribeChannelIds()) {
+                subscribeChannel(system.getId(), cid, user.getId());
+            }
+            for (Long cid : system.getUnsubscribeChannelIds()) {
+                unsubscribeChannel(system.getId(), cid);
+            }            
         }
-
-        // Unsubscribe
-        if (unsubscribeSet.size() > 0) {
-            start = System.currentTimeMillis();
-            WriteMode doUnsubscriptionsMode = ModeFactory.getWriteMode("ssm_queries",
-                "unsubscribe_server_channels_in_set");
-            doUnsubscriptionsMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to do all unsubscriptions: " + duration);
-
-            start = System.currentTimeMillis();
-            WriteMode logUnsubscriptionsMode = ModeFactory.getWriteMode("ssm_queries",
-                "log_unsubscribe_server_channels_in_set");
-            logUnsubscriptionsMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to log all unsubscriptions: " + duration);
-
-            start = System.currentTimeMillis();
-            params.put("set_label", "ssm_channel_unsubscribe");
-            WriteMode unsubscribeFlagMode = ModeFactory.getWriteMode("ssm_queries",
-                "flag_server_channels_changed_in_set");
-            unsubscribeFlagMode.executeUpdate(params);
-            duration = System.currentTimeMillis() - start;
-            log.debug("Time to flag for all unsubscriptions: " + duration);
-        }
-
-        // Clean up the sets
-        subscribeSet.clear();
-        RhnSetManager.store(subscribeSet);
-
-        unsubscribeSet.clear();
-        RhnSetManager.store(unsubscribeSet);
     }
 
+    
+    private static void subscribeChannel(Long sid, Long cid, Long uid) {
+        
+        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+                "subscribe_server_to_channel");
+
+        Map in = new HashMap();
+        in.put("server_id", sid);
+        in.put("user_id", uid);
+        in.put("channel_id", cid);
+        m.execute(in, new HashMap());
+    }
+    
+    
+    private static void unsubscribeChannel(Long sid, Long cid) {    
+    
+        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+                "unsubscribe_server_from_channel");
+        Map in = new HashMap();
+        in.put("server_id", sid);
+        in.put("channel_id", cid);        
+        m.execute(in, new HashMap());
+    }
+    
+    
     /**
      * Parses through the indicated changes, populating the necessary RhnSets. This call
      * is necessary before {@link #performChannelActions(User)} as the perform call

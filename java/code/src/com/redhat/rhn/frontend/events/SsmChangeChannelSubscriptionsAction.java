@@ -62,7 +62,7 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
            long requests.
          */
         try {
-            SsmManager.performChannelActions(user);
+            SsmManager.performChannelActions(user, changes);
         }
         finally {
             // Complete the action
