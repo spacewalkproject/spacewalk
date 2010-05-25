@@ -37,7 +37,7 @@
                    styleclass="first-column"
                    sortattr= "label"
                    filterattr="label">                            
-              		<c:out value="<a href=\"/rhn/channel/manage/RepoEdit.do?label=${current.label}\">${current.label}</a>" escapeXml="false" />              	              
+              		<c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />              	              
         </rl:column>
       </rl:list>
      </rl:listset>		
