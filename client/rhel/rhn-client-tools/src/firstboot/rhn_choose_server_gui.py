@@ -1,4 +1,4 @@
-# Copyright 2006 Red Hat, Inc.
+# Copyright 2006--2010 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,58 +15,62 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 # Authors:
+#     Jan Pazdziora jpazdziora at redhat dot com
 #     Daniel Benamy <dbenamy@redhat.com>
 
-import os
 import sys
-sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
-import rhnreg
-import rhnregGui
-import up2dateErrors
-from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
+from up2date_client import up2dateErrors
 
 import gtk
 from gtk import glade
-import gettext
-_ = gettext.gettext
 
-gettext.textdomain("rhn-client-tools")
+import gettext
+_ = lambda x: gettext.ldgettext("rhn-client-tools", x)
+
 gtk.glade.bindtextdomain("rhn-client-tools")
 
+from firstboot.module import Module
+from firstboot.constants import *
 
-class RhnChooseServerWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ChooseServerPage):
-    runPriority=106.5
-    moduleName = _("Choose Server")
-    windowTitle = moduleName
-    shortMessage = _("Choose a Red Hat Network server")
-    needsparent = 1
-    needsnetwork = 1
-    noSidebar = True
-    
+class moduleClass(Module):
     def __init__(self):
-        RhnRegisterFirstbootGuiWindow.__init__(self)
-        rhnregGui.ChooseServerPage.__init__(self)
-        if rhnreg.registered():
-            self.skipme = True
-    
-    def _getVbox(self):
-        return self.chooseServerPageVbox()
-    
-    def updatePage(self):
-        self.chooseServerPagePrepare()
-    
-    def apply(self, *args):
-        """Returns True to change the page (to the one set)."""
+        Module.__init__(self)
+        self.priority = 106.5
+        self.sidebarTitle = _("Choose Server")
+        self.title = _("Choose Server")
+
+    def needsNetwork(self):
+        return True
+
+    def apply(self, interface, testing=False):
+        if testing:
+            return RESULT_SUCCESS
+
         try:
-            if self.chooseServerPageApply() is False:
-                self.parent.setPage("rhn_login_gui")
-                return True
+            if self.chooseServerPage.chooseServerPageApply() is False:
+                interface.moveToPage(moduleTitle=_("Red Hat Login"))
+                return RESULT_JUMP
             else:
-                return None
+                return RESULT_FAILURE
         except up2dateErrors.SSLCertificateVerifyFailedError:
-            self.parent.setPage("rhn_provide_certificate_gui")
-            return True
+            interface.moveToPage(moduleTitle=_("Provide Certificate"))
+            return RESULT_JUMP
+            # return RESULT_SUCCESS should work just as well since the
+            # certificate page with priority 107 is the next one anyway
 
+    def createScreen(self):
+        self.chooseServerPage = rhnregGui.ChooseServerPage()
+        self.vbox = gtk.VBox(spacing=5)
+        self.vbox.pack_start(self.chooseServerPage.chooseServerPageVbox(), True, True)
 
-childWindow = RhnChooseServerWindow
+    def initializeUI(self):
+        self.chooseServerPage.chooseServerPagePrepare()
+
+    def shouldAppear(self):
+        if rhnreg.registered():
+            return False
+        return True
+

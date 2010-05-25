@@ -15,17 +15,14 @@
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageListItem;
-
 import com.redhat.rhn.frontend.events.SsmUpgradePackagesEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -40,7 +37,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -49,12 +45,12 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -114,7 +110,8 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             for (String idCombo : data) {
                 PackageListItem item = PackageListItem.parse(idCombo);
                 
-                PackageListItem existing = packageNameIdsToItems.get(item.getIdOne() + "|"+ item.getIdThree()); 
+                PackageListItem existing = 
+                    packageNameIdsToItems.get(item.getIdOne() + "|" + item.getIdThree()); 
                 if (existing != null) {
                     String[] existingParts = splitEvr(existing.getNvre());
                     String[] itemParts = splitEvr(item.getNvre());
@@ -130,11 +127,13 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
                     itemEvr.setRelease(itemParts[2]);
 
                     if (existingEvr.compareTo(itemEvr) < 0) {
-                        packageNameIdsToItems.put(item.getIdOne() + "|"+ item.getIdThree(), item);
+                        packageNameIdsToItems.put(item.getIdOne() + "|" + 
+                                item.getIdThree(), item);
                     }
                 }
                 else {
-                    packageNameIdsToItems.put(item.getIdOne() + "|"+ item.getIdThree(), item);
+                    packageNameIdsToItems.put(item.getIdOne() + "|" + 
+                            item.getIdThree(), item);
                 }
             }
 
