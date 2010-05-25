@@ -140,7 +140,9 @@ public class RepoDetailsAction extends RhnAction {
         String url = form.getString(URL);
         Org org = context.getLoggedInUser().getOrg();
 
-        CreateRepoCommand repoCmd = new CreateRepoCommand(label, url, org);
+        CreateRepoCommand repoCmd = new CreateRepoCommand(org);
+        repoCmd.setLabel(label);
+        repoCmd.setUrl(url);
         repoCmd.store();
 
         return repoCmd.getNewRepo();
