@@ -17,8 +17,6 @@ package com.redhat.rhn.manager.channel.repo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
@@ -35,8 +33,6 @@ public class CreateRepoCommand {
     private Org org;
     private ContentSource newRepo;
     private List<ValidatorError> errors;
-
-    private static Logger log = Logger.getLogger(CreateRepoCommand.class);
 
     /**
      * Constructor to create an org
