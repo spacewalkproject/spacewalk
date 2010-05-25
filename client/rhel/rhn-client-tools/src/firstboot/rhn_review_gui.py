@@ -1,4 +1,4 @@
-# Copyright 2006 Red Hat, Inc.
+# Copyright 2006--2010 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,52 +15,51 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 # Authors:
+#     Jan Pazdziora jpazdziora at redhat dot com
 #     Daniel Benamy <dbenamy@redhat.com>
 
 import sys
-sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
-import rhnreg
-import rhnregGui
-from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
 
 import gtk
 from gtk import glade
-import gettext
-_ = gettext.gettext
 
-gettext.textdomain("rhn-client-tools")
+import gettext
+_ = lambda x: gettext.ldgettext("rhn-client-tools", x)
+
 gtk.glade.bindtextdomain("rhn-client-tools")
 
+from firstboot.module import Module
+from firstboot.constants import *
 
-class RhnReviewWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ReviewSubscriptionPage):
-    runPriority=108.9
-    moduleName = _("Review Subscription")
-    windowTitle = moduleName
-    shortMessage = _("Connect to Red Hat Network")
-    needsparent = 1
-    needsnetwork = 1
-    noSidebar = True
-    
+class moduleClass(Module):
     def __init__(self):
-        RhnRegisterFirstbootGuiWindow.__init__(self)
-        rhnregGui.ReviewSubscriptionPage.__init__(self)
-        if rhnreg.registered():
-            self.skipme = True
-    
-    def _getVbox(self):
-        return self.reviewSubscriptionPageVbox()
-    
-    def updatePage(self):
-        self.reviewSubscriptionPagePrepare()
-    
-    def apply(self, *args):
-        """Returns None to stay on the same page. Anything else will cause 
-        firstboot to advance but True is generally used. This is different from 
-        the gnome druid in rhn_register.
-        
-        """
+        Module.__init__(self)
+        self.priority = 108.9
+        self.sidebarTitle = _("Review Subscription")
+        self.title = _("Review Subscription")
+
+    def needsNetwork(self):
         return True
 
+    def apply(self, interface, testing=False):
+        if testing:
+            return RESULT_SUCCESS
 
-childWindow = RhnReviewWindow
+        return RESULT_SUCCESS
+
+    def createScreen(self):
+        self.reviewSubscriptionPage = rhnregGui.ReviewSubscriptionPage()
+        self.vbox = gtk.VBox(spacing=5)
+        self.vbox.pack_start(self.reviewSubscriptionPage.reviewSubscriptionPageVbox(), True, True)
+
+    def initializeUI(self):
+        self.reviewSubscriptionPage.reviewSubscriptionPagePrepare()
+
+    def shouldAppear(self):
+        if rhnreg.registered():
+            return False
+        return True
+

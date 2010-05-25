@@ -14,23 +14,12 @@
  */
 package com.redhat.rhn.domain.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.frontend.listview.ListControl;
-import com.redhat.rhn.frontend.listview.PageControl;
 
-import org.apache.commons.collections.IteratorUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * ErrataFactory - the singleton class used to fetch and store
@@ -58,6 +47,7 @@ public class CveFactory extends HibernateFactory {
     /**
      * Lookup a CVE by name
      * @param name Name of CVE to be retrieved
+     * @return CVE object found
      */
     public static Cve lookupByName(String name) {
         Map params = new HashMap();

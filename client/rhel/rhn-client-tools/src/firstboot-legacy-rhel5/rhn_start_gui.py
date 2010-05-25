@@ -1,4 +1,4 @@
-# Copyright 2006--2010 Red Hat, Inc.
+# Copyright 2006 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,64 +15,56 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 # Authors:
-#     Jan Pazdziora jpazdziora at redhat dot com
 #     Daniel Benamy <dbenamy@redhat.com>
 
+import os
 import sys
+sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
-from up2date_client import rhnreg
-from up2date_client import rhnregGui
+import rhnreg
+import rhnregGui
+from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
 
 import gtk
 from gtk import glade
-
 import gettext
-_ = lambda x: gettext.ldgettext("rhn-client-tools", x)
+_ = gettext.gettext
 
+gettext.textdomain("rhn-client-tools")
 gtk.glade.bindtextdomain("rhn-client-tools")
 
-from firstboot.module import Module
-from firstboot.constants import *
 
-from firstboot.loader import _haveNetwork
-
-class moduleClass(Module):
+class RhnStartWindow(RhnRegisterFirstbootGuiWindow):
+    runPriority=106
+    moduleName = _("Set Up Software Updates")
+    windowTitle = moduleName
+    shortMessage = _("Register with Red Hat Network")
+    needsparent = 1
+    
     def __init__(self):
-        Module.__init__(self)
-        self.priority = 106
-        self.sidebarTitle = _("Set Up Software Updates")
-        self.title = _("Set Up Software Updates")
-
-    def apply(self, interface, testing=False):
-        if testing:
-            return RESULT_SUCCESS
-
-        if not self.start_page.startPageRegisterNow():
-            dlg = rhnregGui.ConfirmQuitDialog()
-            if dlg.rc == 0:
-                return RESULT_FAILURE
-            else:
-                interface.moveToPage(moduleTitle=_("Finish Updates Setup"))
-                return RESULT_JUMP
-        return RESULT_SUCCESS
-
-    def createScreen(self):
-        self.vbox = gtk.VBox(spacing=5)
-        self.vbox.pack_start(self._getVbox(), True, True)
-
-    def initializeUI(self):
-        pass
+        RhnRegisterFirstbootGuiWindow.__init__(self)
+        self.start_page = None
 
     def _getVbox(self):
         if rhnreg.registered():
             self.start_page = KsRegisteredPage()
             return self.start_page.startPageVbox()
-        if _haveNetwork():
+        if self.parent.checkNetwork():
             self.start_page = rhnregGui.StartPage(firstboot=True)
         else:
             self.start_page = NoNetworkPage()
         return self.start_page.startPageVbox()
     
+    def apply(self, *args):
+        """Returns True to change the page (to the one set)."""
+        if not self.start_page.startPageRegisterNow():
+            dlg = rhnregGui.ConfirmQuitDialog()
+            if not dlg.rc:
+                self.parent.setPage("rhn_start_gui") 
+            else:
+                self.parent.setPage("rhn_finish_gui")
+        return True
+
 class KsRegisteredPage:
 
     def __init__(self):
@@ -110,3 +102,4 @@ class NoNetworkPage:
     def why_register_button_clicked(self, button):
         rhnregGui.WhyRegisterDialog()
 
+childWindow = RhnStartWindow

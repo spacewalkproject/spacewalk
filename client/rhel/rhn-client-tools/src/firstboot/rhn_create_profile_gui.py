@@ -1,6 +1,4 @@
-# rhn_register.py - GUI front end code for firstboot screen resolution
-#
-# Copyright 2003 Red Hat, Inc.
+# Copyright 2003--2010 Red Hat, Inc.
 # Copyright 2003 Brent Fox <bfox@redhat.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,63 +15,59 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+# Authors:
+#     Jan Pazdziora jpazdziora at redhat dot com
+
+import sys
+sys.path.append("/usr/share/rhn")
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
 
 import gtk
-import gobject
-import sys
-import os
-import functions
-
-import gnome, gnome.ui
 from gtk import glade
 
-from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
-sys.path.insert(0, "/usr/share/rhn/up2date_client/")
-sys.path.insert(1,"/usr/share/rhn")
-
-import rhnreg
-import rhnregGui
-import up2dateErrors
-import messageWindow
-
 import gettext
-_ = gettext.gettext
-gettext.textdomain("rhn-client-tools")
+_ = lambda x: gettext.ldgettext("rhn-client-tools", x)
+
 gtk.glade.bindtextdomain("rhn-client-tools")
 
+from firstboot.module import Module
+from firstboot.constants import *
 
-class RhnCreateProfileWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.CreateProfilePage):
-    #You must specify a runPriority for the order in which you wish your module to run
-    runPriority = 108.7
-    moduleName = _("Create Profile")
-    windowTitle =  moduleName
-    shortMessage = _("Connect to Red Hat Network")
-    needsparent = 1
-    needsnetwork = 1
-    noSidebar = True
-
+class moduleClass(Module):
     def __init__(self):
-        RhnRegisterFirstbootGuiWindow.__init__(self)
-        rhnregGui.CreateProfilePage.__init__(self)
-        if rhnreg.registered():
-            self.skipme = True
+        Module.__init__(self)
+        self.priority = 108.7
+        self.sidebarTitle = _("Create Profile")
+        self.title = _("Create Profile")
 
-    def updatePage(self):
-        self.createProfilePagePrepare()
-    
-    def _getVbox(self):
-        return self.createProfilePageVbox()
-
-    def apply(self, *args):
-
-        ret =  self.createProfilePageVerify()
-        if ret:
-            return None
-
-        ret = self.createProfilePageApply()
-        if ret:
-            return None
-        
+    def needsNetwork(self):
         return True
 
-childWindow = RhnCreateProfileWindow
+    def apply(self, interface, testing=False):
+        if testing:
+            return RESULT_SUCCESS
+
+        ret = self.createProfilePage.createProfilePageVerify()
+        if ret:
+            return RESULT_FAILURE
+
+        ret = self.createProfilePage.createProfilePageApply()
+        if ret:
+            return RESULT_FAILURE
+        
+        return RESULT_SUCCESS
+
+    def createScreen(self):
+        self.createProfilePage = rhnregGui.CreateProfilePage()
+        self.vbox = gtk.VBox(spacing=5)
+        self.vbox.pack_start(self.createProfilePage.createProfilePageVbox(), True, True)
+
+    def initializeUI(self):
+        self.createProfilePage.createProfilePagePrepare()
+
+    def shouldAppear(self):
+        if rhnreg.registered():
+            return False
+        return True
+

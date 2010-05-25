@@ -1,4 +1,4 @@
-# Copyright 2006 Red Hat, Inc.
+# Copyright 2006--2010 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,57 +15,61 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 # Authors:
+#     Jan Pazdziora jpazdziora at redhat dot com
 #     Daniel Benamy <dbenamy@redhat.com>
 
-import os
 import sys
-sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
-import rhnreg
-import rhnregGui
-import up2dateErrors
-from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
 
 import gtk
 from gtk import glade
-import gettext
-_ = gettext.gettext
 
-gettext.textdomain("rhn-client-tools")
+import gettext
+_ = lambda x: gettext.ldgettext("rhn-client-tools", x)
+
 gtk.glade.bindtextdomain("rhn-client-tools")
 
+from firstboot.module import Module
+from firstboot.constants import *
 
-class RhnProvideCertificateWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.ProvideCertificatePage):
-    runPriority=107
-    moduleName = _("Provide Certificate")
-    windowTitle = moduleName
-    shortMessage = _("Provide a certificate for this Red Hat Network server")
-    needsparent = 1
-    needsnetwork = 1
-    noSidebar = True
-    
+class moduleClass(Module):
     def __init__(self):
-        RhnRegisterFirstbootGuiWindow.__init__(self)
-        rhnregGui.ProvideCertificatePage.__init__(self)
-        if rhnreg.registered():
-            self.skipme = True
-    
-    def _getVbox(self):
-        return self.provideCertificatePageVbox()
-    
-    def apply(self, *args):
-        """Returns True to change the page or None to stay on the same page."""
-        status = self.provideCertificatePageApply()
+        Module.__init__(self)
+        self.priority = 107.5
+        self.sidebarTitle = _("Provide Certificate")
+        self.title = _("Provide Certificate")
+
+    def needsNetwork(self):
+        return True
+
+    def apply(self, interface, testing=False):
+        if testing:
+            return RESULT_SUCCESS
+
+        status = self.provideCertificatePage.provideCertificatePageApply()
         if status == 0: # cert was installed
-            return True
+            return RESULT_SUCCESS
         elif status == 1: # the user doesn't want to provide a cert right now
             # TODO write a message to disk like the other cases? need to decide 
             # how we want to do error handling in general.
-            self.parent.setPage("rhn_finish_gui")
-            return True
+            interface.moveToPage(moduleTitle=_("Finish Updates Setup"))
+            return RESULT_JUMP
         else: # an error occurred and the user was notified
             assert status == 2
-            return None
+            return RESULT_FAILURE
 
+    def createScreen(self):
+        self.provideCertificatePage = rhnregGui.ProvideCertificatePage()
+        self.vbox = gtk.VBox(spacing=5)
+        self.vbox.pack_start(self.provideCertificatePage.provideCertificatePageVbox(), True, True)
 
-childWindow = RhnProvideCertificateWindow
+    def initializeUI(self):
+        self.provideCertificatePage.setUrlInWidget()
+
+    def shouldAppear(self):
+        if rhnreg.registered():
+            return False
+        return True
+
