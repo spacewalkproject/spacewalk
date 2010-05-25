@@ -6,7 +6,7 @@ PREFIX ?=
 VERSION ?=
 
 # Dirs we need to walk into
-SUBDIRS		= up2date_client actions firstboot bin
+SUBDIRS		= up2date_client actions firstboot firstboot-legacy-rhel5 bin
 
 # For subdirs, required exports 
 export PREFIX 

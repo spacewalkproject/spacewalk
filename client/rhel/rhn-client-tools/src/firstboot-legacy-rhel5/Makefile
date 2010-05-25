@@ -16,7 +16,7 @@ INSTALL_DATA     = $(INSTALL) -m 644
 INSTALL_DIR     = $(INSTALL) -m 755 --verbose -d
 
 # Install Directories
-FIRSTBOOTDIR	= $(PREFIX)/usr/share/rhn/up2date_client/firstboot/
+FIRSTBOOTDIR	= $(PREFIX)/usr/share/firstboot/modules/
 
 
 PYCHECKER       = /usr/bin/pychecker
