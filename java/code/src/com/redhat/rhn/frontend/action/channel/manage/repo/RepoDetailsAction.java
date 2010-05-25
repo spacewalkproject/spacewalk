@@ -42,8 +42,6 @@ import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
  * @version $Rev$
  */
 public class RepoDetailsAction extends RhnAction {
-    private static final Logger LOG =
-                Logger.getLogger(RepoDetailsAction.class);
     public static final String ORG = "org";
     public static final String CREATE_MODE = "create_mode";
     public static final String REPO = "repo";
