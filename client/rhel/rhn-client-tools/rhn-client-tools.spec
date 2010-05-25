@@ -116,10 +116,11 @@ rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_hal.*
 rm $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/hardware_gudev.*
 %endif
 
-%if 0%{?rhel} < 6
+%if 0%{?rhel} > 0 && 0%{?rhel} < 6
 rm -rf $RPM_BUILD_ROOT%{_datadir}/rhn/up2date_client/firstboot
+rm -f $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_register.*
 %else
-rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules
+rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 %endif
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
@@ -259,7 +260,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
 %{_datadir}/applications/rhn_register.desktop
 
-%if 0%{?rhel} < 6
+%if 0%{?rhel} > 0 && 0%{?rhel} < 6
 %{_datadir}/firstboot/modules/rhn_login_gui.*
 %{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
 %{_datadir}/firstboot/modules/rhn_start_gui.*
@@ -269,8 +270,8 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/firstboot/modules/rhn_review_gui.*
 %{_datadir}/firstboot/modules/rhn_finish_gui.*
 %else
+%{_datadir}/firstboot/modules/rhn_register.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_login_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_register_firstboot_gui_window.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_start_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_choose_server_gui.*
 %{_datadir}/rhn/up2date_client/firstboot/rhn_provide_certificate_gui.*
