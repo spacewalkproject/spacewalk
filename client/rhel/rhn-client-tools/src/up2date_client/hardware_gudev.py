@@ -28,7 +28,6 @@ def get_devices():
         'detached' : '0'
         'class' : 'OTHER'
         'desc' : 'Intel Corporation|5000 Series Chipset PCI Express x4 Port 2'
-
     """
     # listen to uevents on all subsystems
     client = gudev.Client([""])
