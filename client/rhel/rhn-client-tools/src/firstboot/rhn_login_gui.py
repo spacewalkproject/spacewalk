@@ -22,6 +22,7 @@ import sys
 sys.path.append("/usr/share/rhn")
 from up2date_client import rhnreg
 from up2date_client import rhnregGui
+from up2date_client import messageWindow
 
 import gtk
 from gtk import glade
@@ -51,7 +52,11 @@ class moduleClass(Module):
         if self.loginPage.loginPageVerify():
             return RESULT_FAILURE
 
-        if self.loginPage.loginPageApply():
+        ret = self.loginPage.loginPageApply()
+        if self.loginPage.go_to_finish:
+            interface.moveToPage(moduleTitle=_("Finish Updates Setup"))
+            return RESULT_JUMP
+        if ret:
             return RESULT_FAILURE
 
         # We should try to activate hardware, even if no EUS in firstboot
@@ -78,6 +83,19 @@ class moduleClass(Module):
 class FirstbootLoginPage(rhnregGui.LoginPage):
     def __init__(self):
         rhnregGui.LoginPage.__init__(self)
+
+    def loginPageApply(self):
+        self.go_to_finish = False
+        return rhnregGui.LoginPage.loginPageApply(self)
+
+    def fatalError(self, error, wrap=1):
+        msg = _("There was a communication error with the server:") \
+            + "\n\n" + error + "\n\n" \
+	    + _("Would you like to go back and try again?")
+        dlg = messageWindow.YesNoDialog(msg)
+        ret = dlg.getrc()
+        if not ret:
+            self.go_to_finish = True
 
     def goToPageAfterLogin(self):
         pass
