@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.conf.ConfigException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.taskomatic.TaskoXmlRpcServer;
 
 import org.apache.log4j.Logger;
 import org.quartz.CronTrigger;
@@ -29,6 +30,7 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -40,19 +42,22 @@ import java.util.Properties;
 public class SchedulerKernel {
 
     private static Logger log = Logger.getLogger(SchedulerKernel.class);
-
     private byte[] shutdownLock = new byte[0];
-    private Scheduler scheduler = null;
+    private static SchedulerFactory factory = null;
+    private static Scheduler scheduler = null;
+    private static TaskoXmlRpcServer xmlrpcServer = null;
     private ChainedListener chainedJobListener = null;
     private String dataSourceConfigPath = "org.quartz.jobStore.dataSource";
     private String dataSourcePrefix = "org.quartz.dataSource";
     private String defaultDataSource = "rhnDs";
 
+
     /**
      * Kernel main driver behind Taskomatic
      * @throws InstantiationException thrown if this.scheduler can't be initialized.
+     * @throws UnknownHostException
      */
-    public SchedulerKernel() throws InstantiationException {
+    public SchedulerKernel() throws InstantiationException, UnknownHostException {
         Properties props = Config.get().getNamespaceProperties("org.quartz");
         String dbHost = Config.get().getString(ConfigDefaults.DB_HOST);
         String dbPort = Config.get().getString(ConfigDefaults.DB_PORT);
@@ -72,13 +77,11 @@ public class SchedulerKernel {
             props.setProperty(ds + ".URL", "jdbc:oracle:thin:@" +
                     dbHost + ":" + dbPort + ":" + dbName);
         }
-        // create a this.schedulerFactory
-        try {
-            SchedulerFactory fact = new StdSchedulerFactory(props);
 
-            // this.scheduler
-            this.scheduler = fact.getScheduler();
-            this.scheduler.setJobFactory(new RhnJobFactory());
+        try {
+            SchedulerKernel.factory = new StdSchedulerFactory(props);
+            SchedulerKernel.scheduler = SchedulerKernel.factory.getScheduler();
+            SchedulerKernel.scheduler.setJobFactory(new RhnJobFactory());
 
             // Setup TriggerListener chain
             this.chainedJobListener = new ChainedListener();
@@ -86,17 +89,23 @@ public class SchedulerKernel {
             this.chainedJobListener.addListener(new LoggingListener());
 
             try {
-                this.scheduler.addTriggerListener(this.chainedJobListener);
+                SchedulerKernel.scheduler.addTriggerListener(this.chainedJobListener);
             }
             catch (SchedulerException e) {
                 throw new ConfigException(e.getLocalizedMessage(), e);
             }
+            xmlrpcServer = new TaskoXmlRpcServer(Config.get());
+            xmlrpcServer.start();
         }
         catch (SchedulerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             throw new InstantiationException("this.scheduler failed");
         }
+    }
+
+    public static Scheduler getScheduler() {
+        return SchedulerKernel.scheduler;
     }
 
     /**

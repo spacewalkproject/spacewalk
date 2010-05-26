@@ -35,4 +35,5 @@
   <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />
   <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
   <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
+  <template name="taskomatic" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticHandler" />
 </factory>
