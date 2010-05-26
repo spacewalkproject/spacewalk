@@ -33,8 +33,6 @@ sys.path.insert(1,"/usr/share/rhn")
 
 import rhnreg
 import rhnregGui
-import up2dateErrors
-import messageWindow
 
 
 ##
@@ -97,20 +95,7 @@ class RhnLoginWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.LoginPage):
             
             assert rhnregGui.newAccount is False
             
-            try:
-                ret = self.loginPageApply()
-            # TODO this exception can't reach here right now. ditch it and/or 
-            # figure out how we want to provide this functionality.
-            except up2dateErrors.CommunicationError, e:
-                msg = _("There was a communication error with the server: %s" % e.errmsg)
-                msg = msg + "\n\n" + _("Would you like to try changing the network configuration and trying again?")
-                dlg = messageWindow.YesNoDialog(msg)
-                ret = dlg.getrc()
-                if ret:
-                    return None
-                else:
-                    self.parent.setPage("rhn_finish_gui")
-            if ret:
+            if self.loginPageApply():
                 return None
 
         # We should try to activate hardware, even if no EUS in firstboot
