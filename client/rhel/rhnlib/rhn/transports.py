@@ -164,10 +164,6 @@ class Transport(xmlrpclib.Transport):
         for h in ['Content-Length', 'Host']:
             req.clear_header(h)
         
-        # XXX: should try-catch ProtocolError here. But I am not sure 
-        # what to do with it if I get it, so for now letting it slip 
-        # through to the next level is sortof working. 
-        # Must be fixed before ship, though. --gafton
         headers, fd = req.send_http(host, handler)
         
         if self.verbose:

@@ -91,6 +91,9 @@ class RhnCli(object):
             sys.stderr.write(_("A common cause of this error is the system time being incorrect. " \
                                "Verify that the time on this system is correct.\n"))
             sys.exit(1)
+        except SSL.SysCallError, socket.error:
+            sys.stderr.write("OpenSSL.SSL.SysCallError: %s\n" % str(e)
+            sys.exit(2))
         except crypto.Error, e:
             sys.stderr.write(_("There was a SSL crypto error: %s\n") % e)
         except SystemExit, e:
@@ -101,6 +104,9 @@ class RhnCli(object):
         except up2dateErrors.RpmError, e:
             sys.stderr.write("%s\n" % e)
             sys.exit(1)
+        except xmlrpclib.ProtocolError, e:
+            sys.stderr.write("XMLRPC ProtocolError: %s\n" % str(e)
+            sys.exit(3))
 
     def initialize(self):
         (self.options, self.args) = self.optparser.parse_args()
