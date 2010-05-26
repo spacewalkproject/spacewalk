@@ -821,7 +821,7 @@
         <form-bean name="contentSourceForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="url" type="java.lang.String"/>
-            <form-property name="oldLabel" type="java.lang.String" />
+            <form-property name="sourceid" type="java.lang.Long" />
             <form-property name="label" type="java.lang.String"/>
         </form-bean>
                 
@@ -6635,7 +6635,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/manage/repo/repodetails.jsp"/>
         <forward name="success" 
-                 path="/channels/manage/repo/RepoEdit.do" redirect = "true"/>
+                 path="/channels/manage/repos/RepoEdit.do" redirect = "true"/>
     </action>
 
 <!-- end repo -->

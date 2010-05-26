@@ -33,6 +33,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.channel.repo.BaseRepoCommand;
 import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
 import com.redhat.rhn.manager.channel.repo.EditRepoCommand;
 
@@ -47,7 +48,7 @@ public class RepoDetailsAction extends RhnAction {
     public static final String REPO = "repo";
     public static final String URL = "url";
     public static final String LABEL = "label";
-    public static final String OLD_LABEL = "oldLabel";
+    public static final String SOURCEID = "sourceid";
 
     private static final String VALIDATION_XSD =
                 "/com/redhat/rhn/frontend/action/channel/" +
@@ -87,7 +88,7 @@ public class RepoDetailsAction extends RhnAction {
                     request.removeAttribute(CREATE_MODE);
                     setupRepo(request, form, repo);
                     return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                                        LABEL, repo.getLabel());
+                                        "id", repo.getId().toString());
                 }
                 catch (ValidatorException ve) {
                     getStrutsDelegate().saveMessages(request, ve.getResult());
@@ -97,9 +98,7 @@ public class RepoDetailsAction extends RhnAction {
         }
         else if(!isCreateMode(request)) {
             setup(request, form);
-        }
-        
-     //   setup(request, form);    
+        }                 
             
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -118,16 +117,16 @@ public class RepoDetailsAction extends RhnAction {
     private void setup(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
         EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(), 
-                context.getParamAsLong("id"));     
+                context.getParamAsLong("id"));        
         setupRepo(request, form, cmd.getNewRepo());     
     }
           
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
             ContentSource repo) {
         
-        form.set(LABEL, repo.getLabel());
-        form.set(OLD_LABEL, repo.getLabel());
+        form.set(LABEL, repo.getLabel());        
         form.set(URL, repo.getSourceUrl());
+        form.set(SOURCEID, repo.getId());
         bindRepo(request, repo);        
     }
 
@@ -140,15 +139,19 @@ public class RepoDetailsAction extends RhnAction {
         request.setAttribute(REPO, repo);        
     }
     
-    private ContentSource submit(HttpServletRequest request, DynaActionForm form) {
-        RequestContext context = new RequestContext(request);
-        
-        String label = isCreateMode(request) ? 
-                    form.getString(LABEL) : form.getString(OLD_LABEL);
+    private ContentSource submit(HttpServletRequest request, DynaActionForm form) {        
+        RequestContext context = new RequestContext(request);                
         String url = form.getString(URL);
+        String label = form.getString(LABEL);
         Org org = context.getLoggedInUser().getOrg();
+        BaseRepoCommand repoCmd = null;
+        if(isCreateMode(request)) {
+           repoCmd = new CreateRepoCommand(org);
+        }
+        else {
+            repoCmd = new EditRepoCommand(context.getLoggedInUser(), context.getParamAsLong(SOURCEID));
+        }
         
-        CreateRepoCommand repoCmd = new CreateRepoCommand(org);
         repoCmd.setLabel(label);
         repoCmd.setUrl(url);
         repoCmd.store();
