@@ -7,21 +7,20 @@
 <body>
 <c:choose>
 	<c:when test = "${not empty requestScope.create_mode}">
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
-  <bean:message key="repos.jsp.toolbar"/>
-</rhn:toolbar>
-<h2><bean:message key="repos.jsp.header2"/></h2>
+      <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
+        <bean:message key="repos.jsp.toolbar"/>
+      </rhn:toolbar>
+      <h2><bean:message key="repos.jsp.header2"/></h2>
 	</c:when>
 	<c:otherwise>
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img"
-		               deletionUrl="RepoDelete.do?label=${contentSourceForm.map.label}"
-               deletionType="snippets">
-	<c:out value="${requestScope.snippet.displayName}"/>
-</rhn:toolbar>
-<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
+      <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img"
+		           deletionUrl="RepoDelete.do?id=${requestScope.repo.id}"
+                   deletionType="repos">
+	    <c:out value="${requestScope.repo.label}"/>
+      </rhn:toolbar>
+      <h2><bean:message key="repos.jsp.details.header2"/></h2>
 	</c:otherwise>
 </c:choose>
-
 
 <c:choose>
 	<c:when test="${empty requestScope.create_mode}">
@@ -31,7 +30,6 @@
 		<c:set var="url" value ="/channels/manage/repos/RepoCreate"/>
 	</c:otherwise>
 </c:choose>
-
 
 <div>
     <html:form action="${url}">

@@ -129,7 +129,6 @@ public class RepoDetailsAction extends RhnAction {
         form.set(OLD_LABEL, repo.getLabel());
         form.set(URL, repo.getSourceUrl());
         bindRepo(request, repo);
-        request.setAttribute(ORG, repo.getOrg());
     }
 
     /**
