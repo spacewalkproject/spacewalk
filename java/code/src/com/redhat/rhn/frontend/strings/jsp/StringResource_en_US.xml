@@ -9244,6 +9244,12 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/channel/manage/repo/RepoList.do</context>
           </context-group>
         </trans-unit>
+        <trans-unit id="toolbar.delete.repos">
+          <source>delete repository</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/channel/manage/repo/RepoDetails.do</context>
+          </context-group>
+        </trans-unit>
         <trans-unit id="repos.jsp.toolbar">
           <source>Create New Repository</source>
         </trans-unit>
@@ -9260,12 +9266,14 @@ Please note that some manual configuration of these scripts may still be require
           <source>Create Repository</source>
         </trans-unit>
         <trans-unit id="repos.jsp.update.submit">
-          <source>Create Repository</source>
+          <source>Update Repository</source>
         </trans-unit>
         <trans-unit id="repos.jsp.create.success">
           <source>Repository created successfully</source>
         </trans-unit>
-
+        <trans-unit id="repos.jsp.details.header2">
+          <source>Repository Details</source>
+        </trans-unit>
 
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
