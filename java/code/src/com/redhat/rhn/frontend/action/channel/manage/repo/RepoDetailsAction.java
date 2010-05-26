@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -29,13 +28,13 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.channel.repo.CreateRepoCommand;
+import com.redhat.rhn.manager.channel.repo.EditRepoCommand;
 
 
 /**
@@ -97,7 +96,7 @@ public class RepoDetailsAction extends RhnAction {
             }
         }
         else if(!isCreateMode(request)) {
-            
+            setup(request, form);
         }
         
      //   setup(request, form);    
@@ -115,24 +114,14 @@ public class RepoDetailsAction extends RhnAction {
     private boolean isCreateMode(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
-    /*
+    
     private void setup(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
-        if (isCreateMode(request)) {
-            request.setAttribute(PREFIX, CobblerSnippet.getPrefixFor(
-                            context.getLoggedInUser().getOrg()));
-        }
-        else {
-            String param = NAME;
-            if (!isCreateMode(request) && RhnValidationHelper.
-                                        getFailedValidation(request)) {
-                param = OLD_NAME;
-            }
-            CobblerSnippet snip = loadEditableSnippet(request, param);
-            setupSnippet(request, form, snip);
-        }
+        EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(), 
+                context.getParamAsLong("id"));     
+        setupRepo(request, form, cmd.getNewRepo());     
     }
-      */      
+          
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
             ContentSource repo) {
         
