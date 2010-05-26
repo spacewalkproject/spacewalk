@@ -381,6 +381,18 @@ public class ConfigDefaults {
     }
 
     /**
+     * Returns the URL for the tasko server, if not defined returns
+     * http://localhost:2829/RPC2
+     * @return the URL for the search server.
+     */
+    public String getTaskoServerUrl() {
+        String taskoServerHost =
+            Config.get().getString("tasko_server.host", "localhost");
+        int taskoServerPort = Config.get().getInt("tasko_server.port", 2829);
+        return "http://" + taskoServerHost + ":" + taskoServerPort + "/RPC2";
+    }
+
+    /**
      * Get the URL to the cobbler server 
      * @return http url
      */
