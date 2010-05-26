@@ -29,6 +29,7 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -95,6 +96,11 @@ public class RepoDetailsAction extends RhnAction {
                 }                
             }
         }
+        else if(!isCreateMode(request)) {
+            
+        }
+        
+     //   setup(request, form);    
             
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -109,8 +115,24 @@ public class RepoDetailsAction extends RhnAction {
     private boolean isCreateMode(HttpServletRequest request) {
         return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
     }
-        
-    
+    /*
+    private void setup(HttpServletRequest request, DynaActionForm form) {
+        RequestContext context = new RequestContext(request);
+        if (isCreateMode(request)) {
+            request.setAttribute(PREFIX, CobblerSnippet.getPrefixFor(
+                            context.getLoggedInUser().getOrg()));
+        }
+        else {
+            String param = NAME;
+            if (!isCreateMode(request) && RhnValidationHelper.
+                                        getFailedValidation(request)) {
+                param = OLD_NAME;
+            }
+            CobblerSnippet snip = loadEditableSnippet(request, param);
+            setupSnippet(request, form, snip);
+        }
+    }
+      */      
     private void setupRepo(HttpServletRequest request, DynaActionForm form,
             ContentSource repo) {
         
