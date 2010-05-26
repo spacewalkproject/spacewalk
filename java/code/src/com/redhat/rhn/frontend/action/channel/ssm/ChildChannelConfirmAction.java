@@ -18,13 +18,13 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmManager;
@@ -37,6 +37,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
  * ChildChannelConfirmAction
  * @version $Rev$
  */
-public class ChildChannelConfirmAction extends RhnAction {
+public class ChildChannelConfirmAction extends RhnAction implements Listable {
     
     private final Log log = LogFactory.getLog(this.getClass());
     
@@ -67,37 +68,38 @@ public class ChildChannelConfirmAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)form;
-        request.setAttribute("parentUrl", request.getRequestURI());
         
         // First, find the channels the user chose to operate on, as stored
         // in an RhnSet by ChildChannelAction
-        List<Channel> subList = new ArrayList<Channel>();
-        List<Channel> unsubList = new ArrayList<Channel>();
+        List<Channel> chanSubList = new ArrayList<Channel>();
+        List<Channel> chanUnsubList = new ArrayList<Channel>();
         
-        findChannelsFromSet(user, subList, unsubList);
+        findChannelsFromSet(user, chanSubList, chanUnsubList);
         
-        // Next, get the Servers that are in the SSM currently
-        List<Server> servers = ServerFactory.listSystemsInSsm(user);
         
-        // Then, get the lists of allowed subscriptions and un-subscriptions, 
-        // for each server
-        Map<Server, List<Channel>> subs =
-            SsmManager.linkChannelsToSubscribeForServers(user, servers, subList);
+        chanSubList = filterChannels(chanSubList, user);
+        Map<Long, ChannelActionDAO> sysSubList = ChannelManager.filterChildSubscriptions(
+                RhnSetDecl.SYSTEMS.getLabel(),  chanSubList, chanUnsubList, user);
         
-        Map<Server, List<Channel>> unsubs =
-            SsmManager.linkChannelsToUnsubscribeForServers(servers, unsubList);
+        //If we are going to go over our subscription limit, 
+        //    we need to not try to subscribe as many
+        Map<Long, ChannelActionDAO> subs =
+            SsmManager.verifyChildEntitlements(user, sysSubList, chanSubList);
         
-        // Now, build the object that the page knows how to render
-        List<ChannelActionDAO> changes = SsmManager.buildActionlist(subs, unsubs);
+        List list = new ArrayList();
+        list.addAll(subs.values());
+        request.setAttribute("data", list);
 
-        request.setAttribute("channelchanges", changes);
+        
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
         
         ActionForward result;
         if (isSubmitted(daForm)) {
 
             // Fire the request off asynchronously
             SsmChangeChannelSubscriptionsEvent event =
-                new SsmChangeChannelSubscriptionsEvent(user, changes);
+                new SsmChangeChannelSubscriptionsEvent(user, subs.values());
             MessageQueue.publish(event);
             
             result = mapping.findForward("success");
@@ -111,6 +113,25 @@ public class ChildChannelConfirmAction extends RhnAction {
         return result;
     }
 
+    
+    
+    protected List<Channel> filterChannels(Collection<Channel> chans, User user) {
+        List<Channel> newChannels = new ArrayList<Channel>();
+        for (Channel c : chans) {
+            // Check for proxy and satellite channels
+            if (c.isProxy() || c.isSatellite()) {
+                continue;
+            }
+            // Verify the user roles, caching the role for the channel
+            Boolean hasAcceptableRole = 
+                    ChannelManager.verifyChannelSubscribe(user, c.getId());
+            if (hasAcceptableRole) {
+                newChannels.add(c);
+            }
+        }
+        return newChannels;
+    }
+    
     //
     // Build the list of channels we're going to unsubscribe systems from - per system,
     // we only unsubscribe if the system currently IS subscribed...
@@ -135,5 +156,15 @@ public class ChildChannelConfirmAction extends RhnAction {
                 unsubs.add(c);
             }
         }
+    }
+
+
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        return (List) context.getRequest().getAttribute("data");
     }
 }
