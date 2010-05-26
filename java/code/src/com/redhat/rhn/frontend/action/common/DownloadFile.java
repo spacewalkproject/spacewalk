@@ -370,7 +370,7 @@ public class DownloadFile extends DownloadAction {
             }         
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
                 Channel c = ChannelFactory.lookupById((Long)params.get(CHANNEL));
-                ContentSource cs = ChannelFactory.lookupContentSource(fileId);
+                ContentSource cs = ChannelFactory.lookupContentSource(fileId, user.getOrg());
                 ChannelManager.verifyChannelAdmin(user, fileId);
                 File file = new File(ChannelManager.getLatestSyncLogFile(cs, c));
 
