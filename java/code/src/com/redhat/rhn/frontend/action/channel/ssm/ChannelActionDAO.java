@@ -14,10 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.channel.ssm;
 
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.server.Server;
-
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * ChannelActionDAO - stores channel subscription/unsubscription info for a specific system
@@ -27,33 +25,36 @@ public class ChannelActionDAO {
     
     public static final Long SUBSCRIBE = 1L;
     public static final Long UNSUBSCRIBE = 2L;
+    private String name;
+    private Long id;
+    private Set<Long> subsAllowed = new HashSet<Long>();
+    private Set<Long> unsubsAllowed = new HashSet<Long>();
     
-    private Server server;
-    private List<Channel> subsAllowed;
-    private List<Channel> unsubsAllowed;
+    private Set<String> subNamesAllowed =  new HashSet<String>();
+    private Set<String> unsubNamesAllowed = new HashSet<String>();
     
     /**
      * What Server are we going to act on?
      * @return the affected server
      */
-    public Server getServer() {
-        return server;
+    public Long getId() {
+        return id;
     }
     
     /**
      * Set which Server we're affecting
      * @param serverIn to set.
      */
-    public void setServer(Server serverIn) {
-        this.server = serverIn;
+    public void setId(Long serverIn) {
+        this.id = serverIn;
     }
 
     /**
-     * What's the Server's ID?
-     * @return getServer().getId()
+     * What's the Server's name?
+     * @param nameIn the name
      */
-    public Long getId() {
-        return server.getId();
+    public void setName(String nameIn) {
+        name = nameIn;
     }
 
     /**
@@ -61,39 +62,82 @@ public class ChannelActionDAO {
      * @return server name.
      */
     public String getName() {
-        return server.getName();
+        return name;
     }
     
     /** 
      * What channels are we trying to subscribe this system to?
      * @return list of channels to subscribe to
      */
-    public List<Channel> getSubsAllowed() {
+    public Set<Long> getSubscribeChannelIds() {
         return subsAllowed;
     }
     
+
     /**
-     * Set the list of channels-to-be-subscribed
-     * @param subAllowedIn Allowed channels to set. 
+     * Add a channel name to subscribe (for display purposes only)
+     * @param nameIn the nameIn
      */
-    public void setSubsAllowed(List<Channel> subAllowedIn) {
-        this.subsAllowed = subAllowedIn;
+    public void addSubscribeName(String nameIn) {
+        subNamesAllowed.add(nameIn);
     }
+    
+    /**
+     * get the list of channel names to subscribe
+     * @return the list
+     */
+    public Set<String> getSubscribeNames() {
+        return subNamesAllowed;
+    }
+
+    /**
+     * Add an ubsubscribe channel name
+     * @param nameIn the name
+     */
+    public void addUnsubcribeName(String nameIn) {
+        unsubNamesAllowed.add(nameIn);
+    }
+    
+    /**
+     * get the names of the channels for unsubscribing
+     * @return the list of names
+     */
+    public Set<String> getUnsubcribeNames() {
+        return unsubNamesAllowed;
+    }
+
+    /**
+     * add a channel for subscription
+     * @param cid the channel id
+     */
+    public void addSubscribeChannelId(Long cid) {
+        this.subsAllowed.add(cid);
+    }
+    
     
     /**
      * What channels are we trying to unsubscribe this system from?
      * @return list of channels to unsubscribe
      */
-    public List<Channel> getUnsubsAllowed() {
+    public Set<Long> getUnsubscribeChannelIds() {
         return unsubsAllowed;
     }
-
+    
     /**
-     * Set the list of channels-to-unubscribe-from
-     * @param unsubsAllowedIn to set.
+     * Add an unsubscribe channel
+     * @param cid the channel id
      */
-    public void setUnsubsAllowed(List<Channel> unsubsAllowedIn) {
-        this.unsubsAllowed = unsubsAllowedIn;
+    public void addUnsubscribeChannelId(Long cid) {
+        this.unsubsAllowed.add(cid);
     }
+    
+    /**
+     * Are there any unsubscribe or subscribe channels
+     * @return if empty true
+     */
+    public boolean isEmtpy() {
+        return getUnsubscribeChannelIds().isEmpty() && getSubscribeChannelIds().isEmpty();
+    }
+
 
 }

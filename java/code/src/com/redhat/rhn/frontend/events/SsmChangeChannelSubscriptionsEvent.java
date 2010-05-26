@@ -18,7 +18,7 @@ import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Event fired to carry the information necessary to perform subscription changes
@@ -30,7 +30,7 @@ import java.util.List;
 public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
 
     private User user;
-    private List<ChannelActionDAO> changes;
+    private Collection<ChannelActionDAO> changes;
 
     /**
      * Creates a new SSM channel change event to fire across the message bus.
@@ -39,7 +39,8 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
      * @param changesIn changes to make; cannot be <code>null</code>
      */
     public SsmChangeChannelSubscriptionsEvent(User userIn,
-                                              List<ChannelActionDAO> changesIn) {
+                                              Collection<ChannelActionDAO> changesIn) {
+        
         if (userIn == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -62,7 +63,7 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
     /**
      * @return will not be <code>null</code>
      */
-    public List<ChannelActionDAO> getChanges() {
+    public Collection<ChannelActionDAO> getChanges() {
         return changes;
     }
 

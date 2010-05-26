@@ -477,6 +477,7 @@ class LoginPage:
             self.alreadyRegistered = rhnreg.reserveUser(self.loginUname.get_text(),
                                                         self.loginPw.get_text())
         except up2dateErrors.ValidationError, e:
+            setArrowCursor()
             self.alreadyRegistered = 0
             log.log_me("An exception was raised causing login to fail. This is "
                        "usually correct. Exception information:")

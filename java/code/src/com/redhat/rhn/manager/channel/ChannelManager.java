@@ -50,6 +50,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ChannelPerms;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
@@ -2830,6 +2831,80 @@ public class ChannelManager extends BaseManager {
         }
         Collections.sort(possibleList);
         return logPath + possibleList.get(possibleList.size() - 1);
+    }
+    
+
+        
+    
+    /**
+     * Takes a list of child channels and a set label and returns a Map
+     *    with system ids as the key and a set ChannelActionDAO's
+     *     as the value
+     * @param setLabel the set label of System ids
+     * @param subChans the list of channels to subscribe
+     * @param unsubChans the list of channels to unsubscribe
+     * @param user the user doing the work
+     * @return The aformentioned map
+     */
+    public static Map<Long, ChannelActionDAO> filterChildSubscriptions(
+            String setLabel, List<Channel> subChans, List<Channel> unsubChans, User user) {
+        Map<Long, ChannelActionDAO> toRet = new  HashMap<Long, ChannelActionDAO>();
+        
+        List subCids = new ArrayList();
+        for (Channel c : subChans) {
+            subCids.add(c.getId());
+        }
+        List unsubCids = new ArrayList();
+        for (Channel c : unsubChans) {
+            unsubCids.add(c.getId());
+        }
+        
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        params.put("set_label", setLabel);
+        
+        SelectMode m = null;
+        List<Map> subDr = Collections.EMPTY_LIST;
+        List<Map> unsubDr = Collections.EMPTY_LIST;
+        if (!subChans.isEmpty()) {
+            m = ModeFactory.getMode("Channel_queries",
+                    "ssm_systems_for_child_subscription");
+            subDr =  m.execute(params, subCids);
+        }
+        if (!unsubChans.isEmpty()) {
+            m = ModeFactory.getMode("Channel_queries",
+                        "ssm_systems_for_child_unsubscription");
+           unsubDr =  m.execute(params, unsubCids);
+        }
+        
+        
+        for (Map row : subDr) {
+            Long id = (Long) row.get("id");
+            ChannelActionDAO sys = toRet.get(id);
+            if (sys == null) {
+                sys = new ChannelActionDAO();
+                sys.setId(id);
+                sys.setName((String) row.get("name"));
+                toRet.put(id, sys);
+            }
+            sys.addSubscribeChannelId((Long) row.get("channel_id"));
+            sys.addSubscribeName((String) row.get("channel_name"));
+        }
+
+        for (Map row : unsubDr) {
+            Long id = (Long) row.get("id");
+            ChannelActionDAO sys = toRet.get(id);
+            if (sys == null) {
+                sys = new ChannelActionDAO();
+                sys.setId(id);
+                sys.setName((String) row.get("name"));
+                toRet.put(id, sys);
+            }
+            sys.addUnsubscribeChannelId((Long) row.get("channel_id"));
+            sys.addUnsubcribeName((String) row.get("channel_name"));
+        }        
+        
+        return toRet;
     }
 
 }
