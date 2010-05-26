@@ -43,7 +43,7 @@
 			<html:text property="label"/>
 
             <c:if  test = "${empty requestScope.create_mode}">
-		<html:hidden property="oldLabel"/>
+		<html:hidden property="sourceid"/>
             </c:if>
         </td>
     </tr>

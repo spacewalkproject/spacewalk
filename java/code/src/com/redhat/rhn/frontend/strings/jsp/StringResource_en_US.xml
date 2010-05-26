@@ -9423,6 +9423,9 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.create.success">
           <source>Repository created successfully</source>
         </trans-unit>
+        <trans-unit id="repos.jsp.update.success">
+          <source>Repository updated successfully</source>
+        </trans-unit>
         <trans-unit id="repos.jsp.details.header2">
           <source>Repository Details</source>
         </trans-unit>
