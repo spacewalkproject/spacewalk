@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmManager;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -97,9 +98,17 @@ public class ChildChannelConfirmAction extends RhnAction implements Listable {
         ActionForward result;
         if (isSubmitted(daForm)) {
 
+            long operationId = SsmOperationManager.createOperation(user,
+                    "Channel Subscription Updates", null);
+
+            SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
+                RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());
+            SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
+                RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.getLabel());
+
             // Fire the request off asynchronously
             SsmChangeChannelSubscriptionsEvent event =
-                new SsmChangeChannelSubscriptionsEvent(user, subs.values());
+                new SsmChangeChannelSubscriptionsEvent(user, subs.values(), operationId);
             MessageQueue.publish(event);
             
             result = mapping.findForward("success");

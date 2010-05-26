@@ -21,26 +21,28 @@ import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
 import java.util.Collection;
 
 /**
- * Event fired to carry the information necessary to perform subscription changes
- * for servers in the SSM. 
+ * Event fired to carry the information necessary to perform subscription
+ * changes for servers in the SSM.
  *
- * @see com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction 
+ * @see com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction
  * @version $Revision$
  */
 public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
 
     private User user;
     private Collection<ChannelActionDAO> changes;
+    private Long opId;
 
     /**
      * Creates a new SSM channel change event to fire across the message bus.
      *
-     * @param userIn    user making the changes; cannot be <code>null</code>
+     * @param userIn user making the changes; cannot be <code>null</code>
      * @param changesIn changes to make; cannot be <code>null</code>
+     * @param operationId the operation id
      */
     public SsmChangeChannelSubscriptionsEvent(User userIn,
-                                              Collection<ChannelActionDAO> changesIn) {
-        
+            Collection<ChannelActionDAO> changesIn, Long operationId) {
+
         if (userIn == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -48,9 +50,10 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
         if (changesIn == null) {
             throw new IllegalArgumentException("changes cannot be null");
         }
-        
+
         this.user = userIn;
         this.changes = changesIn;
+        this.opId = operationId;
     }
 
     /**
@@ -67,6 +70,13 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
         return changes;
     }
 
+    /**
+     * @return the op id
+     */
+    public Long getOpId() {
+        return opId;
+    }
+
     /** {@inheritDoc} */
     public String toText() {
         return toString();
@@ -75,6 +85,6 @@ public class SsmChangeChannelSubscriptionsEvent implements EventMessage {
     /** {@inheritDoc} */
     public String toString() {
         return "SsmChannelSubscriptionsEvent[User: " + user.getLogin() +
-            ", Change Count: " + changes.size() + "]";
+                ", Change Count: " + changes.size() + "]";
     }
 }

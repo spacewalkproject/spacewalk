@@ -1196,6 +1196,7 @@ GROUP BY C.id, C.name
            where
                 rset.label = :set_label and
                 rset.user_id = :uid and
+                rset.element = S.id and
                 C.parent_channel = SC.channel_id and
                 SCAC.server_arch_id = S.server_arch_id and
                 SCAC.channel_arch_id = C.channel_arch_id and
