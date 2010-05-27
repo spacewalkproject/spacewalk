@@ -15,7 +15,9 @@
 package com.redhat.rhn.frontend.xmlrpc.channel.internal;
 
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -36,7 +38,7 @@ public class ChannelProcedureHandler extends BaseHandler {
      * @param userId the id of the user
      * @return 1 on success exception otherwise
      */
-    public int subscribeChannelToSystem(Integer serverId, 
+    public int subscribe(Integer serverId, 
                                 Integer channelId, Integer userId) {
         User user = UserFactory.lookupById(userId.longValue());
         Channel channel = ChannelManager.lookupByIdAndUser(channelId.longValue(), user);
@@ -52,4 +54,19 @@ public class ChannelProcedureHandler extends BaseHandler {
         
         return 1;
     }
+    
+    /**
+     * Runs the subscribe channel procedure
+     * @param serverId the id of the server
+     * @param channelId the id of the channel
+     * @return 1 on success exception otherwise
+     */
+    public int subscribeNoUser(Integer serverId, 
+                                Integer channelId) {
+        
+        Channel channel = ChannelFactory.lookupById(channelId.longValue());
+        Server server = ServerFactory.lookupById(serverId.longValue());
+        SystemManager.subscribeServerToChannel(null, server, channel);
+        return 1;
+    }    
 }

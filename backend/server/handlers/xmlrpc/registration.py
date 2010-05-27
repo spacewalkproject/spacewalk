@@ -347,6 +347,8 @@ class Registration(rhnHandler):
 	    # let the stacked activation keys do their magic
             tokens_obj.is_rereg_token = 0
             rhnFlags.set("re_registration_token", 0)       
+        
+        #import epdb; epdb.serve(port=9999)
 
         # now if we have a token, load the extra registration
         # information from the token
@@ -369,7 +371,7 @@ class Registration(rhnHandler):
             # without a base channel.
             try:
                 # don't commit
-                newserv.save(0, channel)
+                newserv.save(0, channel, pre_commit = 1)
             except (rhnChannel.SubscriptionCountExceeded,
                     rhnChannel.NoBaseChannelError), channel_error:
                 raise rhnFault(70)
@@ -408,7 +410,7 @@ class Registration(rhnHandler):
         #   |
         #   +--rhnNoSystemEntitlementsException
         try:
-            newserv.save(1, channel)
+            newserv.save(1, channel, pre_commit = 1)
         except (rhnChannel.SubscriptionCountExceeded,
                 rhnChannel.NoBaseChannelError), channel_error:
             raise rhnFault(70)

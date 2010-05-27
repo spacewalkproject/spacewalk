@@ -492,7 +492,7 @@ class Server(ServerWrapper):
             rhnSQL.commit()
 
        # Save this record in the database
-    def __save(self, channel):
+    def __save(self, channel, pre_commit = 0):
         if self.server.real:
             server_id = self.server["id"]
             self.server.save()
@@ -534,6 +534,9 @@ class Server(ServerWrapper):
             # to allow us to not have to pass in none_ok=1 in any case
             #
             # This can now throw exceptions which will be caught at a higher level
+            if pre_commit:
+                rhnSQL.commit()
+            
             if channel is not None:
                 channel_info = dict(rhnChannel.channel_info(channel))
                 log_debug(4, "eus channel id %s" % str(channel_info))
@@ -567,13 +570,13 @@ class Server(ServerWrapper):
 
     # This is a wrapper for the above class that allows us to rollback
     # any changes in case we don't succeed completely
-    def save(self, commit = 1, channel = None):
+    def save(self, commit = 1, channel = None, pre_commit = 0):
         log_debug(3)
         # attempt to preserve pending changes before we were called,
         # so we set up our own transaction checkpoint
         rhnSQL.transaction("save_server")
         try:
-            self.__save(channel)
+            self.__save(channel, pre_commit = pre_commit)
         except: # roll back to what we have before and raise again           
             rhnSQL.rollback("save_server")
             # shoot the exception up the chain
