@@ -212,6 +212,14 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Remove a Content Source from the DB
+     * @param src to be removed from database
+     */
+    public static void remove(ContentSource src) {
+        singleton.removeObject(src);
+    }
+
+    /**
      * Returns the base channel for the given server id.
      * @param sid Server id whose base channel we want.
      * @return Base Channel for the given server id.

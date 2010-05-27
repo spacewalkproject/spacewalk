@@ -14,7 +14,7 @@
 <p><bean:message key="repos.jsp.delete.summary"/></p>
 <p><rhn:warning key= "repos.jsp.delete.warning"/></p>
 <div>
-	<form method="post" action="/rhn/channels/cobbler/manage/repos/RepoDelete.do">
+	<form method="post" action="/rhn/channels/manage/repos/RepoDelete.do">
 <h2><bean:message key="repos.jsp.delete.info.header"/></h2>
     <table class="details">
     <tr>
