@@ -9376,7 +9376,7 @@ Please note that some manual configuration of these scripts may still be require
 
 <!-- Repo Sync -->
         <trans-unit id="repos.jsp.summary">
-          <source>Summary for repos here</source>
+          <source>Use repositories to sync additional packages to your channels. Repositories may be linked to your channels.</source>
         </trans-unit>
         <trans-unit id="repos.jsp.note.default">
           <source>note here</source>
@@ -9404,6 +9404,9 @@ Please note that some manual configuration of these scripts may still be require
         </trans-unit>
         <trans-unit id="repos.jsp.toolbar">
           <source>Create New Repository</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.header">
+          <source>Repositories</source>
         </trans-unit>
         <trans-unit id="repos.jsp.header2">
           <source>Create Repository</source>

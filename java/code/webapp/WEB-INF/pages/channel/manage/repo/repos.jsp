@@ -10,7 +10,7 @@
                creationUrl="RepoCreate.do"
                creationType="repos"
                imgAlt="info.alt.img">
-  <bean:message key="repos.jsp.toolbar"/>
+  <bean:message key="repos.jsp.header"/>
 </rhn:toolbar>
 <div class="page-summary">
 <p><bean:message key="repos.jsp.summary"/></p>
