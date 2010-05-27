@@ -9420,14 +9420,32 @@ Please note that some manual configuration of these scripts may still be require
         <trans-unit id="repos.jsp.update.submit">
           <source>Update Repository</source>
         </trans-unit>
+        <trans-unit id="repos.jsp.delete.submit">
+          <source>Delete Repository</source>
+        </trans-unit>
         <trans-unit id="repos.jsp.create.success">
           <source>Repository created successfully</source>
         </trans-unit>
         <trans-unit id="repos.jsp.update.success">
           <source>Repository updated successfully</source>
         </trans-unit>
+        <trans-unit id="repos.delete.success">
+          <source>Repository deleted successfully</source>
+        </trans-unit>
         <trans-unit id="repos.jsp.details.header2">
           <source>Repository Details</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.delete.header2">
+          <source>Confirm Repository Delete</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.delete.summary">
+          <source>Are you sure you want to delete this repository permanently?</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.delete.warning">
+          <source>Warning: Deleting this repository will remove any channel mappings this repository is associated with</source>
+        </trans-unit>
+        <trans-unit id="repos.jsp.delete.info.header">
+          <source>Repository Information</source>
         </trans-unit>
 
     <!-- TNC -->
