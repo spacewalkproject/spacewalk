@@ -172,3 +172,13 @@ def fix_url(url, scheme="http", path="/"):
         _fragment))
     return url
 
+def hash_object_id(self, object_id, factor):
+    """Given an object id (assumed to be <label>-<number>), returns the
+    last few digits for the number. For instance, (812345, 3) should
+    return 345"""
+    # Grab the digits after -
+    num_id = string.split(object_id, '-')[-1]
+    # get last 'factor' numbers
+    num_id = num_id[-factor:]
+    return num_id.rjust(factor,'0')
+
