@@ -6638,6 +6638,16 @@
                  path="/channels/manage/repos/RepoEdit.do" redirect = "true"/>
     </action>
 
+    <action path="/channels/manage/repos/RepoDelete"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.repo.RepoDeleteAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                 path="/WEB-INF/pages/channel/manage/repo/deleteconfirm.jsp"/>
+        <forward name="success" 
+                 path="/channels/manage/repos/RepoList.do" redirect = "true"/>
+    </action>
+
 <!-- end repo -->
       
    <action path="/common/DownloadFile"
