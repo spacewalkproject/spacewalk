@@ -9290,7 +9290,7 @@ Please note that some manual configuration of these scripts may still be require
           <source>Are you sure you want to delete this repository permanently?</source>
         </trans-unit>
         <trans-unit id="repos.jsp.delete.warning">
-          <source>Warning: Deleting this repository will remove any channel mappings this repository is associated with</source>
+          <source>Deleting this repository will remove any channel mappings this repository is associated with</source>
         </trans-unit>
         <trans-unit id="repos.jsp.delete.info.header">
           <source>Repository Information</source>

@@ -42,6 +42,7 @@ public class RepoDeleteAction extends RhnAction {
         RequestContext context = new RequestContext(request);
         EditRepoCommand cmd = new EditRepoCommand(context.getLoggedInUser(), 
                 context.getParamAsLong("id"));  
+        
         ContentSource src = cmd.getNewRepo();
         
         request.setAttribute(RepoDetailsAction.LABEL, src.getLabel() );
