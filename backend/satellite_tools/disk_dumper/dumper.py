@@ -23,7 +23,7 @@ from types import ListType
 from cStringIO import StringIO
 
 from common import log_debug, log_error, rhnFault, UserDictCase, rhnCache, \
-    CFG, rhnLib
+    CFG, rhnLib, rhnFlags
 from server import rhnSQL, rhnDatabaseCache
 from satellite_tools import constants
 from satellite_tools.exporter import exportLib, xmlWriter
@@ -99,12 +99,15 @@ class XML_Dumper:
     def get_channels_statement(self):
         query = """
             select c.id channel_id, c.label,
+	           ct.label as checksum_type,
                    TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
               from rhnChannel c, rhnChannelFamilyMembers cfm,
+	           rhnChecksumType ct,
                    (%s
                    ) scf
              where scf.channel_family_id = cfm.channel_family_id
                and cfm.channel_id = c.id
+	       and c.checksum_type_id = ct.id(+)
         """ % self._channel_family_query
         return DatabaseStatement().set_statement(rhnSQL.prepare(query))
 
@@ -469,6 +472,8 @@ class XML_Dumper:
             all_channels_hash[row['label']] = row
 
         # Intersect the list of channels they've sent to us 
+	iss_slave_sha256_capable = (float(rhnFlags.get('X-RHN-Satellite-XML-Dump-Version')) >= constants.SHA256_SUPPORTED_VERSION)
+
         if not channel_labels:
             channels = all_channels_hash
         else:
@@ -477,6 +482,10 @@ class XML_Dumper:
                 if not all_channels_hash.has_key(label):
                     raise rhnFault(3001, "Could not retrieve channel %s" %
                         label)
+                if not (iss_slave_sha256_capable
+                        or all_channels_hash[label]['checksum_type'] in [None, 'sha1']):
+                    raise rhnFault(3001, "Channel %s has incompatible checksum (%)" %
+                        (label, all_channels_hash[label]['checksum_type']))
                 channels[label] = all_channels_hash[label]
 
         return channels
