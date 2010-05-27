@@ -22,6 +22,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -51,7 +52,7 @@ public class RepoDeleteAction extends RhnAction {
         
         if (context.isSubmitted()) {
             try {
-                //delete here
+                ChannelFactory.remove(src);
                 createSuccessMessage(request, 
                             "repos.delete.success", cmd.getLabel());
                 return mapping.findForward("success");

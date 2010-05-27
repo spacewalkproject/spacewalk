@@ -210,6 +210,14 @@ public class ChannelFactory extends HibernateFactory {
     public static void remove(DistChannelMap dcm) {
         singleton.removeObject(dcm);
     }
+    
+    /**
+     * Remove a Content Source from the DB
+     * @param src to be removed from database
+     */
+    public static void remove(ContentSource src) {
+        singleton.removeObject(src);
+    }
 
     /**
      * Returns the base channel for the given server id.
