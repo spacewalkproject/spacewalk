@@ -21,7 +21,7 @@ def need_to_backup(src_dir, dest_dir):
     return False
 
 
-def ignorable(f, ignorables = ["*.pyc", "*.pyo", "*.pyd", "Makefile*"]):
+def ignorable(f, ignorables = ["*.*~", "*.swp", "*.pyc", "*.pyo", "*.pyd", "Makefile*"]):
     for i in ignorables: 
         if fnmatch.fnmatch(f, i): return True
     return False
