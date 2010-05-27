@@ -40,7 +40,7 @@ public class HandlerFactory {
     public HandlerFactory() {
         String manifest = StringUtils.defaultIfEmpty(Config.get().
                         getString("handler-manifest"), DEFAULT_MANIFEST);
-        setup(manifest);
+        setup(manifest, PKG_NAME);
     }
 
     /**
@@ -49,11 +49,22 @@ public class HandlerFactory {
      * @param handlerManifest the name of the manifest-xml
      */
     public HandlerFactory(String handlerManifest) {
-        setup(handlerManifest);
+        setup(handlerManifest, PKG_NAME);
     }    
     
-    protected void setup(String handlerManifest) {
-        ClassBuilder builder = new ClassBuilder(PKG_NAME, handlerManifest);
+    /**
+     * Constructor that takes in a given handler manifest file
+     * mainly used for unit test
+     * @param handlerManifest the name of the manifest-xml
+     * @param pkgName  the pkgName for the handler
+     */
+    public HandlerFactory(String handlerManifest, String pkgName) {
+        setup(handlerManifest, pkgName);
+    }
+
+
+    protected void setup(String handlerManifest, String pkgName) {
+        ClassBuilder builder = new ClassBuilder(pkgName, handlerManifest);
         factory = new ManifestFactory(builder);
     }
 
