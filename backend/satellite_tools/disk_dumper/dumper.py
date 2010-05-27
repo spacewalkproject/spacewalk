@@ -1328,7 +1328,7 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
 
     def _get_key(self, params):
         package_id = params['package_id']
-        hash_val = hash_object_id(package_id, 100)
+        hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-short-packages/%s/rhn-package-short-%s.xml" % (
             hash_val, package_id)
 
@@ -1382,7 +1382,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
 
     def _get_key(self, params):
         package_id = params['package_id']
-        hash_val = hash_object_id(package_id, 100)
+        hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-package-%s.xml" % (hash_val, package_id)
 
     def _dump_subelement(self, data):
@@ -1420,7 +1420,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
 
     def _get_key(self, params):
         package_id = params['package_id']
-        hash_val = hash_object_id(package_id, 100)
+        hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-source-package-%s.xml" % (hash_val, package_id)
 
     def _dump_subelement(self, data):
@@ -1454,7 +1454,7 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
 
     def _get_key(self, params):
         errata_id = params['errata_id']
-        hash_val = hash_object_id(errata_id, 10)
+        hash_val = rhnLib.hash_object_id(errata_id, 1)
         return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
 
     def _dump_subelement(self, data):
@@ -1488,7 +1488,7 @@ class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
 
     def _get_key(self, params):
         errata_id = params['errata_id']
-        hash_val = hash_object_id(errata_id, 10)
+        hash_val = rhnLib.hash_object_id(errata_id, 1)
         return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
 
     def _dump_subelement(self, data):
@@ -1529,20 +1529,6 @@ class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper)
         log_debug(6, data)
         return exportLib.KickstartableTreesDumper.dump_subelement(self, data)
 
-def hash_object_id(obj_id, factor):
-    """ This looks complicated; it returns the (integer part of)
-        obj_id, modulo factor
-        The string is left padded with as many 0 chars as necessary to 
-        match factor
-        XXX This is copied from satellite_tools.diskImportLib.hashPackageID - 
-        should figure out a way to share it -- misa
-    """
-    # Make sure obj_id is a string
-    obj_id = str(obj_id)
-    format = int(math.ceil(math.log10(factor)))
-    format = "%%0%sd" % format 
-    return format % (int(string.split(obj_id, '-')[-1]) % factor, )
-    
 class ClosedConnectionError(Exception):
     pass
 
