@@ -206,11 +206,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             h.executemany(snapshot_channel_id=snapshot_channel_ids,
                 obj_id=obj_ids, last_modified=last_modifieds)
 
-    def _snapshot_channel_packages(self, channels, channel_data):
-        self._do_snapshot('packages', channels, channel_data,
-            self._query_snapshot_channel_packages)
-        return {}
-
     def _snapshot_channel_package_sources(self, channels, channel_data):
         self._do_snapshot('source_packages', channels, channel_data,
             self._query_snapshot_channel_source_packages)
