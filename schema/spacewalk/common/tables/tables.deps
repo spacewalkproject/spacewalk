@@ -81,10 +81,6 @@ rhnCryptoKeyKickstart          :: rhnCryptoKey rhnKSData
 rhnDevice                      :: rhnServer
 rhnDistChannelMap              :: rhnChannel rhnChannelArch
 rhnDownloads                   :: rhnChannelFamily rhnFile rhnDownloadType
-rhnDumpSnapshotChannelErrata   :: rhnDumpSnapshotChannel rhnErrata
-rhnDumpSnapshotChannelPackage  :: rhnDumpSnapshotChannel rhnPackage
-rhnDumpSnapshotChannelPkgSrc   :: rhnDumpSnapshotChannel rhnPackageSource
-rhnDumpSnapshotChannelKSTree   :: rhnDumpSnapshotChannel rhnKickstartableTree
 rhnEmailAddress                :: rhnEmailAddressState web_contact
 rhnEntitlementQueue            :: web_customer
 rhnErrata                      :: rhnChecksum web_customer rhnErrataSeverity

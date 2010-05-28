@@ -94,14 +94,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             ', '.join(["'%s'" % x for x in channel_labels]), )
         return self
 
-    _query_purge_snapshot = rhnSQL.Statement("""
-        delete from rhnDumpSnapshotChannel where snapshot_id = :snapshot_id
-    """)
-    _query_snapshot_channels = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannel (id, snapshot_id, channel_id)
-        values (:id, :snapshot_id, :channel_id)
-    """)
-
     def _get_channel_data(self, channels):
         writer = ContainerWriter()
         d = ChannelsDumper(writer, channels=channels.values())
@@ -214,48 +206,21 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             h.executemany(snapshot_channel_id=snapshot_channel_ids,
                 obj_id=obj_ids, last_modified=last_modifieds)
 
-    _query_snapshot_channel_packages = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelPackage
-            (snapshot_channel_id, package_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
     def _snapshot_channel_packages(self, channels, channel_data):
         self._do_snapshot('packages', channels, channel_data,
             self._query_snapshot_channel_packages)
         return {}
 
-    _query_snapshot_channel_source_packages = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelPkgSrc
-        (snapshot_channel_id, package_source_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
     def _snapshot_channel_package_sources(self, channels, channel_data):
         self._do_snapshot('source_packages', channels, channel_data,
             self._query_snapshot_channel_source_packages)
         return {}
 
-    _query_snapshot_channel_errata = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelErrata
-        (snapshot_channel_id, errata_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
     def _snapshot_channel_errata(self, channels, channel_data):
         self._do_snapshot('errata', channels, channel_data,
             self._query_snapshot_channel_errata)
         return {}
 
-    _query_snapshot_channel_ks_trees = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelKSTree
-        (snapshot_channel_id, ks_tree_id, last_modified)
-        select :snapshot_channel_id, id, TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS')
-          from rhnKickstartableTree
-         where label = :obj_id
-           and org_id is null
-           and channel_id = :channel_id
-    """)
     def _snapshot_channel_ks_trees(self, channels, channel_data):
         self._do_snapshot('ks_trees', channels, channel_data,
             self._query_snapshot_channel_ks_trees,
@@ -643,52 +608,18 @@ class _ChannelDumper(exportLib.ChannelDumper):
         data.sort()
         return data
 
-    _query_get_snapshot_packages = rhnSQL.Statement("""
-        select dscp.package_id,
-               TO_CHAR(dscp.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelPackage dscp
-         where dscp.snapshot_channel_id = :snapshot_channel_id
-    """)
     def __get_snapshot_packages(self):
         return self.__get_statement_data(self._query_get_snapshot_packages)
 
-    _query_get_snapshot_source_packages = rhnSQL.Statement("""
-        select dscps.package_source_id id,
-               sr.name source_rpm,
-               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnSourceRPM sr,
-               rhnPackageSource ps,
-               rhnDumpSnapshotChannelPkgSrc dscps
-         where dscps.snapshot_channel_id = :snapshot_channel_id
-           and dscps.package_source_id = ps.id
-           and ps.source_rpm_id = sr.id
-    """)
     def __get_snapshot_source_packages(self):
         h = rhnSQL.prepare(self._query_get_snapshot_source_packages)
         h.execute(snapshot_channel_id=self.snapshot_channel_id)
         data = h.fetchall_dict() or []
         return data
 
-    _query_get_snapshot_errata = rhnSQL.Statement("""
-        select dsce.errata_id,
-               TO_CHAR(dsce.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelErrata dsce
-         where dsce.snapshot_channel_id = :snapshot_channel_id
-    """)
     def __get_snapshot_errata(self):
         return self.__get_statement_data(self._query_get_snapshot_errata)
 
-    _query_get_snapshot_ks_tree = rhnSQL.Statement("""
-        select kt.label,
-               TO_CHAR(dsckt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelKSTree dsckt,
-               rhnDumpSnapshotChannel dsc,
-               rhnKickstartableTree kt
-         where dsckt.snapshot_channel_id = :snapshot_channel_id
-           and dsckt.ks_tree_id = kt.id
-           and dsc.id = :snapshot_channel_id
-           and dsc.channel_id = kt.channel_id
-    """)
     def __get_snapshot_ks_tree(self):
         return self.__get_statement_data(self._query_get_snapshot_ks_tree)
 
