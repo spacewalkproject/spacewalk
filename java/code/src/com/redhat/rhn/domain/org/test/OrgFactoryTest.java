@@ -19,7 +19,9 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgEntitlementType;
@@ -30,17 +32,25 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
+import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
+import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -368,6 +378,65 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         ServerTestUtils.createTestSystem();
         List<Org> totalOrgs = OrgFactory.lookupAllOrgs();
         assertTrue(totalOrgs.size() > 0);
+    }
+
+
+    private Long getMasterManagement() {
+        return EntitlementManager.getMaxEntitlements(EntitlementManager.MANAGEMENT,
+                OrgFactory.getSatelliteOrg());
+    }
+
+    private Long getMasterRhelServer() {
+       return ChannelFamilyFactory.lookupByLabel(
+               "rhel-server", null).getChannelFamilyAllocationFor(
+                       OrgFactory.getSatelliteOrg()).getMaxMembers();
+    }
+
+    public void testDeleteOrg() throws Exception {
+        Long initialMgmnt = getMasterManagement();
+        assertTrue(initialMgmnt.longValue() > 0);
+        Long initialRhel = getMasterRhelServer();
+        assertTrue(initialRhel.longValue() > 0);
+        Long changeAmt = 10L;
+
+        OrgFactoryTest test = new OrgFactoryTest();
+        Org org = test.createTestOrg();
+        Long oid = org.getId();
+        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(15), oid);
+        user.addRole(RoleFactory.ORG_ADMIN);
+        UserFactory.save(user);
+
+
+
+        //clear to get the new entitlements below
+        OrgFactory.getSession().clear();
+
+        //Give it some system entitlements
+        UpdateOrgSystemEntitlementsCommand cmd1 = new UpdateOrgSystemEntitlementsCommand(
+                EntitlementManager.MANAGEMENT, org, changeAmt);
+        cmd1.store();
+        assertEquals(initialMgmnt.longValue() - getMasterManagement().longValue(),
+                changeAmt.longValue());
+
+        //Give it some system entitlements
+        UpdateOrgSoftwareEntitlementsCommand cmd2
+            = new UpdateOrgSoftwareEntitlementsCommand("rhel-server", org, changeAmt);
+        cmd2.store();
+        OrgFactory.getSession().clear();
+        assertEquals(initialRhel.longValue() - getMasterRhelServer().longValue(),
+                changeAmt.longValue());
+
+
+        ServerFactoryTest.createTestServer(org.getActiveOrgAdmins().get(0));
+        ErrataFactoryTest.createTestPublishedErrata(oid);
+        ConfigTestUtils.createConfigChannel(org);
+        org = null;
+        OrgFactory.deleteOrg(oid);
+        OrgFactory.getSession().clear();
+        assertNull(OrgFactory.lookupById(oid));
+
+        assertEquals(initialMgmnt, getMasterManagement());
+        assertEquals(initialRhel, getMasterRhelServer());
     }
 
 }

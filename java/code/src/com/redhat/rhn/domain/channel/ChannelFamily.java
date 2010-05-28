@@ -206,8 +206,10 @@ public class ChannelFamily extends BaseDomainHelper {
      */
     public Long getMaxMembers(Org orgIn) {
         PrivateChannelFamily pcf = getChannelFamilyAllocationFor(orgIn);
+        if (pcf == null) {
+            return 0L;
+        }
         return pcf.getMaxMembers();
-        
     }
     
     /**
@@ -217,6 +219,9 @@ public class ChannelFamily extends BaseDomainHelper {
      */
     public Long getCurrentMembers(Org orgIn) {
         PrivateChannelFamily pcf = getChannelFamilyAllocationFor(orgIn);
+        if (pcf == null) {
+            return 0L;
+        }
         return pcf.getCurrentMembers(); 
     }
     /**

@@ -23,6 +23,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.manager.org.OrgProcedure;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -88,13 +89,8 @@ import java.util.Map;
      */
     public static void deleteOrg(Long oid) {
         // put in a sanity check here to make sure org exists
-        //Org org = OrgFactory.lookupById(oid);
-        
-        Map in = new HashMap();
-        in.put("org_id", oid);
-        CallableMode m = ModeFactory.getCallableMode(
-                "Org_queries", "delete_organization");
-        m.execute(in, new HashMap());
+        Org org = OrgFactory.lookupById(oid);
+        OrgProcedure.getInstance().deleteOrg(org);
     }
     
     /**

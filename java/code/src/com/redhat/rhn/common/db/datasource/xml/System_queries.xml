@@ -405,7 +405,7 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
           INFO.checkin AS LAST_CHECKIN
     FROM  rhnServer S, rhnServerInfo INFO
    WHERE
-       S.org_id = :org_id
+       S.org_id = :org_id and
        S.id = INFO.server_id
   </query>
 </mode>

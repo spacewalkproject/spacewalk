@@ -104,7 +104,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   	         and c.org = :org]]>
     </query>
     <query name="PublishedErrata.listIdsByOrg">
-        <return-scalar type="long" column="id"/>
         <![CDATA[
 		Select e.id as id
 		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e

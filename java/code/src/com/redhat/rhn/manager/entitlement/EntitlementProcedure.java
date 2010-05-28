@@ -81,6 +81,9 @@ public class EntitlementProcedure {
         List<PrivateChannelFamily> privChannels =
             ChannelFamilyFactory.listPrivateChannelFamiles(org);
         for (PrivateChannelFamily priv : privChannels) {
+            if (priv.getChannelFamily().getOrg() != null) {
+                continue;
+            }
             PrivateChannelFamily masterFam =
                 priv.getChannelFamily().getChannelFamilyAllocationFor(masterOrg);
             ChannelFactory.lockPrivateChannelFamily(priv);
