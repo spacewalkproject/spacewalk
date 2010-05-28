@@ -206,13 +206,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             h.executemany(snapshot_channel_id=snapshot_channel_ids,
                 obj_id=obj_ids, last_modified=last_modifieds)
 
-    def _snapshot_channel_ks_trees(self, channels, channel_data):
-        self._do_snapshot('ks_trees', channels, channel_data,
-            self._query_snapshot_channel_ks_trees,
-            with_channels=1)
-        return {}
-
-
     def arches(self):
         return self.dump_arches(rpm_arch_type_only=1)
 
