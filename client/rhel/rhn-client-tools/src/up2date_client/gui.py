@@ -58,6 +58,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onChooseChannelPagePrepare" : self.onChooseChannelPagePrepare,
               "onCreateProfilePagePrepare" : self.onCreateProfilePagePrepare,
               "onCreateProfilePageNext" : self.onCreateProfilePageNext,
+              "onCreateProfilePageBack" : self.onCreateProfilePageBack,
               "onReviewSubscriptionPagePrepare" : self.onReviewSubscriptionPagePrepare,
               "onReviewSubscriptionPageNext" : self.onReviewSubscriptionPageNext,
               "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
@@ -259,6 +260,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         if ret:
             return ret
 
+    def onCreateProfilePageBack(self, page, dummy):
+        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
+            self.druid.set_page(self.chooseChannelPage)
+        else:
+            self.druid.set_page(self.chooseServerPage)
+        return True
 
     def onReviewSubscriptionPagePrepare(self, page, dummy):
         self.reviewSubscriptionPagePrepare()
