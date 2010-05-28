@@ -13,7 +13,6 @@
 # in this software or its documentation. 
 #
 #
-import xmlrpclib
 import time
 import string
 import rpm
@@ -30,8 +29,7 @@ from rhnDependency import MakeEvrError
 
 # local module
 import rhnUser, rhnSQL, rhnLib
-
-XMLRPC = xmlrpclib.Server("http://localhost:8080/rhn/rpc/internal")
+from connectors import rhnChannelConnector
 
 class NoBaseChannelError(Exception):
     pass
@@ -1734,11 +1732,9 @@ def get_obsoletes_blacklist(channel):
 # small wrapper around a PL/SQL function
 def _subscribe_sql(server_id, channel_id, commit = 1):
     log_debug(3, server_id, channel_id, commit)
-
-
     try:
         # don't run the EC yet
-        XMLRPC.channel.subscribe_no_user(int(server_id), int(channel_id))
+       rhnChannelConnector.subscribe(server_id, channel_id)
     except rhnSQL.SQLSchemaError, e:
         if e.errno == 20235: # channel_family_no_subscriptions
             raise SubscriptionCountExceeded(channel_id=channel_id)
