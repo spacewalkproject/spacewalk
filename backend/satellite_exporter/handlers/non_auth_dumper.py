@@ -586,12 +586,6 @@ class _ChannelDumper(exportLib.ChannelDumper):
         data.sort()
         return data
 
-    def __get_snapshot_source_packages(self):
-        h = rhnSQL.prepare(self._query_get_snapshot_source_packages)
-        h.execute(snapshot_channel_id=self.snapshot_channel_id)
-        data = h.fetchall_dict() or []
-        return data
-
     def __get_snapshot_errata(self):
         return self.__get_statement_data(self._query_get_snapshot_errata)
 
