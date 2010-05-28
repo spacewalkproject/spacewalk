@@ -484,24 +484,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     _get_package_id = staticmethod(_get_package_id)
 
 
-    def _validate_channels_snapshot(self, snapshot, channels):
-        h = rhnSQL.prepare(self._query_validate_channel_snapshot)
-        missing_channels = []
-        snapshot_id = None
-        for c in channels.values():
-            channel_id = c['channel_id']
-            h.execute(channel_id=channel_id, snapshot=snapshot)
-            row = h.fetchone_dict()
-            if row:
-                snapshot_id = row['snapshot_id']
-            else:
-                missing_channels.append(c)
-        if missing_channels:
-            missing_labels = [ x['label'] for x in missing_channels ]
-            raise rhnFault(3014, "snapshot: %s; channels: %s" %
-                    (snapshot, ' '.join(missing_labels)))
-        return snapshot_id
-
     def _respond_xmlrpc(self, data):
         # Marshal
         s = xmlrpclib.dumps((data, ))
