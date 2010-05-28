@@ -586,9 +586,6 @@ class _ChannelDumper(exportLib.ChannelDumper):
         data.sort()
         return data
 
-    def __get_snapshot_ks_tree(self):
-        return self.__get_statement_data(self._query_get_snapshot_ks_tree)
-
     def _get_cursor_source_packages(self):
         snapshot_source_packages = self.__get_snapshot_source_packages()
         if not self.incremental:
