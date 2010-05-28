@@ -494,7 +494,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-export-internal.conf
 %config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
-%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
 
 
