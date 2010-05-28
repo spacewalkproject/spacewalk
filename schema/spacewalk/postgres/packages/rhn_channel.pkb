@@ -218,20 +218,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     end$$ language plpgsql;
 
 
-    CREATE OR REPLACE FUNCTION bulk_subscribe_server(channel_id_in IN NUMERIC, set_label_in IN VARCHAR, set_uid_in IN NUMERIC) returns void
-    AS $$
-    DECLARE
-        server RECORD;
-    BEGIN
-        FOR server IN
-    	   SELECT user_id, label, element, element_two
-	     FROM rhnSet
-	    WHERE label = set_label_in
-	      AND user_id = set_uid_in
-        LOOP
-            perform rhn_channel.subscribe_server(server.element, channel_id_in, 0, set_uid_in);
-        END LOOP;
-    END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION bulk_server_base_change(channel_id_in IN NUMERIC, set_label_in IN VARCHAR, set_uid_in IN NUMERIC) returns void
     AS $$
@@ -641,21 +627,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
          WHERE id = server_id_in;
          
         perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
-    END$$ language plpgsql;
-
-    CREATE OR REPLACE FUNCTION bulk_unsubscribe_server(channel_id_in IN NUMERIC, set_label_in IN VARCHAR, set_uid_in IN NUMERIC) returns void
-    AS $$
-    DECLARE
-        server RECORD;
-    BEGIN
-        FOR server IN
-    	   SELECT user_id, label, element, element_two
-	     FROM rhnSet
-	    WHERE label = set_label_in
-	      AND user_id = set_uid_in
-        LOOP
-            perform rhn_channel.unsubscribe_server(server.element, channel_id_in, 0);
-        END LOOP;
     END$$ language plpgsql;
 
     CREATE OR REPLACE FUNCTION family_for_channel(channel_id_in IN NUMERIC)
