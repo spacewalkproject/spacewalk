@@ -347,8 +347,6 @@ class Registration(rhnHandler):
 	    # let the stacked activation keys do their magic
             tokens_obj.is_rereg_token = 0
             rhnFlags.set("re_registration_token", 0)       
-        
-        #import epdb; epdb.serve(port=9999)
 
         # now if we have a token, load the extra registration
         # information from the token
