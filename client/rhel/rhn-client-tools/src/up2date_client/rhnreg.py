@@ -269,9 +269,6 @@ class RegistrationResult:
     def getSystemSlotDescriptions(self):
         return map(self._getSlotDescription, self._systemSlots)
     
-    def getFailedSystemSlots(self):
-        return self._failedSystemSlots
-    
     def getFailedSystemSlotDescriptions(self):
         return map(self._getFailedSlotDescription, self._failedSystemSlots)
     
