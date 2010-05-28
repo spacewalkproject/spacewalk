@@ -612,7 +612,7 @@ class XML_DumperEx(XML_Dumper):
     def dump_blacklist_obsoletes(self):
         log_debug(2)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             exportLib.BlacklistObsoletesDumper(writer))
         dumper.dump()
         writer.flush()
@@ -623,7 +623,7 @@ class XML_DumperEx(XML_Dumper):
     def dump_arches(self, rpm_arch_type_only=0):
         log_debug(2)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             exportLib.ChannelArchesDumper(writer,
                 rpm_arch_type_only=rpm_arch_type_only),
             exportLib.PackageArchesDumper(writer,
@@ -648,7 +648,7 @@ class XML_DumperEx(XML_Dumper):
             virt_filter=0):
         log_debug(2)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             exportLib.ServerGroupTypeServerArchCompatDumper(writer,
                 rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
         )
@@ -665,7 +665,7 @@ class XML_DumperEx(XML_Dumper):
         h.execute()
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             exportLib.ChannelFamiliesDumper(writer,
                 data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
         dumper.dump()
@@ -679,7 +679,7 @@ class XML_DumperEx(XML_Dumper):
         channels = self._validate_channels(channel_labels=channel_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, ChannelsDumperEx(writer,
+        dumper = SatelliteDumper(writer, ChannelsDumperEx(writer,
             channels=channels.values()))
         dumper.dump()
         writer.flush()
@@ -752,7 +752,7 @@ class XML_DumperEx(XML_Dumper):
         # Sort packages
         package_ids.sort(lambda a, b: cmp(a['package_id'], b['package_id']))
 
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             ShortPackagesDumper(writer, package_ids))
         dumper.dump()
         writer.flush()
@@ -794,7 +794,7 @@ class XML_DumperEx(XML_Dumper):
             packages_hash[package_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             dump_class(writer, packages_hash.values()))
         dumper.dump()
         writer.flush()
@@ -830,7 +830,7 @@ class XML_DumperEx(XML_Dumper):
             errata_hash[errata_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             ErrataDumperEx(writer, errata_hash.values()))
         dumper.dump()
         writer.flush()
@@ -844,7 +844,7 @@ class XML_DumperEx(XML_Dumper):
             kickstart_labels=kickstart_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             KickstartableTreesDumper(writer, kickstarts=kickstarts))
         dumper.dump()
         writer.flush()
@@ -855,21 +855,13 @@ class XML_DumperEx(XML_Dumper):
     def dump_product_names(self):
         log_debug(4)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, exportLib.ProductNamesDumper(writer))
+        dumper = SatelliteDumper(writer, exportLib.ProductNamesDumper(writer))
         dumper.dump()
         writer.flush()
         self.close()
         return 0
 
 class SatelliteDumper(exportLib.SatelliteDumper):
-    def set_attributes(self):
-        """ Overriding with our own version """
-        attributes = exportLib.SatelliteDumper.set_attributes(self)
-        attributes['version'] = constants.PROTOCOL_VERSION
-        attributes['generation'] = CFG.SAT_CERT_GENERATION
-        return attributes
-
-class SatelliteDumperEx(SatelliteDumper):
     def set_attributes(self):
         """ Overriding with our own version """
         attributes = exportLib.SatelliteDumper.set_attributes(self)
