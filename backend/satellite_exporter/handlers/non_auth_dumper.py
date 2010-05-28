@@ -505,14 +505,11 @@ class ChannelsDumper(exportLib.ChannelsDumper):
         return dumper.QueryIterator(statement=h, params=self._channels)
 
     def dump_subelement(self, data):
-        c = _ChannelSnapshotter(self._writer, data)
+        c = exportLib.ChannelDumper(self._writer, data)
         try:
             c.dump()
         except:
             raise
-
-class _ChannelSnapshotter(exportLib.ChannelDumper):
-    pass
 
 def list_minus(l1, l2, comp_func=lambda x: x):
     """
