@@ -92,46 +92,4 @@ sub remove_set_from_group {
 }
 
 
-sub subscribe_set_to_channel {
-  my $class = shift;
-  my $set = shift;
-  my $channel_id = shift;
-  my $transaction = shift;
-
-  my $query = <<EOQ;
-BEGIN
-  rhn_channel.bulk_subscribe_server(?, ?, ?);
-END;
-EOQ
-
-  my $dbh = $transaction || RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute($channel_id, $set->label, $set->uid);
-
-  $dbh->commit unless $transaction;
-
-  return $dbh;
-}
-
-sub unsubscribe_set_from_channel {
-  my $class = shift;
-  my $set = shift;
-  my $channel_id = shift;
-  my $transaction = shift;
-
-  my $query = <<EOQ;
-BEGIN
-  rhn_channel.bulk_unsubscribe_server(?, ?, ?);
-END;
-EOQ
-
-  my $dbh = $transaction || RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-  $sth->execute($channel_id, $set->label, $set->uid);
-
-  $dbh->commit unless $transaction;
-
-  return $dbh;
-}
-
 1;
