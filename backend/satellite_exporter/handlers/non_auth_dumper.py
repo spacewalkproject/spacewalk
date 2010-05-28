@@ -62,7 +62,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             'get_source_rpm',
             'kickstartable_trees',
             'get_ks_file',
-            'snapshot_channels',
         ]
 
         self.system_id = None
@@ -94,20 +93,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         self._channel_family_query = self._channel_family_query_template % (
             ', '.join(["'%s'" % x for x in channel_labels]), )
         return self
-
-    def snapshot_channels(self, snapshot, channel_labels=[], flags={}):
-        """ Snapshotting channels - *does* writes in the DB """
-        log_debug(2, snapshot, channel_labels)
-        self.set_channel_family_query(channel_labels=channel_labels)
-        channels = self._validate_channels(channel_labels=channel_labels)
-        try:
-            ret = self._snapshot_channels(snapshot, channels, flags)
-        except:
-            rhnSQL.rollback()
-            raise
-        else:
-            rhnSQL.commit()
-        return self._respond_xmlrpc(ret)
 
     _query_purge_snapshot = rhnSQL.Statement("""
         delete from rhnDumpSnapshotChannel where snapshot_id = :snapshot_id
