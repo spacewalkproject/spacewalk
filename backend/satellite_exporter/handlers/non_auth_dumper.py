@@ -490,12 +490,10 @@ class ContainerWriter:
 # based on the creation date
 # XXX No caching for now
 class ChannelsDumper(exportLib.ChannelsDumper):
-    def __init__(self, writer, channels, snapshot=None, incremental=0):
+    def __init__(self, writer, channels)
         # if snapshot is None, then all the objects from the channel are
         # returned - this is useful for snapshotting
         exportLib.ChannelsDumper.__init__(self, writer, channels)
-        self.snapshot = snapshot
-        self.incremental = incremental
 
     def set_iterator(self):
         if not self._channels:
@@ -507,11 +505,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
         return dumper.QueryIterator(statement=h, params=self._channels)
 
     def dump_subelement(self, data):
-        if self.snapshot:
-            c = _ChannelDumper(self._writer, data, self.snapshot,
-                    self.incremental)
-        else:
-            c = _ChannelSnapshotter(self._writer, data)
+        c = _ChannelSnapshotter(self._writer, data)
         try:
             c.dump()
         except:
