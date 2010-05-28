@@ -229,11 +229,6 @@ def getCaps():
     # figure out if were missing any needed caps
     s.capabilities.validate()
     
-def termsAndConditions():
-    s = rhnserver.RhnServer()
-
-    return s.registration.terms_and_conditionsi()
-
 def reserveUser(username, password):
     s = rhnserver.RhnServer()
     return s.registration.reserve_user(username, password)
