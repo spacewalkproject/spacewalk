@@ -609,55 +609,6 @@ class XML_DumperEx(XML_Dumper):
         log_debug(3, "Closed")
 
     # Dumper functions here
-    def dump_blacklist_obsoletes(self):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            exportLib.BlacklistObsoletesDumper(writer))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_arches(self, rpm_arch_type_only=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            exportLib.ChannelArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.PackageArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.CPUArchesDumper(writer),
-            exportLib.ServerPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerChannelArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ChannelPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
-            virt_filter=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            exportLib.ServerGroupTypeServerArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
 
@@ -735,36 +686,6 @@ class XML_DumperEx(XML_Dumper):
                 raise ClosedConnectionError
         # We're done
         return 0
-
-    def _cache_channel_packages_short(self, channel_id, key, last_modified):
-        """ Caches the short package entries for channel_id """
-        # Create a temporary file
-        temp_stream = tempfile.TemporaryFile()
-        # Always compress the result
-        compress_level = 5
-        stream = gzip.GzipFile(None, "wb", compress_level, temp_stream)
-        writer = xmlWriter.XMLWriter(stream=stream)
-
-        # Fetch packages
-        h = rhnSQL.prepare(self._query_get_channel_packages)
-        h.execute(channel_id=channel_id)
-        package_ids = h.fetchall_dict() or []
-        # Sort packages
-        package_ids.sort(lambda a, b: cmp(a['package_id'], b['package_id']))
-
-        dumper = SatelliteDumper(writer,
-            ShortPackagesDumper(writer, package_ids))
-        dumper.dump()
-        writer.flush()
-        # We're done with the stream object
-        stream.close()
-        del stream
-        temp_stream.seek(0, 0)
-        # Set the value in the cache. We don't recompress the result since
-        # it's already compressed
-        rhnCache.set(key, temp_stream.read(), modified=last_modified,
-            compressed=0, raw=1)
-        return self._normalize_compressed_stream(temp_stream)
 
     def _packages(self, packages, prefix, dump_class, sources=0):
         if sources:
