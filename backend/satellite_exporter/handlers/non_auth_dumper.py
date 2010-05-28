@@ -109,12 +109,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             rhnSQL.commit()
         return self._respond_xmlrpc(ret)
 
-    _query_lookup_snapshot = rhnSQL.Statement("""
-        select id from rhnDumpSnapshot where snapshot = :snapshot
-    """)
-    _query_create_snapshot = rhnSQL.Statement("""
-        insert into rhnDumpSnapshot (id, snapshot) values (:snapshot_id, :snapshot)
-    """)
     _query_purge_snapshot = rhnSQL.Statement("""
         delete from rhnDumpSnapshotChannel where snapshot_id = :snapshot_id
     """)
@@ -560,13 +554,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     _get_package_id = staticmethod(_get_package_id)
 
 
-    _query_validate_channel_snapshot = rhnSQL.Statement("""
-        select dsc.snapshot_id
-          from rhnDumpSnapshot ds, rhnDumpSnapshotChannel dsc
-         where dsc.channel_id = :channel_id
-           and dsc.snapshot_id = ds.id
-           and ds.snapshot = :snapshot
-    """)
     def _validate_channels_snapshot(self, snapshot, channels):
         h = rhnSQL.prepare(self._query_validate_channel_snapshot)
         missing_channels = []
@@ -694,13 +681,6 @@ class _ChannelDumper(exportLib.ChannelDumper):
         log_debug(4, snapshot, incremental, self.snapshot_id,
             self.snapshot_channel_id)
 
-    _query_get_snapshot_ids = rhnSQL.Statement("""
-        select ds.id snapshot_id, dsc.id snapshot_channel_id
-          from rhnDumpSnapshot ds, rhnDumpSnapshotChannel dsc
-         where dsc.channel_id = :channel_id
-           and dsc.snapshot_id = ds.id
-           and ds.snapshot = :snapshot
-    """)
     def init(self):
         self.channel_id = self._row['id']
         self.channel_label = self._row['label']

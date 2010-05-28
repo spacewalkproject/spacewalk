@@ -81,7 +81,6 @@ rhnCryptoKeyKickstart          :: rhnCryptoKey rhnKSData
 rhnDevice                      :: rhnServer
 rhnDistChannelMap              :: rhnChannel rhnChannelArch
 rhnDownloads                   :: rhnChannelFamily rhnFile rhnDownloadType
-rhnDumpSnapshotChannel         :: rhnDumpSnapshot rhnChannel
 rhnDumpSnapshotChannelErrata   :: rhnDumpSnapshotChannel rhnErrata
 rhnDumpSnapshotChannelPackage  :: rhnDumpSnapshotChannel rhnPackage
 rhnDumpSnapshotChannelPkgSrc   :: rhnDumpSnapshotChannel rhnPackageSource
