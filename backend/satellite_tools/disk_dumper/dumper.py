@@ -1327,7 +1327,7 @@ class ShortPackagesDumper(CachedDumper, exportLib.ShortPackagesDumper):
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
     def _get_key(self, params):
-        package_id = params['package_id']
+        package_id = str(params['package_id'])
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-short-packages/%s/rhn-package-short-%s.xml" % (
             hash_val, package_id)
@@ -1381,7 +1381,7 @@ class PackagesDumper(CachedDumper, exportLib.PackagesDumper):
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
     def _get_key(self, params):
-        package_id = params['package_id']
+        package_id = str(params['package_id'])
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-package-%s.xml" % (hash_val, package_id)
 
@@ -1419,7 +1419,7 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         CachedDumper.__init__(self, writer, statement=h, params=packages)
 
     def _get_key(self, params):
-        package_id = params['package_id']
+        package_id = str(params['package_id'])
         hash_val = rhnLib.hash_object_id(package_id, 2)
         return "xml-packages/%s/rhn-source-package-%s.xml" % (hash_val, package_id)
 
@@ -1453,7 +1453,7 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
         CachedDumper.__init__(self, writer, statement=h, params=errata)
 
     def _get_key(self, params):
-        errata_id = params['errata_id']
+        errata_id = str(params['errata_id'])
         hash_val = rhnLib.hash_object_id(errata_id, 1)
         return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
 
@@ -1487,7 +1487,7 @@ class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
         CachedDumper.__init__(self, writer, statement=h, params=errata)
 
     def _get_key(self, params):
-        errata_id = params['errata_id']
+        errata_id = str(params['errata_id'])
         hash_val = rhnLib.hash_object_id(errata_id, 1)
         return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
 
