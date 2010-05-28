@@ -1230,15 +1230,6 @@ GROUP BY C.id, C.name
 </mode>
 
 
-<mode name="lock_current_members">
-    <query params="org_id,  cfid">    
-        select current_members 
-        from rhnPrivateChannelFamily
-        where org_id = :org_id and channel_family_id = :cfid
-        for update of current_members
-    </query>
-</mode>
-
 <mode name="compute_channel_family_curent_members">
     <query params="org_id,  cfid">    
   select  count(distinct server_id) as count

@@ -337,13 +337,23 @@ public class ServerFactory extends HibernateFactory {
      */
     public static void delete(Server server) {
         HibernateFactory.getSession().evict(server);
+        delete(server.getId());
+        HibernateFactory.getSession().evict(server);
+    }
+
+    /**
+     * Deletes a server
+     *
+     * @param serverId The server to delete
+     */
+    public static void delete(Long serverId) {
         CallableMode m = ModeFactory.getCallableMode("System_queries",
                 "delete_server");
         Map in = new HashMap();
-        in.put("server_id", server.getId());
+        in.put("server_id", serverId);
         m.execute(in, new HashMap());
-        HibernateFactory.getSession().evict(server);
     }
+
 
     private static void updateServerPerms(Server server) {
         CallableMode m = ModeFactory.getCallableMode("System_queries",

@@ -20,6 +20,7 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.Server;
@@ -134,7 +135,8 @@ public class ChannelProcedure {
         Org org = (channel.getOrg() == null) ? server.getOrg() : channel.getOrg();
         //need do a select for update Lock on current Members
         
-        lockCurrentMembers(channel.getChannelFamily(), org);
+        ChannelFactory.lockPrivateChannelFamily(
+                channel.getChannelFamily().getChannelFamilyAllocationFor(org));
         if (channel.getChannelFamily().hasAvailableSlots(org) || 
                             canConsumeVirtChannels(server, channel)) {
             ServerHistoryEvent event = new ServerHistoryEvent();
@@ -183,14 +185,6 @@ public class ChannelProcedure {
         }
     }
 
-    private void lockCurrentMembers(ChannelFamily channelFamilyIn, Org orgIn) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-                "lock_current_members");
-        Map params = new HashMap();
-        params.put("org_id", orgIn.getId());
-        params.put("cfid", channelFamilyIn.getId());
-        m.execute(params);
-    }
 
     private void updateChannelFamilyCounts(ChannelFamily channelFamilyIn,
             Org orgIn) {

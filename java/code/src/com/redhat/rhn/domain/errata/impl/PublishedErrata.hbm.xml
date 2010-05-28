@@ -103,6 +103,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   	         where c.original = :original
   	         and c.org = :org]]>
     </query>
+    <query name="PublishedErrata.listIdsByOrg">
+        <return-scalar type="long" column="id"/>
+        <![CDATA[
+		Select e.id as id
+		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
+                where e.org = :org]]>
+    </query>
     <query name="PublishedErrata.findByAdvisory">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                  where e.advisory = :advisory]]>

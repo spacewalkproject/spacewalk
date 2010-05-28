@@ -398,6 +398,19 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
 </mode>
 
+<mode name="visible_to_org" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id">
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S, rhnServerInfo INFO
+   WHERE
+       S.org_id = :org_id
+       S.id = INFO.server_id
+  </query>
+</mode>
+
+
 <mode name="visible_to_user_from_sysid_list" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
   <query name="available_to_user_from_sysid_list" />
   <elaborator name="system_overview" />

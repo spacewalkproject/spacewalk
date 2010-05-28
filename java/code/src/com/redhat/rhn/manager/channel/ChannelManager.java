@@ -684,7 +684,8 @@ public class ChannelManager extends BaseManager {
      * @param pc page control for the user
      * @return Returns a data result containing ChannelOverview dtos
      */
-    public static DataResult channelsOwnedByOrg(Long orgId, PageControl pc) {
+    public static DataResult<ChannelOverview> channelsOwnedByOrg(Long orgId,
+                                                                PageControl pc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", 
                                            "channels_owned_by_org");
         Map params = new HashMap();
@@ -2904,5 +2905,6 @@ public class ChannelManager extends BaseManager {
         
         return toRet;
     }
+
 
 }

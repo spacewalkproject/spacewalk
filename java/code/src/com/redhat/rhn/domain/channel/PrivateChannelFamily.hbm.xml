@@ -20,4 +20,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="modified" column="MODIFIED" not-null="true"
 			type="timestamp" insert="false" update="false" />
 	</class>
+
+	<query name="PrivateChannelFamily.findByOrg">
+		<![CDATA[from com.redhat.rhn.domain.channel.PrivateChannelFamily as cfam where cfam.org.id = :orgId]]>
+	</query>
+
 </hibernate-mapping>

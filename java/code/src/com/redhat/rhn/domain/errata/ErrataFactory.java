@@ -1042,6 +1042,18 @@ public class ErrataFactory extends HibernateFactory {
                 new HashMap(), ids, "list");
     }
 
+    /**
+     * List errata objects by ID
+     * @param  org the org
+     * @return List of longs
+     */
+    public static List<Long> listErrataIds(Org org) {
+        Map params = new HashMap();
+        params.put("org", org);
+        return singleton.listObjectsByNamedQuery("PublishedErrata.listIdsByOrg",
+                params);
+    }
+
 
 }
 

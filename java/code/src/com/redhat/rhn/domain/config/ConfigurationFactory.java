@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -427,6 +428,20 @@ public class ConfigurationFactory extends HibernateFactory {
                                         .uniqueResult();
     }
     
+
+     /**
+      * List all Config channels for an org
+      * @param org the org
+      * @return the config chanenls
+      */
+      public static List<ConfigChannel> listConfigChannels(Org org) {
+         Session session = HibernateFactory.getSession();
+         Map params = new HashMap();
+         params.put("org", org);
+         return singleton.listObjectsByNamedQuery("ConfigChannel.listByOrg", params);
+     }
+
+
     /**
      * Used to look up ConfigFileStates.  Note: there is a static list of
      * ConfigFileStates and therefore a static list of labels.  This method

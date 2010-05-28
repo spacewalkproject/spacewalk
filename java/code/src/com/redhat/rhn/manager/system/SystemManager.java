@@ -330,6 +330,24 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of all systems visible to the org
+     *    Ignores user permissions
+     * @param org the org
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult<SystemOverview> systemListShort(Org org, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "visible_to_org",
+                SystemOverview.class);
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        Map elabParams = new HashMap();
+
+        return makeDataResult(params, elabParams, pc, m);
+    }
+
+
+    /**
      * Returns list of all systems that are  visible to user 
      * but not in the given server group.
      * @param user Currently logged in user.

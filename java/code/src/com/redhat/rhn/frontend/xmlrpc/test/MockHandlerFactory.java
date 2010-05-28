@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.test;
 
-import com.redhat.rhn.common.util.manifestfactory.ClassBuilder;
 import com.redhat.rhn.frontend.xmlrpc.HandlerFactory;
 
 /**

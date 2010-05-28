@@ -34,4 +34,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			<one-to-many class="com.redhat.rhn.domain.config.ConfigFile"/>
 		</set>	
 	</class>
+
+	   <query name="ConfigChannel.listByOrg">
+	<![CDATA[
+			from com.redhat.rhn.domain.config.ConfigChannel as c where c.org = :org
+	]]>
+    </query>
+
 </hibernate-mapping>

@@ -158,4 +158,6 @@ SELECT SUM(max_members - current_members) AS available
   </query>
 </mode>
 
+
+
 </datasource_modes>

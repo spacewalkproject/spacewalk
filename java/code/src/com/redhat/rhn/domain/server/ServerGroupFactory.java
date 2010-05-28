@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
@@ -335,4 +336,13 @@ public class ServerGroupFactory extends HibernateFactory {
         params.put("threshold", threshold);
         return  SINGLETON.listObjectsByNamedQuery(query, params);
     }    
+
+    /**
+     * Lock an EntitlementServerGroup for update
+     * @param grp the server group
+     */
+    public static void lockEntitledServerGroup(EntitlementServerGroup grp) {
+        getSession().lock(grp, LockMode.UPGRADE);
+    }
+
 }

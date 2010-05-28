@@ -25,6 +25,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
@@ -932,4 +933,13 @@ public class ChannelFactory extends HibernateFactory {
         criteria.add(Restrictions.eq("channel", ch));
         return (Integer)criteria.uniqueResult() > 0;
     }
+
+    /**
+     * Lock a private channel family object
+     * @param priv the private channel family
+     */
+    public static void lockPrivateChannelFamily(PrivateChannelFamily priv) {
+        getSession().lock(priv, LockMode.UPGRADE);
+    }
+
 }

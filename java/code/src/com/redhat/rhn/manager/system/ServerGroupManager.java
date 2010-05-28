@@ -441,4 +441,17 @@ public class ServerGroupManager {
     public List<Long> listInactiveServers(ServerGroup sg, Long threshold) {
         return ServerGroupFactory.listInactiveServerIds(sg, threshold);
     }   
+
+    /**
+     * Lock a given server group
+     * @param serverGroup the server group to lock
+     */
+    public static void lockServerGroup(EntitlementServerGroup serverGroup) {
+        SelectMode m = ModeFactory.getMode("ServerGroup_queries",
+                "lock_group_row");
+        Map params = new HashMap();
+        params.put("gid", serverGroup.getId());
+        m.execute(params);
+    }
+
 }

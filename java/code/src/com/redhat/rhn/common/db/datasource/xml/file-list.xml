@@ -23,6 +23,7 @@
     <template name="ssm_operation_queries" filename="xml/ssm_operation_queries.xml" />
     <template name="util_queries" filename="xml/util_queries.xml" />
     <template name="ErrataCache_queries" filename="xml/ErrataCache_queries.xml" />
+    <template name="Procedure_queries" filename="xml/Procedure_queries.xml" />
 
     <!-- queries used to test the datasource system -->
     <template name="test_queries" filename="xml/test_queries.xml" />

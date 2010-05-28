@@ -138,6 +138,20 @@ public class ChannelFamilyFactory extends HibernateFactory {
         return cfam;
     }
     
+
+    /**
+     * Get a list of all PrivateChannelFamiles for an org.  Not just their special one
+     * @param org the org
+     * @return list of PrivateChannelFamiles
+     */
+    public static List<PrivateChannelFamily> listPrivateChannelFamiles(Org org) {
+        Map params = new HashMap();
+        params.put("orgId", org.getId());
+        return (List<PrivateChannelFamily>) singleton.listObjectsByNamedQuery(
+                "PrivateChannelFamily.findByOrg", params);
+
+    }
+
     /**
      * Checks if the org has permission to its channel family.
      * If it does not, grants permissions.
