@@ -450,18 +450,6 @@ def updateContactInfo(username, password, productInfo):
 def server_supports_eus():
     return cfg["supportsEUS"]
 
-def sat_supports_virt_guest_registration():
-    s = rhnserver.RhnServer()
-    
-    if s.capabilities.has_key('registration.remaining_subscriptions'):
-        if int(s.capabilities['registration.remaining_subscriptions']['version']) > 1:
-            return True
-        else:
-            return False
-    else:
-        return False
-    
-            
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
     s.registration.add_hw_profile(systemId, hardwareList)
