@@ -511,23 +511,6 @@ class ChannelsDumper(exportLib.ChannelsDumper):
         except:
             raise
 
-def list_minus(l1, l2, comp_func=lambda x: x):
-    """
-    Returns l1 minus l2, comparing each item of l1 and l2 after filtering
-    them through comp_func
-    """
-    h = {}
-    for i in l2:
-        index = comp_func(i)
-        h[index] = i
-
-    ret = []
-    for i in l1:
-        index = comp_func(i)
-        if not h.has_key(index):
-            ret.append(i)
-    return ret
-
 _query_lookup_last_modified_packages = rhnSQL.Statement("""
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
       from rhnPackage
