@@ -120,18 +120,6 @@ class ReviewLog:
             self.addBulletedText("%s (%s)" % (service, quantity))
         self.addText('') # adds newline
     
-    def activatedRegistrationNumber(self, registrationNumber, 
-                                        activationResult):
-        self.addBoldText(_("Subscription Activation"))
-        text = rhnreg_constants.SUB_NUM % registrationNumber
-        text = text + ' ' + rhnreg_constants.SUB_NUM_RESULT
-        self.addText(text)
-        for channel, quantity in activationResult.getChannelsActivated().items():
-            self.addBulletedText("%s (%s)" % (channel, quantity))
-        for service, quantity in activationResult.getSystemSlotsActivated().items():
-            self.addBulletedText("%s (%s)" % (service, quantity))
-        self.addText('') # adds newline
-    
     def usedUniversalActivationKey(self, keyName):
         self.addBoldText(_("Notice"))
         keys = ', '.join(keyName)
