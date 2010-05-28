@@ -1,0 +1,124 @@
+<datasource_modes>
+
+<write-mode name="unsubscribe_custom_channels">
+  <query params="cid">
+		delete from rhnServerChannel where channel_id = :cid
+  </query>
+</write-mode>
+
+<write-mode name="delete_server_packge_profiles_for_channel">
+  <query params="cid">
+		delete from rhnServerProfilePackage where server_profile_id in (
+            select id from rhnServerProfile where base_channel = :cid
+          )
+  </query>
+</write-mode>
+
+<write-mode name="delete_server_profiles_for_channel">
+  <query params="cid">
+		delete from rhnServerProfile where base_channel = :cid
+  </query>
+</write-mode>
+
+<write-mode name="delete_errata_packages">
+  <query params="eid">
+		delete from rhnErrataPackage where errata_id = :eid
+  </query>
+</write-mode>
+
+
+<write-mode name="delete_org_channels">
+  <query params="oid">
+		delete from rhnChannel where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_daily_summary">
+  <query params="oid">
+		delete from rhnDailySummaryQueue where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_qutoa">
+  <query params="oid">
+		delete from rhnOrgQuota where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_info">
+  <query params="oid">
+		delete from rhnOrgInfo where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_file_list">
+  <query params="oid">
+		delete from rhnFileList where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_server_group">
+  <query params="oid">
+		delete from rhnServerGroup where org_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_check_suites">
+  <query params="oid">
+		delete from rhn_check_suites where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_command_target">
+  <query params="oid">
+		delete from rhn_command_target where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_contact_group">
+  <query params="oid">
+		delete from rhn_contact_groups where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_notif_format">
+  <query params="oid">
+		delete from rhn_notification_formats where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_probe">
+  <query params="oid">
+		delete from rhn_probe where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_redirect">
+  <query params="oid">
+		delete from rhn_redirects where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_sat_cluster">
+  <query params="oid">
+		delete from rhn_sat_cluster where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org_schedule">
+  <query params="oid">
+		delete from rhn_schedules where customer_id = :oid
+  </query>
+</write-mode>
+
+<write-mode name="delete_org">
+  <query params="oid">
+		delete from web_customer where id = :oid
+  </query>
+</write-mode>
+
+
+
+
+
+</datasource_modes>
