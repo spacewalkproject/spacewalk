@@ -224,10 +224,6 @@ def welcomeText():
     return s.registration.welcome_message()
     
 
-def finishMessage(systemId):
-    s = rhnserver.RhnServer()
-    return  s.registration.finish_message(systemId)
-
 def getCaps():
     s = rhnserver.RhnServer()
     # figure out if were missing any needed caps
