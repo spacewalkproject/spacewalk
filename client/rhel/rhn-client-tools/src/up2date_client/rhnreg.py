@@ -58,12 +58,6 @@ def startRhnsd():
         if rc:
             os.system("/sbin/service rhnsd start > /dev/null")
 
-def startRhnCheck():
-    if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
-        os.system("/usr/sbin/rhn_check")
-    else:
-        print _("Warning: unable to run rhn_check")
-
 def getOemInfo():
     configFile = cfg["oemInfoFile"] or "/etc/sysconfig/rhn/oeminfo"
 
@@ -224,20 +218,11 @@ def welcomeText():
     return s.registration.welcome_message()
     
 
-def finishMessage(systemId):
-    s = rhnserver.RhnServer()
-    return  s.registration.finish_message(systemId)
-
 def getCaps():
     s = rhnserver.RhnServer()
     # figure out if were missing any needed caps
     s.capabilities.validate()
     
-def termsAndConditions():
-    s = rhnserver.RhnServer()
-
-    return s.registration.terms_and_conditionsi()
-
 def reserveUser(username, password):
     s = rhnserver.RhnServer()
     return s.registration.reserve_user(username, password)
@@ -277,9 +262,6 @@ class RegistrationResult:
     
     def getSystemSlotDescriptions(self):
         return map(self._getSlotDescription, self._systemSlots)
-    
-    def getFailedSystemSlots(self):
-        return self._failedSystemSlots
     
     def getFailedSystemSlotDescriptions(self):
         return map(self._getFailedSlotDescription, self._failedSystemSlots)
@@ -454,18 +436,6 @@ def updateContactInfo(username, password, productInfo):
 def server_supports_eus():
     return cfg["supportsEUS"]
 
-def sat_supports_virt_guest_registration():
-    s = rhnserver.RhnServer()
-    
-    if s.capabilities.has_key('registration.remaining_subscriptions'):
-        if int(s.capabilities['registration.remaining_subscriptions']['version']) > 1:
-            return True
-        else:
-            return False
-    else:
-        return False
-    
-            
 def sendHardware(systemId, hardwareList):
     s = rhnserver.RhnServer()
     s.registration.add_hw_profile(systemId, hardwareList)

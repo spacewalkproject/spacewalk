@@ -103,10 +103,6 @@ class ServerList:
             return None
         return self.server()
 
-    def resetServerList(self, serverlist):
-        self.serverList = serverlist
-        self.index = 0
-
     def resetServerIndex(self):
         self.index = 0
 

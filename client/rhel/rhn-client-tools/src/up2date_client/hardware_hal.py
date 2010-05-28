@@ -324,14 +324,6 @@ def get_device_pcitype(node):
 
     return pcitype
 
-def get_device_property(device, property_name):
-    """ Return a hal device property, or None if it does not exist. """
-    if device.PropertyExists(property_name):
-        # Convert from unicode to ascii in case the server can't handle it.
-        return str(device.GetProperty(property_name))
-    else:
-        return None
-
 def get_hal_computer():
     bus = dbus.SystemBus()
     computer_obj = bus.get_object("org.freedesktop.Hal",
