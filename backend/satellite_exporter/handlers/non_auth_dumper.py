@@ -116,61 +116,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         insert into rhnDumpSnapshotChannel (id, snapshot_id, channel_id)
         values (:id, :snapshot_id, :channel_id)
     """)
-    def _snapshot_channels(self, snapshot, channels, flags):
-        log_debug(3, snapshot, channels)
-        retval = {}
-        # Does the snapshot exist?
-        h = rhnSQL.prepare(self._query_lookup_snapshot)
-        h.execute(snapshot=snapshot)
-        row = h.fetchone_dict()
-        if row:
-            # Did they ask to force this snapshot?
-            if not flags.has_key('force'):
-                # XXX
-                raise Exception("did not ask for force")
-            snapshot_id = row['id']
-            # Remove old stuff
-            h = rhnSQL.prepare(self._query_purge_snapshot)
-            h.execute(snapshot_id=snapshot_id)
-        else:
-            snapshot_id = rhnSQL.Sequence('rhn_dump_snapshot_id_seq').next()
-            h = rhnSQL.prepare(self._query_create_snapshot)
-            h.execute(snapshot_id=snapshot_id, snapshot=snapshot)
-
-        if not channels:
-            # Nothing more to do
-            # We don't exit from the very beginning because we may want to
-            # clear a specific tag
-            return retval
-
-        channel_ids = []
-        snapshot_ids = []
-        snapshot_channel_ids = []
-
-        seq = rhnSQL.Sequence('rhn_dump_snap_chan_id_seq')
-        for channel_hash in channels.values():
-            channel_id = channel_hash['channel_id']
-            snapshot_channel_id = channel_hash['snapshot_channel_id'] = \
-                    seq.next()
-
-            channel_ids.append(channel_id)
-            snapshot_ids.append(snapshot_id)
-            snapshot_channel_ids.append(snapshot_channel_id)
-
-        h = rhnSQL.prepare(self._query_snapshot_channels)
-        h.executemany(id=snapshot_channel_ids, snapshot_id=snapshot_ids,
-            channel_id=channel_ids)
-
-        channel_data = self._get_channel_data(channels)
-        channel_data = self._lookup_last_modified(channel_data)
-
-        retval.update(self._snapshot_channel_packages(channels, channel_data))
-        retval.update(self._snapshot_channel_package_sources(channels,
-            channel_data))
-        retval.update(self._snapshot_channel_errata(channels, channel_data))
-        retval.update(self._snapshot_channel_ks_trees(channels, channel_data))
-
-        return retval
 
     def _get_channel_data(self, channels):
         writer = ContainerWriter()
