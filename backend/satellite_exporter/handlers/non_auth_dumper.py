@@ -546,21 +546,6 @@ def _lookup_last_modified_packages(package_ids):
         ret.append((pid, row['last_modified']))
     return ret
 
-_query_lookup_last_modified_errata = rhnSQL.Statement("""
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnErrata
-     where id = :id
-""")
-def _lookup_last_modified_errata(errata_ids):
-    h = rhnSQL.prepare(_query_lookup_last_modified_errata)
-    ret = []
-    for eid in errata_ids:
-        h.execute(id=eid)
-        row = h.fetchone_dict()
-        assert row, "Invalid errata id %s" % eid
-        ret.append((eid, row['last_modified']))
-    return ret
-
 _query_lookup_last_modified_ks_trees = rhnSQL.Statement("""
     select TO_CHAR(kt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
       from rhnKickstartableTree kt, rhnChannel c
