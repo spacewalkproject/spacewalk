@@ -15,7 +15,6 @@
 #
 
 import time
-import math
 import gzip
 import string
 import tempfile
