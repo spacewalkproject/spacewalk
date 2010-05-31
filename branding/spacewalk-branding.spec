@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    1.1.1
+Version:    1.1.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -80,6 +80,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
+- Adding the correct checkstyle for inactive systems
+- Added the dupe compare css and javascript magic
+- 572714 - fixing css issues with docs
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
