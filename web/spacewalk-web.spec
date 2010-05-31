@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -256,6 +256,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
+- 577355 - fixing broken link on channel->errata->clone screen
+- Setting server.nls_lang once, later in this file, should be enough.
+- code cleanup - this configuration files are not used in proxy
+- Removing web/conf/*.conf files that are not packages nor used.
+- bump version for spacewalk 1.1
+- Fixed a couple of links with respect to the delete confirm change..
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 - Constants DEFAULT_RHN_SATCON_TREE and DEFAULT_SATCON_DICT not longer used
