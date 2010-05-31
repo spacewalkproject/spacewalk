@@ -41,7 +41,7 @@ INCLUDES = -I.. -I$(top_srcdir)/intl
 
 POFILES = $(shell ls *.po)
 GMOFILES = $(patsubst %.po,%.gmo,$(POFILES))
-DISTFILES = ChangeLog POTFILES.in $(PACKAGE).pot $(POFILES) $(GMOFILES)
+DISTFILES = POTFILES.in $(PACKAGE).pot $(POFILES) $(GMOFILES)
 
 POTFILES = \
 	$(wildcard ../src/up2date_client/*.py) \
