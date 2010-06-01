@@ -158,7 +158,6 @@ make -f Makefile.rhn-client-tools test
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 # some info about mirrors
-%doc doc/ChangeLog 
 %doc doc/mirrors.txt 
 %doc doc/AUTHORS
 %doc doc/LICENSE

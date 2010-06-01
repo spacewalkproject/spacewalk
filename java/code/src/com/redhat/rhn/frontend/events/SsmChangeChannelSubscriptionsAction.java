@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.events;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ssm.ChannelActionDAO;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmManager;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
@@ -38,24 +37,6 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
         User user = event.getUser();
         Collection<ChannelActionDAO> changes = event.getChanges();
 
-        // Parse and store the changes into RhnSets
-        SsmManager.populateSsmChannelServerSets(user, changes);
-
-        // Log the change operation
-        
-        /* Since the servers are in two separate sets, make explicit associations from
-           those sets to the operation.
-         */
-        long operationId = SsmOperationManager.createOperation(user,
-            "Channel Subscription Updates", null);
-
-        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-            RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.getLabel());
-        SsmOperationManager.associateServersWithOperation(operationId, user.getId(),
-            RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.getLabel());
-
-        // Do the changes
-        
         /* Anything after the operation is created should be in a try..finally to
            attempt to prevent a hanging, perpetually in progress operation. This is
            an added safety once a taskomatic task is created to automatically time out
@@ -66,7 +47,7 @@ public class SsmChangeChannelSubscriptionsAction extends AbstractDatabaseAction 
         }
         finally {
             // Complete the action
-            SsmOperationManager.completeOperation(user, operationId);
+            SsmOperationManager.completeOperation(user, event.getOpId());
         }
     }
 }

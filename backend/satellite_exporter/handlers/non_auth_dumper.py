@@ -62,7 +62,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
             'get_source_rpm',
             'kickstartable_trees',
             'get_ks_file',
-            'snapshot_channels',
         ]
 
         self.system_id = None
@@ -94,89 +93,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         self._channel_family_query = self._channel_family_query_template % (
             ', '.join(["'%s'" % x for x in channel_labels]), )
         return self
-
-    def snapshot_channels(self, snapshot, channel_labels=[], flags={}):
-        """ Snapshotting channels - *does* writes in the DB """
-        log_debug(2, snapshot, channel_labels)
-        self.set_channel_family_query(channel_labels=channel_labels)
-        channels = self._validate_channels(channel_labels=channel_labels)
-        try:
-            ret = self._snapshot_channels(snapshot, channels, flags)
-        except:
-            rhnSQL.rollback()
-            raise
-        else:
-            rhnSQL.commit()
-        return self._respond_xmlrpc(ret)
-
-    _query_lookup_snapshot = rhnSQL.Statement("""
-        select id from rhnDumpSnapshot where snapshot = :snapshot
-    """)
-    _query_create_snapshot = rhnSQL.Statement("""
-        insert into rhnDumpSnapshot (id, snapshot) values (:snapshot_id, :snapshot)
-    """)
-    _query_purge_snapshot = rhnSQL.Statement("""
-        delete from rhnDumpSnapshotChannel where snapshot_id = :snapshot_id
-    """)
-    _query_snapshot_channels = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannel (id, snapshot_id, channel_id)
-        values (:id, :snapshot_id, :channel_id)
-    """)
-    def _snapshot_channels(self, snapshot, channels, flags):
-        log_debug(3, snapshot, channels)
-        retval = {}
-        # Does the snapshot exist?
-        h = rhnSQL.prepare(self._query_lookup_snapshot)
-        h.execute(snapshot=snapshot)
-        row = h.fetchone_dict()
-        if row:
-            # Did they ask to force this snapshot?
-            if not flags.has_key('force'):
-                # XXX
-                raise Exception("did not ask for force")
-            snapshot_id = row['id']
-            # Remove old stuff
-            h = rhnSQL.prepare(self._query_purge_snapshot)
-            h.execute(snapshot_id=snapshot_id)
-        else:
-            snapshot_id = rhnSQL.Sequence('rhn_dump_snapshot_id_seq').next()
-            h = rhnSQL.prepare(self._query_create_snapshot)
-            h.execute(snapshot_id=snapshot_id, snapshot=snapshot)
-
-        if not channels:
-            # Nothing more to do
-            # We don't exit from the very beginning because we may want to
-            # clear a specific tag
-            return retval
-
-        channel_ids = []
-        snapshot_ids = []
-        snapshot_channel_ids = []
-
-        seq = rhnSQL.Sequence('rhn_dump_snap_chan_id_seq')
-        for channel_hash in channels.values():
-            channel_id = channel_hash['channel_id']
-            snapshot_channel_id = channel_hash['snapshot_channel_id'] = \
-                    seq.next()
-
-            channel_ids.append(channel_id)
-            snapshot_ids.append(snapshot_id)
-            snapshot_channel_ids.append(snapshot_channel_id)
-
-        h = rhnSQL.prepare(self._query_snapshot_channels)
-        h.executemany(id=snapshot_channel_ids, snapshot_id=snapshot_ids,
-            channel_id=channel_ids)
-
-        channel_data = self._get_channel_data(channels)
-        channel_data = self._lookup_last_modified(channel_data)
-
-        retval.update(self._snapshot_channel_packages(channels, channel_data))
-        retval.update(self._snapshot_channel_package_sources(channels,
-            channel_data))
-        retval.update(self._snapshot_channel_errata(channels, channel_data))
-        retval.update(self._snapshot_channel_ks_trees(channels, channel_data))
-
-        return retval
 
     def _get_channel_data(self, channels):
         writer = ContainerWriter()
@@ -289,55 +205,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         else:
             h.executemany(snapshot_channel_id=snapshot_channel_ids,
                 obj_id=obj_ids, last_modified=last_modifieds)
-
-    _query_snapshot_channel_packages = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelPackage
-            (snapshot_channel_id, package_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
-    def _snapshot_channel_packages(self, channels, channel_data):
-        self._do_snapshot('packages', channels, channel_data,
-            self._query_snapshot_channel_packages)
-        return {}
-
-    _query_snapshot_channel_source_packages = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelPkgSrc
-        (snapshot_channel_id, package_source_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
-    def _snapshot_channel_package_sources(self, channels, channel_data):
-        self._do_snapshot('source_packages', channels, channel_data,
-            self._query_snapshot_channel_source_packages)
-        return {}
-
-    _query_snapshot_channel_errata = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelErrata
-        (snapshot_channel_id, errata_id, last_modified)
-        values (:snapshot_channel_id, :obj_id,
-            TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS'))
-    """)
-    def _snapshot_channel_errata(self, channels, channel_data):
-        self._do_snapshot('errata', channels, channel_data,
-            self._query_snapshot_channel_errata)
-        return {}
-
-    _query_snapshot_channel_ks_trees = rhnSQL.Statement("""
-        insert into rhnDumpSnapshotChannelKSTree
-        (snapshot_channel_id, ks_tree_id, last_modified)
-        select :snapshot_channel_id, id, TO_DATE(:last_modified, 'YYYY-MM-DD HH24:MI:SS')
-          from rhnKickstartableTree
-         where label = :obj_id
-           and org_id is null
-           and channel_id = :channel_id
-    """)
-    def _snapshot_channel_ks_trees(self, channels, channel_data):
-        self._do_snapshot('ks_trees', channels, channel_data,
-            self._query_snapshot_channel_ks_trees,
-            with_channels=1)
-        return {}
-
 
     def arches(self):
         return self.dump_arches(rpm_arch_type_only=1)
@@ -560,31 +427,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     _get_package_id = staticmethod(_get_package_id)
 
 
-    _query_validate_channel_snapshot = rhnSQL.Statement("""
-        select dsc.snapshot_id
-          from rhnDumpSnapshot ds, rhnDumpSnapshotChannel dsc
-         where dsc.channel_id = :channel_id
-           and dsc.snapshot_id = ds.id
-           and ds.snapshot = :snapshot
-    """)
-    def _validate_channels_snapshot(self, snapshot, channels):
-        h = rhnSQL.prepare(self._query_validate_channel_snapshot)
-        missing_channels = []
-        snapshot_id = None
-        for c in channels.values():
-            channel_id = c['channel_id']
-            h.execute(channel_id=channel_id, snapshot=snapshot)
-            row = h.fetchone_dict()
-            if row:
-                snapshot_id = row['snapshot_id']
-            else:
-                missing_channels.append(c)
-        if missing_channels:
-            missing_labels = [ x['label'] for x in missing_channels ]
-            raise rhnFault(3014, "snapshot: %s; channels: %s" %
-                    (snapshot, ' '.join(missing_labels)))
-        return snapshot_id
-
     def _respond_xmlrpc(self, data):
         # Marshal
         s = xmlrpclib.dumps((data, ))
@@ -648,12 +490,10 @@ class ContainerWriter:
 # based on the creation date
 # XXX No caching for now
 class ChannelsDumper(exportLib.ChannelsDumper):
-    def __init__(self, writer, channels, snapshot=None, incremental=0):
+    def __init__(self, writer, channels):
         # if snapshot is None, then all the objects from the channel are
         # returned - this is useful for snapshotting
         exportLib.ChannelsDumper.__init__(self, writer, channels)
-        self.snapshot = snapshot
-        self.incremental = incremental
 
     def set_iterator(self):
         if not self._channels:
@@ -665,194 +505,11 @@ class ChannelsDumper(exportLib.ChannelsDumper):
         return dumper.QueryIterator(statement=h, params=self._channels)
 
     def dump_subelement(self, data):
-        if self.snapshot:
-            c = _ChannelDumper(self._writer, data, self.snapshot,
-                    self.incremental)
-        else:
-            c = _ChannelSnapshotter(self._writer, data)
+        c = exportLib.ChannelDumper(self._writer, data)
         try:
             c.dump()
         except:
             raise
-
-class _ChannelSnapshotter(exportLib.ChannelDumper):
-    pass
-
-class _ChannelDumper(exportLib.ChannelDumper):
-    def __init__(self, writer, data, snapshot, incremental=0):
-        exportLib.ChannelDumper.__init__(self, writer, data)
-        self.snapshot = snapshot
-        assert self.snapshot is not None, \
-                "Programmer error: wrong class for snapshotting"
-        self.channel_id = None
-        self.channel_label = None
-        self.snapshot_id = None
-        self.snapshot_channel_id = None
-        self.incremental = incremental
-        # Initialize snapshot_id and snapshot_channel_id
-        self.init()
-        log_debug(4, snapshot, incremental, self.snapshot_id,
-            self.snapshot_channel_id)
-
-    _query_get_snapshot_ids = rhnSQL.Statement("""
-        select ds.id snapshot_id, dsc.id snapshot_channel_id
-          from rhnDumpSnapshot ds, rhnDumpSnapshotChannel dsc
-         where dsc.channel_id = :channel_id
-           and dsc.snapshot_id = ds.id
-           and ds.snapshot = :snapshot
-    """)
-    def init(self):
-        self.channel_id = self._row['id']
-        self.channel_label = self._row['label']
-        h = rhnSQL.prepare(self._query_get_snapshot_ids)
-        h.execute(snapshot=self.snapshot, channel_id=self.channel_id)
-        row = h.fetchone_dict()
-        self.snapshot_id = row['snapshot_id']
-        self.snapshot_channel_id = row['snapshot_channel_id']
-        self._all_packages = None
-
-    def set_attributes(self):
-        ret = exportLib.ChannelDumper.set_attributes(self)
-
-        if self.incremental:
-            # create all-packages
-            # self._get_package_ids() will populate self._all_packages
-            all_packages = [ "rhn-package-%s" % x for x in self._all_packages ]
-            ret['all-packages'] = " ".join(all_packages)
-        return ret
-
-    def _get_package_ids(self):
-        # this function has a side-effect of populating self._all_packages
-        # if we are doing an incremental
-        # It will return:
-        # - all packages in the snapshot if we are trying to generate a
-        #   baseline
-        # - all packages in the channel minus all packages in the snapshot if
-        #   we are generating an incremental
-
-        snapshot_packages = self.__get_snapshot_packages()
-        if not self.incremental:
-            # All we need is the snapshotted packages
-            # Drop last_modified
-            return [ x[0] for x in snapshot_packages ]
-
-        # Get a list of all packages in this channel
-        self._all_packages = exportLib.ChannelDumper._get_package_ids(self)
-        all_packages = _lookup_last_modified_packages(self._all_packages)
-
-        # need to return self._all_packages minus snapshot_packages
-        minus = list_minus(all_packages, snapshot_packages)
-        return [ x[0] for x in minus ]
-
-    def __get_statement_data(self, statement):
-        h = rhnSQL.prepare(statement)
-        h.execute(snapshot_channel_id=self.snapshot_channel_id)
-        data = h.fetchall()
-        data.sort()
-        return data
-
-    _query_get_snapshot_packages = rhnSQL.Statement("""
-        select dscp.package_id,
-               TO_CHAR(dscp.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelPackage dscp
-         where dscp.snapshot_channel_id = :snapshot_channel_id
-    """)
-    def __get_snapshot_packages(self):
-        return self.__get_statement_data(self._query_get_snapshot_packages)
-
-    _query_get_snapshot_source_packages = rhnSQL.Statement("""
-        select dscps.package_source_id id,
-               sr.name source_rpm,
-               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnSourceRPM sr,
-               rhnPackageSource ps,
-               rhnDumpSnapshotChannelPkgSrc dscps
-         where dscps.snapshot_channel_id = :snapshot_channel_id
-           and dscps.package_source_id = ps.id
-           and ps.source_rpm_id = sr.id
-    """)
-    def __get_snapshot_source_packages(self):
-        h = rhnSQL.prepare(self._query_get_snapshot_source_packages)
-        h.execute(snapshot_channel_id=self.snapshot_channel_id)
-        data = h.fetchall_dict() or []
-        return data
-
-    _query_get_snapshot_errata = rhnSQL.Statement("""
-        select dsce.errata_id,
-               TO_CHAR(dsce.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelErrata dsce
-         where dsce.snapshot_channel_id = :snapshot_channel_id
-    """)
-    def __get_snapshot_errata(self):
-        return self.__get_statement_data(self._query_get_snapshot_errata)
-
-    _query_get_snapshot_ks_tree = rhnSQL.Statement("""
-        select kt.label,
-               TO_CHAR(dsckt.last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-          from rhnDumpSnapshotChannelKSTree dsckt,
-               rhnDumpSnapshotChannel dsc,
-               rhnKickstartableTree kt
-         where dsckt.snapshot_channel_id = :snapshot_channel_id
-           and dsckt.ks_tree_id = kt.id
-           and dsc.id = :snapshot_channel_id
-           and dsc.channel_id = kt.channel_id
-    """)
-    def __get_snapshot_ks_tree(self):
-        return self.__get_statement_data(self._query_get_snapshot_ks_tree)
-
-    def _get_cursor_source_packages(self):
-        snapshot_source_packages = self.__get_snapshot_source_packages()
-        if not self.incremental:
-            # If a baseline, return objects from snapshot
-            return exportLib.ArrayIterator(snapshot_source_packages)
-
-        h = exportLib.ChannelDumper._get_cursor_source_packages(self)
-        all_source_packages = h.fetchall_dict() or []
-
-        new_objs = list_minus(all_source_packages, snapshot_source_packages,
-            lambda x: (x['id'], x['last_modified']))
-        return exportLib.ArrayIterator(new_objs)
-
-    def _get_errata_ids(self):
-        snapshot_errata = self.__get_snapshot_errata()
-        if not self.incremental:
-            # If a baseline, return objects from snapshot
-            return [  x[0] for x in snapshot_errata ]
-
-        all_errata = exportLib.ChannelDumper._get_errata_ids(self)
-        all_errata = _lookup_last_modified_errata(all_errata)
-        minus = list_minus(all_errata, snapshot_errata)
-        return [ x[0] for x in minus ]
-
-    def _get_kickstartable_trees(self):
-        snapshot_ks_trees = self.__get_snapshot_ks_tree()
-        if not self.incremental:
-            # If a baseline, return objects from snapshot
-            return [  x[0] for x in snapshot_ks_trees ]
-
-        all_ks_trees = exportLib.ChannelDumper._get_kickstartable_trees(self)
-        all_ks_trees = _lookup_last_modified_ks_trees(self.channel_label,
-            all_ks_trees)
-
-        minus = list_minus(all_ks_trees, snapshot_ks_trees)
-        return [ x[0] for x in minus ]
-
-def list_minus(l1, l2, comp_func=lambda x: x):
-    """
-    Returns l1 minus l2, comparing each item of l1 and l2 after filtering
-    them through comp_func
-    """
-    h = {}
-    for i in l2:
-        index = comp_func(i)
-        h[index] = i
-
-    ret = []
-    for i in l1:
-        index = comp_func(i)
-        if not h.has_key(index):
-            ret.append(i)
-    return ret
 
 _query_lookup_last_modified_packages = rhnSQL.Statement("""
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
@@ -867,21 +524,6 @@ def _lookup_last_modified_packages(package_ids):
         row = h.fetchone_dict()
         assert row, "Invalid package id %s" % pid
         ret.append((pid, row['last_modified']))
-    return ret
-
-_query_lookup_last_modified_errata = rhnSQL.Statement("""
-    select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
-      from rhnErrata
-     where id = :id
-""")
-def _lookup_last_modified_errata(errata_ids):
-    h = rhnSQL.prepare(_query_lookup_last_modified_errata)
-    ret = []
-    for eid in errata_ids:
-        h.execute(id=eid)
-        row = h.fetchone_dict()
-        assert row, "Invalid errata id %s" % eid
-        ret.append((eid, row['last_modified']))
     return ret
 
 _query_lookup_last_modified_ks_trees = rhnSQL.Statement("""

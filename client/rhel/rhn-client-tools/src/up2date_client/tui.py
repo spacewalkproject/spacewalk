@@ -110,6 +110,11 @@ class AlreadyRegisteredWindow:
         oldsystemId = systemIdXml[0][0]['system_id']
 
         toplevel = snack.GridForm(self.screen, _("System software updates already set up"), 1, 2)
+        self.bb = snack.ButtonBar(self.screen,
+                                  [(YES_CONT, "next"),
+                                   (NO_CANCEL, "exit")])
+        toplevel.add(self.bb, 0, 1, growx = 1)
+
         tb = snack.Textbox(size[0]-30, size[1]-20,
                             SYSTEM_ALREADY_REGISTERED + "\n\n"
                             + _("Red Hat Network Location:") + " " + self.tui.serverURL + "\n"
@@ -118,11 +123,6 @@ class AlreadyRegisteredWindow:
                             + SYSTEM_ALREADY_REGISTERED_CONT + "\n",
                             1, 1)
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
-
-        self.bb = snack.ButtonBar(self.screen,
-                                  [(YES_CONT, "next"),
-                                   (NO_CANCEL, "exit")])
-        toplevel.add(self.bb, 0, 1, growx = 1)
 
         self.g = toplevel
 

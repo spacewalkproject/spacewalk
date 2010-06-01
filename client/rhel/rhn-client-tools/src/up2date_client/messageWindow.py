@@ -96,35 +96,12 @@ class ErrorDialog(MessageWindow):
                                type="error",
                                parent=parent)
 
-class WarningDialog(MessageWindow):
-    def __init__ (self, text, parent=None):
-        MessageWindow.__init__(self, _("Warning:"),
-                               text,
-                               type="warning",
-                               parent=parent)
-
-class OkDialog(MessageWindow):
-    def __init__ (self, text, parent=None):
-        MessageWindow.__init__(self, _("OK dialog:"),
-                               text,
-                               type="ok",
-                               parent=parent)
-
-    
 class YesNoDialog(MessageWindow):
     def __init__ (self, text, parent=None):
         MessageWindow.__init__(self,_("Yes/No dialog:"),
                                text,
                                type="yesno",
                                parent=parent)
-
-class QuestionDialog(MessageWindow):
-    def __init__ (self, text, parent=None):
-        MessageWindow.__init__(self,_("Question dialog:"),
-                               text,
-                               type="question",
-                               parent=parent)
-
 
 class BulletedOkDialog:
     """A dialog box that can have one more sections of text. Each section can

@@ -25,18 +25,13 @@ from common import rhnFault, log_debug
 # architecture work
 from rhnMapping import check_package_arch
 
-# Utility function that removes \n\r from a string
-def removeNewlines(str):
-    # Remove \n and \r from the string str
-    return string.translate(str, None, "\n\r")
-
 def computeSignature(*fields):
     # Init the hash
     m = hashlib.new('md5')
     for i in fields:
         # use str(i) since some of the fields may be non-string
         m.update(str(i))
-    return removeNewlines(base64.encodestring(m.digest()))
+    return base64.encodestring(m.digest()).rstrip()
 
 
 # reg exp for splitting package names.

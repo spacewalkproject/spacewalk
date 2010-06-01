@@ -23,16 +23,6 @@ class Error:
         self.log.log_me(self.errmsg)
         return self.errmsg
     
-class FileError(Error):
-    """
-    error to report when we encounter file errors (missing files/dirs,
-    lack of permissions, quoat issues, etc"""
-    def __repr__(self):
-        msg = _("Disk error.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
 class RpmError(Error):
     """rpm itself raised an error condition"""
     def __repr__(self):
@@ -64,30 +54,6 @@ class PasswordError(RhnServerException):
         log.log_me(msg)
         return msg
 
-class ConflictError(Error):
-    """Raise when a rpm transaction set has a package conflict"""
-    def __init__(self, msg, rc=None, data=None):
-        self.rc = rc
-        self.errmsg = msg
-        self.data = data
-    def __repr__(self):
-        msg = _("RPM package conflict error.  The message was:\n")
-        msg = msg + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class FileConflictError(Error):
-    """Raise when a rpm tranaction set has a file conflict"""
-    def __init__(self, msg, rc=None):
-        self.rc = rc
-        self.errmsg = msg
-    def __repr__(self):
-        msg = _("RPM file conflict error. The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-    
 class DependencyError(Error):
     """Raise when a rpm transaction set has a dependency error"""
     def __init__(self, msg, deps=None):
@@ -102,40 +68,12 @@ class DependencyError(Error):
         log.log_me(msg)
         return msg
 
-class TransactionError(Error):
-    """Raise when a rpm transaction set has a dependency error"""
-    def __init__(self, msg, deps=None):
-        self.errmsg = msg
-        # just tag on the whole deps tuple, so we have plenty of info
-        # to play with
-        self.deps = deps
-        
-    def __repr__(self):
-        msg = _("RPM  error. The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-
 class UnsolvedDependencyError(Error):
     """Raise when we have a dependency that the server can not find"""
     def __init__(self, msg, dep=None, pkgs=None):
         self.errmsg = msg
         self.dep = dep
         self.pkgs = pkgs 
-    def __repr__(self):
-        msg = _("RPM dependency error.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class DependencySenseError(Error):
-    """
-    Raise when a rpm transaction set has a dependency sense "\
-    "we don't understand"""
-    def __init__(self, msg, sense=None):
-        self.errmsg = msg
-        self.sense = sense
     def __repr__(self):
         msg = _("RPM dependency error.  The message was:\n") + self.errmsg
         log = up2dateLog.initLog()
@@ -149,20 +87,6 @@ class SkipListError(Error):
 	self.pkglist = pkglist 
     def __repr__(self):
         msg = _("Package Skip List error.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class FileConfigSkipListError(Error):
-    """
-    Raise when all the packages you want updated are skip
-    because of config or file skip list"""
-    def __init__(self, msg, pkglist=None):
-        self.errmsg = msg
-        self.pkglist = pkglist
-    def __repr__(self):
-        msg = _("File Skip List or config file overwrite error. "\
-                "The message was:\n") + self.errmsg
         log = up2dateLog.initLog()
         log.log_me(msg)
         return msg
@@ -198,15 +122,6 @@ class DelayError(RhnServerException):
         log.log_me(msg)
         return msg
 
-class RpmRemoveSkipListError(Error):
-    """Raise when we try to remove a package on the RemoveSkipList"""
-    def __repr__(self):
-        msg = _("Could not remove package \"%s\". "\
-                "It was on the RemoveSkipList") % self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
 class RpmRemoveError(Error):
     """
     Raise when we can't remove a package for some reason
@@ -221,94 +136,6 @@ class RpmRemoveError(Error):
     def __repr__(self):
         return self.errmsg
 
-class GPGInstallationError(Error):
-    """Raise when we we detect that the GPG is not installed properly"""
-    def __repr__(self):
-        msg = _("GPG is not installed properly.")
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class GPGKeyringError(Error):
-    """
-    Raise when we we detect that the gpg keyring for the user
-    does not have the Red Hat Key installed"""
-    def __repr__(self):
-        msg = _("GPG keyring does not include the Red Hat, Inc. "\
-                "public package-signing key")
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class GPGVerificationError(Error):
-    """Raise when we fail to verify a package is signed with a gpg signature"""
-    def __init__(self, msg):
-        self.errmsg = msg
-        self.pkg = msg
-    def __repr__(self):
-        msg = _("The package %s failed its gpg signature verification. "\
-                "This means the package is corrupt." % self.errmsg)
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class GPGVerificationUnsignedPackageError(Error):
-    """
-    Raise when a package that is supposed to be verified has
-    no gpg signature"""
-    def __init__(self, msg):
-        self.errmsg = msg
-        self.pkg = msg
-    def __repr__(self):
-        msg = _("Package %s does not have a GPG signature.\n") %  self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class GPGVerificationUntrustedKeyError(Error):
-    """
-    Raise when a package that is supposed to be verified has an
-    untrusted gpg signature"""
-    def __init__(self, msg):
-        self.errmsg = msg
-        self.pkg = msg
-    def __repr__(self):
-        msg = _("Package %s has a untrusted GPG signature.\n") % self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class GPGVerificationUnknownKeyError(Error):
-    """
-    Raise when a package that is supposed to be verified has an
-    unknown gpg signature"""
-    def __init__(self, msg):
-        self.errmsg = msg
-        self.pkg = msg
-    def __repr__(self):
-        msg = _("Package %s has a unknown GPG signature.\n") % self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class OutOfSpaceError(Error):
-    def __init__(self, totalSize, freeDiskSpace):
-        self.ts = totalSize
-        self.fds = freeDiskSpace
-        self.errmsg = "The total size of the selected packages (%d kB) "\
-                      "exceeds your free disk space (%d kB)." % (
-            self.ts, self.fds)
-
-    def __repr__(self):
-        return self.errmsg
-
-class ServerThrottleError(Error):
-    def __init__(self, msg):
-        self.errmsg = msg
-
-    def __repr__(self):
-        return self.errmsg
-    
 class AbuseError(Error):
     def __init__(self, msg):
         self.errmsg = msg
@@ -371,22 +198,8 @@ class UnknownMethodException(RhnServerException):
     def __repr__(self):
         return self.errmsg
 
-class ServiceNotEnabledException(RhnServerException):
-    def __init__(self, errmsg):
-        Error.__init__(self, errmsg)
-
-    def __repr__(self):
-        return self.errmsg
-
 class RhnUuidUniquenessError(RhnServerException):
     def __init__(self, msg):
-        self.errmsg = msg
-
-    def __repr__(self):
-        return self.errmsg
-
-class Up2dateNeedsUpdateError(Error):
-    def __init__(self, msg=""):
         self.errmsg = msg
 
     def __repr__(self):
@@ -402,50 +215,10 @@ class ServerCapabilityError(Error):
     def __repr__(self):
         return self.errmsg
 
-class ServerCapabilityMissingError(Error):
-    def __init__(self, msg):
-        self.errmsg = msg
-
-    def __repr__(self):
-        return self.errmsg
-
-class ServerCapabilityVersionError(Error):
-    def __init__(self, msg):
-        self.errmsg = msg
-
-    def __repr__(self):
-        return self.errmsg
-
 class NoChannelsError(Error):
     def __init__(self, msg):
         self.errmsg = msg
 
-    def __repr__(self):
-        return self.errmsg
-
-class PackageNotAvailableError(Error):
-    def __init__(self, msg, missing_packages=None):
-        self.errmsg = msg
-        self.missing_packages = missing_packages
-    def __repr__(self):
-        errstring = "%s\n" % self.errmsg
-        for i in self.missing_packages:
-            errstring = errstring + "%s\n" % i
-        return errstring
-
-class PackageArchNotAvailableError(Error):
-    def __init__(self, msg, missing_packages=None):
-        self.errmsg = msg
-        self.missing_packages = missing_packages
-    def __repr__(self):
-        errstring = "%s\n" % self.errmsg
-        for i in self.missing_packages:
-            errstring = errstring + "%s\n" % i
-        return errstring
-
-class VirtualizationError(Error):
-    def __init__(self, msg):
-        self.errmsg = msg
     def __repr__(self):
         return self.errmsg
 
@@ -521,13 +294,6 @@ class PasswordMinLengthError(Error):
         return self.errmsg
 
 class PasswordMaxLengthError(Error):
-    def __init__(self, msg):
-        self.errmsg = msg
-
-    def __repr__(self):
-        return self.errmsg
-
-class ServerUnavailableError(Error):
     def __init__(self, msg):
         self.errmsg = msg
 

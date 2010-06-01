@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.1
+Version:        1.1.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
+- none of rhnDumpSnapshot* exists anymore
+- 585965 - adding upgrade schema for bug
+- 585965 - fixing issue with multilib packages and errata-cache generation
+- Fix ORA-02429 error during schema upgrade
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - bumping spec files to 1.1 packages
 
