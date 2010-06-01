@@ -751,7 +751,7 @@ class XML_DumperEx(XML_Dumper):
 
         writer = self._get_xml_writer()
         dumper = SatelliteDumper(writer,
-            ErrataDumperEx(writer, errata_hash.values()))
+            ErrataDumper(writer, errata_hash.values()))
         dumper.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -1272,40 +1272,6 @@ class SourcePackagesDumper(CachedDumper, exportLib.SourcePackagesDumper):
         return exportLib.SourcePackagesDumper.dump_subelement(self, data)
 
 class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
-    def __init__(self, writer, errata):
-        h = rhnSQL.prepare("""
-            select
-                e.id,
-                e.org_id,
-                e.advisory_name,
-                e.advisory,
-                e.advisory_type,
-                e.advisory_rel,
-                e.product,
-                e.description,
-                e.synopsis,
-                e.topic,
-                e.solution,
-                TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-                TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-                e.refers_to,
-                e.notes
-            from rhnErrata e
-            where e.id = :errata_id
-        """)
-        CachedDumper.__init__(self, writer, statement=h, params=errata)
-
-    def _get_key(self, params):
-        errata_id = str(params['errata_id'])
-        hash_val = rhnLib.hash_object_id(errata_id, 1)
-        return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ErrataDumper.dump_subelement(self, data)
-
-class ErrataDumperEx(CachedDumper, exportLib.ErrataDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
             select
