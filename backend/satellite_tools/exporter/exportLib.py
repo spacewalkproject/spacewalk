@@ -1054,13 +1054,6 @@ class ErrataSynopsisDumper(ErrataDumper):
                from rhnErrataSeverity
               where id = e.severity_id) || e.synopsis synposis,"""
 
-class _ErratumSynopsisDumper(_ErratumDumper):
-    # SATSYNC: Ignore the Oval files stuff(typeid=4)
-    # while exporting errata File info to satellite
-    type_id_column = """and ef.type != (select id
-                                           from rhnErrataFileType
-                                          where label = 'OVAL')"""
-
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
 
