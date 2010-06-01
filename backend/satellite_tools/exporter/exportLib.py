@@ -906,36 +906,10 @@ class _PackageFilesDumper(BaseDumper):
 class ErrataDumper(BaseDumper):
     tag_name = 'rhn-errata'
 
-    synposis_column = "e.synposis,"
-
     def set_iterator(self):
         if self._iterator:
             return self._iterator
-
-        _query_errata_info = """
-	    select
-                    e.id,
-                    e.org_id,
-                    e.advisory_name,
-                    e.advisory,
-                    e.advisory_type,
-                    e.advisory_rel,
-                    e.product,
-                    e.description,
-                    %s
-                    e.topic,
-                    e.solution,
-                    TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-                    TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-                    TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-                    e.refers_to,
-                    e.notes
-             from rhnErrata e
-            where rownum < 3
-	""" 
-        h = rhnSQL.prepare(_query_errata_info % self.synposis_column)
-        h.execute()
-        return h
+        raise NotImplementedError, "To be overridden in a child class"
 
     def dump_subelement(self, data):
         d = _ErratumDumper(self._writer, data) 
