@@ -994,39 +994,6 @@ class ChannelsDumper(exportLib.ChannelsDumper):
 class _ChannelsDumper(exportLib._ChannelDumper):
     tag_name = 'rhn-channel'
 
-    def set_attributes(self):
-        channel_id = self._row['id']
-
-        packages = map(lambda x: "rhn-package-%s" % x, self._get_package_ids())
-        # XXX channel-errata is deprecated and should go away in dump version
-        # 3 or higher - we now dump that information in its own subelement
-        # rhn-channel-errata
-        errata = map(lambda x: "rhn-erratum-%s" % x, self._get_errata_ids())
-        ks_trees = self._get_kickstartable_trees()
-
-        return {
-            'channel-id'    : 'rhn-channel-%s' % channel_id,
-            'org_id'        : self._row['org_id'],
-            'label'         : self._row['label'],
-            'channel-arch'  : self._row['channel_arch'],
-            'packages'      : string.join(packages),
-            'channel-errata' : string.join(errata),
-            'kickstartable-trees'   : string.join(ks_trees),
-        }
-
-    _query_channel_families = rhnSQL.Statement("""
-        select cf.id, cf.label
-          from rhnChannelFamily cf, rhnChannelFamilyMembers cfm
-         where cfm.channel_family_id = cf.id
-           and cfm.channel_id = :channel_id
-    """)
-    _query_dist_channel_map = rhnSQL.Statement("""
-        select dcm.os, dcm.release, ca.label channel_arch
-          from rhnDistChannelMap dcm, rhnChannelArch ca
-         where dcm.channel_id = :channel_id
-           and dcm.channel_arch_id = ca.id
-    """)
-
     def set_iterator(self):
         channel_id = self._row['id']
         arr = []
@@ -1103,32 +1070,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             h.execute(channel_id=channel_id)
         return map(lambda x: x['package_id'], h.fetchall_dict() or [])
 
-    _query_get_source_package_ids = rhnSQL.Statement("""
-        select distinct ps.id, sr.name source_rpm,
-               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnChannelPackage cp, rhnPackage p, rhnPackageSource ps,
-               rhnSourceRPM sr
-         where cp.channel_id = :channel_id
-           and cp.package_id = p.id
-           and p.source_rpm_id = ps.source_rpm_id
-           and ((p.org_id is null and ps.org_id is null) or
-               p.org_id = ps.org_id)
-           and ps.source_rpm_id = sr.id
-    """)
-    def _get_cursor_source_packages(self):
-        channel_id = self._row['id']
-        h = rhnSQL.prepare(self._query_get_source_package_ids)
-        h.execute(channel_id=channel_id)
-        return h
-
-    _query__get_errata_ids = rhnSQL.Statement("""
-        select ce.errata_id, e.advisory_name,
-               TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnChannelErrata ce, rhnErrata e
-         where ce.channel_id = :channel_id
-           and ce.errata_id = e.id
-    """)
-
     _query__get_errata_ids_by_limits = rhnSQL.Statement("""
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
@@ -1151,13 +1092,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             h = rhnSQL.prepare(self._query__get_errata_ids)
             h.execute(channel_id=channel_id)
         return map(lambda x: x['errata_id'], h.fetchall_dict() or [])
-
-    _query_get_kickstartable_trees = rhnSQL.Statement("""
-        select kt.label
-          from rhnKickstartableTree kt
-         where  kt.channel_id = :channel_id
-           and  kt.org_id is null
-    """)
 
     _query_get_kickstartable_trees_by_limits = rhnSQL.Statement("""
         select kt.label
