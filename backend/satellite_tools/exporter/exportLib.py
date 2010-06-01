@@ -1017,17 +1017,6 @@ class _ErratumDumper(BaseRowDumper):
 
         return ArrayIterator(arr)
 
-class ErrataSynopsisDumper(ErrataDumper):
-    # include severity into synopsis before
-    # exporting to satellite.
-    # Also ignore the first 18 characters in
-    # the label(errata.sev.label.) from
-    # rhnErrataSeverity table
-    synposis_column = """
-            (select SUBSTR(label,18) || ':'
-               from rhnErrataSeverity
-              where id = e.severity_id) || e.synopsis synposis,"""
-
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
 

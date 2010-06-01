@@ -1305,7 +1305,7 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
         log_debug(6, data)
         return exportLib.ErrataDumper.dump_subelement(self, data)
 
-class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
+class ErrataDumperEx(CachedDumper, exportLib.ErrataDumper):
     def __init__(self, writer, errata):
         h = rhnSQL.prepare("""
             select
@@ -1337,7 +1337,7 @@ class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
 
     def _dump_subelement(self, data):
         log_debug(6, data)
-        return exportLib.ErrataSynopsisDumper.dump_subelement(self, data)
+        return exportLib.ErrataDumper.dump_subelement(self, data)
 
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     _query_lookup_ks_tree = rhnSQL.Statement("""
