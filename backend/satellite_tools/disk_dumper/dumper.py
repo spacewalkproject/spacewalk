@@ -974,8 +974,6 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.parent_channel = pc.id (+)
            and c.checksum_type_id = ct.id (+)
     """)
-    def __init__(self, writer, channels):
-        exportLib.ChannelsDumper.__init__(self, writer, channels)
 
     def dump_subelement(self, data):
         log_debug(6, data)
