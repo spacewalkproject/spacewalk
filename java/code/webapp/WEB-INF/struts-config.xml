@@ -6496,6 +6496,14 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/listremovepackages.jsp" />
       </action>
 
+   <action path="/channels/manage/Repositories"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.RepositoriesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/repositories.jsp" />
+      <forward name="success" path="/channels/manage/Repositories.do" redirect="true" />
+      </action>
+
    <action path="/channels/manage/Manage"
            scope="request"
            type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
