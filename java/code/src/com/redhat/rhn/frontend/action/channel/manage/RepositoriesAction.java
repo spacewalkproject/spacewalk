@@ -27,6 +27,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.user.User;
@@ -45,17 +46,25 @@ public class RepositoriesAction extends RhnAction implements Listable {
                 HttpServletResponse response) {
 
             RequestContext context = new RequestContext(request);
+            User user =  context.getLoggedInUser();
+
+            long cid = context.getRequiredParam("cid");
+            Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
+            request.setAttribute("channel_name", chan.getName());
 
             Map params = new HashMap();
             params.put(RequestContext.CID, context.getRequiredParamAsString(RequestContext.CID));
 
-            ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+            ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
 
             if (!context.isSubmitted()) {
                 List<ContentSource> result = getResult(context);
                 Set<String> preSelect = new HashSet<String>();
                 for (int i = 0; i < result.size(); i++) {
-                    preSelect.add(result.get(i).getId().toString());
+                    ContentSource src = result.get(i);
+                    if(src.getChannels().contains(chan)) {
+                       preSelect.add(src.getId().toString());
+                    }
                 }
                 helper.preSelect(preSelect);
             }

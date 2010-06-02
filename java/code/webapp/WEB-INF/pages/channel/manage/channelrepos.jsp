@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
 
-<h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="channel.jsp.package.list"/></h2>
+<h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="repos.jsp.channel.repos"/></h2>
 
 
 
@@ -24,7 +24,7 @@
 
 	<rl:list
 			decorator="SelectableDecorator"
-			emptykey="package.jsp.emptylist"
+			emptykey="repos.jsp.norepos"
 			alphabarcolumn="label"
 	 >
 
@@ -35,12 +35,12 @@
 
                  <rl:column sortable="true"
                                    bound="false"
-                           headerkey="download.jsp.package"
+                           headerkey="repos.jsp.channel.header"
                            sortattr="label"
 					defaultsort="asc"
                            >
 
-                        <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.label}</a>
+                        <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
                 </rl:column>
 
 
@@ -49,7 +49,7 @@
 	<div align="right">
 	  <hr />
 		<input type="submit" name="confirm"
-				value="<bean:message key="channel.jsp.package.removebutton"/>" />
+				value="<bean:message key="repos.jsp.update.channel"/>" />
 	</div>
 		<rhn:submitted/>
 
