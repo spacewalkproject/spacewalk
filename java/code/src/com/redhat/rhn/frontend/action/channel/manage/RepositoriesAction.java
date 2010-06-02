@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +26,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 
 public class RepositoriesAction extends RhnAction implements Listable {
@@ -40,8 +42,18 @@ public class RepositoriesAction extends RhnAction implements Listable {
                 HttpServletRequest request,
                 HttpServletResponse response) {
 
-            ListRhnSetHelper helper = 
-                new ListRhnSetHelper(this, request,RhnSetDecl.REPOSITORY_CHANNEL_MAPS);
+            ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+            
+            RequestContext context = new RequestContext(request);
+            if (!context.isSubmitted()) {
+                List<ContentSource> result = getResult(context);
+                Set<String> preSelect = new HashSet<String>();
+                for (int i = 0; i < result.size(); i++) {
+                    preSelect.add(result.get(i).getId().toString());
+                }                
+                helper.preSelect(preSelect);
+            }
+
             helper.execute();
             if(helper.isDispatched()) {
                 //handle the dispatch action (like removing groups etc)
@@ -51,7 +63,7 @@ public class RepositoriesAction extends RhnAction implements Listable {
             return mapping.findForward("default");
         }
         
-        public List getResult(RequestContext context) {
+        public List<ContentSource> getResult(RequestContext context) {
             User user =  context.getLoggedInUser();
             return ChannelFactory.lookupContentSources(user.getOrg());
         }    
