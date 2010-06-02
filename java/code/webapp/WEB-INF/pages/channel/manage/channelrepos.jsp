@@ -16,9 +16,7 @@
 
 <h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="repos.jsp.channel.repos"/></h2>
 
-
-
-<rl:listset name="packageSet" legend="system-group">
+<rl:listset name="packageSet">
 
 <input type="hidden" name="cid" value="${cid}" />
 
@@ -43,16 +41,13 @@
                         <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
                 </rl:column>
 
-
-
 	</rl:list>
 	<div align="right">
 	  <hr />
-		<input type="submit" name="confirm"
+		<input type="submit" name="dispatch"
 				value="<bean:message key="repos.jsp.update.channel"/>" />
 	</div>
 		<rhn:submitted/>
-
 
 </rl:listset>
 
