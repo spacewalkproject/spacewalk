@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
+import com.redhat.rhn.domain.channel.PrivateChannelFamily;
 import com.redhat.rhn.domain.channel.ProductName;
 import com.redhat.rhn.domain.channel.ReleaseChannelMap;
 import com.redhat.rhn.domain.common.CommonConstants;
@@ -2904,6 +2905,23 @@ public class ChannelManager extends BaseManager {
         }        
         
         return toRet;
+    }
+
+    /**
+     * Recompute channel family counts
+     *   Just calls the stored proc
+     *
+     * @param family the channel family
+     */
+    public static void updateChannelFamilyCounts(PrivateChannelFamily family) {
+
+        Map params = new HashMap();
+        params.put("fid", family.getChannelFamily().getId());
+        params.put("org_id", family.getOrg().getId());
+
+        CallableMode mode = ModeFactory.getCallableMode(
+                "Channel_queries", "update_family_counts");
+        mode.execute(params, new HashMap());
     }
 
 

@@ -39,6 +39,8 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -649,22 +651,13 @@ public class OrgImpl extends BaseDomainHelper implements Org {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof OrgImpl)) {
             return false;
         }
         final OrgImpl other = (OrgImpl) obj;
-        if (getId() == null) {
-            if (other.getId() != null) {
-                return false;
-            }
-        }
-        else if (!getId().equals(other.getId())) {
-            return false;
-        }
-        return true;
+        EqualsBuilder build = new EqualsBuilder();
+        build.append(this.getName(), other.getName());
+        return build.isEquals();
     }
 
     /**
@@ -672,9 +665,8 @@ public class OrgImpl extends BaseDomainHelper implements Org {
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        return result;
+        HashCodeBuilder build = new HashCodeBuilder();
+        build.append(this.getName());
+        return build.toHashCode();
     }
 }

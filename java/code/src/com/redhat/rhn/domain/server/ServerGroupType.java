@@ -15,6 +15,8 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.AbstractLabelNameHelper;
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -73,5 +75,13 @@ public class ServerGroupType extends AbstractLabelNameHelper {
      */
     public void setFeatures(Set<Feature> featuresIn) {
         features = featuresIn;
+    }
+
+    /**
+     * Get the associated Entitlement
+     * @return the Entitlement
+     */
+    public Entitlement getAssociatedEntitlement() {
+        return EntitlementManager.getByName(this.getLabel());
     }
 }

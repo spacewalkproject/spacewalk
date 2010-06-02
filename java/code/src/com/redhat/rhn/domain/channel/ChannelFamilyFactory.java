@@ -230,4 +230,16 @@ public class ChannelFamilyFactory extends HibernateFactory {
                 "ChannelFamily.findLicensePath", params);
     }
 
+    /**
+     * Get a list of channel families that guests of a host are using
+     * @param hostId the host id
+     * @return the list of private channel families
+     */
+    public static List<PrivateChannelFamily> listGuestChannelFamiles(Long hostId) {
+        Map params = new HashMap();
+        params.put("host_id", hostId);
+        return  singleton.listObjectsByNamedQuery(
+                "ChannelFamily.listGuestChannelFamilies", params);
+    }
+
 }

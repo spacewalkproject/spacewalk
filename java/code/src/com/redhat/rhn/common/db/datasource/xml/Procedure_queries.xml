@@ -118,6 +118,42 @@
 </write-mode>
 
 
+<write-mode name="update_group_current_members">
+  <query params="oid">
+		update rhnServerGroup set current_members = :current_members
+                where id = :sgid
+  </query>
+</write-mode>
+
+
+<mode name="compute_physical_server_group_count">
+  <query params="sgid">
+		    select count(sep.server_id) as count
+            from rhnServerEntitlementPhysical sep
+           where sep.server_group_id = :sgid
+  </query>
+</mode>
+
+
+<callable-mode name="remove_server_entitlement">
+  <query params="sid, group_type">
+      {call rhn_entitlements.remove_server_entitlement(:sid, :group_type)}
+  </query>
+</callable-mode>
+
+<!--  <mode name="remove_server_entitlement">
+  <query params="sid, group_type">
+     call rhn_entitlements.remove_server_entitlement(:sid, :group_type)
+  </query>
+</mode>  -->
+
+
+<callable-mode name="unsubscribe_server_from_family">
+  <query params="sid, fam_id">
+      {call rhn_channel.unsubscribe_server_from_family(:sid, :fam_id)}
+  </query>
+</callable-mode>
+
 
 
 

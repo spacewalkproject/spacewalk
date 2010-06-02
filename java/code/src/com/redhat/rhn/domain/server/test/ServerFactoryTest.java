@@ -535,15 +535,29 @@ public class ServerFactoryTest extends RhnBaseTestCase {
                                 new Date());
     }
     
-    public static Server createTestServer(User owner, boolean ensureOwnerAccess,
-            ServerGroupType type, Date dateCreated) throws Exception {
-        return createTestServer(owner, ensureOwnerAccess, type, TYPE_SERVER_NORMAL, 
-                                dateCreated);
-    }
     
     public static Server createTestServer(User owner, boolean ensureOwnerAccess,
             ServerGroupType type, int stype) throws Exception {
         return createTestServer(owner, ensureOwnerAccess, type, stype, new Date());
+    }
+
+
+    private static Server createTestServer(User owner, boolean ensureOwnerAccess,
+            ServerGroupType type, int stype, Date dateCreated)
+        throws Exception {
+
+        Server newS = createUnentitledTestServer(owner, ensureOwnerAccess, stype,
+                dateCreated);
+
+        if (!type.getAssociatedEntitlement().isBase()) {
+            SystemManager.entitleServer(newS, EntitlementManager.MANAGEMENT);
+        }
+
+
+        EntitlementServerGroup sg = ServerGroupTestUtils.createEntitled(owner.getOrg(),
+                                                                        type);
+        SystemManager.entitleServer(newS, sg.getGroupType().getAssociatedEntitlement());
+        return (Server) TestUtils.saveAndReload(newS);
     }
 
     /**
@@ -553,18 +567,14 @@ public class ServerFactoryTest extends RhnBaseTestCase {
      *                          access to the new server. 
      * @return Server that was created
      */
-    private static Server createTestServer(User owner, boolean ensureOwnerAccess,
-            ServerGroupType type, int stype, Date dateCreated)
+    public static Server createUnentitledTestServer(User owner, boolean ensureOwnerAccess,
+            int stype, Date dateCreated)
         throws Exception {
         
-        //Create a server and a server group
-        EntitlementServerGroup sg = ServerGroupTestUtils.createEntitled(owner.getOrg(),
-                                                                        type);
-        if (sg.getMaxMembers() != null) {
-            sg.setMaxMembers(new Long(sg.getMaxMembers().longValue() + 10L));
-        }
+
         Server newS = createServer(stype);
         
+
         // We have to commit this change manually since 
         // ServerGroups aren't actually mapped from within 
         // the Server class.
@@ -587,9 +597,11 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         newS.addNetworkInterface(netint);
 
 
+
         
         ServerFactory.save(newS);
-        ServerFactory.addServerToGroup(newS, sg);
+        TestUtils.saveAndReload(newS);
+
 
         /* Since we added a server to the Org we need
          * to update the User's permissions as associated with
@@ -705,7 +717,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         throws Exception {
         
         return createTestServer(owner, ensureOwnerAccess,
-                ServerConstants.getServerGroupTypeUpdateEntitled());
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
     }
     
     private static Server createServer(int type) {
@@ -988,4 +1000,3 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     }
     
 }
-

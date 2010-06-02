@@ -252,6 +252,19 @@ public class ServerGroupFactory extends HibernateFactory {
     }
 
     /**
+     * List the Entitlement server groups that a host's guests are using
+     * @param hostId the host id
+     * @return the list of entitlement server groups
+     */
+    public static List<EntitlementServerGroup> listGuestsServerGroups(Long hostId) {
+        Map params = new HashMap();
+        params.put("sid", hostId);
+        return  SINGLETON.listObjectsByNamedQuery(
+                "ServerGroup.lookupGuestGroups", params);
+    }
+
+
+    /**
      * Returns the list of Entitlement ServerGroups  associated to a server. 
      * @param s the server to find the server groups of
      * @return list of EntitlementServerGroup objects that are associated to 

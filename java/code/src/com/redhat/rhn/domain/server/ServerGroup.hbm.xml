@@ -125,6 +125,22 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
     </sql-query>
     
+
+    <sql-query name="ServerGroup.lookupGuestGroups">
+        <![CDATA[ select distinct {sg.*}
+            from
+                rhnServerGroupType sgt,
+                rhnServerGroup sg,
+                rhnServerGroupMembers sgm,
+                rhnVirtualInstance vi
+            where
+                vi.host_system_id = :sid
+                and vi.virtual_system_id = sgm.server_id
+                and sgm.server_group_id = sg.id
+                and sg.group_type = sgt.id ]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.EntitlementServerGroup"/>
+    </sql-query>
+
     <sql-query name="ServerGroup.lookupServerIds">
         <![CDATA[ select s.id
 					from rhnServer s 

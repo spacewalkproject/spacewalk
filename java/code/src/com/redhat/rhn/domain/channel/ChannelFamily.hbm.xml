@@ -62,4 +62,26 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			CHANNEL_FAMILY_ID = :id
         ]]>
 	</sql-query>
+
+
+	<sql-query name="ChannelFamily.listGuestChannelFamilies">
+		<![CDATA[
+	            select distinct {pcf.*}
+            from
+                rhnChannelFamilyServers cfs,
+                rhnVirtualInstance vi,
+                rhnPrivateChannelFamily pcf
+            where
+                vi.host_system_id = :host_id
+                and vi.virtual_system_id = cfs.server_id
+                and pcf.channel_family_id = cfs.channel_family_id
+                and pcf.org_id = cfs.customer_id
+        ]]>
+                <return alias="pcf" class="com.redhat.rhn.domain.channel.PrivateChannelFamily" />
+	</sql-query>
+
+
+
+
+
 </hibernate-mapping>

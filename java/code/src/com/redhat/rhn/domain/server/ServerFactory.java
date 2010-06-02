@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
@@ -794,4 +795,40 @@ public class ServerFactory extends HibernateFactory {
                 new HashMap(), systemIds, "sids");
     }
     
+    /**
+     * List quantity number of guests that are using the provided channel family
+     *    in order to remove them
+     * @param fam the channel family
+     * @param quantity the quantity of them you want
+     * @param hostId the host's id
+     * @return The list of server ids (guests)
+     */
+    public static List<Long> listGuestIdsForRemoval(ChannelFamily fam,
+                                                Long quantity, Long hostId) {
+        Map params = new HashMap();
+        params.put("host_id", hostId);
+        params.put("quantity_in", quantity);
+        params.put("family_id_in", fam.getId());
+        return singleton.listObjectsByNamedQuery(
+                "VirtualInstance.guestsForRemovalByFamily", params);
+    }
+
+    /**
+     * List quantity number of guests that are using the provided server group
+     *    in order to remove them
+     * @param group the server Group
+     * @param quantity the quantity of them you want
+     * @param hostId the host's id
+     * @return The list of server ids (guests)
+     */
+    public static List<Long> listGuestIdsForRemoval(EntitlementServerGroup group,
+                                                            Long quantity, Long hostId) {
+        Map params = new HashMap();
+        params.put("host_id", hostId);
+        params.put("quantity_in", quantity);
+        params.put("group_type", group.getGroupType().getId());
+        return singleton.listObjectsByNamedQuery(
+                "VirtualInstance.guestsForRemovalByFamily", params);
+    }
+
 }

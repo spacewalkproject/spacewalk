@@ -339,6 +339,11 @@ ORDER BY UPPER(C.name)
 </callable-mode>
 
 
+<callable-mode name="update_family_counts">
+  <query params="fid, org_id">
+      {:result = call rhn_channel.update_family_counts(:fid, :org_id)}
+  </query>
+</callable-mode>
 
 <mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id">

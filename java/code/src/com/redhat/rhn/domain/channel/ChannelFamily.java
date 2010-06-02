@@ -144,8 +144,7 @@ public class ChannelFamily extends BaseDomainHelper {
         }
         ChannelFamily castOther = (ChannelFamily) other;
          
-        return new EqualsBuilder().append(getId(), castOther.getId())
-                                  .append(getLabel(), castOther.getLabel())
+        return new EqualsBuilder().append(getLabel(), castOther.getLabel())
                                   .append(getName(), castOther.getName())
                                   .append(getOrg(), castOther.getOrg())
                                   .append(getProductUrl(), castOther.getProductUrl())

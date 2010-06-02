@@ -192,7 +192,15 @@ public class ChannelProcedure {
         channelFamilyIn.setCurrentMembers(orgIn, currentMembers);
     }
     
-    private long computeCurrentMemberCounts(ChannelFamily channelFamilyIn,
+    /**
+     * COmpute current member counts.  That is the current number of
+     *      systems using a channel family (basically a real time computation
+     *      of rhnPrivateChannelFamily.current_members
+     * @param channelFamilyIn the channel family
+     * @param orgIn the Org
+     * @return the Number used
+     */
+    public Long computeCurrentMemberCounts(ChannelFamily channelFamilyIn,
             Org orgIn) {
         SelectMode m = ModeFactory.getMode("Channel_queries", 
                                 "compute_channel_family_curent_members");
@@ -203,4 +211,6 @@ public class ChannelProcedure {
         return (Long) dr.get(0).get("count");
         
     }
+
+
 }
