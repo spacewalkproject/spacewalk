@@ -33,6 +33,7 @@ import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 
@@ -53,25 +54,45 @@ public class RepositoriesAction extends RhnAction implements Listable {
             request.setAttribute("channel_name", chan.getName());
 
             Map params = new HashMap();
-            params.put(RequestContext.CID, context.getRequiredParamAsString(RequestContext.CID));
+            params.put(RequestContext.CID, chan.getId().toString());
 
-            ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+            ListSessionSetHelper helper = new ListSessionSetHelper(this, request,params);
 
             if (!context.isSubmitted()) {
                 List<ContentSource> result = getResult(context);
+                System.out.println("result set is " + result.size());
                 Set<String> preSelect = new HashSet<String>();
                 for (int i = 0; i < result.size(); i++) {
                     ContentSource src = result.get(i);
                     if(src.getChannels().contains(chan)) {
+                        System.out.println("adding repo to preselect, " + src.getLabel() );
                        preSelect.add(src.getId().toString());
                     }
                 }
                 helper.preSelect(preSelect);
             }
 
+            helper.ignoreEmptySelection();
             helper.execute();
+
             if(helper.isDispatched()) {
-                return  mapping.findForward("success");
+                Set<ContentSource> foo = chan.getSources();
+                foo.clear();
+                Set <String> set = helper.getSet();
+                System.out.println("SET is " + set.size());
+                for (String id : set) {
+                    Long sgid = Long.valueOf(id);
+                    ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
+                    foo.add(tmp);
+                }
+
+                ChannelFactory.save(chan);
+
+
+
+                StrutsDelegate strutsDelegate = getStrutsDelegate();
+                return strutsDelegate.forwardParams
+                                (mapping.findForward("success"), params);
             }
 
             return mapping.findForward("default");
