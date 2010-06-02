@@ -14,12 +14,20 @@
  */
 package com.redhat.rhn.taskomatic.core;
 
+import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.taskomatic.NoSuchBunchTaskException;
+import com.redhat.rhn.taskomatic.TaskoBunch;
+import com.redhat.rhn.taskomatic.TaskoFactory;
+
 import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,24 +37,19 @@ import java.util.Map;
  * @version $Rev: 75283 $
  */
 public class RhnJobFactory implements JobFactory {
-
-    private Map jobImplCache = new HashMap();
-
     /**
      * {@inheritDoc}
      */
     public synchronized Job newJob(TriggerFiredBundle trigger) throws SchedulerException {
-        Class jobClass = trigger.getJobDetail().getJobClass();
-        Job retval = (Job) jobImplCache.get(jobClass.getName());
-        if (retval == null) {
-            try {
-                retval = (Job) jobClass.newInstance();
-                jobImplCache.put(jobClass.getName(), retval);
-            }
-            catch (Exception e) {
-                throw new SchedulerException(e);
-            }
+        TaskoBunch bunch = null;
+        String bunchName = trigger.getJobDetail().getJobDataMap().getString("name");
+
+        try {
+            bunch = TaskoFactory.lookupByName(bunchName);
+        } catch(HibernateRuntimeException re) {
+                throw new SchedulerException("No such bunch task " + bunchName);
         }
-        return retval;
+
+        return bunch;
     }
 }

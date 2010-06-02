@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.taskomatic.TaskoTask"
+        table="rhnTaskoTask">
+
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">RHN_TASKO_TASK_ID_SEQ</param>
+            </generator>
+        </id>
+
+        <property name="name" type="string" column="name"/>
+        <property name="taskClass" type="string" column="class"/>
+
+        <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+    </class>
+
+    <query name="TaskoTask.findById">
+        <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t where t.id = :id]]>
+    </query>
+
+    <query name="TaskoTask.findByName">
+        <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t where t.name = :name]]>
+    </query>
+
+    <query name="Channel.listTasks">
+        <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t]]>
+    </query>
+
+</hibernate-mapping>
