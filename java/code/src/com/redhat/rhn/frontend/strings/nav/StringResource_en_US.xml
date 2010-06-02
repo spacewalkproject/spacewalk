@@ -1019,6 +1019,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </context-group>
   </trans-unit>
 
+  <trans-unit id="Repositories">
+    <source>Repositories</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+    </context-group>
+  </trans-unit>
+
   <trans-unit id="Managers">
     <source>Managers</source>
     <context-group name="ctx">
