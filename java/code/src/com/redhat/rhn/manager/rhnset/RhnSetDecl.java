@@ -275,6 +275,9 @@ public class RhnSetDecl {
 
     public static final RhnSetDecl REMOVE_SYSTEMS_LIST = make(
             "remove_systems_list", SetCleanup.NOOP);
+    
+    public static final RhnSetDecl REPOSITORY_CHANNEL_MAPS = make(
+            "repository_channel_maps", SetCleanup.NOOP);
 
     public static final RhnSetDecl CHANNEL_SUBSCRIPTION_PERMS = make(
             "channel_subscription_perms", SetCleanup.NOOP);

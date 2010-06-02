@@ -43,7 +43,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="ContentSource.findById">
         <![CDATA[from com.redhat.rhn.domain.channel.ContentSource as c where c.id = :id]]>
+    </query>
+    <query name="ContentSource.findByOrg">
+        <![CDATA[from com.redhat.rhn.domain.channel.ContentSource as c where c.org = :org]]>
     </query>           
+               
                
     
 </hibernate-mapping>
