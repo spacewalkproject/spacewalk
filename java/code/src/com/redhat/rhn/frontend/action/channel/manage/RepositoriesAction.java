@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,9 +44,13 @@ public class RepositoriesAction extends RhnAction implements Listable {
                 HttpServletRequest request,
                 HttpServletResponse response) {
 
+            RequestContext context = new RequestContext(request);
+
+            Map params = new HashMap();
+            params.put(RequestContext.CID, context.getRequiredParamAsString(RequestContext.CID));
+
             ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
 
-            RequestContext context = new RequestContext(request);
             if (!context.isSubmitted()) {
                 List<ContentSource> result = getResult(context);
                 Set<String> preSelect = new HashSet<String>();
@@ -56,7 +62,6 @@ public class RepositoriesAction extends RhnAction implements Listable {
 
             helper.execute();
             if(helper.isDispatched()) {
-                //handle the dispatch action (like removing groups etc)
                 return  mapping.findForward("success");
             }
 
