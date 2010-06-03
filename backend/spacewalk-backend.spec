@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.18
+Version: 1.1.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -631,6 +631,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jun 03 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.19-1
+- removed duplicated code from export routines
 * Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.18-1
 - fixed package build error
 
