@@ -15,8 +15,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="maxMembers" column="MAX_MEMBERS" type="long" />
 		<property name="currentMembers" column="CURRENT_MEMBERS"
 			not-null="true" type="long" />
-		<property name="maxFlex" column="MAX_FLEX" type="long" />
-		<property name="currentFlex" column="CURRENT_FLEX"
+		<property name="maxFlex" column="fve_max_members" type="long" />
+		<property name="currentFlex" column="fve_current_members"
 			not-null="true" type="long" />			
 		<property name="created" column="CREATED" not-null="true"
 			type="timestamp" insert="false" update="false" />
