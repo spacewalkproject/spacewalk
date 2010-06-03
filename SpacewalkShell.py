@@ -725,6 +725,16 @@ For help for a specific command try 'help <cmd>'.
                 config_channels = \
                     self.client.activationkey.listConfigChannels(self.session,
                                                                  key)
+
+                config_channel_deploy = \
+                    self.client.activationkey.checkConfigDeployment(self.session,
+                                                                    key)
+
+                # API returns 0/1 instead of boolean
+                if config_channel_deploy == 1:
+                    config_channel_deploy = True
+                else:
+                    config_channel_deploy = False
             except:
                 logging.warning('%s is not a valid activation key' % key)
                 logging.debug(sys.exc_info())
@@ -752,7 +762,12 @@ For help for a specific command try 'help <cmd>'.
                 print '   |-- %s' % channel
 
             print
+            print 'Configuration Channel Deployment: %s' % \
+                  str(config_channel_deploy)
+
+            print
             print 'Configuration Channels:'
+
             for channel in config_channels:
                 print '  %s' % channel.get('label')
 
@@ -775,6 +790,46 @@ For help for a specific command try 'help <cmd>'.
                     name += '.%s' % package.get('arch')
 
                 print '  %s' % name
+
+####################
+
+    def help_activationkey_enableconfigdeployment(self):
+        print 'activationkey_enableconfigdeployment: Enable config channel deployment'
+        print 'usage: activationkey_enableconfigdeployment KEY'
+
+    def complete_activationkey_enableconfigdeployment(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_enableconfigdeployment(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_enableconfigdeployment()
+            return
+
+        for key in args:
+            logging.info('Enabling config file deployment for %s' % key)
+            self.client.activationkey.enableConfigDeployment(self.session, key)
+
+####################
+
+    def help_activationkey_disableconfigdeployment(self):
+        print 'activationkey_disableconfigdeployment: Disable config channel deployment'
+        print 'usage: activationkey_disableconfigdeployment KEY'
+    
+    def complete_activationkey_disableconfigdeployment(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_disableconfigdeployment(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_disableconfigdeployment()
+            return
+
+        for key in args:
+            logging.info('Disabling config file deployment for %s' % key)
+            self.client.activationkey.disableConfigDeployment(self.session, key)
 
 ####################
 
