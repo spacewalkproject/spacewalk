@@ -22,6 +22,10 @@ CREATE TABLE rhnServerChannel
     channel_id  NUMBER NOT NULL
                     CONSTRAINT rhn_sc_cid_fk
                         REFERENCES rhnChannel (id),
+    is_fve      char
+            default 'N'
+            CONSTRAINT rhn_server_channel_is_fve_nn NOT NULL
+            CONSTRAINT rhn_server_channel_is_fve_ck CHECK (IS_FVE IN ('Y', 'N')),
     created     DATE
                     DEFAULT (sysdate) NOT NULL,
     modified    DATE

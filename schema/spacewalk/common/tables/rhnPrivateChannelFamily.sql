@@ -26,6 +26,9 @@ CREATE TABLE rhnPrivateChannelFamily
     max_members        NUMBER,
     current_members    NUMBER
                            DEFAULT (0) NOT NULL,
+    max_flex           NUMBER,
+    current_flex       NUMBER
+                           DEFAULT (0) NOT NULL,
     created            DATE
                            DEFAULT (sysdate) NOT NULL,
     modified           DATE
