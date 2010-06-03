@@ -602,7 +602,10 @@ def populate_channel_family_permissions(cert):
         quant = cf.quantity
         if quant is not None:
             quant = int(quant)
-        cert_chfam_hash[cf.name] = quant
+        flex = cf.flex
+        if flex is not None:
+            flex = int(flex)
+        cert_chfam_hash[cf.name] = (quant, flex)
 
     # Generate the channel family permissions data structure
     cfps = {}
@@ -614,12 +617,13 @@ def populate_channel_family_permissions(cert):
         org_id = cfp['org_id']
 
         # Initially populate cf info with old limits from db
-        cfps[(cf_name, org_id)] = cfp['max_members']
-	curr_cfps[(cf_name, org_id)] = cfp['current_members']
+        cfps[(cf_name, org_id)] = (cfp['max_members'], cfg['max_flex'])
+	curr_cfps[(cf_name, org_id)] = (cfp['current_members'], cfp['current_flex'])
 
     # Now set max_members based on the cert's max_members
-    for cf_name, max_members in cert_chfam_hash.items():
+    for cf_name, max_tuple in cert_chfam_hash.items():
         # Make the channel families with null max_members public
+        max_members, max_flex  = max_tuple
         if max_members is None:
             org_id = None
         else:
@@ -628,47 +632,60 @@ def populate_channel_family_permissions(cert):
 
         cf_name = cf_name.encode('utf-8')
         try:
-	    old_max_members = cfps[(cf_name, org_id)]
+	    old_max_tuple = cfps[(cf_name, org_id)]
         except KeyError:
 	    # New channel family, populate the db from cert
-            cfps[(cf_name, org_id)] = max_members
-            old_max_members = None
-
-	if old_max_members and max_members < old_max_members:
+            cfps[(cf_name, org_id)] = max_tuple
+            old_max_tuple = None
+              
+ 
+	if old_max_tuple and (max_members < old_max_tuple[0] or 
+                                    max_flex < old_max_tuple[1]):
 	    # The cert count is low, set the db with new values
-            cfps[(cf_name, org_id)] = max_members
+            cfps[(cf_name, org_id)] = max_tuple
    
     sum_max_values = compute_sum_max_members(cfps)
-    for (cf_name, org_id), max_members in cfps.items():
+    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if org_id == 1:
 	    if cert_chfam_hash.has_key(cf_name):
-                cert_max_value = cert_chfam_hash[cf_name] or 0
+                cert_max_value = cert_chfam_hash[cf_name][0] or 0
+                cert_max_flex = cert_chfam_hash[cf_name][1] or 0 
             else:
 	        # remove entitlements on extra slots 
                 cfps[(cf_name, org_id)] = None
                 continue
             if not max_members: 
 	        max_members = 0
-            if cert_max_value >= sum_max_values[cf_name]:
-                cfps[(cf_name, 1)] = max_members + \
-		                  (cert_max_value - sum_max_values[cf_name])
+            if not max_flex:
+                max_flex = 0
+
+            (sum_max_mem, sum_max_flex) = sum_max_values[cf_name] 
+            if cert_max_value >= sum_max_mem:
+                cfps[(cf_name, 1)][0] = max_members + \
+		                  (cert_max_value - sum_max_mem)
+            if cert_max_flex >= sum_max_flex:
+                cfps[(cf_name, 1)][1] = max_flex +\
+                                  (cert_max_flex - sum_max_flex)
             else:
 	        # lowering entitlements 
-	        purge_count = sum_max_values[cf_name] - cert_max_value
-	        cfps[(cf_name, 1)] = max_members - purge_count
+	        purge_count = sum_max_mem, - cert_max_value
+	        cfps[(cf_name, 1)][0] = max_members - purge_count
+                flex_purge_count = sum_max_flex - cert_max_flex
+                cfps[(cf_name, 1)][1] = max_flex - flex_purge_count 
 
     # Cleanup left out suborgs
-    for (cf_name, org_id), max_members in cfps.items():
+    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] == None: #is None:
             cfps[(cf_name, org_id)] = None
 
     batch = []
-    for (cf_name, org_id), max_members in cfps.items():
+    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         cfperm = importLib.ChannelFamilyPermissions()
         batch.append(cfperm.populate({
             'channel_family'    : cf_name,
             'org_id'            : org_id,
             'max_members'       : max_members,
+            'max_flex'          : max_flex,
         }))
    
     importer = channelImport.ChannelFamilyPermissionsImport(batch,
@@ -677,15 +694,19 @@ def populate_channel_family_permissions(cert):
     importer.run()
 
 def compute_sum_max_members(cfps):
-    cf_max_members = {}
-    for (cf_name, org_id), max_members in cfps.items():
+    """If a channel family appears multiple times for each org, comgine them"""
+    cf_max_tuples = {}
+    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
         if not max_members:
             max_members = 0
-        if cf_max_members.has_key(cf_name):
-            cf_max_members[cf_name] = cf_max_members[cf_name] + max_members
+        if not max_flex:
+            max_flex = 0
+        if cf_max_tuples.has_key(cf_name):
+            cf_max_members, cf_max_flex = cf_max_tuples[cf_name]
+            cf_max_tuples[cf_name] = (cf_max_members + max_members, cf_max_flex + max_flex)
         else:
-            cf_max_members[cf_name] = max_members
-    return cf_max_members
+            cf_max_tuples[cf_name] = (max_members, max_flex)
+    return cf_max_tuples
 
 _query_fetch_existing_channel_families = rhnSQL.Statement("""
     select label

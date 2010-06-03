@@ -54,7 +54,7 @@ class Item:
 class ChannelFamily(Item):
     pretty_name = "channel family"
     attribute_name = 'channel_families'
-    attributes = {'family' : 'name', 'quantity' : 'quantity'}
+    attributes = {'family' : 'name', 'quantity' : 'quantity', 'flex' : 'flex' }
 
 class Slots:
     _db_label = None
