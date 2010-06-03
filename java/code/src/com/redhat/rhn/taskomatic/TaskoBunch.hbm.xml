@@ -23,12 +23,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
 
-        <list name="tasks" lazy="true" table="rhnTaskoTemplate">
+        <list name="templates" inverse="true" table="rhnTaskoTemplate">
             <key column="bunch_id"/>
             <index column="ordering"/>
-            <many-to-many
-                class="com.redhat.rhn.taskomatic.TaskoTask"
-                column="task_id"/>
+            <one-to-many class="com.redhat.rhn.taskomatic.TaskoTemplate"/>
         </list>
 
     </class>

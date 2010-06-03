@@ -109,7 +109,7 @@ public class TaskoXmlRpcHandler {
             throw new NoSuchTaskoTriggerException();
         }
     }
-
+/*
     public Date scheduleTask(Integer orgId, String taskName, String cronExpression) throws ParseException, NoSuchTaskException {
         try {
             JobDetail jobDetail = SchedulerKernel.getScheduler().getJobDetail(taskName, RHN_TASK);
@@ -134,4 +134,5 @@ public class TaskoXmlRpcHandler {
             return null;
         }
     }
+*/
 }

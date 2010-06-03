@@ -34,3 +34,6 @@ CREATE TABLE rhnTaskoTemplate
 ;
 
 CREATE SEQUENCE rhn_tasko_template_id_seq;
+
+ALTER TABLE rhnTaskoTemplate
+    ADD CONSTRAINT tasko_template_ordering_uq UNIQUE (bunch_id, ordering);

@@ -25,10 +25,7 @@ import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * TaskoBunch
@@ -42,35 +39,26 @@ public class TaskoBunch implements Job {
     private String description;
     private Date activeFrom;
     private Date activeTill;
-    private List<TaskoTask> tasks = new ArrayList();
+    private List<TaskoTemplate> templates = new ArrayList();
     private Date created;
     private Date modified;
 
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-        // String bunchName = dataMap.getString("name");
+        Integer orgId = dataMap.getInt("org_id");
         log.info("Starting " + this.name + " at " + new Date());
 
-        String previousTaskStatus = null;
-        for (TaskoTask task : this.tasks) {
-            if (task == null) {
+        for (TaskoTemplate template : this.templates) {
+            if (template == null) {
                 continue;
             }
-
-            if (previousTaskStatus != null) {
-                // if (task.startIf == previousTaskStatus) {
-
-                // }
-            }
-            // job = (Job) taskClass.newInstance();
-            task.execute(context);
-            previousTaskStatus = "1"; //TaskoFactory.getTaskStatus(bunchId, taskId);
+            TaskoRun taskRun = new TaskoRun(orgId, template);
+            taskRun.execute(context);
         }
 
         log.info("Finishing " + this.name + " at " + new Date());
     }
-
 
     /**
      * @return Returns the id.
@@ -79,14 +67,12 @@ public class TaskoBunch implements Job {
         return id;
     }
 
-
     /**
      * @param id The id to set.
      */
     public void setId(Long id) {
         this.id = id;
     }
-
 
     /**
      * @return Returns the name.
@@ -95,14 +81,12 @@ public class TaskoBunch implements Job {
         return name;
     }
 
-
     /**
      * @param name The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * @return Returns the activeFrom.
@@ -111,14 +95,12 @@ public class TaskoBunch implements Job {
         return activeFrom;
     }
 
-
     /**
      * @param activeFrom The activeFrom to set.
      */
     public void setActiveFrom(Date activeFrom) {
         this.activeFrom = activeFrom;
     }
-
 
     /**
      * @return Returns the activeTill.
@@ -127,15 +109,12 @@ public class TaskoBunch implements Job {
         return activeTill;
     }
 
-
     /**
      * @param activeTill The activeTill to set.
      */
     public void setActiveTill(Date activeTill) {
         this.activeTill = activeTill;
     }
-
-
 
     /**
      * @return Returns the description.
@@ -144,34 +123,12 @@ public class TaskoBunch implements Job {
         return description;
     }
 
-
-
     /**
      * @param description The description to set.
      */
     public void setDescription(String description) {
         this.description = description;
     }
-
-
-
-    /**
-     * @return Returns the tasks.
-     */
-    public List<TaskoTask> getTasks() {
-        return tasks;
-    }
-
-
-
-    /**
-     * @param tasks The tasks to set.
-     */
-    public void setTasks(List<TaskoTask> tasks) {
-        this.tasks = tasks;
-    }
-
-
 
     /**
      * @return Returns the created.
@@ -180,16 +137,12 @@ public class TaskoBunch implements Job {
         return created;
     }
 
-
-
     /**
      * @param created The created to set.
      */
     public void setCreated(Date created) {
         this.created = created;
     }
-
-
 
     /**
      * @return Returns the modified.
@@ -198,12 +151,24 @@ public class TaskoBunch implements Job {
         return modified;
     }
 
-
-
     /**
      * @param modified The modified to set.
      */
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+    /**
+     * @return Returns the templates.
+     */
+    public List<TaskoTemplate> getTemplates() {
+        return templates;
+    }
+
+    /**
+     * @param templates The templates to set.
+     */
+    public void setTemplates(List<TaskoTemplate> templates) {
+        this.templates = templates;
     }
 }

@@ -18,17 +18,15 @@ CREATE TABLE rhnTaskoRun
 (
     id              NUMBER NOT NULL
                         CONSTRAINT rhn_tasko_run_id_pk PRIMARY KEY,
-    task_id         NUMBER NOT NULL
-                        CONSTRAINT rhn_tasko_run_task_fk
-                        REFERENCES rhnTaskoTask (id),
     template_id     NUMBER NOT NULL
                         CONSTRAINT rhn_tasko_run_template_fk
                         REFERENCES rhnTaskoTemplate (id),
-    start_time      DATE NOT NULL,
-    end_time        DATE NOT NULL,
+    org_id          NUMBER,
+    start_time      DATE,
+    end_time        DATE,
     std_output_path VARCHAR2(100),
     std_error_path  VARCHAR2(100),
-    status          CHAR(1),
+    status          CHAR(10),
     created         DATE
                         DEFAULT (sysdate) NOT NULL,
     modified        DATE
