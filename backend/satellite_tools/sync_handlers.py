@@ -603,9 +603,17 @@ def populate_channel_family_permissions(cert):
         if quant is not None:
             quant = int(quant)
         flex = cf.flex
+        if flex == '':
+           flex = 0
         if flex is not None:
             flex = int(flex)
-        cert_chfam_hash[cf.name] = (quant, flex)
+
+        if quant is not None:
+            quant = int(quant)       
+        
+        #we subtract flex from quantity since flex count is included
+        #   in the full quantity for backwards compatibility
+        cert_chfam_hash[cf.name] = [quant - flex, flex]
 
     # Generate the channel family permissions data structure
     cfps = {}
@@ -617,16 +625,16 @@ def populate_channel_family_permissions(cert):
         org_id = cfp['org_id']
 
         # Initially populate cf info with old limits from db
-        cfps[(cf_name, org_id)] = (cfp['max_members'], cfp['max_flex'])
-	curr_cfps[(cf_name, org_id)] = (cfp['current_members'], cfp['current_flex'])
+        cfps[(cf_name, org_id)] = [cfp['max_members'], cfp['max_flex']]
+	curr_cfps[(cf_name, org_id)] = [cfp['current_members'], cfp['current_flex']]
 
     # Now set max_members based on the cert's max_members
     for cf_name, max_tuple in cert_chfam_hash.items():
         # Make the channel families with null max_members public
-        max_members, max_flex  = max_tuple
-        if max_members is None:
+        if max_tuple is None:
             org_id = None
         else:
+            max_members, max_flex = max_tuple
 	    # default the org to 1 for channel families from cert
             org_id = 1
 
@@ -639,7 +647,7 @@ def populate_channel_family_permissions(cert):
             old_max_tuple = None
               
  
-	if old_max_tuple and (max_members < old_max_tuple[0] or 
+	if old_max_tuple and max_tuple and (max_members < old_max_tuple[0] or 
                                     max_flex < old_max_tuple[1]):
 	    # The cert count is low, set the db with new values
             cfps[(cf_name, org_id)] = max_tuple
@@ -674,12 +682,16 @@ def populate_channel_family_permissions(cert):
                 cfps[(cf_name, 1)][1] = max_flex - flex_purge_count 
 
     # Cleanup left out suborgs
-    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
+    for (cf_name, org_id), max_list in cfps.items():
         if cfps.has_key((cf_name, 1)) and cfps[(cf_name, 1)] == None: #is None:
             cfps[(cf_name, org_id)] = None
 
+
     batch = []
-    for (cf_name, org_id), (max_members, max_flex) in cfps.items():
+    for (cf_name, org_id), max_list  in cfps.items():
+        if max_list is None:
+            continue
+        (max_members, max_flex) = max_list
         cfperm = importLib.ChannelFamilyPermissions()
         batch.append(cfperm.populate({
             'channel_family'    : cf_name,
@@ -729,7 +741,8 @@ def _fetch_existing_channel_families():
 
 _query_fetch_channel_family_permissions = rhnSQL.Statement("""
     select cf.label as channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cfp.max_flex, cfp.current_flex,
+           cfp.max_members, cfp.current_members, cfp.fve_max_members as max_flex, 
+           cfp.fve_current_members as current_flex, 
             cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id

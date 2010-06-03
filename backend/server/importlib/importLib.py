@@ -156,6 +156,7 @@ class ChannelFamilyPermissions(Information):
         'channel_family'    : StringType,
         'org_id'            : IntType,
         'max_members'       : IntType,
+        'max_flex'          : IntType,
     }
 
 class DistChannelMap(Information):
