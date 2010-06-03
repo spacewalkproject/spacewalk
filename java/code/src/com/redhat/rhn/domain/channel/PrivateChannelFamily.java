@@ -34,6 +34,41 @@ public class PrivateChannelFamily implements Serializable {
     private Long currentMembers;
     private Date created;
     private Date modified;
+    private Long maxFlex;
+    private Long currentFlex;
+    
+
+    /**
+     * Get the max flex count
+     * @return the count
+     */
+    public Long getMaxFlex() {
+        return maxFlex;
+    }
+
+    /**
+     * Set the max flex count
+     * @param maxFlexIn the max flex
+     */
+    public void setMaxFlex(Long maxFlexIn) {
+        this.maxFlex = maxFlex;
+    }
+
+    /**
+     * get the current flex
+     * @return the current flex count
+     */
+    public Long getCurrentFlex() {
+        return currentFlex;
+    }
+
+    /**
+     * set current flex
+     * @param currentFlexIn the current flex to set
+     */
+    public void setCurrentFlex(Long currentFlexIn) {
+        this.currentFlex = currentFlex;
+    }
 
     /**
      * @return Returns the channelFamily.
