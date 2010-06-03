@@ -164,15 +164,11 @@ def set_slots_from_cert(cert):
         db_label = slots.get_db_label()
 
         quantity = slots.get_quantity()
-        flex = slots.get_flex()
 
         # Do not pass along a NULL quantity - NULL for
         # rhnServerGroup.max_members means 'no maximum' BZ #160046
         if not quantity:
             quantity = 0
-
-        if not flex:
-            flex = 0
 
         slot_type_id = None
         if slot_table.has_key(db_label):
@@ -197,7 +193,7 @@ def set_slots_from_cert(cert):
 
         try:
             # Set the counts now
-            activate_system_entitlement(org_id, db_label, quantity, flex)
+            activate_system_entitlement(org_id, db_label, quantity)
         except rhnSQL.sql_base.SQLSchemaError, e:
             if e[0] == 20290:
                 free_count = sys_ent_counts[(db_label, 1)] - quantity
@@ -216,7 +212,7 @@ def set_slots_from_cert(cert):
     # For any other type of slot, set quantity to zero
     for slot_type_id, db_label in extra_slots.items():
         slot_name = cert.lookup_slot_by_db_label(db_label)
-        activate_system_entitlement(org_id, db_label, 0, 0)
+        activate_system_entitlement(org_id, db_label, 0)
         org_service_proc(org_id, slot_name, 'N')
 
     # NOTE: must rhnSQL.commit() in calling function.

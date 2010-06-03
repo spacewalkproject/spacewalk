@@ -617,7 +617,7 @@ def populate_channel_family_permissions(cert):
         org_id = cfp['org_id']
 
         # Initially populate cf info with old limits from db
-        cfps[(cf_name, org_id)] = (cfp['max_members'], cfg['max_flex'])
+        cfps[(cf_name, org_id)] = (cfp['max_members'], cfp['max_flex'])
 	curr_cfps[(cf_name, org_id)] = (cfp['current_members'], cfp['current_flex'])
 
     # Now set max_members based on the cert's max_members
@@ -729,7 +729,8 @@ def _fetch_existing_channel_families():
 
 _query_fetch_channel_family_permissions = rhnSQL.Statement("""
     select cf.label as channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id as owner_org_id
+           cfp.max_members, cfp.current_members, cfp.max_flex, cfp.current_flex,
+            cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
 """)
