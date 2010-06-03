@@ -1324,7 +1324,7 @@ is
         end;
 
         begin
-            select pcf.current_flex
+            select pcf.fve_current_members
             into prev_flex_count
             from rhnChannelFamily cf,
                  rhnPrivateChannelFamily pcf
