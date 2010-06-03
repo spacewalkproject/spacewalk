@@ -58,41 +58,7 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoBunch.listBunches", null);
     }
 
-    public static Class traslateTaskNameToClass(String taskName) {
-        Map params = new HashMap();
-        params.put("task_name", taskName);
-        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_TASK_NAME_TRANSLATE);
-
-        DataResult result = select.execute(params);
-        if (!result.isEmpty()) {
-            Map row = (Map) result.get(0);
-            String taskClass = (String) row.get("class");
-            try {
-                Class clazz = Class.forName(taskClass);
-                return clazz;
-            }
-            catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
-
-        return null;
+    public static void save(TaskoRun taskoRun) {
+        singleton.saveObject(taskoRun);
     }
-/*
-    public static List<Map> getTaskList(String bunchName) {
-        Map params = new HashMap();
-        params.put("bunch_name", bunchName);
-        SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
-                TaskConstants.TASK_QUERY_GET_BUNCH_TASKS);
-
-        DataResult result = select.execute(params);
-        List<Map> list = new ArrayList();
-        for (Iterator iter = result.iterator(); iter.hasNext();) {
-            Map job = (Map) iter.next();
-            list.add(job);
-        }
-        return list;
-    }
-*/
 }
