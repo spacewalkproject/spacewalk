@@ -41,7 +41,7 @@ def getVersion():
     Returns the version of redhat-release rpm
     '''
     os_release, version, release = _getOSVersionAndRelease()
-    return version
+    return str(version)
 
 def getOSRelease():
     '''
