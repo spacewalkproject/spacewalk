@@ -1298,10 +1298,12 @@ is
     procedure activate_channel_entitlement(
         org_id_in in number,
         channel_family_label_in in varchar2,
-        quantity_in in number
+        quantity_in in number,
+        flex_in in number
     )
     is
         prev_ent_count number; 
+        prev_flex_count number;
         prev_ent_count_sum number; 
         cfam_id number;
     begin
@@ -1322,6 +1324,20 @@ is
         end;
 
         begin
+            select pcf.current_flex
+            into prev_flex_count
+            from rhnChannelFamily cf,
+                 rhnPrivateChannelFamily pcf
+            where pcf.org_id = org_id_in
+              and pcf.channel_family_id = cf.id
+              and cf.label = channel_family_label_in;
+        exception
+            when NO_DATA_FOUND then
+                prev_flex_count := 0;
+        end;
+
+
+        begin
             select id
             into cfam_id
             from rhnChannelFamily
@@ -1331,6 +1347,11 @@ is
                 rhn_exception.raise_exception(
                               'invalid_channel_family');
         end;                              
+
+        if flex_in < prev_flex_count then
+            rhn_exception.raise_exception(
+                          'not_enough_flex_entitlements_in_base_org');
+        end if;
 
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the count in that one org,

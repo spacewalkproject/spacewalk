@@ -137,7 +137,8 @@ is
     procedure activate_channel_entitlement(
         org_id_in in number,
         channel_family_label_in in varchar2,
-        quantity_in in number
+        quantity_in in number,
+        flex_in in number
     );
 
     procedure set_group_count (

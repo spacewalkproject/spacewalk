@@ -1091,7 +1091,7 @@ class Backend:
                 continue
 	    try:
 	        activate_channel_entitlements(cfp['org_id'], 
-		               cfp['channel_family'], cfp['max_members'])
+		               cfp['channel_family'], cfp['max_members'], cfp['max_flex'])
             except rhnSQL.SQLError, e:
 		raise rhnFault(23, str(e[1]) + ": org_id [%s] family [%s] max [%s]" % \
 		    (cfp['org_id'], cfp['channel_family'], cfp['max_members']), explain=0)
