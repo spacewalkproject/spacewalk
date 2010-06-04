@@ -21,3 +21,6 @@ insert into rhnVirtualInstanceType (id, name, label)
 insert into rhnVirtualInstanceType (id, name, label)
      values (rhn_vit_id_seq.nextval, 'Para-Virtualized', 'para_virtualized');
 
+insert into rhnVirtualInstanceType (id, name, label)
+      values (rhn_vit_id_seq.nextval, 'KVM/QEMU', 'qemu');
+
