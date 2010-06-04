@@ -51,7 +51,7 @@ public class PrivateChannelFamily implements Serializable {
      * @param maxFlexIn the max flex
      */
     public void setMaxFlex(Long maxFlexIn) {
-        this.maxFlex = maxFlex;
+        this.maxFlex = maxFlexIn;
     }
 
     /**
@@ -67,7 +67,7 @@ public class PrivateChannelFamily implements Serializable {
      * @param currentFlexIn the current flex to set
      */
     public void setCurrentFlex(Long currentFlexIn) {
-        this.currentFlex = currentFlex;
+        this.currentFlex = currentFlexIn;
     }
 
     /**
