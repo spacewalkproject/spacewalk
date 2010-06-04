@@ -468,7 +468,7 @@ class UploadClass(uploadLib.UploadClass):
 
     # does an existance check of the packages to be uploaded and returns their checksum and other info
     def check_package_exists(self):
-        self.warn(2, "Computing checksum and package Info .This may take sometime ...")
+        self.warn(2, "Computing checksum and package Info. This may take sometime ...")
         pkg_hash = {}
         digest_hash = {}
         
