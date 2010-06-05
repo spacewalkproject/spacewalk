@@ -5,7 +5,7 @@ Version:	0.1
 Release:	3%{?dist}
 Summary:	CLI to Spacewalk and RHN Satellite Server
 
-Group:		Admin
+Group:		Applications/System
 License:	GPLv3+
 URL:		http://github.com/aparsons/spacecmd
 Source0:	%{name}-%{version}.tar.gz
@@ -23,9 +23,6 @@ However, other data in the Satellite (e.g., Kickstarts, activation
 keys, configuration channels) can be viewed, just not manipulated.
 
 Works with Satellite 5.3 (v10.8 of the API).
-
-I'm sure there are plenty of bugs to be found and features to be added.
-Please provide feedback directly to me or via GitHub.  
 
 
 %prep
@@ -63,7 +60,9 @@ rm -rf %{buildroot}
 %changelog
 * Thu Apr 29 2010 Aron Parsons <aparsons@redhat.com> 0.1-3
 - just touch __init__.py, no reason to version control an empty file
+
 * Wed Apr 28 2010 Aron Parsons <aparsons@redhat.com> 0.1-2
 - moved SpacewalkShell.py to /usr/share/rhn/spacecmd
+
 * Tue Apr 27 2010 Paul Morgan <pmorgan@redhat.com> 0.1-1
 - initial packaging
