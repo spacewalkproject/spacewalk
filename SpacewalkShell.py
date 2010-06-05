@@ -22,6 +22,7 @@ class SpacewalkShell(Cmd):
     # life of caches in seconds
     SYSTEM_CACHE_TTL = 300
     PACKAGE_CACHE_TTL = 3600
+    ERRATA_CACHE_TTL = 3600
 
     SEPARATOR = '\n--------------------\n'
 
@@ -56,11 +57,13 @@ For help for a specific command try 'help <cmd>'.
         # cache large lists instead of looking up every time
         self.all_package_shortnames = []
         self.all_package_fullnames = []
+        self.all_errata = {}
         self.all_systems = []
 
         # expiration times for internal caches
         self.system_cache_expire = datetime.now()
         self.package_cache_expire = datetime.now()
+        self.errata_cache_expire = datetime.now()
 
         # make the options available everywhere
         self.options = options
@@ -360,11 +363,38 @@ For help for a specific command try 'help <cmd>'.
             return package_names
 
 
+    def clear_errata_cache(self):
+        self.all_errata = []
+        self.errata_cache_expire = datetime.now()
+
+    def generate_errata_cache(self, force=False):
+        if not force and datetime.now() < self.errata_cache_expire:
+            return
+
+        logging.debug('Regenerating internal errata cache')
+
+        channels = self.client.channel.listSoftwareChannels(self.session)
+        channels = [c.get('label') for c in channels]
+
+        for c in channels:
+            errata = \
+                self.client.channel.software.listErrata(self.session, c)
+
+            for e in errata:
+                if e.get('advisory_name') not in self.all_errata: 
+                    self.all_errata[e.get('advisory_name')] = \
+                        { 'type' : e.get('advisory_type'),
+                          'date' : e.get('date'),
+                          'synopsis' : e.get('advisory_synopsis') }
+
+        self.errata_cache_expire = \
+            datetime.now() + timedelta(seconds=self.ERRATA_CACHE_TTL)
+
+
     def clear_package_cache(self):
         self.all_package_shortnames = []
         self.all_package_fullnames = []
         self.package_cache_expire = datetime.now()
-
 
     def generate_package_cache(self, force=False):
         if not force and datetime.now() < self.package_cache_expire:
@@ -417,8 +447,8 @@ For help for a specific command try 'help <cmd>'.
 
         self.all_systems = []
         for s in systems:
-            self.all_systems.append( {'id' : s.get('id'),
-                                      'name' : s.get('name')})
+            self.all_systems.append( {'id'   : s.get('id'),
+                                      'name' : s.get('name')} )
 
         self.system_cache_expire = \
             datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
@@ -1081,10 +1111,68 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_errata_apply(self):
+        print 'errata_apply: Apply an errata to all affected systems' 
+        print 'usage: errata_apply ERRATA'
+
+    def complete_errata_apply(self, text, line, begidx, endidx):
+        self.generate_errata_cache()
+        return self.tab_completer(self.all_errata.keys(), text)
+
+    def do_errata_apply(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_errata_apply()
+            return
+
+        errata = args[0]
+
+        systems = self.client.errata.listAffectedSystems(self.session, 
+                                                         errata)
+        
+        if len(systems):
+            print '\n'.join(sorted([s.get('name') for s in systems]))
+
+            message = 'Apply %s to these systems [y/N]:' % errata
+            if not self.user_confirm(message): return
+
+            # XXX: bugzilla 600691
+            # there is not an API call to get the ID of an errata
+            # based on the name, so we do it in a round-about way
+            avail = self.client.system.getRelevantErrata(self.session,
+                                                         systems[0].get('id'))
+
+            for e in avail:
+                if re.match(errata, e.get('advisory_name'), re.I):
+                    errata_id = e.get('id')
+                    break
+
+            if not errata_id:
+                logging.critical("Couldn't find ID for %s" % errata)
+                return
+
+            for system in systems:
+                try:
+                    self.client.system.scheduleApplyErrata(self.session,
+                                                           system.get('id'),
+                                                           [errata_id])
+                except:
+                    logging.warning('Failed to schedule %s' % \
+                                    system.get('name'))
+        else:
+            logging.warning('%s does not affect any systems' % errata)
+ 
+####################
+
     def help_errata_listaffectedsystems(self):
         print 'errata_listaffectedsystems: List of systems affected by this' + \
-              ' errata or CVE'
-        print 'usage: errata_listaffectedsystems ERRATA|CVE ...'
+              ' errata'
+        print 'usage: errata_listaffectedsystems ERRATA'
+
+    def complete_errata_listaffectedsystems(self, text, line, begidx, endidx):
+        self.generate_errata_cache()
+        return self.tab_completer(self.all_errata.keys(), text)
 
     def do_errata_listaffectedsystems(self, args):
         args = self.parse_arguments(args)
@@ -1095,55 +1183,42 @@ For help for a specific command try 'help <cmd>'.
 
         add_separator = False
 
-        for query in args:
-            if add_separator: print self.SEPARATOR
-            add_separator = True
+        query = args[0]
 
-            errata_names = []
-            if re.match('CVE', query, re.I):
-                print 'Query:  %s' % query
+        if add_separator: print self.SEPARATOR
+        add_separator = True
 
-                errata = self.client.errata.findByCve(self.session, query)
+        errata_names = []
+        try:
+            results = self.client.errata.getDetails(self.session, query)
+        except:
+            logging.warning('No errata found')
+            return
 
-                if len(errata):
-                    for e in errata:
-                        logging.debug('Found %s' % e.get('advisory_name'))
-                        errata_names.append(e.get('advisory_name'))
-                else:
-                    logging.warning('No errata found')
-                    continue
-            else:
-                try:
-                    results = self.client.errata.getDetails(self.session, query)
-                except:
-                    print 'Query: %s' % query
-                    logging.warning('No errata found')
-                    continue
+        errata_names.append(query)
 
-                errata_names.append(query)
+        systems = []
+        for name in sorted(errata_names):
+            results = self.client.errata.listAffectedSystems(self.session, 
+                                                             name)
 
-            systems = []
-            for name in sorted(errata_names):
-                print 'Errata: %s' % name
+            for r in results:
+                if r.get('name') not in systems:
+                    systems.append(r.get('name'))
 
-                results = self.client.errata.listAffectedSystems(self.session, 
-                                                                 name)
-
-                for r in results:
-                    if r.get('name') not in systems:
-                        systems.append(r.get('name'))
-
-            if len(systems):
-                for system in sorted(systems):
-                    print '  %s' % system
-            else:
-                logging.warning('No systems affected')
+        if len(systems):
+            for system in sorted(systems):
+                print '  %s' % system
         
 ####################
 
     def help_errata_details(self):
         print 'errata_details: Show the details of an errata'
         print 'usage: errata_details NAME ...'
+    
+    def complete_errata_details(self, text, line, begidx, endidx):
+        self.generate_errata_cache()
+        return self.tab_completer(self.all_errata.keys(), text)
 
     def do_errata_details(self, args):
         args = self.parse_arguments(args)
@@ -1207,7 +1282,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_errata_search(self):
         print 'errata_search: List errata that meet the given criteria'
-        print 'usage: errata_search CVE|RHSA|RHBA|RHEA ...'
+        print 'usage: errata_search CVE|RHSA|RHBA|RHEA|CLA ...'
         print
         print 'Example:'
         print '> errata_search CVE-2009:1674'
@@ -1223,28 +1298,32 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for query in args:
-            value = query.upper()
+            errata = []
 
             #XXX: Bugzilla 584855
             if re.match('CVE', query, re.I):
-                # CVE- prefix is required
-                if not re.match('CVE', value, re.I):
-                    value = 'CVE-%s' % value
-
-                errata = self.client.errata.findByCve(self.session, value)
+                errata = self.client.errata.findByCve(self.session, 
+                                                      query.upper())
             else:
-                errata = self.client.errata.getDetails(self.session, value)
-                logging.debug(errata.get('type'))
-                errata = [ {'advisory_name'     : value,
-                            'advisory_type'     : errata.get('type'),
-                            'advisory_synopsis' : errata.get('synopsis'),
-                            'date'              : errata.get('issue_date') } ]
+                self.generate_errata_cache()
+
+                for name in self.all_errata.keys():
+                    if re.search(query, name, re.I) or \
+                       re.search(query, 
+                                 self.all_errata[name]['synopsis'], re.I):
+                        match = self.all_errata[name]
+
+                        # build a structure to pass to print_errata_summary()
+                        errata.append( {'advisory_name'     : name,
+                                        'advisory_type'     : match['type'],
+                                        'advisory_synopsis' : match['synopsis'],
+                                        'date'              : match['date'] } )
 
             if add_separator: print self.SEPARATOR
             add_separator = True
 
             if len(errata):
-                map(self.print_errata_summary, errata)
+                map(self.print_errata_summary, sorted(errata, reverse=True))
 
 ####################
 
