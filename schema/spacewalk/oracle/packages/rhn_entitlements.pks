@@ -125,7 +125,8 @@ is
         channel_family_label_in in varchar2,
         from_org_id_in in number,
         to_org_id_in in number,
-        quantity_in in number
+        quantity_in in number,
+        flex_in in number
     );
 
     procedure activate_system_entitlement(
@@ -152,7 +153,8 @@ is
     procedure set_family_count (
 		customer_id_in in number,		-- customer_id
 		channel_family_id_in in number,	-- 246
-		quantity_in in number			-- 3
+		quantity_in in number,			-- 3
+                flex_in in number
     );
 
     -- this makes NO checks that the quantity is within max,
@@ -163,10 +165,6 @@ is
 		type_label_in in varchar2,	-- 'enterprise_entitled'
 		quantity_in in number		-- 3
     );
-
-	procedure prune_everything (
-		customer_id_in in number
-	);
 
 	procedure subscribe_newest_servers (
 		customer_id_in in number
