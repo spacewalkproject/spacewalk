@@ -8462,6 +8462,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.edit.repo.neversynced">
         <source>This repo has never been synced.</source>
      </trans-unit>     
+     <trans-unit id="channel.edit.repo.updated">
+        <source>{0} repository information was successfully updated</source>
+     </trans-unit>     
      <trans-unit id="ssm.provision.scheduled">
         <source>Successfully scheduled {0} system(s) for provisioning.</source>
      </trans-unit>
