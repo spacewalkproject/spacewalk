@@ -19,7 +19,7 @@
 create or replace
 package body rhn_entitlements
 is
-	body_version varchar2(100) := '';
+    body_version varchar2(100) := '';
 
 
     -- *******************************************************************
@@ -79,77 +79,77 @@ is
 
     end remove_org_entitlements;
  
-	function entitlement_grants_service (
-	    entitlement_in in varchar2,
-	    service_level_in in varchar2
-	) return number	is
-	begin
-		if service_level_in = 'provisioning' then
-			if entitlement_in = 'provisioning_entitled' then
-				return 1;
-			else
-				return 0;
-			end if;
-		elsif service_level_in = 'management' then
-			if entitlement_in = 'enterprise_entitled' then
-				return 1;
-			else
-				return 0;
-			end if;
-		elsif service_level_in = 'monitoring' then
-			if entitlement_in = 'monitoring_entitled' then
-				return 1;
-			end if;
-		elsif service_level_in = 'updates' then
-			return 1;			
-		else
-			return 0;
-		end if;
-	end entitlement_grants_service;
+    function entitlement_grants_service (
+        entitlement_in in varchar2,
+        service_level_in in varchar2
+    ) return number    is
+    begin
+        if service_level_in = 'provisioning' then
+            if entitlement_in = 'provisioning_entitled' then
+                return 1;
+            else
+                return 0;
+            end if;
+        elsif service_level_in = 'management' then
+            if entitlement_in = 'enterprise_entitled' then
+                return 1;
+            else
+                return 0;
+            end if;
+        elsif service_level_in = 'monitoring' then
+            if entitlement_in = 'monitoring_entitled' then
+                return 1;
+            end if;
+        elsif service_level_in = 'updates' then
+            return 1;
+        else
+            return 0;
+        end if;
+    end entitlement_grants_service;
 
-	function lookup_entitlement_group (
-		org_id_in in number,
-		type_label_in in varchar2 := 'sw_mgr_entitled'
-	) return number is
-		cursor server_groups is
-			select	sg.id				server_group_id
-			from	rhnServerGroup		sg,
-					rhnServerGroupType	sgt
-			where	sgt.label = type_label_in
-				and sgt.id = sg.group_type
-				and sg.org_id = org_id_in;
-	begin
-		for sg in server_groups loop
-			return sg.server_group_id;
-		end loop;
-		return rhn_entitlements.create_entitlement_group(
-				org_id_in, 
-				type_label_in
-			);
-	end lookup_entitlement_group;
+    function lookup_entitlement_group (
+        org_id_in in number,
+        type_label_in in varchar2 := 'sw_mgr_entitled'
+    ) return number is
+        cursor server_groups is
+            select    sg.id                server_group_id
+            from    rhnServerGroup        sg,
+                    rhnServerGroupType    sgt
+            where    sgt.label = type_label_in
+                and sgt.id = sg.group_type
+                and sg.org_id = org_id_in;
+    begin
+        for sg in server_groups loop
+            return sg.server_group_id;
+        end loop;
+        return rhn_entitlements.create_entitlement_group(
+                org_id_in,
+                type_label_in
+            );
+    end lookup_entitlement_group;
 
-	function create_entitlement_group (
-		org_id_in in number,
-		type_label_in in varchar2 := 'sw_mgr_entitled'
-	) return number is
-		sg_id_val number;
-	begin
-		select	rhn_server_group_id_seq.nextval
-		into	sg_id_val
-		from	dual;
+    function create_entitlement_group (
+        org_id_in in number,
+        type_label_in in varchar2 := 'sw_mgr_entitled'
+    ) return number is
+        sg_id_val number;
+    begin
+        select    rhn_server_group_id_seq.nextval
+        into    sg_id_val
+        from    dual;
 
-		insert into rhnServerGroup (
-				id, name, description, max_members, current_members,
-				group_type, org_id
-			) (
-				select	sg_id_val, sgt.label, sgt.label,
-						0, 0, sgt.id, org_id_in
-				from	rhnServerGroupType sgt
-				where	sgt.label = type_label_in
-			);
+        insert into rhnServerGroup (
+                id, name, description, max_members, current_members,
+                group_type, org_id
+            ) (
+                select    sg_id_val, sgt.label, sgt.label,
+                        0, 0, sgt.id, org_id_in
+                from    rhnServerGroupType sgt
+                where    sgt.label = type_label_in
+            );
 
-		return sg_id_val;
-	end create_entitlement_group;
+        return sg_id_val;
+    end create_entitlement_group;
 
    function can_entitle_server ( 
         server_id_in in number, 
@@ -300,21 +300,21 @@ is
       return false;
    end find_compatible_sg;
 
-	procedure entitle_server (
-		server_id_in in number,
-		type_label_in in varchar2 := 'sw_mgr_entitled'
-	) is
+    procedure entitle_server (
+        server_id_in in number,
+        type_label_in in varchar2 := 'sw_mgr_entitled'
+    ) is
       sgid  number := 0;
       is_virt number := 0;
 
-	begin
+    begin
 
           begin
           select 1 into is_virt
             from rhnServerEntitlementView
            where server_id = server_id_in
              and label in ('virtualization_host', 'virtualization_host_platform');
-	  exception
+      exception
             when no_data_found then
               is_virt := 0;
           end;
@@ -357,15 +357,15 @@ is
       end if;
    end entitle_server;
 
-	procedure remove_server_entitlement (
-		server_id_in in number,
-		type_label_in in varchar2 := 'sw_mgr_entitled',
+    procedure remove_server_entitlement (
+        server_id_in in number,
+        type_label_in in varchar2 := 'sw_mgr_entitled',
         repoll_virt_guests in number := 1
-	) is
-		group_id number;
+    ) is
+        group_id number;
       type_is_base char;
       is_virt number := 0;
-	begin
+    begin
       begin
 
 
@@ -380,18 +380,18 @@ is
             is_virt := 0;
         end;
 
-		select	sg.id, sgt.is_base
-  		into	group_id, type_is_base
-  		from	rhnServerGroupType sgt,
-   			rhnServerGroup sg,
-  				rhnServerGroupMembers sgm,
-  				rhnServer s
-  		where	s.id = server_id_in
-  			and s.id = sgm.server_id
-  			and sgm.server_group_id = sg.id
-  			and sg.org_id = s.org_id
-  			and sgt.label = type_label_in
-  			and sgt.id = sg.group_type;
+        select    sg.id, sgt.is_base
+          into    group_id, type_is_base
+          from    rhnServerGroupType sgt,
+               rhnServerGroup sg,
+                  rhnServerGroupMembers sgm,
+                  rhnServer s
+          where    s.id = server_id_in
+              and s.id = sgm.server_id
+              and sgm.server_group_id = sg.id
+              and sg.org_id = s.org_id
+              and sgt.label = type_label_in
+              and sgt.id = sg.group_type;
 
       if ( type_is_base = 'Y' ) then
          -- unentitle_server should handle everything, don't really need to do anything else special here
@@ -438,12 +438,12 @@ is
          end if;
       end if;
 
-  		exception
-  		when no_data_found then
-  				rhn_exception.raise_exception('invalid_server_group_member');	
+          exception
+          when no_data_found then
+                  rhn_exception.raise_exception('invalid_server_group_member');
       end;
 
- 	end remove_server_entitlement;
+     end remove_server_entitlement;
 
 
    procedure unentitle_server (server_id_in in number) is
@@ -656,7 +656,7 @@ is
             and org_id = org_id_val;
 
 
-	  select count(sep.server_id) into current_members_calc
+      select count(sep.server_id) into current_members_calc
             from rhnServerEntitlementPhysical sep
            where sep.server_group_id = sg_id
              and sep.server_group_type_id = a_group_type.group_type;
@@ -683,241 +683,241 @@ is
     end repoll_virt_guest_entitlements;
 
 
-	function get_server_entitlement (
-		server_id_in in number
-	) return ents_array is
+    function get_server_entitlement (
+        server_id_in in number
+    ) return ents_array is
 
-		cursor server_groups is
-			select	sgt.label
-			from	rhnServerGroupType		sgt,
-					rhnServerGroup			sg,
-					rhnServerGroupMembers	sgm
-			where	1=1
-				and sgm.server_id = server_id_in
-				and sg.id = sgm.server_group_id
-				and sgt.id = sg.group_type
-				and sgt.label in (
-					'sw_mgr_entitled','enterprise_entitled',
-					'provisioning_entitled', 'nonlinux_entitled',
-					'monitoring_entitled', 'virtualization_host',
+        cursor server_groups is
+            select    sgt.label
+            from    rhnServerGroupType        sgt,
+                    rhnServerGroup            sg,
+                    rhnServerGroupMembers    sgm
+            where    1=1
+                and sgm.server_id = server_id_in
+                and sg.id = sgm.server_group_id
+                and sgt.id = sg.group_type
+                and sgt.label in (
+                    'sw_mgr_entitled','enterprise_entitled',
+                    'provisioning_entitled', 'nonlinux_entitled',
+                    'monitoring_entitled', 'virtualization_host',
                                         'virtualization_host_platform'
-					);
+                    );
 
          ent_array ents_array;
 
-	begin
+    begin
       
       ent_array := ents_array();
 
-		for sg in server_groups loop
+        for sg in server_groups loop
          ent_array.extend;
          ent_array(ent_array.count) := sg.label;
-		end loop;
+        end loop;
 
-		return ent_array;
+        return ent_array;
 
-	end get_server_entitlement;
+    end get_server_entitlement;
 
 
-	-- this desperately needs to be table driven.
-	procedure modify_org_service (
-		org_id_in in number,
-		service_label_in in varchar2,
-		enable_in in char
-	) is
-		type roles_v is varray(10) of rhnUserGroupType.label%TYPE;
-		roles_to_process roles_v;
-		cursor roles(role_label_in in varchar2) is
-			select	label, id
-			from	rhnUserGroupType
-			where	label = role_label_in;
-		cursor org_roles(role_label_in in varchar2) is
-			select	1
-			from	rhnUserGroup ug,
-					rhnUserGroupType ugt
-			where	ugt.label = role_label_in
-				and ug.org_id = org_id_in
-				and ugt.id = ug.group_type;
-				
-		type ents_v is varray(10) of rhnOrgEntitlementType.label%TYPE;
-		ents_to_process ents_v;
-		cursor ents(ent_label_in in varchar2) is
-			select	label, id
-			from	rhnOrgEntitlementType
-			where	label = ent_label_in;
-		cursor org_ents(ent_label_in in varchar2) is
-			select	1
-			from	rhnOrgEntitlements oe,
-					rhnOrgEntitlementType oet
-			where	oet.label = ent_label_in
-				and oe.org_id = org_id_in
-				and oet.id = oe.entitlement_id;
-		create_row char(1);
-	begin
-		ents_to_process := ents_v();
-		roles_to_process := roles_v();
-		-- a bit kludgy, but only for 3.4 really.  Certainly no
-		-- worse than the old code...
-		if service_label_in = 'enterprise' or 
+    -- this desperately needs to be table driven.
+    procedure modify_org_service (
+        org_id_in in number,
+        service_label_in in varchar2,
+        enable_in in char
+    ) is
+        type roles_v is varray(10) of rhnUserGroupType.label%TYPE;
+        roles_to_process roles_v;
+        cursor roles(role_label_in in varchar2) is
+            select    label, id
+            from    rhnUserGroupType
+            where    label = role_label_in;
+        cursor org_roles(role_label_in in varchar2) is
+            select    1
+            from    rhnUserGroup ug,
+                    rhnUserGroupType ugt
+            where    ugt.label = role_label_in
+                and ug.org_id = org_id_in
+                and ugt.id = ug.group_type;
+
+        type ents_v is varray(10) of rhnOrgEntitlementType.label%TYPE;
+        ents_to_process ents_v;
+        cursor ents(ent_label_in in varchar2) is
+            select    label, id
+            from    rhnOrgEntitlementType
+            where    label = ent_label_in;
+        cursor org_ents(ent_label_in in varchar2) is
+            select    1
+            from    rhnOrgEntitlements oe,
+                    rhnOrgEntitlementType oet
+            where    oet.label = ent_label_in
+                and oe.org_id = org_id_in
+                and oet.id = oe.entitlement_id;
+        create_row char(1);
+    begin
+        ents_to_process := ents_v();
+        roles_to_process := roles_v();
+        -- a bit kludgy, but only for 3.4 really.  Certainly no
+        -- worse than the old code...
+        if service_label_in = 'enterprise' or
            service_label_in = 'management' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'sw_mgr_enterprise';
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'sw_mgr_enterprise';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'org_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'org_admin';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'system_group_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'system_group_admin';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'activation_key_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'activation_key_admin';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'org_applicant';
-		elsif service_label_in = 'provisioning' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_provisioning';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'org_applicant';
+        elsif service_label_in = 'provisioning' then
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'rhn_provisioning';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'system_group_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'system_group_admin';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'activation_key_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'activation_key_admin';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'config_admin';
-			-- another nasty special case...
-			if enable_in = 'Y' then
-				ents_to_process.extend;
-				ents_to_process(ents_to_process.count) := 'sw_mgr_enterprise';
-			end if;
-		elsif service_label_in = 'monitoring' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_monitor';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'config_admin';
+            -- another nasty special case...
+            if enable_in = 'Y' then
+                ents_to_process.extend;
+                ents_to_process(ents_to_process.count) := 'sw_mgr_enterprise';
+            end if;
+        elsif service_label_in = 'monitoring' then
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'rhn_monitor';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'monitoring_admin';
-		elsif service_label_in = 'virtualization' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_virtualization';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'monitoring_admin';
+        elsif service_label_in = 'virtualization' then
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'rhn_virtualization';
 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'config_admin';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'config_admin';
         elsif service_label_in = 'virtualization_platform' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform'; 
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'config_admin';
-	elsif service_label_in = 'nonlinux' then
-			ents_to_process.extend;
-			ents_to_process(ents_to_process.count) := 'rhn_nonlinux';
-			roles_to_process.extend;
-			roles_to_process(roles_to_process.count) := 'config_admin';
-		end if;
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'rhn_virtualization_platform';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'config_admin';
+    elsif service_label_in = 'nonlinux' then
+            ents_to_process.extend;
+            ents_to_process(ents_to_process.count) := 'rhn_nonlinux';
+            roles_to_process.extend;
+            roles_to_process(roles_to_process.count) := 'config_admin';
+        end if;
 
-		if enable_in = 'Y' then
-			for i in 1..ents_to_process.count loop
-				for ent in ents(ents_to_process(i)) loop
-					create_row := 'Y';
-					for oe in org_ents(ent.label) loop
-						create_row := 'N';
-					end loop;
-					if create_row = 'Y' then
-						insert into rhnOrgEntitlements(org_id, entitlement_id)
-							values (org_id_in, ent.id);
-					end if;
-				end loop;
-			end loop;
-			for i in 1..roles_to_process.count loop
-				for role in roles(roles_to_process(i)) loop
-					create_row := 'Y';
-					for o_r in org_roles(role.label) loop
-						create_row := 'N';
-					end loop;
-					if create_row = 'Y' then
-						insert into rhnUserGroup(
-								id, name, description, current_members,
-								group_type, org_id
-							) (
-								select	rhn_user_group_id_seq.nextval,
-										ugt.name || 's',
-										ugt.name || 's for Org ' ||
-											o.name || ' ('|| o.id ||')',
-										0, ugt.id, o.id
-								from	rhnUserGroupType ugt,
-										web_customer o
-								where	o.id = org_id_in
-									and ugt.id = role.id
-							);
-					end if;
-				end loop;
-			end loop;
-		else
-			for i in 1..ents_to_process.count loop
-				for ent in ents(ents_to_process(i)) loop
-					delete from rhnOrgEntitlements
-					 where org_id = org_id_in
-					   and entitlement_id = ent.id;
-				end loop;
-			end loop;
-		end if;
-	end modify_org_service;
+        if enable_in = 'Y' then
+            for i in 1..ents_to_process.count loop
+                for ent in ents(ents_to_process(i)) loop
+                    create_row := 'Y';
+                    for oe in org_ents(ent.label) loop
+                        create_row := 'N';
+                    end loop;
+                    if create_row = 'Y' then
+                        insert into rhnOrgEntitlements(org_id, entitlement_id)
+                            values (org_id_in, ent.id);
+                    end if;
+                end loop;
+            end loop;
+            for i in 1..roles_to_process.count loop
+                for role in roles(roles_to_process(i)) loop
+                    create_row := 'Y';
+                    for o_r in org_roles(role.label) loop
+                        create_row := 'N';
+                    end loop;
+                    if create_row = 'Y' then
+                        insert into rhnUserGroup(
+                                id, name, description, current_members,
+                                group_type, org_id
+                            ) (
+                                select    rhn_user_group_id_seq.nextval,
+                                        ugt.name || 's',
+                                        ugt.name || 's for Org ' ||
+                                            o.name || ' ('|| o.id ||')',
+                                        0, ugt.id, o.id
+                                from    rhnUserGroupType ugt,
+                                        web_customer o
+                                where    o.id = org_id_in
+                                    and ugt.id = role.id
+                            );
+                    end if;
+                end loop;
+            end loop;
+        else
+            for i in 1..ents_to_process.count loop
+                for ent in ents(ents_to_process(i)) loop
+                    delete from rhnOrgEntitlements
+                     where org_id = org_id_in
+                       and entitlement_id = ent.id;
+                end loop;
+            end loop;
+        end if;
+    end modify_org_service;
 
-	procedure set_customer_enterprise (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'enterprise', 'Y');
-	end set_customer_enterprise;
+    procedure set_customer_enterprise (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'enterprise', 'Y');
+    end set_customer_enterprise;
 
-	procedure set_customer_provisioning (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'provisioning', 'Y');
-	end set_customer_provisioning;
+    procedure set_customer_provisioning (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'provisioning', 'Y');
+    end set_customer_provisioning;
 
-	procedure set_customer_monitoring (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'monitoring', 'Y');
-	end set_customer_monitoring;
+    procedure set_customer_monitoring (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'monitoring', 'Y');
+    end set_customer_monitoring;
 
-	procedure set_customer_nonlinux (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'nonlinux', 'Y');
-	end set_customer_nonlinux;
+    procedure set_customer_nonlinux (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'nonlinux', 'Y');
+    end set_customer_nonlinux;
 
-	procedure unset_customer_enterprise (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'enterprise', 'N');
-	end unset_customer_enterprise;
+    procedure unset_customer_enterprise (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'enterprise', 'N');
+    end unset_customer_enterprise;
 
-	procedure unset_customer_provisioning (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'provisioning', 'N');
-	end unset_customer_provisioning;
+    procedure unset_customer_provisioning (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'provisioning', 'N');
+    end unset_customer_provisioning;
 
-	procedure unset_customer_monitoring (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'monitoring', 'N');
-	end unset_customer_monitoring;
+    procedure unset_customer_monitoring (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'monitoring', 'N');
+    end unset_customer_monitoring;
 
-	procedure unset_customer_nonlinux (
-		customer_id_in in number
-	) is
-	begin
-		modify_org_service(customer_id_in, 'nonlinux', 'N');
-	end unset_customer_nonlinux;
+    procedure unset_customer_nonlinux (
+        customer_id_in in number
+    ) is
+    begin
+        modify_org_service(customer_id_in, 'nonlinux', 'N');
+    end unset_customer_nonlinux;
 
     -- *******************************************************************
     -- PROCEDURE: prune_group
@@ -925,37 +925,37 @@ is
     --   limit.
     -- Called by: set_group_count, prune_everything, repoll_virt_guest_entitlements
     -- *******************************************************************
-	procedure prune_group (
-		group_id_in in number,
-		type_in in char,
-		quantity_in in number,
+    procedure prune_group (
+        group_id_in in number,
+        type_in in char,
+        quantity_in in number,
                 update_family_countsYN in number := 1
-	) is
-		cursor usergroups is
-			select	user_id, user_group_id, ugt.label
-			from	rhnUserGroupType	ugt,
-					rhnUserGroup		ug,
-					rhnUserGroupMembers	ugm
-			where	1=1
-				and ugm.user_group_id = group_id_in
-				and ugm.user_id in (
-					select	user_id
-					from	(
-						select	rownum row_number,
-								user_id,
-								time
-						from	(
-							select	user_id,
-									modified time
-							from	rhnUserGroupMembers
-							where	user_group_id = group_id_in
-							order by time asc
-						)
-					)
-					where	row_number > quantity_in
-				)
-				and ugm.user_group_id = ug.id
-				and ug.group_type = ugt.id;
+    ) is
+        cursor usergroups is
+            select    user_id, user_group_id, ugt.label
+            from    rhnUserGroupType    ugt,
+                    rhnUserGroup        ug,
+                    rhnUserGroupMembers    ugm
+            where    1=1
+                and ugm.user_group_id = group_id_in
+                and ugm.user_id in (
+                    select    user_id
+                    from    (
+                        select    rownum row_number,
+                                user_id,
+                                time
+                        from    (
+                            select    user_id,
+                                    modified time
+                            from    rhnUserGroupMembers
+                            where    user_group_id = group_id_in
+                            order by time asc
+                        )
+                    )
+                    where    row_number > quantity_in
+                )
+                and ugm.user_group_id = ug.id
+                and ug.group_type = ugt.id;
         cursor servergroups is
            select  server_id, server_group_id, sgt.id group_type_id, sgt.label
             from    rhnServerGroupType              sgt,
@@ -984,22 +984,22 @@ is
                     and sgm.server_group_id = sg.id
                     and sg.group_type = sgt.id;
       type_is_base char;
-	begin
-		if type_in = 'U' then
-			update		rhnUserGroup
-				set		max_members = quantity_in
-				where	id = group_id_in;
+    begin
+        if type_in = 'U' then
+            update        rhnUserGroup
+                set        max_members = quantity_in
+                where    id = group_id_in;
 
-			for ug in usergroups loop
-				rhn_user.remove_from_usergroup(ug.user_id, ug.user_group_id);
-			end loop;
-		elsif type_in = 'S' then
-			update		rhnServerGroup
-				set		max_members = quantity_in
-				where	id = group_id_in;
+            for ug in usergroups loop
+                rhn_user.remove_from_usergroup(ug.user_id, ug.user_group_id);
+            end loop;
+        elsif type_in = 'S' then
+            update        rhnServerGroup
+                set        max_members = quantity_in
+                where    id = group_id_in;
 
-			for sg in servergroups loop
-				remove_server_entitlement(sg.server_id, sg.label);
+            for sg in servergroups loop
+                remove_server_entitlement(sg.server_id, sg.label);
             
             select is_base 
             into type_is_base
@@ -1009,13 +1009,13 @@ is
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-				   rhn_channel.clear_subscriptions(sg.server_id,
+                   rhn_channel.clear_subscriptions(sg.server_id,
                                         update_family_countsYN => update_family_countsYN);
             end if;
 
-			end loop;
-		end if;
-	end prune_group;
+            end loop;
+        end if;
+    end prune_group;
 
     -- *******************************************************************
     -- PROCEDURE: assign_system_entitlement
@@ -1034,9 +1034,9 @@ is
     )
     is
         prev_ent_count number;
-	to_org_prev_ent_count number;
+    to_org_prev_ent_count number;
         new_ent_count number;
-	new_quantity number;
+    new_quantity number;
         group_type number;
     begin
 
@@ -1066,7 +1066,7 @@ is
             when NO_DATA_FOUND then
                 to_org_prev_ent_count := 0;
         end;
-	
+
         begin
             select id
             into group_type
@@ -1079,11 +1079,11 @@ is
         end;
 
         new_ent_count := prev_ent_count - quantity_in;
-	
+
         if prev_ent_count > new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
         end if;
-	
+
         if new_ent_count < 0 then
             rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
@@ -1145,8 +1145,8 @@ is
     is
         prev_ent_count number;
         new_ent_count number;
-	to_org_prev_ent_count number;
-	new_quantity number;
+    to_org_prev_ent_count number;
+    new_quantity number;
         cfam_id       number;
     begin
 
@@ -1163,7 +1163,7 @@ is
                 rhn_exception.raise_exception(
                               'not_enough_entitlements_in_base_org');
         end;
-	
+
         begin
             select max_members
             into to_org_prev_ent_count
@@ -1176,7 +1176,7 @@ is
             when NO_DATA_FOUND then
                 to_org_prev_ent_count := 0;
         end;
-	
+
 
         begin
             select id
@@ -1190,11 +1190,11 @@ is
         end;                              
 
         new_ent_count := prev_ent_count - quantity_in;
-	
-	if prev_ent_count > new_ent_count then
+
+    if prev_ent_count > new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
-	end if;
-	
+    end if;
+
 
         if new_ent_count < 0 then
             rhn_exception.raise_exception(
@@ -1368,69 +1368,69 @@ is
     end activate_channel_entitlement;
 
 
-	procedure set_group_count (
-		customer_id_in in number,
-		type_in in char,
-		group_type_in in number,
-		quantity_in in number,
+    procedure set_group_count (
+        customer_id_in in number,
+        type_in in char,
+        group_type_in in number,
+        quantity_in in number,
                 update_family_countsYN in number := 1
-	) is
-		group_id number;
-		quantity number;
-	begin
-		quantity := quantity_in;
-		if quantity is not null and quantity < 0 then
-			quantity := 0;
-		end if;
+    ) is
+        group_id number;
+        quantity number;
+    begin
+        quantity := quantity_in;
+        if quantity is not null and quantity < 0 then
+            quantity := 0;
+        end if;
 
-		if type_in = 'U' then
-			select	rug.id
-			into	group_id
-			from	rhnUserGroup rug
-			where	1=1
-				and rug.org_id = customer_id_in
-				and rug.group_type = group_type_in;
-		elsif type_in = 'S' then
-			select	rsg.id
-			into	group_id
-			from	rhnServerGroup rsg
-			where	1=1
-				and rsg.org_id = customer_id_in
-				and rsg.group_type = group_type_in;
-		end if;
+        if type_in = 'U' then
+            select    rug.id
+            into    group_id
+            from    rhnUserGroup rug
+            where    1=1
+                and rug.org_id = customer_id_in
+                and rug.group_type = group_type_in;
+        elsif type_in = 'S' then
+            select    rsg.id
+            into    group_id
+            from    rhnServerGroup rsg
+            where    1=1
+                and rsg.org_id = customer_id_in
+                and rsg.group_type = group_type_in;
+        end if;
 
-		rhn_entitlements.prune_group(
-			group_id,
-			type_in,
-			quantity,
+        rhn_entitlements.prune_group(
+            group_id,
+            type_in,
+            quantity,
                         update_family_countsYN
-		);
-	exception
-		when no_data_found then
-			if type_in = 'U' then
-				insert into rhnUserGroup (
-						id, name, description, max_members, current_members,
-						group_type, org_id, created, modified
-					) (
-						select	rhn_user_group_id_seq.nextval, name, name,
-								quantity, 0, id, customer_id_in,
-								sysdate, sysdate
-						from	rhnUserGroupType
-						where	id = group_type_in
-				);
-			elsif type_in = 'S' then
-				insert into rhnServerGroup (
-						id, name, description, max_members, current_members,
-						group_type, org_id, created, modified
-					) (
-						select	rhn_server_group_id_seq.nextval, name, name,
-								quantity, 0, id, customer_id_in,
-								sysdate, sysdate
-						from	rhnServerGroupType
-						where	id = group_type_in
-				);
-			end if;
-	end set_group_count;
+        );
+    exception
+        when no_data_found then
+            if type_in = 'U' then
+                insert into rhnUserGroup (
+                        id, name, description, max_members, current_members,
+                        group_type, org_id, created, modified
+                    ) (
+                        select    rhn_user_group_id_seq.nextval, name, name,
+                                quantity, 0, id, customer_id_in,
+                                sysdate, sysdate
+                        from    rhnUserGroupType
+                        where    id = group_type_in
+                );
+            elsif type_in = 'S' then
+                insert into rhnServerGroup (
+                        id, name, description, max_members, current_members,
+                        group_type, org_id, created, modified
+                    ) (
+                        select    rhn_server_group_id_seq.nextval, name, name,
+                                quantity, 0, id, customer_id_in,
+                                sysdate, sysdate
+                        from    rhnServerGroupType
+                        where    id = group_type_in
+                );
+            end if;
+    end set_group_count;
 
     -- *******************************************************************
     -- PROCEDURE: prune_family
@@ -1438,38 +1438,39 @@ is
     --   that are over the org's limit.
     -- Called by: set_family_count, prune_everything
     -- *******************************************************************
-	procedure prune_family (
-		customer_id_in in number,
-		channel_family_id_in in number,
-		quantity_in in number
-	) is
-		cursor serverchannels is
-			select	sc.server_id,
-					sc.channel_id
-			from	rhnServerChannel sc,
-					rhnChannelFamilyMembers cfm
-			where	1=1
-				and cfm.channel_family_id = channel_family_id_in
-				and cfm.channel_id = sc.channel_id
-				and server_id in (
-					select	server_id
-					from	(
-						select	server_id,
-								time,
-								rownum row_number
-						from	(
-							select	rs.id					server_id,
-									rcfm.modified			time
-							from	
-									rhnServerChannel		rsc,
-									rhnChannelFamilyMembers	rcfm,
-                                    rhnServer				rs
-							where	1=1
-								and rs.org_id = customer_id_in
-								and rs.id = rsc.server_id
-								and rsc.channel_id = rcfm.channel_id
-								and rcfm.channel_family_id =
-									channel_family_id_in
+    procedure prune_family (
+        customer_id_in in number,
+        channel_family_id_in in number,
+        quantity_in in number,
+                flex_in in number
+    ) is
+        cursor serverchannels is
+            select    sc.server_id,
+                    sc.channel_id
+            from    rhnServerChannel sc,
+                    rhnChannelFamilyMembers cfm
+            where    1=1
+                and cfm.channel_family_id = channel_family_id_in
+                and cfm.channel_id = sc.channel_id
+                and server_id in (
+                    select    server_id
+                    from    (
+                        select    server_id,
+                                time,
+                                rownum row_number
+                        from    (
+                            select    rs.id                    server_id,
+                                    rcfm.modified            time
+                            from
+                                    rhnServerChannel        rsc,
+                                    rhnChannelFamilyMembers    rcfm,
+                                    rhnServer                rs
+                            where    1=1
+                                and rs.org_id = customer_id_in
+                                and rs.id = rsc.server_id
+                                and rsc.channel_id = rcfm.channel_id
+                                and rcfm.channel_family_id =
+                                    channel_family_id_in
                                 -- we only want to grab servers consuming
                                 -- physical slots.
                                 and exists (
@@ -1479,238 +1480,238 @@ is
                                     and cfsp.channel_family_id = 
                                         channel_family_id_in
                                     )
-							order by time asc
-						)
-					)
-					where row_number > quantity_in
-				);
-	begin
-		-- if we get a null customer_id, this is completely bogus.
-		if customer_id_in is null then
-			return;
-		end if;
+                            order by time asc
+                        )
+                    )
+                    where row_number > quantity_in
+                );
+    begin
+        -- if we get a null customer_id, this is completely bogus.
+        if customer_id_in is null then
+            return;
+        end if;
 
-		update		rhnPrivateChannelFamily
-			set		max_members = quantity_in
-			where	1=1
-				and org_id = customer_id_in
-				and channel_family_id = channel_family_id_in;
+        update        rhnPrivateChannelFamily
+            set        max_members = quantity_in
+            where    1=1
+                and org_id = customer_id_in
+                and channel_family_id = channel_family_id_in;
 
-		for sc in serverchannels loop
-			rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
+        for sc in serverchannels loop
+            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
                                                        update_family_countsYN => 0);
-		end loop;
+        end loop;
                 rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
-	end prune_family;
-		
-	procedure set_family_count (
-		customer_id_in in number,
-		channel_family_id_in in number,
-		quantity_in in number
-	) is
-		cursor privperms is
-			select	1
-			from	rhnPrivateChannelFamily
-			where	org_id = customer_id_in
-				and channel_family_id = channel_family_id_in;
-		cursor pubperms is
-			select	o.id org_id
-			from	web_customer o,
-					rhnPublicChannelFamily pcf
-			where	pcf.channel_family_id = channel_family_id_in;
-		quantity number;
-		done number := 0;
-	begin
-		quantity := quantity_in;
-		if quantity is not null and quantity < 0 then
-			quantity := 0;
-		end if;
+    end prune_family;
 
-		if customer_id_in is not null then
-			for perm in privperms loop
-				rhn_entitlements.prune_family(
-					customer_id_in,
-					channel_family_id_in,
-					quantity
-				);
-				update rhnPrivateChannelFamily
-					set max_members = quantity
-					where org_id = customer_id_in
-						and channel_family_id = channel_family_id_in;
-				return;
-			end loop;
-			
-			insert into rhnPrivateChannelFamily (
-					channel_family_id, org_id, max_members, current_members
-				) values (
-					channel_family_id_in, customer_id_in, quantity, 0
-				);
-			return;
-		end if;
+    procedure set_family_count (
+        customer_id_in in number,
+        channel_family_id_in in number,
+        quantity_in in number
+    ) is
+        cursor privperms is
+            select    1
+            from    rhnPrivateChannelFamily
+            where    org_id = customer_id_in
+                and channel_family_id = channel_family_id_in;
+        cursor pubperms is
+            select    o.id org_id
+            from    web_customer o,
+                    rhnPublicChannelFamily pcf
+            where    pcf.channel_family_id = channel_family_id_in;
+        quantity number;
+        done number := 0;
+    begin
+        quantity := quantity_in;
+        if quantity is not null and quantity < 0 then
+            quantity := 0;
+        end if;
 
-		for perm in pubperms loop
-			if quantity = 0 then
-				rhn_entitlements.prune_family(
-					perm.org_id,
-					channel_family_id_in,
-					quantity
-				);
-				if done = 0 then
-					delete from rhnPublicChannelFamily
-						where channel_family_id = channel_family_id_in;
-				end if;
-			end if;
-			done := 1;
-		end loop;
-		-- if done's not 1, then we don't have any entitlements
-		if done != 1 then
-			insert into rhnPublicChannelFamily (
-					channel_family_id
-				) values (
-					channel_family_id_in
-				);
-		end if;
-	end set_family_count;
+        if customer_id_in is not null then
+            for perm in privperms loop
+                rhn_entitlements.prune_family(
+                    customer_id_in,
+                    channel_family_id_in,
+                    quantity
+                );
+                update rhnPrivateChannelFamily
+                    set max_members = quantity
+                    where org_id = customer_id_in
+                        and channel_family_id = channel_family_id_in;
+                return;
+            end loop;
 
-	-- this expects quantity_in to be the number of available slots, not the
-	-- max_members of the server group.  If you give it too many, it'll fail
-	-- and raise servergroup_max_members.
-	-- We should NEVER run this unless we're SURE that we won't
-	-- be violating the max.
-	procedure entitle_last_modified_servers (
-		customer_id_in in number,
-		type_label_in in varchar2,
-		quantity_in in number
-	) is
-		-- find the servers that aren't currently in slots
-		cursor servers(cid_in in number, quant_in in number) is
-			select	server_id
-			from	(
-						select	rownum row_number,
-								server_id
-						from	(
-									select	rs.id server_iD
-									from	rhnServer rs
-									where	1=1
-										and rs.org_id = cid_in
-										and not exists (
-											select	1
-											from	rhnServerGroup sg,
-													rhnServerGroupMembers rsgm
-											where	rsgm.server_id = rs.id
-												and rsgm.server_group_id = sg.id
-												and sg.group_type is not null
-										)
+            insert into rhnPrivateChannelFamily (
+                    channel_family_id, org_id, max_members, current_members
+                ) values (
+                    channel_family_id_in, customer_id_in, quantity, 0
+                );
+            return;
+        end if;
+
+        for perm in pubperms loop
+            if quantity = 0 then
+                rhn_entitlements.prune_family(
+                    perm.org_id,
+                    channel_family_id_in,
+                    quantity
+                );
+                if done = 0 then
+                    delete from rhnPublicChannelFamily
+                        where channel_family_id = channel_family_id_in;
+                end if;
+            end if;
+            done := 1;
+        end loop;
+        -- if done's not 1, then we don't have any entitlements
+        if done != 1 then
+            insert into rhnPublicChannelFamily (
+                    channel_family_id
+                ) values (
+                    channel_family_id_in
+                );
+        end if;
+    end set_family_count;
+
+    -- this expects quantity_in to be the number of available slots, not the
+    -- max_members of the server group.  If you give it too many, it'll fail
+    -- and raise servergroup_max_members.
+    -- We should NEVER run this unless we're SURE that we won't
+    -- be violating the max.
+    procedure entitle_last_modified_servers (
+        customer_id_in in number,
+        type_label_in in varchar2,
+        quantity_in in number
+    ) is
+        -- find the servers that aren't currently in slots
+        cursor servers(cid_in in number, quant_in in number) is
+            select    server_id
+            from    (
+                        select    rownum row_number,
+                                server_id
+                        from    (
+                                    select    rs.id server_iD
+                                    from    rhnServer rs
+                                    where    1=1
+                                        and rs.org_id = cid_in
+                                        and not exists (
+                                            select    1
+                                            from    rhnServerGroup sg,
+                                                    rhnServerGroupMembers rsgm
+                                            where    rsgm.server_id = rs.id
+                                                and rsgm.server_group_id = sg.id
+                                                and sg.group_type is not null
+                                        )
                                         and not exists (
                                             select 1
                                             from rhnVirtualInstance vi
                                             where vi.virtual_system_id =
                                                   rs.id
                                         )                                                                           order by modified desc
-								)
-					)
-			where	row_number <= quant_in;
-	begin
-		for server in servers(customer_id_in, quantity_in) loop
-			rhn_entitlements.entitle_server(server.server_id, type_label_in);
-		end loop;
-	end entitle_last_modified_servers;
+                                )
+                    )
+            where    row_number <= quant_in;
+    begin
+        for server in servers(customer_id_in, quantity_in) loop
+            rhn_entitlements.entitle_server(server.server_id, type_label_in);
+        end loop;
+    end entitle_last_modified_servers;
 
-	procedure prune_everything (
-		customer_id_in in number
-	) is
-		cursor everything is
-			-- all our server groups
-			select	sg.id					id,
-					'S'						type,
-					sg.max_members			quantity
-			from	rhnServerGroup			sg
-			where	sg.org_id = customer_id_in
-			union
-			-- all our user groups
-			select	ug.id					id,
-					'U'						type,
-					ug.max_members 			quantity
-			from	rhnUserGroup			ug
-			where	ug.org_id = customer_id_in
-			union ( 
-			-- all the channel families we have perms to
-			select	cfp.channel_family_id	id,
-					'C'						type,
-					cfp.max_members			quantity
-			from	rhnOrgChannelFamilyPermissions cfp
-			where	cfp.org_id = customer_id_in
-			union
-			-- plus all the ones we're using that we have no perms for
-			select	cfm.channel_family_id	id,
-					'C'						type,
-					0						quantity
-			from	rhnChannelFamily		cf,
-					rhnChannelFamilyMembers	cfm,
-					rhnServerChannel		sc,
-					rhnServer				s
-			where	s.org_id = customer_id_in
-				and s.id = sc.server_id
-				and sc.channel_id = cfm.channel_id
-				and cfm.channel_family_id = cf.id
-				and cf.org_id is not null
-				and cf.org_id != customer_id_in
-				and not exists (
-					select	1
-					from	rhnOrgChannelFamilyPermissions cfp
-					where	cfp.org_id = customer_id_in
-						and cfp.channel_family_id = cfm.channel_family_id
-					)
-			);
-	begin
-		for one in everything loop
-			if one.type in ('U','S') then
-				prune_group(one.id, one.type, one.quantity);
-			else
-				prune_family(customer_id_in, one.id, one.quantity);
-			end if;
-		end loop;
-	end prune_everything;
+    procedure prune_everything (
+        customer_id_in in number
+    ) is
+        cursor everything is
+            -- all our server groups
+            select    sg.id                    id,
+                    'S'                        type,
+                    sg.max_members            quantity
+            from    rhnServerGroup            sg
+            where    sg.org_id = customer_id_in
+            union
+            -- all our user groups
+            select    ug.id                    id,
+                    'U'                        type,
+                    ug.max_members             quantity
+            from    rhnUserGroup            ug
+            where    ug.org_id = customer_id_in
+            union (
+            -- all the channel families we have perms to
+            select    cfp.channel_family_id    id,
+                    'C'                        type,
+                    cfp.max_members            quantity
+            from    rhnOrgChannelFamilyPermissions cfp
+            where    cfp.org_id = customer_id_in
+            union
+            -- plus all the ones we're using that we have no perms for
+            select    cfm.channel_family_id    id,
+                    'C'                        type,
+                    0                        quantity
+            from    rhnChannelFamily        cf,
+                    rhnChannelFamilyMembers    cfm,
+                    rhnServerChannel        sc,
+                    rhnServer                s
+            where    s.org_id = customer_id_in
+                and s.id = sc.server_id
+                and sc.channel_id = cfm.channel_id
+                and cfm.channel_family_id = cf.id
+                and cf.org_id is not null
+                and cf.org_id != customer_id_in
+                and not exists (
+                    select    1
+                    from    rhnOrgChannelFamilyPermissions cfp
+                    where    cfp.org_id = customer_id_in
+                        and cfp.channel_family_id = cfm.channel_family_id
+                    )
+            );
+    begin
+        for one in everything loop
+            if one.type in ('U','S') then
+                prune_group(one.id, one.type, one.quantity);
+            else
+                prune_family(customer_id_in, one.id, one.quantity);
+            end if;
+        end loop;
+    end prune_everything;
 
-	procedure subscribe_newest_servers (
-		customer_id_in in number
-	) is
-		-- find servers without base channels
-		cursor servers(cid_in in number) is
-			select	s.id
-			from	rhnServer			s
-			where	1=1
-				and s.org_id = cid_in
-				and not exists (
-						select 1
-						from	rhnChannel			c,
-								rhnServerChannel	sc
-						where	sc.server_id = s.id
-							and sc.channel_id = c.id
-							and c.parent_channel is null
-					)
+    procedure subscribe_newest_servers (
+        customer_id_in in number
+    ) is
+        -- find servers without base channels
+        cursor servers(cid_in in number) is
+            select    s.id
+            from    rhnServer            s
+            where    1=1
+                and s.org_id = cid_in
+                and not exists (
+                        select 1
+                        from    rhnChannel            c,
+                                rhnServerChannel    sc
+                        where    sc.server_id = s.id
+                            and sc.channel_id = c.id
+                            and c.parent_channel is null
+                    )
                 and not exists (
                         select 1
                         from rhnVirtualInstance vi
                         where vi.virtual_system_id = s.id
                     )                        
-			order by s.modified desc;
-		channel_id number;
-	begin
-		for server in servers(customer_id_in) loop
-			channel_id := rhn_channel.guess_server_base(server.id);
-			if channel_id is not null then
-				begin
-					rhn_channel.subscribe_server(server.id, channel_id);
-					commit;
-				-- exception is really channel_family_no_subscriptions
-				exception
-					when others then
-						null;
-				end;
-			end if;
-		end loop;
-	end subscribe_newest_servers;
+            order by s.modified desc;
+        channel_id number;
+    begin
+        for server in servers(customer_id_in) loop
+            channel_id := rhn_channel.guess_server_base(server.id);
+            if channel_id is not null then
+                begin
+                    rhn_channel.subscribe_server(server.id, channel_id);
+                    commit;
+                -- exception is really channel_family_no_subscriptions
+                exception
+                    when others then
+                        null;
+                end;
+            end if;
+        end loop;
+    end subscribe_newest_servers;
 end rhn_entitlements;
 /
 show errors
