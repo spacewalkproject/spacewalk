@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-07 13:34+0200\n"
-"PO-Revision-Date: 2010-06-07 11:55\n"
+"PO-Revision-Date: 2010-06-07 13:36\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -1196,7 +1196,7 @@ msgstr "Только ограниченные обновления"
 
 #: ../src/up2date_client/tui.py:452
 msgid " Minor Release: "
-msgstr ""
+msgstr " Вспомогательный выпуск: "
 
 #: ../src/up2date_client/tui.py:467
 msgid "All available updates"
@@ -1579,7 +1579,7 @@ msgstr "Укажите ключ активации"
 
 #: ../src/bin/rhnreg_ks.py:58
 msgid "Subscribe this system to the EUS channel tied to the system's redhat-release"
-msgstr ""
+msgstr "Подпишите систему к каналу EUS, соответствующему выпуску Red Hat системы"
 
 #: ../src/bin/rhnreg_ks.py:60
 msgid "[Deprecated] Read contact info from stdin"
@@ -1724,7 +1724,7 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
 "Hat."
-msgstr ""
+msgstr "<b>Подсказка:</b> в настоящее время вспомогательные выпуски с «*» полностью поддерживаются Red Hat."
 
 #: ../data/rh_register.glade.h:14
 msgid ""
@@ -1760,11 +1760,11 @@ msgid ""
 "<b>_Limited updates</b> will be provided to this system to maintain "
 "compatibility with the following eligible Red Hat Enterprise Linux minor "
 "release software channel:"
-msgstr ""
+msgstr "<b>О_граниченные обновления</b> будут предоставлены этой системе с целью обеспечения совместимости со следующим каналом ПО вспомогательного выпуска Red Hat Enterprise Linux:"
 
 #: ../data/rh_register.glade.h:19
 msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
-msgstr ""
+msgstr "<big><b>Переназначение ранним выпускам будет невозможно</b></big>"
 
 #: ../data/rh_register.glade.h:20
 msgid "<big><b>Profile Data</b></big>"
@@ -2190,7 +2190,7 @@ msgstr "_Имя входа:"
 
 #: ../data/rh_register.glade.h:112
 msgid "_Minor release:"
-msgstr ""
+msgstr "_Вспомогательный выпуск:"
 
 #: ../data/rh_register.glade.h:113
 msgid "_No thanks, I'll connect later."
