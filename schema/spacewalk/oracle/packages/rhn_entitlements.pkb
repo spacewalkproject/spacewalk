@@ -582,6 +582,7 @@ is
         
         org_id_val number;
         max_members_val number;
+        max_flex_val number;
         current_members_calc number;
         sg_id number;
 
@@ -602,6 +603,12 @@ is
             -- get the max members of the family
             select max_members
             into max_members_val
+            from rhnPrivateChannelFamily
+            where channel_family_id = family.channel_family_id
+            and org_id = org_id_val;
+
+            select fve_max_members
+            into max_flex_val
             from rhnPrivateChannelFamily
             where channel_family_id = family.channel_family_id
             and org_id = org_id_val;
@@ -630,7 +637,8 @@ is
                     -- argh, transposed again?!
                     set_family_count(org_id_val,
                                      family.channel_family_id,
-                                     max_members_val);
+                                     max_members_val, max_flex_val);
+                    --TODO calculate this correctly
                 end if; 
 
            end if;
@@ -1140,13 +1148,18 @@ is
         channel_family_label_in in varchar2,
         from_org_id_in in number,
         to_org_id_in in number,
-        quantity_in in number
+        quantity_in in number,
+        flex_in in number
     )
     is
         prev_ent_count number;
+        prev_ent_count_flex number;
         new_ent_count number;
-    to_org_prev_ent_count number;
-    new_quantity number;
+        new_ent_count_flex number;
+        to_org_prev_ent_count number;
+        to_org_prev_ent_count_flex number;
+        new_quantity number;
+        new_flex number;
         cfam_id       number;
     begin
 
@@ -1177,6 +1190,32 @@ is
                 to_org_prev_ent_count := 0;
         end;
 
+        begin
+            select fve_max_members
+            into prev_ent_count_flex
+            from rhnChannelFamily cf,
+                 rhnPrivateChannelFamily pcf
+            where pcf.org_id = from_org_id_in
+              and pcf.channel_family_id = cf.id
+              and cf.label = channel_family_label_in;
+        exception
+            when NO_DATA_FOUND then
+                rhn_exception.raise_exception(
+                              'not_enough_flex_entitlements_in_base_org');
+        end;
+
+        begin
+            select fve_max_members
+            into to_org_prev_ent_count_flex
+            from rhnChannelFamily cf,
+                 rhnPrivateChannelFamily pcf
+            where pcf.org_id = to_org_id_in
+              and pcf.channel_family_id = cf.id
+              and cf.label = channel_family_label_in;
+        exception
+            when NO_DATA_FOUND then
+                to_org_prev_ent_count := 0;
+        end;
 
         begin
             select id
@@ -1187,13 +1226,18 @@ is
             when NO_DATA_FOUND then
                 rhn_exception.raise_exception(
                               'invalid_channel_family');
-        end;                              
+        end;
 
         new_ent_count := prev_ent_count - quantity_in;
+        new_ent_count_flex := prev_ent_count_flex - flex_in;
 
-    if prev_ent_count > new_ent_count then
+       if prev_ent_count > new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
-    end if;
+       end if;
+
+       if prev_ent_count_flex > new_ent_count_flex then
+            new_flex := to_org_prev_ent_count_flex + flex_in;
+       end if;
 
 
         if new_ent_count < 0 then
@@ -1201,13 +1245,19 @@ is
                           'not_enough_entitlements_in_base_org');
         end if;
 
-        rhn_entitlements.set_family_count(from_org_id_in,
-                                          cfam_id,
-                                          new_ent_count);
+        if new_ent_count_flex < 0 then
+            rhn_exception.raise_exception(
+                          'not_enough_flex_entitlements_in_base_org');
+        end if;
+
+
+
+        rhn_entitlements.set_family_count(from_org_id_in, cfam_id,
+                                           new_ent_count, new_ent_count_flex);
 
         rhn_entitlements.set_family_count(to_org_id_in,
                                           cfam_id,
-                                          new_quantity);
+                                          new_quantity, new_flex);
 
     end assign_channel_entitlement;
 
@@ -1360,9 +1410,8 @@ is
             rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
         else
-            rhn_entitlements.set_family_count(org_id_in,
-                                              cfam_id,
-                                              quantity_in);
+            rhn_entitlements.set_family_count(org_id_in, cfam_id,
+                                              quantity_in, flex_in);
         end if;
 
     end activate_channel_entitlement;
@@ -1442,8 +1491,11 @@ is
         customer_id_in in number,
         channel_family_id_in in number,
         quantity_in in number,
-                flex_in in number
+        flex_in in number
     ) is
+       is_fve_in char;
+       tmp_quantity number;
+
         cursor serverchannels is
             select    sc.server_id,
                     sc.channel_id
@@ -1454,23 +1506,19 @@ is
                 and cfm.channel_id = sc.channel_id
                 and server_id in (
                     select    server_id
-                    from    (
-                        select    server_id,
-                                time,
-                                rownum row_number
+                      from    (
+                        select server_id, time, rownum row_number
                         from    (
-                            select    rs.id                    server_id,
-                                    rcfm.modified            time
-                            from
-                                    rhnServerChannel        rsc,
-                                    rhnChannelFamilyMembers    rcfm,
+                            select rs.id  server_id, rcfm.modified time
+                            from    rhnServerChannel         rsc,
+                                    rhnChannelFamilyMembers  rcfm,
                                     rhnServer                rs
                             where    1=1
                                 and rs.org_id = customer_id_in
                                 and rs.id = rsc.server_id
                                 and rsc.channel_id = rcfm.channel_id
-                                and rcfm.channel_family_id =
-                                    channel_family_id_in
+                                and rcfm.channel_family_id =  channel_family_id_in
+                                and rsc.is_fve = is_fve_in
                                 -- we only want to grab servers consuming
                                 -- physical slots.
                                 and exists (
@@ -1483,7 +1531,7 @@ is
                             order by time asc
                         )
                     )
-                    where row_number > quantity_in
+                    where row_number > tmp_quantity
                 );
     begin
         -- if we get a null customer_id, this is completely bogus.
@@ -1491,15 +1539,22 @@ is
             return;
         end if;
 
-        update        rhnPrivateChannelFamily
-            set        max_members = quantity_in
-            where    1=1
-                and org_id = customer_id_in
-                and channel_family_id = channel_family_id_in;
+        tmp_quantity := quantity_in;
+        is_fve_in := 'N';
 
         for sc in serverchannels loop
             rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
                                                        update_family_countsYN => 0);
+
+        tmp_quantity := flex_in;
+        is_fve_in := 'Y';
+        for sc in serverchannels loop
+            rhn_channel.unsubscribe_server(sc.server_id, sc.channel_id, 1, 1,
+                                                        update_family_countsYN => 0);
+        end loop;
+
+
+
         end loop;
                 rhn_channel.update_family_counts(channel_family_id_in, customer_id_in);
     end prune_family;
@@ -1507,7 +1562,8 @@ is
     procedure set_family_count (
         customer_id_in in number,
         channel_family_id_in in number,
-        quantity_in in number
+        quantity_in in number,
+        flex_in in number
     ) is
         cursor privperms is
             select    1
@@ -1521,31 +1577,40 @@ is
             where    pcf.channel_family_id = channel_family_id_in;
         quantity number;
         done number := 0;
+        flex number;
     begin
         quantity := quantity_in;
         if quantity is not null and quantity < 0 then
             quantity := 0;
         end if;
+        flex := flex_in;
+        if flex is not null and flex < 0 then
+            flex := 0;
+        end if;
+
 
         if customer_id_in is not null then
             for perm in privperms loop
-                rhn_entitlements.prune_family(
-                    customer_id_in,
-                    channel_family_id_in,
-                    quantity
-                );
-                update rhnPrivateChannelFamily
+                rhn_entitlements.prune_family(customer_id_in, channel_family_id_in,
+                    quantity, flex);
+
+               update rhnPrivateChannelFamily
                     set max_members = quantity
                     where org_id = customer_id_in
                         and channel_family_id = channel_family_id_in;
+
+               update rhnPrivateChannelFamily
+                    set fve_max_members = flex
+                    where org_id = customer_id_in
+                        and channel_family_id = channel_family_id_in;
+
                 return;
             end loop;
 
             insert into rhnPrivateChannelFamily (
-                    channel_family_id, org_id, max_members, current_members
+                    channel_family_id, org_id, max_members, current_members, fve_max_members, fve_current_members
                 ) values (
-                    channel_family_id_in, customer_id_in, quantity, 0
-                );
+                    channel_family_id_in, customer_id_in, quantity, 0, flex, 0 );
             return;
         end if;
 
@@ -1554,7 +1619,8 @@ is
                 rhn_entitlements.prune_family(
                     perm.org_id,
                     channel_family_id_in,
-                    quantity
+                    quantity,
+                    flex
                 );
                 if done = 0 then
                     delete from rhnPublicChannelFamily
@@ -1616,62 +1682,6 @@ is
             rhn_entitlements.entitle_server(server.server_id, type_label_in);
         end loop;
     end entitle_last_modified_servers;
-
-    procedure prune_everything (
-        customer_id_in in number
-    ) is
-        cursor everything is
-            -- all our server groups
-            select    sg.id                    id,
-                    'S'                        type,
-                    sg.max_members            quantity
-            from    rhnServerGroup            sg
-            where    sg.org_id = customer_id_in
-            union
-            -- all our user groups
-            select    ug.id                    id,
-                    'U'                        type,
-                    ug.max_members             quantity
-            from    rhnUserGroup            ug
-            where    ug.org_id = customer_id_in
-            union (
-            -- all the channel families we have perms to
-            select    cfp.channel_family_id    id,
-                    'C'                        type,
-                    cfp.max_members            quantity
-            from    rhnOrgChannelFamilyPermissions cfp
-            where    cfp.org_id = customer_id_in
-            union
-            -- plus all the ones we're using that we have no perms for
-            select    cfm.channel_family_id    id,
-                    'C'                        type,
-                    0                        quantity
-            from    rhnChannelFamily        cf,
-                    rhnChannelFamilyMembers    cfm,
-                    rhnServerChannel        sc,
-                    rhnServer                s
-            where    s.org_id = customer_id_in
-                and s.id = sc.server_id
-                and sc.channel_id = cfm.channel_id
-                and cfm.channel_family_id = cf.id
-                and cf.org_id is not null
-                and cf.org_id != customer_id_in
-                and not exists (
-                    select    1
-                    from    rhnOrgChannelFamilyPermissions cfp
-                    where    cfp.org_id = customer_id_in
-                        and cfp.channel_family_id = cfm.channel_family_id
-                    )
-            );
-    begin
-        for one in everything loop
-            if one.type in ('U','S') then
-                prune_group(one.id, one.type, one.quantity);
-            else
-                prune_family(customer_id_in, one.id, one.quantity);
-            end if;
-        end loop;
-    end prune_everything;
 
     procedure subscribe_newest_servers (
         customer_id_in in number
