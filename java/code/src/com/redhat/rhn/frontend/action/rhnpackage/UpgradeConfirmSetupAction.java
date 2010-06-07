@@ -45,12 +45,12 @@ public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
 
     @Override
     protected String getMessageKeyForMany() {
-        return "message.packageinstall.plural";
+        return "message.packageupgrades";
     }
 
     @Override
     protected String getMessageKeyForOne() {
-        return "message.packageinstall";
+        return "message.packageupgrade";
     }
 
     @Override
