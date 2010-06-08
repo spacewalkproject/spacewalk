@@ -99,6 +99,17 @@ HARDWARE_WINDOW_DESC2 = _("Additional hardware information including PCI"
 HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
                              " and network:")
 
+# Packages Window
+PACKAGES_WINDOW         = _("Register a System Profile - Packages")
+PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
+                          " updated software packages are relevant to this"
+                          " system.")
+PACKAGES_WINDOW_DESC2   = _("Include RPM packages installed on this system"
+                          " in my System Profile")
+PACKAGES_WINDOW_UNCHECK = _("You may deselect individual packages by"
+                            " unchecking them below.")
+PACKAGES_WINDOW_PKGLIST = _("Building Package List")
+
 # Product Window
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
