@@ -285,10 +285,10 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         h.execute()
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
+        d = dumper.SatelliteDumper(writer,
             exportLib.ChannelFamiliesDumper(writer,
                 data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
-        dumper.dump()
+        d.dump()
         writer.flush()
         log_debug(4, "OK")
         self.close()
@@ -299,9 +299,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         channels = self._validate_channels(channel_labels=channel_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, ChannelsDumperEx(writer,
+        d = dumper.SatelliteDumper(writer, dumper.ChannelsDumperEx(writer,
             channels=channels.values()))
-        dumper.dump()
+        d.dump()
         writer.flush()
         log_debug(4, "OK")
         self.close()
@@ -352,7 +352,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             except IOError:
                 log_error("Client disconnected prematurely")
                 self.close()
-                raise ClosedConnectionError
+                raise dumper.ClosedConnectionError
         # We're done
         return 0
 
@@ -384,9 +384,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             packages_hash[package_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
+        d = dumper.SatelliteDumper(writer,
             dump_class(writer, packages_hash.values()))
-        dumper.dump()
+        d.dump()
         writer.flush()
         log_debug(4, "OK")
         self.close()
@@ -420,9 +420,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             errata_hash[errata_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            ErrataDumper(writer, errata_hash.values()))
-        dumper.dump()
+        d = dumper.SatelliteDumper(writer,
+            dumper.ErrataDumper(writer, errata_hash.values()))
+        d.dump()
         writer.flush()
         log_debug(4, "OK")
         self.close()
@@ -434,9 +434,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             kickstart_labels=kickstart_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer,
-            KickstartableTreesDumper(writer, kickstarts=kickstarts))
-        dumper.dump()
+        d = dumper.SatelliteDumper(writer,
+            dumper.KickstartableTreesDumper(writer, kickstarts=kickstarts))
+        d.dump()
         writer.flush()
         log_debug(4, "OK")
         self.close()
@@ -445,8 +445,8 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def dump_product_names(self):
         log_debug(4)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumper(writer, exportLib.ProductNamesDumper(writer))
-        dumper.dump()
+        d = dumper.SatelliteDumper(writer, exportLib.ProductNamesDumper(writer))
+        d.dump()
         writer.flush()
         self.close()
         return 0
