@@ -757,10 +757,9 @@ class SendWindow:
         self.name = "SendWindow"
         size = snack._snack.size()
         
-        toplevel = snack.GridForm(screen, _("Send Profile Information to Red Hat Network"),
-                                  1, 2)
+        toplevel = snack.GridForm(screen, SEND_WINDOW, 1, 2)
 
-        text = snack.TextboxReflowed(size[0]-15, SEND_WINDOW)
+        text = snack.TextboxReflowed(size[0]-15, SEND_WINDOW_DESC)
         toplevel.add(text, 0, 0)
 
         # BUTTON BAR

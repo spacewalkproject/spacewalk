@@ -122,11 +122,12 @@ SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up fo
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 # Send Window
-SEND_WINDOW             = _("We are finished collecting information for the System Profile.\n\n"
-                            "Press \"Next\" to send this System Profile to Red Hat Network.  "
-                            "Click \"Cancel\" and no information will be sent.  "
-                            "You can run the registration program later by "
-                            "typing `rhn_register` at the command line.")
+SEND_WINDOW      = _("Send Profile Information to Red Hat Network")
+SEND_WINDOW_DESC = _("We are finished collecting information for the System Profile.\n\n"
+                     "Press \"Next\" to send this System Profile to Red Hat Network.  "
+                     "Click \"Cancel\" and no information will be sent.  "
+                     "You can run the registration program later by "
+                     "typing `rhn_register` at the command line.")
 
 # Finish Window
 FINISH_WINDOW           = _("Finish setting up software updates")
