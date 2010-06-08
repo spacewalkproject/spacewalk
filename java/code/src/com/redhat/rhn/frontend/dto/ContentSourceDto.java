@@ -22,6 +22,7 @@ package com.redhat.rhn.frontend.dto;
 public class ContentSourceDto extends BaseDto {
 
     private Long id;
+    private Long channels;
     private String label;
 
     /**
@@ -52,6 +53,21 @@ public class ContentSourceDto extends BaseDto {
     public void setLabel(String labelIn) {
         this.label = labelIn;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long getChannels() {
+        return channels;
+    }
+
+    /**
+     * @param idIn The id to set.
+     */
+    public void setChannels(Long cIn) {
+        this.channels = cIn;
+    }
+
 
 
 }
