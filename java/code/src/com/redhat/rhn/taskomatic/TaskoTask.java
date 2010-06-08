@@ -27,27 +27,13 @@ import java.util.Date;
  * TaskoTask
  * @version $Rev$
  */
-public class TaskoTask implements Job {
+public class TaskoTask {
 
-    private static Logger log = Logger.getLogger(TaskoTask.class);
     private Long id;
     private String name;
     private String taskClass;
     private Date created;
     private Date modified;
-
-    public void execute(JobExecutionContext context)
-        throws JobExecutionException {
-
-        // if task type already running, reschedule
-        // otherwise
-        Date start = new Date();
-        JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-        String jobSays = dataMap.getString("param");
-        Date end = new Date();
-        log.info("Running TaskoTask from " + start + " till " + end + " params: " + jobSays);
-    }
-
 
     /**
      * @return Returns the id.

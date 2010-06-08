@@ -24,6 +24,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="ordering" type="long" column="ordering"/>
         <property name="startIf" type="string" column="start_if"/>
 
+        <set name="runHistory" inverse="true">
+            <key column="template_id"/>
+            <one-to-many class="com.redhat.rhn.taskomatic.TaskoRun"/>
+        </set>
+
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"

@@ -37,12 +37,16 @@ public class TaskoBunch implements Job {
     private Long id;
     private String name;
     private String description;
+    private String orgTask;
     private Date activeFrom;
     private Date activeTill;
     private List<TaskoTemplate> templates = new ArrayList();
     private Date created;
     private Date modified;
 
+    /**
+     * {@inheritDoc}
+     */
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();
@@ -50,12 +54,10 @@ public class TaskoBunch implements Job {
         log.info("Starting " + this.name + " at " + new Date());
 
         for (TaskoTemplate template : this.templates) {
-            if (template == null) {
-                continue;
-            }
             TaskoRun taskRun = new TaskoRun(orgId, template);
             taskRun.execute(context);
         }
+        TaskoFactory.commitTransaction();
 
         log.info("Finishing " + this.name + " at " + new Date());
     }
@@ -170,5 +172,21 @@ public class TaskoBunch implements Job {
      */
     public void setTemplates(List<TaskoTemplate> templates) {
         this.templates = templates;
+    }
+
+
+    /**
+     * @return Returns the orgTask.
+     */
+    public String getOrgTask() {
+        return orgTask;
+    }
+
+
+    /**
+     * @param orgTask The orgTask to set.
+     */
+    public void setOrgTask(String orgTask) {
+        this.orgTask = orgTask;
     }
 }

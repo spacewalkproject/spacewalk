@@ -14,7 +14,7 @@
 --
 
 
-INSERT INTO rhnTaskoBunch (id, name, description, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status', 'daily-status description', sysdate);
+INSERT INTO rhnTaskoBunch (id, name, description, org_task, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status', 'daily-status description', 'N', sysdate);
 
 commit;
