@@ -649,6 +649,6 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
         eb.append(this.getAdvisoryRel());
         eb.append(this.getAdvisorySynopsis());
         eb.append(this.getOrg());
-        return eb.hashCode();
+        return eb.toHashCode();
     }
 }
