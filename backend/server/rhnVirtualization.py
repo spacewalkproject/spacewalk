@@ -62,6 +62,10 @@ class ServerStateType:
 class VirtualizationType:
     PARA        = 'para_virtualized'
     FULLY       = 'fully_virtualized'
+    QEMU        = 'qemu'
+    HYPERV      = 'hyperv'
+    VMWARE      = 'vmware'
+    VIRTAGE     = 'virtage'
 
 class IdentityType:
     HOST        = 'host'
