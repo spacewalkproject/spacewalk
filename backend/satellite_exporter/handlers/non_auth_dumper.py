@@ -38,7 +38,7 @@ class NullPathPackageError(Exception):
 class MissingPackageError(Exception):
     pass
 
-class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
+class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def __init__(self, req):
         rhnHandler.__init__(self)
         self.compress_level = 5

@@ -533,9 +533,6 @@ class XML_Dumper:
 
         return result
 
-class XML_DumperEx(XML_Dumper):
-    pass
-
 class SatelliteDumper(exportLib.SatelliteDumper):
     def set_attributes(self):
         """ Overriding with our own version """
