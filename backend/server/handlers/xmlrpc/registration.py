@@ -69,6 +69,38 @@ def RegistrationNumber(nr):
         return None     
     return ret
 
+def parse_smbios(smbios):
+    vendor = smbios.get('smbios.bios.vendor')
+    serial = smbios.get('smbios.system.serial', '')
+    manufacturer = smbios.get('smbios.system.manufacturer')
+    product = smbios.get('smbios.system.product')
+
+    # XXX need to worry about uuid being none for other virt types and
+    # available subs check
+    uuid = None
+    if smbios.has_key('smbios.system.uuid'):
+        uuid = smbios['smbios.system.uuid']
+        uuid = uuid.replace('-', '')
+
+    if vendor == "QEMU" and uuid is not None:
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    elif manufacturer == 'Microsoft Corporation' and \
+            product == 'Virtual Machine':
+        if uuid is None:
+            uuid = "flex-guest"
+        return (rhnVirtualization.VirtualizationType.HYPERV, uuid)
+    elif serial.startswith('VMware-'):
+        if uuid is None:
+            uuid = "flex-guest"
+        return (rhnVirtualization.VirtualizationType.VMWARE, uuid)
+    elif manufacturer == 'HITACHI' and product.endswith(' HVM LPAR'):
+        if uuid is None:
+            uuid = "flex-guest"
+        return (rhnVirtualization.VirtualizationType.VIRTAGE, uuid)
+    else:
+        return (None, None)
+
+
 class Registration(rhnHandler):
     """ encapsulate functions that we will provide for the outside world """
     def __init__(self):
@@ -332,15 +364,11 @@ class Registration(rhnHandler):
             newserv.virt_uuid = None
             newserv.virt_type = None
 
-        # check for kvm/qemu guest info
-        if data.has_key('smbios'):
-            smbios = data['smbios']
-            if smbios.has_key('smbios.bios.vendor') and \
-                smbios['smbios.bios.vendor'] == 'QEMU' and \
-                smbios.has_key('smbios.system.uuid'):
 
-                newserv.virt_type = rhnVirtualization.VirtualizationType.FULLY
-                newserv.virt_uuid = smbios['smbios.system.uuid'].replace('-', '')
+        # If we didn't find virt info from xen, check smbios
+        if data.has_key('smbios') and newserv.virt_uuid is None:
+            (newserv.virt_type, newserv.virt_uuid) = \
+                    parse_smbios(data['smbios'])
 
         if tokens_obj.forget_rereg_token:
 	    # At this point we retained the server with re-activation
