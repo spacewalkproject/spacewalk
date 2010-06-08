@@ -735,11 +735,6 @@ class ContainerWriter:
 # based on the creation date
 # XXX No caching for now
 class ChannelsDumper(exportLib.ChannelsDumper):
-    def __init__(self, writer, channels):
-        # if snapshot is None, then all the objects from the channel are
-        # returned - this is useful for snapshotting
-        exportLib.ChannelsDumper.__init__(self, writer, channels)
-
     def set_iterator(self):
         if not self._channels:
             # Nothing to do
