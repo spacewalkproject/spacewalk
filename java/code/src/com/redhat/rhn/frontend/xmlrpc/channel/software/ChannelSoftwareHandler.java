@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -57,6 +58,7 @@ import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -1769,13 +1771,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
                     mergeTo.getLabel()));
         }
 
-        Set<Errata> toErrata = mergeTo.getErratas();
-        Set<Errata> fromErrata = mergeFrom.getErratas();
-        Set<Errata> differentErrata = errataDiff(fromErrata, toErrata);
+        Set<Errata> mergedErrata =
+            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
 
-        mergeTo.getErratas().addAll(differentErrata);
-        ChannelFactory.save(mergeTo);
-        return differentErrata.toArray();
+        return mergedErrata.toArray();
     }
     
     /**
@@ -1823,30 +1822,60 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Set<Errata> toErrata = mergeTo.getErratas();
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
-        Set<Errata> differentErrata = errataDiff(new HashSet(fromErrata), toErrata);
 
-        mergeTo.getErratas().addAll(differentErrata);
-        ChannelFactory.save(mergeTo);
-        return differentErrata.toArray();
+        Set<Errata> mergedErrata =
+            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
+
+        return mergedErrata.toArray();
     }
 
-    private Set<Errata> errataDiff(Set<Errata> from, Set<Errata> to) {
-        Set<Errata> diff = new HashSet<Errata>();
-        for (Errata errata : from) {
-            if (!errataInSet(to, errata)) {
-                diff.add(errata);
+    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> fromErrata,
+                                                                Channel toChannel) {
+        Set<Errata> toErrata = toChannel.getErratas();
+        Set<Errata> diffErrata = new HashSet(fromErrata);
+
+        for (Iterator iter = fromErrata.iterator(); iter.hasNext();) {
+            Errata errata = (Errata) iter.next();
+            if (toErrata.contains(errata)) {
+                // remove errata already in channel
+                diffErrata.remove(errata);
+            }
+            else if (errata.isCloned()) {
+                Errata origErrata = ((PublishedClonedErrata) errata).getOriginal();
+                if (cloneInSet(user, origErrata, toErrata)) {
+                    // remove errata those brothers already in channel
+                    // (different clones of the same original)
+                    diffErrata.remove(errata);
+                }
+            }
+            else {
+                if (cloneInSet(user, errata, toErrata)) {
+                    // remove errata those clones already in channel
+                    diffErrata.remove(errata);
+                }
             }
         }
-        return diff;
+
+        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
+        ChannelFactory.save(toChannel);
+
+        return diffErrata;
     }
 
-    private boolean errataInSet(Set<Errata> where, Errata what) {
-        for (Errata errata : where) {
-            if (errata.equals(what)) {
-                return true;
-            }
+    private Set<Long> getErrataIds(Set<Errata> errata) {
+        Set<Long> ids = new HashSet();
+        for (Errata erratum : errata) {
+            ids.add(erratum.getId());
         }
-        return false;
+        return ids;
+    }
+
+    private Boolean cloneInSet(User user, Errata original, Set<Errata> set) {
+        List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                user, original);
+        int numOfClones = clones.size();
+        clones.removeAll(set);
+        return (clones.size() != numOfClones);
     }
 
     /*
