@@ -735,6 +735,20 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>      
 
+      <trans-unit id="Sync">
+<source>Sync</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="Add / Remove">
+<source>Add / Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="List / Leave">
 <source>List / Leave</source>
         <context-group name="ctx">

@@ -50,6 +50,12 @@
   </rhn-tab>
   <rhn-tab name="Repositories" acl="channel_exists()">
     <rhn-tab-url>/rhn/channels/manage/Repositories.do</rhn-tab-url>
+    <rhn-tab name="Add / Remove">
+      <rhn-tab-url>/rhn/channels/manage/Repositories.do</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Sync">
+      <rhn-tab-url>/rhn/channels/manage/Sync.do</rhn-tab-url>
+    </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Patches" acl="channel_exists();channel_packaging_type(sysv-solaris)" on-click="Sniglets::Lists->navi_empty_set" node-id="remove_channel_packages">
     <rhn-tab-url>/network/software/channels/manage/patches/index.pxt</rhn-tab-url>
