@@ -97,6 +97,64 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         """
         self._channel_family_query = None
 
+    def _send_headers(self, error=0, init_compressed_stream=1):
+        log_debug(4, "is_closed", self._is_closed)
+        if self._is_closed:
+            raise Exception, "Trying to write to a closed connection"
+        if self._headers_sent:
+            return
+        self._headers_sent = 1
+        if self.compress_level:
+            self.headers_out['Content-Encoding'] = 'gzip'
+        # Send the headers
+        if error:
+            # No compression
+            self.compress_level = 0
+            self._raw_stream.content_type = 'text/xml'
+        for h, v in self.headers_out.items():
+            self._raw_stream.headers_out[h] = str(v)
+        self._raw_stream.send_http_header()
+        # If need be, start gzipping
+        if self.compress_level and init_compressed_stream:
+            log_debug(4, "Compressing with factor %s" % self.compress_level)
+            self._compressed_stream = gzip.GzipFile(None, "wb",
+                self.compress_level, self._raw_stream)
+
+    def send(self, data):
+        log_debug(3, "Sending %d bytes" % len(data))
+        try:
+            self._send_headers()
+            if self._compressed_stream:
+                log_debug(4, "Sending through a compressed stream")
+                self._compressed_stream.write(data)
+            else:
+                self._raw_stream.write(data)
+        except IOError:
+            log_error("Client appears to have closed connection")
+            self.close()
+            raise dumper.ClosedConnectionError
+        log_debug(5, "Bytes sent", len(data))
+
+    write = send
+
+    def close(self):
+        log_debug(2, "Closing")
+        if self._is_closed:
+            log_debug(3, "Already closed")
+            return
+
+        if self._compressed_stream:
+            log_debug(5, "Closing a compressed stream")
+            try:
+                self._compressed_stream.close()
+            except IOError, e:
+                # Remote end has closed connection already
+                log_error("Error closing the stream", str(e))
+                pass
+            self._compressed_stream = None
+        self._is_closed = 1
+        log_debug(3, "Closed")
+
     def set_channel_family_query(self, channel_labels=[]):
         if not channel_labels:
             # All null-pwned channel families
