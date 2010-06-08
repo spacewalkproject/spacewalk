@@ -73,9 +73,6 @@ IS
 
     FUNCTION channel_priority(channel_id_in in number) RETURN number;
     
-    PROCEDURE bulk_subscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER);
-    PROCEDURE bulk_unsubscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER);
-    
     PROCEDURE bulk_server_base_change(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER);
     procedure bulk_server_basechange_from(
 	set_label_in in varchar2,

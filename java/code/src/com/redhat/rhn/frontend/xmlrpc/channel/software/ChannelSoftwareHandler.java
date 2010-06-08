@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.LookupException;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
@@ -30,6 +29,7 @@ import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -57,6 +57,7 @@ import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -1759,23 +1760,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
 
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
-        }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure",
-                    mergeTo.getLabel()));
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> toErrata = mergeTo.getErratas();
-        Set<Errata> fromErrata = mergeFrom.getErratas();
-        Set<Errata> differentErrata = errataDiff(fromErrata, toErrata);
+        Set<Errata> mergedErrata =
+            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
 
-        mergeTo.getErratas().addAll(differentErrata);
-        ChannelFactory.save(mergeTo);
-        return differentErrata.toArray();
+        return mergedErrata.toArray();
     }
     
     /**
@@ -1810,43 +1802,74 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
 
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
-        }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure",
-                    mergeTo.getLabel()));
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
 
         Set<Errata> toErrata = mergeTo.getErratas();
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
-        Set<Errata> differentErrata = errataDiff(new HashSet(fromErrata), toErrata);
 
-        mergeTo.getErratas().addAll(differentErrata);
-        ChannelFactory.save(mergeTo);
-        return differentErrata.toArray();
+        Set<Errata> mergedErrata =
+            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
+
+        return mergedErrata.toArray();
     }
 
-    private Set<Errata> errataDiff(Set<Errata> from, Set<Errata> to) {
-        Set<Errata> diff = new HashSet<Errata>();
-        for (Errata errata : from) {
-            if (!errataInSet(to, errata)) {
-                diff.add(errata);
+    private Set<Errata> mergeErrataToChannel(User user, Set<Errata> fromErrata,
+                                                                Channel toChannel) {
+        Set<Errata> toErrata = toChannel.getErratas();
+        Set<Errata> diffErrata = new HashSet(fromErrata);
+
+        for (Iterator iter = fromErrata.iterator(); iter.hasNext();) {
+            Errata errata = (Errata) iter.next();
+            if (toErrata.contains(errata)) {
+                // remove errata already in channel
+                diffErrata.remove(errata);
+            }
+            else if (errata.isCloned()) {
+                Errata origErrata = ((PublishedClonedErrata) errata).getOriginal();
+                if (cloneInSet(user, origErrata, toErrata)) {
+                    // remove errata those brothers already in channel
+                    // (different clones of the same original)
+                    diffErrata.remove(errata);
+                }
+            }
+            else {
+                if (cloneInSet(user, errata, toErrata)) {
+                    // remove errata those clones already in channel
+                    diffErrata.remove(errata);
+                }
             }
         }
-        return diff;
+
+        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
+        for (Errata errata : diffErrata) {
+            for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
+                Package pkg = (Package) iter.next();
+                toChannel.addPackage(pkg, user);
+            }
+        }
+        ChannelFactory.save(toChannel);
+        ChannelManager.refreshWithNewestPackages(toChannel, "api");
+
+        return diffErrata;
     }
 
-    private boolean errataInSet(Set<Errata> where, Errata what) {
-        for (Errata errata : where) {
-            if (errata.equals(what)) {
-                return true;
-            }
+    private Set<Long> getErrataIds(Set<Errata> errata) {
+        Set<Long> ids = new HashSet();
+        for (Errata erratum : errata) {
+            ids.add(erratum.getId());
         }
-        return false;
+        return ids;
+    }
+
+    private Boolean cloneInSet(User user, Errata original, Set<Errata> set) {
+        List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                user, original);
+        int numOfClones = clones.size();
+        clones.removeAll(set);
+        return (clones.size() != numOfClones);
     }
 
     /*
@@ -1887,17 +1910,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
-        
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
+
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure", 
-                    mergeTo.getLabel()));
-        }
-        
+
         List<Package> differentPackages = new ArrayList<Package>();
         
         Set<Package> toPacks = mergeTo.getPackages();

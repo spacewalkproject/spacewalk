@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -108,7 +110,7 @@ public class PackageOverview extends BaseDto {
      * @return Returns the summary.
      */
     public String getSummary() {
-        return summary.trim();
+        return StringUtils.defaultString(summary).trim();
     }
     /**
      * @param summaryIn The summary to set.

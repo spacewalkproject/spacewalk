@@ -38,10 +38,23 @@ class NullPathPackageError(Exception):
 class MissingPackageError(Exception):
     pass
 
-class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
+class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def __init__(self, req):
         rhnHandler.__init__(self)
-        dumper.XML_DumperEx.__init__(self, req)
+        self.compress_level = 5
+        self.headers_out = UserDictCase()
+        self._raw_stream = req
+        self._raw_stream.content_type = 'application/octet-stream'
+        # State machine
+        self._headers_sent = 0
+        self._is_closed = 0
+        self._compressed_stream = None
+        # Redefine in subclasses
+        self._channel_family_query = """
+            select pcf.channel_family_id, to_number(null) quantity
+              from rhnPublicChannelFamily pcf
+        """
+
         # Don't check for abuse
         self.check_for_abuse = 0
 
@@ -83,6 +96,64 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
               from rhnChannelFamily
         """
         self._channel_family_query = None
+
+    def _send_headers(self, error=0, init_compressed_stream=1):
+        log_debug(4, "is_closed", self._is_closed)
+        if self._is_closed:
+            raise Exception, "Trying to write to a closed connection"
+        if self._headers_sent:
+            return
+        self._headers_sent = 1
+        if self.compress_level:
+            self.headers_out['Content-Encoding'] = 'gzip'
+        # Send the headers
+        if error:
+            # No compression
+            self.compress_level = 0
+            self._raw_stream.content_type = 'text/xml'
+        for h, v in self.headers_out.items():
+            self._raw_stream.headers_out[h] = str(v)
+        self._raw_stream.send_http_header()
+        # If need be, start gzipping
+        if self.compress_level and init_compressed_stream:
+            log_debug(4, "Compressing with factor %s" % self.compress_level)
+            self._compressed_stream = gzip.GzipFile(None, "wb",
+                self.compress_level, self._raw_stream)
+
+    def send(self, data):
+        log_debug(3, "Sending %d bytes" % len(data))
+        try:
+            self._send_headers()
+            if self._compressed_stream:
+                log_debug(4, "Sending through a compressed stream")
+                self._compressed_stream.write(data)
+            else:
+                self._raw_stream.write(data)
+        except IOError:
+            log_error("Client appears to have closed connection")
+            self.close()
+            raise dumper.ClosedConnectionError
+        log_debug(5, "Bytes sent", len(data))
+
+    write = send
+
+    def close(self):
+        log_debug(2, "Closing")
+        if self._is_closed:
+            log_debug(3, "Already closed")
+            return
+
+        if self._compressed_stream:
+            log_debug(5, "Closing a compressed stream")
+            try:
+                self._compressed_stream.close()
+            except IOError, e:
+                # Remote end has closed connection already
+                log_error("Error closing the stream", str(e))
+                pass
+            self._compressed_stream = None
+        self._is_closed = 1
+        log_debug(3, "Closed")
 
     def set_channel_family_query(self, channel_labels=[]):
         if not channel_labels:
@@ -205,6 +276,180 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
         else:
             h.executemany(snapshot_channel_id=snapshot_channel_ids,
                 obj_id=obj_ids, last_modified=last_modifieds)
+
+    # Dumper functions here
+    def dump_channel_families(self, virt_filter=0):
+        log_debug(2)
+
+        h = self.get_channel_families_statement()
+        h.execute()
+
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer,
+            exportLib.ChannelFamiliesDumper(writer,
+                data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
+        d.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_channels(self, channel_labels=None):
+        log_debug(2)
+        channels = self._validate_channels(channel_labels=channel_labels)
+
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer, dumper.ChannelsDumperEx(writer,
+            channels=channels.values()))
+        d.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_channel_packages_short(self, channel_label, last_modified):
+        log_debug(2, channel_label)
+        channels = self._validate_channels(channel_labels=[channel_label])
+        channel_obj = channels[channel_label]
+        db_last_modified = int(rhnLib.timestamp(channel_obj['last_modified']))
+        last_modified = int(rhnLib.timestamp(last_modified))
+        log_debug(3, "last modified", last_modified, "db last modified",
+            db_last_modified)
+        if last_modified != db_last_modified:
+            raise rhnFault(3013, "The requested channel version does not match"
+                " the upstream version", explain=0)
+        channel_id = channel_obj['channel_id']
+        key = "xml-channel-packages/rhn-channel-%d.data" % channel_id
+        # Try to get everything off of the cache
+        val = rhnCache.get(key, compressed=0, raw=1, modified=last_modified)
+        if val is None:
+            # Not generated yet
+            log_debug(4, "Cache MISS for %s (%s)" % (channel_label,
+                channel_id))
+            stream = self._cache_channel_packages_short(channel_id, key,
+                last_modified)
+        else:
+            log_debug(4, "Cache HIT for %s (%s)" % (channel_label,
+                channel_id))
+            temp_stream = tempfile.TemporaryFile()
+            temp_stream.write(val)
+            temp_stream.flush()
+            stream = self._normalize_compressed_stream(temp_stream)
+
+        # Copy the results to the output stream
+        # They shold be already compressed if they were requested to be
+        # compressed
+        buffer_size = 16384
+        # Send the HTTP headers - but don't init the compressed stream since
+        # we send the data ourselves
+        self._send_headers(init_compressed_stream=0)
+        while 1:
+            buff = stream.read(buffer_size)
+            if not buff:
+                break
+            try:
+                self._raw_stream.write(buff)
+            except IOError:
+                log_error("Client disconnected prematurely")
+                self.close()
+                raise dumper.ClosedConnectionError
+        # We're done
+        return 0
+
+    def _packages(self, packages, prefix, dump_class, sources=0):
+        if sources:
+            h = self.get_source_packages_statement()
+        else:
+            h = self.get_packages_statement()
+
+        packages_hash = {}
+        for package in packages:
+            package = str(package)
+            if package[:len(prefix)] != prefix:
+                raise rhnFault(3002, "Invalid package name %s" % package)
+            package_id = package[len(prefix):]
+            try:
+                package_id = int(package_id)
+            except ValueError:
+                raise rhnFault(3002, "Invalid package name %s" % package)
+            if packages_hash.has_key(package_id):
+                # Already verified
+                continue
+            h.execute(package_id=package_id)
+            row = h.fetchone_dict()
+            if not row:
+                # XXX Silently ignore it?
+                raise rhnFault(3003, "No such package %s" % package)
+            # Saving the row, it's handy later when we create the iterator
+            packages_hash[package_id] = row
+
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer,
+            dump_class(writer, packages_hash.values()))
+        d.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_errata(self, errata):
+        log_debug(2)
+
+        h = self.get_errata_statement()
+
+        errata_hash = {}
+        prefix = 'rhn-erratum-'
+        for erratum in errata:
+            erratum = str(erratum)
+            if erratum[:len(prefix)] != prefix:
+                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+            errata_id = erratum[len(prefix):]
+            try:
+                errata_id = int(errata_id)
+            except ValueError:
+                raise rhnFault(3004, "Wrong erratum name %s" % erratum)
+            if errata_hash.has_key(errata_id):
+                # Already verified
+                continue
+            h.execute(errata_id=errata_id)
+            row = h.fetchone_dict()
+            if not row:
+                # XXX Silently ignore it?
+                raise rhnFault(3005, "No such erratum %s" % erratum)
+            # Saving the row, it's handy later when we create the iterator
+            errata_hash[errata_id] = row
+
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer,
+            dumper.ErrataDumper(writer, errata_hash.values()))
+        d.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_kickstartable_trees(self, kickstart_labels=None):
+        log_debug(2)
+        kickstarts = self._validate_kickstarts(
+            kickstart_labels=kickstart_labels)
+
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer,
+            dumper.KickstartableTreesDumper(writer, kickstarts=kickstarts))
+        d.dump()
+        writer.flush()
+        log_debug(4, "OK")
+        self.close()
+        return 0
+
+    def dump_product_names(self):
+        log_debug(4)
+        writer = self._get_xml_writer()
+        d = dumper.SatelliteDumper(writer, exportLib.ProductNamesDumper(writer))
+        d.dump()
+        writer.flush()
+        self.close()
+        return 0
 
     def arches(self):
         return self.dump_arches(rpm_arch_type_only=1)
@@ -412,21 +657,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_DumperEx):
     def close_rpm(self):
         self._is_closed = 1
 
-    def _get_package_id(package, prefix):
-        """ Extracts the package id from a string rhn-package-12345 """
-        log_debug(4, package, prefix)
-        if package[:len(prefix)] != prefix:
-            raise rhnFault(3002, "Invalid package name %s" % package)
-        package_id = package[len(prefix):]
-        try:
-            package_id = int(package_id)
-        except ValueError:
-            raise rhnFault(3002, "Invalid package id %s" % package)
-        return package_id
-
-    _get_package_id = staticmethod(_get_package_id)
-
-
     def _respond_xmlrpc(self, data):
         # Marshal
         s = xmlrpclib.dumps((data, ))
@@ -489,27 +719,10 @@ class ContainerWriter:
 # Overwrite the ChannelsDumper class to filter packages/source packages/errata
 # based on the creation date
 # XXX No caching for now
-class ChannelsDumper(exportLib.ChannelsDumper):
-    def __init__(self, writer, channels):
-        # if snapshot is None, then all the objects from the channel are
-        # returned - this is useful for snapshotting
-        exportLib.ChannelsDumper.__init__(self, writer, channels)
-
-    def set_iterator(self):
-        if not self._channels:
-            # Nothing to do
-            return
-
-        # Import the query from the dumper.ChannelsDumper class
-        h = rhnSQL.prepare(dumper.ChannelsDumper._query_list_channels)
-        return dumper.QueryIterator(statement=h, params=self._channels)
-
+class ChannelsDumper(dumper.ChannelsDumper):
     def dump_subelement(self, data):
         c = exportLib.ChannelDumper(self._writer, data)
-        try:
-            c.dump()
-        except:
-            raise
+        c.dump()
 
 _query_lookup_last_modified_packages = rhnSQL.Statement("""
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified

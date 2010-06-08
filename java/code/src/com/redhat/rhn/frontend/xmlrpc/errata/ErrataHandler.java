@@ -42,11 +42,13 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
 import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
@@ -869,13 +871,11 @@ public class ErrataHandler extends BaseHandler {
         if (channel == null) {
             throw new NoSuchChannelException();
         }
-        //do a user permission check
-        if (!ChannelManager.verifyChannelAdmin(loggedInUser, channel.getId())) {
-            throw new InvalidChannelRoleException(channel.getLabel());
+
+        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
+            throw new PermissionCheckFailureException();
         }
 
-        channel = ChannelFactory.lookupByIdAndUser(channel.getId(), loggedInUser);
-        
         List errataToClone = new ArrayList();
         List toReturn = new ArrayList();
         

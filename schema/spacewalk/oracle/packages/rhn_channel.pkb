@@ -275,15 +275,6 @@ IS
         RETURN 0;
     END;
 
-    PROCEDURE bulk_subscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
-    IS
-    BEGIN
-        FOR server IN rhn_set.set_iterator(set_label_in, set_uid_in)
-        LOOP
-            rhn_channel.subscribe_server(server.element, channel_id_in, 0, set_uid_in);
-        END LOOP server;
-    END bulk_subscribe_server;
-
     PROCEDURE bulk_server_base_change(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
     IS
     BEGIN
@@ -641,14 +632,6 @@ IS
         end if;
     END unsubscribe_server;
 
-    PROCEDURE bulk_unsubscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
-    IS
-    BEGIN
-        FOR server IN rhn_set.set_iterator(set_label_in, set_uid_in)
-        LOOP
-            rhn_channel.unsubscribe_server(server.element, channel_id_in, 0);
-        END LOOP server;
-    END bulk_unsubscribe_server;
 
     FUNCTION family_for_channel(channel_id_in IN NUMBER)
     RETURN NUMBER
