@@ -657,21 +657,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def close_rpm(self):
         self._is_closed = 1
 
-    def _get_package_id(package, prefix):
-        """ Extracts the package id from a string rhn-package-12345 """
-        log_debug(4, package, prefix)
-        if package[:len(prefix)] != prefix:
-            raise rhnFault(3002, "Invalid package name %s" % package)
-        package_id = package[len(prefix):]
-        try:
-            package_id = int(package_id)
-        except ValueError:
-            raise rhnFault(3002, "Invalid package id %s" % package)
-        return package_id
-
-    _get_package_id = staticmethod(_get_package_id)
-
-
     def _respond_xmlrpc(self, data):
         # Marshal
         s = xmlrpclib.dumps((data, ))
