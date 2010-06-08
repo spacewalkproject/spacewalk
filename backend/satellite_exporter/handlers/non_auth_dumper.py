@@ -746,10 +746,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
 
     def dump_subelement(self, data):
         c = exportLib.ChannelDumper(self._writer, data)
-        try:
-            c.dump()
-        except:
-            raise
+        c.dump()
 
 _query_lookup_last_modified_packages = rhnSQL.Statement("""
     select TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') last_modified
