@@ -1761,14 +1761,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
 
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
-        }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure",
-                    mergeTo.getLabel()));
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
 
         Set<Errata> mergedErrata =
@@ -1809,14 +1803,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
 
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
-        }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure",
-                    mergeTo.getLabel()));
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
 
         Set<Errata> toErrata = mergeTo.getErratas();
