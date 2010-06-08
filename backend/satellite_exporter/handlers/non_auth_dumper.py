@@ -734,16 +734,7 @@ class ContainerWriter:
 # Overwrite the ChannelsDumper class to filter packages/source packages/errata
 # based on the creation date
 # XXX No caching for now
-class ChannelsDumper(exportLib.ChannelsDumper):
-    def set_iterator(self):
-        if not self._channels:
-            # Nothing to do
-            return
-
-        # Import the query from the dumper.ChannelsDumper class
-        h = rhnSQL.prepare(dumper.ChannelsDumper._query_list_channels)
-        return dumper.QueryIterator(statement=h, params=self._channels)
-
+class ChannelsDumper(dumper.ChannelsDumper):
     def dump_subelement(self, data):
         c = exportLib.ChannelDumper(self._writer, data)
         c.dump()
