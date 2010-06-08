@@ -76,6 +76,40 @@ LOGIN_TIP         = _("Tip: Forgot your login or password?  Contact your "
 USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
 
+# OS Release Window
+SELECT_OSRELEASE             = _("Select Operating System Release")
+OS_VERSION                   = _("Operating System version:")
+MINOR_RELEASE                = _(" Minor Release: ")
+LIMITED_UPDATES              = _("Limited Updates Only")
+ALL_UPDATES                  = _("All available updates")
+CONFIRM_OS_RELEASE_SELECTION = _("Confirm operating system release selection")
+CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
+                                 " software channel to receive all available"
+                                 " updates.")
+
+# Hardware Window
+HARDWARE_WINDOW = _("Register a System Profile - Hardware")
+HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
+                          " you choose to identify this System Profile"
+                          " on the Red Hat Network web pages. Optionally,"
+                          " include a computer serial or identification number.")
+HARDWARE_WINDOW_DESC2 = _("Additional hardware information including PCI"
+                          " devices, disk sizes and mount points will be"
+                          " included in the profile.")
+HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
+                             " and network:")
+
+# Packages Window
+PACKAGES_WINDOW         = _("Register a System Profile - Packages")
+PACKAGES_WINDOW_DESC1   = _("RPM information is important to determine what"
+                          " updated software packages are relevant to this"
+                          " system.")
+PACKAGES_WINDOW_DESC2   = _("Include RPM packages installed on this system"
+                          " in my System Profile")
+PACKAGES_WINDOW_UNCHECK = _("You may deselect individual packages by"
+                            " unchecking them below.")
+PACKAGES_WINDOW_PKGLIST = _("Building Package List")
+
 # Product Window
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
@@ -83,15 +117,20 @@ HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? "
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
+SYSTEM_ALREADY_SETUP = _("System software updates already set up")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
 # Send Window
-SEND_WINDOW             = _("We are finished collecting information for the System Profile.\n\n"
-                            "Press \"Next\" to send this System Profile to Red Hat Network.  "
-                            "Click \"Cancel\" and no information will be sent.  "
-                            "You can run the registration program later by "
-                            "typing `rhn_register` at the command line.")
+SEND_WINDOW      = _("Send Profile Information to Red Hat Network")
+SEND_WINDOW_DESC = _("We are finished collecting information for the System Profile.\n\n"
+                     "Press \"Next\" to send this System Profile to Red Hat Network.  "
+                     "Click \"Cancel\" and no information will be sent.  "
+                     "You can run the registration program later by "
+                     "typing `rhn_register` at the command line.")
+
+# Sending Window
+SENDING_WINDOW = _("Sending Profile to Red Hat Network")
 
 # Finish Window
 FINISH_WINDOW           = _("Finish setting up software updates")

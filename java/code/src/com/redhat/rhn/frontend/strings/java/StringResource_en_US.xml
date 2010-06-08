@@ -3584,22 +3584,6 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       
-      <trans-unit id="message.packageinstall">
-<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/details/UpgradeConfirm.do</context>
-          <context context-type="paramnotes">1 package install has been scheduled for workstation3.</context>
-        </context-group>
-      </trans-unit>
-      
-      <trans-unit id="message.packageinstall.plural">
-<source>&lt;strong&gt;{0}&lt;/strong&gt; package installs have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/packages/details/UpgradeConfirm.do</context>
-          <context context-type="paramnotes">46 package installs have been scheduled for workstation3.</context>
-        </context-group>
-      </trans-unit>
-      
       <trans-unit id="message.packagerefresh">
 <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}&quot;&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}&quot;&gt;{2}&lt;/a&gt;.</source>
         <context-group name="ctx">

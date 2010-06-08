@@ -82,7 +82,10 @@ def main():
         if OPTIONS.verbose:
             print "Channel(s): %s successfully removed" % ', '.join(OPTIONS.channel)
     elif OPTIONS.list:
-        channels = map(lambda x: x['label'], getChannels().channels())
+        try:
+            channels = map(lambda x: x['label'], getChannels().channels())
+        except up2dateErrors.NoChannelsError:
+            systemExit(1, 'This system is not associated with any channel.')
         channels.sort()
         print '\n'.join(channels)
     else:

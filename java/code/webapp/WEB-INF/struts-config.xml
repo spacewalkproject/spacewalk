@@ -378,7 +378,7 @@
         </form-bean>
         
         <form-bean name="scheduleRemoteCmdForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.CommandForm">
             <form-property name="run_script" type="java.lang.String"/>
             <form-property name="username" type="java.lang.String"/>
             <form-property name="group" type="java.lang.String"/>

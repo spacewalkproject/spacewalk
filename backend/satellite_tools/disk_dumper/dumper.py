@@ -15,7 +15,6 @@
 #
 
 import time
-import math
 import gzip
 import string
 import tempfile
@@ -609,55 +608,6 @@ class XML_DumperEx(XML_Dumper):
         log_debug(3, "Closed")
 
     # Dumper functions here
-    def dump_blacklist_obsoletes(self):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.BlacklistObsoletesDumper(writer))
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_arches(self, rpm_arch_type_only=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.ChannelArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.PackageArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerArchesDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.CPUArchesDumper(writer),
-            exportLib.ServerPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ServerChannelArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-            exportLib.ChannelPackageArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
-    def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
-            virt_filter=0):
-        log_debug(2)
-        writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            exportLib.ServerGroupTypeServerArchCompatDumper(writer,
-                rpm_arch_type_only=rpm_arch_type_only, virt_filter=virt_filter),
-        )
-        dumper.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
-
     def dump_channel_families(self, virt_filter=0):
         log_debug(2)
 
@@ -665,7 +615,7 @@ class XML_DumperEx(XML_Dumper):
         h.execute()
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             exportLib.ChannelFamiliesDumper(writer,
                 data_iterator=h, null_max_members=0, virt_filter=virt_filter),)
         dumper.dump()
@@ -679,7 +629,7 @@ class XML_DumperEx(XML_Dumper):
         channels = self._validate_channels(channel_labels=channel_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, ChannelsDumperEx(writer,
+        dumper = SatelliteDumper(writer, ChannelsDumperEx(writer,
             channels=channels.values()))
         dumper.dump()
         writer.flush()
@@ -736,36 +686,6 @@ class XML_DumperEx(XML_Dumper):
         # We're done
         return 0
 
-    def _cache_channel_packages_short(self, channel_id, key, last_modified):
-        """ Caches the short package entries for channel_id """
-        # Create a temporary file
-        temp_stream = tempfile.TemporaryFile()
-        # Always compress the result
-        compress_level = 5
-        stream = gzip.GzipFile(None, "wb", compress_level, temp_stream)
-        writer = xmlWriter.XMLWriter(stream=stream)
-
-        # Fetch packages
-        h = rhnSQL.prepare(self._query_get_channel_packages)
-        h.execute(channel_id=channel_id)
-        package_ids = h.fetchall_dict() or []
-        # Sort packages
-        package_ids.sort(lambda a, b: cmp(a['package_id'], b['package_id']))
-
-        dumper = SatelliteDumperEx(writer,
-            ShortPackagesDumper(writer, package_ids))
-        dumper.dump()
-        writer.flush()
-        # We're done with the stream object
-        stream.close()
-        del stream
-        temp_stream.seek(0, 0)
-        # Set the value in the cache. We don't recompress the result since
-        # it's already compressed
-        rhnCache.set(key, temp_stream.read(), modified=last_modified,
-            compressed=0, raw=1)
-        return self._normalize_compressed_stream(temp_stream)
-
     def _packages(self, packages, prefix, dump_class, sources=0):
         if sources:
             h = self.get_source_packages_statement()
@@ -794,7 +714,7 @@ class XML_DumperEx(XML_Dumper):
             packages_hash[package_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             dump_class(writer, packages_hash.values()))
         dumper.dump()
         writer.flush()
@@ -830,8 +750,8 @@ class XML_DumperEx(XML_Dumper):
             errata_hash[errata_id] = row
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
-            ErrataDumperEx(writer, errata_hash.values()))
+        dumper = SatelliteDumper(writer,
+            ErrataDumper(writer, errata_hash.values()))
         dumper.dump()
         writer.flush()
         log_debug(4, "OK")
@@ -844,7 +764,7 @@ class XML_DumperEx(XML_Dumper):
             kickstart_labels=kickstart_labels)
 
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer,
+        dumper = SatelliteDumper(writer,
             KickstartableTreesDumper(writer, kickstarts=kickstarts))
         dumper.dump()
         writer.flush()
@@ -855,21 +775,13 @@ class XML_DumperEx(XML_Dumper):
     def dump_product_names(self):
         log_debug(4)
         writer = self._get_xml_writer()
-        dumper = SatelliteDumperEx(writer, exportLib.ProductNamesDumper(writer))
+        dumper = SatelliteDumper(writer, exportLib.ProductNamesDumper(writer))
         dumper.dump()
         writer.flush()
         self.close()
         return 0
 
 class SatelliteDumper(exportLib.SatelliteDumper):
-    def set_attributes(self):
-        """ Overriding with our own version """
-        attributes = exportLib.SatelliteDumper.set_attributes(self)
-        attributes['version'] = CFG.XML_DUMP_VERSION
-        attributes['generation'] = CFG.SAT_CERT_GENERATION
-        return attributes
-
-class SatelliteDumperEx(SatelliteDumper):
     def set_attributes(self):
         """ Overriding with our own version """
         attributes = exportLib.SatelliteDumper.set_attributes(self)
@@ -1062,8 +974,6 @@ class ChannelsDumper(exportLib.ChannelsDumper):
            and c.parent_channel = pc.id (+)
            and c.checksum_type_id = ct.id (+)
     """)
-    def __init__(self, writer, channels):
-        exportLib.ChannelsDumper.__init__(self, writer, channels)
 
     def dump_subelement(self, data):
         log_debug(6, data)
@@ -1081,39 +991,6 @@ class ChannelsDumper(exportLib.ChannelsDumper):
 
 class _ChannelsDumper(exportLib._ChannelDumper):
     tag_name = 'rhn-channel'
-
-    def set_attributes(self):
-        channel_id = self._row['id']
-
-        packages = map(lambda x: "rhn-package-%s" % x, self._get_package_ids())
-        # XXX channel-errata is deprecated and should go away in dump version
-        # 3 or higher - we now dump that information in its own subelement
-        # rhn-channel-errata
-        errata = map(lambda x: "rhn-erratum-%s" % x, self._get_errata_ids())
-        ks_trees = self._get_kickstartable_trees()
-
-        return {
-            'channel-id'    : 'rhn-channel-%s' % channel_id,
-            'org_id'        : self._row['org_id'],
-            'label'         : self._row['label'],
-            'channel-arch'  : self._row['channel_arch'],
-            'packages'      : string.join(packages),
-            'channel-errata' : string.join(errata),
-            'kickstartable-trees'   : string.join(ks_trees),
-        }
-
-    _query_channel_families = rhnSQL.Statement("""
-        select cf.id, cf.label
-          from rhnChannelFamily cf, rhnChannelFamilyMembers cfm
-         where cfm.channel_family_id = cf.id
-           and cfm.channel_id = :channel_id
-    """)
-    _query_dist_channel_map = rhnSQL.Statement("""
-        select dcm.os, dcm.release, ca.label channel_arch
-          from rhnDistChannelMap dcm, rhnChannelArch ca
-         where dcm.channel_id = :channel_id
-           and dcm.channel_arch_id = ca.id
-    """)
 
     def set_iterator(self):
         channel_id = self._row['id']
@@ -1174,8 +1051,12 @@ class _ChannelsDumper(exportLib._ChannelDumper):
           from rhnPackage rp, rhnChannelPackage rcp
          where rcp.channel_id = :channel_id
          and rcp.package_id = rp.id
-         and rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-         and rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+         and (rcp.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+              or rp.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+	     )
+         and (rcp.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+              and rp.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+	     )
      """)
 
     # Things that can be overwriten in subclasses
@@ -1191,40 +1072,18 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             h.execute(channel_id=channel_id)
         return map(lambda x: x['package_id'], h.fetchall_dict() or [])
 
-    _query_get_source_package_ids = rhnSQL.Statement("""
-        select distinct ps.id, sr.name source_rpm,
-               TO_CHAR(ps.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnChannelPackage cp, rhnPackage p, rhnPackageSource ps,
-               rhnSourceRPM sr
-         where cp.channel_id = :channel_id
-           and cp.package_id = p.id
-           and p.source_rpm_id = ps.source_rpm_id
-           and ((p.org_id is null and ps.org_id is null) or
-               p.org_id = ps.org_id)
-           and ps.source_rpm_id = sr.id
-    """)
-    def _get_cursor_source_packages(self):
-        channel_id = self._row['id']
-        h = rhnSQL.prepare(self._query_get_source_package_ids)
-        h.execute(channel_id=channel_id)
-        return h
-
-    _query__get_errata_ids = rhnSQL.Statement("""
-        select ce.errata_id, e.advisory_name,
-               TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
-          from rhnChannelErrata ce, rhnErrata e
-         where ce.channel_id = :channel_id
-           and ce.errata_id = e.id
-    """)
-
     _query__get_errata_ids_by_limits = rhnSQL.Statement("""
         select ce.errata_id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnChannelErrata ce, rhnErrata e
          where ce.channel_id = :channel_id
            and ce.errata_id = e.id
-           and e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
-           and e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+           and (ce.modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+                or e.last_modified >= TO_Date(:lower_limit, 'YYYYMMDDHH24MISS')
+	       )
+           and (ce.modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+                and e.last_modified <= TO_Date(:upper_limit, 'YYYYMMDDHH24MISS')
+	       )
     """)
 
     def _get_errata_ids(self):
@@ -1239,13 +1098,6 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             h = rhnSQL.prepare(self._query__get_errata_ids)
             h.execute(channel_id=channel_id)
         return map(lambda x: x['errata_id'], h.fetchall_dict() or [])
-
-    _query_get_kickstartable_trees = rhnSQL.Statement("""
-        select kt.label
-          from rhnKickstartableTree kt
-         where  kt.channel_id = :channel_id
-           and  kt.org_id is null
-    """)
 
     _query_get_kickstartable_trees_by_limits = rhnSQL.Statement("""
         select kt.label
@@ -1460,40 +1312,6 @@ class ErrataDumper(CachedDumper, exportLib.ErrataDumper):
     def _dump_subelement(self, data):
         log_debug(6, data)
         return exportLib.ErrataDumper.dump_subelement(self, data)
-
-class ErrataDumperEx(CachedDumper, exportLib.ErrataSynopsisDumper):
-    def __init__(self, writer, errata):
-        h = rhnSQL.prepare("""
-            select
-                e.id,
-                e.org_id,
-                e.advisory_name,
-                e.advisory,
-                e.advisory_type,
-                e.advisory_rel,
-                e.product,
-                e.description,
-                e.synopsis,
-                e.topic,
-                e.solution,
-                TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-                TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-                e.refers_to,
-                e.notes
-            from rhnErrata e
-            where e.id = :errata_id
-        """)
-        CachedDumper.__init__(self, writer, statement=h, params=errata)
-
-    def _get_key(self, params):
-        errata_id = str(params['errata_id'])
-        hash_val = rhnLib.hash_object_id(errata_id, 1)
-        return "xml-errata/%s/rhn-erratum-%s.xml" % (hash_val, errata_id)
-
-    def _dump_subelement(self, data):
-        log_debug(6, data)
-        return exportLib.ErrataSynopsisDumper.dump_subelement(self, data)
 
 class KickstartableTreesDumper(CachedDumper, exportLib.KickstartableTreesDumper):
     _query_lookup_ks_tree = rhnSQL.Statement("""

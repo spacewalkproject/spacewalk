@@ -31,18 +31,6 @@ class RpmError(Error):
         log.log_me(msg)
         return msg
 
-class RpmInstallError(Error):
-    """Raise when a package fails to install properly"""
-    def __init__(self, msg, pkg = None):
-        self.errmsg = msg
-        self.pkg = pkg
-    def __repr__(self):
-        msg = _("There was a fatal error installing the package:\n")
-        msg = msg + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-    
 class RhnServerException(Error):
     pass
 
@@ -64,29 +52,6 @@ class DependencyError(Error):
         
     def __repr__(self):
         msg = _("RPM dependency error. The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class UnsolvedDependencyError(Error):
-    """Raise when we have a dependency that the server can not find"""
-    def __init__(self, msg, dep=None, pkgs=None):
-        self.errmsg = msg
-        self.dep = dep
-        self.pkgs = pkgs 
-    def __repr__(self):
-        msg = _("RPM dependency error.  The message was:\n") + self.errmsg
-        log = up2dateLog.initLog()
-        log.log_me(msg)
-        return msg
-
-class SkipListError(Error):
-    """Raise when all the packages you want updated are on a skip list"""
-    def __init__(self, msg, pkglist=None):
-	self.errmsg = msg
-	self.pkglist = pkglist 
-    def __repr__(self):
-        msg = _("Package Skip List error.  The message was:\n") + self.errmsg
         log = up2dateLog.initLog()
         log.log_me(msg)
         return msg

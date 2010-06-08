@@ -906,36 +906,10 @@ class _PackageFilesDumper(BaseDumper):
 class ErrataDumper(BaseDumper):
     tag_name = 'rhn-errata'
 
-    synposis_column = "e.synposis,"
-
     def set_iterator(self):
         if self._iterator:
             return self._iterator
-
-        _query_errata_info = """
-	    select
-                    e.id,
-                    e.org_id,
-                    e.advisory_name,
-                    e.advisory,
-                    e.advisory_type,
-                    e.advisory_rel,
-                    e.product,
-                    e.description,
-                    %s
-                    e.topic,
-                    e.solution,
-                    TO_CHAR(e.issue_date, 'YYYYMMDDHH24MISS') issue_date,
-                    TO_CHAR(e.update_date, 'YYYYMMDDHH24MISS') update_date,
-                    TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
-                    e.refers_to,
-                    e.notes
-             from rhnErrata e
-            where rownum < 3
-	""" 
-        h = rhnSQL.prepare(_query_errata_info % self.synposis_column)
-        h.execute()
-        return h
+        raise NotImplementedError, "To be overridden in a child class"
 
     def dump_subelement(self, data):
         d = _ErratumDumper(self._writer, data) 
@@ -1042,24 +1016,6 @@ class _ErratumDumper(BaseRowDumper):
         arr.append(_ErratumFilesDumper(self._writer, data_iterator=h))
 
         return ArrayIterator(arr)
-
-class ErrataSynopsisDumper(ErrataDumper):
-    # include severity into synopsis before
-    # exporting to satellite.
-    # Also ignore the first 18 characters in
-    # the label(errata.sev.label.) from
-    # rhnErrataSeverity table
-    synposis_column = """
-            (select SUBSTR(label,18) || ':'
-               from rhnErrataSeverity
-              where id = e.severity_id) || e.synopsis synposis,"""
-
-class _ErratumSynopsisDumper(_ErratumDumper):
-    # SATSYNC: Ignore the Oval files stuff(typeid=4)
-    # while exporting errata File info to satellite
-    type_id_column = """and ef.type != (select id
-                                           from rhnErrataFileType
-                                          where label = 'OVAL')"""
 
 class _ErratumKeywordDumper(BaseDumper):
     tag_name = 'rhn-erratum-keywords'
