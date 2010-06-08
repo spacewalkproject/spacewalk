@@ -534,21 +534,6 @@ class XML_Dumper:
         return result
 
 class XML_DumperEx(XML_Dumper):
-    def __init__(self, req):
-        self.compress_level = 5
-        self.headers_out = UserDictCase()
-        self._raw_stream = req
-        self._raw_stream.content_type = 'application/octet-stream'
-        # State machine
-        self._headers_sent = 0
-        self._is_closed = 0
-        self._compressed_stream = None
-        # Redefine in subclasses
-        self._channel_family_query = """
-            select pcf.channel_family_id, to_number(null) quantity
-              from rhnPublicChannelFamily pcf
-        """
-
     def _send_headers(self, error=0, init_compressed_stream=1):
         log_debug(4, "is_closed", self._is_closed)
         if self._is_closed:
