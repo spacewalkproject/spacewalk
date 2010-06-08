@@ -57,33 +57,17 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             params.put(RequestContext.CID, chan.getId().toString());                                    
 
             ListSessionSetHelper helper = new ListSessionSetHelper(this, request,params);
-                        
-            if (!context.isSubmitted()) {
-                List<ContentSource> result = getResult(context);
-                Set<String> preSelect = new HashSet<String>();
-                for (int i = 0; i < result.size(); i++) {
-                    ContentSource src = result.get(i);
-                    if(src.getChannels().contains(chan)) {
-                       preSelect.add(src.getId().toString());
-                    }
-                }                
-                helper.preSelect(preSelect);
-            }
-            
-            helper.ignoreEmptySelection();
+
+            //helper.ignoreEmptySelection();
             helper.execute();
             
-            if(helper.isDispatched()) {
-                Set<ContentSource> foo = chan.getSources();
-                foo.clear();
+            if(helper.isDispatched()) {                                
                 Set <String> set = helper.getSet();
                 for (String id : set) {
                     Long sgid = Long.valueOf(id);
                     ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
-                    foo.add(tmp);
-                }
-                
-                ChannelFactory.save(chan);
+                    System.out.println("SYNCING:" + tmp.getSourceUrl());
+                }                                
                                                 
                 StrutsDelegate strutsDelegate = getStrutsDelegate();
                 strutsDelegate.saveMessage("channel.edit.repo.updated", new String[] {chan.getName()}, request );

@@ -45,7 +45,7 @@
 	<div align="right">
 	  <hr />
 		<input type="submit" name="dispatch"
-				value="<bean:message key="repos.jsp.update.channel"/>" />
+				value="<bean:message key="Sync"/>" />
 	</div>
 		<rhn:submitted/>
 
