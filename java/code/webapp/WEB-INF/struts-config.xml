@@ -6486,7 +6486,15 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/channelrepos.jsp" />
       <forward name="success" path="/channels/manage/Repositories.do" redirect="true" />
-      </action>
+   </action>
+
+   <action path="/channels/manage/Sync"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.SyncRepositoriesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/syncrepos.jsp" />
+      <forward name="success" path="/channels/manage/SyncRepositories.do" redirect="true" />
+   </action>
 
    <action path="/channels/manage/Manage"
            scope="request"
