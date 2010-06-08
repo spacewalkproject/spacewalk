@@ -55,7 +55,7 @@ public abstract class SingleThreadedTestableTask implements TestableTask {
             HibernateFactory.commitTransaction();
         }
         catch (Throwable t) {
-            HibernateFactory.rollbackTransaction();            
+            HibernateFactory.rollbackTransaction();
             Logger logger = Logger.getLogger(SchedulerKernel.class);
             logger.error(t);
             TaskHelper.sendErrorMail(logger, t);

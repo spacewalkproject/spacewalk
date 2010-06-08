@@ -15,6 +15,8 @@
 package com.redhat.rhn.taskomatic;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -29,6 +31,7 @@ public class TaskoTemplate {
     private String startIf;
     private Date created;
     private Date modified;
+    private Set<TaskoRun> runHistory = new HashSet();
 
     /**
      * @return Returns the id.
@@ -126,6 +129,22 @@ public class TaskoTemplate {
      */
     public void setModified(Date modified) {
         this.modified = modified;
+    }
+
+
+    /**
+     * @return Returns the runHistory.
+     */
+    public Set<TaskoRun> getRunHistory() {
+        return runHistory;
+    }
+
+
+    /**
+     * @param runHistory The runHistory to set.
+     */
+    public void setRunHistory(Set<TaskoRun> runHistory) {
+        this.runHistory = runHistory;
     }
 
 }

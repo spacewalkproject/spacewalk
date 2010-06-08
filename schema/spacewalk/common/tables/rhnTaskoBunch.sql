@@ -23,6 +23,7 @@ CREATE TABLE rhnTaskoBunch
     description VARCHAR2(200),
     active_from DATE NOT NULL,
     active_till DATE,
+    org_task    VARCHAR2(1),
     created     DATE
                     DEFAULT (sysdate) NOT NULL,
     modified    DATE

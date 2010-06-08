@@ -111,8 +111,8 @@ public class DailySummary extends SingleThreadedTestableTask {
                     }
                 }
                 finally {
-                    HibernateFactory.commitTransaction();
-                    HibernateFactory.closeSession();
+                    // HibernateFactory.commitTransaction();
+                    // HibernateFactory.closeSession();
                 }
             }
         }        

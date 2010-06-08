@@ -15,7 +15,6 @@
 package com.redhat.rhn.taskomatic;
 
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.taskdefs.Mkdir;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -39,7 +38,7 @@ public class TaskoRun implements Job {
     public static final String STATUS_RUNNING = "RUNNING";
     public static final String STATUS_FINISHED = "FINISHED";
     public static final String STATUS_FAILED = "FAILED";
-    private String stdLogPrefix = "/var/spacewalk/systemlogs/tasko/";
+    private static final String stdLogPrefix = "/var/spacewalk/systemlogs/tasko/";
 
     private Long id;
     private Integer orgId;
@@ -52,10 +51,10 @@ public class TaskoRun implements Job {
     private Date created;
     private Date modified;
 
-    public TaskoRun(Integer orgId, TaskoTemplate template) {
-        setOrgId(orgId);
-        setTemplate(template);
-        File logDir = new File(stdLogPrefix);
+    public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn) {
+        setOrgId(orgIdIn);
+        setTemplate(templateIn);
+        File logDir = new File(getStdLogDirName(orgId));
         if (!logDir.isDirectory()) {
             if (!logDir.exists()) {
                 logDir.mkdirs();
@@ -66,10 +65,9 @@ public class TaskoRun implements Job {
     }
 
     public void start() {
-        if (new File(stdLogPrefix).isDirectory()) {
-            String logName = computeStdLogFileName(orgId, template, this);
-            setStdOutputPath(stdLogPrefix + logName + "_out");
-            setStdErrorPath(stdLogPrefix + logName + "_err");
+        if (new File(getStdLogDirName(orgId)).isDirectory()) {
+            setStdOutputPath(getStdOutputLog(orgId, template, this));
+            setStdErrorPath(getStdErrorLog(orgId, template, this));
         }
         else {
             log.warn("Logging disabled. No directory " + stdLogPrefix);
@@ -77,6 +75,7 @@ public class TaskoRun implements Job {
         setStartTime(new Date());
         setStatus(STATUS_RUNNING);
         TaskoFactory.save(this);
+        // TaskoFactory.commitTransaction();
     }
 
     public void finished() {
@@ -88,21 +87,29 @@ public class TaskoRun implements Job {
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
             start();
-            Class jobClass = template.getTask().getClass();
+            Class jobClass = null;
+            Job job = null;
             try {
-                Job job = (Job) jobClass.newInstance();
+                jobClass = Class.forName(template.getTask().getTaskClass());
             }
-            catch (InstantiationException e) {
+            catch (ClassNotFoundException cnfe) {
                 setStatus(STATUS_FAILED);
-                saveToStdError(e.toString());
+                saveToStdError(cnfe.toString());
             }
-            catch (IllegalAccessException e) {
+            try {
+                job = (Job) jobClass.newInstance();
+            }
+            catch (InstantiationException ie) {
                 setStatus(STATUS_FAILED);
-                saveToStdError(e.toString());
+                saveToStdError(ie.toString());
+            }
+            catch (IllegalAccessException iae) {
+                setStatus(STATUS_FAILED);
+                saveToStdError(iae.toString());
             }
 
+            job.execute(context);
             finished();
-            TaskoFactory.commitTransaction();
     }
 
     private void saveToStdError(String message) {
@@ -117,18 +124,29 @@ public class TaskoRun implements Job {
         }
     }
 
+    public static String getStdOutputLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {
+        return getStdLogDirName(orgId) + getStdLogFileName(templ, run) + "_out";
+    }
 
-    private static String computeStdLogFileName(Integer orgId, TaskoTemplate templ, TaskoRun run) {
-        String logName = "";
+    public static String getStdErrorLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {
+        return getStdLogDirName(orgId) + getStdLogFileName(templ, run) + "_err";
+    }
+
+    private static String getStdLogDirName(Integer orgId) {
+        String dirName = stdLogPrefix;
         if (orgId == null) {
-            logName += "admin";
+            dirName += "sat";
         }
         else {
-            logName += orgId;
+            dirName += "org" + orgId;
         }
-        logName += "_" + templ.getBunch().getName() + "_" + templ.getTask().getName()
+        dirName += "/";
+        return dirName;
+    }
+
+    private static String getStdLogFileName(TaskoTemplate templ, TaskoRun run) {
+        return templ.getBunch().getName() + "_" + templ.getTask().getName()
             + "_" + run.getId();
-        return logName;
     }
 
     /**
