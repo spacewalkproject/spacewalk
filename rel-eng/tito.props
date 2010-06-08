@@ -15,3 +15,7 @@ blacklist=jabberd-selinux
 [dist-f13-sw-1.1-candidate]
 disttag = .fc13
 blacklist=jabberd-selinux
+
+[cvs]
+cvsroot = :gserver:cvs.devel.redhat.com:/cvs/dist
+branches = SATELLITE-5_4-RHEL-5 SATELLITE-5_4-RHEL-6
