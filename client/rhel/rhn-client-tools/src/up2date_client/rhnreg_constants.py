@@ -87,6 +87,18 @@ CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
                                  " software channel to receive all available"
                                  " updates.")
 
+# Hardware Window
+HARDWARE_WINDOW = _("Register a System Profile - Hardware")
+HARDWARE_WINDOW_DESC1 = _("A Profile Name is a descriptive name that"
+                          " you choose to identify this System Profile"
+                          " on the Red Hat Network web pages. Optionally,"
+                          " include a computer serial or identification number.")
+HARDWARE_WINDOW_DESC2 = _("Additional hardware information including PCI"
+                          " devices, disk sizes and mount points will be"
+                          " included in the profile.")
+HARDWARE_WINDOW_CHECKBOX = _("Include the following information about hardware"
+                             " and network:")
+
 # Product Window
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")

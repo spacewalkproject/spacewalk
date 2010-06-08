@@ -564,10 +564,9 @@ class HardwareWindow:
         # read all hardware in
         tui.hardware = hardware.Hardware()
         
-        toplevel = snack.GridForm(screen, _("Register a System Profile - Hardware"),
-                                  1, 7)
+        toplevel = snack.GridForm(screen, HARDWARE_WINDOW, 1, 7)
 
-        text = snack.TextboxReflowed(70, _("A Profile Name is a descriptive name that you choose to identify this System Profile on the Red Hat Network web pages. Optionally, include a computer serial or identification number."))
+        text = snack.TextboxReflowed(70, HARDWARE_WINDOW_DESCRIPTION)
 
         toplevel.add(text, 0, 0, anchorLeft = 1)
 
@@ -582,9 +581,9 @@ class HardwareWindow:
         toplevel.add(grid, 0, 1, anchorLeft = 1)
         
         if tui.includeHardware:
-            self.hardwareButton = snack.Checkbox(_("Include the following information about hardware and network:"), isOn = 1)
+            self.hardwareButton = snack.Checkbox(HARDWARE_WINDOW_CHECKBOX, isOn = 1)
         else:
-            self.hardwareButton = snack.Checkbox(_("Include the following information about hardware and network:"))
+            self.hardwareButton = snack.Checkbox(HARDWARE_WINDOW_CHECKBOX)
             
         toplevel.add(self.hardwareButton, 0, 2, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
@@ -640,7 +639,7 @@ class HardwareWindow:
         tb = snack.TextboxReflowed(80, hardware_text)
         toplevel.add(tb, 0, 4)
 
-        self.additionalHWLabel = snack.TextboxReflowed(size[0]-10, _("Additional hardware information including PCI devices, disk sizes and mount points will be included in the profile."))
+        self.additionalHWLabel = snack.TextboxReflowed(size[0]-10, HARDWARE_WINDOW_DESC2)
 
         toplevel.add(self.additionalHWLabel, 0, 5, padding = (0, 1, 0, 0),
                      anchorLeft = 1)
