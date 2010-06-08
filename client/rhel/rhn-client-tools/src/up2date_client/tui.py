@@ -109,7 +109,7 @@ class AlreadyRegisteredWindow:
         oldUsername = systemIdXml[0][0]['username']
         oldsystemId = systemIdXml[0][0]['system_id']
 
-        toplevel = snack.GridForm(self.screen, _("System software updates already set up"), 1, 2)
+        toplevel = snack.GridForm(self.screen, SYSTEM_ALREADY_SETUP, 1, 2)
         self.bb = snack.ButtonBar(self.screen,
                                   [(YES_CONT, "next"),
                                    (NO_CANCEL, "exit")])
@@ -430,14 +430,12 @@ class OSReleaseWindow:
 
         self.selectChannel = False
  
-        toplevel = snack.GridForm(self.screen, 
-	                 _("Select Operating System Release"), 1, 7)
+        toplevel = snack.GridForm(self.screen, SELECT_OSRELEASE, 1, 7)
         self.g = toplevel
 
-        self.ostext = snack.TextboxReflowed(self.size[0]-10, 
-	                    _("Operating System version:"))
+        self.ostext = snack.TextboxReflowed(self.size[0]-10, OS_VERSION)
         toplevel.add(self.ostext, 0, 0, anchorLeft = 1)
-        optiontext1 = _("Limited Updates Only")
+        optiontext1 = LIMITED_UPDATES
 
         if self.tui.limited_updates_button:
             self.limited_updates_button = snack.SingleRadioButton(optiontext1,
@@ -449,7 +447,7 @@ class OSReleaseWindow:
         toplevel.add(self.limited_updates_button, 0, 1, padding = (0, 1, 0, 1),
                      anchorLeft = 1)
 
-        self.sublabel = snack.Label(_(" Minor Release: "))
+        self.sublabel = snack.Label(MINOR_RELEASE)
         toplevel.add(self.sublabel, 0, 2, anchorLeft = 1)
 
         self.channelList = snack.Listbox(self.size[1]-22, 1, 
@@ -464,7 +462,7 @@ class OSReleaseWindow:
         self.tip = snack.TextboxReflowed(self.size[0]-10, CHANNEL_PAGE_TIP)
         toplevel.add(self.tip, 0, 4, anchorLeft = 1)
 
-        optiontext2 = _("All available updates")
+        optiontext2 = ALL_UPDATES
 
         if self.tui.all_updates_button:
             self.all_updates_button = snack.SingleRadioButton(optiontext2, 
@@ -517,7 +515,7 @@ class OSReleaseWindow:
             later_release = self.channelList.current() != \
                                  self.available_channels['default_channel']
          
-        title = _("Confirm operating system release selection")
+        title = CONFIRM_OS_RELEASE_SELECTION
         if later_release:
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
                            CONFIRM_OS_WARNING % self.channelList.current(),
@@ -525,9 +523,6 @@ class OSReleaseWindow:
             return msgbox
 
         if self.all_updates_button.selected() or later_release:
-	    CONFIRM_OS_ALL = _("Your system will be subscribed to the base"
-                               " software channel to receive all available"
-                               " updates.")
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
                                   CONFIRM_OS_ALL, buttons =[OK, CANCEL])
             return msgbox

@@ -76,6 +76,17 @@ LOGIN_TIP         = _("Tip: Forgot your login or password?  Contact your "
 USER_REQUIRED     = _("Please enter a desired login.")
 PASSWORD_REQUIRED = _("Please enter and verify a password.")
 
+# OS Release Window
+SELECT_OSRELEASE             = _("Select Operating System Release")
+OS_VERSION                   = _("Operating System version:")
+MINOR_RELEASE                = _(" Minor Release: ")
+LIMITED_UPDATES              = _("Limited Updates Only")
+ALL_UPDATES                  = _("All available updates")
+CONFIRM_OS_RELEASE_SELECTION = _("Confirm operating system release selection")
+CONFIRM_OS_ALL               = _("Your system will be subscribed to the base"
+                                 " software channel to receive all available"
+                                 " updates.")
+
 # Product Window
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
@@ -83,6 +94,7 @@ HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? "
                             "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 EMAIL                  = _("*Email Address:")
 
+SYSTEM_ALREADY_SETUP = _("System software updates already set up")
 SYSTEM_ALREADY_REGISTERED = _("It appears this system has already been set up for software updates:")
 SYSTEM_ALREADY_REGISTERED_CONT = _("Are you sure you would like to continue?")
 
