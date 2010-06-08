@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.action.channel.manage;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,8 +56,7 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
             params.put(RequestContext.CID, chan.getId().toString());                                    
 
             ListSessionSetHelper helper = new ListSessionSetHelper(this, request,params);
-
-            //helper.ignoreEmptySelection();
+            
             helper.execute();
             
             if(helper.isDispatched()) {                                

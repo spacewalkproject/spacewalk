@@ -39,6 +39,13 @@
                    filterattr="label">                            
               		<c:out value="<a href=\"/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}\">${current.label}</a>" escapeXml="false" />              	              
         </rl:column>
+        <rl:column bound="false" 
+	           sortable="false" 
+	           headerkey="repo.jsp.channels" 
+	           attr="channels"
+	           styleclass="last-column">
+	 	<c:out value="${current.channels}" />
+	    </rl:column>
       </rl:list>
      </rl:listset>		
     
