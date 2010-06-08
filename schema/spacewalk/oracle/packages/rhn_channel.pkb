@@ -80,7 +80,18 @@ IS
         VALUES (channel_family_id_val, user_id_in, server_id_in);
     END license_consent;
 
-    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null, recalcfamily_in NUMBER := 1)
+    procedure obtain_read_lock(channel_family_id_in in number, org_id_in in number)
+    is
+        read_lock date;
+
+    begin
+        select created into read_lock
+          from rhnPrivateChannelFamily
+         where channel_family_id = channel_family_id_in and org_id = org_id_in
+           for update;
+    end obtain_read_lock;
+
+    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null, recalcfamily_in number := 1)
     IS
         channel_parent_val      rhnChannel.parent_channel%TYPE;
         parent_subscribed       BOOLEAN;
@@ -89,9 +100,11 @@ IS
         channel_family_id_val   NUMBER;
         server_org_id_val       NUMBER;
         available_subscriptions NUMBER;
+        available_fve_subs      NUMBER;
         consenting_user         NUMBER;
         allowed                 number := 0;
-        current_members_val     number;
+        is_fve                  CHAR(1) := 'N';
+
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -159,17 +172,20 @@ IS
           FROM rhnChannel
          WHERE id = channel_id_in;
          
-        select current_members 
-        into current_members_val
-        from rhnPrivateChannelFamily
-        where org_id = server_org_id_val and channel_family_id = channel_family_id_val
-        for update of current_members;
+        begin
+            obtain_read_lock(channel_family_id_val, server_org_id_val);
+        exception
+            when no_data_found then
+                rhn_exception.raise_exception('channel_family_no_subscriptions');
+        end;
 
         available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
-        
-        IF available_subscriptions IS NULL OR 
-           available_subscriptions > 0 or
-           can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1
+        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
+
+        IF available_subscriptions IS NULL OR
+            available_subscriptions > 0 or
+            can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1 OR
+            (available_fve_subs > 0 AND can_server_consume_fve(server_id_in) = 1)
         THEN
         
             IF rhn_channel.get_license_path(channel_id_in) IS NOT NULL
@@ -186,7 +202,11 @@ IS
                         rhn_exception.raise_exception('channel_subscribe_no_consent');
                 END;
             END IF;
-        
+
+            if can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 0 AND available_fve_subs > 0 AND can_server_consume_fve(server_id_in) = 1 THEN
+                is_fve := 'Y';
+            END IF;
+
             insert into rhnServerHistory (id,server_id,summary,details) (
                 select  rhn_event_id_seq.nextval,
                         server_id_in,
@@ -196,7 +216,7 @@ IS
                 where   c.id = channel_id_in
             );
             UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
-            INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
+            INSERT INTO rhnServerChannel (server_id, channel_id, is_fve) VALUES (server_id_in, channel_id_in, is_fve);
 			IF recalcfamily_in > 0
 			THEN
                 rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
@@ -239,6 +259,21 @@ IS
 
     end;
 
+    FUNCTION can_server_consume_fve(server_id_in IN NUMBER)
+    RETURN NUMBER
+    IS
+        CURSOR vi_entries IS
+            SELECT *
+              FROM rhnVirtualInstance
+             WHERE virtual_system_id = server_id_in;
+        vi_count NUMBER;
+
+    BEGIN
+        FOR vi_entry IN VI_ENTRIES LOOP
+            return 1;
+        END LOOP;
+        RETURN 0;
+    END;
 
     PROCEDURE bulk_subscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
     IS
@@ -678,6 +713,45 @@ IS
         -- otherwise, return the delta  
         RETURN max_members_val - current_members_val;                   
     END available_family_subscriptions;
+
+    FUNCTION available_fve_family_subs(channel_family_id_in IN NUMBER, org_id_in IN NUMBER)
+    RETURN NUMBER
+    IS
+        cfp channel_family_perm_cursor%ROWTYPE;
+        fve_current_members_val NUMBER;
+        fve_max_members_val     NUMBER;
+        found               NUMBER;
+
+    BEGIN
+        IF NOT channel_family_perm_cursor%ISOPEN THEN
+            OPEN channel_family_perm_cursor(channel_family_id_in, org_id_in);
+        END IF;
+
+        FETCH channel_family_perm_cursor INTO cfp;
+
+        WHILE channel_family_perm_cursor%FOUND LOOP
+            found := 1;
+            fve_current_members_val := cfp.fve_current_members;
+            fve_max_members_val := cfp.fve_max_members;
+            FETCH channel_family_perm_cursor INTO cfp;
+        END LOOP;
+
+        IF channel_family_perm_cursor%ISOPEN THEN
+            CLOSE channel_family_perm_cursor;
+        END IF;
+
+        IF found IS NULL THEN
+            RETURN 0;
+        END IF;
+
+        IF fve_max_members_val IS NULL THEN
+            RETURN NULL;
+        END IF;
+
+        RETURN fve_max_members_val - fve_current_members_val;
+
+    END available_fve_family_subs;
+
     
     -- *******************************************************************
     -- FUNCTION: channel_family_current_members
@@ -700,17 +774,42 @@ IS
         return current_members_count;
     end;        
 
+
+    function cfam_curr_fve_members(
+        channel_family_id_in IN NUMBER,
+        org_id_in IN NUMBER)
+    return number
+    is
+        current_members_count number := 0;
+
+    begin
+        select count(sc.server_id)
+          into current_members_count
+          from rhnServerChannel sc,
+               rhnChannelFamilyMembers cfm,
+               rhnServer s
+         where s.org_id = org_id_in
+           and s.id = sc.server_id
+           and cfm.channel_family_id = channel_family_id_in
+           and cfm.channel_id = sc.channel_id
+           and exists (
+                select 1
+                  from rhnChannelFamilyServerFve cfsp
+                 where cfsp.CHANNEL_FAMILY_ID = channel_family_id_in
+                   and cfsp.server_id = s.id
+                );
+
+        return current_members_count;
+    end;
     PROCEDURE update_family_counts(channel_family_id_in IN NUMBER, 
                                    org_id_in IN NUMBER)
     IS
     BEGIN
-                update rhnPrivateChannelFamily
-                set current_members = (
-                channel_family_current_members(channel_family_id_in, org_id_in)
-                )
-                        where org_id = org_id_in
-                                and channel_family_id = channel_family_id_in;
-
+        update rhnPrivateChannelFamily
+           set current_members = ( channel_family_current_members(channel_family_id_in, org_id_in)),
+               fve_current_members = ( cfam_curr_fve_members(channel_family_id_in, org_id_in))
+         where org_id = org_id_in
+           and channel_family_id = channel_family_id_in;
     END update_family_counts;
     
     PROCEDURE update_group_family_counts(group_label_in IN VARCHAR2,
@@ -750,6 +849,20 @@ IS
                            channel_family_id_val, org_id_in);
     END available_chan_subscriptions;
 
+	FUNCTION available_fve_chan_subs(channel_id_in IN NUMBER,
+                                          org_id_in IN NUMBER)
+    RETURN NUMBER
+    IS
+        channel_family_id_val NUMBER;
+
+    BEGIN
+        SELECT channel_family_id INTO channel_family_id_val
+          FROM rhnChannelFamilyMembers
+         WHERE channel_id = channel_id_in;
+
+        RETURN rhn_channel.available_fve_family_subs( channel_family_id_val, org_id_in);
+    END available_fve_chan_subs;
+
     -- *******************************************************************
     -- PROCEDURE: entitle_customer
     -- Creates a chan fam bucket, or sets max_members for an existing bucket
@@ -759,7 +872,8 @@ IS
     -- *******************************************************************
     procedure entitle_customer(customer_id_in in number, 
                                channel_family_id_in in number, 
-                               quantity_in in number)
+                               quantity_in in number,
+                               fve_quantity_in in number)
     is
                 cursor permissions is
                         select  1
@@ -768,11 +882,13 @@ IS
                                 and     pcf.channel_family_id = channel_family_id_in; 
     begin
                 for perm in permissions loop
-                        set_family_maxmembers(
-                                customer_id_in,
-                                channel_family_id_in,
-                                quantity_in
-                        );
+			            set_family_maxmembers(
+		                customer_id_in,
+		                channel_family_id_in,
+		                quantity_in,
+		                fve_quantity_in
+		            );
+
                         rhn_channel.update_family_counts(
                                 channel_family_id_in,
                                 customer_id_in
@@ -781,9 +897,11 @@ IS
                 end loop;
         
                 insert into rhnPrivateChannelFamily pcf (
-                                channel_family_id, org_id, max_members, current_members
+                                channel_family_id, org_id, max_members, current_members,
+									fve_max_members, fve_current_members
                         ) values (
-                                channel_family_id_in, customer_id_in, quantity_in, 0
+                                channel_family_id_in, customer_id_in, quantity_in, 0,
+								fve_quantity_in, 0
                         );
     end;
 
@@ -796,31 +914,49 @@ IS
     -- *******************************************************************
     procedure set_family_maxmembers(customer_id_in in number, 
                                     channel_family_id_in in number, 
-                                    quantity_in in number)
+                                    quantity_in in number,
+                                    fve_quantity_in in number)
     is
-        cursor servers is
-            select  server_id from (
-            select      rownum row_number, server_id, modified from (
-                select  rcfsp.server_id,
-                        rcfsp.modified
-                from    rhnChannelFamilyServerPhysical rcfsp
-                where   rcfsp.customer_id = customer_id_in
-                    and rcfsp.channel_family_id = channel_family_id_in
-                order by modified
-            )
-            where rownum > quantity_in
+        cursor phy_servers is
+            select server_id from (
+                select rownum row_number, server_id, modified from (
+                    select rcfsp.server_id,
+                           rcfsp.modified
+                      from rhnChannelFamilyServerPhysical rcfsp
+                     where rcfsp.customer_id = customer_id_in
+                       and rcfsp.channel_family_id = channel_family_id_in
+                     order by modified
+                 )
+                 where rownum > quantity_in
+            );
+        cursor fve_servers is
+            select server_id from (
+                select rownum row_number, server_id, modified from (
+                    select rcfsp.server_id,
+                           rcfsp.modified
+                      from rhnChannelFamilyServerFve rcfsp
+                     where rcfsp.customer_id = customer_id_in
+                       and rcfsp.channel_family_id = channel_family_id_in
+                     order by modified
+                 )
+                 where rownum > fve_quantity_in
             );
     begin
-            -- prune subscribed servers
-        for server in servers loop
-            rhn_channel.unsubscribe_server_from_family(server.server_id, 
+        for phy_server in phy_servers loop
+            rhn_channel.unsubscribe_server_from_family(phy_server.server_id,
                                                        channel_family_id_in);
         end loop;
 
-        update  rhnPrivateChannelFamily pcf
-        set     pcf.max_members = quantity_in
-        where   pcf.org_id = customer_id_in
-            and pcf.channel_family_id = channel_family_id_in;
+        for fve_server in fve_servers loop
+            rhn_channel.unsubscribe_server_from_family(fve_server.server_id,
+                                                       channel_family_id_in);
+        end loop;
+
+        update rhnPrivateChannelFamily pcf
+           set pcf.max_members = quantity_in,
+               pcf.fve_max_members = fve_quantity_in
+         where pcf.org_id = customer_id_in
+           and pcf.channel_family_id = channel_family_id_in;
     end;
 
     procedure unsubscribe_server_from_family(server_id_in in number, 

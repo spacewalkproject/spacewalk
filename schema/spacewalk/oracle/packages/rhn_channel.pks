@@ -59,6 +59,7 @@ IS
         server_id_in IN NUMBER,
         family_id_in in number)
     return number;
+    FUNCTION can_server_consume_fve( server_id_in IN NUMBER) RETURN NUMBER;
 
     FUNCTION guess_server_base(server_id_in IN NUMBER) RETURN NUMBER;
 
@@ -96,9 +97,11 @@ IS
     
     FUNCTION available_family_subscriptions(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
 
-    function channel_family_current_members(channel_family_id_in IN NUMBER,
-                                            org_id_in IN NUMBER)
-    return number;
+    FUNCTION available_fve_family_subs(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
+
+    FUNCTION channel_family_current_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
+
+    FUNCTION cfam_curr_fve_members(channel_family_id_in IN NUMBER, org_id_in IN NUMBER) return number;
 
     PROCEDURE update_family_counts(channel_family_id_in IN NUMBER, org_id_in IN NUMBER);
     PROCEDURE update_group_family_counts(group_label_in IN VARCHAR2, org_id_in IN NUMBER);
@@ -106,14 +109,25 @@ IS
 
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
 
-    procedure entitle_customer(customer_id_in in number, channel_family_id_in in number, quantity_in in number);
-    procedure set_family_maxmembers(customer_id_in in number, channel_family_id_in in number, quantity_in in number);
-    procedure unsubscribe_server_from_family(server_id_in in number, channel_family_id_in in number);
+    FUNCTION available_fve_chan_subs(channel_id_in IN NUMBER, org_id_in IN NUMBER) RETURN NUMBER;
 
-    procedure delete_server_channels(server_id_in in number);
-    procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)');
-    
-    function get_org_id(channel_id_in in number) return number;
+    PROCEDURE entitle_customer(customer_id_in in number,
+                               channel_family_id_in in number,
+                               quantity_in in number,
+                               fve_quantity_in in number);
+
+    PROCEDURE set_family_maxmembers(customer_id_in in number,
+                                    channel_family_id_in in number,
+                                    quantity_in in number,
+                                    fve_quantity_in in number);
+
+    PROCEDURE unsubscribe_server_from_family(server_id_in in number, channel_family_id_in in number);
+
+    PROCEDURE delete_server_channels(server_id_in in number);
+
+    PROCEDURE refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)');
+
+    FUNCTION get_org_id(channel_id_in in number) return number;
     PRAGMA RESTRICT_REFERENCES(get_org_id, WNDS, RNPS, WNPS);
 
     function get_org_access(channel_id_in in number, org_id_in in number) return number;
