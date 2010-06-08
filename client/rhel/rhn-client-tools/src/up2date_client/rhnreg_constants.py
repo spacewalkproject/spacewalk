@@ -129,6 +129,9 @@ SEND_WINDOW_DESC = _("We are finished collecting information for the System Prof
                      "You can run the registration program later by "
                      "typing `rhn_register` at the command line.")
 
+# Sending Window
+SENDING_WINDOW = _("Sending Profile to Red Hat Network")
+
 # Finish Window
 FINISH_WINDOW           = _("Finish setting up software updates")
 FINISH_WINDOW_TEXT_TUI  = _("You may now run 'yum update' from this system's "

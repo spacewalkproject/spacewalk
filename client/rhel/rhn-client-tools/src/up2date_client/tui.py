@@ -793,8 +793,7 @@ class SendingWindow:
         self.name = "SendingWindow"
         size = snack._snack.size()
 
-        self.pwin = snack.GridForm(screen, _("Sending Profile to Red Hat Network"),
-                                   1, 1)
+        self.pwin = snack.GridForm(screen, SENDING_WINDOW, 1, 1)
 
         self.scale = snack.Scale(40, 100)
         self.pwin.add(self.scale, 0, 0)
