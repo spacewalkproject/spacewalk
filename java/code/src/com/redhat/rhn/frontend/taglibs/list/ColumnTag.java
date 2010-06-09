@@ -38,6 +38,7 @@ public class ColumnTag extends BodyTagSupport {
     private static final long serialVersionUID = -1139212563984660282L;
 
     protected String styleClass;
+
     protected String attributeName;
     protected String sortAttribute;
     protected boolean isBound;
@@ -49,6 +50,18 @@ public class ColumnTag extends BodyTagSupport {
     private String defaultSortDir;
     private String filterAttr;
     private String filterMessage;
+    private String width;
+
+
+
+
+
+    /**
+     * @param widthIn The width to set.
+     */
+    public void setWidth(String widthIn) {
+        this.width = widthIn;
+    }
     
     /**
      * @param filterMessageIn The filterMessage to set.
@@ -186,6 +199,7 @@ public class ColumnTag extends BodyTagSupport {
      * ${@inheritDoc}
      */
     public void release() {
+        width = null;
         styleClass = null;
         attributeName = null;
         isBound = false;
@@ -364,6 +378,11 @@ public class ColumnTag extends BodyTagSupport {
             if (isCurrColumnSorted()) {
                 ListTagUtil.write(pageContext, "sortedCol");
             }
+            ListTagUtil.write(pageContext, "\"");
+        }
+        if (!StringUtils.isBlank(width)) {
+            ListTagUtil.write(pageContext, " width=\"");
+            ListTagUtil.write(pageContext, width);
             ListTagUtil.write(pageContext, "\"");
         }
         ListTagUtil.write(pageContext, ">");

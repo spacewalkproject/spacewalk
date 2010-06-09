@@ -30,6 +30,66 @@ public class ChannelOverview extends BaseDto implements Comparable {
     private String label;
     private Long currentMembers;
     private Long maxMembers;
+    private Long currentFlex;
+    private Long maxFlex;
+    private Long subscribeCount;
+
+
+    /**
+     * @return Returns the subscribeCount.
+     */
+    public Long getSubscribeCount() {
+        return subscribeCount;
+    }
+
+
+
+
+    /**
+     * @param subscribeCountIn The subscribeCountIn to set.
+     */
+    public void setSubscribeCount(Long subscribeCountIn) {
+        this.subscribeCount = subscribeCountIn;
+    }
+
+
+
+    /**
+     * @return Returns the currentFlex.
+     */
+    public Long getCurrentFlex() {
+        return currentFlex;
+    }
+
+
+
+    /**
+     * @param currentFlexIn The currentFlex to set.
+     */
+    public void setCurrentFlex(Long currentFlexIn) {
+        this.currentFlex = currentFlexIn;
+    }
+
+
+
+    /**
+     * @return Returns the maxFlex.
+     */
+    public Long getMaxFlex() {
+        return maxFlex;
+    }
+
+
+
+    /**
+     * @param maxFlexIn The maxFlex to set.
+     */
+    public void setMaxFlex(Long maxFlexIn) {
+        this.maxFlex = maxFlexIn;
+    }
+
+
+
     private Long hasSubscription;
     private String url;
     private Long relevantPackages;
