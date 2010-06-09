@@ -566,7 +566,7 @@ class HardwareWindow:
         
         toplevel = snack.GridForm(screen, HARDWARE_WINDOW, 1, 7)
 
-        text = snack.TextboxReflowed(70, HARDWARE_WINDOW_DESCRIPTION)
+        text = snack.TextboxReflowed(70, HARDWARE_WINDOW_DESC1)
 
         toplevel.add(text, 0, 0, anchorLeft = 1)
 

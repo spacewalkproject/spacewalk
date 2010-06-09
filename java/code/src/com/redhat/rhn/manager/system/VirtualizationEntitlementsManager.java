@@ -15,7 +15,10 @@
 package com.redhat.rhn.manager.system;
 
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -23,7 +26,21 @@ import java.util.List;
  * VirtualizationEntitlementsService
  * @version $Rev$
  */
-public interface VirtualizationEntitlementsManager {
+public class VirtualizationEntitlementsManager {
+    private static final VirtualizationEntitlementsManager INSTANCE = 
+                                    new VirtualizationEntitlementsManager();
+    /**
+     * Initializes the manager.
+     */
+    private VirtualizationEntitlementsManager() {
+    }
+
+    /**
+     * @return an instance
+     */
+    public static VirtualizationEntitlementsManager getInstance() {
+        return INSTANCE;
+    }
     
     /**
      * Queries an org for host systems, having the 'Unlimited Virtualization' entitlement, 
@@ -35,7 +52,9 @@ public interface VirtualizationEntitlementsManager {
      * 
      * @see com.redhat.rhn.domain.server.HostAndGuestCountView
      */
-    List findGuestUnlimitedHostsByOrg(Org org);
+    public List findGuestUnlimitedHostsByOrg(Org org) {
+        return ServerFactory.findVirtPlatformHostsByOrg(org);
+    }
     
     /**
      * Queries an org for host systems, having the 'Limited Virtualization' entitlement that
@@ -47,7 +66,9 @@ public interface VirtualizationEntitlementsManager {
      * 
      * @see com.redhat.rhn.domain.server.HostAndGuestCountView
      */
-    List findGuestLimitedHostsByOrg(Org org);
+    public List findGuestLimitedHostsByOrg(Org org) {
+        return ServerFactory.findVirtHostsExceedingGuestLimitByOrg(org);
+    }
     
     /**
      * Queries an org for guest systems whose hosts either do not have any virtualization
@@ -59,6 +80,14 @@ public interface VirtualizationEntitlementsManager {
      * 
      * @see com.redhat.rhn.domain.server.GuestAndNonVirtHostView
      */
-    List findGuestsWithoutHostsByOrg(Org org);
+    public List findGuestsWithoutHostsByOrg(Org org) {
+       List guestsWithoutHosts = new LinkedList();
+       guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
+                                           findGuestsWithNonVirtHostByOrg(org));
+       guestsWithoutHosts.addAll(VirtualInstanceFactory.getInstance().
+                                               findGuestsWithoutAHostByOrg(org));
+       
+       return guestsWithoutHosts;
+    }    
     
 }

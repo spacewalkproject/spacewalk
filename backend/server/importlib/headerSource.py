@@ -72,6 +72,7 @@ class rpmPackage(IncompletePackage):
         self['package_size'] = size
         self['checksum_type'] = checksum_type
         self['checksum'] = checksum
+        self['checksums'] = {checksum_type:checksum}
         self['path'] = path
         self['org_id'] = org_id
         self['header_start'] = header_start
