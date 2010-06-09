@@ -5140,13 +5140,32 @@ value for this entitlement, excluding the default organization's consumption.</s
         </context-group>
       </trans-unit>
       <trans-unit id="entitlements.jsp.subscribed">
-<source>Systems Entitled</source>
+<source>Systems Subscribed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="entitlements.jsp.consumed">
+<source>Regular Consumed</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="entitlements.jsp.subscribed_flex">
+<source>Consumed Flex Guests</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="entitlements.jsp.avaible_flex">
+<source>Available Flex Guests</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Entitlements</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="entitlements.jsp.available">
-<source>Available Entitlements</source>
+<source>Regular Available</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/Entitlements</context>
         </context-group>

@@ -216,6 +216,11 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>    
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
 	<attribute>
       <name>filterattr</name>
       <required>false</required>

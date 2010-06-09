@@ -18,24 +18,51 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ChannelEntitlementSetupAction
  * @version $Rev$
  */
-public class ChannelEntitlementSetupAction extends BaseListAction {
+public class ChannelEntitlementSetupAction extends RhnAction implements Listable {
+
 
     /**
+     *
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        DataResult<ChannelOverview> list = ChannelManager.entitlements(
-                rctx.getCurrentUser().getOrg().getId(), pc);
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
+        return mapping.findForward("default");
+
+    }
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        DataResult<ChannelOverview>  list = ChannelManager.entitlements(
+                context.getCurrentUser().getOrg().getId(), null);
         /* hate doing this, as we should really change the view and queries to support this
          * This is for bz 435894   Opened bz 445260 to fix this properly.  Simply need to
          * change the rhnChannelFamilyOverview view to also return the channel family's 

@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
 
 <html:xhtml/>
 <html>
@@ -23,13 +25,20 @@
 
 <c:set var="pageList" value="${requestScope.pageList}" />
 <form method="post" name="rhn_list" action="/rhn/channels/software/EntitlementsSubmit.do">
-<rhn:list pageList="${requestScope.pageList}" noDataText="entitlements.jsp.noentitlements">
-  <rhn:listdisplay>
-    <rhn:column header="entitlements.jsp.channel"
-         url="/rhn/software/channels/ChannelFamilyTree.do?cfid=${current.id}">
-        ${current.name}
-    </rhn:column>
-    <rhn:column header="entitlements.jsp.subscribed">
+<rl:listset  name="entitlements">
+  <rl:list emptykey="entitlements.jsp.noentitlements">
+
+
+    <rl:column headerkey="entitlements.jsp.channel"
+          styleclass="first-column"
+          sortattr="name"
+          filterattr="name"
+          defaultsort="asc"
+          width="40%">
+        <a href="/rhn/software/channels/ChannelFamilyTree.do?cfid=${current.id}">${current.name}</a>
+    </rl:column>
+
+    <rl:column headerkey="entitlements.jsp.consumed" >
         <c:if test="${current.currentMembers == 0}">
             ${current.currentMembers}
         </c:if>
@@ -37,18 +46,43 @@
             <a href="/network/systems/system_list/in_channel_family.pxt?cfam_id=${current.id}">
                 ${current.currentMembers}</a>
         </c:if>
-    </rhn:column>
-    <rhn:column header="entitlements.jsp.available">
+    </rl:column>
+
+    <rl:column headerkey="entitlements.jsp.available" 	>
     	<c:if test="${current.orgId == null}">
 	        ${current.maxMembers - current.currentMembers}
 	    </c:if>
     	<c:if test="${current.orgId != null}">
 	        Unlimited
 	    </c:if>
-        
-    </rhn:column>
-  </rhn:listdisplay>
-</rhn:list>
+    </rl:column>
+
+    <rl:column headerkey="entitlements.jsp.subscribed_flex"  >
+            ${current.currentFlex}
+    </rl:column>
+
+    <rl:column headerkey="entitlements.jsp.avaible_flex" >
+	<c:if test="${current.orgId == null}">
+	        ${current.maxFlex - current.currentFlex}
+	    </c:if>
+	<c:if test="${current.orgId != null}">
+	        Unlimited
+	    </c:if>
+    </rl:column>
+
+    <rl:column headerkey="entitlements.jsp.subscribed" styleclass="last-column" >
+        <c:if test="${current.subscribeCount == 0}">
+            ${current.subscribeCount}
+        </c:if>
+        <c:if test="${current.subscribeCount > 0}">
+            <a href="/network/systems/system_list/in_channel_family.pxt?cfam_id=${current.id}">
+                ${current.subscribeCount}</a>
+        </c:if>
+    </rl:column>
+
+
+  </rl:list>
+</rl:listset>
 </form>
 </body>
 </html>
