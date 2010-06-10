@@ -976,46 +976,6 @@ EOQ
   return $progenitor;
 }
 
-sub relationships {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT CC.original_id, 'cloned_from', 'was cloned from'
-  FROM rhnChannelCloned CC
- WHERE CC.id = :cid
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute_h(cid => $self->id);
-
-  my %ret;
-
-  while (my ($id, $label, $descrip) = $sth->fetchrow) {
-    $ret{$self->id}->{$label}->{description} = $descrip;
-    push @{$ret{$self->id}->{$label}->{channels}}, $id;
-  }
-
-  $query = <<EOQ;
-SELECT CC.id, 'cloned_from', 'was cloned from'
-  FROM rhnChannelCloned CC
- WHERE CC.original_id = :cid
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(cid => $self->id);
-
-  while (my ($id, $label, $descrip) = $sth->fetchrow) {
-    $ret{$id}->{$label}->{description} = $descrip;
-    push @{$ret{$id}->{$label}->{channels}}, $self->id;
-  }
-
-  return %ret;
-}
-
 sub remove_packages_in_set {
   my $self = shift;
   my %attr = validate_with(params => \@_, spec => { set_label => 1, user_id => 1 }, strip_leading => '-');
