@@ -116,40 +116,6 @@ EOQ
   return;
 }
 
-sub schema_version {
-  my $class = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-   SELECT VI.label,
-          VI.name_id,
-          VI.evr_id,
-          PN.name,
-          PE.evr.as_vre_simple() AS VRE
-     FROM rhnPackageName PN,
-          rhnPackageEVR PE,
-          rhnVersionInfo VI
-    WHERE PN.id = VI.name_id
-      AND PE.id = VI.evr_id
-EOQ
-
-  $sth->execute();
-
-  my $version;
-
-  while (my $row = $sth->fetchrow_hashref()) {
-
-    if ($row->{LABEL} eq 'schema') {
-      $version = $row->{VRE};
-      last;
-    }
-  }
-
-  $sth->finish;
-
-  return $version;
-}
-
 sub update_monitoring_config {
   my $class = shift;
   my $mon_config = shift;
