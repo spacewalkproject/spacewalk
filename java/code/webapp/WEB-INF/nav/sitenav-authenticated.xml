@@ -15,7 +15,12 @@
     <rhn-tab name="Locale Preferences" url="/rhn/account/LocalePreferences.do" />
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)"/>
+      <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)">
+      	        <rhn-tab-url>/rhn/systems/entitlements/GuestUnlimitedHosts.do</rhn-tab-url>
+        		<rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
+        		<rhn-tab-url>/rhn/systems/entitlements/FlexGuests.do</rhn-tab-url>
+        		<rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
+      </rhn-tab>
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
     </rhn-tab>  
     <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do" acl="user_role(org_admin)">
