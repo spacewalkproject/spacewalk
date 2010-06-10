@@ -61,8 +61,6 @@ sub node_id { return $_[0]->{'node-id'} }
 sub formvars { return $_[0]->{formvars} }
 sub urls { return $_[0]->{urls} }
 sub directories { return $_[0]->{directories} }
-sub active_image { return $_[0]->{'active-image'} }
-sub inactive_image { return $_[0]->{'inactive-image'} }
 sub acl { return $_[0]->{acl} }
 sub perm_fail_redirect { return $_[0]->{perm_fail_redirect} }
 sub target { return $_[0]->{target} }
