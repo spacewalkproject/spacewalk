@@ -10,11 +10,13 @@
 		<c:set var="headerkey" value="eligible.flexguest.jsp.header"/>
 		<c:set var="messagekey" value="eligible.flexguest.jsp.message"/>
 		<c:set var="namestyle" value="first-column"/>
+		<c:set var="empty_msg" value="eligible-flexguest.jsp.no-systems"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="headerkey" value="flexguest.jsp.header"/>
 		<c:set var="messagekey" value="flexguest.jsp.message"/>
 		<c:set var="namestyle" value=""/>
+		<c:set var="empty_msg" value="flexguest.jsp.no-systems"/>
 	</c:otherwise>
 </c:choose>
 
@@ -25,22 +27,22 @@
     <meta name="page-decorator" content="none" />
 </head>
 <body>
-<rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-ood">
-  <bean:message key="flexguest.jsp.header"/>
-</rhn:toolbar>
+    <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt">
+      <bean:message key="virtualentitlements.toolbar" />
+    </rhn:toolbar>
 
-<rl:listset name="FlexSet">
 
     <rhn:dialogmenu mindepth="0" 
                     maxdepth="1" 
                     definition="/WEB-INF/nav/virt_entitlements.xml" 
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer"/>
-		<p><bean:message key="flexguest.jsp.message"/>
+<h2><bean:message key="${headerkey}"/></h2>                    
+		<p><bean:message key="${messagekey}" arg0="http://kbase.redhat.com/faq/docs/DOC-17424"/>
 		</p>
-
+		  
+<rl:listset name="FlexSet">
 <rl:list 
-	emptykey="nosystems.message"
+	emptykey="${empty_msg}"
 	parentiselement = "false"
 	searchparent="false"
 	searchchild="true"
@@ -98,7 +100,7 @@
 		</rl:non-expandable>						
 	</rl:column>	
 	
-	<rl:column headerkey="systemlist.jsp.registered"
+	<rl:column headerkey="Registered"
 				styleclass="last-column">
 		<rl:expandable></rl:expandable>
 		<rl:non-expandable>${current.registeredString}</rl:non-expandable>						
