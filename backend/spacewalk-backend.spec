@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.20
+Version: 1.1.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -631,6 +631,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jun 09 2010 Justin Sherrill <jsherril@redhat.com> 1.1.21-1
+- 600323 - fixing checksums KeyError with rhnpush and channel association
+  (jsherril@redhat.com)
+- fix broken solaris package downloads 
+- 600323 - fixing checksums KeyError with rhnpush (jsherril@redhat.com)
+
 * Tue Jun 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.20-1
 - more exporter code cleanup
 - 589524 - select packages, erratas and kickstart trees according to import
