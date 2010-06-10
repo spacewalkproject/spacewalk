@@ -101,6 +101,13 @@ public class ChannelFamilySystem extends SelectableAdapter {
     public void setId(Long idIn) {
         id = idIn;
     }
+    
+    /**
+     * @return returns server id
+     */
+    public Long getId() {
+        return id;
+    }
     /**
      * {@inheritDoc}
      */
