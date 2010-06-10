@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,20 +18,11 @@ import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.taskomatic.TaskoTask;
-import com.redhat.rhn.taskomatic.core.SchedulerKernel;
-import com.redhat.rhn.taskomatic.core.TaskomaticException;
 
 import org.apache.log4j.Logger;
-import org.quartz.JobDetail;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerUtils;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
@@ -45,7 +36,6 @@ import redstone.xmlrpc.XmlRpcFault;
  */
 public class TaskomaticHandler extends BaseHandler {
 
-    public static String DEFAULT_GROUP = "RHN";
     private String TASKOMATIC_NAMESPACE = "tasko";
     private static Logger log = Logger.getLogger(TaskomaticHandler.class);
 

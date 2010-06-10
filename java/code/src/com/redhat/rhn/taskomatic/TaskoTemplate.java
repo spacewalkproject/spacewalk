@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -41,9 +41,9 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param id The id to set.
+     * @param idIn The id to set.
      */
-    public void setId(Long id) {
+    public void setId(Long idIn) {
         this.id = id;
     }
 
@@ -55,10 +55,10 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param bunch The bunch to set.
+     * @param bunchIn The bunch to set.
      */
-    public void setBunch(TaskoBunch bunch) {
-        this.bunch = bunch;
+    public void setBunch(TaskoBunch bunchIn) {
+        this.bunch = bunchIn;
     }
 
     /**
@@ -69,10 +69,10 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param task The task to set.
+     * @param taskIn The task to set.
      */
-    public void setTask(TaskoTask task) {
-        this.task = task;
+    public void setTask(TaskoTask taskIn) {
+        this.task = taskIn;
     }
 
     /**
@@ -83,10 +83,10 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param ordering The ordering to set.
+     * @param orderingIn The ordering to set.
      */
-    public void setOrdering(Long ordering) {
-        this.ordering = ordering;
+    public void setOrdering(Long orderingIn) {
+        this.ordering = orderingIn;
     }
 
     /**
@@ -97,10 +97,10 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param startIf The startIf to set.
+     * @param startIfIn The startIf to set.
      */
-    public void setStartIf(String startIf) {
-        this.startIf = startIf;
+    public void setStartIf(String startIfIn) {
+        this.startIf = startIfIn;
     }
 
     /**
@@ -111,10 +111,10 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param created The created to set.
+     * @param createdIn The created to set.
      */
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
     }
 
     /**
@@ -125,9 +125,9 @@ public class TaskoTemplate {
     }
 
     /**
-     * @param modified The modified to set.
+     * @param modifiedIn The modified to set.
      */
-    public void setModified(Date modified) {
+    public void setModified(Date modifiedIn) {
         this.modified = modified;
     }
 
@@ -141,10 +141,10 @@ public class TaskoTemplate {
 
 
     /**
-     * @param runHistory The runHistory to set.
+     * @param runHistoryIn The runHistory to set.
      */
-    public void setRunHistory(Set<TaskoRun> runHistory) {
-        this.runHistory = runHistory;
+    public void setRunHistory(Set<TaskoRun> runHistoryIn) {
+        this.runHistory = runHistoryIn;
     }
 
 }
