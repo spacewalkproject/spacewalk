@@ -42,7 +42,7 @@ public class RhnJobFactory implements JobFactory {
      */
     public synchronized Job newJob(TriggerFiredBundle trigger) throws SchedulerException {
         TaskoBunch bunch = null;
-        String bunchName = trigger.getJobDetail().getJobDataMap().getString("name");
+        String bunchName = trigger.getJobDetail().getJobDataMap().getString("bunch_name");
 
         try {
             bunch = TaskoFactory.lookupByName(bunchName);

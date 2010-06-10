@@ -21,6 +21,7 @@ CREATE TABLE rhnTaskoRun
     template_id     NUMBER NOT NULL
                         CONSTRAINT rhn_tasko_run_template_fk
                         REFERENCES rhnTaskoTemplate (id),
+    job_label       VARCHAR(50),
     org_id          NUMBER,
     start_time      DATE,
     end_time        DATE,

@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="ordering" type="long" column="ordering"/>
         <property name="startIf" type="string" column="start_if"/>
 
-        <set name="runHistory" inverse="true">
+        <set name="runHistory" inverse="true" lazy="false" table="rhnTaskoRun">
             <key column="template_id"/>
             <one-to-many class="com.redhat.rhn.taskomatic.TaskoRun"/>
         </set>

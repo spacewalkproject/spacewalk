@@ -30,7 +30,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t where t.name = :name]]>
     </query>
 
-    <query name="Channel.listTasks">
+    <query name="TaskoTask.listTasks">
         <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t]]>
     </query>
 

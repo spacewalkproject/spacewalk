@@ -15,10 +15,10 @@
 
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'repo-sync', 'com.redhat.rhn.taskomatic.task.RepoSyncTask')
+         VALUES (rhn_tasko_task_id_seq.nextval, 'repo-sync', 'com.redhat.rhn.taskomatic.task.RepoSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'satellite-sync', 'com.redhat.rhn.taskomatic.task.SatSyncTask')
+         VALUES (rhn_tasko_task_id_seq.nextval, 'satellite-sync', 'com.redhat.rhn.taskomatic.task.SatSyncTask');
 
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (rhn_tasko_task_id_seq.nextval, 'kickstartfile-sync', 'com.redhat.rhn.taskomatic.task.KickstartFileSyncTask');
@@ -42,7 +42,7 @@ INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (rhn_tasko_task_id_seq.nextval, 'session-cleanup', 'com.redhat.rhn.taskomatic.task.SessionCleanup');
 
 INSERT INTO rhnTaskoTask (id, name, class)
-         VALUES (rhn_tasko_task_id_seq.nextval, 'channel-repodata', 'com.redhat.rhn.taskomatic.task.ChannelRepodata')
+         VALUES (rhn_tasko_task_id_seq.nextval, 'channel-repodata', 'com.redhat.rhn.taskomatic.task.ChannelRepodata');
 
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (rhn_tasko_task_id_seq.nextval, 'package-cleanup', 'com.redhat.rhn.taskomatic.task.PackageCleanup');

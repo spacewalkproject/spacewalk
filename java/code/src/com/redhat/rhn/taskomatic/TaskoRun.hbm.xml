@@ -18,6 +18,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             name="template"
             class="com.redhat.rhn.taskomatic.TaskoTemplate"
             column="template_id"/>
+        <property name="jobLabel" type="string" column="job_label"/>
         <property name="startTime" type="date" column="start_time"/>
         <property name="endTime" type="date" column="end_time"/>
         <property name="stdOutputPath" type="string" column="std_output_path"/>
@@ -30,5 +31,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
 
     </class>
+
+        <query name="TaskoRun.listRunsWithStatus">
+            <![CDATA[from com.redhat.rhn.taskomatic.TaskoRun as r where r.template.task.id = :task_id AND (r.status = :status1 OR status = :status2)]]>
+        </query>
+
 
 </hibernate-mapping>
