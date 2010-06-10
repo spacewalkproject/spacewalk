@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.struts;
 
-import com.redhat.rhn.domain.Identifiable;
-
 import java.util.List;
 
 
@@ -28,8 +26,9 @@ import java.util.List;
 public interface Expandable {
     /**
      * Expands and returns the children 
+     * List needs to be either Identifiable or Selectable 
      * @return the child object
      */
-    List<? extends Identifiable> expand();
+    List expand();
 
 }

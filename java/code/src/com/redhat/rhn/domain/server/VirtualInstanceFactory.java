@@ -22,6 +22,7 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
 import org.apache.log4j.Logger;
@@ -348,8 +349,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
             cfg.setId(cfId);
             cfg.setName(cfName);
             
-            ChannelFamilySystemGroup.SystemInfo ov = new 
-                                ChannelFamilySystemGroup.SystemInfo();
+            ChannelFamilySystem ov = new ChannelFamilySystem();
             ov.setId(systemId);
             ov.setName(systemName);
             ov.setActive(1 != inactive.intValue());
