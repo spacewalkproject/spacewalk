@@ -1686,6 +1686,27 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 </mode>
 
 
+<mode name="virtual_floating_guests">
+  <query params="user_id, checkin_threshold ">
+    select
+    cf.name cf_name, 
+    cf.id as cf_id,
+    s.id as system_id,
+    s.name as system_name,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered
+  from
+      RhnVirtualInstance vi
+      inner join rhnServer s on vi.virtual_system_id = s.id
+      inner join rhnServerChannel sc on sc.server_id = s.id
+      inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
+      inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
+  where sc.is_fve = 'Y'
+  		AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+  </query>
+</mode>
+
+
 
 </datasource_modes>
 

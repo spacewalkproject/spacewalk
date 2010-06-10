@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.taglibs.list.row;
 
-import com.redhat.rhn.frontend.dto.NetworkDto;
 import com.redhat.rhn.frontend.taglibs.RhnListTagFunctions;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
@@ -45,10 +44,6 @@ public class ExpandableRowRenderer extends RowRenderer {
             return rowClasses[rowNum % rowClasses.length];
         }
         else {
-            NetworkDto dto = (NetworkDto) current;
-            if (dto.getInactive() > 0) {
-                return " inactive";
-            }
             return rowClasses[rowNum % rowClasses.length];
         }
     }
