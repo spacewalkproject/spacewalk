@@ -344,33 +344,6 @@ sub proxy_channels_by_version {
 }
 
 
-sub available_channels_with_license {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT AC.channel_id, AC.channel_label, AC.channel_name
-  FROM rhnChannelFamilyLicense CFL, rhnChannelFamilyMembers CFM, rhnAvailableChannels AC
- WHERE AC.org_id = ?
-   AND AC.channel_id = CFM.channel_id
-   AND CFM.channel_family_id = CFL.channel_family_id
-ORDER BY UPPER(AC.channel_name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
-}
-
 sub has_downloads {
   my $class = shift;
   my $cid = shift;
