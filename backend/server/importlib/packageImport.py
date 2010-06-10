@@ -45,6 +45,10 @@ class ChannelPackageSubscription(GenericPackageImport):
         # Processes the package batch to a form more suitable for database
         # operations
         for package in self.batch:
+            # if package object doesn't have multiple checksums (like satellite-sync objects)
+            #   then let's fake it
+            if not package.has_key('checksums'):
+                package['checksums'] = {package['checksum_type']: package['checksum']}
             if not isinstance(package, IncompletePackage):
                 raise TypeError("Expected an IncompletePackage instance, "
                     "got %s" % package.__class__.__name__)

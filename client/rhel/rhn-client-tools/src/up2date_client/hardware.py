@@ -33,7 +33,7 @@ import dmidecode
 import up2dateLog
 
 try: # F13 and EL6
-    from hardware_gudev import get_devices
+    from hardware_gudev import get_devices, get_computer_info
     using_gudev = 1
 except ImportError:
     from hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
@@ -581,9 +581,9 @@ def get_hal_system_and_smbios():
         else: 
             computer = get_hal_computer()
             props = computer.GetAllProperties()
-    except:
+    except Exception, e:
         log = up2dateLog.initLog()
-        msg = "Error reading system and smbios information: %s\n" % (sys.exc_type)
+        msg = "Error reading system and smbios information: %s\n" % (e)
         log.log_debug(msg)
         return {}
     system_and_smbios = {}

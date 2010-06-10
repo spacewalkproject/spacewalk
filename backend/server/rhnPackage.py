@@ -33,7 +33,8 @@ def get_package_path(server_id, pkg_spec, channel):
     log_debug(3, server_id, pkg_spec, channel)
     if isinstance(pkg_spec, ListType):
         pkg = pkg_spec[:4]
-        pkg.insert(3, None)
+        #Insert EPOCH
+        pkg.insert(1, None)
     else:
         pkg = parseRPMFilename(pkg_spec)
         if pkg is None:

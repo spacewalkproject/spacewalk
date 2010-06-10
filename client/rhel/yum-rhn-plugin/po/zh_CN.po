@@ -1,22 +1,24 @@
-# translation of zh_CN.po to 
+# translation of spacewalk.yum-rhn-plugin.po to Wei Liu
+# translation of zh_CN.po to
 # translation of zh_CN.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Tony Fu <tfu@redhat.com>, 2006.
 # Xi Huang <xhuang@redhat.com>, 2006.
-#
+# Leah Liu <lliu@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_CN\n"
+"Project-Id-Version: spacewalk.yum-rhn-plugin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-06 16:28+0200\n"
-"PO-Revision-Date: 2006-11-30 17:57+1000\n"
-"Last-Translator: Xi Huang <xhuang@redhat.com>\n"
-"Language-Team:  <zh@li.org>\n"
+"PO-Revision-Date: 2010-06-10 12:08+1000\n"
+"Last-Translator: Leah Liu <lliu@redhat.com>\n"
+"Language-Team: Wei Liu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../rhnplugin.py:47
 msgid "There was an error communicating with RHN."
@@ -31,7 +33,7 @@ msgstr "RHN 支持将被禁用。"
 msgid ""
 "*Note* Red Hat Network repositories are not listed below. You must run this "
 "command as root to access RHN repositories."
-msgstr ""
+msgstr "*备注* 以下没有列出红帽网络程序库。您必须以根用户身份运行这个命令方可进入 RHN 程序库。"
 
 #: ../rhnplugin.py:95
 msgid "There was an error parsing the RHN proxy settings."
@@ -39,7 +41,7 @@ msgstr "RHN 代理服务器设置解释错误。"
 
 #: ../rhnplugin.py:106
 msgid "Cleaning"
-msgstr ""
+msgstr "清除中"
 
 #: ../rhnplugin.py:112
 msgid "Either --version, or no commands entered"
@@ -58,9 +60,8 @@ msgid "This system is not subscribed to any channels."
 msgstr "这个系统没有订阅到任何频道。"
 
 #: ../rhnplugin.py:139
-msgid ""
-"This system may not be a registered to RHN. SystemId could not be acquired.\n"
-msgstr ""
+msgid "This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr "这个系统可能没有在 RHN 注册。无法获得 SystemId。\n"
 
 #: ../rhnplugin.py:213
 msgid "Package profile information could not be sent."
@@ -71,13 +72,14 @@ msgstr "软件包配置档案信息无法发送。"
 #. bz: 438175
 #: ../rhnplugin.py:220
 msgid "Error Message:"
-msgstr ""
+msgstr "出错信息："
 
 #: ../rhnplugin.py:221
 msgid "Please run rhn_register as root on this client"
-msgstr ""
+msgstr "请在客户端中以根用户身份运行 rhn_register"
 
 #: ../rhnplugin.py:298
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "缺少 RHN: %s 所要求的登录信息"
+
