@@ -557,6 +557,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Active">
+<source>Active</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>      
       <trans-unit id="IP Ranges">
 <source>IP Ranges</source>
         <context-group name="ctx">

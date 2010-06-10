@@ -43,11 +43,13 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
             return ls.getMessage("flexguest.jsp.entitlement_counts_message_unlimited",
                                                             currentMembers);
         }
+        String key = "flexguest.jsp.entitlement_counts_message";
+        long available = maxMembers - currentMembers;
+        if (available > 1) {
+            key = key + "_1";
+        }
         
-        
-        return ls.getMessage("flexguest.jsp.entitlement_counts_message",
-                                           currentMembers, maxMembers - currentMembers);
-        
+        return ls.getMessage(key, currentMembers, available);
     }
 
     /**

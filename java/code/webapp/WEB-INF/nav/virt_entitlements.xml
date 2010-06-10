@@ -10,4 +10,11 @@
   <rhn-tab name="guests.without.hosts">
     <rhn-tab-url>/rhn/systems/entitlements/PhysicalHosts.do</rhn-tab-url>
   </rhn-tab>
+  <rhn-tab name="floating.guests">
+    <rhn-tab-url>/rhn/systems/entitlements/FlexGuests.do</rhn-tab-url>
+</rhn-tab>
+  <rhn-tab name="eligible.floating.guests">
+    <rhn-tab-url>/rhn/systems/entitlements/EligibleFlexGuests.do</rhn-tab-url>
+  </rhn-tab>
+
 </rhn-navi-tree>
