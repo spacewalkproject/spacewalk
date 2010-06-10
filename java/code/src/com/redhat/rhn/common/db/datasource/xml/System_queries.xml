@@ -1686,7 +1686,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
 </mode>
 
 
-<mode name="virtual_floating_guests">
+<mode name="flex_guests">
   <query params="user_id, checkin_threshold ">
     select
     cf.name cf_name, 
@@ -1698,11 +1698,45 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   from
       RhnVirtualInstance vi
       inner join rhnServer s on vi.virtual_system_id = s.id
+      inner join rhnUserServerPerms USP on s.id = USP.server_id
       inner join rhnServerChannel sc on sc.server_id = s.id
       inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
       inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
   where sc.is_fve = 'Y'
-  		AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+  		AND USP.user_id = :user_id 
+  </query>
+</mode>
+
+
+<mode name="eligible_flex_guests">
+  <query params="user_id, checkin_threshold ">
+    select
+    cf.name cf_name, 
+    cf.id as cf_id,
+    s.id as system_id,
+    s.name as system_name,
+    (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
+    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered
+  from
+      RhnVirtualInstance vi
+      inner join rhnServer s on vi.virtual_system_id = s.id
+      inner join rhnUserServerPerms USP on s.id = USP.server_id
+      inner join rhnServerChannel sc on sc.server_id = s.id
+      inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
+      inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
+  where sc.is_fve = 'N'
+  		AND USP.user_id = :user_id
+  		AND (vi.host_system_id is null OR
+            exists (
+  		    select sg.id from rhnServerGroupMembers sgm 
+  		            inner join rhnServerGroup sg on sgm.server_group_id = sg.id
+                    inner join rhnServerGroupType sgt on sgt.id = sg.group_type
+  		            inner join rhnServer s2 on s2.id = sgm.server_id
+                where 
+                s2.org_id = s.org_id
+                and s2.id = vi.host_system_id
+                and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
+  		    )
   </query>
 </mode>
 

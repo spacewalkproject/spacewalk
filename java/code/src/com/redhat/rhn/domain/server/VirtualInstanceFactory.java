@@ -321,9 +321,24 @@ public class VirtualInstanceFactory extends HibernateFactory {
      * @return a list of  ChannelFamilySystemGroups
      */
     public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
+        return runFlexGuestsQuery(user, "flex_guests");
+    }
+
+    /**
+     * Returns a list of eligible systems who could become  floating guests
+     *  with a channel family grouping 
+     * @param user the user object needed for perms checking
+     * @return a list of  ChannelFamilySystemGroups
+     */
+    public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
+        return runFlexGuestsQuery(user, "eligible_flex_guests");
+    }
+    
+    
+    private List<ChannelFamilySystemGroup> runFlexGuestsQuery(User user, String query) {
         List<ChannelFamilySystemGroup> ret = new LinkedList<ChannelFamilySystemGroup>();
         
-        SelectMode m = ModeFactory.getMode("System_queries", "virtual_floating_guests");
+        SelectMode m = ModeFactory.getMode("System_queries", query);
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("checkin_threshold", Config.get().getInt(ConfigDefaults
@@ -360,5 +375,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
         return ret;
     }
 
+    
+    
     
 }
