@@ -57,14 +57,6 @@ sub extract_namespace_array {
   return $aref;
 }
 
-sub set_fields {
-  my $self = shift;
-
-  croak "attempt to set fields for SimpleStruct after already set" if exists $self->{_simple_struct_fields_};
-
-  $self->{_simple_struct_fields_} = { map { $_ => undef } @_ };
-}
-
 sub AUTOLOAD {
   my $self = shift;
 
