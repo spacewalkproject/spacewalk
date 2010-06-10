@@ -6179,6 +6179,9 @@ value for this entitlement, excluding the default organization's consumption.</s
 		    <context context-type="sourcefile">rhn/systems/entitlements/FlexGuests.do</context>
 		    <context context-type="sourcefile">rhn/systems/entitlements/EligibleFlexGuests.do</context>
 		</context-group>
+		<trans-unit id="Registered">
+			<source>Registered</source>
+	     </trans-unit>		
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message_unlimited">
 			<source>{0} consumed, unlimited available entitlements</source>
 	     </trans-unit>
@@ -6188,7 +6191,35 @@ value for this entitlement, excluding the default organization's consumption.</s
 	     </trans-unit>
 	     <trans-unit id="flexguest.jsp.entitlement_counts_message_1">
 			<source>{0} consumed, {1} available entitlements</source>
+	     </trans-unit>
+	     <trans-unit id="flexguest.jsp.header">
+			<source>Flex Guest Entitlement Consumers</source>
+	     </trans-unit>
+	     <trans-unit id="flexguest.jsp.message">
+			<source>The following is a list of guest systems that are currently consuming &lt;a href=&quot;{0}&quot;&gt; Flex Guest entitlements&lt;/a&gt;. These entitlements are used when registering virtual guests that are not associated with a registered host system or that are associated with a host system that is not Virtualization or Virtualization Platform entitled. Flex Guest Entitlement Consumers</source>
+	     </trans-unit>
+	     <trans-unit id="floating.guests">
+			<source>Flex Guest Entitlement Consumers</source>
+	     </trans-unit>
+	     
+	     <trans-unit id="eligible.floating.guests">
+			<source>Guests Consuming Regular Entitlements</source>
 	     </trans-unit>	     
+	     <trans-unit id="eligible.flexguest.jsp.header">
+			<source>Guests Consuming Regular Entitlements</source>
+	     </trans-unit>
+	     <trans-unit id="eligible.flexguest.jsp.message">
+			<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN or for whom there are no remaining &lt;a href=&quot;{0}&quot;&gt; Virtualization inherited guest entitlements&lt;/a&gt;. These systems are consuming the same software and system entitlements as a physical system.</source>
+	     </trans-unit>
+	     
+ 	     <trans-unit id="eligible.flexguest.jsp.no-systems">
+			<source>There are no eligible flex guest systems consuming regular entitlements.</source>
+	     </trans-unit>
+
+ 	     <trans-unit id="flexguest.jsp.no-systems">
+			<source>There are no systems consuming Flex Guest entitlements.</source>
+	     </trans-unit>
+	     
 	</group>
 
  	<!--  System search -->
