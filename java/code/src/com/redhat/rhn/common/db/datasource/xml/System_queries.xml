@@ -1694,7 +1694,9 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     s.id as system_id,
     s.name as system_name,
     (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
-    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered
+    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
+    pcf.FVE_CURRENT_MEMBERS as current_members,
+    pcf.FVE_MAX_MEMBERS as max_members 
   from
       RhnVirtualInstance vi
       inner join rhnServer s on vi.virtual_system_id = s.id
@@ -1702,6 +1704,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
       inner join rhnServerChannel sc on sc.server_id = s.id
       inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
       inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
+      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
   where sc.is_fve = 'Y'
   		AND USP.user_id = :user_id 
   </query>
@@ -1716,7 +1719,9 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     s.id as system_id,
     s.name as system_name,
     (select count(*)  from rhnServerInfo Si2 where  S.id = Si2.server_id and Si2.checkin &lt; sysdate - :checkin_threshold) as inactive,
-    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered
+    TO_CHAR(s.created, 'YYYY-MM-DD HH24:MI:SS') as registered,
+    pcf.FVE_CURRENT_MEMBERS as current_members,
+    pcf.FVE_MAX_MEMBERS as max_members 
   from
       RhnVirtualInstance vi
       inner join rhnServer s on vi.virtual_system_id = s.id
@@ -1724,6 +1729,7 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
       inner join rhnServerChannel sc on sc.server_id = s.id
       inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
       inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
+      inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
   where sc.is_fve = 'N'
   		AND USP.user_id = :user_id
   		AND (vi.host_system_id is null OR
