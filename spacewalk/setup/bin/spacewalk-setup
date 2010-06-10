@@ -1522,14 +1522,6 @@ sub set_channel_family {
   $self->push_field(name => 'channel-families', family => $label, quantity => $quantity);
 }
 
-sub get_channel_families {
-  my $self = shift;
-
-  my $a = $self->get_field('channel-families');
-
-  return map { [ $_->{family}, $_->{quantity} ] } @$a;
-}
-
 sub version {
   my $self = shift;
 
