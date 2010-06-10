@@ -354,6 +354,8 @@ public class VirtualInstanceFactory extends HibernateFactory {
             String systemName = (String) row.get("system_name");
             Long inactive = (Long) row.get("inactive");
             String registered = (String) row.get("registered");
+            Long currentMembers = (Long) row.get("current_members");
+            Long maxMembers = (Long) row.get("max_members");
             
             
             ChannelFamilySystemGroup cfg = map.get(cfId);
@@ -363,6 +365,8 @@ public class VirtualInstanceFactory extends HibernateFactory {
             }
             cfg.setId(cfId);
             cfg.setName(cfName);
+            cfg.setCurrentMembers(currentMembers);
+            cfg.setMaxMembers(maxMembers);
             
             ChannelFamilySystem ov = new ChannelFamilySystem();
             ov.setId(systemId);

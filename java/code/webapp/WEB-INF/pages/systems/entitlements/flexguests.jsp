@@ -34,7 +34,7 @@
 
 	<!-- Name Column -->
 	<rl:column headerkey="systemlist.jsp.system" filterattr="name" filtermessage="${filtermessage}" styleclass="first-column">
-	    <rl:expandable rendericon="true">${current.name} <em>(<bean:message key="manysystems.message" arg0="${rl:countChildren(current)}"/>)</em> </rl:expandable>
+	    <rl:expandable rendericon="true">${current.name} <em>(${current.entitlementCountMessage})</em> </rl:expandable>
 	    
 	    <rl:non-expandable rendericon="true">
 			<c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />

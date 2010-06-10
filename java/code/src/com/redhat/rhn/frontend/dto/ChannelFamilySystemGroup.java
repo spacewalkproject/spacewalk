@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.struts.Expandable;
 
@@ -30,7 +31,39 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
     private String name;
     private Long id;
     private List<ChannelFamilySystem> systems = new LinkedList<ChannelFamilySystem>();
+    private Long currentMembers;
+    private Long maxMembers;
+
+    /**
+     * @return the entitlements count message
+     */
+    public String getEntitlementCountMessage() {
+        LocalizationService ls = LocalizationService.getInstance();
+        if (maxMembers == null) {
+            return ls.getMessage("flexguest.jsp.entitlement_counts_message_unlimited",
+                                                            currentMembers);
+        }
+        
+        
+        return ls.getMessage("flexguest.jsp.entitlement_counts_message",
+                                           currentMembers, maxMembers - currentMembers);
+        
+    }
+
+    /**
+     * @param currentMembersIn The currentMembers to set.
+     */
+    public void setCurrentMembers(Long currentMembersIn) {
+        currentMembers = currentMembersIn;
+    }
     
+    /**
+     * @param maxMembersIn The maxMembers to set.
+     */
+    public void setMaxMembers(Long maxMembersIn) {
+        maxMembers = maxMembersIn;
+    }
+
     /**
      * {@inheritDoc}
      */
