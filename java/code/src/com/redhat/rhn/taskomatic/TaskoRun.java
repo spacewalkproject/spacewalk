@@ -43,6 +43,7 @@ public class TaskoRun implements Job {
     private Long id;
     private Integer orgId;
     private TaskoTemplate template;
+    private String jobLabel;
     private Date startTime;
     private Date endTime;
     private String stdOutputPath = null;
@@ -51,17 +52,20 @@ public class TaskoRun implements Job {
     private Date created;
     private Date modified;
 
-    public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn) {
+    public TaskoRun() {
+    }
+
+    public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, String jobLabelIn) {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
+        setJobLabel(jobLabelIn);
         File logDir = new File(getStdLogDirName(orgId));
         if (!logDir.isDirectory()) {
             if (!logDir.exists()) {
                 logDir.mkdirs();
             }
         }
-        setStatus(STATUS_READY_TO_RUN);
-        TaskoFactory.save(this);
+        saveStatus(STATUS_READY_TO_RUN);
     }
 
     public void start() {
@@ -73,15 +77,20 @@ public class TaskoRun implements Job {
             log.warn("Logging disabled. No directory " + stdLogPrefix);
         }
         setStartTime(new Date());
-        setStatus(STATUS_RUNNING);
-        TaskoFactory.save(this);
-        // TaskoFactory.commitTransaction();
+        saveStatus(STATUS_RUNNING);
     }
 
-    public void finished() {
+    public void finished(JobExecutionContext context) {
         setEndTime(new Date());
-        setStatus(STATUS_FINISHED);
-        TaskoFactory.save(this);
+        String out = (String) context.getJobDetail().getJobDataMap().get("stdOutput");
+        if (out != null) {
+            saveLogToFile(getStdOutputPath(), out);
+        }
+        String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
+        if (err != null) {
+            saveLogToFile(getStdErrorPath(), err);
+        }
+        saveStatus(STATUS_FINISHED);
     }
 
     public void execute(JobExecutionContext context)
@@ -91,25 +100,29 @@ public class TaskoRun implements Job {
             Job job = null;
             try {
                 jobClass = Class.forName(template.getTask().getTaskClass());
-            }
-            catch (ClassNotFoundException cnfe) {
-                setStatus(STATUS_FAILED);
-                saveToStdError(cnfe.toString());
-            }
-            try {
                 job = (Job) jobClass.newInstance();
             }
+            catch (ClassNotFoundException cnfe) {
+                log.warn("Internal task error.");
+                saveToStdError(cnfe.toString());
+                saveStatus(STATUS_FAILED);
+                return;
+            }
             catch (InstantiationException ie) {
-                setStatus(STATUS_FAILED);
+                log.warn("Internal task error.");
                 saveToStdError(ie.toString());
+                saveStatus(STATUS_FAILED);
+                return;
             }
             catch (IllegalAccessException iae) {
-                setStatus(STATUS_FAILED);
+                log.warn("Internal task error.");
                 saveToStdError(iae.toString());
+                saveStatus(STATUS_FAILED);
+                return;
             }
 
             job.execute(context);
-            finished();
+            finished(context);
     }
 
     private void saveToStdError(String message) {
@@ -122,6 +135,11 @@ public class TaskoRun implements Job {
                 log.error("Cannot save traceback to " + stdErrorPath);
             }
         }
+    }
+
+    private void saveStatus(String statusIn) {
+        setStatus(statusIn);
+        TaskoFactory.save(this);
     }
 
     public static String getStdOutputLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {
@@ -147,6 +165,15 @@ public class TaskoRun implements Job {
     private static String getStdLogFileName(TaskoTemplate templ, TaskoRun run) {
         return templ.getBunch().getName() + "_" + templ.getTask().getName()
             + "_" + run.getId();
+    }
+
+    private void saveLogToFile(String fileName, String log) {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+            out.write(log);
+            out.close();
+        } catch (IOException e) {
+        }
     }
 
     /**
@@ -308,4 +335,17 @@ public class TaskoRun implements Job {
         this.orgId = orgId;
     }
 
+    /**
+     * @return Returns the jobLabel.
+     */
+    public String getJobLabel() {
+        return jobLabel;
+    }
+
+    /**
+     * @param jobLabel The jobLabel to set.
+     */
+    public void setJobLabel(String jobLabel) {
+        this.jobLabel = jobLabel;
+    }
 }

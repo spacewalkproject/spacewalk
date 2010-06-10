@@ -22,10 +22,13 @@ import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.SchedulerException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TaskoBunch
@@ -34,15 +37,23 @@ import java.util.List;
 public class TaskoBunch implements Job {
 
     private static Logger log = Logger.getLogger(TaskoBunch.class);
+    private static Map<String, Integer> tasks = new HashMap();
     private Long id;
     private String name;
     private String description;
     private String orgTask;
     private Date activeFrom;
     private Date activeTill;
+    private String orgBunch;
     private List<TaskoTemplate> templates = new ArrayList();
     private Date created;
     private Date modified;
+
+    static {
+        for (TaskoTask task : TaskoFactory.listTasks()) {
+            tasks.put(task.getName(), 0);
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -51,15 +62,54 @@ public class TaskoBunch implements Job {
         throws JobExecutionException {
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();
         Integer orgId = dataMap.getInt("org_id");
-        log.info("Starting " + this.name + " at " + new Date());
+        String jobLabel = dataMap.getString("job_label");
+        TaskoRun previousRun = null;
+
+        log.info("Starting " + this.name + " (" + jobLabel + ") at " + new Date());
 
         for (TaskoTemplate template : this.templates) {
-            TaskoRun taskRun = new TaskoRun(orgId, template);
-            taskRun.execute(context);
+            if ((previousRun == null)
+                    || (previousRun.getStatus() == template.getStartIf())) {
+
+                while (isTaskRunning(template.getTask())) {
+                    log.info("Task " + template.getTask().getName() + " currently executing. Sleeping for 10 secs.");
+                    TaskoFactory.sleep(10000);
+                }
+                markTaskRunning(template.getTask());
+                TaskoRun taskRun = new TaskoRun(orgId, template, jobLabel);
+                taskRun.execute(context);
+                unmarkTaskRunning(template.getTask());
+                log.debug(template.getTask().getName() + " ... " + taskRun.getStatus());
+                previousRun = taskRun;
+            }
+            else {
+                log.info("Interrupting " + this.name + " (" + jobLabel + ")");
+                break;
+            }
         }
         TaskoFactory.commitTransaction();
 
-        log.info("Finishing " + this.name + " at " + new Date());
+        log.info("Finishing " + this.name + " (" + jobLabel + ") at " + new Date());
+    }
+
+    private boolean isTaskRunning(TaskoTask task) {
+        return tasks.get(task.getName()) > 0;
+    }
+
+    private void markTaskRunning(TaskoTask task) {
+        synchronized (getClass()) {
+            int count = tasks.get(task.getName());
+            count ++;
+            tasks.put(task.getName(), count);
+        }
+    }
+
+    private void unmarkTaskRunning(TaskoTask task) {
+        synchronized (getClass()) {
+            int count = tasks.get(task.getName());
+            count --;
+            tasks.put(task.getName(), count);
+        }
     }
 
     /**
@@ -188,5 +238,19 @@ public class TaskoBunch implements Job {
      */
     public void setOrgTask(String orgTask) {
         this.orgTask = orgTask;
+    }
+
+    /**
+     * @return Returns the orgBunch.
+     */
+    public String getOrgBunch() {
+        return orgBunch;
+    }
+
+    /**
+     * @param orgBunch The orgBunch to set.
+     */
+    public void setOrgBunch(String orgBunch) {
+        this.orgBunch = orgBunch;
     }
 }

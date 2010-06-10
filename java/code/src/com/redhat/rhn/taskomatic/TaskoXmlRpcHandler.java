@@ -26,37 +26,35 @@ import org.quartz.Trigger;
 import org.quartz.TriggerUtils;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class TaskoXmlRpcHandler {
 
-    public static String RHN_BUNCH = "RHN_BUNCH";
-    public static String RHN_TASK = "RHN_TASK";
     private Scheduler scheduler;
 
     public TaskoXmlRpcHandler() {
         scheduler = SchedulerKernel.getScheduler();
     }
 
-    private String getUniqueTriggerName(String name, String group) throws SchedulerException {
-        String triggerName = name;
+    /*
+    private String getUniqueName(String name, String group) throws SchedulerException {
         Integer count = 0;
-        while (SchedulerKernel.getScheduler().getTrigger(
-                triggerName + "-" + count, group) != null) {
+        while ((SchedulerKernel.getScheduler().getTrigger(
+                        name + "-" + count, group) != null)
+              && (SchedulerKernel.getScheduler().getJobDetail(
+                        name + "-" + count, group) != null)) {
             count ++;
         }
-        return triggerName + "-" + count;
+        return name + "-" + count;
     }
+    */
 
-    private String getUniqueJobName(String name, String group) throws SchedulerException {
-        String jobName = name;
-        Integer count = 0;
-        while (SchedulerKernel.getScheduler().getJobDetail(
-                jobName + "-" + count, group) != null) {
-            count ++;
-        }
-        return jobName + "-" + count;
+    private Boolean checkUserName(String name, String group) throws SchedulerException {
+        return ((SchedulerKernel.getScheduler().getTrigger(name, group) == null)
+        && (SchedulerKernel.getScheduler().getJobDetail(name, group) == null));
     }
 
     public int one(Integer orgId) {
@@ -65,74 +63,66 @@ public class TaskoXmlRpcHandler {
 
     public String[] listBunches(Integer orgId) {
         try {
-            String[] triggerNames = SchedulerKernel.getScheduler().getTriggerNames(RHN_BUNCH);
-
-            for (String triggerName : triggerNames) {
-                Trigger trigger = SchedulerKernel.getScheduler().getTrigger(triggerName, RHN_BUNCH);
-                // JobDetail jd = SchedulerKernel.getScheduler().getJobDetail(trigger.getJobName(), RHN_BUNCH);
-            }
-
-            return triggerNames;
+            return SchedulerKernel.getScheduler().getTriggerNames(orgId.toString());
         }
         catch (SchedulerException e) {
             return null;
         }
     }
 
-    public Date scheduleBunch(Integer orgId, String bunchName, String cronExpression) throws ParseException, NoSuchTaskException {
+    public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
+            Date startTime, Date endTime, String cronExpression, Map params)
+            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
         try {
-            JobDetail jobDetail = SchedulerKernel.getScheduler().getJobDetail(bunchName, RHN_BUNCH);
-            if (jobDetail == null) {
-                jobDetail = new JobDetail(bunchName, RHN_BUNCH, TaskoBunch.class);
-                jobDetail.getJobDataMap().put("org_id", orgId);
-                jobDetail.getJobDataMap().put("name", bunchName);
-                CronTrigger ct = new CronTrigger(getUniqueTriggerName(bunchName + "Trigger" + orgId, RHN_BUNCH), RHN_BUNCH,
-                        cronExpression);
-                return SchedulerKernel.getScheduler().scheduleJob(jobDetail, ct);
+            if (!checkUserName(jobLabel, orgId.toString())) {
+                throw new InvalidJobLabelException();
             }
-            else {
-                CronTrigger ct = new CronTrigger(getUniqueTriggerName(bunchName + "Trigger" + orgId, RHN_BUNCH), RHN_BUNCH,
-                        bunchName, RHN_BUNCH, cronExpression);
-                return SchedulerKernel.getScheduler().scheduleJob(ct);
+            // create job
+            JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),
+                    TaskoBunch.class);
+            // set job params
+            jobDetail.getJobDataMap().putAll(params);
+            jobDetail.getJobDataMap().put("org_id", orgId);
+            jobDetail.getJobDataMap().put("bunch_name", bunchName);
+            jobDetail.getJobDataMap().put("job_label", jobLabel);
+            // create trigger
+            CronTrigger ct = new CronTrigger(jobLabel, orgId.toString(),
+                    cronExpression);
+            if (startTime != null) {
+                ct.setStartTime(startTime);
             }
+            if (endTime != null) {
+                ct.setEndTime(endTime);
+            }
+            // schedule job
+            return SchedulerKernel.getScheduler().scheduleJob(jobDetail, ct);
         }
         catch (SchedulerException e) {
             return null;
         }
+    }
+
+    public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
+            String cronExpression, Map params)
+            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
+        return scheduleBunch(orgId, bunchName, jobLabel, null, null, cronExpression, params);
     }
 
     public int unscheduleBunch(Integer orgId, String triggerName) throws NoSuchTaskoTriggerException {
         try {
-            return SchedulerKernel.getScheduler().unscheduleJob(triggerName, RHN_BUNCH)?1:0;
+            return SchedulerKernel.getScheduler().unscheduleJob(triggerName, orgId.toString())?1:0;
         }
         catch (SchedulerException e) {
             throw new NoSuchTaskoTriggerException();
         }
     }
-/*
-    public Date scheduleTask(Integer orgId, String taskName, String cronExpression) throws ParseException, NoSuchTaskException {
+
+    public int listBunchRuns(Integer orgId, String triggerName) throws NoSuchTaskoTriggerException {
         try {
-            JobDetail jobDetail = SchedulerKernel.getScheduler().getJobDetail(taskName, RHN_TASK);
-            if (jobDetail == null) {
-                Class taskClass = TaskoFactory.traslateTaskNameToClass(taskName);
-                if (taskClass == null) {
-                    throw new NoSuchTaskException();
-                }
-                jobDetail = new JobDetail(taskName, RHN_TASK, taskClass);
-                jobDetail.getJobDataMap().put("org_id", orgId);
-                CronTrigger ct = new CronTrigger(getUniqueTriggerName(taskName + "Trigger" + orgId, RHN_TASK), RHN_TASK,
-                        cronExpression);
-                return SchedulerKernel.getScheduler().scheduleJob(jobDetail, ct);
-            }
-            else {
-                CronTrigger ct = new CronTrigger(getUniqueTriggerName(taskName + "Trigger" + orgId, RHN_TASK), RHN_TASK,
-                        taskName, RHN_TASK, cronExpression);
-                return SchedulerKernel.getScheduler().scheduleJob(ct);
-            }
+            return SchedulerKernel.getScheduler().unscheduleJob(triggerName, orgId.toString())?1:0;
         }
         catch (SchedulerException e) {
-            return null;
+            throw new NoSuchTaskoTriggerException();
         }
     }
-*/
 }

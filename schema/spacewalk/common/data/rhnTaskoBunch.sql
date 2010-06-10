@@ -14,7 +14,10 @@
 --
 
 
-INSERT INTO rhnTaskoBunch (id, name, description, org_task, active_from)
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status', 'daily-status description', 'N', sysdate);
+
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'N', sysdate);
 
 commit;

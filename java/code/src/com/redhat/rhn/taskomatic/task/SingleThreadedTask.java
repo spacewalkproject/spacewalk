@@ -33,7 +33,7 @@ import org.quartz.JobExecutionException;
  */
 public abstract class SingleThreadedTask implements Job {
     
-    private boolean isExecuting = false;
+    private static boolean isExecuting = false;
     
     /**
      * {@inheritDoc}
@@ -41,14 +41,14 @@ public abstract class SingleThreadedTask implements Job {
     public void execute(JobExecutionContext ctx) 
             throws JobExecutionException {
         synchronized (this) {
-            if (this.isExecuting) {
+            if (isExecuting) {
                 Logger logger = Logger.getLogger(SchedulerKernel.class);
                 logger.info("Instance of " + getClass().getName() + " already running..." + 
                     "Exiting");                
                 return;
             }
             else {
-                this.isExecuting = true;
+                isExecuting = true;
             }
         }
         try {
@@ -64,7 +64,7 @@ public abstract class SingleThreadedTask implements Job {
         }
         finally {
             synchronized (this) {
-                this.isExecuting = false;
+                isExecuting = false;
             }
             HibernateFactory.closeSession();
         }

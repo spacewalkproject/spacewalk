@@ -23,6 +23,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.frontend.dto.OrgIdWrapper;
 
 import org.apache.log4j.Logger;
+import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -38,7 +39,7 @@ import java.util.Set;
  * daily summary email
  * @version $Rev$
  */
-public class SummaryPopulation extends SingleThreadedTask {
+public class SummaryPopulation implements Job {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -50,7 +51,7 @@ public class SummaryPopulation extends SingleThreadedTask {
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext ctx) throws JobExecutionException {
+    public void execute(JobExecutionContext ctx) throws JobExecutionException {
         
         try {
             // don't want duplicates otherwise we risk violating the

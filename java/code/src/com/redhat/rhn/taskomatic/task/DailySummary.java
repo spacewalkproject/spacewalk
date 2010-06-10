@@ -32,6 +32,7 @@ import com.redhat.rhn.frontend.dto.ReportingUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
+import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -51,7 +52,7 @@ import java.util.TreeMap;
  * queues org emails, mails queued emails, then dequeues the emails.
  * @version $Rev$
  */
-public class DailySummary extends SingleThreadedTestableTask {
+public class DailySummary implements Job {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -84,7 +85,7 @@ public class DailySummary extends SingleThreadedTestableTask {
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctxIn, boolean testContextIn)
+    public void execute(JobExecutionContext ctxIn)
         throws JobExecutionException {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_DAILY_SUMMARY_QUEUE);
@@ -111,8 +112,8 @@ public class DailySummary extends SingleThreadedTestableTask {
                     }
                 }
                 finally {
-                    // HibernateFactory.commitTransaction();
-                    // HibernateFactory.closeSession();
+                    HibernateFactory.commitTransaction();
+                    HibernateFactory.closeSession();
                 }
             }
         }        
