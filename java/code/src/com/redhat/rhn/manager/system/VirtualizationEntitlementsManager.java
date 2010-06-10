@@ -17,6 +17,8 @@ package com.redhat.rhn.manager.system;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -88,6 +90,16 @@ public class VirtualizationEntitlementsManager {
                                                findGuestsWithoutAHostByOrg(org));
        
        return guestsWithoutHosts;
+    }
+
+    /**
+     * Returns a list of guests using FVE
+     * @param user user for access checks
+     * @return a list of ChannelFamilySystemGroup
+     */
+    public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
+        return VirtualInstanceFactory.getInstance().listFlexGuests(user);
+        
     }    
     
 }

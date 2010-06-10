@@ -65,7 +65,7 @@
 	searchchild="false"
 	>
 
-	<rl:rowrenderer name="ExpandableRowRenderer" />
+	<rl:rowrenderer name="DuplicateSystemsRowRenderer" />
 	<rl:decorator name="SelectableDecorator"/>
 	<rl:decorator name="ExpansionDecorator"/>
 	<rl:decorator name="ExtraButtonDecorator"/>
