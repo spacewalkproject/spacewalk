@@ -1514,12 +1514,6 @@ sub _init {
   return;
 }
 
-sub clear_channel_families {
-  my $self = shift;
-
-  $self->clear_field("channel-families");
-}
-
 sub set_channel_family {
   my $self = shift;
   my $label = shift;
