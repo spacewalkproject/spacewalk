@@ -14,11 +14,9 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.struts.Expandable;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
 
     private String name;
     private Long id;
-    private List<SystemInfo> systems = new LinkedList<SystemInfo>();
+    private List<ChannelFamilySystem> systems = new LinkedList<ChannelFamilySystem>();
     
     /**
      * {@inheritDoc}
@@ -44,8 +42,9 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
      * adds a system to the grouping
      * @param sys a System overview object
      */
-    public void add(SystemInfo sys) {
+    public void add(ChannelFamilySystem sys) {
         systems.add(sys);
+        sys.setGroup(this);
     }
 
     
@@ -76,83 +75,8 @@ public class ChannelFamilySystemGroup implements Identifiable, Expandable {
      * 
      * {@inheritDoc}
      */
-    public List<? extends Identifiable> expand() {
+    public List<ChannelFamilySystem> expand() {
         return systems;
     }
-    
-    /**
-     * 
-     * SystemInfo
-     * @version $Rev$
-     */
-    public static class SystemInfo  implements Identifiable {
-        private String name;
-        private Long id;
-        private boolean active;
-        private Date registered;
-        
-        
-        /**
-         * @return Returns the name.
-         */
-        public String getName() {
-            return name;
-        }
-        
-        /**
-         * @param nameIn The name to set.
-         */
-        public void setName(String nameIn) {
-            name = nameIn;
-        }
-        
-        /**
-         * @return Returns the active.
-         */
-        public boolean isActive() {
-            return active;
-        }
-        
-        /**
-         * @param activeIn The active to set.
-         */
-        public void setActive(boolean activeIn) {
-            active = activeIn;
-        }
-        
-        /**
-         * @return Returns the registered.
-         */
-        public Date getRegistered() {
-            return registered;
-        }
-        
-        /**
-         * @return Returns the registered.
-         */
-        public String  getRegisteredString() {
-            return StringUtil.categorizeTime(registered.getTime(), StringUtil.YEARS_UNITS);
-        }        
-        /**
-         * @param registeredIn The registered to set.
-         */
-        public void setRegistered(Date registeredIn) {
-            registered = registeredIn;
-        }
-        
-        /**
-         * @param idIn The id to set.
-         */
-        public void setId(Long idIn) {
-            id = idIn;
-        }
 
-        /**
-         * {@inheritDoc}
-         */
-        public Long getId() {
-            return id;
-        }
-        
-    }
 }

@@ -16,7 +16,7 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.frontend.struts.Selectable;
+import com.redhat.rhn.frontend.struts.SelectableAdapter;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -26,9 +26,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * select all.
  * @version $Rev: 60953 $
  */
-public abstract class BaseDto implements Selectable, Identifiable { 
+public abstract class BaseDto extends SelectableAdapter implements Identifiable { 
     
-    private boolean selected;
+    
     protected static final Integer ONE = new Integer(1);
     protected static final Integer ZERO = new Integer(0);
     
@@ -39,18 +39,6 @@ public abstract class BaseDto implements Selectable, Identifiable {
     public abstract Long getId();
 
     /**
-     * This says whether this object is selectable on a page with a set The
-     * default as can be seen is true. Any dto class that cares should override
-     * this method. This is used by RhnSet in the select all method. In order to
-     * disable checkboxes on a page use <code>&lt;rhn:set value="${current.id}"
-     * disabled="${not current.selectable}"  /&gt;</code>
-     * @return whether this object is selectable for RhnSet
-     */
-    public boolean isSelectable() {
-        return true;
-    }
-
-    /**
      * Adds the id of this object to a given set. For adding IdCombos to a set,
      * @see com.redhat.rhn.frontend.dto.IdComboDto
      * @param set The set to which we are adding an element.
@@ -58,23 +46,6 @@ public abstract class BaseDto implements Selectable, Identifiable {
     public void addToSet(RhnSet set) {
         set.addElement(new Long(getId().longValue()));
     }
-    
-
-    
-    /**
-     * @return the selected
-     */
-    public boolean isSelected() {
-        return selected;
-    }
-
-    
-    /**
-     * @param isSelected the selected to set
-     */
-    public void setSelected(boolean isSelected) {
-        this.selected = isSelected;
-    }    
     
     /**
      * 
