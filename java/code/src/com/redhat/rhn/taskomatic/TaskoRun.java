@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,7 +38,7 @@ public class TaskoRun implements Job {
     public static final String STATUS_RUNNING = "RUNNING";
     public static final String STATUS_FINISHED = "FINISHED";
     public static final String STATUS_FAILED = "FAILED";
-    private static final String stdLogPrefix = "/var/spacewalk/systemlogs/tasko/";
+    private static final String STD_LOG_PREFIX = "/var/spacewalk/systemlogs/tasko/";
 
     private Long id;
     private Integer orgId;
@@ -74,7 +74,7 @@ public class TaskoRun implements Job {
             setStdErrorPath(getStdErrorLog(orgId, template, this));
         }
         else {
-            log.warn("Logging disabled. No directory " + stdLogPrefix);
+            log.warn("Logging disabled. No directory " + STD_LOG_PREFIX);
         }
         setStartTime(new Date());
         saveStatus(STATUS_RUNNING);
@@ -83,12 +83,18 @@ public class TaskoRun implements Job {
     public void finished(JobExecutionContext context) {
         setEndTime(new Date());
         String out = (String) context.getJobDetail().getJobDataMap().get("stdOutput");
-        if (out != null) {
+        if ((out != null) && (out != "")) {
             saveLogToFile(getStdOutputPath(), out);
         }
+        else {
+            setStdOutputPath("");
+        }
         String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
-        if (err != null) {
+        if ((err != null) && (err != "")) {
             saveLogToFile(getStdErrorPath(), err);
+        }
+        else {
+            setStdErrorPath("");
         }
         saveStatus(STATUS_FINISHED);
     }
@@ -131,7 +137,8 @@ public class TaskoRun implements Job {
                 BufferedWriter out = new BufferedWriter(new FileWriter(stdErrorPath));
                 out.write(message);
                 out.close();
-            } catch (IOException io) {
+            }
+            catch (IOException io) {
                 log.error("Cannot save traceback to " + stdErrorPath);
             }
         }
@@ -151,7 +158,7 @@ public class TaskoRun implements Job {
     }
 
     private static String getStdLogDirName(Integer orgId) {
-        String dirName = stdLogPrefix;
+        String dirName = STD_LOG_PREFIX;
         if (orgId == null) {
             dirName += "sat";
         }
@@ -163,16 +170,18 @@ public class TaskoRun implements Job {
     }
 
     private static String getStdLogFileName(TaskoTemplate templ, TaskoRun run) {
-        return templ.getBunch().getName() + "_" + templ.getTask().getName()
-            + "_" + run.getId();
+        return templ.getBunch().getName() + "_" + templ.getTask().getName() +
+            "_" + run.getId();
     }
 
-    private void saveLogToFile(String fileName, String log) {
+    private void saveLogToFile(String fileName, String logContent) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-            out.write(log);
+            out.write(logContent);
             out.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
+            log.error("Unable to store log file to " + fileName);
         }
     }
 
@@ -185,10 +194,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param id The id to set.
+     * @param idIn The id to set.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
 
 
@@ -217,10 +226,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param startTime The startTime to set.
+     * @param startTimeIn The startTime to set.
      */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(Date startTimeIn) {
+        this.startTime = startTimeIn;
     }
 
 
@@ -233,10 +242,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param endTime The endTime to set.
+     * @param endTimeIn The endTime to set.
      */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndTime(Date endTimeIn) {
+        this.endTime = endTimeIn;
     }
 
 
@@ -249,10 +258,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param stdOutputPath The stdOutputPath to set.
+     * @param stdOutputPathIn The stdOutputPath to set.
      */
-    public void setStdOutputPath(String stdOutputPath) {
-        this.stdOutputPath = stdOutputPath;
+    public void setStdOutputPath(String stdOutputPathIn) {
+        this.stdOutputPath = stdOutputPathIn;
     }
 
 
@@ -265,10 +274,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param stdErrorPath The stdErrorPath to set.
+     * @param stdErrorPathIn The stdErrorPath to set.
      */
-    public void setStdErrorPath(String stdErrorPath) {
-        this.stdErrorPath = stdErrorPath;
+    public void setStdErrorPath(String stdErrorPathIn) {
+        this.stdErrorPath = stdErrorPathIn;
     }
 
 
@@ -281,10 +290,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param status The status to set.
+     * @param statusIn The status to set.
      */
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String statusIn) {
+        this.status = statusIn;
     }
 
 
@@ -297,10 +306,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param created The created to set.
+     * @param createdIn The created to set.
      */
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
     }
 
 
@@ -313,10 +322,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param modified The modified to set.
+     * @param modifiedIn The modified to set.
      */
-    public void setModified(Date modified) {
-        this.modified = modified;
+    public void setModified(Date modifiedIn) {
+        this.modified = modifiedIn;
     }
 
 
@@ -329,10 +338,10 @@ public class TaskoRun implements Job {
 
 
     /**
-     * @param orgId The orgId to set.
+     * @param orgIdIn The orgId to set.
      */
-    public void setOrgId(Integer orgId) {
-        this.orgId = orgId;
+    public void setOrgId(Integer orgIdIn) {
+        this.orgId = orgIdIn;
     }
 
     /**
@@ -343,9 +352,9 @@ public class TaskoRun implements Job {
     }
 
     /**
-     * @param jobLabel The jobLabel to set.
+     * @param jobLabelIn The jobLabel to set.
      */
-    public void setJobLabel(String jobLabel) {
-        this.jobLabel = jobLabel;
+    public void setJobLabel(String jobLabelIn) {
+        this.jobLabel = jobLabelIn;
     }
 }

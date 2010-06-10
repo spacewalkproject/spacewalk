@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,12 +13,6 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.taskomatic;
-
-import org.apache.log4j.Logger;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.util.Date;
 
@@ -44,10 +38,10 @@ public class TaskoTask {
 
 
     /**
-     * @param id The id to set.
+     * @param idIn The id to set.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
 
 
@@ -60,10 +54,10 @@ public class TaskoTask {
 
 
     /**
-     * @param name The name to set.
+     * @param nameIn The name to set.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nameIn) {
+        this.name = nameIn;
     }
 
 
@@ -76,10 +70,10 @@ public class TaskoTask {
 
 
     /**
-     * @param taskClass The taskClass to set.
+     * @param taskClassIn The taskClass to set.
      */
-    public void setTaskClass(String taskClass) {
-        this.taskClass = taskClass;
+    public void setTaskClass(String taskClassIn) {
+        this.taskClass = taskClassIn;
     }
 
 
@@ -94,10 +88,10 @@ public class TaskoTask {
 
 
     /**
-     * @param created The created to set.
+     * @param createdIn The created to set.
      */
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
     }
 
 
@@ -112,10 +106,9 @@ public class TaskoTask {
 
 
     /**
-     * @param modified The modified to set.
+     * @param modifiedIn The modified to set.
      */
-    public void setModified(Date modified) {
-        this.modified = modified;
+    public void setModified(Date modifiedIn) {
+        this.modified = modifiedIn;
     }
-
 }

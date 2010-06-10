@@ -55,7 +55,7 @@ public class SchedulerKernel {
     /**
      * Kernel main driver behind Taskomatic
      * @throws InstantiationException thrown if this.scheduler can't be initialized.
-     * @throws UnknownHostException
+     * @throws UnknownHostException thrown if xmlrcp host is unknown
      */
     public SchedulerKernel() throws InstantiationException, UnknownHostException {
         Properties props = Config.get().getNamespaceProperties("org.quartz");

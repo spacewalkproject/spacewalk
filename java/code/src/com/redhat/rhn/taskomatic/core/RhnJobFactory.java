@@ -15,20 +15,14 @@
 package com.redhat.rhn.taskomatic.core;
 
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.taskomatic.NoSuchBunchTaskException;
 import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 
 import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A custom Quartz JobFactory implementation which insures that
@@ -46,7 +40,8 @@ public class RhnJobFactory implements JobFactory {
 
         try {
             bunch = TaskoFactory.lookupByName(bunchName);
-        } catch(HibernateRuntimeException re) {
+        }
+        catch (HibernateRuntimeException re) {
                 throw new SchedulerException("No such bunch task " + bunchName);
         }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,15 +14,11 @@
  */
 package com.redhat.rhn.taskomatic;
 
-import com.redhat.rhn.taskomatic.core.SchedulerKernel;
-
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.SchedulerException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,11 +64,12 @@ public class TaskoBunch implements Job {
         log.info("Starting " + this.name + " (" + jobLabel + ") at " + new Date());
 
         for (TaskoTemplate template : this.templates) {
-            if ((previousRun == null)
-                    || (previousRun.getStatus() == template.getStartIf())) {
+            if ((previousRun == null) ||
+                    (previousRun.getStatus() == template.getStartIf())) {
 
                 while (isTaskRunning(template.getTask())) {
-                    log.info("Task " + template.getTask().getName() + " currently executing. Sleeping for 10 secs.");
+                    log.info("Task " + template.getTask().getName() +
+                            " currently executing. Sleeping for 10 secs.");
                     TaskoFactory.sleep(10000);
                 }
                 markTaskRunning(template.getTask());
@@ -99,7 +96,7 @@ public class TaskoBunch implements Job {
     private void markTaskRunning(TaskoTask task) {
         synchronized (getClass()) {
             int count = tasks.get(task.getName());
-            count ++;
+            count++;
             tasks.put(task.getName(), count);
         }
     }
@@ -107,7 +104,7 @@ public class TaskoBunch implements Job {
     private void unmarkTaskRunning(TaskoTask task) {
         synchronized (getClass()) {
             int count = tasks.get(task.getName());
-            count --;
+            count--;
             tasks.put(task.getName(), count);
         }
     }
@@ -120,10 +117,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param id The id to set.
+     * @param idIn The id to set.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
 
     /**
@@ -134,10 +131,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param name The name to set.
+     * @param nameIn The name to set.
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nameIn) {
+        this.name = nameIn;
     }
 
     /**
@@ -148,10 +145,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param activeFrom The activeFrom to set.
+     * @param activeFromIn The activeFrom to set.
      */
-    public void setActiveFrom(Date activeFrom) {
-        this.activeFrom = activeFrom;
+    public void setActiveFrom(Date activeFromIn) {
+        this.activeFrom = activeFromIn;
     }
 
     /**
@@ -162,10 +159,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param activeTill The activeTill to set.
+     * @param activeTillIn The activeTill to set.
      */
-    public void setActiveTill(Date activeTill) {
-        this.activeTill = activeTill;
+    public void setActiveTill(Date activeTillIn) {
+        this.activeTill = activeTillIn;
     }
 
     /**
@@ -176,10 +173,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param description The description to set.
+     * @param descriptionIn The description to set.
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String descriptionIn) {
+        this.description = descriptionIn;
     }
 
     /**
@@ -190,10 +187,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param created The created to set.
+     * @param createdIn The created to set.
      */
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreated(Date createdIn) {
+        this.created = createdIn;
     }
 
     /**
@@ -204,10 +201,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param modified The modified to set.
+     * @param modifiedIn The modified to set.
      */
-    public void setModified(Date modified) {
-        this.modified = modified;
+    public void setModified(Date modifiedIn) {
+        this.modified = modifiedIn;
     }
 
     /**
@@ -218,10 +215,10 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param templates The templates to set.
+     * @param templatesIn The templates to set.
      */
-    public void setTemplates(List<TaskoTemplate> templates) {
-        this.templates = templates;
+    public void setTemplates(List<TaskoTemplate> templatesIn) {
+        this.templates = templatesIn;
     }
 
 
@@ -234,10 +231,10 @@ public class TaskoBunch implements Job {
 
 
     /**
-     * @param orgTask The orgTask to set.
+     * @param orgTaskIn The orgTask to set.
      */
-    public void setOrgTask(String orgTask) {
-        this.orgTask = orgTask;
+    public void setOrgTask(String orgTaskIn) {
+        this.orgTask = orgTaskIn;
     }
 
     /**
@@ -248,9 +245,9 @@ public class TaskoBunch implements Job {
     }
 
     /**
-     * @param orgBunch The orgBunch to set.
+     * @param orgBunchIn The orgBunch to set.
      */
-    public void setOrgBunch(String orgBunch) {
-        this.orgBunch = orgBunch;
+    public void setOrgBunch(String orgBunchIn) {
+        this.orgBunch = orgBunchIn;
     }
 }
