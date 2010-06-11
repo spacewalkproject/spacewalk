@@ -19,6 +19,7 @@ import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
+import org.quartz.SimpleTrigger;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class TaskoXmlRpcHandler {
 
-    private Boolean checkUserName(String name, String group) throws SchedulerException {
+    private Boolean checkUniqueName(String name, String group) throws SchedulerException {
         return ((SchedulerKernel.getScheduler().getTrigger(name, group) == null) &&
         (SchedulerKernel.getScheduler().getJobDetail(name, group) == null));
     }
@@ -48,17 +49,7 @@ public class TaskoXmlRpcHandler {
             Date startTime, Date endTime, String cronExpression, Map params)
             throws ParseException, NoSuchTaskException, InvalidJobLabelException {
         try {
-            if (!checkUserName(jobLabel, orgId.toString())) {
-                throw new InvalidJobLabelException();
-            }
-            // create job
-            JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),
-                    TaskoBunch.class);
-            // set job params
-            jobDetail.getJobDataMap().putAll(params);
-            jobDetail.getJobDataMap().put("org_id", orgId);
-            jobDetail.getJobDataMap().put("bunch_name", bunchName);
-            jobDetail.getJobDataMap().put("job_label", jobLabel);
+            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             // create trigger
             CronTrigger ct = new CronTrigger(jobLabel, orgId.toString(),
                     cronExpression);
@@ -92,6 +83,39 @@ public class TaskoXmlRpcHandler {
         catch (SchedulerException e) {
             throw new NoSuchTaskoTriggerException();
         }
+    }
+
+    public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
+            Map params)
+            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
+        try {
+            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
+            SimpleTrigger st = new SimpleTrigger(jobLabel, orgId.toString(), 1, 1);
+            st.setEndTime(new Date());
+
+            // schedule job
+            return SchedulerKernel.getScheduler().scheduleJob(jobDetail, st);
+        }
+        catch (SchedulerException e) {
+            return null;
+        }
+    }
+
+    private JobDetail createJob(String bunchName, Integer orgId,
+            String jobLabel, Map params)
+        throws SchedulerException, InvalidJobLabelException {
+        if (!checkUniqueName(jobLabel, orgId.toString())) {
+            throw new InvalidJobLabelException();
+        }
+        // create job
+        JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),
+                TaskoBunch.class);
+        // set job params
+        jobDetail.getJobDataMap().putAll(params);
+        jobDetail.getJobDataMap().put("org_id", orgId);
+        jobDetail.getJobDataMap().put("bunch_name", bunchName);
+        jobDetail.getJobDataMap().put("job_label", jobLabel);
+        return jobDetail;
     }
 
     public int listBunchRuns(Integer orgId, String triggerName)
