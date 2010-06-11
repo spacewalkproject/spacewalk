@@ -20,6 +20,7 @@ import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
+import org.quartz.Trigger;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -47,7 +48,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
-            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
+            throws InvalidJobLabelException, NoSuchBunchTaskException, ParseException {
         try {
             JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             // create trigger
@@ -69,7 +70,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
-            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
+            throws ParseException, InvalidJobLabelException, NoSuchBunchTaskException {
         return scheduleBunch(orgId, bunchName, jobLabel, null, null, cronExpression,
                 params);
     }
@@ -87,7 +88,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params)
-            throws ParseException, NoSuchTaskException, InvalidJobLabelException {
+            throws ParseException, InvalidJobLabelException, NoSuchBunchTaskException {
         try {
             JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             SimpleTrigger st = new SimpleTrigger(jobLabel, orgId.toString(), 1, 1);
@@ -103,9 +104,13 @@ public class TaskoXmlRpcHandler {
 
     private JobDetail createJob(String bunchName, Integer orgId,
             String jobLabel, Map params)
-        throws SchedulerException, InvalidJobLabelException {
+        throws SchedulerException, InvalidJobLabelException, NoSuchBunchTaskException {
         if (!checkUniqueName(jobLabel, orgId.toString())) {
             throw new InvalidJobLabelException();
+        }
+        TaskoBunch bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
+        if (bunch == null) {
+            throw new NoSuchBunchTaskException("bunchName");
         }
         // create job
         JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),

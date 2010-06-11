@@ -40,11 +40,19 @@ public class TaskoFactory extends HibernateFactory {
         return log;
     }
 
-    public static TaskoBunch lookupByName(String bunchName) {
+    public static TaskoBunch lookupOrgBunchByName(String bunchName) {
         Map params = new HashMap();
         params.put("name", bunchName);
         return (TaskoBunch) singleton.lookupObjectByNamedQuery(
-                                       "TaskoBunch.findByName", params);
+                                       "TaskoBunch.findOrgBunchByName", params);
+    }
+
+    public static TaskoTemplate lookupTemplateByBunchAndOrder(Long bunchId, Long order) {
+        Map params = new HashMap();
+        params.put("bunch_id", bunchId);
+        params.put("order", order);
+        return (TaskoTemplate) singleton.lookupObjectByNamedQuery(
+                                       "TaskoTemplate.findByBunchAndOrder", params);
     }
 
     public static List<TaskoBunch> listBunches() {

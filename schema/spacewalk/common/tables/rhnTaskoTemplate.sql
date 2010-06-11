@@ -25,7 +25,7 @@ CREATE TABLE rhnTaskoTemplate
                     CONSTRAINT rhn_tasko_template_task_fk
                     REFERENCES rhnTaskoTask (id),
     ordering    NUMBER NOT NULL,
-    start_if    CHAR(1),
+    start_if    CHAR(10),
     created     DATE
                     DEFAULT (sysdate) NOT NULL,
     modified    DATE
