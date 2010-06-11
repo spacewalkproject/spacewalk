@@ -56,6 +56,10 @@ public class TaskoFactory extends HibernateFactory {
         singleton.saveObject(taskoRun);
     }
 
+    public static void save(TaskoTemplate taskoTemplate) {
+        singleton.saveObject(taskoTemplate);
+    }
+
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);

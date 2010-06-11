@@ -58,6 +58,7 @@ public class TaskoRun implements Job {
     public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, String jobLabelIn) {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
+        TaskoFactory.save(templateIn);
         setJobLabel(jobLabelIn);
         File logDir = new File(getStdLogDirName(orgId));
         if (!logDir.isDirectory()) {
@@ -83,14 +84,14 @@ public class TaskoRun implements Job {
     public void finished(JobExecutionContext context) {
         setEndTime(new Date());
         String out = (String) context.getJobDetail().getJobDataMap().get("stdOutput");
-        if ((out != null) && (out != "")) {
+        if ((out != null) && (!out.isEmpty())) {
             saveLogToFile(getStdOutputPath(), out);
         }
         else {
             setStdOutputPath("");
         }
         String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
-        if ((err != null) && (err != "")) {
+        if ((err != null) && (!err.isEmpty())) {
             saveLogToFile(getStdErrorPath(), err);
         }
         else {
