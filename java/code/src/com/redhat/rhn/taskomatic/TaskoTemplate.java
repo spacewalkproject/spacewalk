@@ -44,7 +44,7 @@ public class TaskoTemplate {
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
-        this.id = id;
+        this.id = idIn;
     }
 
     /**
@@ -146,5 +146,4 @@ public class TaskoTemplate {
     public void setRunHistory(Set<TaskoRun> runHistoryIn) {
         this.runHistory = runHistoryIn;
     }
-
 }

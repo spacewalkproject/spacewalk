@@ -17,6 +17,7 @@ package com.redhat.rhn.taskomatic.core;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoTemplate;
 
 import org.quartz.Job;
 import org.quartz.SchedulerException;
@@ -39,7 +40,7 @@ public class RhnJobFactory implements JobFactory {
         String bunchName = trigger.getJobDetail().getJobDataMap().getString("bunch_name");
 
         try {
-            bunch = TaskoFactory.lookupByName(bunchName);
+            bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
         }
         catch (HibernateRuntimeException re) {
                 throw new SchedulerException("No such bunch task " + bunchName);

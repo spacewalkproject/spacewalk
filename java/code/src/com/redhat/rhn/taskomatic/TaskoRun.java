@@ -58,7 +58,6 @@ public class TaskoRun implements Job {
     public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, String jobLabelIn) {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
-        TaskoFactory.save(templateIn);
         setJobLabel(jobLabelIn);
         File logDir = new File(getStdLogDirName(orgId));
         if (!logDir.isDirectory()) {

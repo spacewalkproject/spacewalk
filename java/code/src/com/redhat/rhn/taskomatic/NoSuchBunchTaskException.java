@@ -21,4 +21,7 @@ package com.redhat.rhn.taskomatic;
  */
 public class NoSuchBunchTaskException extends Exception {
 
+    public NoSuchBunchTaskException(String message) {
+        super(message);
+    }
 }

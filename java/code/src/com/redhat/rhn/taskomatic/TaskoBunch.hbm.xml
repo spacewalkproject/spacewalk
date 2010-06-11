@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
 
-        <property name="name" type="string" column="name"/>
+        <property name="name" type="string" column="name" unique="true"/>
         <property name="description" type="string" column="description"/>
         <property name="activeFrom" type="date" column="active_from"/>
         <property name="activeTill" type="date" column="active_till"/>
@@ -33,15 +33,23 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
     <query name="TaskoBunch.findById">
-        <![CDATA[from com.redhat.rhn.taskomatic.TaskoBunch where id = :id]]>
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE id = :id]]>
     </query>
 
     <query name="TaskoBunch.findByName">
-        <![CDATA[from com.redhat.rhn.taskomatic.TaskoBunch where name = :name]]>
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE name = :name]]>
+    </query>
+
+    <query name="TaskoBunch.findOrgBunchByName">
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE orgBunch is not null AND name = :name]]>
+    </query>
+
+    <query name="TaskoBunch.findSatBunchByName">
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE orgBunch is null AND name = :name]]>
     </query>
 
     <query name="TaskoBunch.listBunches">
-        <![CDATA[from com.redhat.rhn.taskomatic.TaskoBunch as b]]>
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch as b]]>
     </query>
 
 </hibernate-mapping>

@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="ordering" type="long" column="ordering"/>
         <property name="startIf" type="string" column="start_if"/>
 
-        <set name="runHistory" inverse="true" lazy="false" table="rhnTaskoRun">
+        <set name="runHistory" inverse="true" table="rhnTaskoRun">
             <key column="template_id"/>
             <one-to-many class="com.redhat.rhn.taskomatic.TaskoRun"/>
         </set>
@@ -34,5 +34,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
     </class>
+
+    <query name="TaskoTemplate.findByBunchAndOrder">
+            <![CDATA[from com.redhat.rhn.taskomatic.TaskoTemplate where bunch.id = :bunch_id and ordering = :order]]>
+    </query>
 
 </hibernate-mapping>
