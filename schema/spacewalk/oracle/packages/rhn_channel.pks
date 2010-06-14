@@ -71,22 +71,6 @@ IS
 
     FUNCTION channel_priority(channel_id_in in number) RETURN number;
     
-    PROCEDURE bulk_server_base_change(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER);
-    procedure bulk_server_basechange_from(
-	set_label_in in varchar2,
-	set_uid_in in number,
-	old_channel_id_in in number,
-	new_channel_id_in in number);
-
-    procedure bulk_guess_server_base(
-	set_label_in in varchar2,
-	set_uid_in in number);
-
-    procedure bulk_guess_server_base_from(
-	set_label_in in varchar2,
-	set_uid_in in number,
-	channel_id_in in number);
-
     PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server in number := 0,
                                 update_family_countsYN IN NUMBER := 1);
     
