@@ -128,7 +128,7 @@ public class TaskoTemplate {
      * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
-        this.modified = modified;
+        this.modified = modifiedIn;
     }
 
 
