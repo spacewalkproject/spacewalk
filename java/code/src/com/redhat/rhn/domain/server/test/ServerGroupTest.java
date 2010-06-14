@@ -32,7 +32,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,8 +103,7 @@ public class ServerGroupTest extends RhnBaseTestCase {
     
 
     private  static EntitlementServerGroup updateGroupType(EntitlementServerGroup sg,
-                                                            ServerGroupType type)
-        throws SQLException {
+                                                            ServerGroupType type) {
         
         WriteMode m = ModeFactory.getWriteMode("test_queries",
                                                     "update_group_type");

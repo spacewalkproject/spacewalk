@@ -119,7 +119,7 @@ public class ServletUtilsTest extends MockObjectTestCase {
         assertEquals(expectedParams, actualParams);
     }
     
-    public void testPathWithParamsValueUrlEncoding() throws UnsupportedEncodingException {
+    public void testPathWithParamsValueUrlEncoding() {
         Map params = new HashMap();
         params.put("key", "some; value&");
         String result = ServletUtils.pathWithParams("/foo", params);
@@ -133,16 +133,14 @@ public class ServletUtilsTest extends MockObjectTestCase {
         assertEquals("/foo", result);
     }
     
-    public void testPathWithParamsArrayValueUrlEncoding() 
-    throws UnsupportedEncodingException {
+    public void testPathWithParamsArrayValueUrlEncoding() {
         Map params = new HashMap();
         params.put("key", new Object[] {"value;", "value&", "$", "normal"});
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?key=value%3B&key=value%26&key=%24&key=normal", result);
     }
     
-    public void testPathWithParamsListValue()
-    throws UnsupportedEncodingException {
+    public void testPathWithParamsListValue() {
         Map params = new HashMap();
         List values = new ArrayList();
         values.add("value;");
@@ -155,16 +153,14 @@ public class ServletUtilsTest extends MockObjectTestCase {
 
     }
     
-    public void testPathWithParamsKeyUrlEncoding() 
-    throws UnsupportedEncodingException {
+    public void testPathWithParamsKeyUrlEncoding() {
         Map params = new HashMap();
         params.put("a;", "somevalue");
         String result = ServletUtils.pathWithParams("/foo", params);
         assertEquals("/foo?a%3B=somevalue", result);
     }
     
-    public void testPathWithParamsKeyArrayUrlEncoding() 
-    throws UnsupportedEncodingException {
+    public void testPathWithParamsKeyArrayUrlEncoding() {
         Map params = new HashMap();
         params.put("a;", new Object[] {"1", "2", "3"});
         String result = ServletUtils.pathWithParams("/foo", params);

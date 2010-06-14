@@ -69,7 +69,7 @@ public class XmlRpcServlet extends HttpServlet {
 
     private void passControl(HttpServletRequest request,
                             HttpServletResponse response)
-        throws ServletException, IOException {
+        throws IOException {
         response.sendRedirect("/rhn/apidoc/index.jsp");
     }
 
