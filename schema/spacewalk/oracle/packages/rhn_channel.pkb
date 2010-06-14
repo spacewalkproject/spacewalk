@@ -275,89 +275,6 @@ IS
         RETURN 0;
     END;
 
-    PROCEDURE bulk_server_base_change(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
-    IS
-    BEGIN
-        FOR server IN rhn_set.set_iterator(set_label_in, set_uid_in)
-        LOOP
-            IF rhn_server.can_change_base_channel(server.element) = 1
-            THEN
-                rhn_channel.clear_subscriptions(TO_NUMBER(server.element));
-                rhn_channel.subscribe_server(server.element, channel_id_in, 0, set_uid_in);
-            END IF;
-        END LOOP server;
-    END bulk_server_base_change;
-
-    procedure bulk_server_basechange_from(
-        set_label_in in varchar2,
-        set_uid_in in number,
-        old_channel_id_in in number,
-        new_channel_id_in in number
-    ) is
-    cursor servers is
-        select  sc.server_id id
-        from    rhnChannel nc,
-                rhnServerChannelArchCompat scac,
-                rhnServer s,
-                rhnChannel oc,
-                rhnServerChannel sc,
-                rhnSet st
-        where   1=1
-            -- first, find the servers we're looking for.
-            and st.label = set_label_in
-            and st.user_id = set_uid_in
-            and st.element = sc.server_id
-            -- now, filter out anything that's not in the
-            -- old base channel.
-            and sc.channel_id = old_channel_id_in
-            and sc.channel_id = oc.id
-            and oc.parent_channel is null
-            -- now, see if it's compatible with the new base channel
-            and nc.id = new_channel_id_in
-            and nc.parent_channel is null
-            and sc.server_id = s.id
-            and s.server_arch_id = scac.server_arch_id
-            and scac.channel_arch_id = nc.channel_arch_id;
-    begin
-        for s in servers loop
-            insert into rhnSet (
-                    user_id, label, element
-                ) values (
-                    set_uid_in,
-                    set_label_in || 'basechange', 
-                    s.id
-                );
-        end loop channel;
-        bulk_server_base_change(new_channel_id_in,
-                                set_label_in || 'basechange',
-                                set_uid_in);
-        delete from rhnSet
-            where   label = set_label_in||'basechange'
-                and user_id = set_uid_in;
-    end bulk_server_basechange_from;
-
-    procedure bulk_guess_server_base(
-        set_label_in in varchar2,
-        set_uid_in in number
-    ) is
-        channel_id number;
-    begin
-        for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-        loop
-            -- anything that doesn't work, we just ignore
-            begin
-                if rhn_server.can_change_base_channel(server.element) = 1
-                then
-                    channel_id := guess_server_base(TO_NUMBER(server.element));
-                    rhn_channel.clear_subscriptions(TO_NUMBER(server.element));
-                    rhn_channel.subscribe_server(TO_NUMBER(server.element), channel_id, 0, set_uid_in);
-                end if;
-            exception when others then
-                null;
-            end;
-        end loop server;
-    end;
-
     function guess_server_base(
         server_id_in in number
     ) RETURN number is
@@ -479,34 +396,6 @@ IS
         -- No base channel applies
         return NULL;
     end base_channel_rel_archid;
-
-    procedure bulk_guess_server_base_from(
-        set_label_in in varchar2,
-        set_uid_in in number,
-        channel_id_in in number
-    ) is
-        cursor channels(server_id_in in number) is
-            select      rsc.channel_id
-            from        rhnServerChannel rsc,
-                        rhnChannel rc
-            where       server_id_in = rsc.server_id
-                        and rsc.channel_id = rc.id
-                        and rc.parent_channel is null;
-    begin
-        for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-        loop
-            for channel in channels(server.element)
-            loop
-                if channel.channel_id = channel_id_in
-                then
-                    insert into rhnSet (user_id, label, element) values (set_uid_in, set_label_in || 'baseguess', server.element);
-                end if;
-            end loop channel;
-        end loop server;
-        bulk_guess_server_base(set_label_in||'baseguess',set_uid_in);
-        delete from rhnSet where label = set_label_in||'baseguess' and user_id = set_uid_in;
-    end;
-
 
     PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0,
                                 update_family_countsYN IN NUMBER := 1)
