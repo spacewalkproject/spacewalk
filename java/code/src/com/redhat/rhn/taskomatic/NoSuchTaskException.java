@@ -21,4 +21,9 @@ package com.redhat.rhn.taskomatic;
  */
 public class NoSuchTaskException extends Exception {
 
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = -1252459283237351146L;
+
 }

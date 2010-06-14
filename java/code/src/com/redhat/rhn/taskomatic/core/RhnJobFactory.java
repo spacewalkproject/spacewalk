@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic.core;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
-import com.redhat.rhn.taskomatic.TaskoTemplate;
 
 import org.quartz.Job;
 import org.quartz.SchedulerException;

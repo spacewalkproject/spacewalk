@@ -75,11 +75,20 @@ public class TaskoXmlRpcHandler {
                 params);
     }
 
-    public int unscheduleBunch(Integer orgId, String triggerName)
+    public int unscheduleBunch(Integer orgId, String jobLabel)
                                             throws NoSuchTaskoTriggerException {
         try {
-            return SchedulerKernel.getScheduler().unscheduleJob(triggerName,
-                    orgId.toString()) ? 1 : 0;
+            Trigger trigger = SchedulerKernel.getScheduler().getTrigger(
+                    jobLabel, orgId.toString());
+            if (false) {
+                Trigger newTrigger = (Trigger) trigger.clone();
+                newTrigger.setEndTime(new Date());
+                SchedulerKernel.getScheduler().rescheduleJob(jobLabel, orgId.toString(), newTrigger);
+            }
+            else {
+                SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
+            }
+            return 1;
         }
         catch (SchedulerException e) {
             throw new NoSuchTaskoTriggerException();
@@ -88,7 +97,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params)
-            throws ParseException, InvalidJobLabelException, NoSuchBunchTaskException {
+            throws InvalidJobLabelException, NoSuchBunchTaskException {
         try {
             JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             SimpleTrigger st = new SimpleTrigger(jobLabel, orgId.toString(), 1, 1);
@@ -110,7 +119,7 @@ public class TaskoXmlRpcHandler {
         }
         TaskoBunch bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
         if (bunch == null) {
-            throw new NoSuchBunchTaskException("bunchName");
+            throw new NoSuchBunchTaskException(bunchName);
         }
         // create job
         JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),
@@ -132,5 +141,10 @@ public class TaskoXmlRpcHandler {
         catch (SchedulerException e) {
             throw new NoSuchTaskoTriggerException();
         }
+    }
+
+    public int clearRunHistory(Integer orgId, Date limitTime) {
+        TaskoFactory.clearRunHistory(orgId, limitTime);
+        return 1;
     }
 }
