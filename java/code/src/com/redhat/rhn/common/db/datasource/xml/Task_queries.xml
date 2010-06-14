@@ -111,6 +111,10 @@ SELECT DISTINCT
   FROM web_customer wc,
        rhnChannelErrata CE
  WHERE CE.errata_id = :errata_id
+       and not exists (select q2.errata_id
+                         from   rhnErrataNotificationQueue Q2
+                         where Q2.errata_id = :errata_id and
+                               Q2.org_id = wc.id)
    </query>
 </write-mode>
 
