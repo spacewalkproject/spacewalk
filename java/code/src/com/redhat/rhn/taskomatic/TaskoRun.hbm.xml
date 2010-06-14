@@ -33,8 +33,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
         <query name="TaskoRun.listRunsWithStatus">
-            <![CDATA[from com.redhat.rhn.taskomatic.TaskoRun as r where r.template.task.id = :task_id AND (r.status = :status1 OR status = :status2)]]>
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun AS r WHERE r.template.task.id = :task_id AND (r.status = :status1 OR status = :status2)]]>
         </query>
 
+        <query name="TaskoRun.listRunsOlderThan">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun AS r WHERE r.orgId = :org_id and r.endTime < :limit_time]]>
+        </query>
 
 </hibernate-mapping>

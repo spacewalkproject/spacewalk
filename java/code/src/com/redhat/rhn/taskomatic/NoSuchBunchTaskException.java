@@ -21,6 +21,11 @@ package com.redhat.rhn.taskomatic;
  */
 public class NoSuchBunchTaskException extends Exception {
 
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long serialVersionUID = -1611165320092152311L;
+
     public NoSuchBunchTaskException(String message) {
         super(message);
     }

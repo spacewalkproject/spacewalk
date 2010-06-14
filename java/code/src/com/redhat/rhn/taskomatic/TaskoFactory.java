@@ -16,9 +16,14 @@ package com.redhat.rhn.taskomatic;
 
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.apache.log4j.Logger;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +69,10 @@ public class TaskoFactory extends HibernateFactory {
         singleton.saveObject(taskoRun);
     }
 
+    public static void delete(TaskoRun taskoRun) {
+        singleton.removeObject(taskoRun);
+    }
+
     public static void save(TaskoTemplate taskoTemplate) {
         singleton.saveObject(taskoTemplate);
     }
@@ -80,5 +89,64 @@ public class TaskoFactory extends HibernateFactory {
     public static List<TaskoTask> listTasks() {
         return (List<TaskoTask>) singleton.listObjectsByNamedQuery(
                                        "TaskoTask.listTasks", new HashMap());
+    }
+
+    public static List<TaskoRun> listRunsOlderThan(Integer orgId, Date limitTime) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("limit_time", limitTime);
+        return (List<TaskoRun>) singleton.listObjectsByNamedQuery(
+                "TaskoRun.listRunsOlderThan", params);
+    }
+
+    public static void clearRunHistory(Integer orgId, Date limitTime) {
+        try {
+            String[] triggerNames = SchedulerKernel.getScheduler().
+                getTriggerNames(orgId.toString());
+            // triggerName == jobLabel
+            for (String jobLabel : triggerNames) {
+                // delete history of runs
+                List<TaskoRun> runList =
+                    TaskoFactory.listRunsOlderThan(orgId, limitTime);
+                for (TaskoRun run : runList) {
+                    TaskoFactory.deleteLogFiles(run);
+                    TaskoFactory.delete(run);
+                }
+
+                // unschedule outdated jobs
+                Trigger trigger = SchedulerKernel.getScheduler().getTrigger(
+                        jobLabel, orgId.toString());
+                Date endTime = trigger.getEndTime();
+                if ((endTime != null) && (endTime.before(limitTime))) {
+                    SchedulerKernel.getScheduler().unscheduleJob(trigger.getName(),
+                            orgId.toString());
+                }
+            }
+            TaskoFactory.commitTransaction();
+        }
+        catch (SchedulerException e) {
+            TaskoFactory.rollbackTransaction();
+        }
+    }
+
+    public static void deleteLogFiles(TaskoRun run) {
+        String out = run.getStdOutputPath();
+        if ((out != null) && (!out.isEmpty())) {
+            deleteFile(out);
+            run.setStdOutputPath(null);
+        }
+        String err = run.getStdErrorPath();
+        if ((err != null) && (!err.isEmpty())) {
+            deleteFile(err);
+            run.setStdErrorPath(null);
+        }
+    }
+
+    private static boolean deleteFile(String fileName) {
+        File file = new File(fileName);
+        if (file.exists()) {
+            return file.delete();
+        }
+        return false;
     }
 }
