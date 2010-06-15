@@ -2079,6 +2079,7 @@ public class ChannelManager extends BaseManager {
 
             EssentialChannelDto guessed = new EssentialChannelDto();
             guessed.setId(guessedBase.getId());
+            guessed.setLabel(guessedBase.getLabel());
             guessed.setName(guessedBase.getName());
             channelDtos.add(0, guessed);
         }
