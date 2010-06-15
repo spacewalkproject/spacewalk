@@ -71,6 +71,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.events.SsmDeleteServersEvent;
@@ -527,32 +528,13 @@ public class SystemHandler extends BaseHandler {
         Server server = lookupServer(loggedInUser, sid); 
         Channel baseChannel = server.getBaseChannel();
         List returnList = new ArrayList();
-        
-        if (baseChannel != null) {
-            //Add the current base channel to the list
-            Map base = new HashMap();
-            
-            base.put("id", baseChannel.getId());
-            base.put("name", baseChannel.getName());
-            base.put("label", baseChannel.getLabel());
-            base.put("current_base", new Integer(1));
-            returnList.add(base);
+
+        List<EssentialChannelDto> list = ChannelManager.listBaseChannelsForSystem(loggedInUser, server);
+        for (EssentialChannelDto ch : list) {
+            Boolean currentBase = (baseChannel != null) && baseChannel.getId().equals(ch.getId());
+            returnList.add(createChannelMap(ch, currentBase));
         }
-        
-        DataResult dr = ChannelManager.userSubscribableBaseChannelsForSystem(loggedInUser, 
-                                                                             server);
-        //Loop through the results and put into returnList. This is because we have to 
-        //set the CURRENT_BASE field.
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            Map map = (Map) itr.next();
-            if (baseChannel != null && 
-                baseChannel.getId().intValue() == ((Long) map.get("id")).intValue()) {
-                continue; //we've already added the base channel
-            }
-            
-            returnList.add(createChannelMap(map));
-        }
-    
+
         return returnList.toArray();
     }
 
@@ -607,24 +589,17 @@ public class SystemHandler extends BaseHandler {
         }
         return returnList.toArray();
     }
-    
-    
-    
-    private Map createChannelMap(Map map) {
+
+    private Map createChannelMap(EssentialChannelDto channel, Boolean currentBase) {
         Map ret = new HashMap();
         
-        ret.put("ID", map.get("id"));
-        ret.put("NAME", map.get("name"));
-        ret.put("LABEL", map.get("label"));
-        ret.put("CURRENT_BASE", new Integer(0));
-        
-        ret.put("id", map.get("id"));
-        ret.put("name", map.get("name"));
-        ret.put("label", map.get("label"));
-        ret.put("current_base", new Integer(0));
+        ret.put("id", channel.getId());
+        ret.put("name", channel.getName());
+        ret.put("label", channel.getLabel());
+        ret.put("current_base", currentBase ? new Integer(1) : new Integer(0));
         return ret;
     }
-    
+
     /**
      * List the child channels that this system can subscribe to.
      * @param sessionKey The sessionKey containing the logged in user
