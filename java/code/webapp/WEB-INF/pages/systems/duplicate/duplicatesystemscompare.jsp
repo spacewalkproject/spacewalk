@@ -19,6 +19,7 @@
 		 }
 	}
 
+
 	function pageToggleRows(linkId, ids){
 		for (var i = 0 ; i < ids.length; i++) {
 			toggleElement(document.getElementById(ids[i]));
@@ -26,6 +27,19 @@
 		toggleElement(document.getElementById(linkId + 'Show'));
 		toggleElement(document.getElementById(linkId + 'Hide'));
 	}
+	
+	function handle_delete(chk_id, div_id, form) {
+		var delete_chk_box = document.getElementById(chk_id);
+		if  (delete_chk_box.checked == true) {
+			return form.submit();
+		}
+			
+	    var delete_chk_box_div = document.getElementById(div_id);	
+		if (delete_chk_box_div.style.display == 'none') {
+			 delete_chk_box_div.style.display = '';
+		}
+		return false;
+	}	
 	
 </script>
 </head>
@@ -91,7 +105,9 @@
 				</c:when>
 				<c:otherwise><td></c:otherwise>
 			</c:choose>
-				<input type="submit" name="btn${current.value}" value="${rhn:localize('Delete System Profile')}"/></td>
+				<div style="display:none" id='div${current.value}'> <input type="checkbox" id="chk_id_${current.value}" name="chk${current.value}" value="${current.value}"/> - <bean:message key="Check to Confirm Delete"/></div>
+				<input type="submit" name="btn${current.value}" value="${rhn:localize('Delete System Profile')}" onclick="return handle_delete('chk_id_${current.value}','div${current.value}', this.form);"/><br/>
+				</td>
 		</c:forEach>
 	</tr>
 	<tr>
