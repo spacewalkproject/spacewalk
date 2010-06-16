@@ -19,6 +19,7 @@ import org.hibernate.Hibernate;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.Trigger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,14 +56,14 @@ public class TaskoSchedule implements Job {
     }
 
     public TaskoSchedule(Integer orgIdIn, TaskoBunch bunchIn,
-            String jobLabelIn, Map dataIn, Date activeFromIn, Date activeTillIn) {
+            String jobLabelIn, Map dataIn, Trigger trigger) {
         setOrgId(orgIdIn);
         setBunch(bunchIn);
         setJobLabel(jobLabelIn);
         data = serializeMap(dataIn);
         setActive(TASKO_SCHEDULE_ACTIVE);
-        setActiveFrom(activeFromIn);
-        setActiveTill(activeTillIn);
+        setActiveFrom(trigger.getStartTime());
+        setActiveTill(trigger.getEndTime());
     }
 
     static {
