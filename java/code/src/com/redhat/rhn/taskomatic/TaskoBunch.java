@@ -14,26 +14,16 @@
  */
 package com.redhat.rhn.taskomatic;
 
-import org.apache.log4j.Logger;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * TaskoBunch
  * @version $Rev$
  */
-public class TaskoBunch implements Job {
+public class TaskoBunch {
 
-    private static Logger log = Logger.getLogger(TaskoBunch.class);
-    private static Map<String, Integer> tasks = new HashMap();
     private Long id;
     private String name;
     private String description;
@@ -44,70 +34,6 @@ public class TaskoBunch implements Job {
     private List<TaskoTemplate> templates = new ArrayList();
     private Date created;
     private Date modified;
-
-    static {
-        for (TaskoTask task : TaskoFactory.listTasks()) {
-            tasks.put(task.getName(), 0);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(JobExecutionContext context)
-        throws JobExecutionException {
-        JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-        Integer orgId = dataMap.getInt("org_id");
-        String jobLabel = dataMap.getString("job_label");
-        TaskoRun previousRun = null;
-
-        log.info("Starting " + this.name + " (" + jobLabel + ") at " + new Date());
-
-        for (TaskoTemplate template : this.templates) {
-            if ((previousRun == null) ||
-                    (previousRun.getStatus() == template.getStartIf())) {
-
-                while (isTaskRunning(template.getTask())) {
-                    log.info("Task " + template.getTask().getName() +
-                            " currently executing. Sleeping for 10 secs.");
-                    TaskoFactory.sleep(10000);
-                }
-                markTaskRunning(template.getTask());
-                TaskoRun taskRun = new TaskoRun(orgId, template, jobLabel);
-                taskRun.execute(context);
-                unmarkTaskRunning(template.getTask());
-                log.debug(template.getTask().getName() + " ... " + taskRun.getStatus());
-                previousRun = taskRun;
-            }
-            else {
-                log.info("Interrupting " + this.name + " (" + jobLabel + ")");
-                break;
-            }
-        }
-        TaskoFactory.commitTransaction();
-
-        log.info("Finishing " + this.name + " (" + jobLabel + ") at " + new Date());
-    }
-
-    private boolean isTaskRunning(TaskoTask task) {
-        return tasks.get(task.getName()) > 0;
-    }
-
-    private void markTaskRunning(TaskoTask task) {
-        synchronized (getClass()) {
-            int count = tasks.get(task.getName());
-            count++;
-            tasks.put(task.getName(), count);
-        }
-    }
-
-    private void unmarkTaskRunning(TaskoTask task) {
-        synchronized (getClass()) {
-            int count = tasks.get(task.getName());
-            count--;
-            tasks.put(task.getName(), count);
-        }
-    }
 
     /**
      * @return Returns the id.

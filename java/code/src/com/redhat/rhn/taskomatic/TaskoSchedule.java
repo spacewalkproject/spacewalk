@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,11 @@
  */
 package com.redhat.rhn.taskomatic;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,12 +29,15 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class TaskoSchedule {
-    public static String TASKO_SCHEDULE_ACTIVE = "Y";
+public class TaskoSchedule implements Job {
+    private static final String TASKO_SCHEDULE_ACTIVE = "Y";
+    private static Logger log = Logger.getLogger(TaskoBunch.class);
+    private static Map<String, Integer> tasks = new HashMap<String, Integer>();
 
     private Long id;
     private String jobLabel;
@@ -40,7 +47,7 @@ public class TaskoSchedule {
     private Date activeFrom;
     private Date activeTill;
     private byte[] data;
-    private List<TaskoRun> runs = new ArrayList();
+    private List<TaskoRun> runs = new ArrayList<TaskoRun>();
     private Date created;
     private Date modified;
 
@@ -58,6 +65,68 @@ public class TaskoSchedule {
         setActiveTill(activeTillIn);
     }
 
+    static {
+        for (TaskoTask task : TaskoFactory.listTasks()) {
+            tasks.put(task.getName(), 0);
+        }
+    }
+
+    private boolean isTaskRunning(TaskoTask task) {
+        return tasks.get(task.getName()) > 0;
+    }
+
+    private void markTaskRunning(TaskoTask task) {
+        synchronized (getClass()) {
+            int count = tasks.get(task.getName());
+            count++;
+            tasks.put(task.getName(), count);
+        }
+    }
+
+    private void unmarkTaskRunning(TaskoTask task) {
+        synchronized (getClass()) {
+            int count = tasks.get(task.getName());
+            count--;
+            tasks.put(task.getName(), count);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void execute(JobExecutionContext context)
+        throws JobExecutionException {
+        TaskoRun previousRun = null;
+
+        log.info("Starting " + bunch.getName() + " (" + jobLabel + ") at " + new Date());
+
+        for (TaskoTemplate template : bunch.getTemplates()) {
+            if ((previousRun == null) ||
+                    (previousRun.getStatus() == template.getStartIf())) {
+
+                if (!TaskoFactory.isTaskParalelizable(template.getTask())) {
+                    while (isTaskRunning(template.getTask())) {
+                        log.info("Task " + template.getTask().getName() +
+                            " currently executing. Sleeping for 10 secs.");
+                        TaskoFactory.sleep(10000);
+                    }
+                }
+                markTaskRunning(template.getTask());
+                TaskoRun taskRun = new TaskoRun(this.orgId, template, this.jobLabel);
+                taskRun.execute(context);
+                unmarkTaskRunning(template.getTask());
+                log.debug(template.getTask().getName() + " ... " + taskRun.getStatus());
+                previousRun = taskRun;
+            }
+            else {
+                log.info("Interrupting " + bunch.getName() + " (" + jobLabel + ")");
+                break;
+            }
+        }
+        TaskoFactory.commitTransaction();
+
+        log.info("Finishing " + bunch.getName() + " (" + jobLabel + ") at " + new Date());
+    }
 
     public void unschedule() {
         setActiveTill(new Date());
@@ -104,23 +173,26 @@ public class TaskoSchedule {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
           return toByteArrayImpl(fromImageBlob, baos);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+            // return null
         }
         return null;
       }
 
       private byte[] toByteArrayImpl(Blob fromImageBlob, 
           ByteArrayOutputStream baos) throws SQLException, IOException {
-        byte buf[] = new byte[4000];
+        byte[] buf = new byte[4000];
         int dataSize;
         InputStream is = fromImageBlob.getBinaryStream(); 
 
         try {
-          while((dataSize = is.read(buf)) != -1) {
+          while ((dataSize = is.read(buf)) != -1) {
             baos.write(buf, 0, dataSize);
           }    
-        } finally {
-          if(is != null) {
+        }
+        finally {
+          if (is != null) {
             is.close();
           }
         }

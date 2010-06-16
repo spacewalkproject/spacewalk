@@ -23,6 +23,8 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -160,6 +162,56 @@ public class TaskoFactory extends HibernateFactory {
         params.put("org_id", orgId);
         params.put("job_label", jobLabel);
         return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
-                                       "TaskoSchedule.findActiveScheduleByOrgAndLabel", params);
+                   "TaskoSchedule.findActiveScheduleByOrgAndLabel", params);
+    }
+
+    public static TaskoSchedule lookupScheduleById(Long scheduleId) {
+        Map params = new HashMap();
+        params.put("schedule_id", scheduleId);
+        return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
+                                       "TaskoSchedule.lookupById", params);
+    }
+
+    public static TaskoSchedule listSchedulesByOrgAndBunch(Integer orgId, TaskoBunch bunch) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("bunch_id", bunch.getId());
+        return (TaskoSchedule) singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listByOrgAndBunch", params);
+    }
+
+    public static TaskoSchedule listSchedulesByOrgAndLabel(Integer orgId, String jobLabel) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("job_label", jobLabel);
+        return (TaskoSchedule) singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listByOrgAndLabel", params);
+    }
+
+    public static Boolean isTaskParalelizable(TaskoTask task) {
+        Class taskClass;
+        try {
+            taskClass = Class.forName(task.getTaskClass());
+            Method isParallelizableMethod = taskClass.getMethod("isParallelizable", null);
+            return (Boolean) isParallelizableMethod.invoke(null, null);
+        }
+        catch (ClassNotFoundException e) {
+            return false;
+        }
+        catch (SecurityException e) {
+            return false;
+        }
+        catch (NoSuchMethodException e) {
+            return false;
+        }
+        catch (IllegalArgumentException e) {
+            return false;
+        }
+        catch (IllegalAccessException e) {
+            return false;
+        }
+        catch (InvocationTargetException e) {
+            return false;
+        }
     }
 }
