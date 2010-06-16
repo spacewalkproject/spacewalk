@@ -17,6 +17,7 @@ package com.redhat.rhn.taskomatic;
 import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.quartz.CronTrigger;
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
@@ -50,7 +51,6 @@ public class TaskoXmlRpcHandler {
             Date startTime, Date endTime, String cronExpression, Map params)
             throws InvalidJobLabelException, NoSuchBunchTaskException, ParseException {
         try {
-            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             // create trigger
             CronTrigger ct = new CronTrigger(jobLabel, orgId.toString(),
                     cronExpression);
@@ -60,6 +60,8 @@ public class TaskoXmlRpcHandler {
             if (endTime != null) {
                 ct.setEndTime(endTime);
             }
+            // create job
+            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params, startTime, endTime);
             // schedule job
             return SchedulerKernel.getScheduler().scheduleJob(jobDetail, ct);
         }
@@ -71,7 +73,7 @@ public class TaskoXmlRpcHandler {
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
             throws ParseException, InvalidJobLabelException, NoSuchBunchTaskException {
-        return scheduleBunch(orgId, bunchName, jobLabel, null, null, cronExpression,
+        return scheduleBunch(orgId, bunchName, jobLabel, new Date(), null, cronExpression,
                 params);
     }
 
@@ -87,6 +89,12 @@ public class TaskoXmlRpcHandler {
             }
             else {
                 SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
+                TaskoSchedule schedule = TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
+                JobDataMap map = schedule.getDataMap();
+                schedule.unschedule();
+
+                // TaskoFactory.save(schedule);
+                TaskoFactory.commitTransaction();
             }
             return 1;
         }
@@ -96,12 +104,13 @@ public class TaskoXmlRpcHandler {
     }
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
-            Map params)
+            Map params, Date start)
             throws InvalidJobLabelException, NoSuchBunchTaskException {
         try {
-            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params);
             SimpleTrigger st = new SimpleTrigger(jobLabel, orgId.toString(), 1, 1);
             st.setEndTime(new Date());
+            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params,
+                    start, st.getEndTime());
 
             // schedule job
             return SchedulerKernel.getScheduler().scheduleJob(jobDetail, st);
@@ -111,8 +120,14 @@ public class TaskoXmlRpcHandler {
         }
     }
 
+    public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
+            Map params)
+            throws InvalidJobLabelException, NoSuchBunchTaskException {
+        return scheduleSingleBunchRun(orgId, bunchName, jobLabel, params, new Date());
+    }
+
     private JobDetail createJob(String bunchName, Integer orgId,
-            String jobLabel, Map params)
+            String jobLabel, Map params, Date start, Date end)
         throws SchedulerException, InvalidJobLabelException, NoSuchBunchTaskException {
         if (!checkUniqueName(jobLabel, orgId.toString())) {
             throw new InvalidJobLabelException();
@@ -129,6 +144,10 @@ public class TaskoXmlRpcHandler {
         jobDetail.getJobDataMap().put("org_id", orgId);
         jobDetail.getJobDataMap().put("bunch_name", bunchName);
         jobDetail.getJobDataMap().put("job_label", jobLabel);
+        TaskoSchedule schedule = new TaskoSchedule(orgId, bunch, jobLabel, jobDetail.getJobDataMap(),
+                start, end);
+        TaskoFactory.save(schedule);
+        TaskoFactory.commitTransaction();
         return jobDetail;
     }
 

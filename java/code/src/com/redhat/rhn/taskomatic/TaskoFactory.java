@@ -77,6 +77,10 @@ public class TaskoFactory extends HibernateFactory {
         singleton.saveObject(taskoTemplate);
     }
 
+    public static void save(TaskoSchedule taskoSchedule) {
+        singleton.saveObject(taskoSchedule);
+    }
+
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -148,5 +152,14 @@ public class TaskoFactory extends HibernateFactory {
             return file.delete();
         }
         return false;
+    }
+
+    public static TaskoSchedule lookupActiveScheduleByOrgAndLabel(Integer orgId,
+            String jobLabel) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("job_label", jobLabel);
+        return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
+                                       "TaskoSchedule.findActiveScheduleByOrgAndLabel", params);
     }
 }
