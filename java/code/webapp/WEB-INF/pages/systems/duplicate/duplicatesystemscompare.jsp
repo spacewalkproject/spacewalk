@@ -28,16 +28,11 @@
 		toggleElement(document.getElementById(linkId + 'Hide'));
 	}
 	
-	function handle_delete(chk_id, div_id, form) {
-		var delete_chk_box = document.getElementById(chk_id);
-		if  (delete_chk_box.checked == true) {
-			return form.submit();
-		}
-			
-	    var delete_chk_box_div = document.getElementById(div_id);	
-		if (delete_chk_box_div.style.display == 'none') {
-			 delete_chk_box_div.style.display = '';
-		}
+	function handle_delete(div_del_id, div_confirm_id, form) {
+	    var div_del = document.getElementById(div_del_id);
+	    var div_confirm = document.getElementById(div_confirm_id);	
+	    div_del.style.display = 'none';
+		div_confirm.style.display = '';
 		return false;
 	}	
 	
@@ -105,8 +100,9 @@
 				</c:when>
 				<c:otherwise><td></c:otherwise>
 			</c:choose>
-				<div style="display:none" id='div${current.value}'> <input type="checkbox" id="chk_id_${current.value}" name="chk${current.value}" value="${current.value}"/> - <bean:message key="Check to Confirm Delete"/></div>
-				<input type="submit" name="btn${current.value}" value="${rhn:localize('Delete System Profile')}" onclick="return handle_delete('chk_id_${current.value}','div${current.value}', this.form);"/><br/>
+				<div style="display:none" id='div_confirm${current.value}'><input type="submit" name="btn${current.value}" value="${rhn:localize('ssm.delete.systems.confirmbutton')}"/></div>
+				<div id='div_del${current.value}'><input type="submit" name="delbtn${current.value}" value="${rhn:localize('Delete System Profile')}"
+									 onclick="return handle_delete('div_del${current.value}','div_confirm${current.value}', this.form);"/></div>
 				</td>
 		</c:forEach>
 	</tr>
