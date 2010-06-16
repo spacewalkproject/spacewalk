@@ -17,7 +17,6 @@ package com.redhat.rhn.taskomatic;
 import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.quartz.CronTrigger;
-import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleTrigger;
@@ -90,7 +89,7 @@ public class TaskoXmlRpcHandler {
             else {
                 SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
                 TaskoSchedule schedule = TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
-                JobDataMap map = schedule.getDataMap();
+                Map map = schedule.getDataMap();
                 schedule.unschedule();
 
                 // TaskoFactory.save(schedule);
@@ -144,7 +143,7 @@ public class TaskoXmlRpcHandler {
         jobDetail.getJobDataMap().put("org_id", orgId);
         jobDetail.getJobDataMap().put("bunch_name", bunchName);
         jobDetail.getJobDataMap().put("job_label", jobLabel);
-        TaskoSchedule schedule = new TaskoSchedule(orgId, bunch, jobLabel, jobDetail.getJobDataMap(),
+        TaskoSchedule schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
                 start, end);
         TaskoFactory.save(schedule);
         TaskoFactory.commitTransaction();

@@ -15,7 +15,6 @@
 package com.redhat.rhn.taskomatic;
 
 import org.hibernate.Hibernate;
-import org.quartz.JobDataMap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 public class TaskoSchedule {
@@ -48,11 +48,11 @@ public class TaskoSchedule {
     }
 
     public TaskoSchedule(Integer orgIdIn, TaskoBunch bunchIn,
-            String jobLabelIn, JobDataMap dataIn, Date activeFromIn, Date activeTillIn) {
+            String jobLabelIn, Map dataIn, Date activeFromIn, Date activeTillIn) {
         setOrgId(orgIdIn);
         setBunch(bunchIn);
         setJobLabel(jobLabelIn);
-        data = serializeDataMap(dataIn);
+        data = serializeMap(dataIn);
         setActive(TASKO_SCHEDULE_ACTIVE);
         setActiveFrom(activeFromIn);
         setActiveTill(activeTillIn);
@@ -64,7 +64,7 @@ public class TaskoSchedule {
         setActive(null);
     }
 
-    private byte[] serializeDataMap(JobDataMap dataMap) {
+    private byte[] serializeMap(Map dataMap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if (null != dataMap) {
             ObjectOutputStream out;
@@ -80,7 +80,7 @@ public class TaskoSchedule {
         return baos.toByteArray();
     }
 
-    private JobDataMap getDataMapFromBlob(Blob blob) {
+    private Map getDataMapFromBlob(Blob blob) {
         Object obj = null;
 
         try {
@@ -97,7 +97,7 @@ public class TaskoSchedule {
         catch (Exception e) {
             // return null;
         }
-        return (JobDataMap) obj;
+        return (Map) obj;
     }
 
     private byte[] toByteArray(Blob fromImageBlob) {
@@ -127,11 +127,11 @@ public class TaskoSchedule {
         return baos.toByteArray();
       }
 
-    public void setDataMap(JobDataMap dataMap) {
-        data = serializeDataMap(dataMap);
+    public void setDataMap(Map dataMap) {
+        data = serializeMap(dataMap);
     }
 
-    public JobDataMap getDataMap() {
+    public Map getDataMap() {
         return getDataMapFromBlob(getData());
     }
 
