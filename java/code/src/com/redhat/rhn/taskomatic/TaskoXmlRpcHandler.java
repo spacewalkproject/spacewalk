@@ -60,7 +60,8 @@ public class TaskoXmlRpcHandler {
                 ct.setEndTime(endTime);
             }
             // create job
-            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params, startTime, endTime);
+            JobDetail jobDetail = createJob(bunchName, orgId, jobLabel, params,
+                    startTime, endTime);
             // schedule job
             return SchedulerKernel.getScheduler().scheduleJob(jobDetail, ct);
         }
@@ -84,11 +85,13 @@ public class TaskoXmlRpcHandler {
             if (false) {
                 Trigger newTrigger = (Trigger) trigger.clone();
                 newTrigger.setEndTime(new Date());
-                SchedulerKernel.getScheduler().rescheduleJob(jobLabel, orgId.toString(), newTrigger);
+                SchedulerKernel.getScheduler().rescheduleJob(jobLabel, orgId.toString(),
+                        newTrigger);
             }
             else {
                 SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
-                TaskoSchedule schedule = TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
+                TaskoSchedule schedule =
+                    TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
                 Map map = schedule.getDataMap();
                 schedule.unschedule();
 
@@ -129,7 +132,7 @@ public class TaskoXmlRpcHandler {
             String jobLabel, Map params, Date start, Date end)
         throws SchedulerException, InvalidJobLabelException, NoSuchBunchTaskException {
         if (!checkUniqueName(jobLabel, orgId.toString())) {
-            throw new InvalidJobLabelException();
+            throw new InvalidJobLabelException("jobLabel already in use");
         }
         TaskoBunch bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
         if (bunch == null) {
@@ -137,28 +140,23 @@ public class TaskoXmlRpcHandler {
         }
         // create job
         JobDetail jobDetail = new JobDetail(jobLabel, orgId.toString(),
-                TaskoBunch.class);
-        // set job params
-        jobDetail.getJobDataMap().putAll(params);
-        jobDetail.getJobDataMap().put("org_id", orgId);
-        jobDetail.getJobDataMap().put("bunch_name", bunchName);
-        jobDetail.getJobDataMap().put("job_label", jobLabel);
+                TaskoSchedule.class);
         TaskoSchedule schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
                 start, end);
         TaskoFactory.save(schedule);
         TaskoFactory.commitTransaction();
+        // set job params
+        jobDetail.getJobDataMap().putAll(params);
+        jobDetail.getJobDataMap().put("org_id", orgId);
+        jobDetail.getJobDataMap().put("schedule_id", schedule.getId());
+
         return jobDetail;
     }
 
     public int listBunchRuns(Integer orgId, String triggerName)
-                                            throws NoSuchTaskoTriggerException {
-        try {
-            return SchedulerKernel.getScheduler().unscheduleJob(triggerName,
-                    orgId.toString()) ? 1 : 0;
-        }
-        catch (SchedulerException e) {
-            throw new NoSuchTaskoTriggerException();
-        }
+                                            throws SchedulerException {
+        return SchedulerKernel.getScheduler().unscheduleJob(triggerName,
+                orgId.toString()) ? 1 : 0;
     }
 
     public int clearRunHistory(Integer orgId, Date limitTime) {

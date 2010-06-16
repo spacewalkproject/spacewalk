@@ -15,8 +15,8 @@
 package com.redhat.rhn.taskomatic.core;
 
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.taskomatic.TaskoBunch;
 import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoSchedule;
 
 import org.quartz.Job;
 import org.quartz.SchedulerException;
@@ -35,16 +35,16 @@ public class RhnJobFactory implements JobFactory {
      * {@inheritDoc}
      */
     public synchronized Job newJob(TriggerFiredBundle trigger) throws SchedulerException {
-        TaskoBunch bunch = null;
-        String bunchName = trigger.getJobDetail().getJobDataMap().getString("bunch_name");
+        TaskoSchedule schedule = null;
+        Long scheduleId = trigger.getJobDetail().getJobDataMap().getLong("schedule_id");
 
         try {
-            bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
+            schedule = TaskoFactory.lookupScheduleById(scheduleId);
         }
         catch (HibernateRuntimeException re) {
-                throw new SchedulerException("No such bunch task " + bunchName);
+                throw new SchedulerException("No such schedule with id  " + scheduleId);
         }
 
-        return bunch;
+        return schedule;
     }
 }

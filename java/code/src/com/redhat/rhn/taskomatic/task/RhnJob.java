@@ -12,18 +12,19 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.taskomatic;
+package com.redhat.rhn.taskomatic.task;
+
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 
-public class InvalidJobLabelException extends Exception {
+public abstract class RhnJob implements Job {
 
-    public InvalidJobLabelException(String message) {
-        super(message);
+    public static boolean isParallelizable() {
+        return false;
     }
 
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = -7535142850830686483L;
-
+    public abstract void execute(JobExecutionContext context)
+        throws JobExecutionException;
 }
