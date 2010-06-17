@@ -10,7 +10,7 @@
 		<c:set var="headerkey" value="eligible.flexguest.jsp.header"/>
 		<c:set var="messagekey" value="eligible.flexguest.jsp.message"/>
 		<c:set var="namestyle" value="first-column"/>
-		<c:set var="empty_msg" value="eligible-flexguest.jsp.no-systems"/>
+		<c:set var="empty_msg" value="eligible.flexguest.jsp.no-systems"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="headerkey" value="flexguest.jsp.header"/>
@@ -109,7 +109,7 @@
 </rl:list>
 <rhn:submitted/>
 
-<c:if test="${not empty requestScope.selectable}">
+<c:if test="${not empty requestScope.selectable && not empty requestScope.dataset}">
 	  <div align="right">
 
     <hr />

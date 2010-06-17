@@ -891,20 +891,10 @@ public class SystemManager extends BaseManager {
     public static Server lookupByIdAndUser(Long sid, User userIn) {
         Server server = ServerFactory.lookupByIdAndOrg(sid, 
                 userIn.getOrg());
-        
-        if (!isAvailableToUser(userIn, sid)) {
-            LocalizationService ls = LocalizationService.getInstance();
-            LookupException e = new LookupException("Could not find server " + sid +
-                    " for user " + userIn.getId());
-            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.system"));
-            e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.system"));
-            e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.system"));
-            throw e;
-        }
-        else {
-            return server;
-        }
+        ensureAvailableToUser(userIn, sid);
+        return server;
     }
+    
     
     /**
      * Returns a List of hydrated server objects from server ids. 
@@ -2062,6 +2052,23 @@ public class SystemManager extends BaseManager {
         params.put("uid", user.getId());
         params.put("sid", sid);
         return m.execute(params).size() >= 1;
+    }
+
+    /**
+     * Checks if the user has permissions to see the Server
+     * @param user User being checked
+     * @param sid ID of the Server being checked
+     */
+    public static void ensureAvailableToUser(User user, Long sid) {
+        if (!isAvailableToUser(user, sid)) {
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e = new LookupException("Could not find server " + sid +
+                    " for user " + user.getId());
+            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.system"));
+            e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.system"));
+            e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.system"));
+            throw e;
+        }
     }
     
     /**

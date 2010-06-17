@@ -14,14 +14,21 @@
  */
 package com.redhat.rhn.manager.system;
 
+import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
+import org.apache.commons.lang.BooleanUtils;
+
+import java.sql.Types;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -100,7 +107,7 @@ public class VirtualizationEntitlementsManager {
     public List<ChannelFamilySystemGroup> listFlexGuests(User user) {
         return VirtualInstanceFactory.getInstance().listFlexGuests(user);
         
-    }    
+    }
 
     
     /**
@@ -111,6 +118,45 @@ public class VirtualizationEntitlementsManager {
     public List<ChannelFamilySystemGroup> listEligibleFlexGuests(User user) {
         return VirtualInstanceFactory.getInstance().listEligibleFlexGuests(user);
         
-    }    
-        
+    }
+    
+    /**
+     * Converts a given server to flex entitlement
+     * @param systemId the server id
+     * @param channelFamilyId the channel family id
+     * @param user the user object
+     */
+    public void convertToFlex(Long systemId, 
+                        Long channelFamilyId,
+                        User user) {
+        SystemManager.ensureAvailableToUser(user, systemId);
+        Map in = new HashMap();
+        in.put("sid", systemId);
+        in.put("cfid", channelFamilyId);
+        CallableMode m = ModeFactory.getCallableMode(
+                "Channel_queries", "convert_to_flex");
+        m.execute(in, new HashMap());
+    }
+    
+
+    /**
+     * True if the passed in server can be converted to flex
+     * @param sid the server id
+     * @param cfid the channel family id
+     * @return true if the server can be converted to flex 
+     */
+    public boolean canConvertToFlex(Long sid, Long cfid) {
+        Map in = new HashMap();
+        in.put("sid", sid);
+        in.put("cfid", cfid);
+        Map outParams = new HashMap();
+        outParams.put("result", new Integer(Types.NUMERIC));        
+
+        CallableMode m = ModeFactory.getCallableMode(
+                "Channel_queries", "can_convert_to_flex");
+
+        Map result = m.execute(in, outParams);
+        return BooleanUtils.toBoolean(
+                ((Long)result.get("result")).intValue());
+    }
 }

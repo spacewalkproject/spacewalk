@@ -18,7 +18,9 @@
 -- data for rhnException
 
 insert into rhnException values (-20294, 'not_enough_flex_entitlements_in_base_org', 'You do not have enough entitlements in the base org.');
+insert into rhnException values (-20295, 'server_cannot_convert_to_flex', 'The given server cannot be converted to a flex entitlement.');
 
+insert into rhnException values (-20296, 'not_enough_flex_entitlements', 'You do not have enough entitlements in your org..');
 commit;
 
 
