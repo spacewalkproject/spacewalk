@@ -1415,13 +1415,6 @@ sub add_field {
   push @{$self->{fields}}, @fields;
 }
 
-sub clear_field {
-  my $self = shift;
-  my $field = shift;
-
-  delete $self->{field_values}->{$field};
-}
-
 sub set_field {
   my $self = shift;
   my $field = shift;
