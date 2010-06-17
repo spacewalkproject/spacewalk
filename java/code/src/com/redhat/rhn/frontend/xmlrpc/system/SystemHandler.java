@@ -529,11 +529,11 @@ public class SystemHandler extends BaseHandler {
         Channel baseChannel = server.getBaseChannel();
         List returnList = new ArrayList();
 
-        List<EssentialChannelDto> list = ChannelManager.
-                                listBaseChannelsForSystem(loggedInUser, server);
+        List<EssentialChannelDto> list =
+              ChannelManager.listBaseChannelsForSystem(loggedInUser, server);
         for (EssentialChannelDto ch : list) {
-            Boolean currentBase = (baseChannel != null) && 
-                                        baseChannel.getId().equals(ch.getId());
+            Boolean currentBase = (baseChannel != null) &&
+              baseChannel.getId().equals(ch.getId());
             returnList.add(createChannelMap(ch, currentBase));
         }
 

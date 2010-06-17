@@ -23,6 +23,11 @@ import com.redhat.rhn.domain.user.User;
  */
 public class EditRepoCommand extends BaseRepoCommand {
 
+ /**
+  *
+  * @param currentUser logged in user
+  * @param repoId id of content source object
+  */
  public EditRepoCommand(User currentUser, Long repoId) {
      super();
      this.repo = ChannelFactory.lookupContentSource(repoId, currentUser.getOrg());

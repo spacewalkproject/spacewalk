@@ -110,8 +110,8 @@ public class ContentSource extends BaseDomainHelper {
     }
 
     /**
-     *
-     * @param set of channels this repo is pushed to
+     * 
+     * @param channelsIn of channels this repo is pushed to
      */
     public void setChannels(Set<Channel> channelsIn) {
         this.channels = channelsIn;

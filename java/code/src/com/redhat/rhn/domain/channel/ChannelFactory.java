@@ -161,9 +161,9 @@ public class ChannelFactory extends HibernateFactory {
 
     /**
      * lookup content source by id and org
-     * @param id
-     * @param orgIn
-     * @return
+     * @param id id of content source
+     * @param orgIn org to check
+     * @return content source
      */
     public static ContentSource lookupContentSource(Long id, Org orgIn) {
         Map params = new HashMap();

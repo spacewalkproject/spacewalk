@@ -62,7 +62,7 @@ public class ContentSourceDto extends BaseDto {
     }
 
     /**
-     * @param idIn The id to set.
+     * @param cIn The channel id to set.
      */
     public void setChannels(Long cIn) {
         this.channels = cIn;

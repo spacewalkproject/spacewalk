@@ -2820,6 +2820,7 @@ public class ChannelManager extends BaseManager {
     /**
      * get the latest log file for spacewalk-repo-sync
      * @param cs the channel content source you want the latest log file for
+     * @param c channel
      * @return the string of the filename (fully qualified)
      */
     public static String getLatestSyncLogFile(ContentSource cs, Channel c) {

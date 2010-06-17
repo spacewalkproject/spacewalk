@@ -36,47 +36,58 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 
-
+/**
+ *
+ * SyncRepositoriesAction
+ * @version $Rev$
+ */
 public class SyncRepositoriesAction extends RhnAction implements Listable {
+    
+  /**
+   *
+   * {@inheritDoc}
+   */
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
 
+        RequestContext context = new RequestContext(request);
+        User user =  context.getLoggedInUser();
 
-        public ActionForward execute(ActionMapping mapping,
-                ActionForm formIn,
-                HttpServletRequest request,
-                HttpServletResponse response) {
+        long cid = context.getRequiredParam("cid");
+        Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
+        request.setAttribute("channel_name", chan.getName());
 
-            RequestContext context = new RequestContext(request);
-            User user =  context.getLoggedInUser();
+        Map params = new HashMap();
+        params.put(RequestContext.CID, chan.getId().toString());
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
 
-            long cid = context.getRequiredParam("cid");
-            Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-            request.setAttribute("channel_name", chan.getName());
+        helper.execute();
 
-            Map params = new HashMap();
-            params.put(RequestContext.CID, chan.getId().toString());
-
-            ListSessionSetHelper helper = new ListSessionSetHelper(this, request,params);
-
-            helper.execute();
-
-            if(helper.isDispatched()) {
-                Set <String> set = helper.getSet();
-                for (String id : set) {
-                    Long sgid = Long.valueOf(id);
-                    ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
-                    System.out.println("SYNCING:" + tmp.getSourceUrl());
-                }
-
-                StrutsDelegate strutsDelegate = getStrutsDelegate();
-                strutsDelegate.saveMessage("channel.edit.repo.updated", new String[] {chan.getName()}, request );
-
-                return strutsDelegate.forwardParams
-                                (mapping.findForward("success"), params);
+        if (helper.isDispatched()) {
+            Set <String> set = helper.getSet();
+            for (String id : set) {
+                Long sgid = Long.valueOf(id);
+                ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
+                System.out.println("SYNCING:" + tmp.getSourceUrl());
             }
 
-            return mapping.findForward("default");
+            StrutsDelegate strutsDelegate = getStrutsDelegate();
+            strutsDelegate.saveMessage("channel.edit.repo.updated",
+                    new String[] {chan.getName()}, request);
+
+            return strutsDelegate.forwardParams
+            (mapping.findForward("success"), params);
         }
 
+        return mapping.findForward("default");
+    }
+        
+        /**
+         *
+         * {@inheritDoc}
+         */
         public List<ContentSource> getResult(RequestContext context) {
             User user =  context.getLoggedInUser();
             long cid = context.getRequiredParam("cid");
