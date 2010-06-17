@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.11
+Version: 1.1.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,81 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jun 17 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.12-1
+- Made the duplicate compares page do confirm delete differently
+  (paji@redhat.com)
+- Added a sort of 'confirm' logic for delete systems in dup compares page
+  (paji@redhat.com)
+- 602591 - "Content-Length" added to response header for different download
+  contents (tlestach@redhat.com)
+- 603890 - fix/rewrite system.listSubscribableBaseChannels API
+  (tlestach@redhat.com)
+- 576314 - fix for errata being added to the email queue multiple times before
+  it can be run (jsherril@redhat.com)
+- bumping up heap to 512m for jsp compiles (shughes@redhat.com)
+- bumping up build heap to 512m (shughes@redhat.com)
+- Removed an unnecessary abstraction for VirtEntitlements (paji@redhat.com)
+- 591291 - associate packages also (when mergeing errata) (tlestach@redhat.com)
+- 601656 - fix channel permission check for errata.clone (tlestach@redhat.com)
+- 601656 - fix channel permission check for channel.software.mergePackages
+  (tlestach@redhat.com)
+- fixing issue where package summary could be null, causing NPE
+  (jsherril@redhat.com)
+- 601656 - fix channel permission check (tlestach@redhat.com)
+- 591291 - clone errata instead of associating them to custom channels
+  (tlestach@redhat.com)
+- fixing hashCode for Errata (tlestach@redhat.com)
+- 529359: Fixed a couple of bugs related to Remote Command Package upgrade
+  (paji@redhat.com)
+- 595473 525588 - fixing small query issue and moving the ssm operation
+  creation to before the (jsherril@redhat.com)
+- 595473 525588 - fixing issue where child channel subscription changes would
+  not use the stored procedure and would instead update rhnServerChannel table
+  directly, bypassing all entitelment logic (jsherril@redhat.com)
+- 525588 - changing SSM child channel subscription page to not use hibernate
+  when doing subscribng (jsherril@redhat.com)
+- Correct 'checkstyle' errors (colin.coe@gmail.com)
+- checkstyle fixes (jsherril@redhat.com)
+- Update errata.setDetails to allow setting CVEs (colin.coe@gmail.com)
+- Allow CVEs to be set on unpublished errata (colin.coe@gmail.com)
+- 585176 - fixing issue where packages were excluded from update on SSM
+  upgradable packages page when the packages had multiple arches
+  (jsherril@redhat.com)
+- 585965 - fixing issue with multilib packages and errata-cache generation,
+  where updating one arch of a package would indicate that the other one was
+  updated as well (jsherril@redhat.com)
+- 563859 - fixing issue where adding errata to x86_64 channels would only get
+  packages of one arch, even if the errata had two (lib packages)
+  (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- Adding the correct checkstyle for inactive systems (paji@redhat.com)
+- 576953 - fixing errata search case sensitivity and not searching on partial
+  cve name (jsherril@redhat.com)
+- 588367 - introducing systemgroup.scheduleApplyErrataToActive API call
+  (tlestach@redhat.com)
+- 588367 move applyErrataHelper to ErrataManager (tlestach@redhat.com)
+- Added the dupe compare css and javascript magic (paji@redhat.com)
+- 590204 - fixing issue where pagination wasnt working properly on normal user
+  list page (jsherril@redhat.com)
+- Made the default dups compare page preselect a bunch of items
+  (paji@redhat.com)
+- Improved a error message on Dups systems page (paji@redhat.com)
+- Fix style of commit c4e387bbb1c5cf16f54a2fa968a5613121bc1d7a
+  (lukas.durfina@gmail.com)
+- A more functional dupes compare page (paji@redhat.com)
+- adding distro deletion to cleanup script (jsherril@redhat.com)
+- Removed a no white space after a type cast check since we are not enforcing
+  it anywhere (paji@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- Generate Debian repository (lukas.durfina@gmail.com)
+- Fixed broken unit tests (paji@redhat.com)
+- checkstyle fix (joshua.roys@gtri.gatech.edu)
+- Updated a typo in the  string (paji@redhat.com)
+- Updated a resource string (paji@redhat.com)
+- Added i18n strings for the systemdetails page (paji@redhat.com)
+- Limit automatic config comparisons to diff enabled systems
+  (joshua.roys@gtri.gatech.edu)
+
 * Mon May 10 2010 Partha Aji <paji@redhat.com> 1.1.11-1
 - Added an option to selectively delete instead of reactivate when a system is
   being reprovisioned (paji@redhat.com)

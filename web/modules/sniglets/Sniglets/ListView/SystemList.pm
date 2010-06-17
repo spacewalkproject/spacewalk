@@ -85,11 +85,6 @@ sub _register_modes {
 			   -datasource => RHN::DataSource::System->new,
 			   -provider => \&visible_to_uid_provider);
 
-  Sniglets::ListView::List->add_mode(-mode => "ssm_channel_change_conf",
-			   -datasource => RHN::DataSource::System->new,
-			   -provider => \&ssm_channel_change_conf_provider,
-			   -action_callback => \&ssm_channel_change_conf_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "systems_with_package_nvre_in_set",
 			   -datasource => RHN::DataSource::System->new);
 
@@ -661,85 +656,6 @@ sub ssm_channel_change_conf_provider {
   }
 
   return %ret;
-}
-
-sub ssm_channel_change_conf_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  # think big red button
-  my %action = @_;
-
-  if ($action{label} eq 'ssm_change_channel_subscriptions') {
-
-    my $SUBSCRIBE = 1;
-    my $UNSUBSCRIBE = 2;
-
-    my @to_subscribe;
-    my @to_unsubscribe;
-    my $channel_set = new RHN::DB::Set 'channel_list', $pxt->user->id;
-
-    my $system_set = new RHN::DB::Set 'system_list', $pxt->user->id;
-
-    @to_subscribe = map { $_->[0] } grep { $_->[1] eq $SUBSCRIBE } $channel_set->contents();
-    @to_unsubscribe = map { $_->[0] } grep { $_->[1] eq $UNSUBSCRIBE } $channel_set->contents();
-
-    # for safety's sake, filter out any rhn-satellite or rhn-proxy id that might have found their way in...
-    my %rhn_satellite_ids;
-    my %rhn_proxy_ids;
-
-    %rhn_proxy_ids = map { $_ => 1 } RHN::Channel->rhn_proxy_channels;
-    %rhn_satellite_ids = map { $_ => 1 } RHN::Channel->rhn_satellite_channels;
-
-    @to_subscribe = grep {!$rhn_proxy_ids{$_} and !$rhn_satellite_ids{$_}} @to_subscribe;
-    @to_unsubscribe = grep {!$rhn_proxy_ids{$_} and !$rhn_satellite_ids{$_}} @to_unsubscribe;
-
-    my $transaction = RHN::DB->connect;
-
-    eval {
-      foreach my $channel_to_subscribe_to (@to_subscribe) {
-        $transaction = RHN::ServerActions->subscribe_set_to_channel($system_set, $channel_to_subscribe_to, $transaction);
-      }
-
-      foreach my $channel_to_unsubscribe_from (@to_unsubscribe) {
-        $transaction = RHN::ServerActions->unsubscribe_set_from_channel($system_set, $channel_to_unsubscribe_from, $transaction);
-      }
-
-      # w/ groups, we're probably over-snapshotting a little bit, but we're
-      # likely to do far more here, due to more no-ops depending upon base-child channel
-      # relationships...  therefore, fix this one first.
-      $transaction = RHN::Server->snapshot_set(-reason => "Channel subscription alterations",
-					       -set_label => 'system_list',
-					       -user_id => $pxt->user->id,
-					       -transaction => $transaction);
-    };
-
-    if ($@ and catchable($@)) {
-      my $E = $@;
-
-      $transaction->rollback;
-
-      #  What could go here?  What exceptions might we run into?  Not enough entitlements?
-      if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
-        $pxt->push_message(local_alert => "Channel subscriptions would be exceeded, no systems subscribed.  Please contact Red Hat for more channel entitlements (1-866-2-REDHAT).");
-      }
-      else {
-        throw $E;
-      }
-    }
-    elsif ($@) {
-      $transaction->rollback();
-      die $@;
-    }
-    else {
-      $transaction->commit;
-
-      $channel_set->empty;
-      $channel_set->commit;
-      $pxt->push_message(site_info => "Channel subscriptions changed.");
-      $pxt->redirect('/network/systems/ssm/channels/index.pxt');
-    }
-  }
 }
 
 sub row_callback {

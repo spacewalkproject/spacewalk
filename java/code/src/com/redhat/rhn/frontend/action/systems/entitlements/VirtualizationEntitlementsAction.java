@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.systems.entitlements;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.system.VirtEntitlementsManagerImpl;
 import com.redhat.rhn.manager.system.VirtualizationEntitlementsManager;
 
 import org.apache.struts.action.ActionForm;
@@ -56,13 +55,13 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listGuestLimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        VirtualizationEntitlementsManager entitlementsMgr = 
-            new VirtEntitlementsManagerImpl();
+
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         request.setAttribute(PAGELIST, 
-                entitlementsMgr.findGuestLimitedHostsByOrg(user.getOrg()));
+                VirtualizationEntitlementsManager.getInstance().
+                                    findGuestLimitedHostsByOrg(user.getOrg()));
         return mapping.findForward("success");
     }
 
@@ -78,13 +77,13 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listGuestUnlimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        VirtualizationEntitlementsManager entitlementsMgr = 
-            new VirtEntitlementsManagerImpl();
+
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();        
         request.setAttribute(PAGELIST, 
-                entitlementsMgr.findGuestUnlimitedHostsByOrg(user.getOrg()));
+                VirtualizationEntitlementsManager.getInstance().
+                                    findGuestUnlimitedHostsByOrg(user.getOrg()));
         
         return mapping.findForward("success");
     }
@@ -101,13 +100,13 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listPhysicalHosts(ActionMapping mapping,
             ActionForm form, HttpServletRequest request, HttpServletResponse response) {
-        VirtualizationEntitlementsManager entitlementsMgr = 
-            new VirtEntitlementsManagerImpl();
+
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         request.setAttribute(PAGELIST, 
-                entitlementsMgr.findGuestsWithoutHostsByOrg(user.getOrg()));
+                VirtualizationEntitlementsManager.getInstance().
+                                    findGuestsWithoutHostsByOrg(user.getOrg()));
         return mapping.findForward("success");
     }
 }

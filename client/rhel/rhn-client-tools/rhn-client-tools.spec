@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,97 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jun 17 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.7-1
+- l10n: Updates to Chinese (China) (zh_CN) translation
+  (leahliu@fedoraproject.org)
+- 601683 - properly import get_computer_info routine (mzazrivec@redhat.com)
+- 596237 - use correct constant in HardwareWindow (tui) (mzazrivec@redhat.com)
+- 596237 - use constants in SendingWindow (mzazrivec@redhat.com)
+- 596237 - use constants in SendWindow (mzazrivec@redhat.com)
+- 596237 - use constants in PackagesWindow (mzazrivec@redhat.com)
+- 596237 - use constants in HardwareWindow (mzazrivec@redhat.com)
+- 596237 - use constants in OSReleaseWindow & AlreadyRegisteredWindow
+  (mzazrivec@redhat.com)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- 600316 - don't traceback for zero subscribed channels (mzazrivec@redhat.com)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- l10n: Updates to Spanish (Castilian) (es) translation
+  (gguerrer@fedoraproject.org)
+- 598890 - always return product version as string (mzazrivec@redhat.com)
+- l10n: Updates to Spanish (Castilian) (es) translation
+  (gguerrer@fedoraproject.org)
+- Remove three more exceptions that are not used in our code base.
+  (jpazdziora@redhat.com)
+- The rhn-client-tools ChangeLog has't been updated since 2002, removing.
+  (jpazdziora@redhat.com)
+- Removing WarningDialog, OkDialog, and QuestionDialog that are not used in our
+  code. (jpazdziora@redhat.com)
+- Remove 23 exceptions that are not used in our code base.
+  (jpazdziora@redhat.com)
+- Method resetServerList not used in our code, removing.
+  (jpazdziora@redhat.com)
+- When startRhnCheck was replaced by spawnRhnCheckForUI, it became unused,
+  removing. (jpazdziora@redhat.com)
+- Method getFailedSystemSlots not used in our code, removing.
+  (jpazdziora@redhat.com)
+- get_device_property not used in our code, removing. (jpazdziora@redhat.com)
+- termsAndConditions not used in our code, removing. (jpazdziora@redhat.com)
+- sat_supports_virt_guest_registration not used in our code, removing.
+  (jpazdziora@redhat.com)
+- finishMessage not used in our code, removing. (jpazdziora@redhat.com)
+- When autoActivateNumbersOnce was removed, autoActivatedHardwareInfo was made
+  unused, removing. (jpazdziora@redhat.com)
+- When ActivateSubscriptionPage was removed, activatedRegistrationNumber was
+  made unused, removing. (jpazdziora@redhat.com)
+- 597263 - give the focus to the ButtonBar (and thus to the Yes button), to
+  behave as RHEL 5 did. (jpazdziora@redhat.com)
+- 596101 - skip the chooseChannelPage when going Back as well, if it should not
+  be shown. (jpazdziora@redhat.com)
+- 596102 - fit hw profile into a 2x6 table (mzazrivec@redhat.com)
+- 595688 - cancel busy cursor after ValidationError (michael.mraka@redhat.com)
+- 595837 - write nice error in case of "connection reset by peer" and xmlrpc
+  protocol error (msuchy@redhat.com)
+- 585188 - we need to implement fatalError for loginPageApply and
+  createProfilePageApply. (jpazdziora@redhat.com)
+- Remove except which cannot be reached. (jpazdziora@redhat.com)
+- 585188 - refactor the RHN Register firstboot code to match firstboot 1.110 on
+  Fedora 12 and RHEL 6. (jpazdziora@redhat.com)
+- 585188 - only install legacy firstboot on RHEL 5 (and earlier), the new
+  firstboot for other systems. (jpazdziora@redhat.com)
+- 585188 - the firstboot modules for RHEL 5 shall retire in firstboot-legacy-
+  rhel5. (jpazdziora@redhat.com)
+- 593194 - fix creating the $(PREFIX)/usr/share/setuptool/setuptool.d when
+  building the package. (jpazdziora@redhat.com)
+- 595669 - fix regexp and do not fail if regexp do not match
+  (msuchy@redhat.com)
+- whitespace cleanup (msuchy@redhat.com)
+- We don't need hwdata target anymore (mzazrivec@redhat.com)
+- 580493 - use correct product logos in rhn_register (gui)
+  (mzazrivec@redhat.com)
+- 557059 - do not fail on IBM-ESXS controler where ID_PATH is not set
+  (msuchy@redhat.com)
+- 580489 - fix requires for rhn-setup-gnome (mzazrivec@redhat.com)
+- python-hwdata finaly made it into Fedora and Epel so we can remove from this
+  package and depend on python-hwdata (msuchy@redhat.com)
+- 593194 - 99rhn_register to add RHN Register to setup's list of tools.
+  (jpazdziora@redhat.com)
+- The bugzilla 556290 had errata released, python-setuptools should be pulled
+  in by python-coverage. (jpazdziora@redhat.com)
+- 584780 - move the firstboot _gui.* files to rhn-setup-gnome.
+  (jpazdziora@redhat.com)
+- 557059 - we cannot have class None. (jpazdziora@redhat.com)
+- 591798  - Completly remove hal code from rhn-client-tools for F-13 and RHEL-6
+  (msuchy@redhat.com)
+- 591422 - add hwdata.py to rhn-client-tools. (jpazdziora@redhat.com)
+- l10n: Updates to German (de) translation (ttrinks@fedoraproject.org)
+- l10n update .pot and .po files for rhn-client-tools (msuchy@redhat.com)
+- l10n - translate desktop file too (msuchy@redhat.com)
+- cleanup - removing translation file, which does not match any language code
+  (msuchy@redhat.com)
+- update po files for rhn-client-tools (msuchy@redhat.com)
+
 * Wed May 05 2010 Jan Pazdziora 1.1.3-1
 - 589100 - address issue when clients were not able to register to the server.
 

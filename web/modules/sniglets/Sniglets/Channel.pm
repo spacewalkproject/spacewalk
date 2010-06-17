@@ -49,8 +49,6 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  # sscd
-  $pxt->register_callback('rhn:sscd_alter_channel_membership_cb' => \&sscd_alter_channel_membership_cb);
   $pxt->register_callback('rhn:globally_subscribable_cb' => \&globally_subscribable_cb);
 }
 
@@ -97,72 +95,6 @@ sub channel_gpg_key {
 
 
   return PXT::Utils->perform_substitutions($block, \%subst);
-}
-
-sub sscd_alter_channel_membership_cb {
-  my $pxt = shift;
-
-
-  PXT::Debug->log(7, "in sscd_alter_channel_membership_cb...");
-
-  my @to_subscribe;
-  my @to_unsubscribe;
-  my $channel_set = new RHN::DB::Set 'channel_list', $pxt->user->id;
-
-  my @params = $pxt->param;
-
-  # warn "setting channel_list for un/subscriptions...";
-  PXT::Debug->log(7, "setting channel_list for un/subscriptions...");
-
-  $channel_set->empty;
-  $channel_set->commit;
-  foreach my $param (grep {m/(\d)+?/} @params) {
-    my $value = $pxt->dirty_param($param);
-
-    push @to_subscribe, $param if ($value eq 'subscribe');
-    push @to_unsubscribe, $param if ($value eq 'unsubscribe');
-  }
-
-
-  # see if any of the requested channels are no longer allowed to be subscribed,
-  # also protects against forged requests...
-  if (not $pxt->user->verify_channel_subscribe(@to_subscribe)) {
-    my $error_msg = <<EOM;
-You no longer have subscription access to some of the channels you selected.<br />
-Please review your selections and try again.
-EOM
-    $pxt->push_message(local_alert => $error_msg);
-    $pxt->redirect("/network/systems/ssm/channels/index.pxt");
-  }
-
-  $channel_set->add( map { [ $_, $SUBSCRIBE ] } @to_subscribe );
-  $channel_set->add( map { [ $_, $UNSUBSCRIBE ] } @to_unsubscribe );
-  $channel_set->commit;
-
-  PXT::Debug->log(7, "channel set committed...");
-  PXT::Debug->log_dump(7, \$channel_set);
-
-  my @license_channels = RHN::Channel->available_channels_with_license($pxt->user->org_id);
-  my %consent_required = map { $_->[0] => 1 } @license_channels;
-
-  my @channels_needing_consent;
-
-  foreach my $channel_to_subscribe (@to_subscribe) {
-    if ($consent_required{$channel_to_subscribe}) {
-      push @channels_needing_consent, $channel_to_subscribe;
-    }
-  }
-
-  my $cid;
-  if (@channels_needing_consent) {
-    my $cid = pop @channels_needing_consent;
-    my $params = $cid;
-
-    if (@channels_needing_consent) {
-      $params .= "&additional_channel=" . join("&additional_channel=", @channels_needing_consent);
-    }
-    $pxt->redirect("/network/systems/ssm/channels/license.pxt?cid=$cid&current_channel=$params");
-  }
 }
 
 

@@ -107,7 +107,7 @@ def init_hook(conduit):
                 "\n" + RHN_DISABLED)
             return
 
-        if opts.version or (len(commands) == 0):
+        if  (hasattr(opts,'version') and opts.version) or (len(commands) == 0):
             rhn_enabled = False
             conduit.info(10, _("Either --version, or no commands entered") +
                 "\n" + RHN_DISABLED)

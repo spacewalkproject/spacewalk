@@ -1764,66 +1764,6 @@ sub can_entitle_server {
   return $can ? 1 : 0;
 }
 
-sub set_channels {
-  my $self = shift;
-  my %params = validate(@_, {user_id => 1, channels => 1});
-  my %new_channels = map { $_ => 1 } @{$params{channels}};
-  my $user_id = $params{user_id};
-
-  my @remove;
-  my @add;
-
-  my $dbh = RHN::DB->connect;
-  my $query = <<EOS;
-SELECT SC.channel_id
-  FROM rhnServerChannel SC
- WHERE SC.server_id = ?
-EOS
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($self->id);
-
-  while (my ($cid) = $sth->fetchrow) {
-    if (exists $new_channels{$cid}) {
-      delete $new_channels{$cid};
-    }
-    else {
-      push @remove, $cid;
-    }
-  }
-
-  @add = keys %new_channels;
-  foreach my $add (@add) {
-
-    # do quick unsubscribe + quick subscribe
-    my $sth = $dbh->prepare(<<EOS);
-BEGIN
-    rhn_channel.unsubscribe_server(:server_id, :cid, 0);
-    rhn_channel.subscribe_server(:server_id, :cid, 0, :user_id);
-END;
-EOS
-    $sth->execute_h(server_id => $self->id, cid => $add, user_id => $user_id);
-  }
-
-  foreach my $remove (@remove) {
-    # do quick unsubscribes
-    my $sth = $dbh->prepare(<<EOS);
-BEGIN
-    rhn_channel.unsubscribe_server(:server_id, :cid, 0);
-END;
-EOS
-    $sth->execute_h(server_id => $self->id, cid => $remove);
-  }
-
-  # manually recompute the cache so that it's immediate
-  my ($add, $remove, $unc) = RHN::DB::Server->update_cache_for_server($dbh, $self->id);
-
-  $dbh->commit;
-
-  return { added => [ @add ],
-	   removed => [ @remove ],
-	   };
-}
 
 sub entitle_server {
   my $self_or_class = shift;

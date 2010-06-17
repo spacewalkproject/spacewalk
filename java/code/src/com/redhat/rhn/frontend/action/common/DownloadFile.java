@@ -342,6 +342,7 @@ public class DownloadFile extends DownloadAction {
             User user = UserFactory.lookupById(userid);
             if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
+                response.addHeader("Content-Length", pack.getPackageSize() + "");
                 path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + 
                     "/" + pack.getPath();
                 return getStreamForBinary(path);
@@ -350,6 +351,7 @@ public class DownloadFile extends DownloadAction {
                 Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
                 List<PackageSource> src = PackageFactory.lookupPackageSources(pack);
                 if (!src.isEmpty()) {
+                    response.addHeader("Content-Length", src.get(0).getPackageSize() + "");
                     path = Config.get().getString(ConfigDefaults.MOUNT_POINT) + "/" +
                         src.get(0).getPath();
                     return getStreamForBinary(path);
@@ -358,6 +360,7 @@ public class DownloadFile extends DownloadAction {
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
                 Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId, 
                         user.getOrg());
+                response.addHeader("Content-Length", patch.getPackageSize() + "");
                 return getStreamForText(patch.getReadme().getBytes(1L, 
                         (int) patch.getReadme().length()));
                 
@@ -365,6 +368,7 @@ public class DownloadFile extends DownloadAction {
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
                 PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId, 
                         user.getOrg());
+                response.addHeader("Content-Length", patch.getPackageSize() + "");
                 return getStreamForText(patch.getReadme().getBytes(1L, 
                         (int) patch.getReadme().length()));
             }         
@@ -382,6 +386,7 @@ public class DownloadFile extends DownloadAction {
                     output.append("\n");
                 }
 
+                response.addHeader("Content-Length", output.length() + "");
                 return getStreamForText(output.toString().getBytes());
             }
         }

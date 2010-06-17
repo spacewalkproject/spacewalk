@@ -5797,6 +5797,9 @@ value for this entitlement, excluding the default organization's consumption.</s
      </trans-unit>
       <trans-unit id="System Identity Properties">
          <source>System Identity Properties</source>
+     </trans-unit>     
+      <trans-unit id="Check to Confirm Delete">
+         <source>Select to Confirm Deletion</source>
      </trans-unit>
      <trans-unit id="System Content And Monitoring">
          <source>System Content And Monitoring</source>

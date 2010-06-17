@@ -1,6 +1,6 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -53,6 +53,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Jun 14 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.3-1
+- 598323 - yumex do not set version (msuchy@redhat.com)
+- l10n: Updates to Chinese (China) (zh_CN) translation
+  (leahliu@fedoraproject.org)
+- l10n: Updates to Spanish (Castilian) (es) translation
+  (gguerrer@fedoraproject.org)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+- cleanup - removing translation file, which does not match any language code
+  (msuchy@redhat.com)
+- update po files for yum-rhn-plugin (msuchy@redhat.com)
+- l10n: Updates to German (de) translation (ttrinks@fedoraproject.org)
+- l10n: Updates to Polish (pl) translation (raven@fedoraproject.org)
+
 * Wed May 05 2010 Justin Sherrill <jsherril@redhat.com> 1.1.2-1
 - 589120 - fixing issue with traceback from rhn_chec "no attribute cfg"
   (jsherril@redhat.com)

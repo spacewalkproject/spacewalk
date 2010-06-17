@@ -20,7 +20,6 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.LookupException;
-import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
@@ -1845,7 +1844,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
 
         ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
+        for (Errata errata : diffErrata) {
+            for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
+                Package pkg = (Package) iter.next();
+                toChannel.addPackage(pkg, user);
+            }
+        }
         ChannelFactory.save(toChannel);
+        ChannelManager.refreshWithNewestPackages(toChannel, "api");
 
         return diffErrata;
     }
@@ -1904,17 +1910,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
         Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
-        
-        try {
-               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
+
+        if (!UserManager.verifyChannelAdmin(loggedInUser, mergeTo)) {
+            throw new PermissionCheckFailureException();
         }
-        catch (InvalidChannelRoleException e) {
-            LocalizationService ls = LocalizationService.getInstance();
-            throw new PermissionException(ls.getMessage(
-                    "frontend.xmlrpc.channels.software.merge.permsfailure", 
-                    mergeTo.getLabel()));
-        }
-        
+
         List<Package> differentPackages = new ArrayList<Package>();
         
         Set<Package> toPacks = mergeTo.getPackages();

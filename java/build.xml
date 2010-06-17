@@ -456,7 +456,7 @@
            nowarn="${nowarn}"
            encoding="utf-8"
            fork="yes"
-           memoryMaximumSize="256m"
+           memoryMaximumSize="512m"
            classpathref="buildjars" >
       <src>
         <path location="${build.dir}/src" />
@@ -608,7 +608,7 @@
            target="1.5"
            deprecation="${deprecation}"
            fork="yes"
-           memoryMaximumSize="256m"
+           memoryMaximumSize="512m"
            classpathref="alljars">
        <src path="${build.dir}/jsp-temp"/>
     </javac>
