@@ -1448,30 +1448,6 @@ sub get_field {
   return $self->{field_values}->{$field};
 }
 
-sub as_checksum_string {
-  my $self = shift;
-
-  my $data;
-  foreach my $field (sort @{$self->{fields}}) {
-    my $val = $self->get_field($field);
-
-    next unless exists $self->{field_values}->{$field};
-
-    if (defined $val) {
-      if (ref $val) {
-	foreach my $val (sort { join("", sort %$a) cmp join("", sort %$b) } @$val) {
-	  $data .= "$field-" . join("-", map { $_, $val->{$_} } sort keys %$val) . "\n";
-	}
-      }
-      else {
-	$data .= $field . "-" . $self->get_field($field) . "\n";
-      }
-    }
-  }
-
-  return $data;
-}
-
 sub set_required_fields {
   my $self = shift;
   my @fields = @_;
