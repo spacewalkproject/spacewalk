@@ -28,14 +28,12 @@ foreach my $t (@ARGV) {
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
-use Term::ReadKey qw/ReadLine ReadMode/;
 use Mail::RFC822::Address;
 use File::Spec;
 use DBI;
 use Digest::MD5 qw/md5_hex/;
 use DateTime;
 use Sys::Hostname;
-use Getopt::Long;
 use Spacewalk::Setup;
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
