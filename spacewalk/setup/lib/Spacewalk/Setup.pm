@@ -649,7 +649,7 @@ sub set_progress_callback {
 	alarm 1;
 }
 
-sub get_database_answers {
+sub oracle_get_database_answers {
     my $opts = shift;
     my $answers = shift;
 
@@ -695,6 +695,49 @@ sub get_database_answers {
     return;
 }
 
+sub postgresql_get_database_answers {
+    my $opts = shift;
+    my $answers = shift;
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Hostname (leave empty for local)",
+        -test => sub { 1 },
+        -answer => \$answers->{'db-host'});
+
+    if ($answers->{'db-host'} ne '') {
+        ask(
+            -noninteractive => $opts->{"non-interactive"},
+            -question => "Port",
+            -test => qr/\d+/,
+            -default => 5432,
+            -answer => \$answers->{'db-port'});
+    } else {
+            $answers->{'db-port'} = '';
+    }
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Database",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-name'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Username",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-user'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Password",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-password'},
+        -password => 1);
+
+    return;
+}
+
 
 ############################
 # PostgreSQL Specific Code #
@@ -709,7 +752,7 @@ sub postgresql_setup_db {
     my $connected;
 
     while (not $connected) {
-        get_database_answers($opts, $answers);
+        postgresql_get_database_answers($opts, $answers);
 
         my $dbh;
 
@@ -720,7 +763,7 @@ sub postgresql_setup_db {
         if ($@) {
             print Spacewalk::Setup::loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
 
-            delete @{$answers}{qw/db-protocol db-host db-port db-user db-sid db-password/};
+            delete @{$answers}{qw/db-host db-port db-name db-user db-password/};
         }
         else {
             $connected = 1;
@@ -777,7 +820,7 @@ sub postgresql_populate_db {
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--user=%s', @{$answers}{'db-user'}),
         sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--database=%s', @{$answers}{'db-name'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
         sprintf("--log=$logfile"),
@@ -993,7 +1036,7 @@ sub oracle_setup_db_connection {
     my $connected;
 
     while (not $connected) {
-        get_database_answers($opts, $answers);
+        oracle_get_database_answers($opts, $answers);
 
         my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
 
