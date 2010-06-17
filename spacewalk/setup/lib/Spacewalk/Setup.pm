@@ -26,11 +26,11 @@ Spacewalk::Setup, spacewalk-setup
 
 =head1 VERSION
 
-Version 0.6
+Version 1.1
 
 =cut
 
-our $VERSION = '0.6';
+our $VERSION = '1.1';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
@@ -705,7 +705,7 @@ sub postgresql_setup_db {
     my $opts = shift;
     my $answers = shift;
 
-    print Spacewalk::Setup::loc("** Database: Setting up database connection.\n");
+    print Spacewalk::Setup::loc("** Database: Setting up database connection for PostgreSQL backend.\n");
     my $connected;
 
     while (not $connected) {
@@ -989,7 +989,7 @@ sub oracle_setup_db_connection {
     my $opts = shift;
     my $answers = shift;
 
-    print loc("** Database: Setting up database connection.\n");
+    print loc("** Database: Setting up database connection for Oracle backend.\n");
     my $connected;
 
     while (not $connected) {
@@ -1580,7 +1580,7 @@ L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright (c) 2008 Red Hat, Inc.
+Copyright (c) 2008--2010 Red Hat, Inc.
 
 This software is licensed to you under the GNU General Public License,
 version 2 (GPLv2). There is NO WARRANTY for this software, express or
