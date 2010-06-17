@@ -23,7 +23,11 @@ import com.redhat.rhn.domain.org.Org;
  */
 public class CreateRepoCommand extends BaseRepoCommand {
 
- public CreateRepoCommand(Org orgIn) {
+    /**
+     * 
+     * @param orgIn org for repo
+     */
+    public CreateRepoCommand(Org orgIn) {
      super();
      this.repo = ChannelFactory.createRepo();
      this.repo.setOrg(orgIn);

@@ -49,6 +49,11 @@ public class RepoLister extends BaseManager {
         return INSTANCE;
     }
     
+    /**
+     * 
+     * @param orgIn org to check
+     * @return list of contet source dto's
+     */
     public DataResult<ContentSourceDto> sourcesInOrg(Org orgIn) {
 
         SelectMode m = ModeFactory.getMode("Channel_queries", "contentsrc_for_org");
@@ -60,7 +65,11 @@ public class RepoLister extends BaseManager {
         return returnDataResult;
     }
 
-        
+    /**
+     *     
+     * @param user that is logged in
+     * @return list of content source dto's for users org
+     */
     public List<ContentSourceDto> list(User user) {
         List <ContentSourceDto> repos = new LinkedList<ContentSourceDto>();
         repos.addAll(sourcesInOrg(user.getOrg()));

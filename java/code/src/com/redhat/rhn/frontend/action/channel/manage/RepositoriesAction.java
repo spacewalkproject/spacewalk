@@ -37,64 +37,77 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 
-
+/**
+ * 
+ * RepositoriesAction
+ * @version $Rev$
+ */
 public class RepositoriesAction extends RhnAction implements Listable {
     
-    
-        public ActionForward execute(ActionMapping mapping,
-                ActionForm formIn,
-                HttpServletRequest request,
-                HttpServletResponse response) {
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
 
-            RequestContext context = new RequestContext(request);
-            User user =  context.getLoggedInUser();
-            
-            long cid = context.getRequiredParam("cid");            
-            Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-            request.setAttribute("channel_name", chan.getName());
-            
-            Map params = new HashMap();                
-            params.put(RequestContext.CID, chan.getId().toString());                                    
+        RequestContext context = new RequestContext(request);
+        User user =  context.getLoggedInUser();
 
-            ListSessionSetHelper helper = new ListSessionSetHelper(this, request,params);
-                        
-            if (!context.isSubmitted()) {
-                List<ContentSource> result = getResult(context);
-                Set<String> preSelect = new HashSet<String>();
-                for (int i = 0; i < result.size(); i++) {
-                    ContentSource src = result.get(i);
-                    if(src.getChannels().contains(chan)) {
-                       preSelect.add(src.getId().toString());
-                    }
-                }                
-                helper.preSelect(preSelect);
-            }
-            
-            helper.ignoreEmptySelection();
-            helper.execute();
-            
-            if(helper.isDispatched()) {
-                Set<ContentSource> foo = chan.getSources();
-                foo.clear();
-                Set <String> set = helper.getSet();
-                for (String id : set) {
-                    Long sgid = Long.valueOf(id);
-                    ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
-                    foo.add(tmp);
-                }
-                
-                ChannelFactory.save(chan);
-                                                
-                StrutsDelegate strutsDelegate = getStrutsDelegate();
-                strutsDelegate.saveMessage("channel.edit.repo.updated", new String[] {chan.getName()}, request );
-                
-                return strutsDelegate.forwardParams
-                                (mapping.findForward("success"), params);                
-            } 
-            
-            return mapping.findForward("default");
-        }
+        long cid = context.getRequiredParam("cid");            
+        Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
+        request.setAttribute("channel_name", chan.getName());
+
+        Map params = new HashMap();                
+        params.put(RequestContext.CID, chan.getId().toString());
         
+        ListSessionSetHelper helper = 
+            new ListSessionSetHelper(this, request, params);
+
+        if (!context.isSubmitted()) {
+            List<ContentSource> result = getResult(context);
+            Set<String> preSelect = new HashSet<String>();
+            for (int i = 0; i < result.size(); i++) {
+                ContentSource src = result.get(i);
+                if (src.getChannels().contains(chan)) {
+                    preSelect.add(src.getId().toString());
+                }
+            }                
+            helper.preSelect(preSelect);
+        }
+
+        helper.ignoreEmptySelection();
+        helper.execute();
+
+        if (helper.isDispatched()) {
+            Set<ContentSource> foo = chan.getSources();
+            foo.clear();
+            Set <String> set = helper.getSet();
+            for (String id : set) {
+                Long sgid = Long.valueOf(id);
+                ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
+                foo.add(tmp);
+            }
+
+            ChannelFactory.save(chan);
+
+            StrutsDelegate strutsDelegate = getStrutsDelegate();
+            strutsDelegate.saveMessage("channel.edit.repo.updated", 
+                    new String[] {chan.getName()}, request);
+
+            return strutsDelegate.forwardParams
+            (mapping.findForward("success"), params);                
+        } 
+
+        return mapping.findForward("default");
+    }
+        
+        /**
+         * 
+         * {@inheritDoc}
+         */
         public List<ContentSource> getResult(RequestContext context) {
             User user =  context.getLoggedInUser();
             return ChannelFactory.lookupContentSources(user.getOrg());

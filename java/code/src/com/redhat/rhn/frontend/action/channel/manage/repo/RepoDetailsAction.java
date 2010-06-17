@@ -96,15 +96,15 @@ public class RepoDetailsAction extends RhnAction {
                 }                
             }
         }
-        else if(!isCreateMode(request)) {
+        else if (!isCreateMode(request)) {
             setup(request, form);
         }                 
             
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    private Map<String,String> makeValidationMap(DynaActionForm form) {
-        Map<String,String> map = new HashMap<String,String>();
+    private Map<String, String> makeValidationMap(DynaActionForm form) {
+        Map<String, String> map = new HashMap<String, String>();
         map.put(LABEL, form.getString(LABEL));
         map.put(URL, form.getString(URL));        
         return map;
@@ -133,7 +133,7 @@ public class RepoDetailsAction extends RhnAction {
     /**
      * Method to bind the repo to a request
      * @param request the servlet request
-     * @param snip the snippet to bind
+     * @param repo content source      
      */
     public static void bindRepo(HttpServletRequest request, ContentSource repo) {
         request.setAttribute(REPO, repo);        
@@ -145,11 +145,12 @@ public class RepoDetailsAction extends RhnAction {
         String label = form.getString(LABEL);
         Org org = context.getLoggedInUser().getOrg();
         BaseRepoCommand repoCmd = null;
-        if(isCreateMode(request)) {
+        if (isCreateMode(request)) {
            repoCmd = new CreateRepoCommand(org);
         }
         else {
-            repoCmd = new EditRepoCommand(context.getLoggedInUser(), context.getParamAsLong(SOURCEID));
+            repoCmd = new EditRepoCommand(context.getLoggedInUser(), 
+                    context.getParamAsLong(SOURCEID));
         }
         
         repoCmd.setLabel(label);

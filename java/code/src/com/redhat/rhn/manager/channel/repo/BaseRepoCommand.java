@@ -51,10 +51,10 @@ public class BaseRepoCommand {
     
     /**
      * 
-     * @param org to set for repo
+     * @param orgIn to set for repo
      */
-    public void setOrg(Org org) {
-        this.org = org;
+    public void setOrg(Org orgIn) {
+        this.org = orgIn;
     }
 
     /**
@@ -69,8 +69,8 @@ public class BaseRepoCommand {
      * 
      * @param labelIn to set for repo
      */
-    public void setLabel(String LabelIn) {
-        this.label = LabelIn;
+    public void setLabel(String labelIn) {
+        this.label = labelIn;
     }
     
     /**
@@ -94,9 +94,9 @@ public class BaseRepoCommand {
      * @return ValidatorError[] array if there are errors
      */
     public ValidatorError[] store() {
-        ValidatorError[] errors = validate();
-        if (errors != null && errors.length > 0) {
-            return errors;
+        ValidatorError[] errorst = validate();
+        if (errorst != null && errorst.length > 0) {
+            return errorst;
         }
         else {
             // Create repo            
