@@ -1455,15 +1455,6 @@ sub set_required_fields {
   $self->{required_fields} = \@fields;
 }
 
-sub check_required_fields {
-  my $self = shift;
-
-  foreach my $f (@{$self->{required_fields}}) {
-    die "Required field $f not found in $self\n"
-      unless defined $self->{field_values}->{$f};
-  }
-}
-
 # change this when signature criteria changes
 sub current_generation {
   return 2;
