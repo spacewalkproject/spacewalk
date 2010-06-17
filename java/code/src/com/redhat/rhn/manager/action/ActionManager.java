@@ -1151,13 +1151,19 @@ public class ActionManager extends BaseManager {
      * Schedules one or more package upgrade actions for the given servers.
      * Note: package upgrade = package install
      * @param scheduler User scheduling the action.
-     * @param sids list of server ids on which the action affects.
-     * @param pkgs The set of packages to be removed.
+     * @param sysPkgMapping The set of packages to be removed.
      * @param earliestAction Date of earliest action to be executed
      */
     public static void schedulePackageUpgrades(User scheduler,
-            List<Long> sids, List<Map<String, Long>> pkgs, Date earliestAction) {
-        schedulePackageInstall(scheduler, sids, pkgs, earliestAction);
+            Map<Long, List<Map<String, Long>>> sysPkgMapping, Date earliestAction) {
+
+        for (Long sid : sysPkgMapping.keySet()) {
+            List<Long> ids = new ArrayList<Long>();
+            ids.add(sid);
+            schedulePackageInstall(scheduler, ids, sysPkgMapping.get(sid), earliestAction);
+        }
+
+
     }
 
     /**

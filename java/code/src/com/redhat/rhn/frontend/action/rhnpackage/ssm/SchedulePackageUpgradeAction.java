@@ -19,7 +19,6 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
@@ -179,25 +178,30 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
             "date", DatePicker.YEAR_RANGE_POSITIVE);
                 
         log.debug("Getting package upgrade data.");
-        DataResult result = (DataResult) getResult(context); 
+        List<Map> result =  getResult(context);
+        ((DataResult) result).elaborate();
 
-        RhnSet packageSet = RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.get(user);
-        Set<RhnSetElement> packageElements = packageSet.getElements();
 
-        List<Map<String, Long>> packageListItems =
-            new ArrayList<Map<String, Long>>(packageElements.size());
-        for (RhnSetElement packageElement : packageElements) {
-            Map<String, Long> keyMap = new HashMap<String, Long>();
-            keyMap.put("name_id", packageElement.getElement());
-            keyMap.put("evr_id", packageElement.getElementTwo());
-            keyMap.put("arch_id", packageElement.getElementThree());
+        Map<Long, List<Map<String, Long>>> sysPackageSet =
+            new HashMap<Long, List<Map<String, Long>>>();
+        for (Map sys : result) {
+            Long sysId = (Long) sys.get("id");
+            List<Map<String, Long>> pkgSet = new ArrayList<Map<String, Long>>();
+            sysPackageSet.put(sysId, pkgSet);
+            for (Map pkg : (List<Map>) sys.get("elaborator0")) {
+                Map<String, Long> newPkg = new HashMap();
+                newPkg.put("name_id", (Long) pkg.get("name_id"));
+                newPkg.put("evr_id", (Long) pkg.get("evr_id"));
+                newPkg.put("arch_id", (Long) pkg.get("arch_id"));
+                pkgSet.add(newPkg);
+            }
 
-            packageListItems.add(keyMap);
         }
+
 
         log.debug("Publishing schedule package upgrade event to message queue.");
         SsmUpgradePackagesEvent event = new SsmUpgradePackagesEvent(user.getId(), earliest,
-                result, packageListItems);
+                sysPackageSet);
         MessageQueue.publish(event);
 
         // Remove the packages from session and the DB
