@@ -1455,11 +1455,6 @@ sub set_required_fields {
   $self->{required_fields} = \@fields;
 }
 
-# change this when signature criteria changes
-sub current_generation {
-  return 2;
-}
-
 sub _init {
   my $self = shift;
 
