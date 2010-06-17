@@ -1745,8 +1745,5 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   		    )
   </query>
 </mode>
-
-
-
 </datasource_modes>
 

@@ -6219,7 +6219,13 @@ value for this entitlement, excluding the default organization's consumption.</s
  	     <trans-unit id="flexguest.jsp.no-systems">
 			<source>There are no systems consuming Flex Guest entitlements.</source>
 	     </trans-unit>
+ 	     <trans-unit id="Make Flex">
+			<source>Convert To Flex Guest Entitlement</source>
+	     </trans-unit>
 	     
+ 	     <trans-unit id="eligible.flexguest.systems.confirm.message">
+			<source>Converted &lt;strong&gt;{0}&lt;/strong&gt; system(s) to use Flex Guest Entitlement.</source>
+	     </trans-unit>
 	</group>
 
  	<!--  System search -->

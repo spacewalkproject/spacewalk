@@ -6358,7 +6358,7 @@
              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls" value="user_role(org_admin)"/>
        <forward name="default" path="/WEB-INF/pages/systems/entitlements/flexguests.jsp"/>
-       <forward name="success" path="/systems/entitlements/FlexGuests.do" redirect="true"/>
+       <forward name="success" path="/systems/entitlements/EligibleFlexGuests.do" redirect="true"/>
      </action>
      
     <action path="/channels/manage/errata/Add"
@@ -6367,8 +6367,7 @@
         type="com.redhat.rhn.frontend.action.channel.manage.AddErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/add.jsp" />
-   
-    </action>     
+    </action>
 
     <action path="/channels/manage/errata/ListRemove"
         scope="request"

@@ -161,6 +161,96 @@ IS
         END IF;
             
     END subscribe_server;
+
+
+
+    FUNCTION can_convert_to_fve(server_id_in IN NUMBER, channel_family_id_val IN NUMBER)
+    RETURN NUMBER
+    IS
+        CURSOR fve_convertible_entries IS
+        select 1  from
+                  RhnVirtualInstance vi
+                  inner join rhnServer s on vi.virtual_system_id = s.id
+                  inner join rhnServerChannel sc on sc.server_id = s.id
+                  inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
+                  inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
+                  inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
+          where sc.is_fve = 'N'
+  		        AND sc.server_id = server_id_in
+                AND cf.id = channel_family_id_val
+  		        AND (vi.host_system_id is null OR
+                    exists (
+  		                select sg.id from rhnServerGroupMembers sgm 
+  		                    inner join rhnServerGroup sg on sgm.server_group_id = sg.id
+                            inner join rhnServerGroupType sgt on sgt.id = sg.group_type
+  		                    inner join rhnServer s2 on s2.id = sgm.server_id
+                        where 
+                            s2.org_id = s.org_id
+                            and s2.id = vi.host_system_id
+                            and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
+  		        );
+
+    BEGIN
+        FOR entry IN fve_convertible_entries LOOP
+            return 1;
+        END LOOP;
+        RETURN 0;
+    END can_convert_to_fve;
+
+
+    -- Converts server channel_family to use a flex entitlement
+    PROCEDURE convert_to_fve(server_id_in IN NUMBER, channel_family_id_val IN NUMBER)
+    IS
+        available_fve_subs      NUMBER;
+        server_org_id_val       NUMBER;        
+    BEGIN
+
+        --
+        -- Use the org_id of the server only if the org_id of the channel = NULL.
+        -- This is required for subscribing to shared channels.
+        --
+        SELECT org_id
+          INTO server_org_id_val
+          FROM rhnServer
+         WHERE id = server_id_in;
+         
+        begin
+            obtain_read_lock(channel_family_id_val, server_org_id_val);
+        exception
+            when no_data_found then
+                rhn_exception.raise_exception('channel_family_no_subscriptions');
+        end;
+        IF (can_convert_to_fve(server_id_in, channel_family_id_val ) = 0) 
+            THEN
+                rhn_exception.raise_exception('server_cannot_convert_to_flex');
+        END IF;
+
+        available_fve_subs := rhn_channel.available_fve_family_subs(channel_family_id_val, server_org_id_val);
+
+        IF (available_fve_subs > 0)
+        THEN
+        
+            insert into rhnServerHistory (id,server_id,summary,details) (
+                select  rhn_event_id_seq.nextval,
+                        server_id_in,
+                        'converted to flex entitlement' || SUBSTR(cf.label, 0, 99),
+                        cf.label
+                from    rhnChannelFamily cf
+                where   cf.id = channel_family_id_val
+            );
+
+            UPDATE rhnServerChannel sc set sc.is_fve = 'Y' 
+                           where sc.server_id = server_id_in and  
+                                 sc.channel_id in 
+                                    (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                                                where cfm.CHANNEL_FAMILY_ID = channel_family_id_val);
+            
+            rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        ELSE
+            rhn_exception.raise_exception('not_enough_flex_entitlements');
+        END IF;
+            
+    END convert_to_fve;    
     
     function can_server_consume_virt_channl(
         server_id_in in number,

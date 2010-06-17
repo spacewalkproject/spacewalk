@@ -1231,6 +1231,19 @@ GROUP BY C.id, C.name
     </query>
 </mode>
 
+<callable-mode name="convert_to_flex">
+    <query params="sid, cfid, uid">
+BEGIN
+  rhn_channel.convert_to_fve(:sid, :cfid);
+END;
+    </query>
+</callable-mode>
+
+<callable-mode name="can_convert_to_flex">
+  <query params="result, sid, cfid">
+      {:result = call rhn_channel.convert_to_fve(:sid, :cfid)}
+  </query>
+</callable-mode>
 
 </datasource_modes>
 
