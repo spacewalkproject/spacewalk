@@ -49,8 +49,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
-            throws InvalidJobLabelException, NoSuchBunchTaskException,
-                   InvalidParamException {
+            throws NoSuchBunchTaskException, InvalidParamException {
         try {
             TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
             // create schedule
@@ -75,8 +74,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
-            throws InvalidJobLabelException, NoSuchBunchTaskException,
-                   InvalidParamException {
+            throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleBunch(orgId, bunchName, jobLabel, new Date(), null,
                 cronExpression, params);
     }
@@ -84,10 +82,10 @@ public class TaskoXmlRpcHandler {
     private TaskoBunch doBasicCheck(Integer orgId, String bunchName,
             String jobLabel)
         throws NoSuchBunchTaskException, SchedulerException,
-        InvalidJobLabelException {
+        InvalidParamException {
         TaskoBunch bunch = checkBunchName(bunchName);
         if (!checkUniqueName(jobLabel, orgId.toString())) {
-            throw new InvalidJobLabelException("jobLabel already in use");
+            throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
     }
@@ -115,7 +113,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params, Date start)
-            throws InvalidJobLabelException, NoSuchBunchTaskException,
+            throws NoSuchBunchTaskException,
                    InvalidParamException {
         try {
             TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
@@ -141,8 +139,7 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params)
-            throws InvalidJobLabelException, NoSuchBunchTaskException,
-                   InvalidParamException {
+            throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(orgId, bunchName, jobLabel, params, new Date());
     }
 
