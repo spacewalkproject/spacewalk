@@ -28,7 +28,6 @@ foreach my $t (@ARGV) {
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
 
-use Term::ReadKey qw/ReadLine ReadMode/;
 use Mail::RFC822::Address;
 use File::Spec;
 use DBI;
