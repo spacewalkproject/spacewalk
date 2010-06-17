@@ -1462,14 +1462,6 @@ sub _init {
   return;
 }
 
-sub set_channel_family {
-  my $self = shift;
-  my $label = shift;
-  my $quantity = shift;
-
-  $self->push_field(name => 'channel-families', family => $label, quantity => $quantity);
-}
-
 sub version {
   my $self = shift;
 
