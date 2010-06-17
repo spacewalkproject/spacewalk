@@ -45,8 +45,6 @@ $DEBUG = 0;
 use constant DEFAULT_CA_CERT_NAME =>
   'RHN-ORG-TRUSTED-SSL-CERT';
 
-use constant SCHEMAS_DIR => '/usr/share/spacewalk/schema/';
-
 use constant COBBLER_COMMAND => 'cobbler-setup';
 
 my %opts = Spacewalk::Setup::parse_options();
