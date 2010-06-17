@@ -10,14 +10,14 @@ use Exporter 'import';
 use vars '@EXPORT_OK';
 @EXPORT_OK = qw(loc system_debug system_or_exit);
 
-use Getopt::Long;
+use Getopt::Long qw(GetOptions);
 use Symbol qw(gensym);
-use IPC::Open3;
-use Pod::Usage;
+use IPC::Open3 qw(open3);
+use Pod::Usage qw(pod2usage);
 use POSIX ":sys_wait_h";
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
-use Params::Validate;
+use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
 
 =head1 NAME

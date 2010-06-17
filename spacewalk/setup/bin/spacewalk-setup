@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008,2009 Red Hat, Inc.
+# Copyright (c) 2008--2010 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -25,19 +25,19 @@ foreach my $t (@ARGV) {
     $cmdargs = $cmdargs . " " . $t;
 }
 
-use Params::Validate;
+use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
 
-use Mail::RFC822::Address;
-use File::Spec;
-use DBI;
+use Mail::RFC822::Address ();
+use File::Spec ();
+use DBI ();
 use Digest::MD5 qw/md5_hex/;
-use DateTime;
-use Sys::Hostname;
-use Spacewalk::Setup;
+use DateTime ();
+use Sys::Hostname ();
+use Spacewalk::Setup ();
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
-use RHN::DB;
+use RHN::DB ();
 
 my $DEBUG;
 $DEBUG = 0;
