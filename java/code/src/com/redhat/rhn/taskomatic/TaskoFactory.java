@@ -172,7 +172,8 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.lookupById", params);
     }
 
-    public static TaskoSchedule listSchedulesByOrgAndBunch(Integer orgId, TaskoBunch bunch) {
+    public static TaskoSchedule listSchedulesByOrgAndBunch(Integer orgId,
+            TaskoBunch bunch) {
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("bunch_id", bunch.getId());
@@ -192,7 +193,8 @@ public class TaskoFactory extends HibernateFactory {
         Class taskClass;
         try {
             taskClass = Class.forName(task.getTaskClass());
-            Method isParallelizableMethod = taskClass.getMethod("isParallelizable", null);
+            Method isParallelizableMethod = taskClass.getMethod("isParallelizable",
+                    (Class[]) null);
             return (Boolean) isParallelizableMethod.invoke(null, null);
         }
         catch (ClassNotFoundException e) {

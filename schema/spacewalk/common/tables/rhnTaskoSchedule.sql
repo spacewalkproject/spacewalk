@@ -26,6 +26,7 @@ CREATE TABLE rhnTaskoSchedule
     active          VARCHAR2(1),
     active_from     DATE,
     active_till     DATE,
+    cron_expr       VARCHAR2(20),
     data            BLOB,
     created         DATE
                         DEFAULT (sysdate) NOT NULL,

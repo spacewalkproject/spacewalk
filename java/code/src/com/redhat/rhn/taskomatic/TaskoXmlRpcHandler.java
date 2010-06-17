@@ -49,25 +49,15 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
-            throws InvalidJobLabelException, NoSuchBunchTaskException, ParseException {
+            throws InvalidJobLabelException, NoSuchBunchTaskException,
+                   InvalidParamException {
         try {
             TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
-            // create trigger
-            CronTrigger ct = new CronTrigger(jobLabel, orgId.toString(),
-                    cronExpression);
-            if (startTime == null) {
-                ct.setStartTime(startTime);
-            }
-            else {
-                ct.setStartTime(new Date());
-            }
-            if (endTime != null) {
-                ct.setEndTime(endTime);
-            }
             // create schedule
             TaskoSchedule schedule = null;
             try {
-                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params, ct);
+                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
+                        startTime, endTime, cronExpression);
                 TaskoFactory.save(schedule);
                 TaskoFactory.commitTransaction();
             }
@@ -76,7 +66,7 @@ public class TaskoXmlRpcHandler {
                 return null;
             }
             // create job
-            return createJob(schedule, ct);
+            return createJob(schedule);
         }
         catch (SchedulerException e) {
             return null;
@@ -85,9 +75,10 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
-            throws ParseException, InvalidJobLabelException, NoSuchBunchTaskException {
-        return scheduleBunch(orgId, bunchName, jobLabel, new Date(), null, cronExpression,
-                params);
+            throws InvalidJobLabelException, NoSuchBunchTaskException,
+                   InvalidParamException {
+        return scheduleBunch(orgId, bunchName, jobLabel, new Date(), null,
+                cronExpression, params);
     }
 
     private TaskoBunch doBasicCheck(Integer orgId, String bunchName,
@@ -124,15 +115,15 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params, Date start)
-            throws InvalidJobLabelException, NoSuchBunchTaskException {
+            throws InvalidJobLabelException, NoSuchBunchTaskException,
+                   InvalidParamException {
         try {
             TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
-            SimpleTrigger st = new SimpleTrigger(jobLabel, orgId.toString(), 1, 1);
-            st.setEndTime(new Date());
             // create schedule
             TaskoSchedule schedule = null;
             try {
-                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params, st);
+                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
+                        start, null, "");
                 TaskoFactory.save(schedule);
                 TaskoFactory.commitTransaction();
             }
@@ -141,7 +132,7 @@ public class TaskoXmlRpcHandler {
                 return null;
             }
             // create job
-            return createJob(schedule, st);
+            return createJob(schedule);
         }
         catch (SchedulerException e) {
             return null;
@@ -150,14 +141,34 @@ public class TaskoXmlRpcHandler {
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params)
-            throws InvalidJobLabelException, NoSuchBunchTaskException {
+            throws InvalidJobLabelException, NoSuchBunchTaskException,
+                   InvalidParamException {
         return scheduleSingleBunchRun(orgId, bunchName, jobLabel, params, new Date());
     }
 
-    private Date createJob(TaskoSchedule schedule, Trigger trigger) {
+    private Date createJob(TaskoSchedule schedule) throws InvalidParamException {
+        // create trigger
+        Trigger trigger = null;
+        if (schedule.getCronExpr().isEmpty()) {
+            trigger = new SimpleTrigger(schedule.getJobLabel(),
+                    schedule.getOrgId().toString(), 1, 1);
+            trigger.setEndTime(new Date());
+        }
+        else {
+            try {
+                trigger = new CronTrigger(schedule.getJobLabel(),
+                        schedule.getOrgId().toString(), schedule.getCronExpr());
+                trigger.setStartTime(schedule.getActiveFrom());
+                trigger.setEndTime(schedule.getActiveTill());
+            }
+            catch (ParseException e) {
+                throw new InvalidParamException("Invalid cron expression");
+            }
+
+        }
         // create job
-        JobDetail jobDetail = new JobDetail(schedule.getJobLabel(), schedule.getOrgId().toString(),
-                TaskoSchedule.class);
+        JobDetail jobDetail = new JobDetail(schedule.getJobLabel(),
+                schedule.getOrgId().toString(), TaskoSchedule.class);
         // set job params
         jobDetail.getJobDataMap().putAll(schedule.getDataMap());
         jobDetail.getJobDataMap().put("schedule_id", schedule.getId());

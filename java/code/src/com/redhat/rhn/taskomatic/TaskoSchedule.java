@@ -19,7 +19,6 @@ import org.hibernate.Hibernate;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.quartz.Trigger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -47,28 +46,37 @@ public class TaskoSchedule implements Job {
     private String active;
     private Date activeFrom;
     private Date activeTill;
+    private String cronExpr;
     private byte[] data;
     private List<TaskoRun> runs = new ArrayList<TaskoRun>();
     private Date created;
     private Date modified;
 
+    static {
+        for (TaskoTask task : TaskoFactory.listTasks()) {
+            tasks.put(task.getName(), 0);
+        }
+    }
+
     public TaskoSchedule() {
     }
 
-    public TaskoSchedule(Integer orgIdIn, TaskoBunch bunchIn,
-            String jobLabelIn, Map dataIn, Trigger trigger) {
+    public TaskoSchedule(Integer orgIdIn, TaskoBunch bunchIn, String jobLabelIn,
+            Map dataIn, Date activeFromIn, Date activeTillIn, String cronExprIn) {
         setOrgId(orgIdIn);
         setBunch(bunchIn);
         setJobLabel(jobLabelIn);
         data = serializeMap(dataIn);
         setActive(TASKO_SCHEDULE_ACTIVE);
-        setActiveFrom(trigger.getStartTime());
-        setActiveTill(trigger.getEndTime());
-    }
-
-    static {
-        for (TaskoTask task : TaskoFactory.listTasks()) {
-            tasks.put(task.getName(), 0);
+        setCronExpr(cronExprIn);
+        if (activeFromIn == null) {
+            setActiveFrom(new Date());
+        }
+        else {
+            setActiveFrom(activeFromIn);
+        }
+        if (activeTillIn != null) {
+            setActiveTill(activeTillIn);
         }
     }
 
@@ -361,5 +369,19 @@ public class TaskoSchedule implements Job {
      */
     public void setActive(String activeIn) {
         active = activeIn;
+    }
+
+    /**
+     * @return Returns the cronExpr.
+     */
+    public String getCronExpr() {
+        return cronExpr;
+    }
+
+    /**
+     * @param cronExprIn The cronExpr to set.
+     */
+    public void setCronExpr(String cronExprIn) {
+        cronExpr = cronExprIn;
     }
 }
