@@ -483,7 +483,10 @@ class XML_Dumper:
                         label)
                 if not (iss_slave_sha256_capable
                         or all_channels_hash[label]['checksum_type'] in [None, 'sha1']):
-                    raise rhnFault(3001, "Channel %s has incompatible checksum (%)" %
+                    raise rhnFault(3001,
+                      "Channel %s has incompatible rpm checksum (%s). Please contact\n"
+                      + "Red Hat support for information about upgrade to newer version\n"
+                      + "of Satellite Server which supports it." %
                         (label, all_channels_hash[label]['checksum_type']))
                 channels[label] = all_channels_hash[label]
 
