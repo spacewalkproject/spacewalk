@@ -18,13 +18,6 @@ use warnings;
 
 use English;
 
-# Store the command line args for calls to other scripts. These
-# seem to be stripped as soon as we do the validation.
-my $cmdargs = "";
-foreach my $t (@ARGV) {
-    $cmdargs = $cmdargs . " " . $t;
-}
-
 use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
 
