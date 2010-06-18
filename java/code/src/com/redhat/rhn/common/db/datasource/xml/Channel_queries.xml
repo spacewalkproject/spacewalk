@@ -872,7 +872,7 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 SELECT  DISTINCT C.id,
                  C.label,
                  C.name,
-                 C.summary
+                 C.summary,
                  C.gpg_key_url
   FROM  rhnChannelFamilyMembers CFM,
         rhnChannel C,
