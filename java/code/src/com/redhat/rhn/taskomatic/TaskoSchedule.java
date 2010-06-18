@@ -75,6 +75,10 @@ public class TaskoSchedule implements Job {
         else {
             setActiveFrom(activeFromIn);
         }
+        if (cronExprIn.isEmpty()) {
+            // set activeFrom for single runs
+            setActiveTill(getActiveFrom());
+        }
         if (activeTillIn != null) {
             setActiveTill(activeTillIn);
         }
