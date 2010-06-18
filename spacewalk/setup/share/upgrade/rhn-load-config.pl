@@ -220,10 +220,6 @@ sub load_hibernate_configs {
   my $host = $2;
   my $port = $3;
 
-  my ($db_user, $db_pass, $db_name) = split_dsn($config_opts->{default_db});
-
-  $config_opts->{db_user} = $db_user;
-  $config_opts->{db_password} = $db_pass;
   $config_opts->{db_host} = $host;
   $config_opts->{db_port} = $port;
   $config_opts->{db_sid} = $sid;
