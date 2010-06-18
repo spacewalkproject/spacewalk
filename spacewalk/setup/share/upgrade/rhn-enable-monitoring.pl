@@ -72,7 +72,6 @@ unless ($scout_shared_key) {
   }
 }
 
-my ($db_user, $db_pass, $db_name) = split_dsn(PXT::Config->get('default_db'));
 
 my %config_opts;
 
@@ -81,9 +80,9 @@ $config_opts{webDOTis_monitoring_scout} = $opts{"enable-scout"} ? '1' : '0';
 
 $config_opts{monitoringDOTdbd} = 'Oracle';
 $config_opts{monitoringDOTorahome} = $ENV{ORACLE_HOME} || '/opt/oracle';
-$config_opts{monitoringDOTdbname} = $db_name;
-$config_opts{monitoringDOTusername} = $db_user;
-$config_opts{monitoringDOTpassword} = $db_pass;
+$config_opts{monitoringDOTdbname} = PXT::Config->get('db_name');
+$config_opts{monitoringDOTusername} = PXT::Config->get('db_user');
+$config_opts{monitoringDOTpassword} = PXT::Config->get('db_password');
 
 $config_opts{monitoringDOTsmonDOTaddr} = '127.0.0.1';
 $config_opts{monitoringDOTsmonDOTfqdn} = 'localhost';
