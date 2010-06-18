@@ -15,7 +15,6 @@
 package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.common.conf.Config;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -23,6 +22,7 @@ import java.net.ServerSocket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
+import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcServer;
 import simple.http.connect.Connection;
 import simple.http.connect.ConnectionFactory;
@@ -62,6 +62,7 @@ public class TaskoXmlRpcServer {
     public void start() {
         xmlrpcServer = new XmlRpcServer();
         xmlrpcServer.addInvocationHandler("tasko", new TaskoXmlRpcHandler());
+        addTaskoSerializers();
 
         TaskoXmlRpcInvoker invoker = new TaskoXmlRpcInvoker(xmlrpcServer);
         Connection connection = ConnectionFactory.getConnection(invoker);
@@ -93,6 +94,20 @@ public class TaskoXmlRpcServer {
         }
         catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void addTaskoSerializers() {
+        for (Class clazz : TaskoSerializerRegistry.getSerializationClasses()) {
+            try {
+                xmlrpcServer.getSerializer().addCustomSerializer((XmlRpcCustomSerializer)clazz.newInstance());
+            }
+            catch (InstantiationException e) {
+                e.printStackTrace(System.out);
+            }
+            catch (IllegalAccessException e) {
+                e.printStackTrace(System.out);
+            }
         }
     }
 }
