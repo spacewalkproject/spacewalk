@@ -203,17 +203,5 @@ public class ChannelFamilyFactory extends HibernateFactory {
               Restrictions.isNull("org")));
         return  c.list();
     }
-    
-    /**
-     * Returns the license-path for this channel-family, if one exists.
-     * @param cid Channel-Family-Id whose license we're looking forl we want.
-     * @return String containing the license-text pathm or null if not found
-     */
-    public static String lookupLicense(Long cid) {
-        Map params = new HashMap();
-        params.put("id", cid);
-        return (String) singleton.lookupObjectByNamedQuery(
-                "ChannelFamily.findLicensePath", params);
-    }
 
 }

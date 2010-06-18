@@ -341,7 +341,6 @@ ORDER BY rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self
 <mode name="token_channels_tree">
   <query params="org_id">
 SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth AS DEPTH, 
-        rhn_channel.get_license_path(ACh.channel_id) LICENSE_PATH,
         NVL(C.org_id, 0) ORG_ID, C.parent_channel,
         (SELECT CF.label
            FROM rhnChannelFamilyMembers CFM, 
@@ -406,10 +405,8 @@ SELECT  DISTINCT C.id,
                  C.label,
                  C.name,
                  C.summary,
-                 CFL.channel_family_id AS HAS_LICENSE,
                  C.gpg_key_url
-  FROM  rhnChannelFamilyLicense CFL,
-        rhnChannelFamilyMembers CFM,
+  FROM  rhnChannelFamilyMembers CFM,
         rhnChannel C,
 	rhnUserChannel UC
  WHERE  UC.user_id = :user_id
@@ -419,7 +416,6 @@ SELECT  DISTINCT C.id,
    AND  C.id = CFM.channel_id
    AND  C.parent_channel IS NOT NULL
    AND  NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = :server_id AND channel_id = C.id)
-   AND  CFM.channel_family_id = CFL.channel_family_id (+)
   </query>
 </mode>
 

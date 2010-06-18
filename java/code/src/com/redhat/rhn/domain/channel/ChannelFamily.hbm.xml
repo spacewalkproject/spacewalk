@@ -50,16 +50,4 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	<query name="ChannelFamily.findByOrgId">
 		<![CDATA[from com.redhat.rhn.domain.channel.ChannelFamily as cfam where cfam.org.id = :orgId]]>
 	</query>
-
-	<sql-query name="ChannelFamily.findLicensePath">
-		<return-scalar column="LICENSE_PATH" type="string" />
-		<![CDATA[
-         SELECT
-            LICENSE_PATH
-         FROM 
-            RHNCHANNELFAMILYLICENSE
-		 WHERE
-			CHANNEL_FAMILY_ID = :id
-        ]]>
-	</sql-query>
 </hibernate-mapping>

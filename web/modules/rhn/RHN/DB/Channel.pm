@@ -147,25 +147,6 @@ sub is_protected {
   return ($self->channel_access() eq 'protected') ? 1 : 0; 
 }
 
-sub license_path {
-  my $self = shift;
-  my $cid;
-
-  if (ref $self) {
-    $cid = $self->id;
-  }
-  else {
-    $cid = shift;
-  }
-
-  undef $self;
-  die "No channel id" unless defined $cid;
-
-  my $dbh = RHN::DB->connect;
-
-  return $dbh->call_function('rhn_channel.get_license_path', $cid);
-}
-
 sub parent {
   my $self = shift;
   my $channel = shift;
@@ -342,7 +323,6 @@ sub proxy_channels_by_version {
 
   return @{$proxy_chans_by_version{$params{version}}};
 }
-
 
 sub has_downloads {
   my $class = shift;

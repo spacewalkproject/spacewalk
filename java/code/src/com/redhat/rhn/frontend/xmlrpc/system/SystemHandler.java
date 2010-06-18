@@ -685,8 +685,7 @@ public class SystemHandler extends BaseHandler {
             channel.put("label", row.get("label"));
             channel.put("name", row.get("name"));
             channel.put("summary", row.get("summary"));
-            channel.put("has_license", StringUtils.defaultString(
-                                           (String) row.get("has_license")));
+            channel.put("has_license", "");
             channel.put("gpg_key_url", StringUtils.defaultString(
                                            (String) row.get("gpg_key_url")));            
             

@@ -125,7 +125,7 @@ sub good_token_channels {
   my $all_channels = $ds->execute_query(-org_id => $org_id);
 
   #filter out channels which require a license agreement:
-  my @channel_list = grep { not defined $_->{LICENSE_PATH} } @{$all_channels};
+  my @channel_list = @{$all_channels};
 
   #filter out proxy and satellite channels:
   @channel_list = grep { ($_->{CHANNEL_FAMILY_LABEL} ne 'rhn-satellite')
