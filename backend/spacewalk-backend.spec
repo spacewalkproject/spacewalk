@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.21
+Version: 1.1.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jun 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.22-1
+- fix rpmlint warning (msuchy@redhat.com)
+- fix rpmlint warning (msuchy@redhat.com)
+- fix rpmlint warning (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- fixed wording for incompatible checksum error (michael.mraka@redhat.com)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+
 * Wed Jun 09 2010 Justin Sherrill <jsherril@redhat.com> 1.1.21-1
 - 600323 - fixing checksums KeyError with rhnpush and channel association
   (jsherril@redhat.com)
