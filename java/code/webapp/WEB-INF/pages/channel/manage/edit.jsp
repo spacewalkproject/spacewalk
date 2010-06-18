@@ -28,20 +28,20 @@
    <table class="details">
       <tr>
          <th nowrap="nowrap">
-            <rhn:required-field key="channel.edit.jsp.name"/>:
+            <label for="name"><rhn:required-field key="channel.edit.jsp.name"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="name" maxlength="256" size="48"/>
+            <html:text property="name" maxlength="256" size="48" styleId="name"/>
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <rhn:required-field key="channel.edit.jsp.label"/>:
+            <label for="label"><rhn:required-field key="channel.edit.jsp.label"/>:</label>
          </th>
          <td class="small-form">
             <c:choose>
               <c:when test='${empty param.cid}'>
-                 <html:text property="label" maxlength="128" size="32" />
+                 <html:text property="label" maxlength="128" size="32" styleId="label" />
               </c:when>
               <c:otherwise>
                  <c:out value="${channel_label}"/>
@@ -52,12 +52,12 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.parent"/>:
+            <label for="parent"><bean:message key="channel.edit.jsp.parent"/>:</label>
          </th>
          <td class="small-form">
           <c:choose>
             <c:when test='${empty param.cid}'>
-                <html:select property="parent">
+                <html:select property="parent" styleId="parent">
                     <html:options collection="parentChannels"
                                   property="value"
                                   labelProperty="label" />
@@ -72,12 +72,12 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.parentarch"/>:
+            <label for="parentarch"><bean:message key="channel.edit.jsp.parentarch"/>:</label>
          </th>
          <td class="small-form">
           <c:choose>
             <c:when test='${empty param.cid}'>
-                <html:select property="arch">
+                <html:select property="arch" styleId="parentarch">
                     <html:options collection="channelArches"
                                   property="value"
                                   labelProperty="label" />
@@ -93,7 +93,7 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.checksum"/>:
+            <label for="checksum"><bean:message key="channel.edit.jsp.checksum"/>:</label>
          </th>
          <td class="small-form">
             <html:select property="checksum">
@@ -106,18 +106,18 @@
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <rhn:required-field key="channel.edit.jsp.summary"/>:
+            <label for="summary"><rhn:required-field key="channel.edit.jsp.summary"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="summary" maxlength="500" size="40" />
+            <html:text property="summary" maxlength="500" size="40" styleId="summary" />
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.description"/>:
+            <label for="description"><bean:message key="channel.edit.jsp.description"/>:</label>
          </th>
          <td class="small-form">
-            <html:textarea property="description" cols="40" rows="6"/>
+            <html:textarea property="description" cols="40" rows="6" styleId="description"/>
          </td>
       </tr>
    </table>
@@ -127,18 +127,18 @@
    <table class="details">   
    	<tr>
    		<th> 
-   			 <bean:message key="channel.edit.jsp.repourl"/>:
+			 <label for="yum_repo"><bean:message key="channel.edit.jsp.repourl"/>:</label>
    		</th>
    		<td>
-   			<html:text property="yum_repo" maxlength="512" size="64" />
+			<html:text property="yum_repo" maxlength="512" size="64" styleId="yum_repo"/>
    		</td>
    	</tr>
 	<tr>
 		<th>
-			 <bean:message key="channel.edit.jsp.repolabel"/>:
+			 <label for="repolabel"><bean:message key="channel.edit.jsp.repolabel"/>:</label>
 		</th>
 		<td>
-			<html:text property="repo_label" maxlength="64" size="20" />
+			<html:text property="repo_label" maxlength="64" size="20" styleId="repolabel" />
 		</td>
 	</tr>
    	 <c:if test='${not empty param.cid}'>
@@ -158,10 +158,10 @@
 	  </c:if>
    	<tr>
    		<th> 
-   			 <bean:message key="channel.edit.jsp.sync"/>:
+			 <label for="sync_repo"><bean:message key="channel.edit.jsp.sync"/>:</label>
    		</th>
    		<td>
-   			<html:checkbox property="sync_repo" />
+			<html:checkbox property="sync_repo" styleId="sync_repo"/>
    		</td>
    	</tr>	  
    </table>
@@ -170,10 +170,10 @@
    <table class="details">
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.maintainername"/>:
+            <label for="maintainer_name"><bean:message key="channel.edit.jsp.maintainername"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="maintainer_name" maxlength="128" size="40" />
+            <html:text property="maintainer_name" maxlength="128" size="40" styleId="maintainer_name"/>
          </td>
       </tr>
       <tr>
@@ -183,21 +183,21 @@
          <td class="small-form">
             <table>
             <tr>
-            <td><bean:message key="channel.edit.jsp.emailaddress"/>:</td>
-            <td><html:text property="maintainer_email" size="20" /></td>
+            <td><label for="maintainer_email"><bean:message key="channel.edit.jsp.emailaddress"/>:</label></td>
+            <td><html:text property="maintainer_email" size="20" styleId="maintainer_email"/></td>
             </tr><tr>
-            <td><bean:message key="channel.edit.jsp.phonenumber"/>:</td>
-            <td><html:text property="maintainer_phone" size="20" /></td>
+            <td><label for="maintainer_phone"><bean:message key="channel.edit.jsp.phonenumber"/>:</label></td>
+            <td><html:text property="maintainer_phone" size="20" styleId="maintainer_phone"/></td>
             </tr>
             </table>
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.supportpolicy"/>:
+            <label for="support_policy"><bean:message key="channel.edit.jsp.supportpolicy"/>:</label>
          </th>
          <td class="small-form">
-            <html:textarea property="support_policy" cols="40" rows="6" />
+            <html:textarea property="support_policy" cols="40" rows="6" styleId="support_policy"/>
          </td>
       </tr>
    </table>
@@ -210,11 +210,11 @@
          <td class="small-form">
             <table>
             <tr>
-            <td><html:radio property="per_user_subscriptions" value="all" /></td>
-            <td><bean:message key="channel.edit.jsp.allusers"/></td>
+            <td><html:radio property="per_user_subscriptions" value="all" styleId="allusers" /></td>
+            <td><label for="allusers"><bean:message key="channel.edit.jsp.allusers"/></label></td>
             </tr><tr>
-            <td><html:radio property="per_user_subscriptions" value="selected" /></td>            
-            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
+            <td><html:radio property="per_user_subscriptions" value="selected" styleId="selectedusers" /></td>
+            <td><label for="selectedusers"><bean:message key="channel.edit.jsp.selectedusers"/></label></td>
             </tr>
             </table>
          </td>
@@ -226,18 +226,18 @@
          <td class="small-form">
             <table>
             <tr>
-            <td><html:radio property="org_sharing" value="private" /></td>
-            <td><bean:message key="channel.edit.jsp.private"
-                      arg0="/rhn/multiorg/Organizations.do"/></td>
+            <td><html:radio property="org_sharing" value="private" styleId="private"/></td>
+            <td><label for="private"><bean:message key="channel.edit.jsp.private"
+                      arg0="/rhn/multiorg/Organizations.do"/></label></td>
             </tr><tr>
-            <td><html:radio property="org_sharing" value="protected" /></td>
-            <td><bean:message key="channel.edit.jsp.protected"
-                      arg0="/rhn/multiorg/Organizations.do"/>
+            <td><html:radio property="org_sharing" value="protected" styleId="protected" /></td>
+            <td><label for="protected"><bean:message key="channel.edit.jsp.protected"
+                      arg0="/rhn/multiorg/Organizations.do"/></label>
                       </td>
             </tr><tr>
-            <td><html:radio property="org_sharing" value="public" /></td>
-            <td><bean:message key="channel.edit.jsp.public"
-                      arg0="/rhn/multiorg/Organizations.do"/></td>
+            <td><html:radio property="org_sharing" value="public" styleId="public"/></td>
+            <td><label for="public"><bean:message key="channel.edit.jsp.public"
+                      arg0="/rhn/multiorg/Organizations.do"/></label></td>
             </tr>
             </table>
          </td>
@@ -247,26 +247,26 @@
    <table class="details">
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyurl"/>:
+            <label for="gpgkeyurl"><bean:message key="channel.edit.jsp.gpgkeyurl"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_url" maxlength="256" size="40" />
+            <html:text property="gpg_key_url" maxlength="256" size="40" styleId="gpgkeyurl"/>
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyid"/>:
+            <label for="gpgkeyid"><bean:message key="channel.edit.jsp.gpgkeyid"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_id" maxlength="8" size="8"/><br />Ex: DB42A60E
+            <html:text property="gpg_key_id" maxlength="8" size="8" styleId="gpgkeyid"/><br />Ex: DB42A60E
          </td>
       </tr>
       <tr>
          <th nowrap="nowrap">
-            <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:
+            <label for="gpgkeyfingerprint"><bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:</label>
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_fingerprint" maxlength="50" size="60"/><br />
+            <html:text property="gpg_key_fingerprint" maxlength="50" size="60" styleId="gpgkeyfingerprint"/><br />
             Ex: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E
          </td>
       </tr>
