@@ -1,4 +1,3 @@
-
 --
 -- Copyright (c) 2008 Red Hat, Inc.
 --
@@ -13,13 +12,12 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
+--
+--
+--
+drop trigger rhn_cf_license_mod_trig;
+drop trigger rhn_cfl_consent_mod_trig;
+drop table rhnChannelFamilyLicense;
+drop table rhnChannelFamilyLicenseConsent;
 
-create or replace trigger
-rhn_cf_license_mod_trig
-before insert or update on rhnChannelFamilyLicense
-for each row
-begin
-        :new.modified := sysdate;
-end;
-/
-show errors
+

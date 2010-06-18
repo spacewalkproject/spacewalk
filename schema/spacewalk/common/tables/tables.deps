@@ -56,7 +56,6 @@ rhnChannelComps                :: rhnChannel
 rhnChannelCloned               :: rhnChannelComps
 rhnChannelErrata               :: rhnChannel rhnErrata
 rhnChannelFamily               :: web_customer 
-rhnChannelFamilyLicenseConsent :: rhnChannelFamily web_contact rhnServer
 rhnChannelFamilyMembers        :: rhnChannel rhnChannelFamily
 rhnChannelFamilyVirtSubLevel   :: rhnChannelFamily rhnVirtSubLevel
 rhnPrivateChannelFamily        :: web_customer rhnChannelFamily 
