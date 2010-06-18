@@ -24,91 +24,91 @@
     <table class="details">
     <tr>
         <th>
-            <rhn:required-field key="general.jsp.admin_email"/>
+            <label for="admin_email"><rhn:required-field key="general.jsp.admin_email"/></label>
         </th>
         <td>
-            <html:text property="traceback_mail" size="32" />
+            <html:text property="traceback_mail" size="32" styleId="admin_email" />
         </td>
     </tr>
     <tr>
         <th>
-            <rhn:required-field key="general.jsp.hostname"/>
+            <label for="hostname"><rhn:required-field key="general.jsp.hostname"/></label>
         </th>
         <td>
-            <html:text property="server|jabber_server" size="32" />
+            <html:text property="server|jabber_server" size="32" styleId="hostname" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.proxy"/>
+            <label for="proxy"><bean:message key="general.jsp.proxy"/></label>
         </th>
         <td>
-            <html:text property="server|satellite|http_proxy" size="32" />
+            <html:text property="server|satellite|http_proxy" size="32" styleId="proxy" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.proxy_username"/>
+            <label for="proxy_user"><bean:message key="general.jsp.proxy_username"/></label>
         </th>
         <td>
-            <html:text property="server|satellite|http_proxy_username" size="32" />
+            <html:text property="server|satellite|http_proxy_username" size="32" styleId="proxy_user" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.proxy_password"/>
+            <label for="proxy_password"><bean:message key="general.jsp.proxy_password"/></label>
         </th>
         <td>
-            <html:password property="server|satellite|http_proxy_password" size="32" />
+            <html:password property="server|satellite|http_proxy_password" size="32" styleId="proxy_password" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.proxy_password_confirm"/>
+            <label for="proxy_password_confirm"><bean:message key="general.jsp.proxy_password_confirm"/></label>
         </th>
         <td>
             <html:password property="server|satellite|http_proxy_password_confirm" 
-            size="32" />
+            size="32" styleId="proxy_password_confirm" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.mount_point"/>
+            <label for="mount_point"><bean:message key="general.jsp.mount_point"/></label>
         </th>
         <td>
-            <html:text property="mount_point" size="32" />
+            <html:text property="mount_point" size="32" styleId="mount_point" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.defaultTo_ssl"/>
+            <label for="ssl_available"><bean:message key="general.jsp.defaultTo_ssl"/></label>
         </th>
         <td>
-            <html:checkbox property="web|ssl_available" />
+            <html:checkbox property="web|ssl_available" styleId="ssl_available" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.solaris"/>
+            <label for="solaris"><bean:message key="general.jsp.solaris"/></label>
         </th>
         <td>
-            <html:checkbox property="web|enable_solaris_support" />
+            <html:checkbox property="web|enable_solaris_support" styleId="solaris" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.disconnected"/>
+            <label for="disconnected"><bean:message key="general.jsp.disconnected"/></label>
         </th>
         <td>
-            <html:checkbox property="disconnected" />
+            <html:checkbox property="disconnected" styleId="disconnected" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="general.jsp.monitoring_backend"/>
+            <label for="is_monitoring_backend"><bean:message key="general.jsp.monitoring_backend"/></label>
         </th>
         <td>
-            <html:checkbox property="web|is_monitoring_backend" />
+            <html:checkbox property="web|is_monitoring_backend" styleId="is_monitoring_backend" />
         </td>
     </tr>
     </table>

@@ -30,7 +30,6 @@ sub register_acl_handlers {
   $acl->register_handler(channel_exists => \&channel_exists);
   $acl->register_handler(channel_accessible => \&channel_accessible);
   $acl->register_handler(base_channel => \&channel_is_base);
-  $acl->register_handler(channel_licensed => \&channel_is_licensed);
   $acl->register_handler(channel_eoled => \&channel_eoled);
   $acl->register_handler(org_owns_cloned_channels => \&org_owns_cloned_channels);
   $acl->register_handler(org_channel_setting => \&org_channel_setting);
@@ -159,17 +158,6 @@ sub channel_is_proxy {
 
   my $channel = RHN::Channel->lookup(-id => $cid);
   return 0 unless (grep { $channel->id == $_ } RHN::Channel->rhn_proxy_channels);
-
-  return 1;
-}
-
-sub channel_is_licensed {
-  my $pxt = shift;
-
-  my $cid = $pxt->param('cid');
-  throw 'no cid param' unless $cid;
-
-  return 0 unless (RHN::Channel->license_path($cid));
 
   return 1;
 }

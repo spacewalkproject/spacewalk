@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.domain.user.User;
@@ -25,9 +24,7 @@ import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +78,7 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
             log.error("Error while scheduling package upgrades for event: " + event, e);
         }
         finally {
+
             SsmOperationManager.completeOperation(user, operationId);
         }
 
@@ -91,19 +89,10 @@ public class SsmUpgradePackagesAction extends AbstractDatabaseAction {
 
         long actionStart = System.currentTimeMillis();
 
-        DataResult result = event.getResult();
         Date earliest = event.getEarliest();
-        List<Map<String, Long>> packageListItems = event.getPackageListItems();
+        Map<Long, List<Map<String, Long>>> packageListItems = event.getSysPackageSet();
 
-        // Migrate server data result into a single list for lookup
-        List<Long> serverIds = new ArrayList<Long>(result.size());
-        for (Iterator it = result.iterator(); it.hasNext();) {
-            Map data = (Map) it.next();
-            Long serverId = (Long) data.get("id");
-            serverIds.add(serverId);
-        }
-
-        ActionManager.schedulePackageUpgrades(user, serverIds, packageListItems, earliest);
+        ActionManager.schedulePackageUpgrades(user, packageListItems, earliest);
 
         if (log.isDebugEnabled()) {
             log.debug("Time to schedule all actions: " +

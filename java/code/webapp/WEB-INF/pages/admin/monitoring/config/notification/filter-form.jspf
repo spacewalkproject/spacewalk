@@ -53,18 +53,18 @@ function showDestination() {
     <table class="details">
     <tr>
         <th>
-            <rhn:required-field key="filter-form.jspf.description"/>
+            <label for="description"><rhn:required-field key="filter-form.jspf.description"/></label>
         </th>
         <td>
-            <html:text property="description" maxlength="25" size="25" />
+            <html:text property="description" maxlength="25" size="25" styleId="description"/>
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="filter-form.jspf.filterType"/>
+            <label for="filterType"><bean:message key="filter-form.jspf.filterType"/></label>
         </th>
         <td>
-            <html:select property="filterType" onchange="showDestination()">
+            <html:select property="filterType" onchange="showDestination()" styleId="filterType" >
               <html:options collection="filterTypes"
                 property="name"
                 labelProperty="longName" />
@@ -73,18 +73,18 @@ function showDestination() {
     </tr>
     <tr id="destination" title="<bean:message key="filter-form.jspf.destination_help"/>">
         <th>
-            <bean:message key="filter-form.jspf.destination"/>
+            <label for="destination"><bean:message key="filter-form.jspf.destination"/></label>
         </th>
         <td>
-          <html:text property="destination" maxlength="255" size="60" /><br/>
+          <html:text property="destination" maxlength="255" size="60" styleId="destination" /><br/>
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="filter-form.jspf.scope"/>
+            <label for="scope"><bean:message key="filter-form.jspf.scope"/></label>
         </th>
         <td>
-            <html:select property="scope" style="width: 100%" onchange="selectScope()">
+            <html:select property="scope" style="width: 100%" onchange="selectScope()" styleId="scope" >
               <html:options collection="scopes"
                 property="value"
                 labelProperty="label" />
@@ -93,10 +93,10 @@ function showDestination() {
     </tr>
     <tr id="scope-orgs">
         <th>
-            <bean:message key="filter-form.jspf.orgs"/>
+            <label for="scope-orgs"><bean:message key="filter-form.jspf.orgs"/></label>
         </th>
         <td>
-          <html:select size="5" multiple="true" style="width: 100%" property="org">
+          <html:select size="5" multiple="true" style="width: 100%" property="org" styleId="scope-orgs">
             <html:options collection="org"
               property="id"
               labelProperty="name" />
@@ -105,10 +105,10 @@ function showDestination() {
     </tr>
     <tr id="scope-scouts">
         <th>
-            <bean:message key="filter-form.jspf.scouts"/>
+            <label for="scouts"><bean:message key="filter-form.jspf.scouts"/></label>
         </th>
         <td>
-          <html:select size="5" multiple="true" style="width: 100%" property="scout">
+          <html:select size="5" multiple="true" style="width: 100%" property="scout" styleId="scouts">
             <html:options collection="scout"
               property="id"
               labelProperty="description" />
@@ -117,10 +117,10 @@ function showDestination() {
     </tr>
     <tr id="scope-probes">
         <th>
-            <bean:message key="filter-form.jspf.probes"/>
+            <label for="probes"><bean:message key="filter-form.jspf.probes"/></label>
         </th>
         <td>
-          <html:select size="5" multiple="true" style="width: 100%" property="probe">
+          <html:select size="5" multiple="true" style="width: 100%" property="probe" styleId="probes">
             <html:options collection="probe"
               property="id"
               labelProperty="label" />
@@ -139,10 +139,10 @@ function showDestination() {
     </tr>
     <tr>
         <th>
-            <bean:message key="filter-form.jspf.contact_groups"/>
+            <label for="contact_groups"><bean:message key="filter-form.jspf.contact_groups"/></label>
         </th>
         <td>
-          <html:select size="5" multiple="true" style="width: 100%" property="contact_groups">
+          <html:select size="5" multiple="true" style="width: 100%" property="contact_groups" styleId="contact_groups">
             <html:option value="all" key="filter-form.jspf.all_contact_groups" style="font-style: italic"/>
             <html:options collection="contact_groups"
               property="recid"
@@ -152,10 +152,10 @@ function showDestination() {
     </tr>
     <tr>
         <th>
-            <bean:message key="filter-form.jspf.output_match"/>
+            <label for="output_match"><bean:message key="filter-form.jspf.output_match"/></label>
         </th>
         <td>
-          &nbsp;<html:text property="output_match" maxlength="255" size="60" /><br/><html:checkbox property="output_match_case"><bean:message key="filter-form.jspf.output_match_case"/></html:checkbox><br/>
+          &nbsp;<html:text property="output_match" maxlength="255" size="60" styleId="output_match"/><br/><html:checkbox property="output_match_case" styleId="output_match_case"><bean:message key="filter-form.jspf.output_match_case"/></html:checkbox><br/>
           <bean:message key="filter-form.jspf.output_match_help"/>
         </td>
     </tr>
@@ -163,8 +163,8 @@ function showDestination() {
       <th>
           <bean:message key="filter-form.jspf.scheduletype"/></th>
       <td>
-          <html:radio onclick="toggleRecurringFields()" property="recurring" value="false" /><bean:message key="filter-form.jspf.singleuse"/>
-          <html:radio onclick="toggleRecurringFields()" property="recurring" value="true" /><bean:message key="filter-form.jspf.recurring"/> &nbsp;&nbsp;
+          <html:radio onclick="toggleRecurringFields()" property="recurring" value="false" styleId="recurring-false"/><label for="recurring-false"><bean:message key="filter-form.jspf.singleuse"/></label>
+          <html:radio onclick="toggleRecurringFields()" property="recurring" value="true" styleId="recurring-true" /><label for="recurring-true"><bean:message key="filter-form.jspf.recurring"/></label> &nbsp;&nbsp;
       </td>
     </tr>
     <tr>
@@ -182,10 +182,9 @@ function showDestination() {
         </td>
     </tr>
     <tr>
-        <th><rhn:required-field key="filter-form.jspf.recurring_duration"/></th>
+        <th><label for="recurring_duration"><rhn:required-field key="filter-form.jspf.recurring_duration"/></label></th>
             <td>
-
-                <html:text property="recurring_duration" maxlength="2" size="2" /> 
+                <html:text property="recurring_duration" maxlength="2" size="2" styleId="recurring_duration" />
                 <html:select property="duration_type">
                     <html:options collection="duration_types"
                     property="value"
@@ -194,9 +193,9 @@ function showDestination() {
             </td>
     </tr>    
     <tr>
-        <th><bean:message key="filter-form.jspf.recurring_frequency"/></th>
+        <th><label for="recurring_frequency"><bean:message key="filter-form.jspf.recurring_frequency"/></label></th>
         <td>
-           <html:select disabled="true" property="recurring_frequency">
+           <html:select disabled="true" property="recurring_frequency" styleId="recurring_frequency">
                <html:options collection="frequency_types"
                property="value"
                labelProperty="label" />

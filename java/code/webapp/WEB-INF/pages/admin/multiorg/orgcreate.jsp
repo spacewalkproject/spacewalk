@@ -17,8 +17,8 @@
         <h2><bean:message key="orgdetails.jsp.header"/></h2>
 		<table class="details" align="center">
 		  <tr>
-            <th width="25%"><rhn:required-field key="org.name.jsp"/>:</th>
-		    <td><html:text property="orgName" maxlength="128" size="40" />
+        <th width="25%"><label for="orgName"><rhn:required-field key="org.name.jsp"/>:</label></th>
+		    <td><html:text property="orgName" maxlength="128" size="40" styleId="orgName" />
 		        <br>
                 <span class="small-text"><strong><bean:message key="tip" /></strong>
                   <bean:message key="org.name.length.tip" /></span>
@@ -31,9 +31,9 @@
             <bean:message key="orgcreate.header2"/>
         </p>
 		    <tr>
-		      <th><rhn:required-field key="desiredlogin"/>:</th>
+		      <th><label for="login"><rhn:required-field key="desiredlogin"/>:</label></th>
 		      <td>
-		        <html:text property="login" size="15" maxlength="45"/>
+		        <html:text property="login" size="15" maxlength="45" styleId="login" />
 		        <br>
 		        <span class="small-text"><strong><bean:message key="tip" /></strong>
 		          <bean:message key="org.login.tip" arg0="${rhn:getConfig('web.min_user_len')}" /><br>"
@@ -42,26 +42,26 @@
 		      </td>
 		    </tr>
 		    <tr>
-		      <th><bean:message key="desiredpass" />
-		       <span name="password-asterisk" class="required-form-field">*</span>:</th>
+		      <th><label for="desiredpass"><bean:message key="desiredpass" />
+		       <span name="password-asterisk" class="required-form-field">*</span>:</label></th>
 		      <td>
-		        <html:password property="desiredpassword" size="15" maxlength="32"/>
+		        <html:password property="desiredpassword" size="15" maxlength="32" styleId="desiredpass" />
 		      </td>
 		    </tr>
 		    <tr>
-		      <th><bean:message key="confirmpass" />
-		      <span name="password-asterisk" class="required-form-field">*</span>:</th>
+		      <th><label for="confirmpass"><bean:message key="confirmpass" />
+		      <span name="password-asterisk" class="required-form-field">*</span>:</label></th>
 		      <td>
-		        <html:password property="desiredpasswordConfirm" size="15" maxlength="32"/>
+		        <html:password property="desiredpasswordConfirm" size="15" maxlength="32" styleId="confirmpass"/>
 		      </td>
 		    </tr>
       <tr>
-        <th><bean:message key="usercreate.jsp.pam"/></th>
+        <th><label for="pam"><bean:message key="usercreate.jsp.pam"/></label></th>
         <td>
           <c:choose>
             <c:when test="${displaypamcheckbox == 'true'}">
-            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')"/> 
-            <bean:message key="usercreate.jsp.pam.instructions"/> <br/>
+            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/>
+            <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
             <strong><span style="font-size: 10px">
                 <bean:message key="usercreate.jsp.pam.instructions.note"/>
             </span></strong>
@@ -73,13 +73,13 @@
         </td>
       </tr>		    
 		    <tr>
-              <th><rhn:required-field key="email"/>:</th>
+              <th><label for="email"><rhn:required-field key="email"/>:</label></th>
               <td>
-                <html:text property="email" size="45" maxlength="128"/>
+                <html:text property="email" size="45" maxlength="128" styleId="email" />
               </td>
             </tr>
 		    <tr>
-              <th><rhn:required-field key="firstNames"/>:</th>
+              <th><label for="firstNames"><rhn:required-field key="firstNames"/>:</label></th>
                
               <td>
               <html:select property="prefix">
@@ -87,13 +87,13 @@
                                property="value"
                           labelProperty="label" />
                </html:select>
-                <html:text property="firstNames" size="45" maxlength="128"/>
+                <html:text property="firstNames" size="45" maxlength="128" styleId="firstNames"/>
               </td>
             </tr>
 		    <tr>
-              <th><rhn:required-field key="lastName"/>:</th>
+              <th><label for="lastName"><rhn:required-field key="lastName"/>:</label></th>
               <td>
-                <html:text property="lastName" size="45" maxlength="128"/>
+                <html:text property="lastName" size="45" maxlength="128" styleId="lastName"/>
               </td>
             </tr>
             <tr>

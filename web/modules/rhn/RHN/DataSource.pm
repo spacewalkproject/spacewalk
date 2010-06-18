@@ -95,13 +95,6 @@ sub required_params {
   return @uniq_params;
 }
 
-sub get_query_body {
-  my $self = shift;
-
-  my $mode_data = $self->lookup_mode_data;
-  return $mode_data->{query}->{body};
-}
-
 sub execute_query {
   my $self = shift;
   my %params = @_;

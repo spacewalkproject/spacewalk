@@ -330,25 +330,6 @@ EOQ
 }
 
 
-# fetch a list of contact groups that are available for the probe.
-#################
-sub list_groups {
-#################
-  my $class = shift;
-  my ($user, $sid) =@_;
-
-  #list all of the contact methods if the user is a monitoring admin
-  if ($user->is('monitoring_admin')) {
-    my $ds = new RHN::DataSource::Simple(-querybase => "contact_group_queries",
-                                         -mode => "orgs_contact_groups");
-    return $ds->execute_query(-org_id => $user->org->id);
-    
-  }
-  else {
-
-  }
-}
-
 ############
 sub delete {
 ############

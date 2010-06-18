@@ -10,14 +10,14 @@ use Exporter 'import';
 use vars '@EXPORT_OK';
 @EXPORT_OK = qw(loc system_debug system_or_exit);
 
-use Getopt::Long;
+use Getopt::Long qw(GetOptions);
 use Symbol qw(gensym);
-use IPC::Open3;
-use Pod::Usage;
+use IPC::Open3 qw(open3);
+use Pod::Usage qw(pod2usage);
 use POSIX ":sys_wait_h";
 use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
-use Params::Validate;
+use Params::Validate qw(validate);
 Params::Validate::validation_options(strip_leading => "-");
 
 =head1 NAME
@@ -26,11 +26,11 @@ Spacewalk::Setup, spacewalk-setup
 
 =head1 VERSION
 
-Version 0.6
+Version 1.1
 
 =cut
 
-our $VERSION = '0.6';
+our $VERSION = '1.1';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
@@ -649,7 +649,7 @@ sub set_progress_callback {
 	alarm 1;
 }
 
-sub get_database_answers {
+sub oracle_get_database_answers {
     my $opts = shift;
     my $answers = shift;
 
@@ -695,6 +695,49 @@ sub get_database_answers {
     return;
 }
 
+sub postgresql_get_database_answers {
+    my $opts = shift;
+    my $answers = shift;
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Hostname (leave empty for local)",
+        -test => sub { 1 },
+        -answer => \$answers->{'db-host'});
+
+    if ($answers->{'db-host'} ne '') {
+        ask(
+            -noninteractive => $opts->{"non-interactive"},
+            -question => "Port",
+            -test => qr/\d+/,
+            -default => 5432,
+            -answer => \$answers->{'db-port'});
+    } else {
+            $answers->{'db-port'} = '';
+    }
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Database",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-name'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Username",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-user'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "Password",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-password'},
+        -password => 1);
+
+    return;
+}
+
 
 ############################
 # PostgreSQL Specific Code #
@@ -705,11 +748,11 @@ sub postgresql_setup_db {
     my $opts = shift;
     my $answers = shift;
 
-    print Spacewalk::Setup::loc("** Database: Setting up database connection.\n");
+    print Spacewalk::Setup::loc("** Database: Setting up database connection for PostgreSQL backend.\n");
     my $connected;
 
     while (not $connected) {
-        get_database_answers($opts, $answers);
+        postgresql_get_database_answers($opts, $answers);
 
         my $dbh;
 
@@ -720,7 +763,7 @@ sub postgresql_setup_db {
         if ($@) {
             print Spacewalk::Setup::loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
 
-            delete @{$answers}{qw/db-protocol db-host db-port db-user db-sid db-password/};
+            delete @{$answers}{qw/db-host db-port db-name db-user db-password/};
         }
         else {
             $connected = 1;
@@ -777,10 +820,10 @@ sub postgresql_populate_db {
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--user=%s', @{$answers}{'db-user'}),
         sprintf('--password=%s', @{$answers}{'db-password'}),
-        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--database=%s', @{$answers}{'db-name'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
+        sprintf('--port=%s', @{$answers}{'db-port'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf("--log=$logfile"),
         sprintf('--nofork'),
         sprintf('--postgresql'),
     );
@@ -989,11 +1032,11 @@ sub oracle_setup_db_connection {
     my $opts = shift;
     my $answers = shift;
 
-    print loc("** Database: Setting up database connection.\n");
+    print loc("** Database: Setting up database connection for Oracle backend.\n");
     my $connected;
 
     while (not $connected) {
-        get_database_answers($opts, $answers);
+        oracle_get_database_answers($opts, $answers);
 
         my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
 
@@ -1313,41 +1356,50 @@ EOQ
 }
 
 sub get_dbh {
-  my $answers = shift;
+        my $answers = shift;
 
-  my ($database, $username, $password, $sid, $host, $port) = @{$answers}{qw/db-backend db-user db-password db-sid db-host db-port/};
+        my $dbh_attributes = {
+                RaiseError => 1,
+                PrintError => 0,
+                Taint => 0,
+                AutoCommit => 0,
+        };
 
-  my $dbh;
-  if ($database eq "oracle") {
-      $dbh = DBI->connect("dbi:Oracle:$sid", $username, $password,
-          {
-              RaiseError => 1,
-              PrintError => 0,
-              Taint => 0,
-              AutoCommit => 0,
-          }
-      );
-  }
-  elsif ($database eq "postgresql") {
-      $dbh = DBI->connect("DBI:Pg:dbname=$sid;host=$host;port=$port", $username, $password,
-          {
-              RaiseError => 1,
-              PrintError => 0,
-              Taint => 0,
-              AutoCommit => 0,
-          }
-      );
-  }
+        my $backend = $answers->{'db-backend'};
+        if ($backend eq 'oracle') {
+                my $dbh = DBI->connect("dbi:Oracle:$answers->{'db-sid'}",
+                        $answers->{'db-user'},
+                        $answers->{'db-password'},
+                        $dbh_attributes);
 
-  # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
-  # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
-  # here. This made it impossible for us to succesfully call `stty -echo`
-  # later in the code. Following two lines work around the problem.
+                # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
+                # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
+                # here. This made it impossible for us to succesfully call `stty -echo`
+                # later in the code. Following two lines work around the problem.
 
-  my $flags = fcntl(STDIN, F_GETFD, 0);
-  fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
+                my $flags = fcntl(STDIN, F_GETFD, 0);
+                fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
 
-  return $dbh;
+                return $dbh;
+        }
+
+        if ($backend eq 'postgresql') {
+		my $dsn = "dbi:Pg:dbname=$answers->{'db-name'}";
+		if ($answers->{'db-host'} ne '') {
+			$dsn .= ";host=$answers->{'db-host'}";
+			if ($answers->{'db-port'} ne '') {
+				$dsn .= ";port=$answers->{'db-port'}";
+			}
+		}
+                my $dbh = DBI->connect($dsn,
+                        $answers->{'db-user'},
+                        $answers->{'db-password'},
+                        $dbh_attributes);
+
+                return $dbh;
+        }
+
+        die "Unknown db-backend [$backend]\n";
 }
 
 # Find the default tablespace name for the given (oracle) user.
@@ -1580,7 +1632,7 @@ L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright (c) 2008 Red Hat, Inc.
+Copyright (c) 2008--2010 Red Hat, Inc.
 
 This software is licensed to you under the GNU General Public License,
 version 2 (GPLv2). There is NO WARRANTY for this software, express or

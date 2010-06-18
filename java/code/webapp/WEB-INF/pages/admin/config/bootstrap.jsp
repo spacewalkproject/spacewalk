@@ -25,74 +25,74 @@
     <table class="details">
     <tr>
         <th>
-            <rhn:required-field key="bootstrap.jsp.hostname"/>:
+            <label for="hostname"><rhn:required-field key="bootstrap.jsp.hostname"/>:</label>
         </th>
         <td>
-            <html:text size="32" property="hostname" />
+            <html:text size="32" property="hostname" styleId="hostname" />
         </td>
     </tr>
     <tr>
         <th>
-            <rhn:required-field key="bootstrap.jsp.ssl-cert"/>:
+            <label for="ssl-cert"><rhn:required-field key="bootstrap.jsp.ssl-cert"/>:</label>
         </th>
         <td>
-            <html:text size="32" property="ssl-cert" />
+            <html:text size="32" property="ssl-cert" styleId="ssl-cert" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.ssl"/>
+            <label for="ssl"><bean:message key="bootstrap.jsp.ssl"/></label>
         </th>
         <td>
-            <html:checkbox property="ssl" />
+            <html:checkbox property="ssl" styleId="ssl" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.gpg"/>
+            <label for="gpg"><bean:message key="bootstrap.jsp.gpg"/></label>
         </th>
         <td>
-            <html:checkbox property="gpg" />
+            <html:checkbox property="gpg" styleId="gpg" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.allow-config-actions"/>
+            <label for="allow-config-actions"><bean:message key="bootstrap.jsp.allow-config-actions"/></label>
         </th>
         <td>
-            <html:checkbox property="allow-config-actions" />
+            <html:checkbox property="allow-config-actions" styleId="allow-config-actions"/>
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.allow-remote-commands"/>
+            <label for="allow-remote-commands"><bean:message key="bootstrap.jsp.allow-remote-commands"/></label>
         </th>
         <td>
-            <html:checkbox property="allow-remote-commands"/>
+            <html:checkbox property="allow-remote-commands" styleId="allow-remote-commands" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.http-proxy"/>
+            <label for="http-proxy"><bean:message key="bootstrap.jsp.http-proxy"/></label>
         </th>
         <td>
-            <html:text size="32" property="http-proxy" />
+            <html:text size="32" property="http-proxy" styleId="http-proxy" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.http-proxy-username"/>
+            <label for="http-proxy-username"><bean:message key="bootstrap.jsp.http-proxy-username"/></label>
         </th>
         <td>
-            <html:text size="32" property="http-proxy-username" />
+            <html:text size="32" property="http-proxy-username" styleId="http-proxy-username" />
         </td>
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.http-proxy-password"/>
+            <label for="http-proxy-password"><bean:message key="bootstrap.jsp.http-proxy-password"/></label>
         </th>
         <td>
-            <html:text size="32" property="http-proxy-password" />
+            <html:text size="32" property="http-proxy-password" styleId="http-proxy-password" />
         </td>
     </tr>
     

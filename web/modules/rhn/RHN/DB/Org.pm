@@ -351,25 +351,6 @@ sub entitlement_data {
   return $ent_data;
 }
 
-#How many unused basic or enterprise slots does the org have?
-sub unused_entitlements {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOS);
-SELECT SUM(max_members - current_members)
-  FROM rhnServerGroup
- WHERE org_id = :org_id
-   AND (   group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'sw_mgr_entitled')
-        OR group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'enterprise_entitled'))
-EOS
-  $sth->execute_h(org_id => $self->id);
-  my ($tot) = $sth->fetchrow;
-  $sth->finish;
-
-  return $tot;
-}
-
 sub owns_server_groups {
   my $self = shift;
   my @sg_ids = @_;

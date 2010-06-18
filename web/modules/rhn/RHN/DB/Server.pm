@@ -1843,20 +1843,6 @@ sub remove_entitlement {
   return;
 }
 
-sub channel_license_consent {
-  my $self = shift;
-  my $user_id = shift;
-  my $channel_id = shift;
-
-
-  my $dbh = RHN::DB->connect;
-
-  $dbh->call_procedure('rhn_channel.license_consent', $channel_id, $user_id, $self->id);
-
-  # used in transaction...
-  return $dbh;
-}
-
 
 ############################
 # Server package functions

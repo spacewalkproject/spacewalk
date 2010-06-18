@@ -78,7 +78,6 @@
 
     <rhn-tab name="Software Channels" acl="system_feature(ftr_package_updates)">
       <rhn-tab-url>/rhn/systems/details/SystemChannels.do</rhn-tab-url>
-      <rhn-tab-url>/network/systems/details/channel_license.pxt</rhn-tab-url>
     </rhn-tab>
     
   </rhn-tab>
