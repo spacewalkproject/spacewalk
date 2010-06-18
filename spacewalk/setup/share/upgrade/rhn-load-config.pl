@@ -63,7 +63,7 @@ print "Examining current configuration\n";
 
 my %config_opts;
 
-my @valid_keys = qw/default_db encrypted_passwords
+my @valid_keys = qw/db_name db_user db_password encrypted_passwords
   kickstart_mount_point mount_point serverDOTsatelliteDOTca_chain
   serverDOTsatelliteDOThttp_proxy
   serverDOTsatelliteDOThttp_proxy_username
@@ -91,13 +91,11 @@ else {
 }
 
 if ($already_monitoring)  {
-  my ($db_user, $db_pass, $db_name) = split(m[[/\@]], $config_opts{'default_db'}, 4);
-
   $config_opts{monitoringDOTdbd} = 'Oracle';
   $config_opts{monitoringDOTorahome} = $ENV{ORACLE_HOME} || '/opt/oracle';
-  $config_opts{monitoringDOTdbname} = $db_name;
-  $config_opts{monitoringDOTusername} = $db_user;
-  $config_opts{monitoringDOTpassword} = $db_pass;
+  $config_opts{monitoringDOTdbname} = $config_opts{'db_name'};
+  $config_opts{monitoringDOTusername} = $config_opts{'db_user'};
+  $config_opts{monitoringDOTpassword} = $config_opts{'db_password'};
 
   if ($already_monitoring_scout) {
     my $scout_shared_key = find_scout_key();
