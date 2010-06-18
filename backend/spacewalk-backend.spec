@@ -30,6 +30,7 @@ Requires(pre): httpd
 Obsoletes: rhns-common < 5.3.0
 Obsoletes: rhns < 5.3.0
 Provides: rhns = 1:%{version}-%{release}
+Provides: rhns-common = 1:%{version}-%{release}
 
 %description 
 Generic program files needed by the Spacewalk server machines.
