@@ -42,6 +42,9 @@ use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig",
 use constant DEFAULT_ANSWER_FILE_GLOB =>
   SHARED_DIR . '/defaults.d/*.conf';
 
+use constant DEFAULT_RHN_CONF_LOCATION =>
+  '/etc/rhn/rhn.conf';
+
 use constant DEFAULT_RHN_ETC_DIR =>
   '/etc/sysconfig/rhn';
 
