@@ -994,23 +994,15 @@ sub populate_initial_configs {
     }
 
     # Define some db specific settings:
-    my ($hibernate_dialect, $hibernate_driver, $hibernate_driver_proto, $default_db);
+    my ($hibernate_dialect, $hibernate_driver, $hibernate_driver_proto);
     if ($answers->{'db-backend'} eq 'oracle') {
         $hibernate_dialect = "org.hibernate.dialect.Oracle10gDialect";
         $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
         $hibernate_driver_proto = "jdbc:oracle:oci";
-        $default_db = sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
     } elsif ($answers->{'db-backend'} eq 'postgresql') {
         $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
         $hibernate_driver = "org.postgresql.Driver";
         $hibernate_driver_proto = "jdbc:postgresql";
-        $default_db = "$answers->{'db-user'}/$answers->{'db-password'}\@dbname=$answers->{'db-name'}";
-        if (defined $answers->{"db-host"} and $answers->{"db-host"} ne '') {
-            $default_db .= ";host=$answers->{'db-host'}";
-            if (defined $answers->{"db-port"} and $answers->{"db-port"} ne '') {
-                $default_db .= ";port=$answers->{'db-port'}";
-            }
-        }
     }
 
   my %config_opts =
@@ -1025,7 +1017,6 @@ sub populate_initial_configs {
      webDOTenable_solaris_support => 0,
      osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
      encrypted_passwords => 1,
-     default_db => $default_db,
      db_backend => $answers->{'db-backend'},
      db_user => $answers->{'db-user'},
      db_password => $answers->{'db-password'},
