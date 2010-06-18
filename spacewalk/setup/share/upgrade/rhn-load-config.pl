@@ -201,8 +201,3 @@ sub find_scout_key {
   return $sat_scout->{SCOUT_SHARED_KEY};
 }
 
-sub split_dsn {
-		  my $dsn = shift;
-
-		    return split(/[\/@]/, $dsn);
-}
