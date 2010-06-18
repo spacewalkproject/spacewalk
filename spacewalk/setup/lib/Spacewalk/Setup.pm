@@ -1356,41 +1356,50 @@ EOQ
 }
 
 sub get_dbh {
-  my $answers = shift;
+        my $answers = shift;
 
-  my ($database, $username, $password, $sid, $host, $port) = @{$answers}{qw/db-backend db-user db-password db-sid db-host db-port/};
+        my $dbh_attributes = {
+                RaiseError => 1,
+                PrintError => 0,
+                Taint => 0,
+                AutoCommit => 0,
+        };
 
-  my $dbh;
-  if ($database eq "oracle") {
-      $dbh = DBI->connect("dbi:Oracle:$sid", $username, $password,
-          {
-              RaiseError => 1,
-              PrintError => 0,
-              Taint => 0,
-              AutoCommit => 0,
-          }
-      );
-  }
-  elsif ($database eq "postgresql") {
-      $dbh = DBI->connect("DBI:Pg:dbname=$sid;host=$host;port=$port", $username, $password,
-          {
-              RaiseError => 1,
-              PrintError => 0,
-              Taint => 0,
-              AutoCommit => 0,
-          }
-      );
-  }
+        my $backend = $answers->{'db-backend'};
+        if ($backend eq 'oracle') {
+                my $dbh = DBI->connect("dbi:Oracle:$answers->{'db-sid'}",
+                        $answers->{'db-user'},
+                        $answers->{'db-password'},
+                        $dbh_attributes);
 
-  # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
-  # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
-  # here. This made it impossible for us to succesfully call `stty -echo`
-  # later in the code. Following two lines work around the problem.
+                # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
+                # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
+                # here. This made it impossible for us to succesfully call `stty -echo`
+                # later in the code. Following two lines work around the problem.
 
-  my $flags = fcntl(STDIN, F_GETFD, 0);
-  fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
+                my $flags = fcntl(STDIN, F_GETFD, 0);
+                fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
 
-  return $dbh;
+                return $dbh;
+        }
+
+        if ($backend eq 'postgresql') {
+		my $dsn = "dbi:Pg:dbname=$answers->{'db-name'}";
+		if ($answers->{'db-host'} ne '') {
+			$dsn .= ";host=$answers->{'db-host'}";
+			if ($answers->{'db-port'} ne '') {
+				$dsn .= ";port=$answers->{'db-port'}";
+			}
+		}
+                my $dbh = DBI->connect($dsn,
+                        $answers->{'db-user'},
+                        $answers->{'db-password'},
+                        $dbh_attributes);
+
+                return $dbh;
+        }
+
+        die "Unknown db-backend [$backend]\n";
 }
 
 # Find the default tablespace name for the given (oracle) user.
