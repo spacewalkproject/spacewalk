@@ -824,7 +824,6 @@ sub postgresql_populate_db {
         sprintf('--host=%s', @{$answers}{'db-host'}),
         sprintf('--port=%s', @{$answers}{'db-port'}),
         sprintf("--schema-deploy-file=$sat_schema_deploy"),
-        sprintf("--log=$logfile"),
         sprintf('--nofork'),
         sprintf('--postgresql'),
     );
