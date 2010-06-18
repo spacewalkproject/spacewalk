@@ -50,8 +50,7 @@ GetOptions("host=s" => \$host, "user=s" => \$user, "password=s" => \$password,
     "postgresql" => \$postgresql, nofork => \$nofork);
 
 if ($help
-    or not ($user and $password and $database and $schema_deploy_file)
-    or ($postgresql and not $host)) {
+    or not ($user and $password and $database and $schema_deploy_file)) {
   die $usage;
 }
 
