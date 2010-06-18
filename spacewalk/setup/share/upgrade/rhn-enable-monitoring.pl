@@ -119,12 +119,6 @@ system("/usr/sbin/rhn-satellite", "restart");
 
 exit 0;
 
-sub split_dsn {
-  my $dsn = shift;
-
-  return split(/[\/@]/, $dsn);
-}
-
 sub find_scout_key {
   my $ds = new RHN::DataSource::Simple(-querybase => "scout_queries",
                                        -mode => 'scouts_for_org');
