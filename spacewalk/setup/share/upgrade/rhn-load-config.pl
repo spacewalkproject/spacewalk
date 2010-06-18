@@ -81,8 +81,6 @@ $config_opts{server_secret_key} = RHN::SatInstall->generate_secret;
 
 load_jabber_configs(\%config_opts);
 
-load_hibernate_configs(\%config_opts);
-
 if ($opts{disable_solaris}) {
   $config_opts{webDOTenable_solaris_support} = 0;
 }
@@ -201,30 +199,6 @@ sub find_scout_key {
   die "No satellite scout found!" unless $sat_scout;
 
   return $sat_scout->{SCOUT_SHARED_KEY};
-}
-
-sub load_hibernate_configs {
-  my $config_opts = shift;
-
-  open(TNSNAMES, '/etc/tnsnames.ora') or die "Could not open tnsnames.ora";
-
-  my @lines = <TNSNAMES>;
-
-  close(TNSNAMES);
-
-  my $tnsnames = join('', @lines);
-
-  $tnsnames =~ /^\s*(\S+).*HOST = ([^)\s]+).*PORT = (\d+)/s;
-
-  my $sid = $1;
-  my $host = $2;
-  my $port = $3;
-
-  $config_opts->{db_host} = $host;
-  $config_opts->{db_port} = $port;
-  $config_opts->{db_sid} = $sid;
-
-  return;
 }
 
 sub split_dsn {
