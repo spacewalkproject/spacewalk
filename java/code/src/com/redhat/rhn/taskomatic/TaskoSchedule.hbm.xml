@@ -20,8 +20,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="bunch_id"/>
         <property name="orgId" type="integer" column="org_id"/>
         <property name="active" type="string" column="active"/>
-        <property name="activeFrom" type="date" column="active_from"/>
-        <property name="activeTill" type="date" column="active_till"/>
+        <property name="activeFrom" type="timestamp" column="active_from"/>
+        <property name="activeTill" type="timestamp" column="active_till"/>
         <property name="cronExpr" type="string" column="cron_expr"/>
         <property name="data" type="blob" column="data"/>
 
@@ -36,16 +36,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE id = :schedule_id]]>
         </query>
 
+        <query name="TaskoSchedule.listByOrg">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id]]>
+        </query>
+
         <query name="TaskoSchedule.listByOrgAndLabel">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE org_id = :org_id AND jobLabel = :job_label]]>
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND jobLabel = :job_label]]>
         </query>
 
         <query name="TaskoSchedule.listByOrgAndBunch">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND bunch.id = :bunch_id]]>
         </query>
 
-        <query name="TaskoSchedule.findActiveScheduleByOrgAndLabel">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND active is not null AND jobLabel = :job_label]]>
+        <query name="TaskoSchedule.findActiveByOrgAndLabel">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND jobLabel = :job_label AND (activeFrom < sysdate AND (activeTill is null OR sysdate < activeTill))]]>
         </query>
 
 </hibernate-mapping>

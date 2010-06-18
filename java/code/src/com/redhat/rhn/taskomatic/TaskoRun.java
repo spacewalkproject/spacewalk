@@ -21,8 +21,10 @@ import org.quartz.JobExecutionException;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Date;
 
 
@@ -147,6 +149,31 @@ public class TaskoRun implements Job {
     private void saveStatus(String statusIn) {
         setStatus(statusIn);
         TaskoFactory.save(this);
+    }
+
+    public String getTailOfStdOutput(Long nBytes) {
+        return getTailOfFile(getStdOutputPath(), nBytes);
+    }
+
+    public String getTailOfStdError(Long nBytes) {
+        return getTailOfFile(getStdErrorPath(), nBytes);
+    }
+
+    private String getTailOfFile(String fileName, Long nBytes) {
+        RandomAccessFile file;
+        try {
+            file = new RandomAccessFile(fileName, "r");
+            file.seek(file.length() - nBytes);
+            String tail = file.readLine();
+            file.close();
+            return tail;
+        }
+        catch (FileNotFoundException e) {
+            return "";
+        }
+        catch (IOException e) {
+            return "";
+        }
     }
 
     public static String getStdOutputLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {

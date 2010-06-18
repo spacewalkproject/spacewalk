@@ -16,11 +16,9 @@ package com.redhat.rhn.taskomatic;
 
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.apache.log4j.Logger;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
+import org.hibernate.Transaction;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -75,6 +73,10 @@ public class TaskoFactory extends HibernateFactory {
         singleton.removeObject(taskoRun);
     }
 
+    private static void delete(TaskoSchedule taskoSchedule) {
+        singleton.removeObject(taskoSchedule);
+    }
+
     public static void save(TaskoTemplate taskoTemplate) {
         singleton.saveObject(taskoTemplate);
     }
@@ -105,34 +107,29 @@ public class TaskoFactory extends HibernateFactory {
                 "TaskoRun.listRunsOlderThan", params);
     }
 
-    public static void clearRunHistory(Integer orgId, Date limitTime) {
-        try {
-            String[] triggerNames = SchedulerKernel.getScheduler().
-                getTriggerNames(orgId.toString());
-            // triggerName == jobLabel
-            for (String jobLabel : triggerNames) {
-                // delete history of runs
-                List<TaskoRun> runList =
-                    TaskoFactory.listRunsOlderThan(orgId, limitTime);
-                for (TaskoRun run : runList) {
-                    TaskoFactory.deleteLogFiles(run);
-                    TaskoFactory.delete(run);
-                }
+    public static void clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
+        if (limitTime == null) {
+            throw new InvalidParamException("Invalid limit date");
+        }
+        List<TaskoRun> runList = listRunsOlderThan(orgId, limitTime);
+        Transaction trns = TaskoFactory.getSession().beginTransaction();
+        for (TaskoRun run : runList) {
+            // delete history of runs
+            TaskoFactory.deleteLogFiles(run);
+            TaskoFactory.delete(run);
+        }
+        trns.commit();
 
-                // unschedule outdated jobs
-                Trigger trigger = SchedulerKernel.getScheduler().getTrigger(
-                        jobLabel, orgId.toString());
-                Date endTime = trigger.getEndTime();
-                if ((endTime != null) && (endTime.before(limitTime))) {
-                    SchedulerKernel.getScheduler().unscheduleJob(trigger.getName(),
-                            orgId.toString());
-                }
+        // delete outdated schedules
+        List<TaskoSchedule> scheduleList = listSchedulesByOrg(orgId);
+        trns = TaskoFactory.getSession().beginTransaction();
+        for (TaskoSchedule schedule : scheduleList) {
+            Date endTime = schedule.getActiveTill();
+            if ((endTime != null) && (endTime.before(limitTime))) {
+                TaskoFactory.delete(schedule);
             }
-            TaskoFactory.commitTransaction();
         }
-        catch (SchedulerException e) {
-            TaskoFactory.rollbackTransaction();
-        }
+        trns.commit();
     }
 
     public static void deleteLogFiles(TaskoRun run) {
@@ -162,7 +159,7 @@ public class TaskoFactory extends HibernateFactory {
         params.put("org_id", orgId);
         params.put("job_label", jobLabel);
         return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
-                   "TaskoSchedule.findActiveScheduleByOrgAndLabel", params);
+                   "TaskoSchedule.findActiveByOrgAndLabel", params);
     }
 
     public static TaskoSchedule lookupScheduleById(Long scheduleId) {
@@ -172,21 +169,35 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.lookupById", params);
     }
 
-    public static TaskoSchedule listSchedulesByOrgAndBunch(Integer orgId,
+    public static List<TaskoSchedule> listSchedulesByOrg(Integer orgId) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        return singleton.listObjectsByNamedQuery(
+                                       "TaskoSchedule.listByOrg", params);
+    }
+
+    public static List<TaskoSchedule> listSchedulesByOrgAndBunch(Integer orgId,
             TaskoBunch bunch) {
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("bunch_id", bunch.getId());
-        return (TaskoSchedule) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listByOrgAndBunch", params);
     }
 
-    public static TaskoSchedule listSchedulesByOrgAndLabel(Integer orgId, String jobLabel) {
+    public static List<TaskoSchedule> listSchedulesByOrgAndLabel(Integer orgId, String jobLabel) {
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("job_label", jobLabel);
-        return (TaskoSchedule) singleton.listObjectsByNamedQuery(
+        return singleton.listObjectsByNamedQuery(
                                        "TaskoSchedule.listByOrgAndLabel", params);
+    }
+
+    public static TaskoRun lookupRunById(Long runId) {
+        Map params = new HashMap();
+        params.put("run_id", runId);
+        return (TaskoRun) singleton.lookupObjectByNamedQuery(
+                                       "TaskoRun.lookupById", params);
     }
 
     public static Boolean isTaskParalelizable(TaskoTask task) {
@@ -215,5 +226,22 @@ public class TaskoFactory extends HibernateFactory {
         catch (InvocationTargetException e) {
             return false;
         }
+    }
+
+    public static TaskoRun getRunByOrgAndId(Integer orgId, Long runId) throws InvalidParamException {
+        TaskoRun run = lookupRunById(runId);
+        if ((run == null) || (!run.getOrgId().equals(orgId))) {
+            throw new InvalidParamException("No such run id");
+        }
+        return run;
+    }
+
+    public static TaskoSchedule getScheduleByOrgAndId(Integer orgId,
+            Long scheduleId) throws InvalidParamException {
+        TaskoSchedule schedule = lookupScheduleById(scheduleId);
+        if ((schedule == null) || (!schedule.getOrgId().equals(orgId))) {
+            throw new InvalidParamException("No such schedule id");
+        }
+        return schedule;
     }
 }
