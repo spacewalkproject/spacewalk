@@ -25,6 +25,7 @@ import org.quartz.Trigger;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class TaskoXmlRpcHandler {
@@ -224,8 +225,29 @@ public class TaskoXmlRpcHandler {
                 orgId.toString()) ? 1 : 0;
     }
 
-    public int clearRunHistory(Integer orgId, Date limitTime) {
+    public int clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
         TaskoFactory.clearRunHistory(orgId, limitTime);
         return 1;
+    }
+
+    public List<TaskoSchedule> listSchedules(Integer orgId) {
+        return TaskoFactory.listSchedulesByOrg(orgId);
+    }
+
+    public List<TaskoRun> listScheduleRuns(Integer orgId, Long scheduleId) throws InvalidParamException {
+        TaskoSchedule schedule = TaskoFactory.getScheduleByOrgAndId(orgId, scheduleId);
+        return schedule.getRuns();
+    }
+
+    public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)
+        throws InvalidParamException {
+        TaskoRun run = TaskoFactory.getRunByOrgAndId(orgId, runId);
+        return run.getTailOfStdOutput(nBytes);
+    }
+
+    public String getRunStdErrorLog(Integer orgId, Long runId, Long nBytes)
+        throws InvalidParamException {
+        TaskoRun run = TaskoFactory.getRunByOrgAndId(orgId, runId);
+        return run.getTailOfStdError(nBytes);
     }
 }
