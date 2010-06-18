@@ -16,10 +16,10 @@
 <table class="details">
     <tr>
         <th>
-            <bean:message key="kickstart.activationkeys.jsp.description"/>
+            <label for="description"><bean:message key="kickstart.activationkeys.jsp.description"/></label>
         </th>
         <td>
-            <html:text property="description"/><br/>
+            <html:text property="description" styleId="description"/><br/>
             <rhn:tooltip>
 	            <bean:message key="activation-key.jsp.edit-description-tooltip"
 	            	 arg0 = "${requestScope.blankDescription}"/>
@@ -28,11 +28,11 @@
     </tr>
     <tr>
         <th>
-            <bean:message key="kickstart.activationkeys.jsp.key"/>:
+            <label for="key"><bean:message key="kickstart.activationkeys.jsp.key"/>:</label>
         </th>
         <td>
         	<c:if test="${not requestScope.unprefixed}">${requestScope.prefix}</c:if>
-            <html:text property="key"/><br/>
+            <html:text property="key" styleId="key"/><br/>
             <c:choose>
             	<c:when test = "${not requestScope.unprefixed}">
             	<rhn:tooltip key="activation-key.jsp.blank.auto-generator.prefix-notice"/>
@@ -49,19 +49,19 @@
     </tr>
     <tr>
         <th>
-            <bean:message key="kickstart.activationkeys.jsp.usagelimit"/>:
+            <label for="usageLimit"><bean:message key="kickstart.activationkeys.jsp.usagelimit"/>:</label>
         </th>
         <td>
-            <html:text property="usageLimit"/><br/>
+            <html:text property="usageLimit" styleId="usageLimit"/><br/>
             <rhn:tooltip key="activation-key.jsp.blank.unlimited-use"/>
         </td>
     </tr>
 	<tr>
         <th>
-            <bean:message key="activation-key.jsp.base-channels"/>:
+            <label for="selectedChannel"><bean:message key="activation-key.jsp.base-channels"/>:</label>
         </th>
         <td>
-           <html:select property="selectedChannel">
+           <html:select property="selectedChannel" styleId="selectedChannel">
 		          <html:options collection="possibleChannels"
         						    property="value"
             						labelProperty="label" />
@@ -81,8 +81,8 @@
         </th>
         <td>
     <c:forEach items="${possibleEntitlements}" var="item">
-	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}">
-	      <c:out value="${item.value}"/>
+	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}" styleId="${item.value}">
+	      <label for="${item.value}"><c:out value="${item.value}"/></label>
 	    </html:multibox>
     <c:out value="${item.label}"/>
     	<br />
@@ -93,13 +93,13 @@
     <c:if test="${not requestScope.create}">    
 	<tr>
         <th>
-            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:
+            <label for="enable-config-auto-deploy"><bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:</label>
         </th>
          <td>
          
       <rhn:require acl="token_has_entitlement(provisioning_entitled)" 
       		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-            <html:checkbox property="autoDeploy"/><br/>
+            <html:checkbox property="autoDeploy" styleId="enable-config-auto-deploy" /><br/>
             <rhn:tooltip key="activation-key.jsp.config-auto-deploy-tooltip"/>
       </rhn:require>
       <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
@@ -115,10 +115,10 @@
 	</c:if>
     <tr>
         <th>
-            <bean:message key="activation-key.jsp.universal-default"/>:
+            <label for="universal"><bean:message key="activation-key.jsp.universal-default"/>:</label>
         </th>
         <td>
-            <html:checkbox property="universal"/><br/>
+            <html:checkbox property="universal" styleId="universal" /><br/>
             <rhn:tooltip key="activation-key.jsp.edit.universal-default-tooltip"/>
         </td>
     </tr>
