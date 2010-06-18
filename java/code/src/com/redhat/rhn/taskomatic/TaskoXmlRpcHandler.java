@@ -90,7 +90,7 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
-    public Integer unscheduleBunch(Integer orgId, String jobLabel) {
+    public Integer unscheduleBunch(Integer orgId, String jobLabel) throws InvalidParamException {
         /*
         try {
             Trigger trigger = SchedulerKernel.getScheduler().getTrigger(
@@ -106,9 +106,29 @@ public class TaskoXmlRpcHandler {
         */
         TaskoSchedule schedule =
             TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
-        schedule.unschedule();
-        TaskoFactory.commitTransaction();
-        return destroyJob(schedule);
+        Trigger trigger;
+        try {
+            trigger = SchedulerKernel.getScheduler().getTrigger(jobLabel, orgId.toString());
+        }
+        catch (SchedulerException e) {
+            trigger = null;
+        }
+        // check for inconsistencies
+        // quartz unschedules job after trigger end time
+        // so better handle quartz and schedules separately
+        if ((schedule == null) && (trigger == null)) {
+            throw new InvalidParamException("No such jobLabel");
+        }
+        if (schedule != null) {
+            Transaction trns = TaskoFactory.getSession().beginTransaction();
+            schedule.unschedule();
+            TaskoFactory.save(schedule);
+            trns.commit();
+        }
+        if (trigger != null) {
+            return destroyJob(orgId, jobLabel);
+        }
+        return 1;
     }
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
@@ -179,10 +199,9 @@ public class TaskoXmlRpcHandler {
         }
     }
 
-    private Integer destroyJob(TaskoSchedule schedule) {
+    private Integer destroyJob(Integer orgId, String jobLabel) {
         try {
-            SchedulerKernel.getScheduler().unscheduleJob(schedule.getJobLabel(),
-                    schedule.getOrgId().toString());
+            SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
             return 1;
         }
         catch (SchedulerException e) {
