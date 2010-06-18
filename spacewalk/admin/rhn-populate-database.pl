@@ -29,13 +29,15 @@ use IPC::Open3;
 use Spacewalk::Setup;
 use Symbol qw(gensym);
 
-my $usage = "usage: $0 --host=<databaseHost> --user=<username> --password=<password> --database=<databaseName> --schema-deploy-file=<filename>"
+my $usage = "usage: $0 [ --host=<databaseHost> [ --port=<port> ] ] --database=<databaseName> \\\n"
+  . " --user=<username> --password=<password> --schema-deploy-file=<filename> \\\n"
   . " [ --log=<logfile> ] [ --clear-db ] [ --nofork ] [ --postgresql ] [ --help ]\n";
 
 my $user = '';
 my $password = '';
 my $database = '';
 my $host = '';
+my $port = '';
 
 my $schema_deploy_file = '';
 my $log_file;
@@ -44,7 +46,8 @@ my $nofork = 0;
 my $postgresql = 0;
 my $help = '';
 
-GetOptions("host=s" => \$host, "user=s" => \$user, "password=s" => \$password, 
+GetOptions("host=s" => \$host, "port=s" => \$port,
+    "user=s" => \$user, "password=s" => \$password,
     "database=s" => \$database, "schema-deploy-file=s" => \$schema_deploy_file,
     "log=s" => \$log_file, "help" => \$help, "clear-db" => \$clear_db, 
     "postgresql" => \$postgresql, nofork => \$nofork);
@@ -105,42 +108,33 @@ if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
 
-# Only used for PostgreSQL:
-my $populate_cmd = "";
-# Only used for Oracle:
-my $dsn = sprintf('%s/%s@%s', $user, $password, $database);
+my @command;
 
 if ($postgresql) {
-    print "*** Installing PostgreSQL schema.\n";
-    chdir("/usr/share/spacewalk/schema/postgresql/");
-    $populate_cmd = "PGPASSWORD=$password psql -U $user -h $host -d $database -v ON_ERROR_STOP= -f $schema_deploy_file";
-}
-else {
-    print "*** Installing Oracle schema.\n";
-    $populate_cmd = "sqlplus $dsn \@$schema_deploy_file";
-    chdir;
+	print "*** Installing PostgreSQL schema from [$schema_deploy_file].\n";
+	chdir("/usr/share/spacewalk/schema/postgresql/");
+	@command = ( 'psql', '-U', $user, '-d', $database, '-v', 'ON_ERROR_STOP=', '-f', $schema_deploy_file );
+	if (defined $host) {
+		push @command, '-h', $host;
+		if (defined $port) {
+			push @command, '-p', $port;
+		}
+	}
+	$ENV{PGPASSWORD} = $password;
+} else {
+	print "*** Installing Oracle schema from [$schema_deploy_file].\n";
+	@command = ( 'sqlplus', "$user/$password\@$database", "\@$schema_deploy_file" );
 }
 
 if (defined $log_file) {
-  local *LOGFILE;
-  open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
-  if (Spacewalk::Setup::have_selinux()) {
-    system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
-  }
-  if ($postgresql) {
-    $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd);
-  }
-  else {
-    $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
-  }
-}
-else {
-  if ($postgresql) {
-    $pid = open3(gensym, ">&STDOUT", ">&STDERR", $populate_cmd);
-  }
-  else {
-    $pid = open3(gensym, ">&STDOUT", ">&STDERR", 'sqlplus', $dsn, "\@$schema_deploy_file");
-  }
+	local *LOGFILE;
+	open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
+	if (Spacewalk::Setup::have_selinux()) {
+		system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+	}
+	$pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", @command);
+} else {
+	$pid = open3(gensym, ">&STDOUT", ">&STDERR", @command);
 }
 
 waitpid($pid, 0);
