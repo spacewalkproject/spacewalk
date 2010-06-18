@@ -29,10 +29,10 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="restart.jsp.restart_satellite"/>
+            <label for="restart"><bean:message key="restart.jsp.restart_satellite"/></label>
         </th>
         <td>
-            <html:checkbox property="restart" />
+            <html:checkbox property="restart" styleId="restart" />
         </td>
     </tr>
     
