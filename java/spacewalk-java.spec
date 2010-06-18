@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.12
+Version: 1.1.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,25 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.13-1
+- implement <label> for form fields - sdc/details.jsp (msuchy@redhat.com)
+- implement <label> for form fields - user/create/usercreate.jsp
+  (msuchy@redhat.com)
+- implement <label> for form fields - activationkeys/details.jspf
+  (msuchy@redhat.com)
+- implement <label> for form fields - edit.jsp (msuchy@redhat.com)
+- implement <label> for form fields - orgcreate.jsp (msuchy@redhat.com)
+- implement <label> for form fields - probe-edit.jsp (msuchy@redhat.com)
+- implement <label> for form fields - filter-form.jspf (msuchy@redhat.com)
+- implement <label> for form fields - restart.jsp (msuchy@redhat.com)
+- implement <label> for form fields - monitoring.jsp (msuchy@redhat.com)
+- implement <label> for form fields - bootstrap.jsp (msuchy@redhat.com)
+- implement <label> for form fields - general.jsp (msuchy@redhat.com)
+- 585176 - changing the behavior of the SSM package upgrade screen to handle
+  system and their packages for upgrade invidually, so only packages needed on
+  a system will be installed.  This means that each system is scheduled
+  individually, but at least it is correct (jsherril@redhat.com)
+
 * Thu Jun 17 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.12-1
 - Made the duplicate compares page do confirm delete differently
   (paji@redhat.com)
