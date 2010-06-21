@@ -517,6 +517,9 @@ For help for a specific command try 'help <cmd>'.
 
 
     def expand_systems(self, args):
+        if not isinstance(args, list):
+            args = args.split()
+
         systems = []
         for item in args:
             if re.match('group:', item):
@@ -551,8 +554,10 @@ For help for a specific command try 'help <cmd>'.
                     pass
 
                 systems.append(item)
+        
+        matches = self.filter_results(self.get_system_names(), systems)
 
-        return systems
+        return matches
 
 
     def list_base_channels(self):
@@ -614,7 +619,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
     
         print 'Systems:'
         for s in sorted(systems):
@@ -767,7 +772,8 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
         elif len(parts) > 2:
             return self.tab_completer(self.do_group_list('', True), text)
 
@@ -797,13 +803,16 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
         elif len(parts) > 2:
-            key_details = self.client.activationkey.getDetails(self.session, parts[1])
+            key_details = self.client.activationkey.getDetails(self.session, 
+                                                               parts[1])
 
             groups = []
             for group in key_details.get('server_group_ids'):
-                details = self.client.systemgroup.getDetails(self.session, group)
+                details = self.client.systemgroup.getDetails(self.session, 
+                                                             group)
                 groups.append(details.get('name'))                
 
             return self.tab_completer(groups, text)
@@ -827,14 +836,16 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_addentitlements(self):
-        print 'activationkey_addentitlements: Add entitlements to an activation key'
+        print 'activationkey_addentitlements: Add entitlements to an ' + \
+              'activation key'
         print 'usage: activationkey_addentitlements KEY <ENTITLEMENT ...>'
 
     def complete_activationkey_addentitlements(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
         elif len(parts) > 2:
             entitlements = self.ENTITLEMENTS.keys()
             entitlements.remove('enterprise_entitled')
@@ -2114,7 +2125,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         system_ids = []
         for system in sorted(systems):
@@ -2155,7 +2166,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         system_ids = []
         for system in sorted(systems):
@@ -3421,30 +3432,30 @@ For help for a specific command try 'help <cmd>'.
             return
 
         systems = self.expand_systems(args)
-        matches = self.filter_results(self.get_system_names(), systems)
 
-        if not len(matches):
+        if not len(systems):
             logging.warning('No systems found')
             return
 
-        for match in matches:
-            if match in self.ssm:
-                logging.warning('%s is already in the list' % match)
+        for system in systems:
+            if system in self.ssm:
+                logging.warning('%s is already in the list' % system)
                 continue
             else:
-                self.ssm.append(match)
-                logging.info('Added %s' % match)
+                self.ssm.append(system)
+                logging.info('Added %s' % system)
 
         if len(self.ssm):
             print 'Systems Selected: %s' % str(len(self.ssm))
 
 ####################
 
-    def help_ssm_rm(self):
-        print 'ssm_rm: Remove systems from the SSM'
-        print 'usage: ssm_rm SYSTEM|group:GROUP|channel:CHANNEL|search:QUERY'
+    def help_ssm_remove(self):
+        print 'ssm_remove: Remove systems from the SSM'
+        print 'usage: ssm_remove SYSTEM|group:GROUP|channel:CHANNEL|' + \
+              'search:QUERY'
 
-    def complete_ssm_rm(self, text, line, begidx, endidx):
+    def complete_ssm_remove(self, text, line, begidx, endidx):
         if re.match('group:', text):
             # prepend 'group' to each item for tab completion
             groups = ['group:%s' % g for g in self.do_group_list('', True)]
@@ -3458,25 +3469,24 @@ For help for a specific command try 'help <cmd>'.
         else:
             return self.tab_completer(sorted(self.ssm), text)
 
-    def do_ssm_rm(self, args):
+    def do_ssm_remove(self, args):
         args = self.parse_arguments(args)
 
         if not len(args):
-            self.help_ssm_rm()
+            self.help_ssm_remove()
             return
 
         systems = self.expand_systems(args)
-        matches = self.filter_results(self.ssm, systems)
 
-        if not len(matches):
+        if not len(systems):
             logging.warning('No systems found')
             return
 
-        for match in matches:
+        for system in systems:
             # double-check for existance in case of duplicate names
-            if match in self.ssm:
-                logging.info('Removed %s' % match)
-                self.ssm.remove(match)
+            if system in self.ssm:
+                logging.info('Removed %s' % system)
+                self.ssm.remove(system)
 
         print 'Systems Selected: %s' % str(len(self.ssm))
 
@@ -3628,7 +3638,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         if not len(systems):
             logging.warning('No systems selected')
@@ -3736,7 +3746,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -3856,8 +3866,7 @@ For help for a specific command try 'help <cmd>'.
             # remove 'ssm' from the argument list
             args.pop(0)
         else:
-            # only operate on one system
-            systems = [args.pop(0)]
+            systems = self.expand_systems(args.pop(0))
 
         packages_to_install = args
 
@@ -3963,8 +3972,7 @@ For help for a specific command try 'help <cmd>'.
             # remove 'ssm' from the argument list
             args.pop(0)
         else:
-            # only operate on one system
-            systems = [args.pop(0)]
+            systems = self.expand_systems(args.pop(0))
 
         packages_to_remove = args
 
@@ -4072,8 +4080,7 @@ For help for a specific command try 'help <cmd>'.
             # remove 'ssm' from the argument list
             args.pop(0)
         else:
-            # only operate on one system
-            systems = [args.pop(0)]
+            systems = self.expand_systems(args)
 
         jobs = []
         for system in sorted(systems):
@@ -4137,7 +4144,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -4195,7 +4202,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -4233,7 +4240,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         system_ids = []
         for system in sorted(systems):
@@ -4323,7 +4330,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
     
         add_separator = False
 
@@ -4406,7 +4413,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -4523,7 +4530,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -4561,7 +4568,7 @@ For help for a specific command try 'help <cmd>'.
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
-            systems = args
+            systems = self.expand_systems(args)
 
         jobs = []
         for system in sorted(systems):
