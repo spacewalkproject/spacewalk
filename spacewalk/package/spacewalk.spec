@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        1.1.2
+Version:        1.1.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -162,6 +162,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
+- Make bash the default for syntax highlighting (colin.coe@gmail.com)
+
 * Thu Apr 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
 - put new ascii art to instaler 
 
