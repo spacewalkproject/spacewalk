@@ -561,7 +561,7 @@ FROM
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name,
          cs.checksum, cs.checksum_type as checksum_type,
-         prd.primary as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
+         prd.primary_xml as primary_xml, prd.filelist as filelist_xml, prd.other as other_xml
     FROM
          rhnChannelPackage cp,
          rhnPackage p
@@ -592,7 +592,7 @@ FROM
           chpkg.package_id = pkgf.package_id
       AND pkgf.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
-      AND prd.primary is null
+      AND prd.primary_xml is null
   ORDER BY pkgf.package_id
    </query>
 </mode>
@@ -606,7 +606,7 @@ FROM
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
-      AND prd.primary is null
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -620,7 +620,7 @@ FROM
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
-      AND prd.primary is null
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -634,7 +634,7 @@ FROM
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
-      AND prd.primary is null
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>
@@ -648,7 +648,7 @@ FROM
           chpkg.package_id = pkgp.package_id
       AND pkgp.capability_id = pkgcap.id
       AND chpkg.channel_id = :channel_id
-      AND prd.primary is null
+      AND prd.primary_xml is null
   ORDER BY pkgp.package_id
    </query>
 </mode>

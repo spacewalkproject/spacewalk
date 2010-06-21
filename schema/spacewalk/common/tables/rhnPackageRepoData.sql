@@ -22,7 +22,7 @@ CREATE TABLE rhnPackageRepodata
                     CONSTRAINT rhn_pkey_rd_pid_fk
                         REFERENCES rhnPackage (id)
                         ON DELETE CASCADE,
-    primary     BLOB,
+    primary_xml     BLOB, -- primary is a reserved word :{
     filelist    BLOB, 
     other       BLOB,
     created     DATE
