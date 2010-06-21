@@ -51,18 +51,22 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc README
+%doc README COPYING
 %{_bindir}/spacecmd
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
 
 
 %changelog
-* Thu Apr 29 2010 Aron Parsons <aparsons@redhat.com> 0.1-3
+* Mon Jun 21 2010 Aron Parsons <aparsons@redhat.com>  - 0.1-4
+- added distribution headings
+- added a copy of the GPL
+
+* Thu Apr 29 2010 Aron Parsons <aparsons@redhat.com> - 0.1-3
 - just touch __init__.py, no reason to version control an empty file
 
-* Wed Apr 28 2010 Aron Parsons <aparsons@redhat.com> 0.1-2
+* Wed Apr 28 2010 Aron Parsons <aparsons@redhat.com> - 0.1-2
 - moved SpacewalkShell.py to /usr/share/rhn/spacecmd
 
-* Tue Apr 27 2010 Paul Morgan <pmorgan@redhat.com> 0.1-1
+* Tue Apr 27 2010 Paul Morgan <pmorgan@redhat.com> - 0.1-1
 - initial packaging

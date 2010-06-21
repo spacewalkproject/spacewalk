@@ -1,10 +1,25 @@
 #!/usr/bin/python
+#
+# Licensed under the GNU General Public License Version 3
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+# Copyright 2010 Aron Parsons <aron@redhat.com>
+#
 
-""" spacecmd - a command line interface to Spacewalk
-
-Author: Aron Parsons <aron@redhat.com>
-License: GPLv3
-"""
+""" spacecmd - a command line interface to Spacewalk """
 
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
@@ -66,8 +81,6 @@ if __name__ == '__main__':
             try:
                 shell.cmdloop()
             except xmlrpclib.Fault, err:
-                shell.intro = ''
-
                 try:
                     logging.debug(sys.exc_info())
                     logging.error(err.faultString.rsplit(': ', 1)[1])
@@ -75,11 +88,11 @@ if __name__ == '__main__':
                     # a few XML-RPC messages are different
                     logging.error(err.faultString)
             except xml.parsers.expat.ExpatError:
-                shell.intro = ''
                 logging.error(sys.exc_info()[1])
                 logging.debug(sys.exc_info())
             except KeyboardInterrupt:
-                shell.intro = ''
                 print
+            finally:
+                shell.intro = ''
 
 # vim:ts=4:expandtab:
