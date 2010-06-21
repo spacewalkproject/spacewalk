@@ -22,7 +22,6 @@ CREATE TABLE rhnTaskQueue
                        ON DELETE CASCADE,
     task_name      VARCHAR2(64) NOT NULL,
     task_data      NUMBER,
-    task_data_two  NUMBER,
     priority       NUMBER
                    DEFAULT (0),
     earliest       DATE

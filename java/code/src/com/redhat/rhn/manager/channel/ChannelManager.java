@@ -14,6 +14,26 @@
  */
 package com.redhat.rhn.manager.channel;
 
+import java.io.File;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -35,7 +55,6 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
 import com.redhat.rhn.domain.channel.ClonedChannel;
-import com.redhat.rhn.domain.channel.ContentSource;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.channel.ProductName;
@@ -72,26 +91,6 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.io.File;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelManager
@@ -2811,20 +2810,18 @@ public class ChannelManager extends BaseManager {
 
     /**
      * get the latest log file for spacewalk-repo-sync
-     * @param cs the channel content source you want the latest log file for
      * @param c channel 
      * @return the string of the filename (fully qualified)
      */
-    public static String getLatestSyncLogFile(ContentSource cs, Channel c) {
+    public static String getLatestSyncLogFile(Channel c) {
 
         String logPath = Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_LOG_PATH,
-                "/var/log/rhn/reposync/");
-        String repoLabel = cs.getLabel();
+                "/var/log/rhn/reposync/");        
 
         File dir = new File(logPath);
         List<String> possibleList = new ArrayList<String>();
         for (String file : dir.list()) {
-            if (file.contains(c.getLabel() + '-' + repoLabel)) {
+            if (file.contains(c.getLabel())) {
                 possibleList.add(file);
             }
         }

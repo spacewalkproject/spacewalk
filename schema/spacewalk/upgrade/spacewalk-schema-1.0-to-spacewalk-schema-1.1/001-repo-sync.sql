@@ -1,10 +1,6 @@
 
 ALTER table rhnChannelContentSource rename to rhnContentSource;
 
-ALTER table rhnTaskQueue
-add task_data_two NUMBER;
-
-
 -- create new table for mapping channels and repos
 CREATE TABLE rhnChannelContentSource
 (

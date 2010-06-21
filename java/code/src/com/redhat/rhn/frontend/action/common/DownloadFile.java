@@ -14,41 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.common;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.security.SessionSwap;
-import com.redhat.rhn.common.util.FileUtils;
-import com.redhat.rhn.common.util.MD5Sum;
-import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartSession;
-import com.redhat.rhn.domain.kickstart.KickstartSessionState;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageSource;
-import com.redhat.rhn.domain.rhnpackage.Patch;
-import com.redhat.rhn.domain.rhnpackage.PatchSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.download.DownloadManager;
-import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
-import com.redhat.rhn.manager.kickstart.KickstartManager;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.DownloadAction;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -67,6 +32,40 @@ import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DownloadAction;
+
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.security.SessionSwap;
+import com.redhat.rhn.common.util.FileUtils;
+import com.redhat.rhn.common.util.MD5Sum;
+import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartSessionState;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
+import com.redhat.rhn.domain.rhnpackage.Patch;
+import com.redhat.rhn.domain.rhnpackage.PatchSet;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.download.DownloadManager;
+import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 /**
  * ChannelPackagesAction
@@ -373,11 +372,9 @@ public class DownloadFile extends DownloadAction {
                         (int) patch.getReadme().length()));
             }         
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
-                Channel c = ChannelFactory.lookupById((Long)params.get(CHANNEL));
-                ContentSource cs = 
-                    ChannelFactory.lookupContentSource(fileId, user.getOrg());
+                Channel c = ChannelFactory.lookupById((Long)params.get(fileId));
                 ChannelManager.verifyChannelAdmin(user, fileId);
-                File file = new File(ChannelManager.getLatestSyncLogFile(cs, c));
+                File file = new File(ChannelManager.getLatestSyncLogFile(c));
 
                 StringBuilder output = new StringBuilder();
                 BufferedReader input =  new BufferedReader(new FileReader(file));
