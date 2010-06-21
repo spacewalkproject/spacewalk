@@ -718,7 +718,8 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
         elif len(parts) > 2:
             return self.tab_completer(self.get_package_names(), text)
 
@@ -737,16 +738,19 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_removepackages(self):
-        print 'activationkey_removepackages: Remove packages from an activation key'
+        print 'activationkey_removepackages: Remove packages from an ' + \
+              'activation key'
         print 'usage: activationkey_removepackages KEY <PACKAGE ...>'
 
     def complete_activationkey_removepackages(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
         elif len(parts) > 2:
-            details = self.client.activationkey.getDetails(self.session, parts[1])
+            details = self.client.activationkey.getDetails(self.session, 
+                                                           parts[1])
             packages = [ p['name'] for p in details.get('packages') ]
             return self.tab_completer(packages, text)
 
@@ -3527,6 +3531,19 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_listinactive(self):
+        print 'system_listinactive: List all inactive systems'
+        print 'usage: system_listinactive'
+
+    def do_system_listinactive(self, args):
+        systems = self.client.system.listInactiveSystems(self.session)
+        systems = [ s.get('name') for s in systems ]
+
+        if len(systems):
+            print '\n'.join(sorted(systems))
+
+####################
+
     def help_system_search(self):
         print 'system_search: List systems that match the given criteria'
         print 'usage: system_search QUERY'
@@ -3535,7 +3552,7 @@ For help for a specific command try 'help <cmd>'.
               'device, vendor, driver'
         print
         print 'Examples:'
-        print '> system_search vendor:vmware'
+        print '> system_search device:vmware'
         print '> system_search ip:192.168.82'
 
     def do_system_search(self, args, doreturn=False):
@@ -3976,61 +3993,50 @@ For help for a specific command try 'help <cmd>'.
 
         packages_to_remove = args
 
-        jobs = []
-        for system in sorted(systems):
-            system_id = self.get_system_id(system)
-            if not system_id: return
+        installed_packages = []
+        for name in packages_to_remove:
+            # this is the most efficient way to get the package IDs
+            results = self.client.packages.search.name(self.session, name)
+          
+            # fucking fuzzy search... 
+            for package in results:
+                if re.match(name, package.get('name'), re.I):
+                    installed_packages.append(package) 
 
-            channels = \
-                self.client.channel.software.listSystemChannels(self.session,
-                                                                system_id)
+        jobs = {}
+        for package in installed_packages:
+            installed_systems = \
+                self.client.system.listSystemsWithPackage(self.session, 
+                                                          package.get('id'))
 
-            #XXX: system.listPackages doesn't include package ID
-            #XXX: Bugzilla 584873
-            installed_packages = []
-            for channel in channels:
-                installed_packages.extend(
-                    self.client.system.listPackagesFromChannel(
-                        self.session, system_id, channel.get('label')))
+            for s in installed_systems:
+                if s.get('name') in systems:
+                    if s.get('name') not in jobs:
+                        jobs[s.get('name')] = []
 
-            # find the corresponding package IDs
-            package_ids = []
-            for package_to_remove in packages_to_remove:
-                found_package = False
+                    jobs[s.get('name')].append(package)
 
-                for p in installed_packages:
-                    if package_to_remove == p.get('name'):
-                        found_package = True
-                        package_ids.append(p.get('id'))
-                        break
-
-                if not found_package:
-                    logging.warning("%s does not have %s installed" %(
-                                    system, package_to_remove))
-
-            if len(package_ids):
-                jobs.append((system, system_id, package_ids))
-
-        if not len(jobs): return
+        if not len(jobs):
+            logging.warning('No packages to remove')
+            return
 
         count = 0
-        for job in jobs:
-            (system, system_id, package_ids) = job
-
+        for system in jobs.keys():
             if count: print
             count += 1
 
             print 'System: %s' % system
-            print 'Remove Packages:'
-            for id in package_ids:
-                package = self.client.packages.getDetails(self.session, id)
+            for package in jobs[system]:
                 print self.build_package_names(package)
 
-        if not self.user_confirm(): return
+        if not self.user_confirm('Remove these packages [y/N]:'): return
 
         scheduled = 0
-        for job in jobs:
-            (system, system_id, package_ids) = job
+        for system in jobs:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            package_ids = [ p.get('id') for p in jobs[system] ]
 
             time = self.parse_time_input('now')
 
@@ -4266,6 +4272,62 @@ For help for a specific command try 'help <cmd>'.
         for s in systems:
             if s in self.ssm:
                 self.ssm.remove(s)
+
+####################
+
+    def help_system_lock(self):
+        print 'system_lock: Lock a system'
+        print 'usage: system_lock SSM|<SYSTEM ...>'
+
+    def complete_system_lock(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_lock(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_lock()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.setLockStatus(self.session, system_id, True)
+
+####################
+
+    def help_system_unlock(self):
+        print 'system_unlock: Unlock a system'
+        print 'usage: system_unlock SSM|<SYSTEM ...>'
+
+    def complete_system_unlock(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_unlock(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_unlock()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.setLockStatus(self.session, system_id, False)
 
 ####################
 
@@ -4619,6 +4681,122 @@ For help for a specific command try 'help <cmd>'.
                 continue
 
         print 'Scheduled %s system(s)' % str(scheduled)
+
+####################
+
+    def help_system_createpackageprofile(self):
+        print 'system_createpackageprofile: Create a profile of ' + \
+              'the packages installed on this system'
+        print 'usage: system_createpackageprofile SYSTEM PROFILENAME'
+
+    def complete_system_createpackageprofile(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_createpackageprofile(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_system_createpackageprofile()
+            return
+
+        system = args[0]
+        label = args[1]
+        
+        description = self.prompt_user('Description:')
+
+        system_id = self.get_system_id(system)
+        if not system_id: return
+
+        self.client.system.createPackageProfile(self.session, 
+                                                system_id, 
+                                                label,
+                                                description)
+
+####################
+
+    def help_system_addentitlements(self):
+        print 'system_addentitlements: Add entitlements to a system'
+        print 'usage: system_addentitlements SSM|<SYSTEM ...> ENTITLEMENT'
+
+    def complete_system_addentitlements(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        else:
+            return self.tab_completer(self.ENTITLEMENTS.keys(), text)
+
+    def do_system_addentitlements(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_system_addentitlements()
+            return
+
+        entitlement = args.pop()
+
+        for e in self.ENTITLEMENTS.keys():
+            if re.match(entitlement, e, re.I) or \
+               re.match(entitlement, self.ENTITLEMENTS[e], re.I):
+                entitlement = e
+                break
+       
+        # use the systems applyed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in systems: 
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.addEntitlements(self.session, 
+                                               system_id,
+                                               [entitlement])
+
+####################
+
+    def help_system_removeentitlement(self):
+        print 'system_removeentitlement: Remove an entitlement from a system'
+        print 'usage: system_removeentitlement SSM|<SYSTEM ...> ENTITLEMENT'
+
+    def complete_system_removeentitlement(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        else:
+            return self.tab_completer(self.ENTITLEMENTS.keys(), text)
+
+    def do_system_removeentitlement(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_system_removeentitlement()
+            return
+
+        entitlement = args.pop()
+
+        for e in self.ENTITLEMENTS.keys():
+            if re.match(entitlement, e, re.I) or \
+               re.match(entitlement, self.ENTITLEMENTS[e], re.I):
+                entitlement = e
+                break
+       
+        # use the systems applyed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in systems: 
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.removeEntitlements(self.session, 
+                                                  system_id,
+                                                  [entitlement])
 
 ####################
 
