@@ -1,12 +1,13 @@
 spacecmd - a command line interface to Spacewalk
 
-Author: Aron Parsons <aron@redhat.com>
-License: GPLv3
+Author:   Aron Parsons <aron@redhat.com>
+Homepage: http://github.com/aparsons/spacecmd
+License:  GPL
 
 # Interesting Features
 - system set manager (SSM) similar to the web interface
 - tab completion of just about everything
-- advanced searching of systems (e.g., by hardware, IP address)
+- advanced searching of systems (e.g., by hardware, by IP address)
 
 # Requirements
 - >= python-2.4
