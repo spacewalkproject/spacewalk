@@ -548,18 +548,15 @@ For help for a specific command try 'help <cmd>'.
         return systems
 
 
-    def list_base_channels(self, system):
-        if re.match('ssm', system, re.I):
-            if len(self.ssm):
-                system = self.ssm[0]
+    def list_base_channels(self):
+        all_channels = self.client.channel.listSoftwareChannels(self.session)
 
-        system_id = self.get_system_id(system)
-        if not system_id: return
+        base_channels = []
+        for c in all_channels:
+            if not c.get('parent_label'):
+                base_channels.append(c.get('label'))
 
-        channels = self.client.system.listSubscribableBaseChannels(self.session,
-                                                                   system_id)
-
-        return [c.get('label') for c in channels]   
+        return base_channels
 
 
     def list_child_channels(self, system, subscribed=False):
@@ -701,13 +698,399 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_activationkey_addpackages(self):
+        print 'activationkey_addpackages: Add packages to an activation key'
+        print 'usage: activationkey_addpackages KEY <PACKAGE ...>'
+
+    def complete_activationkey_addpackages(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.get_package_names(), text)
+
+    def do_activationkey_addpackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_addpackages()
+            return
+
+        key = args.pop(0)
+        packages = [{'name' : a} for a in args]
+
+        self.client.activationkey.addPackages(self.session, key, packages)
+
+####################
+
+    def help_activationkey_removepackages(self):
+        print 'activationkey_removepackages: Remove packages from an activation key'
+        print 'usage: activationkey_removepackages KEY <PACKAGE ...>'
+
+    def complete_activationkey_removepackages(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            details = self.client.activationkey.getDetails(self.session, parts[1])
+            packages = [ p['name'] for p in details.get('packages') ]
+            return self.tab_completer(packages, text)
+
+    def do_activationkey_removepackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_removepackages()
+            return
+
+        key = args.pop(0)
+        packages = [{'name' : a} for a in args]
+
+        self.client.activationkey.removePackages(self.session, key, packages)
+
+####################
+
+    def help_activationkey_addgroups(self):
+        print 'activationkey_addgroups: Add groups to an activation key'
+        print 'usage: activationkey_addgroups KEY <GROUP ...>'
+
+    def complete_activationkey_addgroups(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_group_list('', True), text)
+
+    def do_activationkey_addgroups(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_addgroups()
+            return
+
+        key = args.pop(0)
+
+        groups = []
+        for a in args:
+            details = self.client.systemgroup.getDetails(self.session, a)
+            groups.append(details.get('id'))
+
+        self.client.activationkey.addServerGroups(self.session, key, groups)
+
+####################
+
+    def help_activationkey_removegroups(self):
+        print 'activationkey_removegroups: Remove groups from an activation key'
+        print 'usage: activationkey_removegroups KEY <GROUP ...>'
+
+    def complete_activationkey_removegroups(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            key_details = self.client.activationkey.getDetails(self.session, parts[1])
+
+            groups = []
+            for group in key_details.get('server_group_ids'):
+                details = self.client.systemgroup.getDetails(self.session, group)
+                groups.append(details.get('name'))                
+
+            return self.tab_completer(groups, text)
+
+    def do_activationkey_removegroups(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_removegroups()
+            return
+
+        key = args.pop(0)
+
+        groups = []
+        for a in args:
+            details = self.client.systemgroup.getDetails(self.session, a)
+            groups.append(details.get('id'))
+
+        self.client.activationkey.removeServerGroups(self.session, key, groups)
+
+####################
+
+    def help_activationkey_addentitlements(self):
+        print 'activationkey_addentitlements: Add entitlements to an activation key'
+        print 'usage: activationkey_addentitlements KEY <ENTITLEMENT ...>'
+
+    def complete_activationkey_addentitlements(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            entitlements = self.ENTITLEMENTS.keys()
+            entitlements.remove('enterprise_entitled')
+            return self.tab_completer(entitlements, text)
+
+    def do_activationkey_addentitlements(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_addentitlements()
+            return
+
+        key = args.pop(0)
+        entitlements = args
+
+        self.client.activationkey.addEntitlements(self.session, key, entitlements)
+
+####################
+
+    def help_activationkey_removeentitlements(self):
+        print 'activationkey_removeentitlements: Remove entitlements from an ' \
+              'activation key'
+        print 'usage: activationkey_removeentitlements KEY <ENTITLEMENT ...>'
+
+    def complete_activationkey_removeentitlements(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            details = \
+                self.client.activationkey.getDetails(self.session, parts[1])
+
+            entitlements = details.get('entitlements')
+            return self.tab_completer(entitlements, text)
+
+    def do_activationkey_removeentitlements(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_removeentitlements()
+            return
+
+        key = args.pop(0)
+        entitlements = args
+
+        self.client.activationkey.removeEntitlements(self.session, key, entitlements)
+
+####################
+
+    def help_activationkey_addchildchannels(self):
+        print 'activationkey_addchildchannels: Add child channels to an ' \
+              'activation key'
+        print 'usage: activationkey_addchildchannels KEY <CHANNEL ...>'
+
+    def complete_activationkey_addchildchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            key_details = \
+                self.client.activationkey.getDetails(self.session, parts[1])
+            base_channel = key_details.get('base_channel_label')
+
+            all_channels = self.client.channel.listSoftwareChannels(self.session)
+
+            child_channels = []
+            for c in all_channels:
+                if base_channel == 'none':
+                    # this gets all child channels
+                    if c.get('parent_label'):
+                        child_channels.append(c.get('label'))
+                else:
+                    if c.get('parent_label') == base_channel:
+                        child_channels.append(c.get('label'))
+
+            return self.tab_completer(child_channels, text)
+
+    def do_activationkey_addchildchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_addchildchannels()
+            return
+
+        key = args.pop(0)
+        channels = args
+
+        self.client.activationkey.addChildChannels(self.session, key, channels)
+
+####################
+
+    def help_activationkey_removechildchannels(self):
+        print 'activationkey_removechildchannels: Remove child channels from ' \
+              'an activation key'
+        print 'usage: activationkey_removechildchannels KEY <CHANNEL ...>'
+
+    def complete_activationkey_removechildchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            key_details = \
+                self.client.activationkey.getDetails(self.session, parts[1])
+
+            return self.tab_completer(key_details.get('child_channel_labels'), text)
+
+    def do_activationkey_removechildchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_removechildchannels()
+            return
+
+        key = args.pop(0)
+        channels = args
+
+        self.client.activationkey.removeChildChannels(self.session, key, channels)
+
+####################
+
+    def help_activationkey_addconfigchannels(self):
+        print 'activationkey_addconfigchannels: Add config channels ' \
+              'to an activation key'
+        print 'usage: activationkey_addconfigchannels KEY <CHANNEL ...>'
+
+    def complete_activationkey_addconfigchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_configchannel_list('', True), text)
+
+    def do_activationkey_addconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_addconfigchannels()
+            return
+
+        key = [ args.pop(0) ]
+        channels = args
+
+        answer = self.prompt_user('Add to top or bottom? [T/b]:')
+        if re.match('b', answer, re.I):
+            location = False
+        else:
+            location = True
+
+        self.client.activationkey.addConfigChannels(self.session, 
+                                                    key, 
+                                                    channels, 
+                                                    location)
+
+####################
+
+    def help_activationkey_removeconfigchannels(self):
+        print 'activationkey_removeconfigchannels: Remove config channels ' \
+              'from an activation key'
+        print 'usage: activationkey_removeconfigchannels KEY <CHANNEL ...>'
+
+    def complete_activationkey_removeconfigchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            key_channels = \
+                self.client.activationkey.listConfigChannels(self.session, 
+                                                             parts[1])
+
+            config_channels = [c.get('label') for c in key_channels]
+            return self.tab_completer(config_channels, text)
+
+    def do_activationkey_removeconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_removeconfigchannels()
+            return
+
+        key = [ args.pop(0) ]
+        channels = args
+
+        self.client.activationkey.removeConfigChannels(self.session, key, channels)
+
+####################
+
+    def help_activationkey_create(self):
+        print 'activationkey_create: Create an activation key'
+        print 'usage: activationkey_create'
+
+    def do_activationkey_create(self, args):
+        name = self.prompt_user('Name (blank to autogenerate):')
+        description = self.prompt_user('Description [None]:')
+        if not description:
+            description = ''
+
+        print
+        print 'Base Channels:'
+        for c in self.list_base_channels():
+            print '  %s' % c
+
+        base_channel = self.prompt_user('Base Channel (blank for default):')
+
+        entitlements = []
+        for e in self.ENTITLEMENTS:
+            if e == 'enterprise_entitled': continue
+
+            if self.user_confirm('%s Entitlement [y/N]:' % self.ENTITLEMENTS[e]):
+                entitlements.append(e)
+
+        default = self.user_confirm('Universal Default [y/N]:')
+
+        new_key = self.client.activationkey.create(self.session,
+                                                   name,
+                                                   description,
+                                                   base_channel,
+                                                   entitlements,
+                                                   default)
+
+        print
+        print 'Created activation key %s' % new_key
+
+####################
+
+    def help_activationkey_delete(self):
+        print 'activationkey_delete: Delete an activation key'
+        print 'usage: activationkey_delete KEY'
+
+    def complete_activationkey_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_delete()
+            return
+
+        key = args[0]
+
+        if not self.user_confirm('Delete this activation key [y/N]:'): return
+
+        self.client.activationkey.delete(self.session, key)
+
+####################
+
     def help_activationkey_list(self):
         print 'activationkey_list: List all activation keys'
         print 'usage: activationkey_list'
 
     def do_activationkey_list(self, args, doreturn=False):
-        keys = self.client.activationkey.listActivationKeys(self.session)
-        keys = [k.get('key') for k in keys]
+        all_keys = self.client.activationkey.listActivationKeys(self.session)
+
+        keys = []
+        for k in all_keys:
+            # don't list auto-generated re-activation keys
+            if not re.match('Kickstart re-activation', k.get('description')):
+                keys.append(k.get('key'))
 
         if doreturn:
             return keys
@@ -770,13 +1153,19 @@ For help for a specific command try 'help <cmd>'.
                 details = self.client.activationkey.getDetails(self.session,
                                                                key)
 
-                config_channels = \
-                    self.client.activationkey.listConfigChannels(self.session,
-                                                                 key)
+                # an exception is thrown if provisioning is not enabled and we
+                # attempt to get configuration channel information
+                try:
+                    config_channels = \
+                        self.client.activationkey.listConfigChannels(self.session,
+                                                                     key)
 
-                config_channel_deploy = \
-                    self.client.activationkey.checkConfigDeployment(self.session,
-                                                                    key)
+                    config_channel_deploy = \
+                        self.client.activationkey.checkConfigDeployment(self.session,
+                                                                        key)
+                except:
+                    config_channels = []
+                    config_channel_deploy = 0
 
                 # API returns 0/1 instead of boolean
                 if config_channel_deploy == 1:
@@ -878,6 +1267,69 @@ For help for a specific command try 'help <cmd>'.
         for key in args:
             logging.info('Disabling config file deployment for %s' % key)
             self.client.activationkey.disableConfigDeployment(self.session, key)
+
+####################
+
+    def help_activationkey_setbasechannel(self):
+        print 'activationkey_setbasechannel: Set the base channel of an activation key'
+        print 'usage: activationkey_setbasechannel KEY CHANNEL'
+
+    def complete_activationkey_setbasechannel(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_activationkey_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.list_base_channels(), text)
+
+    def do_activationkey_setbasechannel(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_activationkey_setbasechannel()
+            return
+
+        key = args.pop(0)
+        channel = args[0]
+
+        current_details = self.client.activationkey.getDetails(self.session, 
+                                                               key)
+
+        details = { 'description' : current_details.get('description'),
+                    'base_channel_label' : channel,
+                    'usage_limit' : current_details.get('usage_limit'),
+                    'universal_default' : current_details.get('universal_default') }
+
+        self.client.activationkey.setDetails(self.session, key, details)
+
+####################
+
+    def help_activationkey_setuniversaldefault(self):
+        print 'activationkey_setuniversaldefault: Set this key as the ' \
+              'universal default'
+        print 'usage: activationkey_setuniversaldefault KEY'
+
+    def complete_activationkey_setuniversaldefault(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_setuniversaldefault(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_setuniversaldefault()
+            return
+
+        key = args.pop(0)
+
+        current_details = self.client.activationkey.getDetails(self.session, 
+                                                               key)
+
+        details = { 'description' : current_details.get('description'),
+                    'base_channel_label' : current_details.get('base_channel_label'),
+                    'usage_limit' : current_details.get('usage_limit'),
+                    'universal_default' : True }
+
+        self.client.activationkey.setDetails(self.session, key, details)
 
 ####################
 
@@ -3574,7 +4026,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_completer(self.get_system_names(), text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
-            return self.tab_completer(self.list_base_channels(system), text)
+            return self.tab_completer(self.list_base_channels(), text)
 
     def do_system_setbasechannel(self, args):
         args = self.parse_arguments(args)
