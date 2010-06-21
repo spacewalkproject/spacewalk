@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.2
+Version:        1.1.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
+- updating rhnPackageRepodata table to not use a reserved word.
+  (jsherril@redhat.com)
+- Good Bye rhnChannelFamilyLicense and rhnChannelFamilyLicenseConsent tables
+  schemas (paji@redhat.com)
+- Removed the bulk-subscribe and unsubscribe which is not used anywhere
+  (paji@redhat.com)
+
 * Mon May 31 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
 - none of rhnDumpSnapshot* exists anymore
 - 585965 - adding upgrade schema for bug
