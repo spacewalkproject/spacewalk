@@ -79,19 +79,20 @@ if __name__ == '__main__':
     else:
         while True:
             try:
-                shell.cmdloop()
-            except xmlrpclib.Fault, err:
                 try:
+                    shell.cmdloop()
+                except xmlrpclib.Fault, err:
+                    try:
+                        logging.debug(sys.exc_info())
+                        logging.error(err.faultString.rsplit(': ', 1)[1])
+                    except:
+                        # a few XML-RPC messages are different
+                        logging.error(err.faultString)
+                except xml.parsers.expat.ExpatError:
+                    logging.error(sys.exc_info()[1])
                     logging.debug(sys.exc_info())
-                    logging.error(err.faultString.rsplit(': ', 1)[1])
-                except:
-                    # a few XML-RPC messages are different
-                    logging.error(err.faultString)
-            except xml.parsers.expat.ExpatError:
-                logging.error(sys.exc_info()[1])
-                logging.debug(sys.exc_info())
-            except KeyboardInterrupt:
-                print
+                except KeyboardInterrupt:
+                    print
             finally:
                 shell.intro = ''
 
