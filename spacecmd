@@ -75,7 +75,8 @@ if __name__ == '__main__':
             shell.onecmd(shell.precmd(' '.join(args), True))
         except xmlrpclib.Fault, err:
             logging.debug(sys.exc_info())
-            logging.error(err.faultString.rsplit(': ', 1)[1])
+            message = ' '.join(err.faultString.split(':')[1:])
+            logging.error(message)
     else:
         while True:
             try:
@@ -84,7 +85,8 @@ if __name__ == '__main__':
                 except xmlrpclib.Fault, err:
                     try:
                         logging.debug(sys.exc_info())
-                        logging.error(err.faultString.rsplit(': ', 1)[1])
+                        message = ' '.join(err.faultString.split(':')[1:])
+                        logging.error(message)
                     except:
                         # a few XML-RPC messages are different
                         logging.error(err.faultString)
