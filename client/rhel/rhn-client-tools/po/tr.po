@@ -476,8 +476,8 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please login to your satellite web "
 "interface and subscribe this system to the appropriate software channels to "
-"get updates for that product. See Kbase article 6227 for more details. "
-"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+"get updates for that product. See Kbase article 11313 for more details. "
+"(http://kbase.redhat.com/faq/docs/DOC-11313)"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:129
@@ -486,8 +486,8 @@ msgid ""
 "will not receive updates or support for that product. If you would like to "
 "receive updates for that product, please visit http://rhn.redhat.com/ and "
 "subscribe this system to the appropriate software channels to get updates "
-"for that product. See Kbase article 6227 for more details. (http://kbase."
-"redhat.com/faq/FAQ_58_6227.shtm)"
+"for that product. See Kbase article 11313 for more details. (http://kbase."
+"redhat.com/faq/docs/DOC-11313)"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:140
