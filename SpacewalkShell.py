@@ -2461,7 +2461,7 @@ For help for a specific command try 'help <cmd>'.
             elif len(args) and args[0]:
                 username = args[0]
             else:
-                username = self.prompt_user('Username:')
+                username = self.prompt_user('Satellite Username:')
 
                 # don't store the username in the command history
                 self.remove_last_history_item()
@@ -2470,7 +2470,7 @@ For help for a specific command try 'help <cmd>'.
                 password = self.options.password
                 self.options.password = None
             else:
-                password = getpass('Password: ')
+                password = getpass('Satellite Password: ')
 
             try:
                 self.session = self.client.auth.login(username,
