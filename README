@@ -4,11 +4,109 @@ Author:   Aron Parsons <aron@redhat.com>
 Homepage: http://github.com/aparsons/spacecmd
 License:  GPL
 
-# Interesting Features
-- system set manager (SSM) similar to the web interface
-- tab completion of just about everything
-- advanced searching of systems (e.g., by hardware, by IP address)
-
 # Requirements
 - >= python-2.4
 - >= Satellite 5.3 (v10.8 of the API)
+
+# Highlights
+- view and manage nearly every aspect of Satellite
+- tab completion
+- can be passed single commands (useful for shell scripts)
+- can be used as an interactive shell
+- advanced searching of systems allows systems to be managed
+  without having to create system groups
+- all functionality implemented via the Satellite API
+
+# Examples
+#
+# perform actions on systems from the command line
+#
+[user@sat]$ spacecmd -y system_installpackage www* mod_python
+Scheduled 6 system(s)
+
+[user@sat]$ spacecmd -y system_removepackage wiki02 mod_perl
+Scheduled 1 system(s)
+
+[user@sat]$ spacecmd -y errata_apply RHSA-2010:0423
+Scheduled 42 system(s)
+
+
+#
+# access information on the command line without writing custom API scripts
+#
+[root@sat]# spacecmd get_entitlements | grep -e monitoring -e provisioning
+monitoring_entitled: 314/397
+provisioning_entitled: 322/397
+
+
+#
+# easily generate reports
+#
+spacecmd> ssm_add *
+Systems Selected: 380
+
+spacecmd> system_listerrata ssm
+System: ldap03
+
+Security Errata:
+RHSA-2010:0458  Moderate: perl security update                        6/7/10
+RHSA-2010:0449  Moderate: rhn-client-tools security update            6/1/10
+RHSA-2010:0423  Important: krb5 security update                      5/18/10
+
+--------------------
+
+System: www01
+
+Security Errata:
+RHSA-2010:0458  Moderate: perl security update                        6/7/10
+
+
+#
+# easily select multiple systems and perform actions on them
+#
+spacecmd> ssm_add search:device:vmware
+Systems Selected: 285
+
+
+#
+# tab completion of everything
+#
+spacecmd> system_installpackage ssm vmware-tools [tab]
+vmware-tools         vmware-tools-kmod
+vmware-tools-common  vmware-tools-nox
+
+
+#
+# easily view system information
+#
+spacecmd> system_details www01.example.com
+Name:          www01.example.com
+System ID:     1000010001
+Locked:        False
+Registered:    20100311 19:31:36
+Last Checkin:  20100621 18:31:53
+OSA Status:    online
+
+Hostname:      www01.example.com
+IP Address:    192.168.1.80
+Kernel:        2.6.18-164.el5
+
+Software Channels:
+  custom-rhel-i386-server-5
+    |-- custom-extras-i386-rhel5
+    |-- clone-rhn-tools-rhel-i386-server-5
+
+Configuration Channels:
+  sudoers
+  base
+  base-rhel5
+
+Entitlements:
+  Management
+  Monitoring
+  Provisioning
+
+System Groups:
+  all_linux_systems
+  all_linux_VMs
+  rhel5-i386
