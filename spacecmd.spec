@@ -2,11 +2,11 @@
 
 Name:		spacecmd
 Version:	0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	CLI to Spacewalk and RHN Satellite Server
 
 Group:		Applications/System
-License:	GPLv3+
+License:	GPL
 URL:		http://github.com/aparsons/spacecmd
 Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
