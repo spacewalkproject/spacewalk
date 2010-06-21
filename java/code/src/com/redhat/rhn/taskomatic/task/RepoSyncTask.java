@@ -14,23 +14,22 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ContentSource;
-import com.redhat.rhn.domain.task.Task;
-import com.redhat.rhn.domain.task.TaskFactory;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.task.Task;
+import com.redhat.rhn.domain.task.TaskFactory;
 
 
 /**
@@ -70,14 +69,12 @@ public class RepoSyncTask implements Job {
                 TaskFactory.removeTask(task);
                 continue;
             }
-            ContentSource src = ChannelFactory.lookupContentSource(task.getData());
-            Channel c = ChannelFactory.lookupById(task.getData2());
+            Channel c = ChannelFactory.lookupById(task.getData());
             if (log.isInfoEnabled()) {
-                log.info("Syncing repo " + src.getSourceUrl() + " to channel " + 
-                        c.getLabel());
+                log.info("Syncing repos for channel: " + c.getName());
             }
-            if (src == null) {
-                log.error("Content Source could not be found: " + task.getData());
+            if (c == null) {
+                log.error("Channel could not be found: " + task.getData());
                 TaskFactory.removeTask(task);
                 continue;
             }
@@ -85,7 +82,7 @@ public class RepoSyncTask implements Job {
             
             try {
                 Process p = Runtime.getRuntime().exec(
-                        getSyncCommand(src, c).toArray(new String[0]));
+                        getSyncCommand(c).toArray(new String[0]));
                 c.setLastSynced(new Date());
                 int chr = p.getInputStream().read();
                 while (chr != -1) {
@@ -101,18 +98,14 @@ public class RepoSyncTask implements Job {
         }
     }
     
-    private static List<String> getSyncCommand(ContentSource src, Channel c) {
+    private static List<String> getSyncCommand(Channel c) {
         List<String> cmd = new ArrayList<String>();
         cmd.add(Config.get().getString(ConfigDefaults.SPACEWALK_REPOSYNC_PATH,
                 "/usr/bin/spacewalk-repo-sync"));
         cmd.add("--channel");
         cmd.add(c.getLabel());
-        cmd.add("--url");
-        cmd.add(src.getSourceUrl());
         cmd.add("--type");
-        cmd.add(src.getType().getLabel());
-        cmd.add("--label");
-        cmd.add(src.getLabel());
+        cmd.add(ChannelFactory.CONTENT_SOURCE_TYPE_YUM.getLabel());
         cmd.add("--quiet");
         return cmd;
     }

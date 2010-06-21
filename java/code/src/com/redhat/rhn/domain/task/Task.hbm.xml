@@ -11,7 +11,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="org_id" />
             <key-property name="name" type="string" column="task_name" length="64"/>
 			<key-property name="data" column="task_data" type="long"/>
-			<key-property name="data2" column="task_data_two" type="long"/>
        		<key-property name="earliest" column="earliest" type="timestamp"/>
         </composite-id>
 
