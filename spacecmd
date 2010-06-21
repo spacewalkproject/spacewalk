@@ -24,7 +24,7 @@
 import logging, os, sys, xml, xmlrpclib
 from optparse import Option, OptionParser
 
-sys.path.append(os.getcwd())
+sys.path.append('/usr/share/rhn')
 from spacecmd.SpacewalkShell import SpacewalkShell
 
 if __name__ == '__main__':
