@@ -1,8 +1,8 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:		spacecmd
-Version:	0.1
-Release:	4%{?dist}
+Version:	0.2
+Release:	1%{?dist}
 Summary:	CLI to Spacewalk and RHN Satellite Server
 
 Group:		Applications/System
@@ -18,11 +18,6 @@ Requires:	python >= 2.4
 %description
 Provides a command line interface to Spacewalk, including 
 extensive tab-completion features and SSM (system set manager).
-The focus of the program is on managing systems, not all the other aspects of Satellite.  
-However, other data in the Satellite (e.g., Kickstarts, activation
-keys, configuration channels) can be viewed, just not manipulated.
-
-Works with Satellite 5.3 (v10.8 of the API).
 
 
 %prep
@@ -58,7 +53,10 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Jun 21 2010 Aron Parsons <aparsons@redhat.com>  - 0.1-4
+* Mon Jun 21 2010 Aron Parsons <aparsons@redhat.com> - 0.2-1
+- version bump
+
+* Mon Jun 21 2010 Aron Parsons <aparsons@redhat.com> - 0.1-4
 - added distribution headings
 - added a copy of the GPL
 
