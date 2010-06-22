@@ -37,7 +37,17 @@ import redstone.xmlrpc.XmlRpcFault;
 public class TaskomaticHandler extends BaseHandler {
 
     private String TASKOMATIC_NAMESPACE = "tasko";
+    private XmlRpcClient client;
     private static Logger log = Logger.getLogger(TaskomaticHandler.class);
+
+    public TaskomaticHandler() {
+        try {
+            client = new XmlRpcClient(ConfigDefaults.get().getTaskoServerUrl(), false);
+        }
+        catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Object invoke(String methodCalled, List arguments) throws XmlRpcFault {
         List params = new ArrayList(arguments);
@@ -47,23 +57,14 @@ public class TaskomaticHandler extends BaseHandler {
 
         params.add(0, loggedInUser.getOrg().getId());
 
-        XmlRpcClient client;
         log.info("Translating " + methodCalled);
-
-        try {
-            client = new XmlRpcClient(ConfigDefaults.get().getTaskoServerUrl(), false);
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new XmlRpcFault(0, "Malformed URL");
-        }
 
         try {
             Object obj = client.invoke(TASKOMATIC_NAMESPACE + "." + methodCalled, params);
             return obj;
         }
         catch (XmlRpcException e) {
-            throw new XmlRpcFault(1, "Taskomatic not accessible");
+            throw new XmlRpcFault(1, e.getMessage());
         }
     }
 }
