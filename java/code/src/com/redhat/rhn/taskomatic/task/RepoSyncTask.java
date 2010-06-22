@@ -70,7 +70,7 @@ public class RepoSyncTask implements Job {
                 continue;
             }
             Channel c = ChannelFactory.lookupById(task.getData());
-            if (log.isInfoEnabled()) {
+            if (log.isInfoEnabled() && c != null) {
                 log.info("Syncing repos for channel: " + c.getName());
             }
             if (c == null) {

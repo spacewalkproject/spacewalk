@@ -89,11 +89,6 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setMaintainerEmail(maintainerEmail);
         c.setMaintainerPhone(maintainerPhone);
         c.setSupportPolicy(supportPolicy);
-        
-        if (syncRepo && !c.getSources().isEmpty()) {
-            TaskFactory.createTask(user.getOrg(), RepoSyncTask.DISPLAY_NAME,
-                    c.getSources().iterator().next().getId());
-        }
 
         // need to save before calling stored proc below
         ChannelFactory.save(c);
