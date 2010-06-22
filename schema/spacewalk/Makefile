@@ -1,5 +1,6 @@
 include ../../rel-eng/Makefile
 
+TOP      := .
 SPECFILE := $(firstword $(wildcard *.spec))
 NAME     := $(shell rpm -q --qf '%{name}\n' --specfile $(SPECFILE))
 VERSION  := $(shell rpm -q --qf '%{version}\n' --specfile $(SPECFILE))
