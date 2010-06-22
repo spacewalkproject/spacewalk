@@ -75,7 +75,7 @@ if __name__ == '__main__':
             shell.onecmd(shell.precmd(' '.join(args), True))
         except xmlrpclib.Fault, err:
             logging.debug(sys.exc_info())
-            message = ' '.join(err.faultString.split(':')[-2:])
+            message = ' '.join(err.faultString.split(':')[1:])
             logging.error(message)
         except KeyboardInterrupt:
             print
@@ -87,7 +87,7 @@ if __name__ == '__main__':
                 except xmlrpclib.Fault, err:
                     try:
                         logging.debug(sys.exc_info())
-                        message = ' '.join(err.faultString.split(':')[-2:])
+                        message = ' '.join(err.faultString.split(':')[1:])
                         logging.error(message)
                     except:
                         # a few XML-RPC messages are different

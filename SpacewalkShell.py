@@ -44,11 +44,11 @@ class SpacewalkShell(Cmd):
 
     SEPARATOR = '\n--------------------\n'
 
-    ENTITLEMENTS = {'provisioning_entitled'        : 'Provisioning',
-                    'enterprise_entitled'          : 'Management',
-                    'monitoring_entitled'          : 'Monitoring',
-                    'virtualization_host'          : 'Virtualization',
-                    'virtualization_host_platform' : 'Virtualization Platform'}
+    ENTITLEMENTS = ['provisioning_entitled',
+                    'enterprise_entitled',
+                    'monitoring_entitled',
+                    'virtualization_host',
+                    'virtualization_host_platform']
 
     EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
@@ -708,6 +708,59 @@ For help for a specific command try 'help <cmd>'.
             for s in systems:
                 print '  %s' % s.get('server_name')
 
+    def config_channel_order(self, new_channels=[]):
+        all_channels = self.do_configchannel_list('', True)
+
+        while True:
+            print 'Current Selections:'
+            for i in range(len(new_channels)):
+                print '%i. %s' % (i + 1, new_channels[i])
+  
+            print 
+            action = self.prompt_user('a[dd], r[emove], c[lear], d[one]:')
+
+            if re.match('a', action, re.I):
+                print 
+                print 'Available Configuration Channels:'
+                for c in sorted(all_channels):
+                    print c
+
+                print
+                channel = self.prompt_user('Channel:')
+                
+                if channel not in all_channels:
+                    logging.warning('Invalid channel')
+                    continue
+            
+                try:
+                    rank = int(self.prompt_user('New Rank:'))
+
+                    if channel in new_channels:
+                        new_channels.remove(channel)
+
+                    new_channels.insert(rank - 1, channel)
+                except IndexError, ValueError:
+                    logging.warning('Invalid rank')
+                    continue
+            elif re.match('r', action, re.I):
+                channel = self.prompt_user('Channel:')
+
+                if channel not in all_channels:
+                    logging.warning('Invalid channel')
+                    continue
+
+                new_channels.remove(channel)
+            elif re.match('c', action, re.I):
+                print 'Clearing current selections'
+                new_channels = []
+                continue
+            elif re.match('d', action, re.I):
+                break
+
+            print
+
+        return new_channels
+
 ####################
 
     def help_activationkey_addpackages(self):
@@ -848,12 +901,10 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return self.tab_completer(self.do_activationkey_list('', True),
                                       text)
         elif len(parts) > 2:
-            entitlements = self.ENTITLEMENTS.keys()
-            entitlements.remove('enterprise_entitled')
-            return self.tab_completer(entitlements, text)
+            return self.tab_completer(self.ENTITLEMENTS, text)
 
     def do_activationkey_addentitlements(self, args):
         args = self.parse_arguments(args)
@@ -865,7 +916,9 @@ For help for a specific command try 'help <cmd>'.
         key = args.pop(0)
         entitlements = args
 
-        self.client.activationkey.addEntitlements(self.session, key, entitlements)
+        self.client.activationkey.addEntitlements(self.session, 
+                                                  key, 
+                                                  entitlements)
 
 ####################
 
@@ -896,7 +949,9 @@ For help for a specific command try 'help <cmd>'.
         key = args.pop(0)
         entitlements = args
 
-        self.client.activationkey.removeEntitlements(self.session, key, entitlements)
+        self.client.activationkey.removeEntitlements(self.session, 
+                                                     key, 
+                                                     entitlements)
 
 ####################
 
@@ -909,13 +964,15 @@ For help for a specific command try 'help <cmd>'.
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return self.tab_completer(self.do_activationkey_list('', True),
+                                      text)
         elif len(parts) > 2:
             key_details = \
                 self.client.activationkey.getDetails(self.session, parts[1])
             base_channel = key_details.get('base_channel_label')
 
-            all_channels = self.client.channel.listSoftwareChannels(self.session)
+            all_channels = \
+                self.client.channel.listSoftwareChannels(self.session)
 
             child_channels = []
             for c in all_channels:
@@ -969,7 +1026,161 @@ For help for a specific command try 'help <cmd>'.
         key = args.pop(0)
         channels = args
 
-        self.client.activationkey.removeChildChannels(self.session, key, channels)
+        self.client.activationkey.removeChildChannels(self.session, 
+                                                      key, 
+                                                      channels)
+
+####################
+
+    def help_activationkey_listchildchannels(self):
+        print 'activationkey_listchildchannels: List the child channels ' + \
+              'for an activation key'
+        print 'usage: activationkey_listchildchannels KEY'
+
+    def complete_activationkey_listchildchannels(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listchildchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listchildchannels()
+            return
+
+        key = args[0]
+
+        details = self.client.activationkey.getDetails(self.session, key)
+
+        if len(details.get('child_channel_labels')):
+            print '\n'.join(details.get('child_channel_labels'))
+
+####################
+
+    def help_activationkey_listbasechannel(self):
+        print 'activationkey_listbasechannel: List the base channels ' + \
+              'for an activation key'
+        print 'usage: activationkey_listbasechannel KEY'
+
+    def complete_activationkey_listbasechannel(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listbasechannel(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listbasechannel()
+            return
+
+        key = args[0]
+
+        details = self.client.activationkey.getDetails(self.session, key)
+
+        print details.get('base_channel_label')
+
+####################
+
+    def help_activationkey_listgroups(self):
+        print 'activationkey_listgroups: List the groups for an ' + \
+              'activation key'
+        print 'usage: activationkey_listgroups KEY'
+
+    def complete_activationkey_listgroups(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listgroups(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listgroups()
+            return
+
+        key = args[0]
+
+        details = self.client.activationkey.getDetails(self.session, key)
+
+        for group in details.get('server_group_ids'):
+            group_details = self.client.systemgroup.getDetails(self.session,
+                                                               group)
+            print group_details.get('name')
+
+####################
+
+    def help_activationkey_listentitlements(self):
+        print 'activationkey_listentitlements: List the entitlements ' + \
+              'for an activation key'
+        print 'usage: activationkey_listentitlements KEY'
+
+    def complete_activationkey_listentitlements(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listentitlements(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listentitlements()
+            return
+
+        key = args[0]
+
+        details = self.client.activationkey.getDetails(self.session, key)
+
+        if len(details.get('entitlements')):
+            print '\n'.join(details.get('entitlements'))
+
+####################
+
+    def help_activationkey_listpackages(self):
+        print 'activationkey_listpackages: List the packages for an ' + \
+              'activation key'
+        print 'usage: activationkey_listpackages KEY'
+
+    def complete_activationkey_listpackages(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listpackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listpackages()
+            return
+
+        key = args[0]
+
+        details = self.client.activationkey.getDetails(self.session, key)
+
+        for package in details.get('packages'):
+            if 'arch' in package:
+                print '%s.%s' % (package['name'], package['arch'])
+            else:
+                print package['name']
+
+####################
+
+    def help_activationkey_listconfigchannels(self):
+        print 'activationkey_listconfigchannels: List the configuration ' + \
+              'channels for an activation key'
+        print 'usage: activationkey_listconfigchannels KEY'
+
+    def complete_activationkey_listconfigchannels(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_listconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_activationkey_listconfigchannels()
+            return
+
+        key = args[0]
+
+        channels = \
+            self.client.activationkey.listConfigChannels(self.session,
+                                                         key)
+
+        channels = sorted([ c.get('label') for c in channels])
+
+        if len(channels):
+            print '\n'.join(channels)
 
 ####################
 
@@ -1041,6 +1252,45 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_activationkey_setconfigchannelorder(self):
+        print 'activationkey_setconfigchannelorder: Set the ranked order of ' \
+              'configuration channels'
+        print 'usage: activationkey_setconfigchannelorder KEY'
+
+    def complete_activationkey_setconfigchannelorder(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_activationkey_list('', True), text)
+
+    def do_activationkey_setconfigchannelorder(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_activationkey_setconfigchannelorder()
+            return
+
+        key = args[0]
+
+        # get the current configuration channels from the first activationkey
+        # in the list
+        new_channels = \
+            self.client.activationkey.listConfigChannels(self.session, key)
+        new_channels = [ c.get('label') for c in new_channels ]
+
+        # call an interface for the user to make selections
+        new_channels = self.config_channel_order(new_channels)
+
+        print
+        print 'New Configuration Channels:'
+        for i in range(len(new_channels)):
+            print '[%i] %s' % (i + 1, new_channels[i])
+
+        if not self.user_confirm(): return        
+
+        self.client.activationkey.setConfigChannels(self.session, 
+                                                    [key], 
+                                                    new_channels)
+
+####################
+
     def help_activationkey_create(self):
         print 'activationkey_create: Create an activation key'
         print 'usage: activationkey_create'
@@ -1062,7 +1312,7 @@ For help for a specific command try 'help <cmd>'.
         for e in self.ENTITLEMENTS:
             if e == 'enterprise_entitled': continue
 
-            if self.user_confirm('%s Entitlement [y/N]:' % self.ENTITLEMENTS[e]):
+            if self.user_confirm('%s Entitlement [y/N]:' % e):
                 entitlements.append(e)
 
         default = self.user_confirm('Universal Default [y/N]:')
@@ -1233,7 +1483,7 @@ For help for a specific command try 'help <cmd>'.
             print
             print 'Entitlements:'
             for entitlement in sorted(details.get('entitlements')):
-                print '  %s' % self.ENTITLEMENTS[entitlement]
+                print '  %s' % entitlement
 
             print
             print 'System Groups:'
@@ -1653,6 +1903,95 @@ For help for a specific command try 'help <cmd>'.
 
             print
             print details.get('content')
+
+####################
+
+    def help_custominfo_create(self):
+        print 'custominfo_create: Create a custom key'
+        print 'usage: custominfo_create'
+
+    def do_custominfo_create(self, args):
+        key = ''
+        while key == '':
+            key = self.prompt_user('Name:')
+
+        description = ''
+        while description == '':
+            description = self.prompt_user('Description:')
+
+        self.client.system.custominfo.createKey(self.session,
+                                                key,
+                                                description)
+
+####################
+
+    def help_custominfo_delete(self):
+        print 'custominfo_delete: Delete a custom key'
+        print 'usage: custominfo_delete KEY ...'
+
+    def complete_custominfo_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_custominfo_list('', True), text)
+
+    def do_custominfo_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_custominfo_delete()
+            return
+
+        for key in args:
+            if self.user_confirm('Delete these keys [y/N]:'):
+                self.client.system.custominfo.deleteKey(self.session, key)
+
+####################
+
+    def help_custominfo_list(self):
+        print 'custominfo_list: List all custom keys'
+        print 'usage: custominfo_list'
+
+    def do_custominfo_list(self, args, doreturn=False):
+        keys = self.client.system.custominfo.listAllKeys(self.session)
+        keys = [k.get('label') for k in keys]
+
+        if doreturn:
+            return keys
+        else:
+            if len(keys):
+                print '\n'.join(sorted(keys))
+
+####################
+
+    def help_custominfo_details(self):
+        print 'custominfo_details: Show the details of a custom key'
+        print 'usage: custominfo_details KEY ...'
+
+    def complete_custominfo_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_custominfo_list('', True), text)
+
+    def do_custominfo_details(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_custominfo_details()
+            return
+
+        add_separator = False
+
+        all_keys = self.client.system.custominfo.listAllKeys(self.session)
+
+        for key in args:
+            for k in all_keys:
+                if k.get('label') == key:
+                    details = k
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Label:        %s' % details.get('label')
+            print 'Description:  %s' % details.get('description')
+            print 'Modified:     %s' % re.sub('T', ' ', 
+                                             details.get('last_modified').value)
+            print 'System Count: %i' % details.get('system_count')
 
 ####################
 
@@ -4228,6 +4567,206 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_listconfigchannels(self):
+        print 'system_listconfigchannels: List the config channels of a system'
+        print 'usage: system_listconfigchannels SSM|<SYSTEM ...>'
+
+    def complete_system_listconfigchannels(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_listconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listconfigchannels()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+
+            try:
+                channels = self.client.system.config.listChannels(self.session,
+                                                                  system_id)
+            except:
+                logging.warning('%s does not support configuration channels' % \
+                                system)
+                continue
+
+            print '\n'.join([ c.get('label') for c in channels ])
+
+####################
+
+    def help_system_addconfigchannels(self):
+        print 'system_addconfigchannels: Add config channels to a system'
+        print 'usage: system_addconfigchannels SSM|SYSTEM <CHANNEL ...>'
+
+    def complete_system_addconfigchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_system_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_configchannel_list('', True), 
+                                      text)
+
+    def do_system_addconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_system_addconfigchannels()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args.pop(0))
+
+        channels = args
+
+        answer = self.prompt_user('Add to top or bottom? [T/b]:')
+        if re.match('b', answer, re.I):
+            location = False
+        else:
+            location = True
+
+        system_ids = [ self.get_system_id(s) for s in systems ] 
+
+        self.client.system.config.addChannels(self.session, 
+                                              system_ids, 
+                                              channels, 
+                                              location)
+
+####################
+
+    def help_system_removeconfigchannels(self):
+        print 'system_removeconfigchannels: Remove config channels from a ' \
+              'system'
+        print 'usage: system_removeconfigchannels SSM|SYSTEM <CHANNEL ...>'
+
+    def complete_system_removeconfigchannels(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_system_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_configchannel_list('', True), 
+                                      text)
+
+    def do_system_removeconfigchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_system_removeconfigchannels()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args.pop(0))
+        
+        channels = args
+        
+        system_ids = [ self.get_system_id(s) for s in systems ] 
+
+        self.client.system.config.removeChannels(self.session, 
+                                                 system_ids, 
+                                                 channels)
+
+####################
+
+    def help_system_setconfigchannelorder(self):
+        print 'system_setconfigchannelorder: Set the ranked order of ' \
+              'configuration channels'
+        print 'usage: system_setconfigchannelorder SSM|<SYSTEM ...>'
+
+    def complete_system_setconfigchannelorder(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_setconfigchannelorder(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_setconfigchannelorder()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args.pop(0))
+
+        # get the current configuration channels from the first system
+        # in the list
+        id = self.get_system_id(systems[0])
+        new_channels = self.client.system.config.listChannels(self.session, id)
+        new_channels = [ c.get('label') for c in new_channels ]
+
+        # call an interface for the user to make selections
+        new_channels = self.config_channel_order(new_channels)
+
+        print
+        print 'New Configuration Channels:'
+        for i in range(len(new_channels)):
+            print '[%i] %s' % (i + 1, new_channels[i])
+
+        if not self.user_confirm(): return        
+
+        system_ids = [ self.get_system_id(s) for s in systems ] 
+        
+        self.client.system.config.setChannels(self.session, 
+                                              system_ids, 
+                                              new_channels)
+
+####################
+
+    def help_system_deployconfigfiles(self):
+        print 'system_deployconfigfiles: Deploy all configuration files for ' \
+              'a system'
+        print 'usage: system_deployconfigfiles SSM|<SYSTEM ...>'
+
+    def complete_system_deployconfigfiles(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_deployconfigfiles(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_deployconfigfiles()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+        
+        system_ids = [ self.get_system_id(s) for s in systems ] 
+            
+        time = self.parse_time_input('now')
+
+        self.client.system.config.deployAll(self.session, 
+                                            system_ids, 
+                                            time)
+
+####################
+
     def help_system_delete(self):
         print 'system_delete: Delete a system profile'
         print 'usage: system_delete SSM|<SYSTEM ...>'
@@ -4368,6 +4907,119 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_listcustomvalues(self):
+        print 'system_listcustomvalues: List the custom values for a system'
+        print 'usage: system_listcustomvalues SSM|<SYSTEM ...>'
+
+    def complete_system_listcustomvalues(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_listcustomvalues(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listcustomvalues()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        add_separator = False
+
+        for system in systems:
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+                print
+
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            values = self.client.system.getCustomValues(self.session,
+                                                        system_id)
+
+            for v in values:
+                print '%s = %s' % (v, values[v])
+
+####################
+
+    def help_system_addcustomvalue(self):
+        print 'system_addcustomvalue: Set a custom value for a system'
+        print 'usage: system_addcustomvalue SSM|SYSTEM KEY VALUE'
+
+    def complete_system_addcustomvalue(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(line.split(' ')) == 3:
+            return self.tab_completer(self.do_customkey_list('', True), text)
+
+    def do_system_addcustomvalue(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 3:
+            self.help_system_addcustomvalue()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+   
+        key   = args[1]
+        value = args[2]
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.setCustomValues(self.session,
+                                               system_id,
+                                               {key : value})
+
+####################
+
+    def help_system_removecustomvalue(self):
+        print 'system_removecustomvalue: Remove a custom value for a system'
+        print 'usage: system_removecustomvalue SSM|SYSTEM KEY'
+
+    def complete_system_removecustomvalue(self, text, line, begidx, endidx):
+        if len(line.split(' ')) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(line.split(' ')) == 3:
+            return self.tab_completer(self.do_customkey_list('', True), text)
+
+    def do_system_removecustomvalue(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 3:
+            self.help_system_removecustomvalue()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+   
+        key   = args[1]
+
+        for system in systems:
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            self.client.system.deleteCustomValues(self.session,
+                                                  system_id,
+                                                  [ key ])
+
+####################
+
     def help_system_setbasechannel(self):
         print "system_setbasechannel: Set a system's base software channel"
         print 'usage: system_setbasechannel SSM|<SYSTEM ...> CHANNEL'
@@ -4419,6 +5071,86 @@ For help for a specific command try 'help <cmd>'.
             self.client.system.setBaseChannel(self.session,
                                               system_id,
                                               new_channel)
+
+####################
+
+    def help_system_listbasechannel(self):
+        print 'system_listbasechannel: List the base channel for a system'
+        print 'usage: system_listbasechannel SSM|<SYSTEM ...>'
+
+    def complete_system_listbasechannel(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_listbasechannel(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listbasechannel()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+
+            channel = \
+                self.client.system.getSubscribedBaseChannel(self.session,
+                                                            system_id)
+
+            print channel.get('label')
+
+####################
+
+    def help_system_listchildchannels(self):
+        print 'system_listchildchannels: List the child channels for a system'
+        print 'usage: system_listchildchannels SSM|<SYSTEM ...>'
+
+    def complete_system_listchildchannels(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_listchildchannels(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listchildchannels()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+
+            channels = \
+                self.client.system.listSubscribedChildChannels(self.session,
+                                                               system_id)
+
+            print '\n'.join(sorted([ c.get('label') for c in channels ]))
 
 ####################
 
@@ -4561,7 +5293,7 @@ For help for a specific command try 'help <cmd>'.
             print
             print 'Entitlements:'
             for entitlement in sorted(entitlements):
-                print '  %s' % self.ENTITLEMENTS[entitlement]
+                print '  %s' % entitlement
 
             if len(groups):
                 print
@@ -4714,6 +5446,90 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_listevents(self):
+        print 'system_listevents: List the event history for a system'
+        print 'usage: system_listevents SSM|<SYSTEM ...>'
+
+    def complete_system_listevents(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_listevents(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listevents()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+
+            events = self.client.system.getEventHistory(self.session,
+                                                        system_id)
+            
+            for e in events:
+                print
+                print 'Summary:   %s' % e.get('summary')
+                print 'Completed: %s' % re.sub('T' , ' ', 
+                                               e.get('completed').value)
+                print 'Details:'
+                print e.get('details')
+
+####################
+
+    def help_system_listentitlements(self):
+        print 'system_listentitlements: List the entitlements for a system'
+        print 'usage: system_listentitlements SSM|<SYSTEM ...>'
+
+    def complete_system_listentitlements(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_system_list('', True), text)
+
+    def do_system_listentitlements(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_listentitlements()
+            return
+
+        add_separator = False
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        for system in sorted(systems):
+            system_id = self.get_system_id(system)
+            if not system_id: return
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            if len(systems) > 1:
+                print 'System: %s' % system
+
+            entitlements = self.client.system.getEntitlements(self.session,
+                                                              system_id)
+
+            print '\n'.join(sorted(entitlements))
+
+####################
+
     def help_system_addentitlements(self):
         print 'system_addentitlements: Add entitlements to a system'
         print 'usage: system_addentitlements SSM|<SYSTEM ...> ENTITLEMENT'
@@ -4724,7 +5540,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_completer(self.get_system_names(), text)
         else:
-            return self.tab_completer(self.ENTITLEMENTS.keys(), text)
+            return self.tab_completer(self.ENTITLEMENTS, text)
 
     def do_system_addentitlements(self, args):
         args = self.parse_arguments(args)
@@ -4735,9 +5551,8 @@ For help for a specific command try 'help <cmd>'.
 
         entitlement = args.pop()
 
-        for e in self.ENTITLEMENTS.keys():
-            if re.match(entitlement, e, re.I) or \
-               re.match(entitlement, self.ENTITLEMENTS[e], re.I):
+        for e in self.ENTITLEMENTS:
+            if re.match(entitlement, e, re.I):
                 entitlement = e
                 break
        
@@ -4767,7 +5582,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_completer(self.get_system_names(), text)
         else:
-            return self.tab_completer(self.ENTITLEMENTS.keys(), text)
+            return self.tab_completer(self.ENTITLEMENTS, text)
 
     def do_system_removeentitlement(self, args):
         args = self.parse_arguments(args)
@@ -4778,9 +5593,8 @@ For help for a specific command try 'help <cmd>'.
 
         entitlement = args.pop()
 
-        for e in self.ENTITLEMENTS.keys():
-            if re.match(entitlement, e, re.I) or \
-               re.match(entitlement, self.ENTITLEMENTS[e], re.I):
+        for e in self.ENTITLEMENTS:
+            if re.match(entitlement, e, re.I):
                 entitlement = e
                 break
        
