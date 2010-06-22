@@ -169,11 +169,6 @@ public class EditChannelAction extends RhnAction implements Listable {
                     params);
         }
 
-        if (errors.isEmpty() && form.get("sync_repo") != null) {
-            createSuccessMessage(request, "message.syncscheduled",
-                    form.getString("name"));
-        }
-
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
     }
