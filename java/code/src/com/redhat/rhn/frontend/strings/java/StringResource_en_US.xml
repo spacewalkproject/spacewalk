@@ -8444,7 +8444,7 @@ Follow this url to see the full list of inactive systems:
         <source>Configuration Channels Updated</source>
      </trans-unit>
      <trans-unit id="channel.edit.repo.neversynced">
-        <source>This repo has never been synced.</source>
+        <source>This channel has never been synced to external repositories.</source>
      </trans-unit>     
      <trans-unit id="channel.edit.repo.updated">
         <source>{0} repository information was successfully updated</source>
