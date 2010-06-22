@@ -14,10 +14,15 @@
  */
 package com.redhat.rhn.manager.download;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.security.SessionSwap;
-import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnpackage.Patch;
@@ -25,11 +30,6 @@ import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ISOImage;
 import com.redhat.rhn.manager.BaseManager;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Provides methods for downloading packages and files and getting urls
@@ -101,13 +101,13 @@ public class DownloadManager extends BaseManager {
     /**
      * Get a download path that is used to download a repo log file.
      *
-     * @param src the content source
+     * @param c the Channel
      * @param user the user
      * @return the path/url
      */
-    public static String getChannelSyncLogDownloadPath(ContentSource src,
+    public static String getChannelSyncLogDownloadPath(Channel c,
                                         User user) {
-        return getNonExpiringDownloadPath(src.getId(), src.getLabel(), user,
+        return getNonExpiringDownloadPath(c.getId(), c.getLabel(), user,
                 DownloadManager.DOWNLOAD_TYPE_REPO_LOG);
     }
 

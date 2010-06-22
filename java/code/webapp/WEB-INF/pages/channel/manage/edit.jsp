@@ -120,8 +120,25 @@
             <html:textarea property="description" cols="40" rows="6" styleId="description"/>
          </td>
       </tr>
+         <c:if test='${not empty param.cid}'>
+		<tr>
+			<th>
+				<bean:message key="channel.edit.jsp.lastsynced"/>:
+			</th>
+			<td>
+				<c:if test='${not empty log_url}'>
+					<a href='${log_url}'><c:out value='${last_sync}'/></a>
+				</c:if>
+				<c:if test='${empty log_url}'>
+					<c:out value='${last_sync}'/>
+				</c:if>
+			</td>
+		</tr>
+   </c:if>
    </table>
    
+
+
    <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
    <table class="details">
       <tr>

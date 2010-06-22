@@ -343,7 +343,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         ucc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ucc.setSupportPolicy((String)form.get("support_policy"));
         ucc.setAccess((String)form.get("org_sharing"));
-        ucc.setYumUrl((String) form.getString("yum_repo"));
         ucc.setRepoLabel((String) form.getString("repo_label"));
         if (form.get("sync_repo") != null) {
             ucc.setSyncRepo((Boolean)form.get("sync_repo"));
@@ -419,8 +418,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         ccc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ccc.setSupportPolicy((String)form.get("support_policy"));
         ccc.setAccess((String)form.get("org_sharing"));
-        ccc.setYumUrl((String) form.getString("yum_repo"));
-        ccc.setRepoLabel((String) form.getString("repo_label"));
         if (form.get("sync_repo") != null) {
             ccc.setSyncRepo((Boolean)form.get("sync_repo"));
         }
@@ -594,14 +591,9 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
 
             if (c.getSources().isEmpty()) {
-                form.set("yum_repo", "");
-                form.set("repo_label", "");
                 request.setAttribute("last_sync", "");
             }
             else {
-                ContentSource cs = c.getSources().iterator().next();
-                form.set("yum_repo", cs.getSourceUrl());
-                form.set("repo_label", cs.getLabel());
                 String lastSync = LocalizationService.getInstance().getMessage(
                         "channel.edit.repo.neversynced");
                 if (c.getLastSynced() != null) {
@@ -611,7 +603,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 request.setAttribute("last_sync", lastSync);
                 if (ChannelManager.getLatestSyncLogFile(c) != null) {
                     request.setAttribute("log_url",
-                            DownloadManager.getChannelSyncLogDownloadPath(cs,
+                            DownloadManager.getChannelSyncLogDownloadPath(c,
                                     ctx.getLoggedInUser()));
                 }
                 
