@@ -122,50 +122,6 @@
       </tr>
    </table>
    
-   
-   <h2><bean:message key="channel.edit.jsp.yumrepo"/></h2>
-   <table class="details">   
-   	<tr>
-   		<th> 
-			 <label for="yum_repo"><bean:message key="channel.edit.jsp.repourl"/>:</label>
-   		</th>
-   		<td>
-			<html:text property="yum_repo" maxlength="512" size="64" styleId="yum_repo"/>
-   		</td>
-   	</tr>
-	<tr>
-		<th>
-			 <label for="repolabel"><bean:message key="channel.edit.jsp.repolabel"/>:</label>
-		</th>
-		<td>
-			<html:text property="repo_label" maxlength="64" size="20" styleId="repolabel" />
-		</td>
-	</tr>
-   	 <c:if test='${not empty param.cid}'>
-	   	<tr>
-	   		<th>
-	   			<bean:message key="channel.edit.jsp.lastsynced"/>:
-	   		</th>
-	   		<td>
-				<c:if test='${not empty log_url}'>
-					<a href='${log_url}'><c:out value='${last_sync}'/></a>
-				</c:if>
-				<c:if test='${empty log_url}'>
-					<c:out value='${last_sync}'/>
-				</c:if>
-	   		</td>
-	   	</tr>   
-	  </c:if>
-   	<tr>
-   		<th> 
-			 <label for="sync_repo"><bean:message key="channel.edit.jsp.sync"/>:</label>
-   		</th>
-   		<td>
-			<html:checkbox property="sync_repo" styleId="sync_repo"/>
-   		</td>
-   	</tr>	  
-   </table>
-
    <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
    <table class="details">
       <tr>
