@@ -21,7 +21,7 @@
 __author__  = 'Aron Parsons <aron@redhat.com>'
 __license__ = 'GPL'
 
-import atexit, logging, os, re, readline
+import atexit, base64, logging, os, re, readline
 import sys, urllib2, xml, xmlrpclib
 
 from cmd import Cmd
@@ -1798,6 +1798,216 @@ For help for a specific command try 'help <cmd>'.
             print 'Files:'
             for file in files:
                 print '  %s' % file.get('path')
+
+####################
+
+    def help_configchannel_create(self):
+        print 'configchannel_create: Create a configuration channel'
+        print 'usage: configchannel_create'
+
+    def do_configchannel_create(self, args):
+        name = ''
+        while name == '':
+            name = self.prompt_user('Name:')
+
+        description = self.prompt_user('Description:')
+
+        if description == '':
+            description = name
+
+        self.client.configchannel.create(self.session,
+                                         name,
+                                         name,
+                                         description)
+
+####################
+
+    def help_configchannel_delete(self):
+        print 'configchannel_delete: Delete a configuration channel'
+        print 'usage: configchannel_delete CHANNEL ...'
+
+    def complete_configchannel_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_configchannel_list('', True), text)
+
+    def do_configchannel_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_configchannel_delete()
+            return
+
+        channels = args
+
+        if self.user_confirm('Delete these channels [y/N]:'):
+            self.client.configchannel.deleteChannels(self.session, channels)
+
+####################
+
+    def help_configchannel_addfile(self):
+        print 'configchannel_addfile: Create a configuration file'
+        print 'usage: configchannel_addfile CHANNEL'
+
+    def complete_configchannel_addfile(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_configchannel_list('', True), text)
+
+    def do_configchannel_addfile(self, args, path=''):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_configchannel_addfile()
+            return
+
+        channel = args[0]
+       
+        while path == '':
+            path = self.prompt_user('Path:')
+        
+        input = self.prompt_user('Directory [y/N]:')
+        if re.match('y', input, re.I):
+            directory = True
+        else:
+            directory = False
+
+        owner = self.prompt_user('Owner [root]:')
+        group = self.prompt_user('Group [root]:')
+        mode  = self.prompt_user('Permissions [644]:')
+        
+        # defaults
+        if not owner: owner = 'root'
+        if not group: group = 'root'
+        if not mode:  mode  = '644'
+        contents = ''
+        binary = False
+
+        if not directory:
+            type = 'text'
+
+            #XXX: Bugzilla 606982
+            # Satellite doesn't pick up on the base64 encoded string
+            #type = self.prompt_user('Text or binary [T/b]:')
+            
+            if re.match('b', type, re.I):
+                binary = True
+
+                contents = ''
+                while contents == '':
+                    file = self.prompt_user('File:')
+
+                    try:
+                        handle = open(file, 'rb')
+                        contents = handle.read().encode('base64')
+                        handle.close()
+                    except:
+                        contents = ''
+                        logging.debug(sys.exc_info())
+                        logging.warning('Could not read %s' % file)
+            else:
+                binary = False
+
+                template = ''
+                try:
+                    channel_files = \
+                        self.client.configchannel.listFiles(self.session, 
+                                                            channel)
+
+                    for f in channel_files:
+                        if path == f.get('path'):
+                            file_details = \
+                                self.client.configchannel.lookupFileInfo( \
+                                                                  self.session,
+                                                                  channel,
+                                                                  [ path ])
+
+                            template = file_details[0].get('contents')
+                            break
+                except:
+                    logging.warning('Could not retrieve existing contents')
+
+                contents = self.editor(template = template, delete = True)
+
+        file_info = { 'contents'    : ''.join(contents),
+                      'owner'       : owner,
+                      'group'       : group,
+                      'permissions' : mode }
+
+        print 'File:        %s' % path
+        print 'Directory:   %s' % directory
+        print 'Owner:       %s' % file_info['owner']
+        print 'Group:       %s' % file_info['group']
+        print 'Mode:        %s' % file_info['permissions']
+
+        if not directory:
+            if binary:
+                print 'Binary File: %s' % binary
+            else:
+                print
+                print 'Contents:'
+                print file_info['contents']
+
+        if self.user_confirm():
+            self.client.configchannel.createOrUpdatePath(self.session,
+                                                         channel,
+                                                         path,
+                                                         directory,
+                                                         file_info)
+
+####################
+
+    def help_configchannel_updatefile(self):
+        print 'configchannel_updatefile: Update a configuration file'
+        print 'usage: configchannel_updatefile CHANNEL FILE'
+
+    def complete_configchannel_updatefile(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_configchannel_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            channel = parts[1]
+            return self.tab_completer(self.do_configchannel_listfiles(channel,
+                                                                      True), 
+                                      text)
+
+    def do_configchannel_updatefile(self, args):
+        args = self.parse_arguments(args)
+        
+        if len(args) != 2:
+            self.help_configchannel_updatefile()
+            return
+
+        return self.do_configchannel_addfile(args[0], path=args[1])
+
+####################
+
+    def help_configchannel_removefiles(self):
+        print 'configchannel_removefile: Remove configuration files'
+        print 'usage: configchannel_removefile CHANNEL <FILE ...>'
+
+    def complete_configchannel_removefiles(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_configchannel_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            channel = parts[1]
+            return self.tab_completer(self.do_configchannel_listfiles(channel,
+                                                                      True), 
+                                      text)
+
+    def do_configchannel_removefiles(self, args):
+        args = self.parse_arguments(args)
+        
+        if len(args) < 2:
+            self.help_configchannel_removefiles()
+            return
+
+        channel = args.pop(0)
+        files = args
+
+        if self.user_confirm('Remove these files [y/N]:'):
+            self.client.configchannel.deleteFiles(self.session, channel, files)
 
 ####################
 
