@@ -1882,7 +1882,7 @@ ORDER BY P.package_arch_id DESC
 <write-mode name="insert_primary_xml">
    <query params="pid, xml">
 	update rhnPackageRepodata  
-		set primary = :xml 
+		set primary_xml = :xml
 	where package_id = :pid
    </query>
 </write-mode>
@@ -1916,7 +1916,7 @@ ORDER BY P.package_arch_id DESC
 <mode name="lookup_repodata" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="pid">
 SELECT 
-     P.package_id AS id, p.primary as primary_xml, p.other as other_xml, p.filelist as filelist_xml
+     P.package_id AS id, p.primary_xml as primary_xml, p.other as other_xml, p.filelist as filelist_xml
     from rhnPackageRepoData p
      where p.package_id = :pid   
   </query>

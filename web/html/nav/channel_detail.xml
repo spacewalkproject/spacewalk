@@ -29,6 +29,5 @@
     <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Downloads" acl="org_is_paying_customer(); channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
-  <rhn-tab name="License" acl="channel_licensed()" url="/network/software/channels/display_license.pxt" />
 </rhn-navi-tree>
 

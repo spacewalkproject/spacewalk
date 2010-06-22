@@ -17,7 +17,6 @@ package com.redhat.rhn.common.security.acl;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelVersion;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -183,24 +182,7 @@ public class ChannelAclHandler extends BaseHandler {
             return false;
         }
     }
-    
-    /**
-     * Does this channel have an associated license to be displayed?
-     * rhnChannel<--rhnChannelFamilyMembers-->rhnChannelFamily<--rhnChannelFamilyLicense 
-     * @param ctx request context (user, cid)
-     * @param params check parameters
-     * @return true if allowed, false else
-     */
-    public boolean aclChannelLicensed(Object ctx, String[] params) {
-        HashMap ctxMap = (HashMap)ctx;
-        User usr = (User)ctxMap.get(USER);
-        Channel chan = getChannel(usr, ctxMap);
-        return (chan != null && 
-                chan.getChannelFamily() != null && 
-                ChannelFamilyFactory.lookupLicense(
-                        chan.getChannelFamily().getId()) != null);
-    }
-    
+
     /**
      * Does the channel have anything to download?
      * @param ctx request context (user,cid)

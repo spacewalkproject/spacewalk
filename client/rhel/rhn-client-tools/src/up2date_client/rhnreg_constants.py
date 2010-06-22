@@ -162,9 +162,9 @@ CHANNELS_SAT_WARNING    = _("Warning: If an installed product on this system "
                             "login to your satellite web interface "
                             "and subscribe this system to the appropriate "
                             "software channels to get updates for that "
-                            "product. See Kbase article 6227 "
+                            "product. See Kbase article 11313 "
                             "for more details. "
-                            "(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)")
+                            "(http://kbase.redhat.com/faq/docs/DOC-11313)")
 CHANNELS_HOSTED_WARNING = _("Warning: If an installed product on this system "
                             "is not listed above, you "
                             "will not receive updates or support for that "
@@ -173,9 +173,9 @@ CHANNELS_HOSTED_WARNING = _("Warning: If an installed product on this system "
                             "visit http://rhn.redhat.com/ "
                             "and subscribe this system to the appropriate "
                             "software channels to get updates for that "
-                            "product. See Kbase article 6227 "
+                            "product. See Kbase article 11313 "
                             "for more details. "
-                            "(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)")
+                            "(http://kbase.redhat.com/faq/docs/DOC-11313)")
 FAILED_CHANNELS         = _("You were unable to be subscribed to the following "
                             "software channels because there were insufficient "
                             "subscriptions available in your account:")

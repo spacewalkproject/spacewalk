@@ -66,19 +66,6 @@ sub hits {
   return @{$self->{hits}};
 }
 
-sub deserialize {
-  my $class = shift;
-  my $str = shift;
-
-  no strict;
-  my $trace = eval $str;
-  use strict;
-
-  die "Error parsing trace data: $@" unless $trace and ref($trace) and $trace->isa("PXT::Trace");
-
-  return $trace;
-}
-
 sub serialize {
   my $self = shift;
 

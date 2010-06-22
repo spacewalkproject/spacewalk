@@ -868,10 +868,8 @@ SELECT  DISTINCT C.id,
                  C.label,
                  C.name,
                  C.summary,
-                 CFL.channel_family_id AS HAS_LICENSE,
                  C.gpg_key_url
-  FROM  rhnChannelFamilyLicense CFL,
-        rhnChannelFamilyMembers CFM,
+  FROM  rhnChannelFamilyMembers CFM,
         rhnChannel C,
   rhnUserChannel UC
  WHERE  UC.user_id = :user_id
@@ -881,7 +879,6 @@ SELECT  DISTINCT C.id,
    AND  C.id = CFM.channel_id
    AND  C.parent_channel IS NOT NULL
    AND  NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = :server_id AND channel_id = C.id)
-   AND  CFM.channel_family_id = CFL.channel_family_id (+)
   </query>
 </mode>
 

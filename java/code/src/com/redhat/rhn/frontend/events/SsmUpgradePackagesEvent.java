@@ -14,13 +14,11 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-
 import com.redhat.rhn.common.messaging.EventMessage;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Event fired to carry the information necessary to upgrade packages on servers in the
@@ -32,23 +30,25 @@ public class SsmUpgradePackagesEvent implements EventMessage {
 
     private Long userId;
     private Date earliest;
-    private DataResult result;
-    private List<Map<String, Long>> packageListItems;
+    private  Map<Long, List<Map<String, Long>>> sysPackageSet;
 
     /**
      * Creates a new SSM upgrade packages event.
      *
      * @param userIdIn ID of user scheduling this action.
      * @param earliestIn Earliest data action can be picked up.
-     * @param resultIn Complex map of which packages we're upgrading on which servers.
-     * @param listIn packages to upgrade
+     * @param sysPackageSetIn Complex map of:
+     *          system id-> List
+     *                          Map
+     *                              name_id -> long
+     *                              evr_id -> long
+     *                              arch_id -> long
      */
     public SsmUpgradePackagesEvent(Long userIdIn, Date earliestIn,
-                                   DataResult resultIn, List<Map<String, Long>> listIn) {
+            Map<Long, List<Map<String, Long>>> sysPackageSetIn) {
         userId = userIdIn;
         earliest = earliestIn;
-        result = resultIn;
-        packageListItems = listIn;
+        sysPackageSet = sysPackageSetIn;
     }
 
     /** {@inheritDoc} */
@@ -79,22 +79,12 @@ public class SsmUpgradePackagesEvent implements EventMessage {
         return this.earliest;
     }
 
-    /**
-     * Gets the result for this instance.
-     *
-     * @return The result.
-     */
-    public DataResult getResult() {
-        return this.result;
-    }
 
     /**
-     * Gets the packages to upgrade.
-     *
-     * @return list suitable for scheduling upgrade actions
+     * @return Returns the sysPackageSet.
      */
-    public List<Map<String, Long>> getPackageListItems() {
-        return packageListItems;
+    public Map<Long, List<Map<String, Long>>> getSysPackageSet() {
+        return sysPackageSet;
     }
 }
 

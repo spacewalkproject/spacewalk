@@ -50,18 +50,18 @@ function refreshNotifFields() {
     </tr>
     </c:if>
     <tr>
-      <th><bean:message key="probeedit.jsp.description" /></th>
-      <td colspan="3"><html:text property="description" maxlength="100" size="50" /></td>
+      <th><label for="description"><bean:message key="probeedit.jsp.description" /></label></th>
+      <td colspan="3"><html:text property="description" maxlength="100" size="50" styleId="description"/></td>
     </tr>
     <tr>
-      <th><bean:message key="probeedit.jsp.notification" /></th>
-      <td colspan="3"><html:checkbox onclick="refreshNotifFields()" property="notification" /></td>
+      <th><label for="notification"><bean:message key="probeedit.jsp.notification" /></label></th>
+      <td colspan="3"><html:checkbox onclick="refreshNotifFields()" property="notification" styleId="notification"/></td>
     </tr>
       <tr>
-        <th><bean:message key="probeedit.jsp.notifmin" /></th>
+        <th><label for="notifmin"><bean:message key="probeedit.jsp.notifmin" /></label></th>
         <td colspan="3">
             <html:select property="notification_interval_min" 
-                  disabled="${not probeEditForm.map.notification}">
+                  disabled="${not probeEditForm.map.notification}" styleId="notifmin">
               <html:options collection="intervals"
                 property="value"
                 labelProperty="label" />
@@ -69,9 +69,9 @@ function refreshNotifFields() {
         </td>
       </tr>
       <tr>
-        <th><bean:message key="probeedit.jsp.notifmethod" /></th>
+        <th><label for="notifmethod"><bean:message key="probeedit.jsp.notifmethod" /></label></th>
         <td colspan="3"><html:select property="contact_group_id"
-                  disabled="${not probeEditForm.map.notification}">
+                  disabled="${not probeEditForm.map.notification}" styleId="notifmethod">
               <html:options collection="contactGroups"
                 property="value"
                 labelProperty="label" />
@@ -79,9 +79,9 @@ function refreshNotifFields() {
         </td>
       </tr>
     <tr>
-      <th><bean:message key="probeedit.jsp.checkinterval" /></th>
+      <th><label for="checkinterval"><bean:message key="probeedit.jsp.checkinterval" /></label></th>
       <td colspan="3">
-        <html:select property="check_interval_min">
+        <html:select property="check_interval_min" styleId="checkinterval">
               <html:options collection="intervals"
                 property="value"
                 labelProperty="label" />

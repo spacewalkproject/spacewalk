@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.21
+Version: 1.1.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -29,7 +29,8 @@ Requires(pre): httpd
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
 Obsoletes: rhns < 5.3.0
-Provides: rhns = %{version}-%{release}
+Provides: rhns = 1:%{version}-%{release}
+Provides: rhns-common = 1:%{version}-%{release}
 
 %description 
 Generic program files needed by the Spacewalk server machines.
@@ -41,7 +42,7 @@ Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql < 5.3.0
-Provides: rhns-sql = %{version}-%{release}
+Provides: rhns-sql = 1:%{version}-%{release}
 
 %description sql
 This package contains the basic code that provides SQL connectivity for the Spacewalk
@@ -53,7 +54,7 @@ Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
-Provides: rhns-server = %{version}-%{release}
+Provides: rhns-server = 1:%{version}-%{release}
 
 %if  0%{?rhel} && 0%{?rhel} < 6
 Requires: mod_python
@@ -75,7 +76,7 @@ Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = %{version}-%{release}
-Provides: rhns-xmlrpc = %{version}-%{release}
+Provides: rhns-xmlrpc = 1:%{version}-%{release}
 
 %description xmlrpc
 These are the files required for running the /XMLRPC handler, which
@@ -87,7 +88,7 @@ Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-applet < 5.3.0
-Provides: rhns-applet = %{version}-%{release}
+Provides: rhns-applet = 1:%{version}-%{release}
 
 %description applet
 These are the files required for running the /APPLET handler, which
@@ -99,8 +100,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
-Provides: rhns-server-app = %{version}-%{release}
-Provides: rhns-app = %{version}-%{release}
+Provides: rhns-server-app = 1:%{version}-%{release}
+Provides: rhns-app = 1:%{version}-%{release}
 
 %description app
 These are the files required for running the /APP handler.
@@ -112,8 +113,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
 Obsoletes: rhns-xp < 5.3.0
-Provides: rhns-server-xp = %{version}-%{release}
-Provides: rhns-xp = %{version}-%{release}
+Provides: rhns-server-xp = 1:%{version}-%{release}
+Provides: rhns-xp = 1:%{version}-%{release}
 
 %description xp
 These are the files required for running the /XP handler.
@@ -124,7 +125,7 @@ Summary: Handler for /SAT
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-sat < 5.3.0
-Provides: rhns-sat = %{version}-%{release}
+Provides: rhns-sat = 1:%{version}-%{release}
 
 %description iss
 %{name} contains the basic code that provides server/backend
@@ -163,7 +164,7 @@ Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-config-files-common < 5.3.0
-Provides: rhns-config-files-common = %{version}-%{release}
+Provides: rhns-config-files-common = 1:%{version}-%{release}
 
 %description config-files-common
 Common files required by the Configuration Management project
@@ -173,7 +174,7 @@ Summary: Handler for /CONFIG-MANAGEMENT
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files < 5.3.0
-Provides: rhns-config-files = %{version}-%{release}
+Provides: rhns-config-files = 1:%{version}-%{release}
 
 %description config-files
 This package contains the server-side code for configuration management.
@@ -183,7 +184,7 @@ Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files-tool < 5.3.0
-Provides: rhns-config-files-tool = %{version}-%{release}
+Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
 %description config-files-tool
 This package contains the server-side code for configuration management tool.
@@ -193,7 +194,7 @@ Summary: Server-side listener for rhn-pkgupload
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-upload-server < 5.3.0
-Provides: rhns-upload-server = %{version}-%{release}
+Provides: rhns-upload-server = 1:%{version}-%{release}
 
 %description upload-server
 Server-side listener for rhn-pkgupload
@@ -203,7 +204,7 @@ Summary: Listener for rhnpush (non-XMLRPC version)
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-package-push-server < 5.3.0
-Provides: rhns-package-push-server = %{version}-%{release}
+Provides: rhns-package-push-server = 1:%{version}-%{release}
 
 %description package-push-server
 Listener for rhnpush (non-XMLRPC version)
@@ -229,7 +230,7 @@ Requires: rhnlib  >= 2.5.22
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
-Provides: rhns-satellite-tools = %{version}-%{release}
+Provides: rhns-satellite-tools = 1:%{version}-%{release}
 
 %description tools
 Various utilities for the Red Hat Network Satellite Server.
@@ -239,7 +240,7 @@ Summary: Red Hat Network XML data exporter
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-xml-export-libs < 5.3.0
-Provides: rhns-xml-export-libs = %{version}-%{release}
+Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
 %description xml-export-libs
 Libraries required by various exporting tools
@@ -325,7 +326,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/rhnTranslate.py*
 %{rhnroot}/common/UserDictCase.py*
 %{rhnroot}/common/RPC_Base.py*
-%attr(770,root,apache) %dir %{_var}/log/rhn
+%dir %{_var}/log/rhn
 # config files
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
@@ -631,6 +632,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jun 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.22-1
+- fix rpmlint warning (msuchy@redhat.com)
+- fix rpmlint warning (msuchy@redhat.com)
+- fix rpmlint warning (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- remove shebang from module (msuchy@redhat.com)
+- fixed wording for incompatible checksum error (michael.mraka@redhat.com)
+- l10n: Updates to Russian (ru) translation (ypoyarko@fedoraproject.org)
+
 * Wed Jun 09 2010 Justin Sherrill <jsherril@redhat.com> 1.1.21-1
 - 600323 - fixing checksums KeyError with rhnpush and channel association
   (jsherril@redhat.com)

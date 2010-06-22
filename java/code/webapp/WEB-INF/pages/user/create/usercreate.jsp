@@ -37,33 +37,33 @@
 
   <table class="details" align="center">
     <tr>
-      <th><rhn:required-field key="desiredlogin"/>:</th>
+      <th><label for="login"><rhn:required-field key="desiredlogin"/>:</label></th>
       <td>
-        <html:text property="login" size="15" maxlength="${loginLength}"/>
+        <html:text property="login" size="15" maxlength="${loginLength}" styleId="login"/>
       </td>
     </tr>
     <tr>
-      <th><bean:message key="desiredpass" />
-       <span name="password-asterisk" class="required-form-field">*</span>:</th>
+      <th><label for="desiredpass"><bean:message key="desiredpass" />
+       <span name="password-asterisk" class="required-form-field">*</span>:</th></label>
       <td>
         <html:password property="desiredpassword" size="15" maxlength="${passwordLength}"/>
       </td>
     </tr>
     <tr>
-      <th><bean:message key="confirmpass" />
-      <span name="password-asterisk" class="required-form-field">*</span>:</th>
+      <th><label for="confirmpass"><bean:message key="confirmpass" />
+      <span name="password-asterisk" class="required-form-field">*</span>:</label></th>
       <td>
-        <html:password property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}"/>
+        <html:password property="desiredpasswordConfirm" size="15" maxlength="${passwordLength}" styleId="confirmpass"/>
       </td>
     </tr>
     <c:if test="${displaypam == 'true' && account_type != 'create_sat'}">
       <tr>
-        <th><bean:message key="usercreate.jsp.pam"/></th>
+        <th><label for="pam"><bean:message key="usercreate.jsp.pam"/></label></th>
         <td>
           <c:choose>
             <c:when test="${displaypamcheckbox == 'true'}">
-            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')"/> 
-            <bean:message key="usercreate.jsp.pam.instructions"/> <br/>
+            <html:checkbox property="usepam" onclick="toggleVisibilityByName('password-asterisk')" styleId="pam"/> 
+            <label for="pam"><bean:message key="usercreate.jsp.pam.instructions"/></label> <br/>
             <strong><span style="font-size: 10px">
                 <bean:message key="usercreate.jsp.pam.instructions.note"/>
             </span></strong>
@@ -80,7 +80,7 @@
   <h2><bean:message key="usercreate.accountInfo" /></h2>
   <table class="details" align="center">
     <tr>
-      <th><rhn:required-field key="usercreate.names"/>:</th>
+      <th><label for="firstNames"><rhn:required-field key="usercreate.names"/>:</th></label>
       <td>
         <html:select property="prefix">
           <html:options collection="availablePrefixes"
@@ -88,15 +88,15 @@
             labelProperty="label" />
         </html:select>
 
-        <html:text property="firstNames" size="15" maxlength="${firstNameLength}"/>
+        <html:text property="firstNames" size="15" maxlength="${firstNameLength}" styleId="firstNames"/>
         <html:text property="lastName" size="15" maxlength="${lastNameLength}"/>
       </td>
     </tr>
 
     <tr>
-       <th><rhn:required-field key="email"/>:</th>
+       <th><label for="email"><rhn:required-field key="email"/>:</label></th>
        <td>
-           <html:text property="email" size="20" maxlength="${emailLength}"/>
+           <html:text property="email" size="20" maxlength="${emailLength}" styleId="email"/>
        </td>
     </tr>
 <html:hidden property="account_type" value="${account_type}" />

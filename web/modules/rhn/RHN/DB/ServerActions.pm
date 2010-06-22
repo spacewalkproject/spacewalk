@@ -22,42 +22,6 @@ use RHN::DB ();
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
-sub channel_license_consent_for_set {
-  my $class = shift;
-  my $set = shift;
-  my $channel_id = shift;
-  my $user_id = shift;
-  my $transaction = shift;
-
-  my $query = <<EOQ;
-INSERT INTO rhnChannelFamilyLicenseConsent (channel_family_id, user_id, server_id)
-SELECT CFM.channel_family_id, ?, SC.server_id
-  FROM rhnChannelFamilyLicense CFL,
-       rhnChannelFamilyMembers CFM,
-       rhnServerChannel SC,
-       rhnChannel C,
-       rhnSet ST
- WHERE ST.user_id = ?
-   AND ST.label = ?
-   AND C.id = ?
-   AND ST.element = SC.server_id
-   AND SC.channel_id = C.parent_channel
-   AND C.id = CFM.channel_id
-   AND CFM.channel_family_id = CFL.channel_family_id
-   AND CFL.license_path IS NOT NULL
-   AND NOT EXISTS (SELECT user_id FROM rhnChannelFamilyLicenseConsent WHERE channel_family_id = CFM.channel_family_id AND server_id = SC.server_id)
-EOQ
-
-  my $dbh = RHN::DB->connect();
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute($user_id, $user_id, $set->label, $channel_id);
-
-  $dbh->commit unless $transaction;
-
-  return $dbh;
-}
-
 sub assign_set_to_group {
   my $class = shift;
   my $set = shift;

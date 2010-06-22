@@ -147,25 +147,6 @@ sub is_protected {
   return ($self->channel_access() eq 'protected') ? 1 : 0; 
 }
 
-sub license_path {
-  my $self = shift;
-  my $cid;
-
-  if (ref $self) {
-    $cid = $self->id;
-  }
-  else {
-    $cid = shift;
-  }
-
-  undef $self;
-  die "No channel id" unless defined $cid;
-
-  my $dbh = RHN::DB->connect;
-
-  return $dbh->call_function('rhn_channel.get_license_path', $cid);
-}
-
 sub parent {
   my $self = shift;
   my $channel = shift;
@@ -341,34 +322,6 @@ sub proxy_channels_by_version {
   }
 
   return @{$proxy_chans_by_version{$params{version}}};
-}
-
-
-sub available_channels_with_license {
-  my $class = shift;
-  my $org_id = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT AC.channel_id, AC.channel_label, AC.channel_name
-  FROM rhnChannelFamilyLicense CFL, rhnChannelFamilyMembers CFM, rhnAvailableChannels AC
- WHERE AC.org_id = ?
-   AND AC.channel_id = CFM.channel_id
-   AND CFM.channel_family_id = CFL.channel_family_id
-ORDER BY UPPER(AC.channel_name)
-EOQ
-
-  my $sth = $dbh->prepare($query);
-  $sth->execute($org_id);
-
-  my @ret;
-
-  while (my @row = $sth->fetchrow) {
-    push @ret, [ @row ];
-  }
-
-  return @ret;
 }
 
 sub has_downloads {
@@ -1001,46 +954,6 @@ EOQ
   $sth->finish;
 
   return $progenitor;
-}
-
-sub relationships {
-  my $self = shift;
-
-  my $dbh = RHN::DB->connect;
-
-  my $query = <<EOQ;
-SELECT CC.original_id, 'cloned_from', 'was cloned from'
-  FROM rhnChannelCloned CC
- WHERE CC.id = :cid
-EOQ
-
-  my $sth = $dbh->prepare($query);
-
-  $sth->execute_h(cid => $self->id);
-
-  my %ret;
-
-  while (my ($id, $label, $descrip) = $sth->fetchrow) {
-    $ret{$self->id}->{$label}->{description} = $descrip;
-    push @{$ret{$self->id}->{$label}->{channels}}, $id;
-  }
-
-  $query = <<EOQ;
-SELECT CC.id, 'cloned_from', 'was cloned from'
-  FROM rhnChannelCloned CC
- WHERE CC.original_id = :cid
-EOQ
-
-  $sth = $dbh->prepare($query);
-
-  $sth->execute_h(cid => $self->id);
-
-  while (my ($id, $label, $descrip) = $sth->fetchrow) {
-    $ret{$id}->{$label}->{description} = $descrip;
-    push @{$ret{$id}->{$label}->{channels}}, $self->id;
-  }
-
-  return %ret;
 }
 
 sub remove_packages_in_set {

@@ -28,16 +28,16 @@
       <table class="details">
         <tr>
             <th>
-                <bean:message key="general.jsp.monitoring_scout"/>
+                <label for="is_monitoring_scout"><bean:message key="general.jsp.monitoring_scout"/></label>
             </th>
             <td>
-                <html:checkbox property="is_monitoring_scout" />
+                <html:checkbox property="is_monitoring_scout" styleId="is_monitoring_scout" />
             </td>
         </tr>
         <c:forEach items="${configList}" var="config">
           <tr>
-            <th>${config.description}</th>
-            <td><input type="text" size="30" name="${config.name}" value="${config.value}" maxlength="255" /></td>
+            <th><label for="${config.name}">${config.description}</label></th>
+            <td><input type="text" size="30" name="${config.name}" value="${config.value}" maxlength="255" styleId="${config.name}" /></td>
           </tr>
         </c:forEach>
         
