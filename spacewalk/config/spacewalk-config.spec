@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 1.1.2
+Version: 1.1.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -102,6 +102,9 @@ EOF
 
 
 %changelog
+* Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
+- The satellite-httpd service is no more.
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.2-1
 - bumping spec files to 1.1 packages
 

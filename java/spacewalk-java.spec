@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.13
+Version: 1.1.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,12 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 21 2010 Jan Pazdziora 1.1.14-1
+- updating rhnPackageRepodata table to not use a reserved word.
+  (jsherril@redhat.com)
+- Fixed a typo in the previous commit (paji@redhat.com)
+- Good Bye Channel License Code (paji@redhat.com)
+
 * Fri Jun 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.13-1
 - implement <label> for form fields - sdc/details.jsp (msuchy@redhat.com)
 - implement <label> for form fields - user/create/usercreate.jsp

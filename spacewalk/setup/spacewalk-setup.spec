@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.2
+Version:        1.1.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
+- Minor fixes for PostgreSQL code paths.
+- Unused code cleanup.
+
 * Thu Jun 17 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
 - fun aside, swimmer meet shark (msuchy@redhat.com)
 
