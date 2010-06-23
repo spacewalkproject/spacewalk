@@ -1116,7 +1116,7 @@ sub write_config {
   my $options = shift;
   my $target = shift || Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
 
-  my @opt_strings = map { "--option=${_}=" . $options->{$_} } keys %{$options};
+  my @opt_strings = map { "--option=${_}=" . $options->{$_} } grep { defined $options->{$_} } keys %{$options};
 
   Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-satellite.pl",
 		   "--target=$target",
