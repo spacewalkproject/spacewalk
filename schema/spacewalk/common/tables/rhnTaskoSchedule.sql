@@ -23,7 +23,6 @@ CREATE TABLE rhnTaskoSchedule
                         CONSTRAINT rhn_tasko_schedule_bunch_fk
                         REFERENCES rhnTaskoBunch (id),
     org_id          NUMBER,
-    active          VARCHAR2(1),
     active_from     DATE,
     active_till     DATE,
     cron_expr       VARCHAR2(20),

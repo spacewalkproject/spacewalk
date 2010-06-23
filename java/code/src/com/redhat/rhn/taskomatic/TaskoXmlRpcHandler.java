@@ -16,7 +16,6 @@ package com.redhat.rhn.taskomatic;
 
 import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
-import org.hibernate.HibernateException;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
@@ -29,11 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskoXmlRpcHandler {
-
-    private Boolean checkUniqueName(String name, String group) throws SchedulerException {
-        return ((SchedulerKernel.getScheduler().getTrigger(name, group) == null) &&
-        (SchedulerKernel.getScheduler().getJobDetail(name, group) == null));
-    }
 
     public int one(Integer orgId) {
         return 1;
@@ -51,26 +45,14 @@ public class TaskoXmlRpcHandler {
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
-        try {
-            TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
-            // create schedule
-            TaskoSchedule schedule = null;
-            try {
-                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
-                        startTime, endTime, cronExpression);
-                TaskoFactory.save(schedule);
-                TaskoFactory.commitTransaction();
-            }
-            catch (HibernateException he) {
-                TaskoFactory.rollbackTransaction();
-                return null;
-            }
-            // create job
-            return createJob(schedule);
-        }
-        catch (SchedulerException e) {
-            return null;
-        }
+        TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        // create schedule
+        TaskoSchedule schedule = null;
+        schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
+                startTime, endTime, cronExpression);
+        TaskoFactory.save(schedule);
+        // create job
+        return createJob(schedule);
     }
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
@@ -82,29 +64,15 @@ public class TaskoXmlRpcHandler {
 
     private TaskoBunch doBasicCheck(Integer orgId, String bunchName,
             String jobLabel)
-        throws NoSuchBunchTaskException, SchedulerException,
-        InvalidParamException {
+        throws NoSuchBunchTaskException, InvalidParamException {
         TaskoBunch bunch = checkBunchName(bunchName);
-        if (!checkUniqueName(jobLabel, orgId.toString())) {
+        if (TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel) != null) {
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
     }
 
     public Integer unscheduleBunch(Integer orgId, String jobLabel) throws InvalidParamException {
-        /*
-        try {
-            Trigger trigger = SchedulerKernel.getScheduler().getTrigger(
-                    jobLabel, orgId.toString());
-            Trigger newTrigger = (Trigger) trigger.clone();
-            newTrigger.setEndTime(new Date());
-            SchedulerKernel.getScheduler().rescheduleJob(jobLabel, orgId.toString(),
-                    newTrigger);
-        }
-        catch (SchedulerException e) {
-                throw new NoSuchTaskoTriggerException();
-        }
-        */
         TaskoSchedule schedule =
             TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
         Trigger trigger;
@@ -121,10 +89,7 @@ public class TaskoXmlRpcHandler {
             throw new InvalidParamException("No such jobLabel");
         }
         if (schedule != null) {
-            Transaction trns = TaskoFactory.getSession().beginTransaction();
             schedule.unschedule();
-            TaskoFactory.save(schedule);
-            trns.commit();
         }
         if (trigger != null) {
             return destroyJob(orgId, jobLabel);
@@ -136,26 +101,14 @@ public class TaskoXmlRpcHandler {
             Map params, Date start)
             throws NoSuchBunchTaskException,
                    InvalidParamException {
-        try {
-            TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
-            // create schedule
-            TaskoSchedule schedule = null;
-            try {
-                schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
-                        start, null, "");
-                TaskoFactory.save(schedule);
-                TaskoFactory.commitTransaction();
-            }
-            catch (HibernateException he) {
-                TaskoFactory.rollbackTransaction();
-                return null;
-            }
-            // create job
-            return createJob(schedule);
-        }
-        catch (SchedulerException e) {
-            return null;
-        }
+        TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        // create schedule
+        TaskoSchedule schedule = null;
+        schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
+                start, null, "");
+        TaskoFactory.save(schedule);
+        // create job
+        return createJob(schedule);
     }
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
@@ -234,9 +187,8 @@ public class TaskoXmlRpcHandler {
         return TaskoFactory.listSchedulesByOrg(orgId);
     }
 
-    public List<TaskoRun> listScheduleRuns(Integer orgId, Long scheduleId) throws InvalidParamException {
-        TaskoSchedule schedule = TaskoFactory.getScheduleByOrgAndId(orgId, scheduleId);
-        return schedule.getRuns();
+    public List<TaskoRun> listScheduleRuns(Integer orgId, Integer scheduleId) {
+        return TaskoFactory.getRunsByOrgAndSchedule(orgId, scheduleId);
     }
 
     public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)

@@ -19,6 +19,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             column="bunch_id"/>
         <many-to-one
             name="task"
+            lazy="false"
             class="com.redhat.rhn.taskomatic.TaskoTask"
             column="task_id"/>
         <property name="ordering" type="long" column="ordering"/>
