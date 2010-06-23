@@ -2402,7 +2402,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_errata_apply(self):
         print 'errata_apply: Apply an errata to all affected systems' 
-        print 'usage: errata_apply ERRATA ...'
+        print 'usage: errata_apply ERRATA|search:XXX ...'
 
     def complete_errata_apply(self, text, line, begidx, endidx):
         self.generate_errata_cache()
@@ -2415,14 +2415,22 @@ For help for a specific command try 'help <cmd>'.
             self.help_errata_apply()
             return
 
+        errata_list = []
+        for a in args:
+            if re.match('search:', a):
+                a = re.sub('search:', '', a)
+                errata_list.extend(self.do_errata_search(a, True))
+            else:
+                errata_list.append(a)
+
         self.generate_errata_cache()
-        errata_list = self.filter_results(self.all_errata, args)
+        errata_list = self.filter_results(self.all_errata, errata_list)
 
         errata_to_remove = []    
 
         add_separator = False
 
-        for errata in errata_list:
+        for errata in sorted(errata_list, reverse = True):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
@@ -2444,8 +2452,12 @@ For help for a specific command try 'help <cmd>'.
         # remove errata that didn't have any affected systems
         for errata in errata_to_remove:
             errata_list.remove(errata)
-            
-        if not self.user_confirm('Apply these errata [y/N]:'): return
+           
+        if len(errata_list): 
+            if not self.user_confirm('Apply these errata [y/N]:'): return
+        else:
+            logging.warning('No errata selected')
+            return
 
         for errata in errata_list: 
             systems = self.client.errata.listAffectedSystems(self.session, 
@@ -2635,7 +2647,12 @@ For help for a specific command try 'help <cmd>'.
             add_separator = True
 
             if len(errata):
-                map(self.print_errata_summary, sorted(errata, reverse=True))
+                if doreturn:
+                    return [ e['advisory_name'] for e in errata ]
+                else:
+                    map(self.print_errata_summary, sorted(errata, reverse=True))
+            else:
+                return []
 
 ####################
 
