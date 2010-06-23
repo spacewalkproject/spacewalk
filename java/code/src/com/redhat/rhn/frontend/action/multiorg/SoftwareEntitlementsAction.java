@@ -14,17 +14,19 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  * SoftwareEntitlementsAction
  * @version $Rev$
  */
-public class SoftwareEntitlementsAction extends RhnAction {
+public class SoftwareEntitlementsAction extends RhnAction implements Listable {
 
     /**
      * ${@inheritDoc}
@@ -44,17 +46,19 @@ public class SoftwareEntitlementsAction extends RhnAction {
         
         RequestContext requestContext = new RequestContext(request);   
         User u = requestContext.getLoggedInUser();        
-        
-        DataList<MultiOrgEntitlementsDto> result = 
-                                    ChannelManager.entitlementsForAllMOrgs();            
-        
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
         Long orgCount = OrgManager.getTotalOrgCount(u);
-        
         request.setAttribute("orgCount", orgCount);
-        request.setAttribute("pageList", result);
-        request.setAttribute("parentUrl", request.getRequestURI());
         
         return mapping.findForward("default");
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext contextIn) {
+        return ChannelManager.entitlementsForAllMOrgs();
     }
     
 }

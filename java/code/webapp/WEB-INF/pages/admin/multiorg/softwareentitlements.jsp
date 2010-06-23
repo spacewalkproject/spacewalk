@@ -22,15 +22,27 @@
 
 <p/>
 
+<c:choose>
+	<c:when test = "${orgCount > 1}">
+		<c:set var = "countstyle" value= ""/>
+		<c:set var = "usagestyle" value = "last-column"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var = "countstyle" value= "last-column"/>
+		<c:set var = "usagestyle" value = ""/>
+	</c:otherwise>
+</c:choose>
+
+
+
 <rl:listset name="entitlementSet">
-    <rl:list dataset="pageList"
-             width="100%"
-             name="pageList"
-             filter="com.redhat.rhn.frontend.action.multiorg.SoftwareEntitlementsFilter"
+    <rl:list 
              styleclass="list"             
-             emptykey="softwareentitlements.noentitlements">           
-        <rl:column bound="false" 
-            sortable="false" 
+             emptykey="softwareentitlements.noentitlements">
+                        
+        <rl:column 
+            sortattr="name"
+            filterattr="name" 
             headerkey="softwareentitlements.header.entitlement.name" 
             styleclass="first-column"
             >  
@@ -39,26 +51,61 @@
             </a>                         
         </rl:column>
 
-        <rl:column bound="false" 
-            sortable="false" 
-            headerkey="softwareentitlements.header.total">
-           ${current.total}
+        <rl:column 
+            headertext="${rhn:localize('Regular Counts')} <br/> (${rhn:localize('Available/Total')}*)">
+            <c:choose>
+            	<c:when test="${empty current.total or current.total == 0}">
+            		<bean:message key="softwareentitlements.noentitlements"/>
+				</c:when>            		
+            	<c:otherwise>
+          				${current.available} / ${current.total}
+            	</c:otherwise>
+            </c:choose>            
         </rl:column>                    
+         
+        <c:if test="${orgCount > 1}"> 
+        <rl:column headerkey="Regular Usage">
+            <c:choose>
+            	<c:when test="${empty current.allocated or current.allocated == 0}">
+            		<bean:message key="None Allocated"/>
+            	</c:when>	
+            	<c:otherwise>
+            	<bean:message key="softwareentitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>
+            	</c:otherwise>            	
+            </c:choose>                    
+        </rl:column>                 
+        </c:if>
 
-        <rl:column bound="false" 
-            sortable="false" 
-            headerkey="softwareentitlements.header.available">
-           ${current.available}
-        </rl:column>
+        <rl:column 
+        	styleclass="${countstyle}"
+            headertext="${rhn:localize('Flex Counts')} <br/> (${rhn:localize('Available/Total')}*)">
+            <c:choose>
+            	<c:when test="${empty current.totalFlex or current.totalFlex == 0}">
+            		<bean:message key="softwareentitlements.noentitlements"/>
+				</c:when>            		
+            	<c:otherwise>
+          				${current.availableFlex} / ${current.totalFlex}
+            	</c:otherwise>
+            </c:choose>
+        </rl:column>                    
          
         <c:if test="${orgCount > 1}"> 
         <rl:column bound="false" 
-            sortable="false" 
-            headerkey="softwareentitlements.header.usage" 
-            styleclass="last-column">            
-          <bean:message key="softwareentitlements.usagedata" arg0="${current.used}" arg1="${current.allocated}" arg2="${current.ratio}"/>          
+            headerkey="Flex Usage" 
+            styleclass="${usagestyle}">
+            <c:choose>
+            	
+            	<c:when test="${empty current.allocatedFlex or current.allocatedFlex == 0}">
+            		<bean:message key="None Allocated"/>
+            	</c:when>
+            	<c:otherwise>
+          <bean:message key="softwareentitlements.usagedata" arg0="${current.usedFlex}" arg1="${current.allocatedFlex}" arg2="${current.flexRatio}"/>
+            	</c:otherwise>            	
+            </c:choose>
+                        
+                    
         </rl:column>                 
-        </c:if>             
+        </c:if>
 
     </rl:list>
 </rl:listset>
