@@ -49,7 +49,7 @@ public class TaskoRunSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("id", run.getId());
-        helper.add("job_label", run.getJobLabel());
+        helper.add("schedule_id", run.getScheduleId());
         helper.add("task", run.getTemplate().getTask().getName());
         helper.add("start_time", run.getStartTime());
         helper.add("end_time", run.getEndTime());

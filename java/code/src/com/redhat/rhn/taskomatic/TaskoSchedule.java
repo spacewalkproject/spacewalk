@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.quartz.Job;
@@ -27,15 +29,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 public class TaskoSchedule implements Job {
-    private static final String TASKO_SCHEDULE_ACTIVE = "Y";
+
     private static Logger log = Logger.getLogger(TaskoBunch.class);
     private static Map<String, Integer> tasks = new HashMap<String, Integer>();
 
@@ -43,12 +43,10 @@ public class TaskoSchedule implements Job {
     private String jobLabel;
     private TaskoBunch bunch;
     private Integer orgId;
-    private String active;
     private Date activeFrom;
     private Date activeTill;
     private String cronExpr;
     private byte[] data;
-    private List<TaskoRun> runs = new ArrayList<TaskoRun>();
     private Date created;
     private Date modified;
 
@@ -67,7 +65,6 @@ public class TaskoSchedule implements Job {
         setBunch(bunchIn);
         setJobLabel(jobLabelIn);
         data = serializeMap(dataIn);
-        setActive(TASKO_SCHEDULE_ACTIVE);
         setCronExpr(cronExprIn);
         if (activeFromIn == null) {
             setActiveFrom(new Date());
@@ -125,8 +122,10 @@ public class TaskoSchedule implements Job {
                     }
                 }
                 markTaskRunning(template.getTask());
-                TaskoRun taskRun = new TaskoRun(this.orgId, template, this.jobLabel);
+                TaskoRun taskRun = new TaskoRun(this.orgId, template, this.id);
+                TaskoFactory.save(taskRun);
                 taskRun.execute(context);
+                TaskoFactory.commitTransaction();
                 unmarkTaskRunning(template.getTask());
                 log.debug(template.getTask().getName() + " ... " + taskRun.getStatus());
                 previousRun = taskRun;
@@ -136,14 +135,13 @@ public class TaskoSchedule implements Job {
                 break;
             }
         }
-        TaskoFactory.commitTransaction();
+        HibernateFactory.closeSession();
 
         log.info("Finishing " + bunch.getName() + " (" + jobLabel + ") at " + new Date());
     }
 
     public void unschedule() {
         setActiveTill(new Date());
-        setActive(null);
     }
 
     private byte[] serializeMap(Map dataMap) {
@@ -320,20 +318,6 @@ public class TaskoSchedule implements Job {
     }
 
     /**
-     * @return Returns the runs.
-     */
-    public List<TaskoRun> getRuns() {
-        return runs;
-    }
-
-    /**
-     * @param runsIn The runs to set.
-     */
-    public void setRuns(List<TaskoRun> runsIn) {
-        runs = runsIn;
-    }
-
-    /**
      * @return Returns the created.
      */
     public Date getCreated() {
@@ -359,20 +343,6 @@ public class TaskoSchedule implements Job {
      */
     public void setModified(Date modifiedIn) {
         modified = modifiedIn;
-    }
-
-    /**
-     * @return Returns the active.
-     */
-    public String getActive() {
-        return active;
-    }
-
-    /**
-     * @param activeIn The active to set.
-     */
-    public void setActive(String activeIn) {
-        active = activeIn;
     }
 
     /**

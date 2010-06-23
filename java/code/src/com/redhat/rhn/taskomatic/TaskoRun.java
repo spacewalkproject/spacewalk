@@ -45,7 +45,7 @@ public class TaskoRun implements Job {
     private Long id;
     private Integer orgId;
     private TaskoTemplate template;
-    private String jobLabel;
+    private Long scheduleId;
     private Date startTime;
     private Date endTime;
     private String stdOutputPath = null;
@@ -57,10 +57,10 @@ public class TaskoRun implements Job {
     public TaskoRun() {
     }
 
-    public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, String jobLabelIn) {
+    public TaskoRun(Integer orgIdIn, TaskoTemplate templateIn, Long scheduleIdIn) {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
-        setJobLabel(jobLabelIn);
+        setScheduleId(scheduleIdIn);
         File logDir = new File(getStdLogDirName(orgId));
         if (!logDir.isDirectory()) {
             if (!logDir.exists()) {
@@ -71,13 +71,6 @@ public class TaskoRun implements Job {
     }
 
     public void start() {
-        if (new File(getStdLogDirName(orgId)).isDirectory()) {
-            setStdOutputPath(getStdOutputLog(orgId, template, this));
-            setStdErrorPath(getStdErrorLog(orgId, template, this));
-        }
-        else {
-            log.warn("Logging disabled. No directory " + STD_LOG_PREFIX);
-        }
         setStartTime(new Date());
         saveStatus(STATUS_RUNNING);
     }
@@ -85,18 +78,25 @@ public class TaskoRun implements Job {
     public void finished(JobExecutionContext context) {
         setEndTime(new Date());
         String out = (String) context.getJobDetail().getJobDataMap().get("stdOutput");
-        if ((out != null) && (!out.isEmpty())) {
-            saveLogToFile(getStdOutputPath(), out);
+        if (new File(getStdLogDirName(orgId)).isDirectory()) {
+            if ((out != null) && (!out.isEmpty())) {
+                setStdOutputPath(getStdOutputLog(orgId, template, this));
+                saveLogToFile(getStdOutputPath(), out);
+            }
+            else {
+                setStdOutputPath("");
+            }
+            String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
+            if ((err != null) && (!err.isEmpty())) {
+                setStdErrorPath(getStdErrorLog(orgId, template, this));
+                saveLogToFile(getStdErrorPath(), err);
+            }
+            else {
+                setStdErrorPath("");
+            }
         }
         else {
-            setStdOutputPath("");
-        }
-        String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
-        if ((err != null) && (!err.isEmpty())) {
-            saveLogToFile(getStdErrorPath(), err);
-        }
-        else {
-            setStdErrorPath("");
+            log.warn("Logging disabled. No directory " + getStdLogDirName(orgId));
         }
         saveStatus(STATUS_FINISHED);
     }
@@ -374,14 +374,14 @@ public class TaskoRun implements Job {
     /**
      * @return Returns the jobLabel.
      */
-    public String getJobLabel() {
-        return jobLabel;
+    public Long getScheduleId() {
+        return scheduleId;
     }
 
     /**
      * @param jobLabelIn The jobLabel to set.
      */
-    public void setJobLabel(String jobLabelIn) {
-        this.jobLabel = jobLabelIn;
+    public void setScheduleId(Long scheduleIdIn) {
+        this.scheduleId = scheduleIdIn;
     }
 }

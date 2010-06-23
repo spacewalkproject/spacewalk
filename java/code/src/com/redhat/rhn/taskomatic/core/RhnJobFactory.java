@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.core;
 
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.taskomatic.TaskoFactory;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
@@ -38,10 +37,8 @@ public class RhnJobFactory implements JobFactory {
         TaskoSchedule schedule = null;
         Long scheduleId = trigger.getJobDetail().getJobDataMap().getLong("schedule_id");
 
-        try {
-            schedule = TaskoFactory.lookupScheduleById(scheduleId);
-        }
-        catch (HibernateRuntimeException re) {
+        schedule = TaskoFactory.lookupScheduleById(scheduleId);
+        if (schedule == null) {
                 throw new SchedulerException("No such schedule with id  " + scheduleId);
         }
 

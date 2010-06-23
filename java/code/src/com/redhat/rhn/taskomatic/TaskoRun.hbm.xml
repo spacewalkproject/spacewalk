@@ -16,9 +16,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="orgId" type="integer" column="org_id"/>
         <many-to-one
             name="template"
+            lazy="false"
             class="com.redhat.rhn.taskomatic.TaskoTemplate"
             column="template_id"/>
-        <property name="jobLabel" type="string" column="job_label"/>
+        <property name="scheduleId" type="long" column="schedule_id"/>
         <property name="startTime" type="timestamp" column="start_time"/>
         <property name="endTime" type="timestamp" column="end_time"/>
         <property name="stdOutputPath" type="string" column="std_output_path"/>
@@ -36,12 +37,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE id = :id]]>
         </query>
 
+        <query name="TaskoRun.listBySchedule">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE scheduleId = :schedule_id]]>
+        </query>
+
         <query name="TaskoRun.listRunsWithStatus">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun AS r WHERE r.template.task.id = :task_id AND (r.status = :status1 OR status = :status2)]]>
         </query>
 
-        <query name="TaskoRun.listRunsOlderThan">
-            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun AS r WHERE r.orgId = :org_id and r.endTime < :limit_time]]>
+        <query name="TaskoRun.listOlderThan">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE orgId = :org_id AND endTime < :limit_time]]>
         </query>
 
 </hibernate-mapping>

@@ -16,10 +16,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="jobLabel" type="string" column="job_label"/>
         <many-to-one
             name="bunch"
+            lazy="false"
             class="com.redhat.rhn.taskomatic.TaskoBunch"
             column="bunch_id"/>
         <property name="orgId" type="integer" column="org_id"/>
-        <property name="active" type="string" column="active"/>
         <property name="activeFrom" type="timestamp" column="active_from"/>
         <property name="activeTill" type="timestamp" column="active_till"/>
         <property name="cronExpr" type="string" column="cron_expr"/>
