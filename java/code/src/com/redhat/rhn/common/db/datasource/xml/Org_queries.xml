@@ -182,8 +182,8 @@ AND      sg.org_id != 1
 </callable-mode>
 
 <callable-mode name="assign_software_entitlements">
-  <query params="channel_family_label from_org_id, to_org_id, quantity">
-     {call rhn_entitlements.assign_channel_entitlement(:channel_family_label,:from_org_id,:to_org_id,:quantity, 0)}
+  <query params="channel_family_label from_org_id, to_org_id, quantity, flex_quantity">
+     {call rhn_entitlements.assign_channel_entitlement(:channel_family_label,:from_org_id,:to_org_id,:quantity, :flex_quantity)}
   </query>
 </callable-mode>
 

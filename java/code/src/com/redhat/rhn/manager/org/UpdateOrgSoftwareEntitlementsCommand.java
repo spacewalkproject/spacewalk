@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.taskdefs.condition.IsFileSelected;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class UpdateOrgSoftwareEntitlementsCommand {
     
     private Org org;
     private long newTotal;
+    private long newFlexTotal;
     private ChannelFamily channelFamily;
 
     /**
@@ -49,14 +51,17 @@ public class UpdateOrgSoftwareEntitlementsCommand {
      * @param channelFamilyLabel label of entitlement to update
      * @param orgIn to update totals for
      * @param newTotalIn This is the *proposed* new total for the org you are passing in.
+     * @param newFlexTotalIn This is the *proposed* new flex total
+     *                                               for the org you are passing in.
      */
     public UpdateOrgSoftwareEntitlementsCommand(String channelFamilyLabel, 
-            Org orgIn, Long newTotalIn) {
+            Org orgIn, Long newTotalIn, Long newFlexTotalIn) {
         if (orgIn.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
             throw new IllegalArgumentException("Cant update the default org");
         }
         this.org = orgIn;
         this.newTotal = newTotalIn;
+        this.newFlexTotal = newFlexTotalIn;
         this.channelFamily = ChannelFamilyFactory.lookupByLabel(channelFamilyLabel, 
                 OrgFactory.getSatelliteOrg());
         if (this.channelFamily == null) {
@@ -70,16 +75,13 @@ public class UpdateOrgSoftwareEntitlementsCommand {
      * @return if we should force unentitlement if 
      * current members is greater then proposed entitlement count
      */
-    private boolean forceUnentitlement() {
+    private boolean forceUnentitlement(Long orgCur, Long orgProposedMax) {
         boolean retval = true;
-        
-        Long orgCur = this.channelFamily.getCurrentMembers(this.org);
-        
         if (orgCur == null) {
-            orgCur = new Long(0);
+            orgCur = 0L;
         }
      
-        if (orgCur > this.newTotal && !ConfigDefaults.get().forceUnentitlement()) { 
+        if (orgCur > orgProposedMax && !ConfigDefaults.get().forceUnentitlement()) { 
             retval = false;
         }        
         return retval;
@@ -89,32 +91,62 @@ public class UpdateOrgSoftwareEntitlementsCommand {
      * Update the entitlements in the DB.
      * @return ValidatorError if there were any problems with the proposed total
      */
-    public ValidatorError store() {        
-                
+    public ValidatorError store() {
+        ValidatorError err = null;
+        err = storeRegular();
+        if (err == null) {
+            return storeFlex();
+        }
+        return err;
+    }
+    
+    private ValidatorError storeRegular() {        
         // Check available entitlements
         Org satOrg = OrgFactory.getSatelliteOrg();
-        Long avail = new Long(0);
-        Long maxMem = this.channelFamily.getMaxMembers(satOrg);        
-        Long current = this.channelFamily.getMaxMembers(this.org);
-        
-        if (current == null) {
-            current = new Long(0);
+        return store(channelFamily.getMaxMembers(satOrg),
+                        channelFamily.getMaxMembers(org), 
+                        channelFamily.getCurrentMembers(satOrg),
+                        channelFamily.getCurrentMembers(org), 
+                        newTotal, false);
+    }
+
+    private ValidatorError storeFlex() {
+        // Check available entitlements
+        Org satOrg = OrgFactory.getSatelliteOrg();
+        return store(channelFamily.getMaxFlex(satOrg),
+                        channelFamily.getMaxFlex(org), 
+                        channelFamily.getCurrentFlex(satOrg),
+                        channelFamily.getCurrentFlex(org), 
+                        newFlexTotal, true);
+    }
+
+    private  ValidatorError store(Long satMax, Long orgMax, 
+                                                Long satCurrent, Long orgCurrent,
+                                                Long proposed, boolean isFlex) {
+        // No sense making the call if its the same.
+        if (orgMax == proposed) {
+            return null;
         }
-        if (maxMem != null) {
-            avail = maxMem - 
-                    this.channelFamily.getCurrentMembers(satOrg) +
-                    current;
+
+        if (orgMax == null) {
+            orgMax = 0L;
+        }
+        
+        Long avail = 0L;
+        if (satMax != null) {
+            avail = satMax - satCurrent + orgMax;
         }                        
-                
-        if (avail < this.newTotal) {
-            return new ValidatorError("org.entitlements.software.toomany",
-                    this.org.getName(),
-                    this.channelFamily.getName(), 
-                    avail);
+        
+        if (proposed == null || proposed < 0 || avail < proposed) {
+            String key = isFlex ? "org.entitlements.software.not_in_range.flex" : 
+                            "org.entitlements.software.not_in_range";
+            
+            return new ValidatorError(key, this.org.getName(),
+                            this.channelFamily.getName(), 0, avail);
         }
         
         // Proposed cannot be lower than current members
-        if (!forceUnentitlement()) {        
+        if (!forceUnentitlement(orgCurrent, proposed)) {
            return new ValidatorError(
                    "org.entitlements.software.proposedwarning",
                    this.channelFamily.getName(),
@@ -122,25 +154,21 @@ public class UpdateOrgSoftwareEntitlementsCommand {
                    );
         }
         
-        // No sense making the call if its the same.
-        if (current.longValue() == this.newTotal) {
-            return null;
-        }
-        
+
         Long toOrgId;
         Long fromOrgId;
         long actualTotal;
         // If we are decreasing the # of entitlements
         // we give back to the default org.
-        if (current.longValue() > this.newTotal) {
+        if (orgMax.longValue() > proposed) {
             fromOrgId = this.org.getId();
             toOrgId = OrgFactory.getSatelliteOrg().getId();
-            actualTotal = current.longValue() - this.newTotal;
+            actualTotal = orgMax.longValue() - proposed;
         } 
         else {
             toOrgId = this.org.getId();
             fromOrgId = OrgFactory.getSatelliteOrg().getId();
-            actualTotal = this.newTotal - current.longValue();
+            actualTotal = proposed - orgMax.longValue();
         }
         
         Map in = new HashMap();
@@ -148,12 +176,19 @@ public class UpdateOrgSoftwareEntitlementsCommand {
         in.put("channel_family_label", channelFamily.getLabel());
         in.put("from_org_id", fromOrgId);
         in.put("to_org_id", toOrgId);
-        in.put("quantity", actualTotal);
+        if (isFlex) {
+            in.put("quantity", 0);
+            in.put("flex_quantity", actualTotal);
+            
+        }
+        else {
+            in.put("quantity", actualTotal);
+            in.put("flex_quantity", 0);
+            
+        }
         CallableMode m = ModeFactory.getCallableMode(
                 "Org_queries", "assign_software_entitlements");
         m.execute(in, new HashMap());
         return null;
     }
-    
-
 }

@@ -83,7 +83,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         
         // Now give the remaining:
         cmd = new UpdateOrgSoftwareEntitlementsCommand(fam.getLabel(), user.getOrg(), 
-                ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION);
+                ChannelFamilyFactoryTest.ENTITLEMENT_ALLOCATION, 0L);
         assertNull(cmd.store());
     }
     
@@ -91,18 +91,18 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         Long orig = fam.getMaxMembers(OrgFactory.getSatelliteOrg());
         
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(1));
+                fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
         reloadFamilies();
         Long now = fam.getMaxMembers(OrgFactory.getSatelliteOrg()).longValue();
         assertEquals(orig.longValue() - 1, now.longValue());
         cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(1));
+                fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
         reloadFamilies();
         assertEquals(orig.longValue() - 1, now.longValue());
         cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(0));
+                fam.getLabel(), user.getOrg(), new Long(0), 0L);
         cmd.store();
         reloadFamilies();
         now = fam.getMaxMembers(OrgFactory.getSatelliteOrg()).longValue();
@@ -114,11 +114,11 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
         Long origValue = fam.getMaxMembers(OrgFactory.getSatelliteOrg());
         
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(1));
+                fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
         reloadFamilies();
         cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(2));
+                fam.getLabel(), user.getOrg(), new Long(2), 0L);
         assertNull(cmd.store());
         reloadFamilies();
         assertEquals(2, fam.getMaxMembers(user.getOrg()).longValue());
@@ -135,7 +135,7 @@ public class UpdateOrgSoftwareEntitlementsTest extends BaseTestCaseWithUser {
             }
         }
         UpdateOrgSoftwareEntitlementsCommand cmd = new UpdateOrgSoftwareEntitlementsCommand(
-                fam.getLabel(), user.getOrg(), new Long(1));
+                fam.getLabel(), user.getOrg(), new Long(1), 0L);
         assertNull(cmd.store());
         
     }

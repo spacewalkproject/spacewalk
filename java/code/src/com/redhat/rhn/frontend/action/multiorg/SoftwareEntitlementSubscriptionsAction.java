@@ -223,7 +223,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
         UpdateOrgSoftwareEntitlementsCommand updateCmd = null;
         try {
              updateCmd = new UpdateOrgSoftwareEntitlementsCommand(channelFamily.getLabel(), 
-                     org, newCount);
+                     org, newCount, 0L);
         }
         catch (IllegalArgumentException e) {
             ValidatorError error = new ValidatorError(
