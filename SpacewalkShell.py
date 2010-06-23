@@ -1298,8 +1298,6 @@ For help for a specific command try 'help <cmd>'.
     def do_activationkey_create(self, args):
         name = self.prompt_user('Name (blank to autogenerate):')
         description = self.prompt_user('Description [None]:')
-        if not description:
-            description = ''
 
         print
         print 'Base Channels:'
@@ -1803,14 +1801,23 @@ For help for a specific command try 'help <cmd>'.
 
     def help_configchannel_create(self):
         print 'configchannel_create: Create a configuration channel'
-        print 'usage: configchannel_create'
+        print 'usage: configchannel_create [NAME] [DESCRIPTION]'
 
     def do_configchannel_create(self, args):
-        name = ''
+        args = self.parse_arguments(args)
+
+        if len(args) > 0:
+            name = args[0]
+        else:
+            name = ''
+
         while name == '':
             name = self.prompt_user('Name:')
 
-        description = self.prompt_user('Description:')
+        if len(args) > 1:
+            description = ' '.join(args[1:])
+        else:
+            description = self.prompt_user('Description:')
 
         if description == '':
             description = name
@@ -2123,7 +2130,11 @@ For help for a specific command try 'help <cmd>'.
     def do_custominfo_createkey(self, args):
         args = self.parse_arguments(args)
 
-        key = args[0]
+        if len(args) > 0:
+            key = args[0]
+        else:
+            key = ''
+
         while key == '':
             key = self.prompt_user('Name:')
 
@@ -2746,23 +2757,22 @@ For help for a specific command try 'help <cmd>'.
 
     def help_group_create(self):
         print 'group_create: Create a system group'
-        print 'usage: group_create NAME'
+        print 'usage: group_create [NAME] [DESCRIPTION]'
 
     def do_group_create(self, args):
         args = self.parse_arguments(args)
 
-        if len(args) != 1:
-            self.help_group_create()
-            return
+        if len(args) > 0:
+            name = args[0]
+        else:
+            name = self.prompt_user('Name:')
 
-        name = args[0]
-        description = self.prompt_user('Description:')
+        if len(args) > 1:
+            description = ' '.join(args[1:])
+        else:
+            description = self.prompt_user('Description:')
 
         group = self.client.systemgroup.create(self.session, name, description)
-
-        if not group:
-            logging.error('Failed to create group')
-            return
 
 ####################
 
