@@ -17,12 +17,10 @@ package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.common.ChecksumType;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
-import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 
 /**
  * UpdateChannelCommand - command to create a new channel.

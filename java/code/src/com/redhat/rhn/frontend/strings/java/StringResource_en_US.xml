@@ -8417,7 +8417,7 @@ Follow this url to see the full list of inactive systems:
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>
      <trans-unit id="message.syncscheduled">
-        <source>Repository Sync Scheduled.</source>
+        <source>Repository sync scheduled for {0}.</source>
      </trans-unit>
      <trans-unit id="message.channelsubscribers">
         <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>

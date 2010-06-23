@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.channel.manage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,12 +28,14 @@ import org.apache.struts.action.ActionMapping;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.ContentSource;
+import com.redhat.rhn.domain.task.TaskFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.taskomatic.task.RepoSyncTask;
 
 /**
  * 
@@ -61,21 +62,19 @@ public class SyncRepositoriesAction extends RhnAction implements Listable {
 
         Map params = new HashMap();                
         params.put(RequestContext.CID, chan.getId().toString());
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-
-        helper.execute();
-
-        if (helper.isDispatched()) {                                
-            Set <String> set = helper.getSet();
-            for (String id : set) {
-                Long sgid = Long.valueOf(id);
-                ContentSource tmp = ChannelFactory.lookupContentSource(sgid);
-                System.out.println("SYNCING:" + tmp.getSourceUrl());
-            }                                
+        
+        ListHelper helper = new ListHelper(this, request, params);
+        
+        helper.execute();        
+        
+        if (context.isSubmitted()) {
+            
+            TaskFactory.createTask(user.getOrg(), 
+                    RepoSyncTask.DISPLAY_NAME, chan.getId());
 
             StrutsDelegate strutsDelegate = getStrutsDelegate();
-            strutsDelegate.saveMessage("channel.edit.repo.updated", 
-                    new String[] {chan.getName()}, request);
+            createSuccessMessage(request, "message.syncscheduled",
+                    chan.getName());
 
             return strutsDelegate.forwardParams
             (mapping.findForward("success"), params);                
