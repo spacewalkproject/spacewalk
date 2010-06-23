@@ -854,27 +854,41 @@ sub postgresql_test_db_schema {
 }
 
 # Clear the PostgreSQL schema by deleting the 'public' schema with cascade, 
-# then re-creating it.
+# then re-creating it. Also delete all the other known schemas that
+# Spacewalk might have created.
+
+my $POSTGRESQL_CLEAR_SCHEMA = <<EOS;
+	drop schema rpm cascade ;
+	drop schema rhn_exception cascade ;
+	drop schema rhn_quota cascade ;
+	drop schema rhn_config cascade ;
+	drop schema rhn_server cascade ;
+	drop schema rhn_entitlements cascade ;
+	drop schema rhn_bel cascade ;
+	drop schema rhn_cache cascade ;
+	drop schema rhn_channel cascade ;
+	drop schema rhn_config_channel cascade ;
+	drop schema rhn_org cascade ;
+	drop schema rhn_package cascade ;
+	drop schema rhn_user cascade ;
+	drop schema public cascade ;
+	create schema public authorization postgres ;
+EOS
 sub postgresql_clear_db {
-    my $answers = shift;
+	my $answers = shift;
 
-
-    # Only way to clear a PostgreSQL db we've found so far is to wipe it out
-    # completely:
-    my $password = @{$answers}{'db-password'};
-    my $user = @{$answers}{'db-user'};
-    my $host = @{$answers}{'db-host'};
-    my $port = @{$answers}{'db-port'};
-    my $database = @{$answers}{'db-sid'};
-    my $clear_db_cmd = "PGPASSWORD=$password dropdb -U $user -h $host -p $port $database";
-    system($clear_db_cmd);
-    $clear_db_cmd = "PGPASSWORD=$password createdb -U $user -h $host  $database";
-    system($clear_db_cmd);
-    $clear_db_cmd = "PGPASSWORD=$password createlang -U $user -h $host plpgsql $database";
-    system($clear_db_cmd);
-
-    return 1;
+	my $dbh = get_dbh($answers);
+	local $dbh->{RaiseError} = 0;
+	local $dbh->{PrintError} = 1;
+	local $dbh->{AutoCommit} = 1;
+	for my $c (split /\n/, $POSTGRESQL_CLEAR_SCHEMA) {
+		$dbh->do($c);
+	}
+	$dbh->disconnect;
+	return 1;
 }
+
+
 
 
 
