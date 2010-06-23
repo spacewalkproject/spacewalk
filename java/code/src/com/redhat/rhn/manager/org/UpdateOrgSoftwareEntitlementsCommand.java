@@ -24,7 +24,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.taskdefs.condition.IsFileSelected;
 
 import java.util.HashMap;
 import java.util.Map;
