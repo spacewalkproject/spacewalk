@@ -2116,18 +2116,23 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_custominfo_create(self):
-        print 'custominfo_create: Create a custom key'
-        print 'usage: custominfo_create'
+    def help_custominfo_createkey(self):
+        print 'custominfo_createkey: Create a custom key'
+        print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
 
-    def do_custominfo_create(self, args):
-        key = ''
+    def do_custominfo_createkey(self, args):
+        args = self.parse_arguments(args)
+
+        key = args[0]
         while key == '':
             key = self.prompt_user('Name:')
 
-        description = ''
-        while description == '':
+        if len(args) > 1:
+            description = ' '.join(args[1:])
+        else:
             description = self.prompt_user('Description:')
+            if description == '':
+                description = key
 
         self.client.system.custominfo.createKey(self.session,
                                                 key,
@@ -2135,18 +2140,18 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_custominfo_delete(self):
-        print 'custominfo_delete: Delete a custom key'
-        print 'usage: custominfo_delete KEY ...'
+    def help_custominfo_deletekey(self):
+        print 'custominfo_deletekey: Delete a custom key'
+        print 'usage: custominfo_deletekey KEY ...'
 
-    def complete_custominfo_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_custominfo_list('', True), text)
+    def complete_custominfo_deletekey(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_custominfo_listkeys('', True), text)
 
-    def do_custominfo_delete(self, args):
+    def do_custominfo_deletekey(self, args):
         args = self.parse_arguments(args)
 
         if len(args) != 1:
-            self.help_custominfo_delete()
+            self.help_custominfo_deletekey()
             return
 
         for key in args:
@@ -2155,11 +2160,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_custominfo_list(self):
-        print 'custominfo_list: List all custom keys'
-        print 'usage: custominfo_list'
+    def help_custominfo_listkeys(self):
+        print 'custominfo_listkeys: List all custom keys'
+        print 'usage: custominfo_listkeys'
 
-    def do_custominfo_list(self, args, doreturn=False):
+    def do_custominfo_listkeys(self, args, doreturn=False):
         keys = self.client.system.custominfo.listAllKeys(self.session)
         keys = [k.get('label') for k in keys]
 
@@ -2176,7 +2181,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: custominfo_details KEY ...'
 
     def complete_custominfo_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_custominfo_list('', True), text)
+        return self.tab_completer(self.do_custominfo_listkeys('', True), text)
 
     def do_custominfo_details(self, args):
         args = self.parse_arguments(args)
@@ -5167,12 +5172,13 @@ For help for a specific command try 'help <cmd>'.
         if len(line.split(' ')) == 2:
             return self.tab_completer(self.get_system_names(), text)
         elif len(line.split(' ')) == 3:
-            return self.tab_completer(self.do_customkey_list('', True), text)
+            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+                                      text)
 
     def do_system_addcustomvalue(self, args):
         args = self.parse_arguments(args)
 
-        if len(args) != 3:
+        if len(args) < 3:
             self.help_system_addcustomvalue()
             return
 
@@ -5183,7 +5189,7 @@ For help for a specific command try 'help <cmd>'.
             systems = self.expand_systems(args)
    
         key   = args[1]
-        value = args[2]
+        value = ' '.join(args[2:])
 
         for system in systems:
             system_id = self.get_system_id(system)
@@ -5195,21 +5201,48 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_system_removecustomvalue(self):
-        print 'system_removecustomvalue: Remove a custom value for a system'
-        print 'usage: system_removecustomvalue SSM|SYSTEM KEY'
+    def help_system_updatecustomvalue(self):
+        print 'system_updatecustomvalue: Update a custom value for a system'
+        print 'usage: system_updatecustomvalue SSM|SYSTEM KEY VALUE'
 
-    def complete_system_removecustomvalue(self, text, line, begidx, endidx):
-        if len(line.split(' ')) == 2:
+    def complete_system_updatecustomvalue(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
             return self.tab_completer(self.get_system_names(), text)
-        elif len(line.split(' ')) == 3:
-            return self.tab_completer(self.do_customkey_list('', True), text)
+        elif len(parts) == 3:
+            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+                                      text)
 
-    def do_system_removecustomvalue(self, args):
+    def do_system_updatecustomvalue(self, args):
         args = self.parse_arguments(args)
 
-        if len(args) != 3:
-            self.help_system_removecustomvalue()
+        if len(args) < 3:
+            self.help_system_updatecustomvalue()
+            return
+
+        return self.do_system_addcustomvalue(' '.join(args))
+
+####################
+
+    def help_system_removecustomvalues(self):
+        print 'system_removecustomvalues: Remove a custom value for a system'
+        print 'usage: system_removecustomvalues SSM|SYSTEM <KEY ...>'
+
+    def complete_system_removecustomvalues(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(parts) == 3:
+            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+                                      text)
+
+    def do_system_removecustomvalues(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_system_removecustomvalues()
             return
 
         # use the systems listed in the SSM
@@ -5218,7 +5251,9 @@ For help for a specific command try 'help <cmd>'.
         else:
             systems = self.expand_systems(args)
    
-        key   = args[1]
+        keys = args[1:]
+
+        if not self.user_confirm('Delete these values [y/N]:'): return
 
         for system in systems:
             system_id = self.get_system_id(system)
@@ -5226,7 +5261,7 @@ For help for a specific command try 'help <cmd>'.
 
             self.client.system.deleteCustomValues(self.session,
                                                   system_id,
-                                                  [ key ])
+                                                  keys)
 
 ####################
 
