@@ -138,7 +138,7 @@ For help for a specific command try 'help <cmd>'.
             print
             sys.exit(0)
 
-        if not self.session:
+        if not re.match('login', line) and not self.session:
             logging.warning('You are not logged in')
             return ''
 
@@ -3265,7 +3265,7 @@ For help for a specific command try 'help <cmd>'.
         serverurl = '%s://%s/rpc/api' % (proto, server)
 
         # connect to the server
-        logging.debug('Connecting to %s' % (server))
+        logging.debug('Connecting to %s' % (serverurl))
         self.client = xmlrpclib.Server(serverurl)
 
         try:
