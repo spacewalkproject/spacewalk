@@ -22,7 +22,9 @@
 """ spacecmd - a command line interface to Spacewalk """
 
 import logging, os, sys, xml, xmlrpclib
+from ConfigParser import SafeConfigParser
 from optparse import Option, OptionParser
+from pwd import getpwuid
 
 sys.path.append('/usr/share/rhn')
 from spacecmd.SpacewalkShell import SpacewalkShell
@@ -33,8 +35,8 @@ if __name__ == '__main__':
                help='use this username to connect to the server'),
         Option('-p', '--password', action='store',
                help='use this password to connect to the server'),
-        Option('-s', '--server', action='store', default='localhost',
-               help='connect to this server [default: %default]'),
+        Option('-s', '--server', action='store',
+               help='connect to this server [default: localhost]'),
         Option('--nocache', action='store_true',
                 help='do not create a username/password cache'),
         Option('--nossl', action='store_true',
@@ -54,6 +56,33 @@ if __name__ == '__main__':
     usage = 'usage: %prog [options] [command]'
     parser = OptionParser(option_list=optionsTable, usage=usage)
     (options, args) = parser.parse_args()
+
+    userinfo = getpwuid(os.getuid())
+    rcfile = os.path.join(userinfo[5], '.spacecmdrc')
+
+    if os.path.isfile(rcfile):
+        config = SafeConfigParser()
+        config.read(rcfile)    
+
+        boolean_opts = [ 'verbose', 'nossl', 'debug' ]
+        string_opts = [ 'server', 'username', 'password' ]
+
+        for key in boolean_opts:
+            if not options.__dict__[key]:
+                try:
+                    options.__dict__[key] = config.getboolean('spacecmd', key)
+                except:
+                    pass
+
+        for key in string_opts:
+            if not options.__dict__[key]:
+                try:
+                    options.__dict__[key] = config.get('spacecmd', key)
+                except:
+                    pass
+
+    if not options.server:
+        options.server = 'localhost'
 
     if options.debug:
         level = logging.DEBUG
