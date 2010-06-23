@@ -19,7 +19,7 @@ License:  GPL
 
 # Examples
 #
-# perform actions on systems from the command line
+# add and remove packages from the commandline
 #
 [user@sat]$ spacecmd -y system_installpackage www* mod_python
 Scheduled 6 system(s)
@@ -27,8 +27,15 @@ Scheduled 6 system(s)
 [user@sat]$ spacecmd -y system_removepackage wiki02 mod_perl
 Scheduled 1 system(s)
 
+
+#
+# apply errata from the command line
+#
 [user@sat]$ spacecmd -y errata_apply RHSA-2010:0423
 Scheduled 42 system(s)
+
+[user@sat]$ spacecmd -y system_applyerrata group:web_servers RHSA-2010:0040
+Scheduled 16 system(s)
 
 
 #
@@ -40,12 +47,9 @@ provisioning_entitled: 322/397
 
 
 #
-# easily generate reports
+# quickly generate reports
 #
-spacecmd> ssm_add *
-Systems Selected: 380
-
-spacecmd> system_listerrata ssm
+spacecmd> system_listerrata ldap03
 System: ldap03
 
 Security Errata:
@@ -53,19 +57,18 @@ RHSA-2010:0458  Moderate: perl security update                        6/7/10
 RHSA-2010:0449  Moderate: rhn-client-tools security update            6/1/10
 RHSA-2010:0423  Important: krb5 security update                      5/18/10
 
---------------------
-
-System: www01
-
-Security Errata:
-RHSA-2010:0458  Moderate: perl security update                        6/7/10
-
 
 #
-# easily select multiple systems and perform actions on them
+# make temporary groups on-the-fly
 #
+spacecmd> ssm_add search:driver:bnx2
+Systems Selected: 111
+
 spacecmd> ssm_add search:device:vmware
 Systems Selected: 285
+
+spacecmd> ssm_add search:hostname:external.example.com
+Systems Selected: 16
 
 
 #
