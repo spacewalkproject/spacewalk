@@ -809,7 +809,7 @@ sub postgresql_populate_db {
             print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
         }
         else {
-            print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
+            print Spacewalk::Setup::loc("** Database: The database already has schema.  Skipping database population.\n");
             return 1;
         }
     }
@@ -1288,7 +1288,7 @@ sub oracle_populate_db {
             print loc("** Database: Re-populating database.\n");
         }
         else {
-            print loc("**Database: The database already has schema.  Skipping database population.");
+            print loc("** Database: The database already has schema.  Skipping database population.\n");
 
             return 1;
         }
