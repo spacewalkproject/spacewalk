@@ -62,6 +62,7 @@ public class TaskoXmlRpcServer {
     public void start() {
         xmlrpcServer = new XmlRpcServer();
         xmlrpcServer.addInvocationHandler("tasko", new TaskoXmlRpcHandler());
+        xmlrpcServer.addInvocationInterceptor(new TaskoXmlRpcInvocationInterceptor());
         addTaskoSerializers();
 
         TaskoXmlRpcInvoker invoker = new TaskoXmlRpcInvoker(xmlrpcServer);
@@ -81,6 +82,7 @@ public class TaskoXmlRpcServer {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     /**
