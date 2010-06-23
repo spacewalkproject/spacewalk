@@ -21,21 +21,19 @@
 <input type="hidden" name="cid" value="${cid}" />
 
 	<rl:list
-			decorator="SelectableDecorator"
 			emptykey="repos.jsp.norepos"
 			alphabarcolumn="label"
 	 >
 
 			<rl:decorator name="PageSizeDecorator"/>
 
-		    <rl:selectablecolumn value="${current.id}"
-								styleclass="first-column"/>
 
                  <rl:column sortable="true"
                                    bound="false"
                            headerkey="repos.jsp.channel.header"
                            sortattr="label"
 					defaultsort="asc"
+					styleclass="first-column last-column"
                            >
 
                         <a href="/rhn/channels/manage/repos/RepoEdit.do?id=${current.id}">${current.label}</a>
