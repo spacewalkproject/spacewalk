@@ -52,7 +52,7 @@
         </rl:column>
 
         <rl:column 
-            headertext="${rhn:localize('Regular Counts')} <br/> (${rhn:localize('Available/Total')}*)">
+            headertext="${rhn:localize('Regular Counts')} <br/> (${rhn:localize('Available/Total')})*">
             <c:choose>
             	<c:when test="${empty current.total or current.total == 0}">
             		<bean:message key="softwareentitlements.noentitlements"/>
@@ -64,7 +64,8 @@
         </rl:column>                    
          
         <c:if test="${orgCount > 1}"> 
-        <rl:column headerkey="Regular Usage">
+        <rl:column
+        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Alloted')})**">
             <c:choose>
             	<c:when test="${empty current.allocated or current.allocated == 0}">
             		<bean:message key="None Allocated"/>
@@ -78,7 +79,7 @@
 
         <rl:column 
         	styleclass="${countstyle}"
-            headertext="${rhn:localize('Flex Counts')} <br/> (${rhn:localize('Available/Total')}*)">
+            headertext="${rhn:localize('Flex Counts')} <br/> (${rhn:localize('Available/Total')})*">
             <c:choose>
             	<c:when test="${empty current.totalFlex or current.totalFlex == 0}">
             		<bean:message key="softwareentitlements.noentitlements"/>
@@ -91,7 +92,7 @@
          
         <c:if test="${orgCount > 1}"> 
         <rl:column bound="false" 
-            headerkey="Flex Usage" 
+			headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Alloted')})**"
             styleclass="${usagestyle}">
             <c:choose>
             	
@@ -102,17 +103,13 @@
           <bean:message key="softwareentitlements.usagedata" arg0="${current.usedFlex}" arg1="${current.allocatedFlex}" arg2="${current.flexRatio}"/>
             	</c:otherwise>            	
             </c:choose>
-                        
-                    
-        </rl:column>                 
+        </rl:column>
         </c:if>
 
     </rl:list>
 </rl:listset>
 
-<span class="small-text">
-    <bean:message key="softwareentitlements.tip"/>
-</span>
-
+<rhn:tooltip typeKey="Tip">*-<bean:message key = "Available/Total.tip"/></rhn:tooltip>
+<rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Alloted.tip"/></rhn:tooltip>
 </body>
 </html:html>

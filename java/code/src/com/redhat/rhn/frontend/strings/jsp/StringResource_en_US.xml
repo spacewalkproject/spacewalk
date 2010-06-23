@@ -4465,6 +4465,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
+	<trans-unit id="Used/Alloted">
+<source>Used/Alloted</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="None Allocated">
 <source>None Alloted</source>
         <context-group name="ctx">
@@ -4503,13 +4509,20 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareentitlements.tip">
-<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the @@PRODUCT_NAME@@
-as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
+      <trans-unit id="Available/Total.tip">
+<source>'Total' refers to the total available entitlements to the @@PRODUCT_NAME@@ as reflected in this @@PRODUCT_NAME@@'s certificate. 'Available' refers to the number entitlements that are available to be allocated to various organizations.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      
+      <trans-unit id="Used/Alloted.tip">
+<source>'Alloted' refers to the total number of entitlements allocated to any organization from initial pool as reflected in this @@PRODUCT_NAME@@'s certificate. 'Used' refers to entitlements that have been consumed by systems in various organizations.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
+        </context-group>
+      </trans-unit>      
+      
       <trans-unit id="satusers.tip">
 <source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
 not be modified on this page. Instead, please visit the "Users" top-level
