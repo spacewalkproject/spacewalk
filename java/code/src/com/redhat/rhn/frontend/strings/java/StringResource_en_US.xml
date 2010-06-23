@@ -7992,8 +7992,12 @@ Follow this url to see the full list of inactive systems:
           <source>Entitlements successfully updated.</source>
       </trans-unit>
       
-      <trans-unit id="org.entitlements.software.toomany">
-          <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+      <trans-unit id="org.entitlements.software.not_in_range">
+          <source>You attempted to give {0} too many {1} entitlements.  Please enter a value between {2} and {3}</source>
+      </trans-unit>
+
+      <trans-unit id="org.entitlements.software.not_in_range.flex">
+          <source>You attempted to give {0} too many {1} flex entitlements.  Please enter a value between {2} and {3}</source>
       </trans-unit>
 
       <trans-unit id="org.entitlements.software.proposedwarning">

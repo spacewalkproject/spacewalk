@@ -23,7 +23,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -40,7 +39,8 @@ public class ChannelFamily extends BaseDomainHelper {
     private Set<Channel> channels = new HashSet<Channel>();
     private Set virtSubscriptionLevels = new HashSet();
     
-    private Set<PrivateChannelFamily> privateChannelFamilies;
+    private Set<PrivateChannelFamily> privateChannelFamilies =
+                                    new HashSet<PrivateChannelFamily>();
 
     /**
      * @return Returns the channels.
@@ -190,18 +190,11 @@ public class ChannelFamily extends BaseDomainHelper {
      * @return maxmembers of this channelfamily.  NULL == unlimited
      */
     public Long getMaxMembers(Org orgIn) {
-        Long retval = null;
-        if (this.privateChannelFamilies != null && 
-                this.privateChannelFamilies.size() > 0) {
-            Iterator i = this.privateChannelFamilies.iterator();
-            while (i.hasNext()) {
-                PrivateChannelFamily pcf = (PrivateChannelFamily) i.next();
-                if (pcf.getOrg().getId().equals(orgIn.getId())) {
-                    retval = pcf.getMaxMembers();
-                }
-            }
+        PrivateChannelFamily pcf = getAllocation(orgIn);
+        if (pcf != null) {
+            return pcf.getMaxMembers();
         }
-        return retval;
+        return null;
     }
     
     /**
@@ -210,20 +203,55 @@ public class ChannelFamily extends BaseDomainHelper {
      * @return currentMembers of this channelfamily.
      */
     public Long getCurrentMembers(Org orgIn) {
-        Long retval = null;
-        if (this.privateChannelFamilies != null && 
-                this.privateChannelFamilies.size() > 0) {
-            Iterator i = this.privateChannelFamilies.iterator();
-            while (i.hasNext()) {
-                PrivateChannelFamily pcf = (PrivateChannelFamily) i.next();
-                if (pcf.getOrg().equals(orgIn)) {
-                    retval = pcf.getCurrentMembers();
-                }
-            }
+        PrivateChannelFamily pcf = getAllocation(orgIn);
+        if (pcf != null) {
+            return pcf.getCurrentMembers();
         }
-        return retval;
+        return null;
     }
 
+
+    /**
+     * Get max flex members of this channel family.  NULL means unlimited
+     * @param orgIn org to lookup the max flex  embers for
+     * @return max flex members of this channelfamily.  NULL == unlimited
+     */
+    public Long getMaxFlex(Org orgIn) {
+        PrivateChannelFamily pcf = getAllocation(orgIn);
+        if (pcf != null) {
+            return pcf.getMaxFlex();
+        }
+        return null;
+    }
+    
+    /**
+     * Get current flex members of this channel family. 
+     * @param orgIn org to lookup the current flex members for
+     * @return currentflex  Members of this channelfamily.
+     */
+    public Long getCurrentFlex(Org orgIn) {
+        PrivateChannelFamily pcf = getAllocation(orgIn);
+        if (pcf != null) {
+            return pcf.getCurrentFlex();
+        }
+        return null;
+    }
+    
+    
+    /**
+     * returns the channel family allocation of this channel family  
+     * in  the given org
+     * @param orgIn the org whose allocation is requested
+     * @return the channel allocation
+     */
+    private PrivateChannelFamily getAllocation(Org orgIn) {
+        for (PrivateChannelFamily alloc : getPrivateChannelFamilies()) {
+            if (orgIn.equals(alloc.getOrg())) {
+                return alloc;
+            }
+        }
+        return null;
+    }
     
     /**
      * @return Returns the privateChannelFamilies.

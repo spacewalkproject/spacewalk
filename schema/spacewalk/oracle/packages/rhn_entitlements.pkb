@@ -1152,8 +1152,8 @@ is
         flex_in in number
     )
     is
-        prev_ent_count number;
-        prev_ent_count_flex number;
+        from_org_prev_ent_count number;
+        from_org_prev_ent_count_flex number;
         new_ent_count number;
         new_ent_count_flex number;
         to_org_prev_ent_count number;
@@ -1165,7 +1165,7 @@ is
 
         begin
             select max_members
-            into prev_ent_count
+            into from_org_prev_ent_count
             from rhnChannelFamily cf,
                  rhnPrivateChannelFamily pcf
             where pcf.org_id = from_org_id_in
@@ -1192,7 +1192,7 @@ is
 
         begin
             select fve_max_members
-            into prev_ent_count_flex
+            into from_org_prev_ent_count_flex
             from rhnChannelFamily cf,
                  rhnPrivateChannelFamily pcf
             where pcf.org_id = from_org_id_in
@@ -1214,7 +1214,7 @@ is
               and cf.label = channel_family_label_in;
         exception
             when NO_DATA_FOUND then
-                to_org_prev_ent_count := 0;
+                to_org_prev_ent_count_flex := 0;
         end;
 
         begin
@@ -1228,14 +1228,14 @@ is
                               'invalid_channel_family');
         end;
 
-        new_ent_count := prev_ent_count - quantity_in;
-        new_ent_count_flex := prev_ent_count_flex - flex_in;
+        new_ent_count := from_org_prev_ent_count - quantity_in;
+        new_ent_count_flex := from_org_prev_ent_count_flex - flex_in;
 
-       if prev_ent_count > new_ent_count then
+        if from_org_prev_ent_count >= new_ent_count then
             new_quantity := to_org_prev_ent_count + quantity_in;
        end if;
 
-       if prev_ent_count_flex > new_ent_count_flex then
+       if from_org_prev_ent_count_flex >= new_ent_count_flex then
             new_flex := to_org_prev_ent_count_flex + flex_in;
        end if;
 

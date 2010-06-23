@@ -4563,6 +4563,51 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="No Entitlements Available">
+<source>No Entitlements Available</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="Regular Usage">
+<source>Regular Usage</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="Regular Proposed Total">
+<source>Regular Proposed Total</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="Flex Usage">
+<source>Flex Usage</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="Flex Proposed Total">
+<source>Flex Proposed Total</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="Entitlement Usage Type">
+<source>Used / Total</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
+        </context-group>
+      </trans-unit>
+      
+      
+      
+            
       <trans-unit id="softwareEntitlementDetails.noChannelsFound">
 <source>No channels found.</source>
         <context-group name="ctx">

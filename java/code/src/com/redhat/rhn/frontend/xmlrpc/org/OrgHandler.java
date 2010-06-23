@@ -508,13 +508,12 @@ public class OrgHandler extends BaseHandler {
             String channelFamilyLabel, Integer allocation) {
 
         getSatAdmin(sessionKey);
-
         Org org = verifyOrgExists(orgId);
         lookupChannelFamily(channelFamilyLabel);
 
         UpdateOrgSoftwareEntitlementsCommand cmd = 
             new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org, 
-                    new Long(allocation));
+                    Long.valueOf(allocation), 0L);
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new ValidationException(ve.getMessage());
@@ -523,6 +522,50 @@ public class OrgHandler extends BaseHandler {
         return 1;
     }
 
+    /**
+     * Set an organizations entitlement allocation for a channel family. 
+     *
+     * If increasing the entitlement allocation, the default organization
+     * must have a sufficient number of free entitlements.
+     * 
+     * @param sessionKey User's session key.
+     * @param orgId Organization ID to set allocation for.
+     * @param channelFamilyLabel Channel family to set allocation for.
+     * @param allocation New  flex entitlement allocation.
+     * @return 1 on success.
+     *
+     * @xmlrpc.doc Set an organization's flex entitlement allocation for the given software
+     * entitlement.
+     *
+     * If increasing the flex entitlement allocation, the default organization 
+     * (i.e. orgId=1) must have a sufficient number of free flex entitlements.
+     * 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param_desc("string", "label", "Software entitlement label.")
+     * @xmlrpc.param #param("int", "allocation")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setSoftwareFlexEntitlements(String sessionKey, Integer orgId, 
+            String channelFamilyLabel, Integer allocation) {
+
+        getSatAdmin(sessionKey);
+        Org org = verifyOrgExists(orgId);
+        lookupChannelFamily(channelFamilyLabel);
+
+        UpdateOrgSoftwareEntitlementsCommand cmd = 
+            new UpdateOrgSoftwareEntitlementsCommand(channelFamilyLabel, org, 
+                    0L, Long.valueOf(allocation));
+        ValidatorError ve = cmd.store();
+        if (ve != null) {
+            throw new ValidationException(ve.getMessage());
+        }
+
+        return 1;
+    }
+    
+    
+    
     /**
      * Lookup a channel family, throwing an exception if it cannot be found.
      * 

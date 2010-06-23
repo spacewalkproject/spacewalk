@@ -15,14 +15,18 @@
 package com.redhat.rhn.frontend.action.multiorg;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
+import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 
@@ -34,10 +38,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,9 +51,15 @@ import javax.servlet.http.HttpServletResponse;
  * OrgSoftwareSubscriptionsAction - updates the Channel subs for a single org
  * @version $Rev: 1 $
  */
-public class OrgSoftwareSubscriptionsAction extends RhnAction {
-
+public class OrgSoftwareSubscriptionsAction extends RhnAction implements Listable {
+    private static final String SUBSCRIPTIONS = "subscriptions";
     private static Logger log = Logger.getLogger(OrgSoftwareSubscriptionsAction.class);
+    
+    private static String makeLabel(HttpServletRequest request) {
+        RequestContext ctx = new RequestContext(request);
+        Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
+        return "OrgSoftwareSubscriptions" + oid;
+    }
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -57,23 +67,45 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
     
-        DynaActionForm dynaForm = (DynaActionForm) formIn;
         RequestContext ctx = new RequestContext(request);
         Long oid = ctx.getParamAsLong(RequestContext.ORG_ID);
         Org org = OrgFactory.lookupById(oid);
         request.setAttribute("org", org);
-        request.setAttribute("parentUrl", request.getRequestURI());
+
+        Map params = new HashMap();
+        params.put(RequestContext.ORG_ID, oid);
+        ListHelper helper = new ListHelper(this, request, params);
+        helper.execute();
         
+        if (!ctx.isSubmitted()) {
+            Map<String, String> subsMap = new HashMap<String, String>();
+            List <OrgChannelFamily> subs = helper.getDataSet();
+            for (OrgChannelFamily sub : subs) {
+                if (sub.getMaxAvailable() > 0) {
+                    subsMap.put(sub.getKey(), sub.getMaxMembers().toString());    
+                }
+                if (sub.getMaxAvailableFlex() > 0) {
+                    subsMap.put(sub.getFlexKey(), sub.getMaxFlex().toString());    
+                }
+            }
+            request.getSession().setAttribute(makeLabel(request), subsMap);
+        }
+        else {
+            Map <String, String> subsMap = (Map <String, String>)
+                                    request.getSession().getAttribute(makeLabel(request));
+            for (String id : subsMap.keySet()) {
+                if (request.getParameter(id) != null) {
+                    subsMap.put(id, request.getParameter(id));
+                }
+            }
+        }
+        request.setAttribute(SUBSCRIPTIONS, 
+                    request.getSession().getAttribute(makeLabel(request)));
+
         ActionForward retval = 
-            getStrutsDelegate().forwardParam(mapping.findForward("default"), 
-                "oid", oid.toString());
+            mapping.findForward("default");
         
-        // Used to tell if we're submitting the form for pagination or an actual 
-        // form submit.
-        String updateOrgs = request.getParameter("updateOrganizations");
-        boolean update = (updateOrgs != null) && (!updateOrgs.equals("0"));
-        if (isSubmitted(dynaForm) && update) {
-            
+        if (ctx.wasDispatched("orgdetails.jsp.submit")) {
             ActionErrors ae =  updateSubscriptions(org, request);
             if (ae != null && ae.size() > 0) {                
                 getStrutsDelegate().saveMessages(request, ae);
@@ -81,68 +113,88 @@ public class OrgSoftwareSubscriptionsAction extends RhnAction {
                         "oid", oid.toString());
                 
             }
-            else {                
+            else {
                 createSuccessMessage(request, "org.entitlements.syssoft.success", null);
                 retval = getStrutsDelegate().forwardParam(mapping.findForward("success"), 
                         "oid", oid.toString());
+                request.getSession().removeAttribute(makeLabel(request));
             }
         }
-        setupFormValues(org, request);
-        
         return retval;
     }
 
-    void setupFormValues(Org org, HttpServletRequest request) {
-        request.setAttribute("pageList", ChannelManager.
-                listChannelFamilySubscriptionsFor(org));
-    }
+
 
     private ActionErrors updateSubscriptions(Org org, HttpServletRequest request) {        
-
-        List entitlements = ChannelManager.entitlements(
-                OrgFactory.getSatelliteOrg().getId(), null);
-        
         if (org.getId().equals(OrgFactory.getSatelliteOrg().getId())) {
             return RhnValidationHelper.validatorErrorToActionErrors(
                     new ValidatorError("org.entitlements.system.defaultorg"));
         }
 
         ActionErrors errors = new ActionErrors();
-        Iterator i = entitlements.iterator();
-        while (i.hasNext()) {
-            ChannelOverview co = (ChannelOverview) i.next();
+        
+        Map <String, String> subsMap = (Map <String, String>)
+                                request.getAttribute(SUBSCRIPTIONS);
+        
+        List <ChannelOverview> entitlements = ChannelManager.entitlements(
+                OrgFactory.getSatelliteOrg().getId(), null);
+
+        for (ChannelOverview co : entitlements) {
             ChannelFamily cfm = ChannelFamilyFactory.lookupById(co.getId().longValue());
-            String count = (String) request.getParameter(co.getId().toString());
             
-            // check for bad numbers
-            if (count != null) {
-                // check for invalid number format                
-                try {
-                    Long.parseLong(count.trim());
+            String regCountKey = OrgChannelFamily.makeKey(co.getId());
+            try {
+                Long regCount = subsMap.containsKey(regCountKey) ? 
+                        processCount(subsMap.get(regCountKey), errors, cfm) : 0;
+                if (regCount != null) {
+                    String flexCountKey = OrgChannelFamily.makeFlexKey(co.getId());
+                    Long flex = subsMap.containsKey(flexCountKey) ? 
+                            processCount(subsMap.get(flexCountKey), errors, cfm) : 0;
+                                    
+                    if (flex != null && regCount != null) {
+                        UpdateOrgSoftwareEntitlementsCommand cmd = 
+                            new UpdateOrgSoftwareEntitlementsCommand(cfm.getLabel(), org, 
+                                    regCount, flex);
+                        ValidatorError ve = cmd.store();
+                        if (ve != null) {
+                            errors.add(
+                                    RhnValidationHelper.validatorErrorToActionErrors(ve));
+                        }
+                    }
                 }
-                catch (NumberFormatException ex) {
-                    ValidatorError error = new ValidatorError(
-                    "orgsoftwaresubs.invalid", cfm.getName());
-                    return (RhnValidationHelper.validatorErrorToActionErrors(error));
-                }                            
             }
-            
-            if (count != null && !StringUtils.isEmpty(count)) {
-                //Test id is a number
-                if (!StringUtils.isNumeric(count)) {                    
-                    errors.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("orgsoftwaresubs.edit.ent", cfm.getName()));
-                    continue;
-                }
-                UpdateOrgSoftwareEntitlementsCommand cmd = 
-                    new UpdateOrgSoftwareEntitlementsCommand(cfm.getLabel(), org, 
-                            new Long(count));
-                ValidatorError ve = cmd.store();
-                if (ve != null) {
-                    errors.add(RhnValidationHelper.validatorErrorToActionErrors(ve));
-                }
+            catch (ValidatorException ve) {
+                errors.add(RhnValidationHelper.validatorErrorToActionErrors(
+                                           ve.getResult().getErrors().get(0)));
             }
         }        
         return errors;
     }
+    
+    
+    private Long processCount(String count, ActionErrors errors, ChannelFamily cfm) {
+        if (!StringUtils.isBlank(count)) {
+            // check for invalid number format                
+            try {
+                return Long.parseLong(count.trim());
+            }
+            catch (NumberFormatException ex) {
+                ValidatorException.raiseException("orgsoftwaresubs.invalid", cfm.getName());
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext contextIn) {
+        Org org = (Org)contextIn.getRequest().getAttribute("org"); 
+        List<OrgChannelFamily> subs =  ChannelManager.
+                listChannelFamilySubscriptionsFor(org);
+        return subs;
+    }
+    
+    
 }

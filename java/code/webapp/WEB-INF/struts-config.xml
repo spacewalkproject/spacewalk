@@ -4536,7 +4536,7 @@
         <forward name="success"
                path="/admin/multiorg/OrgSoftwareSubscriptions.do" redirect="true" />
         <forward name="error"
-               path="/admin/multiorg/OrgSoftwareSubscriptions.do" redirect="true" />
+               path="/WEB-INF/pages/admin/multiorg/orgsoftwaresubs.jsp"/>
     </action>
     
     <action path="/admin/multiorg/SoftwareEntitlements"

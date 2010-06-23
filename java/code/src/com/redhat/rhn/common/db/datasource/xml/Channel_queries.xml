@@ -354,14 +354,6 @@ SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.ha
   </query>
 </mode>
 
-<mode name="channel_entitlements_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
-  <query params="">
-SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
-  FROM rhnChannelFamilyOverview CFO
- ORDER BY CFO.name DESC
-  </query>
-</mode>
-
 <mode name="channel_entitlements_for_all_m_orgs" class="com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto">
   <query params="">
 SELECT MAX(cfo.id) as id,

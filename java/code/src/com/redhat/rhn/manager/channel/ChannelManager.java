@@ -248,39 +248,34 @@ public class ChannelManager extends BaseManager {
         }
         
         for (ChannelOverview sato : satEntitlements) {
-            ChannelOverview orgo =  orgMap.get(sato.getId());
             OrgChannelFamily ocf = new OrgChannelFamily();
+            
             ocf.setSatelliteCurrentMembers(sato.getCurrentMembers());
             ocf.setSatelliteMaxMembers(sato.getMaxMembers());
+            ocf.setSatelliteCurrentFlex(sato.getCurrentFlex());
+            ocf.setSatelliteMaxFlex(sato.getMaxFlex());
             ocf.setId(sato.getId());
             ocf.setName(sato.getName());
             ocf.setLabel(sato.getLabel());
+            
+            ChannelOverview orgo =  orgMap.get(sato.getId());
             if (orgo == null) {
                 ocf.setCurrentMembers(new Long(0));
                 ocf.setMaxMembers(new Long(0));
+                ocf.setMaxFlex(0L);
+                ocf.setCurrentFlex(0L);
             }
             else {
                 ocf.setCurrentMembers(orgo.getCurrentMembers());
                 ocf.setMaxMembers(orgo.getMaxMembers());
+                ocf.setMaxFlex(orgo.getMaxFlex());
+                ocf.setCurrentFlex(orgo.getCurrentFlex());
             }
             if (ocf.getSatelliteMaxMembers() != null) {
               ret.add(ocf);
             }
         }        
         return ret;
-    }
-    
-    /**
-     * Returns a list channel entitlements for all orgs.
-     * @param pc The PageControl
-     * @return channel entitlements
-     */
-    public static DataResult<ChannelOverview> entitlementsForAllOrgs(PageControl pc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", 
-                "channel_entitlements_for_all_orgs");
-        
-        Map params = new HashMap();
-        return makeDataResult(params, params, pc, m);
     }
     
     /**

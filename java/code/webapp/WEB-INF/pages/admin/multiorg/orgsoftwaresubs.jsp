@@ -44,55 +44,76 @@
 <rl:listset name="entitlementSet">
 	<rhn:submitted/>
 	<input type="hidden" name="oid" value="${param.oid}"/>
-	 <!-- Hack to get around the problem with form submitting when doing 
- 	pagination. See javascript attached to the submit button below. -->
 	
-	<input type="hidden" name="updateOrganizations" value="0"/>
-	
-    <rl:list dataset="pageList"
+    <rl:list 
          width="100%"
-         name="userList"         
          styleclass="list"
          emptykey="orgsoftwaresubs.jsp.nochannelfams">
          
-        <rl:column bound="false" 
-               sortable="false" 
+        <rl:column 
+               filterattr="name" 
                headerkey="entitlements.jsp.channel" styleclass="first-column">
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}"><c:out value="${current.name}" /></a>
         </rl:column>
-        <rl:column bound="false" 
-               sortable="false" 
-               headerkey="orgsystemsubs.jsp.total">
-            <c:out value="${current.maxMembers}" />
-        </rl:column>        
-        <rl:column bound="false" 
-               sortable="false" 
-               headerkey="orgsystemsubs.jsp.usage">            
-            <c:out value="${current.currentMembers}" />            
+        <rl:column   styleclass="center"
+               headertext="${rhn:localize('Regular Usage')} <br/>(${rhn:localize('Entitlement Usage Type')})">
+            <c:out value="${current.currentMembers} / ${current.maxMembers}" />
         </rl:column>
-        <rl:column bound="false" 
-               sortable="false" 
-               headerkey="orgsystemsubs.jsp.proposed_total" styleclass="last-column">
-            <c:choose>
-                  <c:when test="${param.oid != 1}">                               
-                    <input name="${current.id}" value="${current.maxMembers}" type="text" 
-                    onkeydown="return blockEnter(event)">
-                    <br>
-                    <span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" 
-                      arg0="0" arg1="${current.satelliteMaxMembers - current.satelliteCurrentMembers + current.maxMembers}"/></span>
-                  </c:when>
-                  <c:otherwise>
-                    ${current.maxMembers}
-                  </c:otherwise>
-            </c:choose>                 
+        <rl:column 
+               headerkey="Regular Proposed Total">
+	       	<c:choose>
+	       		<c:when test = "${current.maxAvailable == 0}">
+	       			<bean:message key="No Entitlements Available"/>
+	       		</c:when>
+	       		<c:otherwise>
+		            <c:choose>
+		                  <c:when test="${param.oid != 1}">                               
+		                    <input name="${current.key}" value="${requestScope.subscriptions[current.key]}" type="text" size = "13"
+		                    onkeydown="return blockEnter(event)">
+		                    <br>
+		                    <span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" 
+		                      arg0="0" arg1="${current.maxAvailable}"/></span>
+		                  </c:when>
+		                  <c:otherwise>
+		                    ${current.maxAvailable}
+		                  </c:otherwise>
+		            </c:choose>
+	            </c:otherwise>
+			</c:choose>
+        </rl:column>
+        <rl:column   styleclass="center"
+               headertext="${rhn:localize('Flex Usage')} <br/>(${rhn:localize('Entitlement Usage Type')})">
+            <c:out value="${current.currentFlex} / ${current.maxFlex}" />
         </rl:column>
         
+        <rl:column bound="false" 
+               sortable="false" 
+               headerkey="Flex Proposed Total" styleclass="last-column">
+	       	<c:choose>
+	       		<c:when test = "${current.maxAvailableFlex == 0}">
+	       			<bean:message key="No Entitlements Available"/>
+	       		</c:when>
+	       		<c:otherwise>
+		            <c:choose>
+		                  <c:when test="${param.oid != 1}">                               
+		                    <input name="${current.flexKey}" value="${requestScope.subscriptions[current.flexKey]}" type="text" size = "13"
+		                    onkeydown="return blockEnter(event)">
+		                    <br>
+		                    <span class="small-text"><bean:message key="orgsystemsubs.jsp.possible_vals" 
+		                      arg0="0" arg1="${current.maxAvailableFlex}"/></span>
+		                  </c:when>
+		                  <c:otherwise>
+		                    ${current.maxAvailableFlex}
+		                  </c:otherwise>
+		            </c:choose>
+	            </c:otherwise>
+			</c:choose>               
+        </rl:column>        
     </rl:list>      
 <c:if test="${param.oid != 1}"> 
  <div align="right">
    <hr/>
-   <input type="submit" name="dispatch" value="${rhn:localize('orgdetails.jsp.submit')}"
-   							 onclick="this.form.updateOrganizations.value = '1';return true;">
+   <input type="submit" name="dispatch" value="${rhn:localize('orgdetails.jsp.submit')}"/>
  </div>
 </c:if> 
 </rl:listset>

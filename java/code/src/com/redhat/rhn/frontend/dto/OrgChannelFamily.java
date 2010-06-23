@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.domain.org.OrgFactory;
+
 
 /**
  * OrgChannelFamily
@@ -23,7 +25,72 @@ public class OrgChannelFamily extends ChannelOverview {
 
     private Long satelliteMaxMembers;
     private Long satelliteCurrentMembers;
+    private Long satelliteMaxFlexMembers;
+    private Long satelliteCurrentFlexMembers;    
     
+    /**
+     * @return the key
+     */
+    public String getKey() {
+        return makeKey(getId());
+    }
+    
+    /**
+     * @return the key
+     */
+    public String getFlexKey() {
+        return makeFlexKey(getId());
+    }
+
+    
+    /**
+     * @param id the id of the channel family
+     * @return the key
+     */
+    public static String makeKey(Long id) {
+        return String.valueOf(id);
+    }
+    
+    /**
+     * @param id the id of the channel family
+     * @return the key
+     */
+    public static String makeFlexKey(Long id) {
+        return id + "-flex";
+    }
+        
+    
+    /**
+     * @return Returns the satelliteMaxFlexMembers.
+     */
+    public Long getSatelliteMaxFlex() {
+        return satelliteMaxFlexMembers;
+    }
+
+    
+    /**
+     * @param satelliteMaxFlexMembersIn The satelliteMaxFlexMembers to set.
+     */
+    public void setSatelliteMaxFlex(Long satelliteMaxFlexMembersIn) {
+        satelliteMaxFlexMembers = satelliteMaxFlexMembersIn;
+    }
+
+    
+    /**
+     * @return Returns the satelliteCurrentFlexMembers.
+     */
+    public Long getSatelliteCurrentFlex() {
+        return satelliteCurrentFlexMembers;
+    }
+
+    
+    /**
+     * @param satelliteCurrentFlexMembersIn The satelliteCurrentFlexMembers to set.
+     */
+    public void setSatelliteCurrentFlex(Long satelliteCurrentFlexMembersIn) {
+        satelliteCurrentFlexMembers = satelliteCurrentFlexMembersIn;
+    }
+
     /**
      * @return Returns the satelliteMaxMembers.
      */
@@ -52,4 +119,25 @@ public class OrgChannelFamily extends ChannelOverview {
         this.satelliteCurrentMembers = satelliteCurrentMembersIn;
     }
     
+    /**
+     * the maximum number of the available slots
+     * @return the number of slots
+     */
+    public long getMaxAvailable() {
+        if (OrgFactory.getSatelliteOrg().getId().equals(getOrgId())) {
+            return getMaxMembers();
+        }
+        return getSatelliteMaxMembers() - getSatelliteCurrentMembers() + getMaxMembers();
+    }
+    
+    /**
+     * the maximum number of the available flex slots
+     * @return the number of slots
+     */
+    public long getMaxAvailableFlex() {
+        if (OrgFactory.getSatelliteOrg().getId().equals(getOrgId())) {
+            return getMaxFlex();
+        }
+        return getSatelliteMaxFlex() - getSatelliteCurrentFlex() + getMaxFlex();
+    }    
 }
