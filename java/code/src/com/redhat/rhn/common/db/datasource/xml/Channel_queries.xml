@@ -362,14 +362,18 @@ SELECT MAX(cfo.id) as id,
        SUM(cfo.max_members) as total,
        SUM(cfo.current_members) as used,
        (SELECT (cfo2.max_members) - (cfo2.current_members)
-       FROM rhnChannelFamilyOverview cfo2
-       WHERE 1=1
-       AND cfo2.name = cfo.name
-       AND cfo2.org_id = 1) as available
+		       FROM rhnChannelFamilyOverview cfo2
+       			WHERE cfo2.label = cfo.label
+       			AND cfo2.org_id = 1) as available,
+       SUM(cfo.fve_max_members) as total_flex,
+       SUM(cfo.fve_current_members) as used_flex,
+       (SELECT (cfo2.fve_max_members) - (cfo2.fve_current_members)
+		       FROM rhnChannelFamilyOverview cfo2
+       			WHERE cfo2.label = cfo.label AND cfo2.org_id = 1) as available_flex
 FROM rhnChannelFamilyOverview cfo
-WHERE cfo.max_members is not null
+WHERE cfo.max_members is not null  
 GROUP BY cfo.label, cfo.name
-HAVING SUM(cfo.max_members) is not null
+HAVING (SUM(cfo.max_members) is not null) 
 ORDER by cfo.name DESC
   </query>
 </mode>

@@ -4459,24 +4459,44 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header.available">
-<source>Available</source>
+      <trans-unit id="Available/Total">
+<source>Available/Total</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header.total">
-<source>Total*</source>
+      <trans-unit id="None Allocated">
+<source>None Alloted</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+        </context-group>
+      </trans-unit>      
+      <trans-unit id="Regular Counts">
+<source>Regular Entitlement Counts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareentitlements.header.usage">
-<source>Usage</source>
+      <trans-unit id="Regular Usage">
+<source>Regular Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Flex Counts">
+<source>Flex Entitlement Counts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+        </context-group>
+      </trans-unit>      
+      
+      <trans-unit id="Flex Usage">
+<source>Flex Usage</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+        </context-group>
+      </trans-unit>      
+      
       <trans-unit id="softwareentitlements.usagedata">
 <source>{0} of {1} ({2}%)</source>
         <context-group name="ctx">

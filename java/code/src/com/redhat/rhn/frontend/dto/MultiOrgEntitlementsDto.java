@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 public class MultiOrgEntitlementsDto extends BaseDto {
     private Long id;
     private Long total, used, available;
+    private Long totalFlex, usedFlex, availableFlex;
     private String label;
     private String name;
 
@@ -108,6 +109,9 @@ public class MultiOrgEntitlementsDto extends BaseDto {
      * @return the number of used slots.
      */
     public Long getAllocated() {
+        if (getTotal() == null || getAvailable() == null) {
+            return 0L;
+        }
         return getTotal() - getAvailable();
     }
 
@@ -143,5 +147,76 @@ public class MultiOrgEntitlementsDto extends BaseDto {
      */
     public void setName(String nameIn) {
         this.name = nameIn;
+    }
+
+    
+    /**
+     * @return Returns the totalFlex.
+     */
+    public Long getTotalFlex() {
+        return totalFlex;
+    }
+
+    
+    /**
+     * @param totalFlexIn The totalFlex to set.
+     */
+    public void setTotalFlex(Long totalFlexIn) {
+        totalFlex = totalFlexIn;
+    }
+
+    
+    /**
+     * @return Returns the usedFlex.
+     */
+    public Long getUsedFlex() {
+        return usedFlex;
+    }
+
+    
+    /**
+     * @param usedFlexIn The usedFlex to set.
+     */
+    public void setUsedFlex(Long usedFlexIn) {
+        usedFlex = usedFlexIn;
+    }
+
+    
+    /**
+     * @return Returns the availableFlex.
+     */
+    public Long getAvailableFlex() {
+        return availableFlex;
+    }
+
+    
+    /**
+     * @param availableFlexIn The availableFlex to set.
+     */
+    public void setAvailableFlex(Long availableFlexIn) {
+        availableFlex = availableFlexIn;
+    }
+
+    /**
+     * @return the number of used slots.
+     */
+    public Long getAllocatedFlex() {
+        if (getTotal() == null || getAvailable() == null) {
+            return 0L;
+        }
+        return getTotalFlex() - getAvailableFlex();
+    }
+
+    /**
+     * @return the ratio of current: allocated 
+     */
+    public BigDecimal getFlexRatio() {
+        BigDecimal allocated = BigDecimal.valueOf(getAllocatedFlex());
+        if (!allocated.equals(BigDecimal.ZERO)) {
+            BigDecimal hundred = BigDecimal.TEN.multiply(BigDecimal.TEN);
+            BigDecimal dividend = BigDecimal.valueOf(getUsedFlex()).multiply(hundred);
+            return dividend.divide(allocated, BigDecimal.ROUND_UP);                
+        }
+        return BigDecimal.ZERO;
     }    
 }
