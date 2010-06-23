@@ -5641,74 +5641,105 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_applyerrata(self):
-        print 'system_applyerrata: Apply all outstanding errata for a system'
-        print 'usage: system_applyerrata SSM|<SYSTEM ...>'
+        print 'system_applyerrata: Apply errata to a system'
+        print 'usage: system_applyerrata SSM|SYSTEM [ERRATA|search:XXX ...]'
 
     def complete_system_applyerrata(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.get_system_names(), text)
+        elif len(parts) > 2:
+            self.generate_errata_cache()
+            return self.tab_completer(self.all_errata.keys(), text)
 
     def do_system_applyerrata(self, args):
         args = self.parse_arguments(args)
 
-        if not len(args):
+        if len(args) < 2:
             self.help_system_applyerrata()
             return
 
         # use the systems applyed in the SSM
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
+            args.pop(0)
         else:
-            systems = self.expand_systems(args)
+            systems = self.expand_systems(args.pop(0))
 
-        jobs = []
+        errata_list = []
+        for a in args:
+            if re.match('search:', a):
+                a = re.sub('search:', '', a)
+                errata_list.extend(self.do_errata_search(a, True))
+            else:
+                errata_list.append(a)
+
+        self.generate_errata_cache()
+        errata_list = self.filter_results(self.all_errata, errata_list)
+
+        errata_ids = []
+        errata_found = []
+        errata_to_remove = []
+        for system in systems:
+            if len(errata_found) == len(errata_list): break
+
+            system_id = self.get_system_id(system)
+            if not system_id: continue
+
+            avail = self.client.system.getRelevantErrata(self.session,
+                                                         system_id)
+
+            # XXX: bugzilla 600691
+            # there is not an API call to get the ID of an errata
+            # based on the name, so we do it in a round-about way
+            for errata in errata_list:
+                if errata in errata_found: continue
+
+                logging.debug('Checking %s for %s' % (system, errata))
+                errata_id = ''
+
+                for e in avail:
+                    if re.match(errata, e.get('advisory_name'), re.I):
+                        errata_id = e.get('id')
+                        errata_found.append(errata)
+                        errata_ids.append(errata_id)
+                        break
+           
+        for errata in errata_list:
+            if errata not in errata_found:
+                logging.warning('Could not find ID for %s' % errata)
+                errata_list.remove(errata)
+
+        if len(errata_list): 
+            print 'Systems:'
+            for s in sorted(systems):
+                print '  %s' % s
+
+            print
+            print 'Errata:'
+            for e in sorted(errata_list, reverse = True):
+                print '  %s' % e
+        else:
+            logging.warning('No errata to apply')
+            return
+
+        if not self.user_confirm('Apply these errata [y/N]:'): return
+
         for system in sorted(systems):
             system_id = self.get_system_id(system)
             if not system_id: return
-
-            errata = self.client.system.getRelevantErrata(self.session,
-                                                          system_id)
-
-            if not len(errata):
-                logging.warning("%s doesn't have any relevant errata" %system)
-                continue
-
-            jobs.append( (system, system_id, errata) )
-
-        if not len(jobs): return
-
-        count = 0
-        for job in jobs:
-            (system, system_id, errata) = job
-
-            if count: print
-            count += 1
-
-            print 'System: %s' % system
-            print 'Errata:'
-            map(self.print_errata_summary, errata)
-
-        if not self.user_confirm(): return
-
-        scheduled = 0
-        for job in jobs:
-            (system, system_id, errata) = job
-
-            errata_ids = [e.get('id') for e in errata]
-
+            
             time = self.parse_time_input('now')
 
-            status = self.client.system.scheduleApplyErrata(self.session,
-                                                            system_id,
-                                                            errata_ids,
-                                                            time)
-
-            if status:
-                scheduled += 1
-            else:
-                logging.error('Failed to schedule %s' % system)
-                continue
-
-        print 'Scheduled %s system(s)' % str(scheduled)
+            for errata in errata_ids:
+                try:
+                    self.client.system.scheduleApplyErrata(self.session,
+                                                           system_id,
+                                                           [errata],
+                                                           time)
+                except:
+                    logging.warning('Failed to schedule %s' % system)
 
 ####################
 
