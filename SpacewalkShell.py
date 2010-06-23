@@ -2161,13 +2161,14 @@ For help for a specific command try 'help <cmd>'.
     def do_custominfo_deletekey(self, args):
         args = self.parse_arguments(args)
 
-        if len(args) != 1:
+        if not len(args):
             self.help_custominfo_deletekey()
             return
+            
+        if not self.user_confirm('Delete these keys [y/N]:'): return
 
         for key in args:
-            if self.user_confirm('Delete these keys [y/N]:'):
-                self.client.system.custominfo.deleteKey(self.session, key)
+            self.client.system.custominfo.deleteKey(self.session, key)
 
 ####################
 
