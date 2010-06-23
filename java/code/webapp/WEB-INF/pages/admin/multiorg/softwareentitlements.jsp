@@ -36,7 +36,7 @@
 
 
 <rl:listset name="entitlementSet">
-    <rl:list 
+    <rl:list alphabarcolumn="name"
              styleclass="list"             
              emptykey="softwareentitlements.noentitlements">
                         
