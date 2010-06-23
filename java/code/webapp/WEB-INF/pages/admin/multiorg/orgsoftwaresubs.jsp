@@ -45,8 +45,8 @@
 	<rhn:submitted/>
 	<input type="hidden" name="oid" value="${param.oid}"/>
 	
-    <rl:list 
-         width="100%"
+    <rl:list
+    	alphabarcolumn="name" 
          styleclass="list"
          emptykey="orgsoftwaresubs.jsp.nochannelfams">
          
