@@ -2402,7 +2402,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_errata_apply(self):
         print 'errata_apply: Apply an errata to all affected systems' 
-        print 'usage: errata_apply ERRATA'
+        print 'usage: errata_apply ERRATA ...'
 
     def complete_errata_apply(self, text, line, begidx, endidx):
         self.generate_errata_cache()
@@ -2415,17 +2415,42 @@ For help for a specific command try 'help <cmd>'.
             self.help_errata_apply()
             return
 
-        errata = args[0]
+        self.generate_errata_cache()
+        errata_list = self.filter_results(self.all_errata, args)
 
-        systems = self.client.errata.listAffectedSystems(self.session, 
-                                                         errata)
-        
-        if len(systems):
-            print '\n'.join(sorted([s.get('name') for s in systems]))
+        errata_to_remove = []    
 
-            message = 'Apply %s to these systems [y/N]:' % errata
-            if not self.user_confirm(message): return
+        add_separator = False
 
+        for errata in errata_list:
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Errata: %s' % errata
+
+            try:
+                systems = self.client.errata.listAffectedSystems(self.session, 
+                                                                 errata)
+            except:
+                systems = []
+            
+            if len(systems):
+                for system in sorted([s.get('name') for s in systems]):
+                    print '  %s' % system
+            else:
+                logging.warning('%s does not affect any systems' % errata)
+                errata_to_remove.append(errata)
+
+        # remove errata that didn't have any affected systems
+        for errata in errata_to_remove:
+            errata_list.remove(errata)
+            
+        if not self.user_confirm('Apply these errata [y/N]:'): return
+
+        for errata in errata_list: 
+            systems = self.client.errata.listAffectedSystems(self.session, 
+                                                             errata)
+            
             # XXX: bugzilla 600691
             # there is not an API call to get the ID of an errata
             # based on the name, so we do it in a round-about way
@@ -2449,8 +2474,6 @@ For help for a specific command try 'help <cmd>'.
                 except:
                     logging.warning('Failed to schedule %s' % \
                                     system.get('name'))
-        else:
-            logging.warning('%s does not affect any systems' % errata)
  
 ####################
 
