@@ -957,7 +957,7 @@ is
 				and ugm.user_group_id = ug.id
 				and ug.group_type = ugt.id;
         cursor servergroups is
-           select  server_id, server_group_id, sgt.id group_type_id, sgt.label
+           select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
             from    rhnServerGroupType              sgt,
                             rhnServerGroup                  sg,
                             rhnServerGroupMembers   sgm
