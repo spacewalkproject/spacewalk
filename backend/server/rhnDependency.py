@@ -339,18 +339,18 @@ def make_evr(nvre):
         if string.find(holder[0], '-') != -1:
             holder[0] = string.split(holder[0], '-')
             ret = {
-                'name'      :   holder[0][0],
-                'version'   :   holder[0][1],
-                'release'   :   holder[0][2],
+                'name'      :   '-'.join(holder[0][:-2]),
+                'version'   :   holder[0][-2],
+                'release'   :   holder[0][-1],
                 'epoch'     :   holder[1]
             }
             return ret
         elif string.find(holder[1], '-') != -1:
             holder[1] = string.split(holder[1], '-')
             ret = {
-                'name'      :   holder[1][0],
-                'version'   :   holder[1][1],
-                'release'   :   holder[1][2],
+                'name'      :   '-'.join(holder[1][:-2]),
+                'version'   :   holder[1][-2],
+                'release'   :   holder[1][-1],
                 'epoch'     :   holder[0]
             }
             return ret
@@ -360,9 +360,9 @@ def make_evr(nvre):
     elif string.find(nvre, '-') != -1:
         nvre = string.split(nvre, '-')
         ret = {
-            'name'      :   nvre[0],
-            'version'   :   nvre[1],
-            'release'   :   nvre[2],
+            'name'      :   '-'.join(nvre[:-2]),
+            'version'   :   nvre[-2],
+            'release'   :   nvre[-1],
             'epoch'     :   None
         }
         return ret
