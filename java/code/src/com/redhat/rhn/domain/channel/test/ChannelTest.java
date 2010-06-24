@@ -182,12 +182,13 @@ public class ChannelTest extends BaseTestCaseWithUser {
         ContentSource cs = new ContentSource();
         cs.setLabel("repo_label-" + c.getLabel());
         cs.setSourceUrl("fake url");
-        cs.getChannels().add(c);
         cs.setType(ChannelFactory.CONTENT_SOURCE_TYPE_YUM);
-        //c.getSources().add(cs);
+        cs.setOrg(user.getOrg());
+        cs = (ContentSource) TestUtils.saveAndReload(cs);
+        c.getSources().add(cs);
         c = (Channel) TestUtils.saveAndReload(c);
         assertNotEmpty(c.getSources());
     }
-    
+
     
 }
