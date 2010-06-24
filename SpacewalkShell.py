@@ -6055,12 +6055,12 @@ For help for a specific command try 'help <cmd>'.
     def do_system_createpackageprofile(self, args):
         args = self.parse_arguments(args)
 
-        if len(args) != 2:
+        if len(args) < 2:
             self.help_system_createpackageprofile()
             return
 
         system = args[0]
-        label = args[1]
+        label = ' '.join(args[1:])
         
         description = self.prompt_user('Description:')
 
