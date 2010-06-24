@@ -44,14 +44,24 @@ public class TaskoXmlRpcHandler {
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             Date startTime, Date endTime, String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
-        TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        TaskoBunch bunch = null;
+        try {
+            bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        }
+        catch (SchedulerException se){
+            return null;
+        }
         // create schedule
         TaskoSchedule schedule = null;
         schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
                 startTime, endTime, cronExpression);
         TaskoFactory.save(schedule);
         // create job
-        return createJob(schedule);
+        Date scheduleDate =  createJob(schedule);
+        if (scheduleDate == null) {
+            TaskoFactory.delete(schedule);
+        }
+        return scheduleDate;
     }
 
     public Date scheduleSatBunch(String bunchName, String jobLabel,
@@ -77,9 +87,10 @@ public class TaskoXmlRpcHandler {
 
     private TaskoBunch doBasicCheck(Integer orgId, String bunchName,
             String jobLabel)
-        throws NoSuchBunchTaskException, InvalidParamException {
+        throws NoSuchBunchTaskException, InvalidParamException, SchedulerException {
         TaskoBunch bunch = checkBunchName(bunchName);
-        if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty()) {
+        if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty() ||
+                (SchedulerKernel.getScheduler().getTrigger(jobLabel, orgId.toString()) != null)) {
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
@@ -119,14 +130,24 @@ public class TaskoXmlRpcHandler {
             Map params, Date start)
             throws NoSuchBunchTaskException,
                    InvalidParamException {
-        TaskoBunch bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        TaskoBunch bunch = null;
+        try {
+            bunch = doBasicCheck(orgId, bunchName, jobLabel);
+        }
+        catch (SchedulerException se){
+            return null;
+        }
         // create schedule
         TaskoSchedule schedule = null;
         schedule = new TaskoSchedule(orgId, bunch, jobLabel, params,
                 start, null, "");
         TaskoFactory.save(schedule);
         // create job
-        return createJob(schedule);
+        Date scheduleDate= createJob(schedule);
+        if (scheduleDate == null) {
+            TaskoFactory.delete(schedule);
+        }
+        return scheduleDate;
     }
 
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,

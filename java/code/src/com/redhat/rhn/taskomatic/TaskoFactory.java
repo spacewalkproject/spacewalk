@@ -78,7 +78,7 @@ public class TaskoFactory extends HibernateFactory {
         singleton.removeObject(taskoRun);
     }
 
-    private static void delete(TaskoSchedule taskoSchedule) {
+    public static void delete(TaskoSchedule taskoSchedule) {
         singleton.removeObject(taskoSchedule);
     }
 
