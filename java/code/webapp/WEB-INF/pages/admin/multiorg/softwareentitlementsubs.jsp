@@ -31,7 +31,7 @@
     <!-- Reuse the form opened by the list tag -->
     <html:hidden property="submitted" value="true"/>
     <html:hidden property="cfid" value="${channelFamily.id}"/>
-    <html:hidden property="orgClicked" value="0"/>
+    <html:hidden property="orgClicked" value=""/>
 
     <rl:list
              styleclass="list"
@@ -41,6 +41,7 @@
             
         <rl:column
             filterattr="orgName" 
+            sortattr="orgName"
             headerkey="softwareEntitlementSubs.column.orgName" 
             styleclass="first-column">
             <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.org.id}" tabindex="-1">
