@@ -48,11 +48,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND bunch.id = :bunch_id]]>
         </query>
 
-        <query name="TaskoSchedule.findActiveByOrg">
+        <query name="TaskoSchedule.listActiveByOrg">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND (activeFrom < :timestamp AND (activeTill is null OR :timestamp < activeTill))]]>
         </query>
 
-        <query name="TaskoSchedule.findActiveByOrgAndLabel">
+        <query name="TaskoSchedule.listActiveByOrgAndLabel">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoSchedule WHERE orgId = :org_id AND jobLabel = :job_label AND (activeFrom < :timestamp AND (activeTill is null OR :timestamp < activeTill))]]>
         </query>
 

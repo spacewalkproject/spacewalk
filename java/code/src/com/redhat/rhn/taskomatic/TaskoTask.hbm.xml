@@ -22,11 +22,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
     </class>
 
-    <query name="TaskoTask.findById">
+    <query name="TaskoTask.lookupById">
         <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t where t.id = :id]]>
     </query>
 
-    <query name="TaskoTask.findByName">
+    <query name="TaskoTask.lookupByName">
         <![CDATA[from com.redhat.rhn.taskomatic.TaskoTask as t where t.name = :name]]>
     </query>
 
