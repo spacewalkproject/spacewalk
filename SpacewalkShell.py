@@ -3703,8 +3703,8 @@ For help for a specific command try 'help <cmd>'.
             if size > max_size: max_size = size
 
         if len(report):
-            print '%s  Errata' % ('# Systems'.ljust(max_size))
-            print '%s  ------' % ('---------'.ljust(max_size))
+            print '%s  # Systems' % ('Errata'.ljust(max_size))
+            print '%s  ---------' % ('------'.ljust(max_size))
             for errata in sorted(report):
                 print '%s     %s' % \
                       (errata.ljust(max_size), str(report[errata]).rjust(3))
