@@ -80,7 +80,7 @@ public class RepoSyncTask implements Job {
             }
             TaskFactory.removeTask(task);
             
-            try {
+            try {                
                 Process p = Runtime.getRuntime().exec(
                         getSyncCommand(c).toArray(new String[0]));
                 c.setLastSynced(new Date());
