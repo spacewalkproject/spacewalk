@@ -21,7 +21,7 @@
 __author__  = 'Aron Parsons <aron@redhat.com>'
 __license__ = 'GPL'
 
-import atexit, base64, logging, os, re, readline
+import atexit, base64, logging, os, pickle, re, readline
 import sys, urllib2, xml, xmlrpclib
 
 from cmd import Cmd
@@ -72,23 +72,40 @@ For help for a specific command try 'help <cmd>'.
         self.server = ''
         self.ssm = []
 
-        # cache large lists instead of looking up every time
-        self.all_package_shortnames = []
-        self.all_package_fullnames = []
-        self.all_errata = {}
-        self.all_systems = []
-
-        # expiration times for internal caches
-        self.system_cache_expire = datetime.now()
-        self.package_cache_expire = datetime.now()
-        self.errata_cache_expire = datetime.now()
-
         # make the options available everywhere
         self.options = options
 
         userinfo = getpwuid(os.getuid())
-        self.cache_file = os.path.join(userinfo[5], '.spacecmd_cache')
-        self.history_file = os.path.join(userinfo[5], '.spacecmd_history')
+        conf_dir = os.path.join(userinfo[5], '.spacecmd')
+
+        try:
+            if not os.path.isdir(conf_dir):
+               os.mkdir(conf_dir, 0700)
+        except:
+            logging.error('Could not create directory %s' % conf_dir) 
+
+        # cache large lists instead of looking up every time
+        self.all_systems = []
+        self.system_cache_expire = datetime.now()
+
+        self.errata_cache_file = os.path.join(conf_dir, 'errata')
+
+        self.packages_short_cache_file = \
+            os.path.join(conf_dir, 'packages_short')
+
+        self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
+
+        (self.all_errata, self.errata_cache_expire) = \
+            self.load_cache(self.errata_cache_file)
+       
+        (self.all_package_shortnames, self.package_cache_expire) = \
+            self.load_cache(self.packages_short_cache_file)
+        
+        (self.all_package_longnames, self.package_cache_expire) = \
+            self.load_cache(self.packages_long_cache_file)
+
+        self.session_file = os.path.join(conf_dir, 'session')
+        self.history_file = os.path.join(conf_dir, 'history')
 
         try:
             # don't split on hyphens or colons during tab completion
@@ -113,7 +130,6 @@ For help for a specific command try 'help <cmd>'.
             logging.debug(sys.exc_info())
 
 
-    # load the history file
     def preloop(self):
         if not self.session:
             self.do_login('')
@@ -212,21 +228,57 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def load_cache(self, file):
+        data = {}
+        expire = datetime.now()
+
+        if os.path.isfile(file):
+            try:
+                input = open(file, 'r')
+                data = pickle.load(input)
+                input.close()
+            except:
+                logging.debug(sys.exc_info())
+                logging.error("Couldn't load cache from %s" % file)
+
+            if isinstance(data, list) or isinstance(data, dict):
+                if 'expire' in data:
+                    expire = data['expire']
+                    del data['expire']
+        else:
+            logging.debug('%s does not exist' % file)
+
+        return data, expire
+
+
+    def save_cache(self, file, data, expire):
+        data['expire'] = expire
+
+        try:
+            output = open(file, 'wb')
+            pickle.dump(data, output, pickle.HIGHEST_PROTOCOL)
+            output.close()
+        except:
+            logging.debug(sys.exc_info())
+            logging.error("Couldn't write to %s" % file)
+
+
     def tab_completer(self, options, text):
         return [o for o in options if re.match(text, o)]
 
 
-    def filter_results(self, list, patterns):
-        compiled_regex = []
-        for pattern in patterns:
-            if pattern != '':
-                compiled_regex.append(re.compile(pattern, re.I))
-
+    def filter_results(self, list, patterns, search = False):
         matches = []
         for item in list:
-            for pattern in compiled_regex:
-                if pattern.match(item):
+            for pattern in patterns:
+                if search:
+                    result = re.search(pattern, item, re.I)
+                else:
+                    result = re.match(pattern, item, re.I)
+
+                if result:
                     matches.append(item)
+                    break
 
         return matches
 
@@ -413,12 +465,15 @@ For help for a specific command try 'help <cmd>'.
                           'synopsis' : e.get('advisory_synopsis') }
 
         self.errata_cache_expire = \
-            datetime.now() + timedelta(seconds=self.ERRATA_CACHE_TTL)
+            datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
+
+        self.save_cache(self.errata_cache_file, self.all_errata, 
+                        self.errata_cache_expire)
 
 
     def clear_package_cache(self):
-        self.all_package_shortnames = []
-        self.all_package_fullnames = []
+        self.all_package_shortnames = {}
+        self.all_package_longnames = {}
         self.package_cache_expire = datetime.now()
 
     def generate_package_cache(self, force=False):
@@ -432,27 +487,35 @@ For help for a specific command try 'help <cmd>'.
 
         for c in channels:
             packages = \
-                self.client.channel.software.listLatestPackages(self.session, c)
+                self.client.channel.software.listAllPackages(self.session, c)
 
             for p in packages:
                 if not p.get('name') in self.all_package_shortnames:
-                    self.all_package_shortnames.append(p.get('name'))
+                    self.all_package_shortnames[p.get('name')] = ''
 
-                fullname = self.build_package_names(p)
+                longname = self.build_package_names(p)
 
-                if not fullname in self.all_package_fullnames:
-                    self.all_package_fullnames.append(fullname)
+                if not longname in self.all_package_longnames:
+                    self.all_package_longnames[longname] = p.get('id')
 
         self.package_cache_expire = \
             datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
+        self.save_cache(self.packages_short_cache_file,
+                        self.all_package_shortnames, 
+                        self.package_cache_expire)
+        
+        self.save_cache(self.packages_long_cache_file, 
+                        self.all_package_longnames, 
+                        self.package_cache_expire)
+
 
     # create a global list of all available package names
-    def get_package_names(self, fullnames=False):
+    def get_package_names(self, longnames=False):
         self.generate_package_cache()
 
-        if fullnames:
-            return self.all_package_fullnames
+        if longnames:
+            return self.all_package_longnames.keys()
         else:
             return self.all_package_shortnames
 
@@ -1620,6 +1683,7 @@ For help for a specific command try 'help <cmd>'.
     def do_clear_caches(self, args):
         self.clear_system_cache()
         self.clear_package_cache()
+        self.clear_errata_cache()
 
 ####################
 
@@ -3327,22 +3391,22 @@ For help for a specific command try 'help <cmd>'.
 
         # retrieve a cached session
         if not self.options.nocache:
-            if os.path.isfile(self.cache_file):
+            if os.path.isfile(self.session_file):
                 try:
                     # read the session (format = username:session)
-                    sessionfile = open(self.cache_file, 'r')
+                    sessionfile = open(self.session_file, 'r')
                     parts = sessionfile.read().split(':')
                     sessionfile.close()
 
                     username = parts[0]
                     self.session = parts[1]
                 except:
-                    logging.error('Could not read %s' % self.cache_file)
+                    logging.error('Could not read %s' % self.session_file)
                     logging.debug(sys.exc_info())
 
                 try:
                     logging.info('Using cached credentials from %s' %
-                                 self.cache_file)
+                                 self.session_file)
 
                     self.client.user.listUsers(self.session)
                 except:
@@ -3350,7 +3414,7 @@ For help for a specific command try 'help <cmd>'.
                     self.session = ''
 
                     try:
-                        os.remove(self.cache_file)
+                        os.remove(self.session_file)
                     except:
                         logging.debug(sys.exc_info())
                         pass
@@ -3386,8 +3450,8 @@ For help for a specific command try 'help <cmd>'.
             if not self.options.nocache:
                 try:
                     logging.debug('Writing session cache to %s' %
-                                  self.cache_file)
-                    sessionfile = open(self.cache_file, 'w')
+                                  self.session_file)
+                    sessionfile = open(self.session_file, 'w')
                     sessionfile.write('%s:%s' % (username, self.session))
                     sessionfile.close()
                 except:
@@ -3418,9 +3482,9 @@ For help for a specific command try 'help <cmd>'.
             self.clear_system_cache()
             self.clear_package_cache()
 
-            if os.path.isfile(self.cache_file):
+            if os.path.isfile(self.session_file):
                 try:
-                    os.remove(self.cache_file)
+                    os.remove(self.session_file)
                 except:
                     logging.debug(sys.exc_info())
         else:
@@ -3444,15 +3508,17 @@ For help for a specific command try 'help <cmd>'.
 
         add_separator = False
 
+        self.generate_package_cache()
+
         for package in args:
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            try:
-                id = int(package)
-            except:
-                id = self.client.packages.search.name(self.session,
-                                                      package)[0].get('id')
+            if package in self.all_package_longnames:
+                id = self.all_package_longnames[package]
+            else:
+                logging.warning('%s is not a valid package' % package)
+                continue
 
             details = self.client.packages.getDetails(self.session, id)
 
@@ -3491,7 +3557,7 @@ For help for a specific command try 'help <cmd>'.
               'description, summary'
         print 'Example: name:kernel AND version:2.6.18 AND -description:devel'
 
-    def do_package_search(self, args):
+    def do_package_search(self, args, doreturn = False):
         if not len(args):
             self.help_package_search()
             return
@@ -3508,11 +3574,20 @@ For help for a specific command try 'help <cmd>'.
 
         if advanced:
             packages = self.client.packages.search.advanced(self.session, args)
+            packages = self.build_package_names(packages)
         else:
-            packages = self.client.packages.search.name(self.session, args)
+            # for non-advanced searches, use local regex instead of
+            # the APIs for searching; this is done because the fuzzy
+            # search on the server gives a lot of garbage back
+            self.generate_package_cache()
+            packages = self.filter_results(self.all_package_longnames.keys(),
+                                           [ args ], search = True)
 
         if len(packages):
-            print '\n'.join(self.build_package_names(packages))
+            if doreturn:
+                return packages
+            else:
+                print '\n'.join(sorted(packages))
 
 ####################
 
@@ -3862,13 +3937,13 @@ For help for a specific command try 'help <cmd>'.
 
     def help_softwarechannel_listpackages(self):
         print 'softwarechannel_listpackages: List the most recent packages'
-        print '                          available from a software channel'
-        print 'usage: softwarechannel_listpackages CHANNEL [PACKAGE ...]'
+        print '                              available from a software channel'
+        print 'usage: softwarechannel_listpackages CHANNEL'
 
     def complete_softwarechannel_listpackages(self, text, line, begidx, endidx):
-        # only tab complete the channel name
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.do_softwarechannel_list('', True), text)
+            return self.tab_completer(self.do_softwarechannel_list('', True), 
+                                      text)
         else:
             return []
 
@@ -3879,17 +3954,16 @@ For help for a specific command try 'help <cmd>'.
             self.help_softwarechannel_listpackages()
             return
 
+        channel = args[0]
+
         packages = self.client.channel.software.listLatestPackages(self.session,
-                                                                   args[0])
+                                                                   channel)
 
         packages = self.build_package_names(packages)
 
         if doreturn:
             return packages
         else:
-            if len(args) > 1:
-                packages = self.filter_results(packages, args[1:])
-
             if len(packages):
                 print '\n'.join(sorted(packages))
 
@@ -4598,21 +4672,16 @@ For help for a specific command try 'help <cmd>'.
 
         packages_to_remove = args
 
-        installed_packages = []
-        for name in packages_to_remove:
-            # this is the most efficient way to get the package IDs
-            results = self.client.packages.search.name(self.session, name)
-          
-            # fucking fuzzy search... 
-            for package in results:
-                if re.match(name, package.get('name'), re.I):
-                    installed_packages.append(package) 
+        self.generate_package_cache()
+
+        installed_packages = \
+            self.filter_results(self.all_package_longnames, packages_to_remove)
 
         jobs = {}
         for package in installed_packages:
             installed_systems = \
                 self.client.system.listSystemsWithPackage(self.session, 
-                                                          package.get('id'))
+                                            self.all_package_longnames[package])
 
             for s in installed_systems:
                 if s.get('name') in systems:
@@ -4631,8 +4700,7 @@ For help for a specific command try 'help <cmd>'.
             count += 1
 
             print 'System: %s' % system
-            for package in jobs[system]:
-                print self.build_package_names(package)
+            print '\n'.join(sorted(jobs[system]))
 
         if not self.user_confirm('Remove these packages [y/N]:'): return
 
