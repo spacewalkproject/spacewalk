@@ -53,9 +53,9 @@ public class TaskomaticHandler extends BaseHandler {
         List params = new ArrayList(arguments);
         String sessionKey = (String) params.remove(0);
         User loggedInUser =  getLoggedInUser(sessionKey);
-        ensureUserRole(loggedInUser, RoleFactory.ORG_ADMIN);
+        checkUserRole(loggedInUser);
 
-        params.add(0, loggedInUser.getOrg().getId());
+        addParameters(loggedInUser, params);
 
         log.info("Translating " + methodCalled);
 
@@ -66,5 +66,13 @@ public class TaskomaticHandler extends BaseHandler {
         catch (XmlRpcException e) {
             throw new XmlRpcFault(1, e.getMessage());
         }
+    }
+
+    protected void checkUserRole(User user) {
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+    }
+
+    protected void addParameters(User user, List params) {
+        // empty
     }
 }

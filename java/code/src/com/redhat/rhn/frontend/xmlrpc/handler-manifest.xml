@@ -36,4 +36,5 @@
   <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
   <template name="distchannel" classname="com.redhat.rhn.frontend.xmlrpc.distchannel.DistChannelHandler" />
   <template name="taskomatic" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticHandler" />
+  <template name="taskomatic.org" classname="com.redhat.rhn.frontend.xmlrpc.taskomatic.TaskomaticOrgHandler" />
 </factory>

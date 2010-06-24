@@ -379,7 +379,7 @@ public class TaskoRun implements Job {
     }
 
     /**
-     * @param jobLabelIn The jobLabel to set.
+     * @param scheduleIdIn The jobLabel to set.
      */
     public void setScheduleId(Long scheduleIdIn) {
         this.scheduleId = scheduleIdIn;

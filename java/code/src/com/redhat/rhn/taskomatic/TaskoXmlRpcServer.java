@@ -102,7 +102,8 @@ public class TaskoXmlRpcServer {
     private void addTaskoSerializers() {
         for (Class clazz : TaskoSerializerRegistry.getSerializationClasses()) {
             try {
-                xmlrpcServer.getSerializer().addCustomSerializer((XmlRpcCustomSerializer)clazz.newInstance());
+                xmlrpcServer.getSerializer().addCustomSerializer(
+                        (XmlRpcCustomSerializer)clazz.newInstance());
             }
             catch (InstantiationException e) {
                 e.printStackTrace(System.out);

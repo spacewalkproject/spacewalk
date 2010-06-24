@@ -60,9 +60,14 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoTemplate.lookupByBunchAndOrder", params);
     }
 
-    public static List<TaskoBunch> listBunches() {
+    public static List<TaskoBunch> listOrgBunches() {
         return (List) singleton.listObjectsByNamedQuery(
-                                       "TaskoBunch.listBunches", null);
+                                       "TaskoBunch.listOrgBunches", null);
+    }
+
+    public static List<TaskoBunch> listSatBunches() {
+        return (List) singleton.listObjectsByNamedQuery(
+                                       "TaskoBunch.listSatBunches", null);
     }
 
     public static void save(TaskoRun taskoRun) {
@@ -107,7 +112,8 @@ public class TaskoFactory extends HibernateFactory {
                 "TaskoRun.listOlderThan", params);
     }
 
-    public static void clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
+    public static void clearOrgRunHistory(Integer orgId, Date limitTime)
+        throws InvalidParamException {
         if (limitTime == null) {
             throw new InvalidParamException("Invalid limit date");
         }
@@ -122,8 +128,8 @@ public class TaskoFactory extends HibernateFactory {
         List<TaskoSchedule> scheduleList = listSchedulesByOrg(orgId);
         for (TaskoSchedule schedule : scheduleList) {
             Date endTime = schedule.getActiveTill();
-            if ((endTime != null) && (endTime.before(limitTime))
-                    && TaskoFactory.listRunsBySchedule(schedule.getId()).isEmpty()) {
+            if ((endTime != null) && (endTime.before(limitTime)) &&
+                    TaskoFactory.listRunsBySchedule(schedule.getId()).isEmpty()) {
                 TaskoFactory.delete(schedule);
             }
         }
@@ -198,7 +204,8 @@ public class TaskoFactory extends HibernateFactory {
                                        "TaskoSchedule.listByOrgAndBunch", params);
     }
 
-    public static List<TaskoSchedule> listSchedulesByOrgAndLabel(Integer orgId, String jobLabel) {
+    public static List<TaskoSchedule> listSchedulesByOrgAndLabel(Integer orgId,
+            String jobLabel) {
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("job_label", jobLabel);
@@ -241,7 +248,8 @@ public class TaskoFactory extends HibernateFactory {
         }
     }
 
-    public static TaskoRun getRunByOrgAndId(Integer orgId, Long runId) throws InvalidParamException {
+    public static TaskoRun getRunByOrgAndId(Integer orgId, Long runId)
+        throws InvalidParamException {
         TaskoRun run = lookupRunById(runId);
         if ((run == null) || (!run.getOrgId().equals(orgId))) {
             throw new InvalidParamException("No such run id");
