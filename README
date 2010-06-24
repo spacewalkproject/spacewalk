@@ -57,6 +57,42 @@ RHSA-2010:0458  Moderate: perl security update                        6/7/10
 RHSA-2010:0449  Moderate: rhn-client-tools security update            6/1/10
 RHSA-2010:0423  Important: krb5 security update                      5/18/10
 
+spacecmd> report_errata
+# Systems       Errata
+---------       ------
+CLA-2010:0474       88
+CLA-2010:0475        6
+CLA-2010:0488      183
+CLA-2010:0490      273
+CLA-2010:0500        4
+CLA-2010:0501        5
+RHBA-2010:0402       1
+RHSA-2010:0474       2
+RHSA-2010:0488       1
+RHSA-2010:0490       5
+
+spacecmd> report_outofdatesystems
+System        Packages
+------        --------
+monkey             310
+shark               63
+hedgehog            39
+pomeranian           4
+
+spacecmd> report_ipaddresses
+System   Hostname                IP
+------   --------                --
+dns01    dns01.dmz.example.com   192.168.254.53
+www01    www01.dmz.example.com   192.168.254.80 
+ztest    ztest.test.example.com  192.168.42.111
+
+spacecmd> report_kernels
+System       Kernel
+------       ------
+system01     2.6.9-89.0.25.ELsmp
+system02     2.6.9-89.0.3.ELsmp
+system03     2.6.9-89.0.26.ELsmp
+
 
 #
 # make temporary groups on-the-fly
