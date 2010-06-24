@@ -232,6 +232,8 @@ For help for a specific command try 'help <cmd>'.
         data = {}
         expire = datetime.now()
 
+        logging.debug('Loading cache from %s' % file)
+
         if os.path.isfile(file):
             try:
                 input = open(file, 'r')
@@ -4702,60 +4704,66 @@ For help for a specific command try 'help <cmd>'.
         else:
             systems = self.expand_systems(args.pop(0))
 
-        packages_to_remove = args
+        package_list = args
 
+
+        # make sure this is cached so we can get the package IDs
         self.generate_package_cache()
 
-        installed_packages = \
-            self.filter_results(self.all_package_longnames, packages_to_remove)
+        # get all matching package names
+        matching_packages = \
+            self.filter_results(self.all_package_longnames, package_list)
 
         jobs = {}
-        for package in installed_packages:
+        packages_by_id = {}
+        for package in matching_packages:
+            logging.debug('Finding systems with %s' % package)
+
+            package_id = self.all_package_longnames[package]
+
+            # keep a list of id:name pairs to print later
+            if package_id not in packages_by_id:
+                packages_by_id[package_id] = package
+
             installed_systems = \
                 self.client.system.listSystemsWithPackage(self.session, 
-                                            self.all_package_longnames[package])
-
+                                                          package_id)
+            
             for s in installed_systems:
-                if s.get('name') in systems:
-                    if s.get('name') not in jobs:
-                        jobs[s.get('name')] = []
+                name = s.get('name')
+                if name not in jobs:
+                    jobs[name] = []
 
-                    jobs[s.get('name')].append(package)
+                jobs[name].append(package_id)
 
-        if not len(jobs):
-            logging.warning('No packages to remove')
-            return
+        spacer = False
+        for system in jobs:
+            if spacer: print
 
-        count = 0
-        for system in jobs.keys():
-            if count: print
-            count += 1
+            print '%s:' % system
+            for package in jobs[system]:
+                print packages_by_id[package]
 
-            print 'System: %s' % system
-            print '\n'.join(sorted(jobs[system]))
-
+            spacer = True
+    
         if not self.user_confirm('Remove these packages [y/N]:'): return
+
+        time = self.parse_time_input('now')
 
         scheduled = 0
         for system in jobs:
             system_id = self.get_system_id(system)
             if not system_id: continue
 
-            package_ids = [ p.get('id') for p in jobs[system] ]
+            try:
+                self.client.system.schedulePackageRemove(self.session,
+                                                         system_id,
+                                                         jobs[system],
+                                                         time)
 
-            time = self.parse_time_input('now')
-
-            id = self.client.system.schedulePackageRemove(self.session,
-                                                          system_id,
-                                                          package_ids,
-                                                          time)
-
-            if id:
-                logging.debug('Action ID: %s' % str(id))
                 scheduled += 1
-            else:
+            except:
                 logging.error('Failed to schedule %s' % system)
-                continue
 
         print 'Scheduled %s system(s)' % str(scheduled)
 
