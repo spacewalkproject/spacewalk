@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
 
-        <list name="templates" inverse="true" table="rhnTaskoTemplate">
+        <list name="templates" inverse="true" lazy="false" table="rhnTaskoTemplate">
             <key column="bunch_id"/>
             <index column="ordering"/>
             <one-to-many class="com.redhat.rhn.taskomatic.TaskoTemplate"/>
@@ -48,8 +48,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE orgBunch is null AND name = :name]]>
     </query>
 
-    <query name="TaskoBunch.listBunches">
-        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch as b]]>
+    <query name="TaskoBunch.listOrgBunches">
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE orgBunch is not null]]>
+    </query>
+
+    <query name="TaskoBunch.listSatBunches">
+        <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoBunch WHERE orgBunch is null]]>
     </query>
 
 </hibernate-mapping>

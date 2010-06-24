@@ -33,13 +33,12 @@ public class TaskoXmlRpcHandler {
         return 1;
     }
 
-    public String[] listBunches(Integer orgId) {
-        try {
-            return SchedulerKernel.getScheduler().getTriggerNames(orgId.toString());
-        }
-        catch (SchedulerException e) {
-            return null;
-        }
+    public List<TaskoBunch> listBunches(Integer orgId) {
+        return TaskoFactory.listOrgBunches();
+    }
+
+    public List<TaskoBunch> listSatBunches() {
+        return TaskoFactory.listSatBunches();
     }
 
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
@@ -55,10 +54,24 @@ public class TaskoXmlRpcHandler {
         return createJob(schedule);
     }
 
+    public Date scheduleSatBunch(String bunchName, String jobLabel,
+            Date startTime, Date endTime, String cronExpression, Map params)
+    throws NoSuchBunchTaskException, InvalidParamException {
+        return scheduleBunch(null, bunchName, jobLabel, startTime, endTime,
+                cronExpression, params);
+    }
+
     public Date scheduleBunch(Integer orgId, String bunchName, String jobLabel,
             String cronExpression, Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleBunch(orgId, bunchName, jobLabel, new Date(), null,
+                cronExpression, params);
+    }
+
+    public Date scheduleSatBunch(String bunchName, String jobLabel,
+            String cronExpression, Map params)
+            throws NoSuchBunchTaskException, InvalidParamException {
+        return scheduleBunch(null, bunchName, jobLabel,
                 cronExpression, params);
     }
 
@@ -72,7 +85,8 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
-    public Integer unscheduleBunch(Integer orgId, String jobLabel) throws InvalidParamException {
+    public Integer unscheduleBunch(Integer orgId, String jobLabel)
+        throws InvalidParamException {
         List<TaskoSchedule> scheduleList =
             TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel);
         Trigger trigger;
@@ -97,6 +111,10 @@ public class TaskoXmlRpcHandler {
         return 1;
     }
 
+    public Integer unscheduleSatBunch(String jobLabel) throws InvalidParamException {
+        return unscheduleBunch(null, jobLabel);
+    }
+
     public Date scheduleSingleBunchRun(Integer orgId, String bunchName, String jobLabel,
             Map params, Date start)
             throws NoSuchBunchTaskException,
@@ -115,6 +133,21 @@ public class TaskoXmlRpcHandler {
             Map params)
             throws NoSuchBunchTaskException, InvalidParamException {
         return scheduleSingleBunchRun(orgId, bunchName, jobLabel, params, new Date());
+    }
+
+    public Date scheduleSingleBunchRun(Integer orgId, String bunchName, Map params)
+            throws NoSuchBunchTaskException, InvalidParamException {
+        String jobLabel = getUniqueJobLabel(orgId, bunchName);
+        return scheduleSingleBunchRun(orgId, bunchName, jobLabel, params, new Date());
+    }
+
+    private String getUniqueJobLabel(Integer orgId, String bunchName) {
+        String jobLabel = "single-" + bunchName + "-";
+        Integer count = 0;
+        while (!TaskoFactory.listSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty()) {
+            count++;
+        }
+        return jobLabel + count.toString();
     }
 
     private Date createJob(TaskoSchedule schedule) throws InvalidParamException {
@@ -172,14 +205,13 @@ public class TaskoXmlRpcHandler {
         return bunch;
     }
 
-    public int listBunchRuns(Integer orgId, String triggerName)
-                                            throws SchedulerException {
-        return SchedulerKernel.getScheduler().unscheduleJob(triggerName,
-                orgId.toString()) ? 1 : 0;
+    public int clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
+        TaskoFactory.clearOrgRunHistory(orgId, limitTime);
+        return 1;
     }
 
-    public int clearRunHistory(Integer orgId, Date limitTime) throws InvalidParamException {
-        TaskoFactory.clearRunHistory(orgId, limitTime);
+    public int clearSatRunHistory(Date limitTime) throws InvalidParamException {
+        TaskoFactory.clearOrgRunHistory(null, limitTime);
         return 1;
     }
 
@@ -187,12 +219,24 @@ public class TaskoXmlRpcHandler {
         return TaskoFactory.listSchedulesByOrg(orgId);
     }
 
+    public List<TaskoSchedule> listAllSatSchedules() {
+        return listAllSchedules(null);
+    }
+
     public List<TaskoSchedule> listActiveSchedules(Integer orgId) {
         return TaskoFactory.listActiveSchedulesByOrg(orgId);
     }
 
+    public List<TaskoSchedule> listActiveSatSchedules() {
+        return listActiveSchedules(null);
+    }
+
     public List<TaskoRun> listScheduleRuns(Integer orgId, Integer scheduleId) {
         return TaskoFactory.getRunsByOrgAndSchedule(orgId, scheduleId);
+    }
+
+    public List<TaskoRun> listScheduleSatRuns(Integer scheduleId) {
+        return listScheduleRuns(null, scheduleId);
     }
 
     public String getRunStdOutputLog(Integer orgId, Long runId, Long nBytes)
@@ -201,9 +245,19 @@ public class TaskoXmlRpcHandler {
         return run.getTailOfStdOutput(nBytes);
     }
 
+    public String getSatRunStdOutputLog(Long runId, Long nBytes)
+    throws InvalidParamException {
+        return getRunStdOutputLog(null, runId, nBytes);
+    }
+
     public String getRunStdErrorLog(Integer orgId, Long runId, Long nBytes)
         throws InvalidParamException {
         TaskoRun run = TaskoFactory.getRunByOrgAndId(orgId, runId);
         return run.getTailOfStdError(nBytes);
+    }
+
+    public String getSatRunStdErrorLog(Long runId, Long nBytes)
+    throws InvalidParamException {
+        return getRunStdErrorLog(null, runId, nBytes);
     }
 }
