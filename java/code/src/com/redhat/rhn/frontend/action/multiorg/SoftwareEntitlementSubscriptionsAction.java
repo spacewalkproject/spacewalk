@@ -112,6 +112,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction implements
                     getStrutsDelegate().saveMessages(request, ae);
                 }
                 else {
+                    request.getSession().removeAttribute(makeLabel(request));
                     createSuccessMessage(request,
                             "softwareEntitlementSubs.successMessage", org.getName());
                     retval = getStrutsDelegate().forwardParam(
