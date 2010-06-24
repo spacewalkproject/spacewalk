@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.14
+Version: 1.1.15
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,9 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 23 2010 Jan Pazdziora 1.1.15-1
+- Fixed a couple of checkstyle errors (paji@redhat.com)
+
 * Mon Jun 21 2010 Jan Pazdziora 1.1.14-1
 - updating rhnPackageRepodata table to not use a reserved word.
   (jsherril@redhat.com)
