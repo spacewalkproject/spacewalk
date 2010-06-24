@@ -946,40 +946,8 @@ language plpgsql;
     ) returns void
 as $$
     declare
-        usergroups cursor for
-            select  user_id, user_group_id, ugt.label
-            from    rhnUserGroupType    ugt,
-                    rhnUserGroup        ug,
-                    rhnUserGroupMembers ugm
-            where   1=1
-                and ugm.user_group_id = group_id_in
-                and ugm.user_id in (
-                            select  user_id
-                            from    rhnUserGroupMembers
-                            where   user_group_id = group_id_in
-                            order by modified asc
-                            offset quantity_in
-                        )
-                and ugm.user_group_id = ug.id
-                and ug.group_type = ugt.id;
-        servergroups cursor for
-           select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
-            from    rhnServerGroupType              sgt,
-                            rhnServerGroup                  sg,
-                            rhnServerGroupMembers   sgm
-            where   1=1
-                    and sgm.server_group_id = group_id_in
-                    and sgm.server_id in (
-                            select  sep.server_id
-                            from
-                                rhnServerEntitlementPhysical sep
-                            where
-                                sep.server_group_id = group_id_in
-                            order by sep.modified asc
-                            offset quantity_in
-                        )
-                    and sgm.server_group_id = sg.id
-                    and sg.group_type = sgt.id;
+        ugrecord record;
+        sgrecord record;
       type_is_base char;
     begin
         if type_in = 'U' then
@@ -987,26 +955,60 @@ as $$
                 set     max_members = quantity_in
                 where   id = group_id_in;
 
-            for ug in usergroups loop
-                perform rhn_user.remove_from_usergroup(ug.user_id, ug.user_group_id);
+            for ugrecord in (
+		    select  user_id, user_group_id, ugt.label
+		    from    rhnUserGroupType    ugt,
+			    rhnUserGroup        ug,
+			    rhnUserGroupMembers ugm
+		    where   1=1
+			and ugm.user_group_id = group_id_in
+			and ugm.user_id in (
+				    select  user_id
+				    from    rhnUserGroupMembers
+				    where   user_group_id = group_id_in
+				    order by modified asc
+				    offset quantity_in
+				)
+			and ugm.user_group_id = ug.id
+			and ug.group_type = ugt.id
+	    ) loop
+                perform rhn_user.remove_from_usergroup(ugrecord.user_id, ugrecord.user_group_id);
             end loop;
         elsif type_in = 'S' then
             update      rhnServerGroup
                 set     max_members = quantity_in
                 where   id = group_id_in;
 
-            for sg in servergroups loop
-                perform rhn_entitlements.remove_server_entitlement(sg.server_id, sg.label);
+            for sgrecord in (
+		   select  server_id, server_group_id, sgt.id as group_type_id, sgt.label
+		    from    rhnServerGroupType              sgt,
+				    rhnServerGroup                  sg,
+				    rhnServerGroupMembers   sgm
+		    where   1=1
+			    and sgm.server_group_id = group_id_in
+			    and sgm.server_id in (
+				    select  sep.server_id
+				    from
+					rhnServerEntitlementPhysical sep
+				    where
+					sep.server_group_id = group_id_in
+				    order by sep.modified asc
+				    offset quantity_in
+				)
+			    and sgm.server_group_id = sg.id
+			    and sg.group_type = sgt.id
+	    ) loop
+                perform rhn_entitlements.remove_server_entitlement(sgrecord.server_id, sgrecord.label);
             
             select is_base 
             into type_is_base
             from rhnServerGroupType sgt
-            where sgt.id = sg.group_type_id;
+            where sgt.id = sgrecord.group_type_id;
  
             -- if we're removing a base ent, then be sure to
             -- remove the server's channel subscriptions.
             if ( type_is_base = 'Y' ) then
-                   perform rhn_channel.clear_subscriptions(sg.server_id);
+                   perform rhn_channel.clear_subscriptions(sgrecord.server_id);
             end if;
 
             end loop;
