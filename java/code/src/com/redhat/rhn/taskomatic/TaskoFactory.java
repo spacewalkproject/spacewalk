@@ -49,7 +49,7 @@ public class TaskoFactory extends HibernateFactory {
         Map params = new HashMap();
         params.put("name", bunchName);
         return (TaskoBunch) singleton.lookupObjectByNamedQuery(
-                                       "TaskoBunch.findOrgBunchByName", params);
+                                       "TaskoBunch.lookupOrgBunchByName", params);
     }
 
     public static TaskoTemplate lookupTemplateByBunchAndOrder(Long bunchId, Long order) {
@@ -57,7 +57,7 @@ public class TaskoFactory extends HibernateFactory {
         params.put("bunch_id", bunchId);
         params.put("order", order);
         return (TaskoTemplate) singleton.lookupObjectByNamedQuery(
-                                       "TaskoTemplate.findByBunchAndOrder", params);
+                                       "TaskoTemplate.lookupByBunchAndOrder", params);
     }
 
     public static List<TaskoBunch> listBunches() {
@@ -155,7 +155,7 @@ public class TaskoFactory extends HibernateFactory {
         params.put("org_id", orgId);
         params.put("timestamp", new Date());    // use server time, not DB time
         return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
-                   "TaskoSchedule.findActiveByOrg", params);
+                   "TaskoSchedule.listActiveByOrg", params);
     }
 
     public static List<TaskoSchedule> listActiveSchedulesByOrgAndLabel(Integer orgId,
@@ -165,7 +165,7 @@ public class TaskoFactory extends HibernateFactory {
         params.put("job_label", jobLabel);
         params.put("timestamp", new Date());    // use server time, not DB time
         return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
-                   "TaskoSchedule.findActiveByOrgAndLabel", params);
+                   "TaskoSchedule.listActiveByOrgAndLabel", params);
     }
 
     public static TaskoSchedule lookupScheduleById(Long scheduleId) {
