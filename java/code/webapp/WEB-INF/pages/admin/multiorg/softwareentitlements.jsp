@@ -65,7 +65,7 @@
          
         <c:if test="${orgCount > 1}"> 
         <rl:column
-        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Alloted')})**">
+        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Allotted')})**">
             <c:choose>
             	<c:when test="${empty current.allocated or current.allocated == 0}">
             		<bean:message key="None Allocated"/>
@@ -92,7 +92,7 @@
          
         <c:if test="${orgCount > 1}"> 
         <rl:column bound="false" 
-			headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Alloted')})**"
+			headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})**"
             styleclass="${usagestyle}">
             <c:choose>
             	
@@ -110,6 +110,6 @@
 </rl:listset>
 
 <rhn:tooltip typeKey="Tip">*-<bean:message key = "Available/Total.tip"/></rhn:tooltip>
-<rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Alloted.tip"/></rhn:tooltip>
+<rhn:tooltip typeKey="Tip">**-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip>
 </body>
 </html:html>

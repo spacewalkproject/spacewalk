@@ -50,7 +50,7 @@
         </rl:column>
 		<c:if test="${not empty requestScope.regularAvailable}">
         <rl:column
-        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Alloted')})*"
+        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
             >
 			<c:choose>
             	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
@@ -86,7 +86,7 @@
         </c:if>
 		<c:if test="${not empty requestScope.flexAvailable}">
 	        <rl:column
-	        	headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Alloted')})*"
+	        	headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Allotted')})*"
 	            >
 				<c:choose>
 	            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
@@ -136,7 +136,7 @@
     </rl:list>
 </rl:listset>
 </p>
-<rhn:tooltip key="softwareEntitlementSubs.Used/Alloted"/>
+<rhn:tooltip key="softwareEntitlementSubs.Used/Allotted"/>
 <c:if test="${not empty requestScope.regularAvailable}">
 <h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header.regular"/></h2>
 

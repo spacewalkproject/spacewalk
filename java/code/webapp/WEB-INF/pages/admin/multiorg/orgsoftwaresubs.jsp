@@ -57,9 +57,17 @@
             <a href="/rhn/admin/multiorg/SoftwareEntitlementDetails.do?cfid=${current.id}" tabindex="-1"><c:out value="${current.name}" /></a>
         </rl:column>
         <rl:column   styleclass="center"
-               headertext="${rhn:localize('Regular Usage')} <br/>(${rhn:localize('Entitlement Usage Type')})">
-            <c:out value="${current.currentMembers} / ${current.maxMembers}" />
-        </rl:column>
+               headertext="${rhn:localize('Regular Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
+            <c:choose>
+            	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
+            		<bean:message key="None Allocated"/>
+            	</c:when>
+            	<c:otherwise>
+          			<c:out value="${current.currentMembers} / ${current.maxMembers}" />
+            	</c:otherwise>            	
+            </c:choose>
+        </rl:column>            
+        
         <rl:column 
                headerkey="Regular Proposed Total">
 	       	<c:choose>
@@ -83,8 +91,18 @@
 			</c:choose>
         </rl:column>
         <rl:column   styleclass="center"
-               headertext="${rhn:localize('Flex Usage')} <br/>(${rhn:localize('Entitlement Usage Type')})">
-            <c:out value="${current.currentFlex} / ${current.maxFlex}" />
+               headertext="${rhn:localize('Flex Usage')} <br/>(${rhn:localize('Used/Allotted')})*">
+               
+            <c:choose>
+            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
+            		<bean:message key="None Allocated"/>
+            	</c:when>
+            	<c:otherwise>
+         	 	<c:out value="${current.currentFlex} / ${current.maxFlex}" />
+            	</c:otherwise>            	
+            </c:choose>               
+               
+            
         </rl:column>
         
         <rl:column bound="false" 
@@ -110,7 +128,8 @@
 	            </c:otherwise>
 			</c:choose>               
         </rl:column>        
-    </rl:list>      
+    </rl:list>
+<p><rhn:tooltip>*-<bean:message key = "Used/Allotted.tip"/></rhn:tooltip></p>          
 <c:if test="${param.oid != 1}"> 
  <div align="right">
    <hr/>
