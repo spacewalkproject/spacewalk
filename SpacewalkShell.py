@@ -1824,6 +1824,7 @@ For help for a specific command try 'help <cmd>'.
 
                 if not file.get('binary'):
                     print
+                    print 'Contents:'
                     print file.get('contents')
 
 ####################
@@ -2492,16 +2493,15 @@ For help for a specific command try 'help <cmd>'.
         self.generate_errata_cache()
         errata_list = self.filter_results(self.all_errata, errata_list)
 
+        if not len(errata_list):
+            logging.warning('No errata found')
+            return
+
         errata_to_remove = []    
 
         add_separator = False
 
         for errata in sorted(errata_list, reverse = True):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            print 'Errata: %s' % errata
-
             try:
                 systems = self.client.errata.listAffectedSystems(self.session, 
                                                                  errata)
@@ -2509,10 +2509,14 @@ For help for a specific command try 'help <cmd>'.
                 systems = []
             
             if len(systems):
+                if add_separator: print self.SEPARATOR
+                add_separator = True
+
+                print '%s:' % errata
                 for system in sorted([s.get('name') for s in systems]):
-                    print '  %s' % system
+                    print system
             else:
-                logging.warning('%s does not affect any systems' % errata)
+                logging.debug('%s does not affect any systems' % errata)
                 errata_to_remove.append(errata)
 
         # remove errata that didn't have any affected systems
@@ -2522,7 +2526,7 @@ For help for a specific command try 'help <cmd>'.
         if len(errata_list): 
             if not self.user_confirm('Apply these errata [y/N]:'): return
         else:
-            logging.warning('No errata selected')
+            logging.warning('No errata found')
             return
 
         for errata in errata_list: 
