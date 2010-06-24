@@ -49,7 +49,7 @@
     	alphabarcolumn="name" 
          styleclass="list"
          emptykey="orgsoftwaresubs.jsp.nochannelfams">
-         
+                     <rl:decorator name="PageSizeDecorator"/>
         <rl:column 
                filterattr="name" 
                sortattr = "name"

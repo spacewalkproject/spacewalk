@@ -38,7 +38,7 @@
              styleId="multiorg-entitlement-listview"             
              alphabarcolumn="orgName"
              emptykey="softwareEntitlementSubs.noOrgsFound">
-            
+            <rl:decorator name="PageSizeDecorator"/>
         <rl:column
             filterattr="orgName" 
             sortattr="orgName"
