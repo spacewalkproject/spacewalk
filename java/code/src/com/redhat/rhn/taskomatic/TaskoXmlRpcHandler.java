@@ -66,15 +66,15 @@ public class TaskoXmlRpcHandler {
             String jobLabel)
         throws NoSuchBunchTaskException, InvalidParamException {
         TaskoBunch bunch = checkBunchName(bunchName);
-        if (TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel) != null) {
+        if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty()) {
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
     }
 
     public Integer unscheduleBunch(Integer orgId, String jobLabel) throws InvalidParamException {
-        TaskoSchedule schedule =
-            TaskoFactory.lookupActiveScheduleByOrgAndLabel(orgId, jobLabel);
+        List<TaskoSchedule> scheduleList =
+            TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel);
         Trigger trigger;
         try {
             trigger = SchedulerKernel.getScheduler().getTrigger(jobLabel, orgId.toString());
@@ -85,10 +85,10 @@ public class TaskoXmlRpcHandler {
         // check for inconsistencies
         // quartz unschedules job after trigger end time
         // so better handle quartz and schedules separately
-        if ((schedule == null) && (trigger == null)) {
+        if ((scheduleList.isEmpty()) && (trigger == null)) {
             throw new InvalidParamException("No such jobLabel");
         }
-        if (schedule != null) {
+        for (TaskoSchedule schedule : scheduleList) {
             schedule.unschedule();
         }
         if (trigger != null) {
@@ -183,8 +183,12 @@ public class TaskoXmlRpcHandler {
         return 1;
     }
 
-    public List<TaskoSchedule> listSchedules(Integer orgId) {
+    public List<TaskoSchedule> listAllSchedules(Integer orgId) {
         return TaskoFactory.listSchedulesByOrg(orgId);
+    }
+
+    public List<TaskoSchedule> listActiveSchedules(Integer orgId) {
+        return TaskoFactory.listActiveSchedulesByOrg(orgId);
     }
 
     public List<TaskoRun> listScheduleRuns(Integer orgId, Integer scheduleId) {

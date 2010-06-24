@@ -150,12 +150,21 @@ public class TaskoFactory extends HibernateFactory {
         return false;
     }
 
-    public static TaskoSchedule lookupActiveScheduleByOrgAndLabel(Integer orgId,
+    public static List<TaskoSchedule> listActiveSchedulesByOrg(Integer orgId) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("timestamp", new Date());    // use server time, not DB time
+        return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
+                   "TaskoSchedule.findActiveByOrg", params);
+    }
+
+    public static List<TaskoSchedule> listActiveSchedulesByOrgAndLabel(Integer orgId,
             String jobLabel) {
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("job_label", jobLabel);
-        return (TaskoSchedule) singleton.lookupObjectByNamedQuery(
+        params.put("timestamp", new Date());    // use server time, not DB time
+        return (List<TaskoSchedule>) singleton.listObjectsByNamedQuery(
                    "TaskoSchedule.findActiveByOrgAndLabel", params);
     }
 
