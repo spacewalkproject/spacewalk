@@ -15,7 +15,7 @@
 package com.redhat.rhn.taskomatic.serializer;
 
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
-import com.redhat.rhn.taskomatic.TaskoSchedule;
+import com.redhat.rhn.taskomatic.TaskoBunch;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -26,16 +26,16 @@ import redstone.xmlrpc.XmlRpcSerializer;
 
 
 /**
- * TaskoScheduleSerializer
+ * TaskoBunchSerializer
  * @version $Rev$
  */
-public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
+public class TaskoBunchSerializer implements XmlRpcCustomSerializer {
 
     /**
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
-        return TaskoSchedule.class;
+        return TaskoBunch.class;
     }
 
     /**
@@ -45,17 +45,12 @@ public class TaskoScheduleSerializer implements XmlRpcCustomSerializer {
             XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
 
-        TaskoSchedule schedule = (TaskoSchedule) value;
-        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+            TaskoBunch bunch = (TaskoBunch) value;
+            SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        helper.add("id", schedule.getId());
-        helper.add("job_label", schedule.getJobLabel());
-        helper.add("bunch", schedule.getBunch().getName());
-        helper.add("active_from", schedule.getActiveFrom());
-        helper.add("active_till", schedule.getActiveTill());
-        helper.add("cron_expr", schedule.getCronExpr());
-        helper.add("data_map", schedule.getDataMap());
-
-        helper.writeTo(output);
+            helper.add("name", bunch.getName());
+            helper.add("description", bunch.getDescription());
+            helper.add("templates", bunch.getTemplates());
+            helper.writeTo(output);
     }
 }

@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.taskomatic;
 
+import com.redhat.rhn.taskomatic.serializer.TaskoBunchSerializer;
 import com.redhat.rhn.taskomatic.serializer.TaskoRunSerializer;
 import com.redhat.rhn.taskomatic.serializer.TaskoScheduleSerializer;
+import com.redhat.rhn.taskomatic.serializer.TaskoTemplateSerializer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class TaskoSerializerRegistry {
         TASKO_SERIALIZER_CLASSES = new LinkedList<Class>();
         TASKO_SERIALIZER_CLASSES.add(TaskoScheduleSerializer.class);
         TASKO_SERIALIZER_CLASSES.add(TaskoRunSerializer.class);
+        TASKO_SERIALIZER_CLASSES.add(TaskoBunchSerializer.class);
+        TASKO_SERIALIZER_CLASSES.add(TaskoTemplateSerializer.class);
     }
 
     private TaskoSerializerRegistry() {
