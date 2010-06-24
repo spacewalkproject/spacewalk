@@ -325,8 +325,8 @@ public class ChannelManager extends BaseManager {
         
         // Create a mapping of org ID's to the channel overview returned, we'll need this
         // when iterating the list of all orgs shortly:
-        Map<Long, ChannelOverview> orgEntitlementUsage = 
-            new HashMap<Long, ChannelOverview>();
+        Map<Long, ChannelOverview> orgEntitlementUsage =  new 
+                                        HashMap<Long, ChannelOverview>();
         for (ChannelOverview o : entitlementUsage) {
             orgEntitlementUsage.put(o.getOrgId(), o);
         }        
@@ -344,22 +344,40 @@ public class ChannelManager extends BaseManager {
         for (Org org : allOrgs) {
             if (orgEntitlementUsage.containsKey(org.getId())) {
                 ChannelOverview co = orgEntitlementUsage.get(org.getId());
-                if (co.getMaxMembers() == 0) {                    
+                if (co.getMaxMembers() == 0 && co.getMaxFlex() == 0) {                    
                     continue;
                 }
-                Long maxPossibleAllocation = null;
-                if (co.getMaxMembers() != null && 
-                        satelliteOrgOverview.getFreeMembers() != null) {
-                        maxPossibleAllocation = co.getMaxMembers() + 
-                            satelliteOrgOverview.getFreeMembers();
-                }                
-                OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
-                  co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
-                ret.add(seDto);
+                ret.add(makeOrgSoftwareEntitlement(co, org, satelliteOrgOverview));
             }
         }
         
         return ret;
+    }
+    
+    
+    private static OrgSoftwareEntitlementDto makeOrgSoftwareEntitlement(
+                            ChannelOverview co,
+                            Org org, 
+                            ChannelOverview satelliteOrgOverview) {
+        OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto();
+        seDto.setOrg(org);
+        seDto.setCurrentMembers(co.getCurrentMembers());
+        seDto.setMaxMembers(co.getMaxMembers());
+        if (co.getMaxMembers() != null && 
+                satelliteOrgOverview.getFreeMembers() != null) {
+            seDto.setMaxPossibleAllocation(co.getMaxMembers() + 
+                                    satelliteOrgOverview.getFreeMembers());
+        }
+        
+        seDto.setCurrentFlex(co.getCurrentFlex());
+        seDto.setMaxFlex(co.getMaxFlex());
+
+        if (co.getMaxFlex() != null && 
+                satelliteOrgOverview.getFreeFlex() != null) {
+            seDto.setMaxPossibleFlexAllocation(co.getMaxFlex() + 
+                                    satelliteOrgOverview.getFreeFlex());
+        }
+        return seDto;
     }
     
     /**
@@ -399,28 +417,23 @@ public class ChannelManager extends BaseManager {
         
         List<Org> allOrgs = OrgManager.allOrgs(user);
         for (Org org : allOrgs) {
-            Long maxPossibleAllocation = null;
-
             if (orgEntitlementUsage.containsKey(org.getId())) {
                 ChannelOverview co = orgEntitlementUsage.get(org.getId());
-
-                if (co.getMaxMembers() != null && 
-                        satelliteOrgOverview.getFreeMembers() != null) {
-                        maxPossibleAllocation = co.getMaxMembers() + 
-                            satelliteOrgOverview.getFreeMembers();
-                }                
-                OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
-                  co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
-                ret.add(seDto);
+                ret.add(makeOrgSoftwareEntitlement(co, org, satelliteOrgOverview));
             }
             else {
-                maxPossibleAllocation = satelliteOrgOverview.getFreeMembers();
-                OrgSoftwareEntitlementDto seDto =
-                    new OrgSoftwareEntitlementDto(org, 0L, 0L, maxPossibleAllocation);
+                OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto();
+                seDto.setOrg(org);
+                seDto.setCurrentMembers(0L);
+                seDto.setMaxMembers(0L);
+                seDto.setMaxPossibleAllocation(satelliteOrgOverview.getFreeMembers());
+                seDto.setCurrentFlex(0L);
+                seDto.setMaxFlex(0L);
+                seDto.setMaxPossibleFlexAllocation(satelliteOrgOverview.getFreeFlex());
                 ret.add(seDto);
             }
+
         }
-        
         return ret;
     }
     

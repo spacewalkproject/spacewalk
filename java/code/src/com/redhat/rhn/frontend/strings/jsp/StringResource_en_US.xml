@@ -4701,12 +4701,18 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header">
-<source>System-Wide Entitlement Counts</source>
+      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.regular">
+<source>System-Wide Regular Entitlement Counts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="softwareEntitlementSubs.systemWideCounts.header.flex">
+<source>System-Wide Flex Entitlement Counts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
+        </context-group>
+      </trans-unit>      
       <trans-unit id="softwareEntitlementSubs.submit">
 <source>Update</source>
         <context-group name="ctx">
@@ -4725,14 +4731,15 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="softwareEntitlementSubs.totaltip">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
+            
+      <trans-unit id="softwareEntitlementSubs.Used/Alloted">
+<source>'Alloted' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
+<source> This total corresponds to your @@PRODUCT_NAME@@ certificate's
 value for this entitlement, excluding the default organization's consumption.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
@@ -4744,12 +4751,14 @@ value for this entitlement, excluding the default organization's consumption.</s
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsage">
 <source>Organization Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+            
       <trans-unit id="softwareEntitlementSubs.systemWideCounts.entUsageData">
 <source>{0} of {1} ({2}%)</source>
         <context-group name="ctx">

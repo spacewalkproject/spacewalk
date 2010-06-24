@@ -33,6 +33,11 @@ public class ChannelOverview extends BaseDto implements Comparable {
     private Long currentFlex;
     private Long maxFlex;
     private Long subscribeCount;
+    private Long hasSubscription;
+    private String url;
+    private Long relevantPackages;
+    private Long originalId;
+    private List<PackageDto> packages = new ArrayList<PackageDto>();
 
 
     /**
@@ -88,14 +93,17 @@ public class ChannelOverview extends BaseDto implements Comparable {
         this.maxFlex = maxFlexIn;
     }
 
-
-
-    private Long hasSubscription;
-    private String url;
-    private Long relevantPackages;
-    private Long originalId;
-    private List<PackageDto> packages = new ArrayList<PackageDto>();
-
+    /**
+     * @return Returns the free flex members.
+     */
+    public Long getFreeFlex() {
+        // Looks like the schema sadly allows this to be null:
+        Long max = maxFlex;
+        if (max == null || max == 0) {
+            return 0L;
+        }
+        return max - currentFlex;
+    }
     
     /**
      * @return Returns the originalId.
@@ -146,8 +154,8 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public Long getFreeMembers() {
         // Looks like the schema sadly allows this to be null:
         Long max = maxMembers;
-        if (max == null) {
-            max = new Long(0);
+        if (max == null || max == 0) {
+            return 0L;
         }
         return max - currentMembers;
     }
