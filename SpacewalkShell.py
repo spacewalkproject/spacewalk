@@ -4223,6 +4223,38 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_system_reboot(self):
+        print 'system_reboot: List all inactive systems'
+        print 'usage: system_reboot'
+    
+    def complete_system_reboot(self, text, line, begidx, endidx):
+        return self.tab_completer(self.get_system_names(), text)
+
+    def do_system_reboot(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_system_reboot()
+            return
+
+        # use the systems listed in the SSM
+        if re.match('ssm', args[0], re.I):
+            systems = self.ssm
+        else:
+            systems = self.expand_systems(args)
+
+        if not self.user_confirm('Reboot these systems [y/N]:'): return
+
+        time = self.parse_time_input('now')
+
+        for system in systems:
+            id = self.get_system_id(system)
+            if not id: continue
+
+            self.client.system.scheduleReboot(self.session, id, time)
+
+####################
+
     def help_system_search(self):
         print 'system_search: List systems that match the given criteria'
         print 'usage: system_search QUERY'
