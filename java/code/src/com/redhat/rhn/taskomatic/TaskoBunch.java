@@ -27,7 +27,6 @@ public class TaskoBunch {
     private Long id;
     private String name;
     private String description;
-    private String orgTask;
     private Date activeFrom;
     private Date activeTill;
     private String orgBunch;
@@ -145,22 +144,6 @@ public class TaskoBunch {
      */
     public void setTemplates(List<TaskoTemplate> templatesIn) {
         this.templates = templatesIn;
-    }
-
-
-    /**
-     * @return Returns the orgTask.
-     */
-    public String getOrgTask() {
-        return orgTask;
-    }
-
-
-    /**
-     * @param orgTaskIn The orgTask to set.
-     */
-    public void setOrgTask(String orgTaskIn) {
-        this.orgTask = orgTaskIn;
     }
 
     /**
