@@ -3593,11 +3593,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_report_listinactive(self):
-        print 'report_listinactive: List all inactive systems'
-        print 'usage: report_listinactive [DAYS]'
+    def help_report_inactivesystems(self):
+        print 'report_inactivesystems: List all inactive systems'
+        print 'usage: report_inactivesystems [DAYS]'
 
-    def do_report_listinactive(self, args):
+    def do_report_inactivesystems(self, args):
         args = self.parse_arguments(args)
     
         if len(args) == 1:
@@ -3617,11 +3617,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_report_listoutofdate(self):
-        print 'report_listoutofdate: List all out-of-date systems'
-        print 'usage: report_listoutofdate'
+    def help_report_outofdatesystems(self):
+        print 'report_outofdatesystems: List all out-of-date systems'
+        print 'usage: report_outofdatesystems'
 
-    def do_report_listoutofdate(self, args):
+    def do_report_outofdatesystems(self, args):
         systems = self.client.system.listOutOfDateSystems(self.session)
 
         #XXX: max(list, key=len) in >2.5
@@ -3649,11 +3649,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_report_listactive(self):
-        print 'report_listactive: List all active systems'
-        print 'usage: report_listactive'
+    def help_report_activesystems(self):
+        print 'report_activesystems: List all active systems'
+        print 'usage: report_activesystems'
 
-    def do_report_listactive(self, args):
+    def do_report_activesystems(self, args):
         systems = self.client.system.listActiveSystems(self.session)
         systems = [ s.get('name') for s in systems ]
 
@@ -3662,11 +3662,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_report_listungrouped(self):
-        print 'report_listungrouped: List all ungrouped systems'
-        print 'usage: report_listungrouped'
+    def help_report_ungroupedsystems(self):
+        print 'report_ungroupedsystems: List all ungrouped systems'
+        print 'usage: report_ungroupedsystems'
 
-    def do_report_listungrouped(self, args):
+    def do_report_ungroupedsystems(self, args):
         systems = self.client.system.listUngroupedSystems(self.session)
         systems = [ s.get('name') for s in systems ]
 
@@ -3675,12 +3675,12 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_report_listerrata(self):
-        print 'report_listerrata: List all out-of-date systems'
-        print 'usage: report_listerrata'
+    def help_report_errata(self):
+        print 'report_errata: List all out-of-date systems'
+        print 'usage: report_errata'
 
     #XXX: performance is terrible due to all the API calls
-    def do_report_listerrata(self, args):
+    def do_report_errata(self, args):
         self.generate_errata_cache()
 
         report = {}
