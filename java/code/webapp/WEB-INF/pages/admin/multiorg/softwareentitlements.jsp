@@ -39,7 +39,7 @@
     <rl:list alphabarcolumn="name"
              styleclass="list"             
              emptykey="softwareentitlements.noentitlements">
-                        
+            <rl:decorator name="PageSizeDecorator"/>                        
         <rl:column 
             sortattr="name"
             filterattr="name" 
