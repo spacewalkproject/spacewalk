@@ -380,7 +380,9 @@ ORDER by cfo.name DESC
 
 <mode name="channel_entitlement" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id, entitlement_id">
-SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
+CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
+ CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
  AND CFO.id = :entitlement_id
@@ -390,7 +392,9 @@ SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.ha
 
 <mode name="channel_entitlement_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="entitlement_id">
-SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members,
+			CFO.fve_current_members as current_flex, CFO.fve_max_members as max_flex,
+		 CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.id = :entitlement_id
  AND CFO.org_id in (SELECT ID FROM WEB_CUSTOMER)

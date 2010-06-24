@@ -28,22 +28,41 @@ public class OrgSoftwareEntitlementDto {
     private Long currentMembers;
     private Long maxMembers;
     private Long maxPossibleAllocation;
+    private Long currentFlex;
+    private Long maxFlex;
+    private Long maxPossibleFlexAllocation;    
     
     /**
-     * Constructor
-     * @param orgIn Org
-     * @param currentMembersIn Current member count
-     * @param maxMembersIn Current max member count
-     * @param maxPossibleAllocationIn Maximum possible allocation
+     * @param orgIn The org to set.
      */
-    public OrgSoftwareEntitlementDto(Org orgIn, Long currentMembersIn, Long maxMembersIn, 
-            Long maxPossibleAllocationIn) {
-        this.org = orgIn;
-        this.currentMembers = currentMembersIn;
-        this.maxMembers = maxMembersIn;
-        this.maxPossibleAllocation = maxPossibleAllocationIn;
+    public void setOrg(Org orgIn) {
+        org = orgIn;
     }
+
     
+    /**
+     * @param currentMembersIn The currentMembers to set.
+     */
+    public void setCurrentMembers(Long currentMembersIn) {
+        currentMembers = currentMembersIn;
+    }
+
+    
+    /**
+     * @param maxMembersIn The maxMembers to set.
+     */
+    public void setMaxMembers(Long maxMembersIn) {
+        maxMembers = maxMembersIn;
+    }
+
+    
+    /**
+     * @param maxPossibleAllocationIn The maxPossibleAllocation to set.
+     */
+    public void setMaxPossibleAllocation(Long maxPossibleAllocationIn) {
+        maxPossibleAllocation = maxPossibleAllocationIn;
+    }
+
     /**
      * @return The org in question.
      */
@@ -93,6 +112,93 @@ public class OrgSoftwareEntitlementDto {
      * @return Max possible allocation.
      */
     public Long getMaxPossibleAllocation() {
+        if (maxPossibleAllocation == null) {
+            return 0L;
+        }
         return maxPossibleAllocation;
     }
+
+    
+    /**
+     * @return Returns the currentFlex.
+     */
+    public Long getCurrentFlex() {
+        return currentFlex;
+    }
+
+    
+    /**
+     * @param currentFlexIn The currentFlex to set.
+     */
+    public void setCurrentFlex(Long currentFlexIn) {
+        currentFlex = currentFlexIn;
+    }
+
+    
+    /**
+     * @return Returns the maxFlex.
+     */
+    public Long getMaxFlex() {
+        return maxFlex;
+    }
+
+    
+    /**
+     * @param maxFlexIn The maxFlex to set.
+     */
+    public void setMaxFlex(Long maxFlexIn) {
+        maxFlex = maxFlexIn;
+    }
+
+    
+    /**
+     * @return Returns the maxPossibleFlexAllocation.
+     */
+    public Long getMaxPossibleFlexAllocation() {
+        if (maxPossibleFlexAllocation == null) {
+            return 0L;
+        }
+        return maxPossibleFlexAllocation;
+    }
+
+    
+    /**
+     * @param maxPossibleFlexAllocationIn The maxPossibleFlexAllocation to set.
+     */
+    public void setMaxPossibleFlexAllocation(Long maxPossibleFlexAllocationIn) {
+        maxPossibleFlexAllocation = maxPossibleFlexAllocationIn;
+    }
+    
+    
+    /**
+     * @return the key
+     */
+    public String getKey() {
+        return makeKey(getOrg().getId());
+    }
+    
+    /**
+     * @return the key
+     */
+    public String getFlexKey() {
+        return makeFlexKey(getOrg().getId());
+    }
+
+    
+    /**
+     * @param id the id of the channel family
+     * @return the key
+     */
+    public static String makeKey(Long id) {
+        return String.valueOf(id);
+    }
+
+    
+    /**
+     * @param id the id of the channel family
+     * @return the key
+     */
+    public static String makeFlexKey(Long id) {
+        return id + "-flex";
+    }  
 }

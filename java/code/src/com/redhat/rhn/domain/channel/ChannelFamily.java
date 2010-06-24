@@ -246,7 +246,7 @@ public class ChannelFamily extends BaseDomainHelper {
      */
     private PrivateChannelFamily getAllocation(Org orgIn) {
         for (PrivateChannelFamily alloc : getPrivateChannelFamilies()) {
-            if (orgIn.equals(alloc.getOrg())) {
+            if (orgIn.getId().equals(alloc.getOrg().getId())) {
                 return alloc;
             }
         }

@@ -7,10 +7,9 @@
 <html:html xhtml="true">
 
 <head>
-<script src="/javascript/multiorg-entitlements.js" type="text/javascript"> </script>
 </head>
 
-<body onload="onLoadStuff(4);">
+<body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
 	miscUrl="${url}"
 	miscAcl="user_role(org_admin)"
@@ -34,68 +33,111 @@
     <html:hidden property="cfid" value="${channelFamily.id}"/>
     <html:hidden property="orgClicked" value="0"/>
 
-    <rl:list dataset="pageList"
-             width="100%"
-             name="pageList"
-             filter="com.redhat.rhn.frontend.action.multiorg.OrgNameFilter"
+    <rl:list
              styleclass="list"
              styleId="multiorg-entitlement-listview"             
              alphabarcolumn="orgName"
              emptykey="softwareEntitlementSubs.noOrgsFound">
             
-        <rl:column bound="false" 
-            sortable="false" 
+        <rl:column
+            filterattr="orgName" 
             headerkey="softwareEntitlementSubs.column.orgName" 
             styleclass="first-column">
-            <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.org.id}">
+            <a href="/rhn/admin/multiorg/OrgDetails.do?oid=${current.org.id}" tabindex="-1">
                 ${current.orgName}
             </a>
         </rl:column>
+		<c:if test="${not empty requestScope.regularAvailable}">
+        <rl:column
+        	headertext="${rhn:localize('Regular Usage')} <br/> (${rhn:localize('Used/Alloted')})*"
+            >
+			<c:choose>
+            	<c:when test="${empty current.maxMembers or current.maxMembers == 0}">
+            		<bean:message key="None Allocated"/>
+            	</c:when>	
+            	<c:otherwise>
+            	${current.currentMembers}/${current.maxMembers}
+            	</c:otherwise>            	
+            </c:choose>
+		</rl:column>
 
-        <rl:column bound="true" 
-            sortable="false" 
-            headerkey="softwareEntitlementSubs.column.total" 
-            attr="maxMembersDisplay"/>
-
-        <rl:column bound="true" 
-            sortable="false" 
-            headerkey="softwareEntitlementSubs.column.currentMembers" 
-            attr="currentMembers"/>
-
-        <rl:column bound="false" 
-            sortable="false" 
-            headerkey="softwareEntitlementSubs.column.proposedTotal" 
-            styleclass="last-column"
-            attr="maxMembers">
-
-            <c:choose>
-                <c:when test="${current.maxMembers != null}">
-                    <div id="id${current.org.id}">                  
-                    <html:text property="newCount_${current.org.id}" size="5" value="${current.maxMembers}"                               
+        <rl:column  
+            headerkey="Regular Proposed Total">
+	       	<c:choose>
+	       		<c:when test = "${current.maxPossibleAllocation == 0}">
+	       			<bean:message key="No Entitlements Available"/>
+	       		</c:when>
+	       		<c:otherwise>
+                    <div id="id${current.key}">                  
+                    <html:text property="${current.key}" size="10" value="${requestScope.orgs[current.key]}"                               
                                onkeydown="return blockEnter(event)" 
-                               onclick="rowHash['id${current.org.id}'].toggleVisibility();"/>                                      
-                    <html:submit onclick="this.form.orgClicked.value = '${current.org.id}';">                                 
-                        <bean:message key="softwareEntitlementSubs.submit"/>
-                    </html:submit>                                      
+                               />
                     <br/>
-                    <div class="small-text" id="id${current.org.id}-tooltip">
+                    <div class="small-text" id="id${current.key}-tooltip">
                         <bean:message key="softwareEntitlementSubs.possibleValues" 
                             arg0="0"
                             arg1="${current.maxMembers + satelliteOrgOverview.freeMembers}"/>
                     </div>
                     </div>
-                </c:when>
-            </c:choose>
+	            </c:otherwise>
+			</c:choose>
+        </rl:column>
+        </c:if>
+		<c:if test="${not empty requestScope.flexAvailable}">
+	        <rl:column
+	        	headertext="${rhn:localize('Flex Usage')} <br/> (${rhn:localize('Used/Alloted')})*"
+	            >
+				<c:choose>
+	            	<c:when test="${empty current.maxFlex or current.maxFlex == 0}">
+	            		<bean:message key="None Allocated"/>
+	            	</c:when>	
+	            	<c:otherwise>
+	            	${current.currentFlex}/${current.maxFlex}
+	            	</c:otherwise>            	
+	            </c:choose>
+			</rl:column>
+			
+	        <rl:column  
+	            headerkey="Flex Proposed Total">
+		       	<c:choose>
+		       		<c:when test = "${current.maxPossibleFlexAllocation == 0}">
+		       			<bean:message key="No Entitlements Available"/>
+		       		</c:when>
+		       		<c:otherwise>
+	                    <div id="id${current.flexKey}">
+	                    <html:text property="${current.flexKey}" size="10" value="${requestScope.orgs[current.flexKey]}"                               
+	                               onkeydown="return blockEnter(event)" 
+	                               />
+	                    <br/>
+	                    <div class="small-text" id="id${current.flexKey}-tooltip">
+	                        <bean:message key="softwareEntitlementSubs.possibleValues" 
+	                            arg0="0"
+	                            arg1="${current.maxFlex + satelliteOrgOverview.freeFlex}"/>
+	                    </div>
+	                    </div>
+		            </c:otherwise>
+				</c:choose>
+	        </rl:column>
+		</c:if>
 
+        <rl:column  
+            headerkey="emptyspace.jsp" 
+            styleclass="last-column"
+            >
+            <c:if test = "${current.maxPossibleAllocation > 0 || current.maxPossibleFlexAllocation > 0}">
+            	<html:submit onclick="this.form.orgClicked.value = '${current.org.id}';">
+                        <bean:message key="softwareEntitlementSubs.submit"/>
+                    </html:submit>
+            </c:if>
+            
         </rl:column>
 
     </rl:list>
 </rl:listset>
 </p>
-   <span class="small-text">
-      <bean:message key="softwareEntitlementSubs.totaltip"/>
-   </span>
-<h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header"/></h2>
+<rhn:tooltip key="softwareEntitlementSubs.Used/Alloted"/>
+<c:if test="${not empty requestScope.regularAvailable}">
+<h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header.regular"/></h2>
 
 <table class="details">
     <tr>
@@ -105,8 +147,7 @@
         <td>
             ${maxMem}         
             <p/>
-             <span class="small-text">
-            <bean:message key="softwareEntitlementSubs.systemWideCounts.totaltip"/></em>
+            <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
              </span>
         </td>
     </tr>
@@ -127,9 +168,44 @@
         <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData" 
                   arg0="${entitledOrgs}" arg1="${orgCount}" arg2="${orgRatio}" />             
         </td>
+    </tr>    
+</table>
+</c:if>
+<c:if test="${not empty requestScope.flexAvailable}">
+<h2><bean:message key="softwareEntitlementSubs.systemWideCounts.header.flex"/></h2>
+
+<table class="details">
+    <tr>
+        <th>
+            <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.total"/>:</strong>
+        </th>
+        <td>
+            ${maxFlex}         
+            <p/>
+            <rhn:tooltip key="softwareEntitlementSubs.systemWideCounts.totaltip"/>
+        </td>
+    </tr>    
+    
+	<tr>
+        <th>
+            <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.entUsage"/>:</strong>
+        </th>
+        <td>
+            <bean:message key="softwareEntitlementSubs.systemWideCounts.entUsageData" 
+                  arg0="${curFlex}" arg1="${maxFlex}" arg2="${flexEntRatio}" /> 
+        </td>
     </tr>
+    <tr>
+        <th>
+            <strong><bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsage"/>:</strong>
+        </th>
+        <td>
+        <bean:message key="softwareEntitlementSubs.systemWideCounts.orgUsageData" 
+                  arg0="${flexEntitledOrgs}" arg1="${orgCount}" arg2="${flexOrgRatio}" />             
+        </td>
+    </tr>    
 </table>
 
-
+</c:if>
 </body>
 </html:html>
