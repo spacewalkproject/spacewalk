@@ -3913,15 +3913,15 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_schedule_getoutput(self):
-        print 'schedule_getoutput: Show the output from a completed action'
-        print 'usage: schedule_getoutput ID'
+    def help_schedule_getscriptoutput(self):
+        print 'schedule_getscriptoutput: Show the output from a script'
+        print 'usage: schedule_getscriptoutput ID'
 
-    def do_schedule_getoutput(self, args):
+    def do_schedule_getscriptoutput(self, args):
         args = self.parse_arguments(args)
 
         if not len(args):
-            self.help_schedule_getoutput()
+            self.help_schedule_getscriptoutput()
             return
         elif len(args) > 1:
             systems = args[1:]
