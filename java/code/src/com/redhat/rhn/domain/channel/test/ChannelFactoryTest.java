@@ -89,11 +89,29 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         ChannelFactory.save(c);
         return c;
     }
+    
+    public static Channel createBaseChannel(User user,
+                                ChannelFamily fam) throws Exception {
+        Channel c = createTestChannel(null, fam);
+        ProductName pn = lookupOrCreateProductName(ChannelManager.RHEL_PRODUCT_NAME);
+        c.setProductName(pn);
+        ChannelFactory.save(c);
+        return (Channel)TestUtils.saveAndReload(c);
+    }
+
 
     public static Channel createTestChannel(User user) throws Exception {
         Org org = user.getOrg();
         ChannelFamily cfam = user.getOrg().getPrivateChannelFamily();
+        Channel c =  createTestChannel(org, cfam);
+        // assume we want the user to have access to this channel once created
+        UserManager.addChannelPerm(user, c.getId(), "subscribe");
+        UserManager.addChannelPerm(user, c.getId(), "manage");
+        ChannelFactory.save(c);
+        return c; 
+    }
 
+    public static Channel createTestChannel(Org org, ChannelFamily cfam) throws Exception {
         String label = "ChannelLabel" + TestUtils.randomString();
         String basedir = "TestChannel basedir";
         String name = "ChannelName" + TestUtils.randomString();
@@ -108,11 +126,10 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.DATE, true);
         Date endoflife = new Date(System.currentTimeMillis() + Integer.MAX_VALUE);
-        
+
         Long testid = new Long(500);
         String query = "ChannelArch.findById";
         ChannelArch arch = (ChannelArch) TestUtils.lookupFromCacheById(testid, query);
-        
         Channel c = new Channel();
         c.setOrg(org);
         c.setLabel(label);
@@ -129,12 +146,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         c.setEndOfLife(endoflife);
         c.setChannelArch(arch);
         c.setChannelFamily(cfam);
-        
-        ChannelFactory.save(c);
-        
-        // assume we want the user to have access to this channel once created
-        UserManager.addChannelPerm(user, c.getId(), "subscribe");
-        UserManager.addChannelPerm(user, c.getId(), "manage");
         ChannelFactory.save(c);
         return c; 
     }

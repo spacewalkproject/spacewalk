@@ -20,10 +20,13 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.hibernate.Session;
 
+import java.util.Date;
 import java.util.Iterator;
 
 
@@ -80,6 +83,9 @@ public class HostBuilder {
     
     private HostBuilder createHost(ServerGroupType type) throws Exception {
         host = ServerFactoryTest.createTestServer(owner, true, type);
+        if (host.getBaseEntitlement() == null) {
+            SystemManager.entitleServer(host, EntitlementManager.MANAGEMENT);
+        }
         return this;
     }
     
@@ -162,11 +168,14 @@ public class HostBuilder {
             virtualInstance.setUuid(TestUtils.randomString());
             
             if (register) {
-                guest = ServerFactoryTest.createTestServer(owner);
+                guest = ServerFactoryTest.createUnentitledTestServer(owner, true,
+                        ServerFactoryTest.TYPE_SERVER_NORMAL , new Date());
                 virtualInstance.setGuestSystem(guest);
             }
             
             host.addGuest(virtualInstance);
+            TestUtils.saveAndFlush(host);
+            TestUtils.saveAndFlush(guest);
         }
     }
 
