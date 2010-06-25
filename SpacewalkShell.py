@@ -5969,6 +5969,9 @@ For help for a specific command try 'help <cmd>'.
             system_id = self.get_system_id(system)
             if not system_id: return
 
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
             if len(systems) > 1:
                 print 'System: %s' % system
                 print
@@ -5977,9 +5980,6 @@ For help for a specific command try 'help <cmd>'.
                                                           system_id)
 
             self.print_errata_list(errata)
-
-            if add_separator: print self.SEPARATOR
-            add_separator = True
 
 ####################
 
