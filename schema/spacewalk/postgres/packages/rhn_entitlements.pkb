@@ -850,7 +850,7 @@ as $$
                 end loop;
             end loop;
         else
-            for i in 1..array_upper(ents_to_process, 1) loop
+            for i in 1..coalesce(array_upper(ents_to_process, 1), 0) loop
                 for ent in ents(ents_to_process[i]) loop
                     delete from rhnOrgEntitlements
                      where org_id = org_id_in
