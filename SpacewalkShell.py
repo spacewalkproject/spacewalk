@@ -767,13 +767,14 @@ For help for a specific command try 'help <cmd>'.
                 map(self.print_errata_summary, rhea)
 
 
-    def print_action_summary(self, action, systems=[]):
-        print 'ID:         %s' % str(action.get('id'))
+    def print_action_summary(self, action, systems=[], verbose=False):
+        print 'ID:         %i' % action.get('id')
         print 'Type:       %s' % action.get('type')
         print 'Scheduler:  %s' % action.get('scheduler')
         print 'Start Time: %s' % re.sub('T' , ' ', action.get('earliest').value)
+        print 'Systems:    %i' % len(systems)
 
-        if len(systems):
+        if verbose and len(systems):
             print
             print 'Systems:'
             for s in systems:
@@ -3849,15 +3850,15 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_schedule_summary(self):
-        print 'schedule_summary: Show the details of a scheduled action'
-        print 'usage: schedule_summary ID'
+    def help_schedule_details(self):
+        print 'schedule_details: Show the details of a scheduled action'
+        print 'usage: schedule_details ID'
 
-    def do_schedule_summary(self, args):
+    def do_schedule_details(self, args):
         args = self.parse_arguments(args)
 
         if not len(args):
-            self.help_schedule_summary()
+            self.help_schedule_details()
             return
 
         try:
@@ -3870,16 +3871,22 @@ For help for a specific command try 'help <cmd>'.
         failed = self.client.schedule.listFailedSystems(self.session, id)
         pending = self.client.schedule.listInProgressSystems(self.session, id)
 
+        # put all the system arrays together for the summary
+        all_systems = []
+        all_systems.extend(completed)
+        all_systems.extend(failed)
+        all_systems.extend(pending)
+
         # schedule.getAction() API call would make this easier
         all_actions = self.client.schedule.listAllActions(self.session)
-        action = None
+        action_id = 0
         for a in all_actions:
             if a.get('id') == id:
-                action = a
+                action_id = a
                 del all_actions
                 break
 
-        self.print_action_summary(action)
+        self.print_action_summary(action_id, systems = all_systems)
 
         if len(completed):
             print
@@ -4632,18 +4639,21 @@ For help for a specific command try 'help <cmd>'.
 
             # the current API forces us to schedule each system individually
             # XXX: Bugzilla 584867
-            id = self.client.system.scheduleScriptRun(self.session,
-                                                      system_id,
-                                                      user,
-                                                      group,
-                                                      timeout,
-                                                      script,
-                                                      time)
+            try:
+                id = self.client.system.scheduleScriptRun(self.session,
+                                                          system_id,
+                                                          user,
+                                                          group,
+                                                          timeout,
+                                                          script,
+                                                          time)
+            
+                logging.info('Action ID: %s' % str(id))
+                scheduled += 1
+            except:
+                logging.error('Failed to schedule %s' % system)
 
-            logging.info('Action ID: %s' % str(id))
-            scheduled += 1
-
-        print 'Scheduled: %s system(s)' % str(scheduled)
+        print 'Scheduled: %i system(s)' % scheduled
 
         if not keep_script_file:
             try:
@@ -4860,18 +4870,18 @@ For help for a specific command try 'help <cmd>'.
 
             time = self.parse_time_input('now')
 
-            status = self.client.system.schedulePackageInstall(self.session,
+            try:
+                id = self.client.system.schedulePackageInstall(self.session,
                                                                system_id,
                                                                package_ids,
                                                                time)
 
-            if status:
+                logging.info('Action ID: %i' % id)
                 scheduled += 1
-            else:
+            except:
                 logging.error('Failed to schedule %s' % system)
-                continue
 
-        print 'Scheduled %s system(s)' % str(scheduled)
+        print 'Scheduled %i system(s)' % scheduled
 
 ####################
 
@@ -4927,8 +4937,11 @@ For help for a specific command try 'help <cmd>'.
             installed_systems = \
                 self.client.system.listSystemsWithPackage(self.session, 
                                                           package_id)
-            
+           
             for s in installed_systems:
+                # don't remove from systems we didn't select
+                if s.get('name') not in systems: continue
+
                 name = s.get('name')
                 if name not in jobs:
                     jobs[name] = []
@@ -4944,7 +4957,8 @@ For help for a specific command try 'help <cmd>'.
                 print packages_by_id[package]
 
             spacer = True
-    
+   
+        if not len(jobs): return 
         if not self.user_confirm('Remove these packages [y/N]:'): return
 
         time = self.parse_time_input('now')
@@ -4955,16 +4969,17 @@ For help for a specific command try 'help <cmd>'.
             if not system_id: continue
 
             try:
-                self.client.system.schedulePackageRemove(self.session,
-                                                         system_id,
-                                                         jobs[system],
-                                                         time)
+                id = self.client.system.schedulePackageRemove(self.session,
+                                                              system_id,
+                                                              jobs[system],
+                                                              time)
 
+                logging.info('Action ID: %i' % id)
                 scheduled += 1
             except:
                 logging.error('Failed to schedule %s' % system)
 
-        print 'Scheduled %s system(s)' % str(scheduled)
+        print 'Scheduled %i system(s)' % scheduled
 
 ####################
 
@@ -4998,7 +5013,7 @@ For help for a specific command try 'help <cmd>'.
             # remove 'ssm' from the argument list
             args.pop(0)
         else:
-            systems = self.expand_systems(args)
+            systems = self.expand_systems(args.pop(0))
 
         jobs = []
         for system in sorted(systems):
@@ -5014,7 +5029,6 @@ For help for a specific command try 'help <cmd>'.
                 jobs.append( (system, system_id, package_ids) )
             else:
                 logging.warning('No upgrades available for %s' % system)
-                args.remove(system)
 
         if len(jobs):
             self.do_system_listupgrades(' '.join(systems))
@@ -5027,18 +5041,18 @@ For help for a specific command try 'help <cmd>'.
         for job in jobs:
             (system, system_id, package_ids) = job
 
-            status = self.client.system.schedulePackageInstall(self.session,
+            try:
+                id = self.client.system.schedulePackageInstall(self.session,
                                                                system_id,
                                                                package_ids,
                                                                time)
-
-            if status:
+            
+                logging.info('Action ID: %i' % id)
                 scheduled += 1
-            else:
+            except:
                 logging.error('Failed to schedule %s' % system)
-                continue
 
-        print 'Scheduled %s system(s)' % str(scheduled)
+        print 'Scheduled %i system(s)' % scheduled
 
 ####################
 
@@ -6082,7 +6096,7 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listevents(self):
         print 'system_listevents: List the event history for a system'
-        print 'usage: system_listevents SSM|<SYSTEM ...>'
+        print 'usage: system_listevents SSM|<SYSTEM ...> [LIMIT]'
 
     def complete_system_listevents(self, text, line, begidx, endidx):
         return self.tab_completer(self.do_system_list('', True), text)
@@ -6094,13 +6108,22 @@ For help for a specific command try 'help <cmd>'.
             self.help_system_listevents()
             return
 
-        add_separator = False
+        # allow a limit to be passed as the last argument so that only
+        # that number of events is listed
+        if len(args) > 1:
+            try:
+                limit = int(args[len(args) - 1])
+                args.pop()
+            except:
+                pass
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
             systems = self.ssm
         else:
             systems = self.expand_systems(args)
+        
+        add_separator = False
 
         for system in sorted(systems):
             system_id = self.get_system_id(system)
@@ -6114,7 +6137,7 @@ For help for a specific command try 'help <cmd>'.
 
             events = self.client.system.getEventHistory(self.session,
                                                         system_id)
-            
+            count = 0
             for e in events:
                 print
                 print 'Summary:   %s' % e.get('summary')
@@ -6122,6 +6145,10 @@ For help for a specific command try 'help <cmd>'.
                                                e.get('completed').value)
                 print 'Details:'
                 print e.get('details')
+
+                if limit:
+                    count += 1
+                    if count >= limit: break
 
 ####################
 
