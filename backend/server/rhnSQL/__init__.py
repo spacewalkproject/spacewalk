@@ -96,7 +96,6 @@ def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
         host = None
         port = None
         dsn = CFG.DEFAULT_DB
-        print "dsn [%s]" % dsn
         (username, temp) = dsn.split("/")
         (password, dsn) = temp.split("@")
         for i in dsn.split(';'):
