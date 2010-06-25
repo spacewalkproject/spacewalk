@@ -6418,6 +6418,68 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_user_update(self):
+        print "user_update: Update a user's details"
+        print 'usage: user_update USER'
+
+    def complete_user_update(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_user_list('', True), text)
+
+    def do_user_update(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_user_update()
+            return
+
+        user = args[0]
+
+        details = self.client.user.getDetails(self.session, user)
+
+        new_details = {}
+
+        new_details['first_name'] = \
+            self.prompt_user('First Name [%s]:' % details.get('first_name'))
+
+        if new_details['first_name'] == '':
+            new_details['first_name'] = details.get('first_name')
+
+        new_details['last_name'] = \
+            self.prompt_user('Last Name [%s]:' % details.get('last_name'))
+        
+        if new_details['last_name'] == '':
+            new_details['last_name'] = details.get('last_name')
+
+        new_details['email'] = \
+            self.prompt_user('Email Address [%s]:' % details.get('email'))
+        
+        if new_details['email'] == '':
+            new_details['email'] = details.get('email')
+
+        # prefixes are retarded
+        new_details['prefix'] = 'Dr.'        
+
+        # the password must be updated
+        new_details['password'] = ''
+        while new_details['password'] == '':
+            password1 = getpass('Password [blank to leave the same]: ')
+
+            # don't force a password change
+            if password1 == '':
+                del new_details['password']
+                break
+            
+            password2 = getpass('Repeat Password: ')
+
+            if password1 != password2:
+                logging.warning('Passwords do not match')
+            else:
+                new_details['password'] = password1
+
+        self.client.user.setDetails(self.session, user, new_details)
+
+####################
+
     def help_user_delete(self):
         print 'user_delete: Delete a user'
         print 'usage: user_delete NAME'
