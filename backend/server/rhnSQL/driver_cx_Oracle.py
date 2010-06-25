@@ -482,7 +482,7 @@ class Database(sql_base.Database):
 
     def check_connection(self):
         try:
-            h = self.prepare("select sysdate as ID from dual")
+            h = self.prepare("select 1 from dual")
             h.execute()
         except: # try to reconnect, that one MUST WORK always
             log_error("DATABASE CONNECTION TO '%s' LOST" % self.dbtxt,
