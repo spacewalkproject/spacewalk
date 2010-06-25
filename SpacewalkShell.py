@@ -51,6 +51,18 @@ class SpacewalkShell(Cmd):
                     'virtualization_host_platform']
 
     EDITORS = ['vim', 'vi', 'nano', 'emacs']
+    
+    SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname', 
+                            'device', 'vendor', 'driver']
+    
+    # list of system selection options for the help output
+    HELP_SYSTEM_OPTS = '''<SYSTEMS> can be any of the following:
+name
+ssm (see 'help ssm')
+search:QUERY (see 'help system_search')
+group:GROUP
+channel:CHANNEL
+'''
 
     intro = '''
 Welcome to spacecmd, a command line interface to Spacewalk.
@@ -276,6 +288,31 @@ For help for a specific command try 'help <cmd>'.
 
     def tab_completer(self, options, text):
         return [o for o in options if re.match(text, o)]
+
+
+    def tab_complete_systems(self, text):
+        if re.match('group:', text):
+            # prepend 'group' to each item for tab completion
+            groups = ['group:%s' % g for g in self.do_group_list('', True)]
+
+            return self.tab_completer(groups, text)
+        elif re.match('channel:', text):
+            # prepend 'channel' to each item for tab completion
+            channels = ['channel:%s' % s \
+                for s in self.do_softwarechannel_list('', True)]
+
+            return self.tab_completer(channels, text)
+        elif re.match('search:', text):
+            # prepend 'search' to each item for tab completion
+            fields = ['search:%s:' % f for f in self.SYSTEM_SEARCH_FIELDS]
+            return self.tab_completer(fields, text)
+        else:
+            options = self.get_system_names()
+
+            # add our special search options
+            options.extend([ 'group:', 'channel:', 'search:' ])
+
+            return self.tab_completer(options, text)
 
 
     def filter_results(self, list, patterns, search = False):
@@ -2802,7 +2839,9 @@ For help for a specific command try 'help <cmd>'.
 
     def help_group_addsystems(self):
         print 'group_addsystems: Add systems to a group'
-        print 'usage: group_addsystems GROUP SSM|<SYSTEM ...>'
+        print 'usage: group_addsystems GROUP <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_group_addsystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -2810,7 +2849,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(parts[1])
 
     def do_group_addsystems(self, args):
         args = self.parse_arguments(args)
@@ -2842,7 +2881,9 @@ For help for a specific command try 'help <cmd>'.
 
     def help_group_removesystems(self):
         print 'group_removesystems: Remove systems from a group'
-        print 'usage: group_removesystems GROUP SSM|<SYSTEM ...>'
+        print 'usage: group_removesystems GROUP <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_group_removesystems(self, text, line, begidx, endidx):
         parts = line.split(' ')
@@ -2850,8 +2891,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_group_listsystems(parts[1], True),
-                                                                text)
+            return self.tab_complete_systems(parts[1])
 
     def do_group_removesystems(self, args):
         args = self.parse_arguments(args)
@@ -3733,7 +3773,9 @@ For help for a specific command try 'help <cmd>'.
 
     def help_report_ipaddresses(self):
         print 'report_network: List the hostname and IP of each system'
-        print 'usage: report_network [SSM|<SYSTEM ...>]'
+        print 'usage: report_network [<SYSTEMS>]'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def do_report_ipaddresses(self, args):
         args = self.parse_arguments(args)
@@ -3783,7 +3825,9 @@ For help for a specific command try 'help <cmd>'.
 
     def help_report_kernels(self):
         print 'report_network: List the running kernel of each system'
-        print 'usage: report_network [SSM|<SYSTEM ...>]'
+        print 'usage: report_network [<SYSTEMS>]'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def do_report_kernels(self, args):
         args = self.parse_arguments(args)
@@ -4323,23 +4367,13 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_ssm_add(self):
-        print 'ssm_add: Add systems to the SSM, which can then be operated'
-        print '         on as a single group'
+        print 'ssm_add: Add systems to the SSM'
         print 'usage: ssm_add SYSTEM|group:GROUP|channel:CHANNEL|search:QUERY'
+        print
+        print "see 'help ssm' for more details"
 
     def complete_ssm_add(self, text, line, begidx, endidx):
-        if re.match('group:', text):
-            # prepend 'group' to each item for tab completion
-            groups = ['group:%s' % g for g in self.do_group_list('', True)]
-
-            return self.tab_completer(groups, text)
-        elif re.match('channel:', text):
-            channels = ['channel:%s' % s \
-                for s in self.do_softwarechannel_list('', True)]
-
-            return self.tab_completer(channels, text)
-        else:
-            return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_ssm_add(self, args):
         args = self.parse_arguments(args)
@@ -4374,20 +4408,11 @@ For help for a specific command try 'help <cmd>'.
         print 'ssm_remove: Remove systems from the SSM'
         print 'usage: ssm_remove SYSTEM|group:GROUP|channel:CHANNEL|' + \
               'search:QUERY'
+        print
+        print "see 'help ssm' for more details"
 
     def complete_ssm_remove(self, text, line, begidx, endidx):
-        if re.match('group:', text):
-            # prepend 'group' to each item for tab completion
-            groups = ['group:%s' % g for g in self.do_group_list('', True)]
-
-            return self.tab_completer(groups, text)
-        elif re.match('channel:', text):
-            channels = ['channel:%s' % s \
-                for s in self.do_softwarechannel_list('', True)]
-
-            return self.tab_completer(channels, text)
-        else:
-            return self.tab_completer(sorted(self.ssm), text)
+        return self.tab_complete_systems(text)
 
     def do_ssm_remove(self, args):
         args = self.parse_arguments(args)
@@ -4418,6 +4443,8 @@ For help for a specific command try 'help <cmd>'.
     def help_ssm_list(self):
         print 'ssm_list: List the systems currently in the SSM'
         print 'usage: ssm_list'
+        print
+        print "see 'help ssm' for more details"
 
     def do_ssm_list(self, args):
         systems = sorted(self.ssm)
@@ -4454,11 +4481,13 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_system_reboot(self):
-        print 'system_reboot: List all inactive systems'
-        print 'usage: system_reboot'
+        print 'system_reboot: Reboot a system'
+        print 'usage: system_reboot <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
     
     def complete_system_reboot(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_reboot(self, args):
         args = self.parse_arguments(args)
@@ -4489,8 +4518,8 @@ For help for a specific command try 'help <cmd>'.
         print 'system_search: List systems that match the given criteria'
         print 'usage: system_search QUERY'
         print
-        print 'Available Fields: id, name, ip, hostname, ' + \
-              'device, vendor, driver'
+        print 'Available Fields:'
+        print '\n'.join(self.SYSTEM_SEARCH_FIELDS)
         print
         print 'Examples:'
         print '> system_search device:vmware'
@@ -4525,8 +4554,10 @@ For help for a specific command try 'help <cmd>'.
                                                                    value)
             key = 'name'
         elif field == 'id':
+            # build an array of key/value pairs from our local system cache
             self.generate_system_cache()
-            results = self.all_systems.keys()
+            results = [ {'id' : k, 'name' : self.all_systems[k] } \
+                        for k in self.all_systems ]
             key = 'id'
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
@@ -4575,7 +4606,9 @@ For help for a specific command try 'help <cmd>'.
     def help_system_runscript(self):
         print 'system_runscript: Schedule a script to run on the list of'
         print '                  systems provided'
-        print 'usage: system_runscript SSM|<SYSTEM ...>'
+        print 'usage: system_runscript <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
         print
         print 'Start Time Examples:'
         print 'now  -> right now!'
@@ -4583,7 +4616,7 @@ For help for a specific command try 'help <cmd>'.
         print '1d   -> 1 day from now'
 
     def complete_system_runscript(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_runscript(self, args):
         args = self.parse_arguments(args)
@@ -4689,10 +4722,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listhardware(self):
         print 'system_listhardware: List the hardware details of a system'
-        print 'usage: system_listhardware SSM|<SYSTEM ...>'
+        print 'usage: system_listhardware <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listhardware(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listhardware(self, args):
         args = self.parse_arguments(args)
@@ -4803,13 +4838,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_installpackage(self):
         print 'system_installpackage: Install a package on a system'
-        print 'usage: system_installpackage SSM|SYSTEM <PACKAGE ...>'
+        print 'usage: system_installpackage <SYSTEMS> <PACKAGE ...>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_installpackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             return self.tab_completer(self.get_package_names(), text)
 
@@ -4909,13 +4946,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_removepackage(self):
         print 'system_removepackage: Remove a package from a system'
-        print 'usage: system_removepackage SSM|SYSTEM <PACKAGE ...>'
+        print 'usage: system_removepackage <SYSTEMS> <PACKAGE ...>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_removepackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             return self.tab_completer(self.get_package_names(), text)
 
@@ -5007,13 +5046,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_upgradepackage(self):
         print 'system_upgradepackage: Upgrade a package on a system'
-        print 'usage: system_upgradepackage SSM|SYSTEM <PACKAGE ...>|*'
+        print 'usage: system_upgradepackage <SYSTEMS> <PACKAGE ...>|*'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_upgradepackage(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             return self.tab_completer(self.get_package_names(), text)
 
@@ -5080,10 +5121,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listupgrades(self):
         print 'system_listupgrades: List the available upgrades for a system'
-        print 'usage: system_listupgrades SSM|<SYSTEM ...>'
+        print 'usage: system_listupgrades <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listupgrades(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listupgrades(self, args):
         args = self.parse_arguments(args)
@@ -5138,10 +5181,12 @@ For help for a specific command try 'help <cmd>'.
     def help_system_listinstalledpackages(self):
         print 'system_listinstalledpackages: List the installed packages on a'
         print '                              system'
-        print 'usage: system_listinstalledpackages SSM|<SYSTEM ...>'
+        print 'usage: system_listinstalledpackages <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listinstalledpackages(self, args):
         args = self.parse_arguments(args)
@@ -5178,10 +5223,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listconfigchannels(self):
         print 'system_listconfigchannels: List the config channels of a system'
-        print 'usage: system_listconfigchannels SSM|<SYSTEM ...>'
+        print 'usage: system_listconfigchannels <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listconfigchannels(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listconfigchannels(self, args):
         args = self.parse_arguments(args)
@@ -5222,13 +5269,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_addconfigchannels(self):
         print 'system_addconfigchannels: Add config channels to a system'
-        print 'usage: system_addconfigchannels SSM|SYSTEM <CHANNEL ...>'
+        print 'usage: system_addconfigchannels <SYSTEMS> <CHANNEL ...>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_addconfigchannels(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             return self.tab_completer(self.do_configchannel_list('', True), 
                                       text)
@@ -5266,13 +5315,15 @@ For help for a specific command try 'help <cmd>'.
     def help_system_removeconfigchannels(self):
         print 'system_removeconfigchannels: Remove config channels from a ' \
               'system'
-        print 'usage: system_removeconfigchannels SSM|SYSTEM <CHANNEL ...>'
+        print 'usage: system_removeconfigchannels <SYSTEMS> <CHANNEL ...>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_removeconfigchannels(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_system_list('', True), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             return self.tab_completer(self.do_configchannel_list('', True), 
                                       text)
@@ -5303,10 +5354,12 @@ For help for a specific command try 'help <cmd>'.
     def help_system_setconfigchannelorder(self):
         print 'system_setconfigchannelorder: Set the ranked order of ' \
               'configuration channels'
-        print 'usage: system_setconfigchannelorder SSM|<SYSTEM ...>'
+        print 'usage: system_setconfigchannelorder <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_setconfigchannelorder(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_setconfigchannelorder(self, args):
         args = self.parse_arguments(args)
@@ -5348,10 +5401,12 @@ For help for a specific command try 'help <cmd>'.
     def help_system_deployconfigfiles(self):
         print 'system_deployconfigfiles: Deploy all configuration files for ' \
               'a system'
-        print 'usage: system_deployconfigfiles SSM|<SYSTEM ...>'
+        print 'usage: system_deployconfigfiles <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_deployconfigfiles(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_deployconfigfiles(self, args):
         args = self.parse_arguments(args)
@@ -5378,10 +5433,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_delete(self):
         print 'system_delete: Delete a system profile'
-        print 'usage: system_delete SSM|<SYSTEM ...>'
+        print 'usage: system_delete <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_delete(self, args):
         args = self.parse_arguments(args)
@@ -5425,10 +5482,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_lock(self):
         print 'system_lock: Lock a system'
-        print 'usage: system_lock SSM|<SYSTEM ...>'
+        print 'usage: system_lock <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_lock(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_lock(self, args):
         args = self.parse_arguments(args)
@@ -5453,10 +5512,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_unlock(self):
         print 'system_unlock: Unlock a system'
-        print 'usage: system_unlock SSM|<SYSTEM ...>'
+        print 'usage: system_unlock <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_unlock(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_unlock(self, args):
         args = self.parse_arguments(args)
@@ -5518,11 +5579,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listcustomvalues(self):
         print 'system_listcustomvalues: List the custom values for a system'
-        print 'usage: system_listcustomvalues SSM|<SYSTEM ...>'
+        print 'usage: system_listcustomvalues <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listcustomvalues(self, text, line, begidx, endidx):
-        if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listcustomvalues(self, args):
         args = self.parse_arguments(args)
@@ -5560,11 +5622,13 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_addcustomvalue(self):
         print 'system_addcustomvalue: Set a custom value for a system'
-        print 'usage: system_addcustomvalue SSM|SYSTEM KEY VALUE'
+        print 'usage: system_addcustomvalue <SYSTEMS> KEY VALUE'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_addcustomvalue(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             return self.tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
@@ -5597,13 +5661,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_updatecustomvalue(self):
         print 'system_updatecustomvalue: Update a custom value for a system'
-        print 'usage: system_updatecustomvalue SSM|SYSTEM KEY VALUE'
+        print 'usage: system_updatecustomvalue <SYSTEMS> KEY VALUE'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_updatecustomvalue(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) == 3:
             return self.tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
@@ -5621,13 +5687,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_removecustomvalues(self):
         print 'system_removecustomvalues: Remove a custom value for a system'
-        print 'usage: system_removecustomvalues SSM|SYSTEM <KEY ...>'
+        print 'usage: system_removecustomvalues <SYSTEMS> <KEY ...>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_removecustomvalues(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) == 3:
             return self.tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
@@ -5661,11 +5729,13 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_setbasechannel(self):
         print "system_setbasechannel: Set a system's base software channel"
-        print 'usage: system_setbasechannel SSM|<SYSTEM ...> CHANNEL'
+        print 'usage: system_setbasechannel <SYSTEMS> CHANNEL'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_setbasechannel(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
             return self.tab_completer(self.list_base_channels(), text)
@@ -5715,10 +5785,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listbasechannel(self):
         print 'system_listbasechannel: List the base channel for a system'
-        print 'usage: system_listbasechannel SSM|<SYSTEM ...>'
+        print 'usage: system_listbasechannel <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listbasechannel(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listbasechannel(self, args):
         args = self.parse_arguments(args)
@@ -5755,10 +5827,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listchildchannels(self):
         print 'system_listchildchannels: List the child channels for a system'
-        print 'usage: system_listchildchannels SSM|<SYSTEM ...>'
+        print 'usage: system_listchildchannels <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listchildchannels(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listchildchannels(self, args):
         args = self.parse_arguments(args)
@@ -5795,11 +5869,13 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_addchildchannel(self):
         print "system_addchildchannel: Add a child channel to a system"
-        print 'usage: system_addchildchannel SSM|<SYSTEM ...> CHANNEL'
+        print 'usage: system_addchildchannel <SYSTEMS> CHANNEL'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_addchildchannel(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
             return self.tab_completer(self.list_child_channels(system), text)
@@ -5811,11 +5887,13 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_removechildchannel(self):
         print "system_removechildchannel: Remove a child channel from a system"
-        print 'usage: system_removechildchannel SSM|<SYSTEM ...> CHANNEL'
+        print 'usage: system_removechildchannel <SYSTEMS> CHANNEL'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_removechildchannel(self, text, line, begidx, endidx):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
             return self.tab_completer(self.list_child_channels(system, True), 
@@ -5828,10 +5906,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_details(self):
         print 'system_details: Show the details of a system profile'
-        print 'usage: system_details SSM|<SYSTEM ...>'
+        print 'usage: system_details <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_details(self, args, short=False):
         args = self.parse_arguments(args)
@@ -5945,10 +6025,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listerrata(self):
         print 'system_listerrata: List available errata for a system'
-        print 'usage: system_listerrata SSM|<SYSTEM ...>'
+        print 'usage: system_listerrata <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listerrata(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listerrata(self, args):
         args = self.parse_arguments(args)
@@ -5985,13 +6067,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_applyerrata(self):
         print 'system_applyerrata: Apply errata to a system'
-        print 'usage: system_applyerrata SSM|SYSTEM [ERRATA|search:XXX ...]'
+        print 'usage: system_applyerrata <SYSTEMS> [ERRATA|search:XXX ...]'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_applyerrata(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         elif len(parts) > 2:
             self.generate_errata_cache()
             return self.tab_completer(self.all_errata.keys(), text)
@@ -6118,10 +6202,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listevents(self):
         print 'system_listevents: List the event history for a system'
-        print 'usage: system_listevents SSM|<SYSTEM ...> [LIMIT]'
+        print 'usage: system_listevents <SYSTEMS> [LIMIT]'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listevents(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listevents(self, args):
         args = self.parse_arguments(args)
@@ -6176,10 +6262,12 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_listentitlements(self):
         print 'system_listentitlements: List the entitlements for a system'
-        print 'usage: system_listentitlements SSM|<SYSTEM ...>'
+        print 'usage: system_listentitlements <SYSTEMS>'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_listentitlements(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_system_list('', True), text)
+        return self.tab_complete_systems(text)
 
     def do_system_listentitlements(self, args):
         args = self.parse_arguments(args)
@@ -6215,13 +6303,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_addentitlements(self):
         print 'system_addentitlements: Add entitlements to a system'
-        print 'usage: system_addentitlements SSM|<SYSTEM ...> ENTITLEMENT'
+        print 'usage: system_addentitlements <SYSTEMS> ENTITLEMENT'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_addentitlements(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         else:
             return self.tab_completer(self.ENTITLEMENTS, text)
 
@@ -6257,13 +6347,15 @@ For help for a specific command try 'help <cmd>'.
 
     def help_system_removeentitlement(self):
         print 'system_removeentitlement: Remove an entitlement from a system'
-        print 'usage: system_removeentitlement SSM|<SYSTEM ...> ENTITLEMENT'
+        print 'usage: system_removeentitlement <SYSTEMS> ENTITLEMENT'
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_system_removeentitlement(self, text, line, begidx, endidx):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return self.tab_complete_systems(text)
         else:
             return self.tab_completer(self.ENTITLEMENTS, text)
 
