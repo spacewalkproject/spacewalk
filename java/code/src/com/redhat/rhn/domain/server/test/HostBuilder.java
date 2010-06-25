@@ -28,6 +28,8 @@ import org.hibernate.Session;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 
@@ -40,7 +42,7 @@ public class HostBuilder {
     
     private User owner;
     private Server host;
-    
+
     public HostBuilder(User theOwner) {
         owner = theOwner;
     }
@@ -159,9 +161,11 @@ public class HostBuilder {
         return this;
     }
     
-    private void createGuests(int numberOfGuests, boolean register) throws Exception {
+    private  List<VirtualInstance> createGuests(int numberOfGuests, 
+                                                boolean register) throws Exception {
         VirtualInstance virtualInstance = null;
         Server guest = null;
+        List<VirtualInstance> guests = new LinkedList<VirtualInstance>();
         
         for (int i = 0; i < numberOfGuests; ++i) {
             virtualInstance = new VirtualInstance();
@@ -172,11 +176,18 @@ public class HostBuilder {
                         ServerFactoryTest.TYPE_SERVER_NORMAL , new Date());
                 virtualInstance.setGuestSystem(guest);
             }
-            
-            host.addGuest(virtualInstance);
-            TestUtils.saveAndFlush(host);
+            if (host != null) {
+                host.addGuest(virtualInstance);
+                TestUtils.saveAndFlush(host);
+            }
             TestUtils.saveAndFlush(guest);
+            guests.add(virtualInstance);
         }
+        return guests;
+    }
+    
+    public List<VirtualInstance> withOrphanedGuests(int numberOfGuests) throws Exception {
+        return createGuests(numberOfGuests, true);
     }
 
 }
