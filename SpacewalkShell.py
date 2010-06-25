@@ -350,9 +350,15 @@ For help for a specific command try 'help <cmd>'.
             readline.remove_history_item(last)
 
 
-    def prompt_user(self, prompt):
+    def prompt_user(self, prompt, noblank = False):
         try:
-            input = raw_input('%s ' % prompt)
+            while True:
+                input = raw_input('%s ' % prompt)
+                if noblank:
+                    if input != '':
+                        break
+                else:
+                    break
         except EOFError:
             print
             return ''
@@ -3433,7 +3439,7 @@ For help for a specific command try 'help <cmd>'.
             elif len(args) and args[0]:
                 username = args[0]
             else:
-                username = self.prompt_user('Satellite Username:')
+                username = self.prompt_user('Username:')
 
                 # don't store the username in the command history
                 self.remove_last_history_item()
@@ -3442,7 +3448,7 @@ For help for a specific command try 'help <cmd>'.
                 password = self.options.password
                 self.options.password = None
             else:
-                password = getpass('Satellite Password: ')
+                password = getpass('Password: ')
 
             try:
                 self.session = self.client.auth.login(username,
@@ -6239,6 +6245,154 @@ For help for a specific command try 'help <cmd>'.
             self.client.system.removeEntitlements(self.session, 
                                                   system_id,
                                                   [entitlement])
+
+####################
+
+    def help_user_create(self):
+        print 'user_create: Create a new user'
+        print 'usage: user_create'
+
+    def do_user_create(self, args):
+        username = self.prompt_user('Username:', noblank = True)
+        first_name = self.prompt_user('First Name:', noblank = True)
+        last_name = self.prompt_user('Last Name:', noblank = True)
+        email = self.prompt_user('Email Address:', noblank = True)
+
+        password = ''
+        while password == '':
+            password1 = getpass('Password: ')
+            password2 = getpass('Repeat Password: ')
+
+            if password1 != password2:
+                logging.warning('Passwords do not match')
+            else:
+                password = password1
+
+        self.client.user.create(self.session,
+                                username,
+                                password,
+                                first_name,
+                                last_name,
+                                email)
+
+####################
+
+    def help_user_delete(self):
+        print 'user_delete: Delete a user'
+        print 'usage: user_delete NAME'
+
+    def complete_user_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_user_list('', True), text)
+
+    def do_user_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_user_delete()
+            return
+
+        name = args[0]
+
+        if self.user_confirm('Delete this user [y/N]:'):
+            self.client.user.delete(self.session, name)
+
+####################
+
+    def help_user_disable(self):
+        print 'user_disable: Disable an user account'
+        print 'usage: user_disable NAME'
+
+    def complete_user_disable(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_user_list('', True), text)
+
+    def do_user_disable(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_user_disable()
+            return
+
+        name = args[0]
+
+        self.client.user.disable(self.session, name)
+
+####################
+
+    def help_user_enable(self):
+        print 'user_enable: Enable an user account'
+        print 'usage: user_enable NAME'
+
+    def complete_user_enable(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_user_list('', True), text)
+
+    def do_user_enable(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_user_enable()
+            return
+
+        name = args[0]
+
+        self.client.user.enable(self.session, name)
+
+####################
+
+    def help_user_list(self):
+        print 'user_list: List all users'
+        print 'usage: user_list'
+
+    def do_user_list(self, args, doreturn=False):
+        users = self.client.user.listUsers(self.session)
+        users = [u.get('login') for u in users]
+
+        if doreturn:
+            return users
+        else:
+            if len(users):
+                print '\n'.join(sorted(users))
+
+####################
+
+    def help_user_details(self):
+        print 'user_details: Show the details of a user'
+        print 'usage: user_details USER ...'
+
+    def complete_user_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_user_list('', True), text)
+
+    def do_user_details(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_user_details()
+            return
+
+        add_separator = False
+
+        for user in args:
+            try:
+                details = self.client.user.getDetails(self.session, user)
+            except:
+                logging.warning('%s is not a valid user' % user)
+                logging.debug(sys.exc_info())
+                continue
+
+            org_details = self.client.org.getDetails(self.session, 
+                                                     details.get('org_id'))
+            organization = org_details.get('name')
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Username:      %s' % user
+            print 'First Name:    %s' % details.get('first_name')
+            print 'Last Name:     %s' % details.get('last_name')
+            print 'Email Address: %s' % details.get('email')
+            print 'Organization:  %s' % organization
+            print 'Last Login:    %s' % details.get('last_login_date')
+            print 'Created:       %s' % details.get('created_date')
+            print 'Enabled:       %s' % details.get('enabled')
 
 ####################
 
