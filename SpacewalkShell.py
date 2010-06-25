@@ -2524,13 +2524,27 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_errata_list(self):
+        print 'errata_list: List all errata' 
+        print 'usage: errata_list'
+
+    def do_errata_list(self, args, doreturn=False):
+        self.generate_errata_cache()
+
+        if doreturn:
+            return self.all_errata.keys()
+        else:
+            if len(self.all_errata.keys()):
+                print '\n'.join(sorted(self.all_errata.keys()))
+
+####################
+
     def help_errata_apply(self):
         print 'errata_apply: Apply an errata to all affected systems' 
         print 'usage: errata_apply ERRATA|search:XXX ...'
 
     def complete_errata_apply(self, text, line, begidx, endidx):
-        self.generate_errata_cache()
-        return self.tab_completer(self.all_errata.keys(), text)
+        return self.tab_completer(self.do_errata_list('', True), text)
 
     def do_errata_apply(self, args):
         args = self.parse_arguments(args)
@@ -2622,8 +2636,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: errata_listaffectedsystems ERRATA'
 
     def complete_errata_listaffectedsystems(self, text, line, begidx, endidx):
-        self.generate_errata_cache()
-        return self.tab_completer(self.all_errata.keys(), text)
+        return self.tab_completer(self.do_errata_list('', True), text)
 
     def do_errata_listaffectedsystems(self, args):
         args = self.parse_arguments(args)
@@ -2668,8 +2681,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: errata_details NAME ...'
     
     def complete_errata_details(self, text, line, begidx, endidx):
-        self.generate_errata_cache()
-        return self.tab_completer(self.all_errata.keys(), text)
+        return self.tab_completer(self.do_errata_list('', True), text)
 
     def do_errata_details(self, args):
         args = self.parse_arguments(args)
@@ -2738,6 +2750,9 @@ For help for a specific command try 'help <cmd>'.
         print 'Example:'
         print '> errata_search CVE-2009:1674'
         print '> errata_search RHSA-2009:1674'
+
+    def complete_errata_search(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_errata_list('', True), text)
 
     def do_errata_search(self, args, doreturn=False):
         args = self.parse_arguments(args)
