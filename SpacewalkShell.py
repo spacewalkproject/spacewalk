@@ -70,7 +70,6 @@ For help for a specific command try 'help <cmd>'.
         self.session = ''
         self.username = ''
         self.server = ''
-        self.ssm = []
 
         # make the options available everywhere
         self.options = options
@@ -84,26 +83,32 @@ For help for a specific command try 'help <cmd>'.
         except:
             logging.error('Could not create directory %s' % conf_dir) 
 
-        # cache large lists instead of looking up every time
-        self.all_systems = []
-        self.system_cache_expire = datetime.now()
-
+        self.ssm_cache_file = os.path.join(conf_dir, 'ssm')
+        self.system_cache_file = os.path.join(conf_dir, 'systems')
         self.errata_cache_file = os.path.join(conf_dir, 'errata')
-
+        self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
         self.packages_short_cache_file = \
             os.path.join(conf_dir, 'packages_short')
 
-        self.packages_long_cache_file = os.path.join(conf_dir, 'packages_long')
+        # load self.ssm from disk
+        (self.ssm, ignore) = self.load_cache(self.ssm_cache_file)
+        
+        # load self.all_systems from disk
+        (self.all_systems, self.system_cache_expire) = \
+            self.load_cache(self.system_cache_file)
 
+        # load self.all_errata from disk
         (self.all_errata, self.errata_cache_expire) = \
             self.load_cache(self.errata_cache_file)
-       
+      
+        # load self.all_package_shortnames from disk 
         (self.all_package_shortnames, self.package_cache_expire) = \
             self.load_cache(self.packages_short_cache_file)
         
+        # load self.all_package_longnames from disk 
         (self.all_package_longnames, self.package_cache_expire) = \
             self.load_cache(self.packages_long_cache_file)
-
+        
         self.session_file = os.path.join(conf_dir, 'session')
         self.history_file = os.path.join(conf_dir, 'history')
 
@@ -253,8 +258,9 @@ For help for a specific command try 'help <cmd>'.
         return data, expire
 
 
-    def save_cache(self, file, data, expire):
-        data['expire'] = expire
+    def save_cache(self, file, data, expire = None):
+        if expire:
+            data['expire'] = expire
 
         try:
             output = open(file, 'wb')
@@ -263,6 +269,9 @@ For help for a specific command try 'help <cmd>'.
         except:
             logging.debug(sys.exc_info())
             logging.error("Couldn't write to %s" % file)
+
+        if 'expire' in data:
+            del data['expire']
 
 
     def tab_completer(self, options, text):
@@ -475,6 +484,7 @@ For help for a specific command try 'help <cmd>'.
         self.errata_cache_expire = \
             datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
 
+        # store the cache to disk to speed things up
         self.save_cache(self.errata_cache_file, self.all_errata, 
                         self.errata_cache_expire)
 
@@ -509,6 +519,7 @@ For help for a specific command try 'help <cmd>'.
         self.package_cache_expire = \
             datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
+        # store the cache to disk to speed things up
         self.save_cache(self.packages_short_cache_file,
                         self.all_package_shortnames, 
                         self.package_cache_expire)
@@ -529,7 +540,7 @@ For help for a specific command try 'help <cmd>'.
 
 
     def clear_system_cache(self):
-        self.all_systems = []
+        self.all_systems = {}
         self.system_cache_expire = datetime.now()
 
 
@@ -541,18 +552,21 @@ For help for a specific command try 'help <cmd>'.
 
         systems = self.client.system.listSystems(self.session)
 
-        self.all_systems = []
+        self.all_systems = {}
         for s in systems:
-            self.all_systems.append( {'id'   : s.get('id'),
-                                      'name' : s.get('name')} )
+            self.all_systems[s.get('id')] = s.get('name')
 
         self.system_cache_expire = \
             datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
 
+        # store the cache to disk to speed things up
+        self.save_cache(self.system_cache_file, self.all_systems, 
+                        self.system_cache_expire)
+
 
     def get_system_names(self):
         self.generate_system_cache()
-        return [s.get('name') for s in self.all_systems]
+        return self.all_systems.values()
 
 
     # check for duplicate system names and return the system ID
@@ -562,16 +576,15 @@ For help for a specific command try 'help <cmd>'.
         try:
             # check if we were passed a system instead of a name
             id = int(name)
-            for s in self.all_systems:
-                if id == s.get('id'): return id
+            if id in self.all_systems: return id
         except:
             pass
 
         # get a set of matching systems to check for duplicate names
         systems = []
-        for s in self.all_systems:
-            if name == s.get('name'):
-                systems.append(s.get('id'))
+        for id in self.all_systems:
+            if name == self.all_systems[id]:
+                systems.append(id)
 
         if len(systems) == 1:
             return systems[0]
@@ -645,7 +658,7 @@ For help for a specific command try 'help <cmd>'.
     def list_child_channels(self, system, subscribed=False):
         if re.match('ssm', system, re.I):
             if len(self.ssm):
-                system = self.ssm[0]
+                system = self.ssm.keys()[0]
 
         system_id = self.get_system_id(system)
         if not system_id: return
@@ -688,7 +701,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
     
@@ -2810,7 +2823,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -2851,7 +2864,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -3728,7 +3741,7 @@ For help for a specific command try 'help <cmd>'.
         if len(args):
             # use the systems listed in the SSM
             if re.match('ssm', args[0], re.I):
-                systems = self.ssm
+                systems = self.ssm.keys()
             else:
                 systems = self.expand_systems(args)
         else:
@@ -3778,7 +3791,7 @@ For help for a specific command try 'help <cmd>'.
         if len(args):
             # use the systems listed in the SSM
             if re.match('ssm', args[0], re.I):
-                systems = self.ssm
+                systems = self.ssm.keys()
             else:
                 systems = self.expand_systems(args)
         else:
@@ -4346,11 +4359,14 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('%s is already in the list' % system)
                 continue
             else:
-                self.ssm.append(system)
+                self.ssm[system] = self.get_system_id(system)
                 logging.info('Added %s' % system)
 
         if len(self.ssm):
             print 'Systems Selected: %s' % str(len(self.ssm))
+        
+        # save the SSM for use between sessions
+        self.save_cache(self.ssm_cache_file, self.ssm)
 
 ####################
 
@@ -4394,6 +4410,9 @@ For help for a specific command try 'help <cmd>'.
 
         print 'Systems Selected: %s' % str(len(self.ssm))
 
+        # save the SSM for use between sessions
+        self.save_cache(self.ssm_cache_file, self.ssm)
+
 ####################
 
     def help_ssm_list(self):
@@ -4414,7 +4433,10 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: ssm_clear'
 
     def do_ssm_clear(self, args):
-        self.ssm = []
+        self.ssm = {}
+
+        # save the SSM for use between sessions
+        self.save_cache(self.ssm_cache_file, self.ssm)
 
 ####################
 
@@ -4447,7 +4469,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -4504,7 +4526,7 @@ For help for a specific command try 'help <cmd>'.
             key = 'name'
         elif field == 'id':
             self.generate_system_cache()
-            results = self.all_systems
+            results = self.all_systems.keys()
             key = 'id'
         elif field == 'ip':
             results = self.client.system.search.ip(self.session, value)
@@ -4572,7 +4594,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -4683,7 +4705,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -4800,7 +4822,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
 
             # remove 'ssm' from the argument list
             args.pop(0)
@@ -4906,7 +4928,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
 
             # remove 'ssm' from the argument list
             args.pop(0)
@@ -5008,7 +5030,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
 
             # remove 'ssm' from the argument list
             args.pop(0)
@@ -5074,7 +5096,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5132,7 +5154,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5172,7 +5194,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5220,7 +5242,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args.pop(0))
 
@@ -5264,7 +5286,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args.pop(0))
         
@@ -5295,7 +5317,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args.pop(0))
 
@@ -5340,7 +5362,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
         
@@ -5370,7 +5392,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5417,7 +5439,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5445,7 +5467,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5511,7 +5533,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5556,7 +5578,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
    
@@ -5619,7 +5641,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
    
@@ -5659,7 +5681,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
     
@@ -5709,7 +5731,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5749,7 +5771,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5822,7 +5844,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5939,7 +5961,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -5983,7 +6005,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems applyed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
             args.pop(0)
         else:
             systems = self.expand_systems(args.pop(0))
@@ -6119,7 +6141,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
         
@@ -6170,7 +6192,7 @@ For help for a specific command try 'help <cmd>'.
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -6219,7 +6241,7 @@ For help for a specific command try 'help <cmd>'.
        
         # use the systems applyed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
@@ -6261,7 +6283,7 @@ For help for a specific command try 'help <cmd>'.
        
         # use the systems applyed in the SSM
         if re.match('ssm', args[0], re.I):
-            systems = self.ssm
+            systems = self.ssm.keys()
         else:
             systems = self.expand_systems(args)
 
