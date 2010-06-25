@@ -33,9 +33,8 @@ class RepoSync:
    
     parser = None
     type = None
-    url = None
+    urls = None
     channel_label = None
-    plugin = None
     channel = None
     fail = False
     repo_label = None
@@ -61,20 +60,23 @@ class RepoSync:
         quit = False
         if not options.url:
             if options.channel_label:
+                # TODO:need to look at user security across orgs
                 h = rhnSQL.prepare("""select s.source_url
-                                      from rhnChannelContentSource s,
+                                      from rhnContentSource s,
+                                           rhnChannelContentSource cs,
                                            rhnChannel c
-                                     where c.id = s.channel_id
+                                     where s.id = cs.source_id
+                                       and cs.channel_id = c.id
                                        and c.label = :label""")
                 h.execute(label=options.channel_label)
                 source_urls = h.fetchall_dict() or []
                 if source_urls:
-                    self.url = source_urls[0]['source_url']
+                    self.urls = [row['source_url'] for row in source_urls]
                 else:
                     quit = True
                     self.error_msg("Channel has no URL associated")
         else:
-            self.url = options.url
+            self.urls = [options.url]
         if not options.channel_label:
             quit = True
             self.error_msg("--channel must be specified")
@@ -93,16 +95,18 @@ class RepoSync:
         self.type = options.type
         self.channel_label = options.channel_label
         self.fail = options.fail
-        self.repo_label = self.short_hash(self.url)
+        #self.repo_label = self.short_hash(self.url)
         self.quiet = options.quiet
         self.channel = self.load_channel()
 
         if not self.channel or not rhnChannel.isCustomChannel(self.channel['id']):
             print "Channel does not exist or is not custom"
             sys.exit(1)
-
-        self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
-        self.import_packages(self.plugin.list_packages())
+ 
+        for url in self.urls:
+            self.repo_label = self.short_hash(url)
+            plugin = self.load_plugin()(url, self.channel_label + "-" + self.repo_label)
+            self.import_packages(plugin, url)
         self.print_msg("Sync complete")
 
     def process_args(self):
@@ -122,10 +126,11 @@ class RepoSync:
         submod = getattr(mod, name)
         return getattr(submod, "ContentSource")
         
-    def import_packages(self, packages):
+    def import_packages(self, plug, url):
+        packages = plug.list_packages()
         to_link = []
         to_download = []
-        self.print_msg("Repo " + self.url + " has " + str(len(packages)) + " packages.")
+        self.print_msg("Repo " + url + " has " + str(len(packages)) + " packages.")
         for pack in packages:
                  if self.channel_label not in \
                      rhnPackage.get_channels_for_package([pack.name, \
@@ -137,7 +142,7 @@ class RepoSync:
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
-        is_non_local_repo = (self.url.find("file://") < 0)
+        is_non_local_repo = (url.find("file://") < 0)
         for (index, pack) in enumerate(to_download):
             """download each package"""
             # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
@@ -145,7 +150,7 @@ class RepoSync:
                 try:
                     self.print_msg(str(index+1) + "/" + str(len(to_download)) + " : "+ \
                           pack.getNVREA())
-                    path = self.plugin.get_package(pack)
+                    path = plug.get_package(pack)
                     self.upload_package(pack, path)
                     self.associate_package(pack)
                 except KeyboardInterrupt:
