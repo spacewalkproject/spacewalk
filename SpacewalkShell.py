@@ -6495,6 +6495,76 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_user_listavailableroles(self):
+        print 'user_list: List all available roles for users'
+        print 'usage: user_listavailableroles'
+
+    def do_user_listavailableroles(self, args, doreturn=False):
+        roles = self.client.user.listAssignableRoles(self.session)
+
+        if doreturn:
+            return roles
+        else:
+            if len(roles):
+                print '\n'.join(sorted(roles))
+
+####################
+
+    def help_user_addrole(self):
+        print 'user_addrole: Add a role to an user account'
+        print 'usage: user_addrole USER ROLE'
+
+    def complete_user_addrole(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) == 3:
+            return self.tab_completer(self.do_user_listavailableroles('', True), 
+                                      text)
+
+    def do_user_addrole(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_addrole()
+            return
+
+        user = args[0]
+        role = args[1]
+
+        self.client.user.addRole(self.session, user, role)
+
+####################
+
+    def help_user_removerole(self):
+        print 'user_removerole: Remove a role from an user account'
+        print 'usage: user_removerole USER ROLE'
+
+    def complete_user_removerole(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) == 3:
+            # only list the roles currently assigned to this user
+            roles = self.client.user.listRoles(self.session, parts[1])
+            return self.tab_completer(roles, text)
+
+    def do_user_removerole(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_removerole()
+            return
+
+        user = args[0]
+        role = args[1]
+
+        self.client.user.removeRole(self.session, user, role)
+
+####################
+
     def help_user_details(self):
         print 'user_details: Show the details of a user'
         print 'usage: user_details USER ...'
@@ -6514,6 +6584,15 @@ For help for a specific command try 'help <cmd>'.
         for user in args:
             try:
                 details = self.client.user.getDetails(self.session, user)
+
+                roles = self.client.user.listRoles(self.session, user)
+
+                groups = self.client.user.listAssignedSystemGroups(self.session, 
+                                                                   user)
+
+                default_groups = \
+                    self.client.user.listDefaultSystemGroups(self.session,
+                                                             user)
             except:
                 logging.warning('%s is not a valid user' % user)
                 logging.debug(sys.exc_info())
@@ -6534,6 +6613,140 @@ For help for a specific command try 'help <cmd>'.
             print 'Last Login:    %s' % details.get('last_login_date')
             print 'Created:       %s' % details.get('created_date')
             print 'Enabled:       %s' % details.get('enabled')
+
+            if len(roles):
+                print
+                print 'Roles:'
+                print '\n'.join(sorted(roles))
+
+            if len(groups):
+                print
+                print 'Assigned Groups:'
+                print '\n'.join(sorted([g.get('name') for g in groups]))
+            
+            if len(default_groups):
+                print
+                print 'Default Groups:'
+                print '\n'.join(sorted([g.get('name') for g in default_groups]))
+
+####################
+
+    def help_user_addgroup(self):
+        print 'user_addgroup: Add a group to an user account'
+        print 'usage: user_addgroup USER <GROUP ...>'
+
+    def complete_user_addgroup(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_group_list('', True), text)
+
+    def do_user_addgroup(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_addgroup()
+            return
+
+        user = args.pop(0)
+        groups = args
+
+        self.client.user.addAssignedSystemGroups(self.session, 
+                                                 user, 
+                                                 groups, 
+                                                 False)
+
+####################
+
+    def help_user_adddefaultgroup(self):
+        print 'user_adddefaultgroup: Add a default group to an user account'
+        print 'usage: user_adddefaultgroup USER <GROUP ...>'
+
+    def complete_user_adddefaultgroup(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_group_list('', True), text)
+
+    def do_user_adddefaultgroup(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_adddefaultgroup()
+            return
+
+        user = args.pop(0)
+        groups = args
+
+        self.client.user.addDefaultSystemGroups(self.session, 
+                                                user, 
+                                                groups)
+
+####################
+
+    def help_user_removegroup(self):
+        print 'user_removegroup: Remove a group to an user account'
+        print 'usage: user_removegroup USER <GROUP ...>'
+
+    def complete_user_removegroup(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) > 2:
+            # only list the groups currently assigned to this user
+            groups = self.client.user.listAssignedSystemGroups(self.session, parts[1])
+            return self.tab_completer([ g.get('name') for g in groups ], text)
+
+    def do_user_removegroup(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_removegroup()
+            return
+
+        user = args.pop(0)
+        groups = args
+
+        self.client.user.removeAssignedSystemGroups(self.session, 
+                                                    user, 
+                                                    groups, 
+                                                    True)
+
+####################
+
+    def help_user_removedefaultgroup(self):
+        print 'user_removedefaultgroup: Remove a default group from an ' + \
+              'user account'
+        print 'usage: user_removedefaultgroup USER <GROUP ...>'
+
+    def complete_user_removedefaultgroup(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+        
+        if len(parts) == 2:
+            return self.tab_completer(self.do_user_list('', True), text)
+        elif len(parts) > 2:
+            # only list the groups currently assigned to this user
+            groups = self.client.user.listDefaultSystemGroups(self.session, parts[1])
+            return self.tab_completer([ g.get('name') for g in groups ], text)
+
+    def do_user_removedefaultgroup(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_user_removedefaultgroup()
+            return
+
+        user = args.pop(0)
+        groups = args
+
+        self.client.user.removeDefaultSystemGroups(self.session, 
+                                                   user, 
+                                                   groups)
 
 ####################
 
