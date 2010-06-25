@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.channel.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.PrivateChannelFamily;
@@ -31,7 +32,8 @@ import java.util.List;
  */
 public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
     
-    public static final Long ENTITLEMENT_ALLOCATION = new Long(10000);
+    public static final long ENTITLEMENT_ALLOCATION = 10000;
+    public static final long FLEX_ALLOCATION = ENTITLEMENT_ALLOCATION;
     
     public void testChannelFamilyFactory() throws Exception {
         ChannelFamily cfam = createTestChannelFamily();
@@ -105,6 +107,11 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
     }
     
     public static ChannelFamily createTestChannelFamily(User user) throws Exception {
+        return createTestChannelFamily(user, ENTITLEMENT_ALLOCATION, FLEX_ALLOCATION);
+    }
+    
+    public static ChannelFamily createTestChannelFamily(User user, 
+                                        Long ents, Long flexEnts) throws Exception {
         Org org = user.getOrg();
         String label = "ChannelFamilyLabel" + TestUtils.randomString();
         String name = "ChannelFamilyName" + TestUtils.randomString();
@@ -123,8 +130,12 @@ public class ChannelFamilyFactoryTest extends RhnBaseTestCase {
         pcf.setOrg(user.getOrg());
         pcf.setChannelFamily(cfam);
         pcf.setCurrentMembers(new Long(0));
-        pcf.setMaxMembers(ENTITLEMENT_ALLOCATION);
-        pcf = (PrivateChannelFamily) TestUtils.saveAndReload(pcf);
+        pcf.setMaxMembers(ents);
+        pcf.setCurrentFlex(0L);
+        pcf.setMaxFlex(flexEnts);
+        HibernateFactory.getSession().save(pcf);
+        
+        
         cfam.addPrivateChannelFamily(pcf);
         cfam = (ChannelFamily) TestUtils.reload(cfam);
         return cfam;

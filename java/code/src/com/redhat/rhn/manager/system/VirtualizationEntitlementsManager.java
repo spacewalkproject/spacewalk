@@ -22,9 +22,6 @@ import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 
-import org.apache.commons.lang.BooleanUtils;
-
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -136,27 +133,5 @@ public class VirtualizationEntitlementsManager {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "convert_to_flex");
         m.execute(in, new HashMap());
-    }
-    
-
-    /**
-     * True if the passed in server can be converted to flex
-     * @param sid the server id
-     * @param cfid the channel family id
-     * @return true if the server can be converted to flex 
-     */
-    public boolean canConvertToFlex(Long sid, Long cfid) {
-        Map in = new HashMap();
-        in.put("sid", sid);
-        in.put("cfid", cfid);
-        Map outParams = new HashMap();
-        outParams.put("result", new Integer(Types.NUMERIC));        
-
-        CallableMode m = ModeFactory.getCallableMode(
-                "Channel_queries", "can_convert_to_flex");
-
-        Map result = m.execute(in, outParams);
-        return BooleanUtils.toBoolean(
-                ((Long)result.get("result")).intValue());
     }
 }

@@ -53,14 +53,24 @@ public class UserTestUtils extends Assert {
      * @return long The Org id.
      */
     public static Long createOrg(String orgName) {
+           return createNewOrgFull(orgName).getId();
+    }
+
+    /**
+     * Creates a new Org with the given orgName.
+     * The current time is appended to the given orgName.
+     * @param orgName Name of org.
+     * @return long The Org
+     */
+    public static Org createNewOrgFull(String orgName) {
         Org org1 = OrgFactory.createOrg();
         org1.setName(orgName + TestUtils.randomString());
         org1.setCustomerType("B");
         org1 = OrgFactory.save(org1);
         assertTrue(org1.getId().longValue() > 0);
-        
-        return org1.getId();
+        return org1;
     }
+
 
     /**
      * Creates a new User and Org with the given userName and orgName.
