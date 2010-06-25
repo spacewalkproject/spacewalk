@@ -118,8 +118,10 @@ if __name__ == '__main__':
 
     if len(args):
         try:
+            # don't try to login when printing the help message
+            if not 'help' in args: shell.preloop()
+
             # run a single command given on the command line
-            shell.preloop()
             shell.onecmd(shell.precmd(' '.join(args), True))
         except xmlrpclib.Fault, err:
             logging.debug(sys.exc_info())

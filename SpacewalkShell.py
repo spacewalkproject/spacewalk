@@ -171,7 +171,7 @@ For help for a specific command try 'help <cmd>'.
             print
             sys.exit(0)
 
-        if not re.match('login', line) and not self.session:
+        if not re.match('help|login', line) and not self.session:
             logging.warning('You are not logged in')
             return ''
 
