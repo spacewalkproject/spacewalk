@@ -42,7 +42,7 @@ if __name__ == '__main__':
         Option('--nossl', action='store_true',
                help='use HTTP instead of HTTPS'),
         Option('--nohistory', action='store_true',
-                help='do not store command history in ~/.spacecmd_history'),
+                help='do not store command history'),
         Option('-y', '--yes', action='store_true',
                help='answer yes for all questions'),
         Option('-q', '--quiet', action='store_true',
@@ -56,13 +56,19 @@ if __name__ == '__main__':
     usage = 'usage: %prog [options] [command]'
     parser = OptionParser(option_list=optionsTable, usage=usage)
     (options, args) = parser.parse_args()
+    
+    # enable debugging as early as possible
+    if options.debug:
+        level = logging.DEBUG
 
     userinfo = getpwuid(os.getuid())
-    rcfile = os.path.join(userinfo[5], '.spacecmdrc')
+    conf_dir = os.path.join(userinfo[5], '.spacecmd')
+    conf_file = os.path.join(conf_dir, 'config')
 
-    if os.path.isfile(rcfile):
+    # load options from a configuration file
+    if os.path.isfile(conf_file):
         config = SafeConfigParser()
-        config.read(rcfile)    
+        config.read(conf_file)    
 
         boolean_opts = [ 'verbose', 'nossl', 'debug' ]
         string_opts = [ 'server', 'username', 'password' ]
@@ -80,10 +86,23 @@ if __name__ == '__main__':
                     options.__dict__[key] = config.get('spacecmd', key)
                 except:
                     pass
+    else:
+        try:
+            if not os.path.isdir(conf_dir):
+                logging.debug('Creating %s' % conf_dir)
+                os.mkdir(conf_dir, 0700)
+            
+            file = open(conf_file, 'w')
+            file.write('[spacecmd]\n')
+            file.close()
+        except:
+            logging.error('Could not create %s' % conf_file)
 
+    # set the default server to localhost
     if not options.server:
         options.server = 'localhost'
 
+    # reset the log level after parsing the config file
     if options.debug:
         level = logging.DEBUG
     elif options.verbose:
@@ -109,12 +128,17 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             print
     else:
+        # stay in the interactive shell forever
         while True:
+            # Python 2.4 doesn't have a try..except..finally, so
+            # nest a try..except inside a try..finally
             try:
                 try:
+                    # our interactive shell
                     shell.cmdloop()
                 except xmlrpclib.Fault, err:
                     try:
+                        # try to format XML-RPC errors to look a bit nicer
                         logging.debug(sys.exc_info())
                         message = ' '.join(err.faultString.split(':')[1:])
                         logging.error(message)
@@ -125,6 +149,7 @@ if __name__ == '__main__':
                     logging.error(sys.exc_info()[1])
                     logging.debug(sys.exc_info())
                 except KeyboardInterrupt:
+                    # just cancel the current command on Ctrl+C
                     print
             finally:
                 shell.intro = ''
