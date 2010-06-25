@@ -180,11 +180,11 @@ def database():
 def cursor():
     db = __test_DB()
     return db.cursor()
-def prepare(sql):
+def prepare(sql, params=None):
     db = __test_DB()
     if isinstance(sql, Statement):
         sql = sql.statement
-    return db.prepare(sql)
+    return db.prepare(sql, params=params)
 def execute(sql, *args, **kwargs):
     db = __test_DB()
     return apply(db.execute, (sql, ) + args, kwargs)

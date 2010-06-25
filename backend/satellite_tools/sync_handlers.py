@@ -786,18 +786,18 @@ def purge_extra_channel_families():
 
 _query_update_family_counts = rhnSQL.Statement("""
     declare
-        cursor ch_fam_cursor is
+        /*pg_cs*/ cursor ch_fam_cursor /*pg cursor*/ is
             select cf.id channel_family_id, wc.id org_id
               from rhnChannelFamily cf, web_customer wc;
     begin
         for row in ch_fam_cursor loop
-            rhn_channel.update_family_counts(row.channel_family_id,
+            /*pg perform*/ rhn_channel.update_family_counts(row.channel_family_id,
                 row.org_id);
         end loop;
     end;
 """)
 def update_channel_family_counts():
-    h = rhnSQL.prepare(_query_update_family_counts)
+    h = rhnSQL.prepare(_query_update_family_counts, params=())
     h.execute()
     rhnSQL.commit()
 

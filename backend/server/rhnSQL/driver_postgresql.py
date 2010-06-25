@@ -21,6 +21,7 @@
 import sys
 import re
 import pgsql
+import hashlib
 
 import sql_base
 from server import rhnSQL
@@ -193,7 +194,16 @@ class Database(sql_base.Database):
                       "Exception information: %s" % sys.exc_info()[1])
             self.connect() # only allow one try
 
-    def prepare(self, sql, force=0):
+    def prepare(self, sql, force=0, params=None):
+        if params != None:              # support for anonymour plpgsql
+            sql = re.sub(r'/\*pg_cs\*/\s*cursor', '', sql)
+            sql = re.sub(r'/\*pg (.+?)\*/', '\g<1>', sql)
+            s = hashlib.new('sha1')
+            s.update(sql)
+            sha1 = s.hexdigest()
+            c = self.prepare("create function rhn_asdf_%s (%s) returns void as $%s$%s$%s$ language plpgsql" % ( sha1, ','.join(params), sha1, sql, sha1 ))
+            c.execute()
+            sql = "select rhn_asdf_%s()" % sha1
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
     def commit(self):
