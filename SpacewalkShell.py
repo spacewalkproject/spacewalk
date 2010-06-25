@@ -4989,7 +4989,7 @@ For help for a specific command try 'help <cmd>'.
 
         # install and upgrade for individual packages are the same
         if not '.*' in args[1:]:
-            return self.do_system_installpackage(args)
+            return self.do_system_installpackage(' '.join(args))
 
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
