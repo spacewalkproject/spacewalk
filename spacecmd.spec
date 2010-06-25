@@ -1,9 +1,9 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:		spacecmd
-Version:	0.2
+Version:	0.3
 Release:	1%{?dist}
-Summary:	CLI to Spacewalk and RHN Satellite Server
+Summary:	CLI to Spacewalk and Satellite Server
 
 Group:		Applications/System
 License:	GPL
@@ -16,8 +16,7 @@ Requires:	python >= 2.4
 
 
 %description
-Provides a command line interface to Spacewalk, including 
-extensive tab-completion features and SSM (system set manager).
+spacecmd is a command-line interface to Spacewalk and Satellite servers
 
 
 %prep
@@ -32,6 +31,9 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/%{_bindir}
 install -m0755 spacecmd %{buildroot}/%{_bindir}/
+
+mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
+install -m0644 spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
 install -m0644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
@@ -50,9 +52,14 @@ rm -rf %{buildroot}
 %{_bindir}/spacecmd
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
+%{_sysconfdir}/bash_completion.d/spacecmd
 
 
 %changelog
+* Fri Jun 25 2010 Aron Parsons <aparsons@redhat.com> - 0.3-1
+- version bump
+- added bash-completion support
+
 * Mon Jun 21 2010 Aron Parsons <aparsons@redhat.com> - 0.2-1
 - version bump
 
