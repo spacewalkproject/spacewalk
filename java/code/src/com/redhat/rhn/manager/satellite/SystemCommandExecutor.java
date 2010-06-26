@@ -116,6 +116,7 @@ public class SystemCommandExecutor implements Executor {
             String line;
             while ((line = input.readLine()) != null) {
                 sb.append(line);
+                sb.append('\n');
             }
         }
         catch (IOException e) {
