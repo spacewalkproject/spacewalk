@@ -46,7 +46,7 @@ public class SchedulerKernel {
     private static SchedulerFactory factory = null;
     private static Scheduler scheduler = null;
     private static TaskoXmlRpcServer xmlrpcServer = null;
-    private ChainedListener chainedJobListener = null;
+    private ChainedListener chainedTriggerListener = null;
     private String dataSourceConfigPath = "org.quartz.jobStore.dataSource";
     private String dataSourcePrefix = "org.quartz.dataSource";
     private String defaultDataSource = "rhnDs";
@@ -84,12 +84,12 @@ public class SchedulerKernel {
             SchedulerKernel.scheduler.setJobFactory(new RhnJobFactory());
             
             // Setup TriggerListener chain
-            this.chainedJobListener = new ChainedListener();
-            this.chainedJobListener.addListener(new TaskEnvironmentListener());
-            this.chainedJobListener.addListener(new LoggingListener());
+            this.chainedTriggerListener = new ChainedListener();
+            this.chainedTriggerListener.addListener(new TaskEnvironmentListener());
+            this.chainedTriggerListener.addListener(new LoggingListener());
 
             try {
-                SchedulerKernel.scheduler.addTriggerListener(this.chainedJobListener);
+                SchedulerKernel.scheduler.addTriggerListener(this.chainedTriggerListener);
             }
             catch (SchedulerException e) {
                 throw new ConfigException(e.getLocalizedMessage(), e);
@@ -196,7 +196,7 @@ public class SchedulerKernel {
                 trigger = new CronTrigger(jobImpl, 
                         TaskomaticConstants.TASK_GROUP, crontab);
                 trigger.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
-                trigger.addTriggerListener(this.chainedJobListener.getName());
+                trigger.addTriggerListener(this.chainedTriggerListener.getName());
                 this.scheduler.scheduleJob(detail, trigger);
                 if (log.isDebugEnabled()) {
                     log.debug("Scheduled " + detail.getFullName());
