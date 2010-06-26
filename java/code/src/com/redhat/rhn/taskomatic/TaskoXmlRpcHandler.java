@@ -193,7 +193,7 @@ public class TaskoXmlRpcHandler {
         }
         // create job
         JobDetail jobDetail = new JobDetail(schedule.getJobLabel(),
-                schedule.getOrgId().toString(), TaskoSchedule.class);
+                schedule.getOrgId().toString(), TaskoJob.class);
         // set job params
         jobDetail.getJobDataMap().putAll(schedule.getDataMap());
         jobDetail.getJobDataMap().put("schedule_id", schedule.getId());

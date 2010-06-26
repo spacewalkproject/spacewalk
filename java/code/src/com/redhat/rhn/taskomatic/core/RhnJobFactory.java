@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.core;
 
-import com.redhat.rhn.taskomatic.TaskoFactory;
+import com.redhat.rhn.taskomatic.TaskoJob;
 import com.redhat.rhn.taskomatic.TaskoSchedule;
 
 import org.quartz.Job;
@@ -37,11 +37,6 @@ public class RhnJobFactory implements JobFactory {
         TaskoSchedule schedule = null;
         Long scheduleId = trigger.getJobDetail().getJobDataMap().getLong("schedule_id");
 
-        schedule = TaskoFactory.lookupScheduleById(scheduleId);
-        if (schedule == null) {
-                throw new SchedulerException("No such schedule with id  " + scheduleId);
-        }
-
-        return schedule;
+        return new TaskoJob(scheduleId);
     }
 }

@@ -14,13 +14,7 @@
  */
 package com.redhat.rhn.taskomatic;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-
-import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,14 +24,10 @@ import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 
-public class TaskoSchedule implements Job {
-
-    private static Logger log = Logger.getLogger(TaskoBunch.class);
-    private static Map<String, Integer> tasks = new HashMap<String, Integer>();
+public class TaskoSchedule {
 
     private Long id;
     private String jobLabel;
@@ -49,12 +39,6 @@ public class TaskoSchedule implements Job {
     private byte[] data;
     private Date created;
     private Date modified;
-
-    static {
-        for (TaskoTask task : TaskoFactory.listTasks()) {
-            tasks.put(task.getName(), 0);
-        }
-    }
 
     public TaskoSchedule() {
     }
@@ -79,65 +63,6 @@ public class TaskoSchedule implements Job {
         if (activeTillIn != null) {
             setActiveTill(activeTillIn);
         }
-    }
-
-    private boolean isTaskRunning(TaskoTask task) {
-        return tasks.get(task.getName()) > 0;
-    }
-
-    private void markTaskRunning(TaskoTask task) {
-        synchronized (getClass()) {
-            int count = tasks.get(task.getName());
-            count++;
-            tasks.put(task.getName(), count);
-        }
-    }
-
-    private void unmarkTaskRunning(TaskoTask task) {
-        synchronized (getClass()) {
-            int count = tasks.get(task.getName());
-            count--;
-            tasks.put(task.getName(), count);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(JobExecutionContext context)
-        throws JobExecutionException {
-        TaskoRun previousRun = null;
-
-        log.info("Starting " + bunch.getName() + " (" + jobLabel + ") at " + new Date());
-
-        for (TaskoTemplate template : bunch.getTemplates()) {
-            if ((previousRun == null) ||
-                    (previousRun.getStatus() == template.getStartIf())) {
-
-                if (!TaskoFactory.isTaskParalelizable(template.getTask())) {
-                    while (isTaskRunning(template.getTask())) {
-                        log.info("Task " + template.getTask().getName() +
-                            " currently executing. Sleeping for 10 secs.");
-                        TaskoFactory.sleep(10000);
-                    }
-                }
-                markTaskRunning(template.getTask());
-                TaskoRun taskRun = new TaskoRun(this.orgId, template, this.id);
-                TaskoFactory.save(taskRun);
-                taskRun.execute(context);
-                TaskoFactory.commitTransaction();
-                unmarkTaskRunning(template.getTask());
-                log.debug(template.getTask().getName() + " ... " + taskRun.getStatus());
-                previousRun = taskRun;
-            }
-            else {
-                log.info("Interrupting " + bunch.getName() + " (" + jobLabel + ")");
-                break;
-            }
-        }
-        HibernateFactory.closeSession();
-
-        log.info("Finishing " + bunch.getName() + " (" + jobLabel + ") at " + new Date());
     }
 
     public void unschedule() {
