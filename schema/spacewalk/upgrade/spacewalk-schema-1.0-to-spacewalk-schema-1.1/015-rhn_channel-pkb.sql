@@ -42,7 +42,18 @@ IS
                         and scac.server_arch_id = server_arch_id_in
                         and scac.channel_arch_id = c.channel_arch_id;
 
-    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null, recalcfamily_in NUMBER := 1)
+    procedure obtain_read_lock(channel_family_id_in in number, org_id_in in number)
+    is
+        read_lock date;
+
+    begin
+        select created into read_lock
+          from rhnPrivateChannelFamily
+         where channel_family_id = channel_family_id_in and org_id = org_id_in
+           for update;
+    end obtain_read_lock;
+
+    PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null, recalcfamily_in number := 1)
     IS
         channel_parent_val      rhnChannel.parent_channel%TYPE;
         parent_subscribed       BOOLEAN;
