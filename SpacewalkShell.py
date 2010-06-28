@@ -426,6 +426,10 @@ For help for a specific command try 'help <cmd>'.
             return False
 
 
+    def format_time(self, time):
+        return re.sub('T', ' ', time)
+
+
     # parse time input from the userand return xmlrpclib.DateTime
     def parse_time_input(self, time):
         if time == '' or re.match('now', time, re.I):
@@ -817,18 +821,21 @@ For help for a specific command try 'help <cmd>'.
                 map(self.print_errata_summary, rhea)
 
 
-    def print_action_summary(self, action, systems=[], verbose=False):
+    def print_action_summary(self, action, systems=[]):
         print 'ID:         %i' % action.get('id')
         print 'Type:       %s' % action.get('type')
         print 'Scheduler:  %s' % action.get('scheduler')
-        print 'Start Time: %s' % re.sub('T' , ' ', action.get('earliest').value)
+        print 'Start Time: %s' % self.format_time(action.get('earliest').value)
         print 'Systems:    %i' % len(systems)
 
-        if verbose and len(systems):
-            print
-            print 'Systems:'
-            for s in systems:
-                print '  %s' % s.get('server_name')
+
+    #XXX: Bugzilla 608868
+    def print_action_output(self, action):
+        print 'System:    %s' % action.get('server_name')
+        print 'Completed: %s' % self.format_time(action.get('timestamp').value)
+        print 'Output:'
+        print action.get('message')
+        
 
     def config_channel_order(self, new_channels=[]):
         all_channels = self.do_configchannel_list('', True)
@@ -1867,8 +1874,8 @@ For help for a specific command try 'help <cmd>'.
             print 'File:     %s' % file.get('path')
             print 'Type:     %s' % file.get('type')
             print 'Revision: %s' % str(file.get('revision'))
-            print 'Created:  %s' % re.sub('T', ' ', file.get('creation').value)
-            print 'Modified: %s' % re.sub('T', ' ', file.get('modified').value)
+            print 'Created:  %s' % self.format_time(file.get('creation').value)
+            print 'Modified: %s' % self.format_time(file.get('modified').value)
 
             print
             print 'Owner:    %s' % file.get('owner')
@@ -2340,8 +2347,7 @@ For help for a specific command try 'help <cmd>'.
 
             print 'Label:        %s' % details.get('label')
             print 'Description:  %s' % details.get('description')
-            print 'Modified:     %s' % re.sub('T', ' ', 
-                                             details.get('last_modified').value)
+            print 'Modified:     %s' % self.format_time(details.get('last_modified').value)
             print 'System Count: %i' % details.get('system_count')
 
 ####################
@@ -3951,14 +3957,19 @@ For help for a specific command try 'help <cmd>'.
 
         # schedule.getAction() API call would make this easier
         all_actions = self.client.schedule.listAllActions(self.session)
-        action_id = 0
+        action = 0
         for a in all_actions:
             if a.get('id') == id:
-                action_id = a
+                action = a
                 del all_actions
                 break
 
-        self.print_action_summary(action_id, systems = all_systems)
+        self.print_action_summary(action, systems = all_systems)
+        
+        print
+        print 'Completed: %s' % str(len(completed))
+        print 'Failed:    %s' % str(len(failed))
+        print 'Pending:   %s' % str(len(pending))
 
         if len(completed):
             print
@@ -3978,22 +3989,17 @@ For help for a specific command try 'help <cmd>'.
             for s in pending:
                 print '  %s' % s.get('server_name')
 
-        print
-        print 'Completed: %s' % str(len(completed))
-        print 'Failed:    %s' % str(len(failed))
-        print 'Pending:   %s' % str(len(pending))
-
 ####################
 
-    def help_schedule_getscriptoutput(self):
-        print 'schedule_getscriptoutput: Show the output from a script'
-        print 'usage: schedule_getscriptoutput ID'
+    def help_schedule_getoutput(self):
+        print 'schedule_getoutput: Show the output from an action'
+        print 'usage: schedule_getoutput ID'
 
-    def do_schedule_getscriptoutput(self, args):
+    def do_schedule_getoutput(self, args):
         args = self.parse_arguments(args)
 
         if not len(args):
-            self.help_schedule_getscriptoutput()
+            self.help_schedule_getoutput()
             return
         elif len(args) > 1:
             systems = args[1:]
@@ -4001,26 +4007,44 @@ For help for a specific command try 'help <cmd>'.
             systems = []
 
         try:
-            id = int(args[0])
+            action_id = int(args[0])
         except:
             logging.error('%s is not a valid action ID' % str(a))
             return
 
-        #XXX: Bugzilla 584869
-        results = self.client.system.getScriptResults(self.session, id)
+        script_results = None
+        try:
+            #XXX: Bugzilla 584869
+            script_results = \
+                self.client.system.getScriptResults(self.session, action_id)
+        except:
+            pass
 
-        add_separator = False
-        for r in results:
-            if add_separator: print self.SEPARATOR
-            add_separator = True
+        # scripts have a different data structure than other actions
+        if script_results:
+            add_separator = False
+            for r in script_results:
+                if add_separator: print self.SEPARATOR
+                add_separator = True
 
-            print 'System:      %s' % 'UNKNOWN'
-            print 'Start Time:  %s' % re.sub('T', ' ', r.get('startDate').value)
-            print 'Stop Time:   %s' % re.sub('T', ' ', r.get('stopDate').value)
-            print 'Return Code: %s' % str(r.get('returnCode'))
+                print 'System:      %s' % 'UNKNOWN'
+                print 'Start Time:  %s' % self.format_time(r.get('startDate').value)
+                print 'Stop Time:   %s' % self.format_time(r.get('stopDate').value)
+                print 'Return Code: %s' % str(r.get('returnCode'))
+                print 'Output:'
+                print r.get('output')
+        else:
+            add_separator = False
 
-            print
-            print r.get('output')
+            completed = self.client.schedule.listCompletedSystems(self.session, action_id)
+            failed = self.client.schedule.listFailedSystems(self.session, action_id)
+
+            #XXX: Bugzilla 608868
+            for action in completed + failed:
+                if add_separator: print self.SEPARATOR
+                add_separator = True
+
+                self.print_action_output(action)
 
 #        completed = self.client.schedule.listCompletedSystems(self.session, id)
 #
@@ -4177,7 +4201,19 @@ For help for a specific command try 'help <cmd>'.
                 if add_separator: print self.SEPARATOR
                 add_separator = True
 
-                self.print_action_summary(actions[i])
+                completed = \
+                    self.client.schedule.listCompletedSystems(self.session,
+                                                       actions[i].get('id'))
+                failed = \
+                    self.client.schedule.listFailedSystems(self.session,
+                                                           actions[i].get('id'))
+                pending = \
+                    self.client.schedule.listInProgressSystems(self.session,
+                                                       actions[i].get('id'))
+
+                all_systems = completed + failed + pending
+
+                self.print_action_summary(actions[i], all_systems)
 
 ####################
 
@@ -4694,7 +4730,7 @@ For help for a specific command try 'help <cmd>'.
         print 'User:       %s' % user
         print 'Group:      %s' % group
         print 'Timeout:    %s seconds' % str(timeout)
-        print 'Start Time: %s' % re.sub('T', ' ', time.value)
+        print 'Start Time: %s' % self.format_time(time.value)
         print
         print script
         print
@@ -5962,8 +5998,8 @@ For help for a specific command try 'help <cmd>'.
             print 'Name:          %s' % system
             print 'System ID:     %s' % str(system_id)
             print 'Locked:        %s' % str(details.get('lock_status'))
-            print 'Registered:    %s' % re.sub('T', ' ', registered.value)
-            print 'Last Checkin:  %s' % re.sub('T', ' ', last_checkin.value)
+            print 'Registered:    %s' % self.format_time(registered.value)
+            print 'Last Checkin:  %s' % self.format_time(last_checkin.value)
             print 'OSA Status:    %s' % details.get('osa_status')
 
             # only print basic information if requested
@@ -6233,6 +6269,7 @@ For help for a specific command try 'help <cmd>'.
 
         # allow a limit to be passed as the last argument so that only
         # that number of events is listed
+        limit = 0
         if len(args) > 1:
             try:
                 limit = int(args[len(args) - 1])
@@ -6264,10 +6301,11 @@ For help for a specific command try 'help <cmd>'.
             for e in events:
                 print
                 print 'Summary:   %s' % e.get('summary')
-                print 'Completed: %s' % re.sub('T' , ' ', 
-                                               e.get('completed').value)
-                print 'Details:'
-                print e.get('details')
+                print 'Completed: %s' % self.format_time(e.get('completed').value)
+
+                if e.get('details'):
+                    print 'Details:'
+                    print e.get('details')
 
                 if limit:
                     count += 1
