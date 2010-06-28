@@ -26,7 +26,7 @@ rhn_prepare_install
     command_instance_id in out rhn_command_queue_instances.recid%type,
     install_command     in rhn_command_queue_instances.command_id%type
 )
-returns numeric
+returns smallint
 as $$
 declare
     /* ignore this command if it has not been run after five minutes */
