@@ -204,6 +204,17 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--consider-full</term>
+        <listitem>
+            <para>When this option is used, the export being synced from disk dump will be
+                  considered to be a full export; any package in the channel
+                  but not in the export will be deleted. Without this option all disk dumps
+                  are interpreted as incremental dumps.
+                  This option has sense only for --mount-point.
+                  Live sync and ISS are always considered as full sync.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--rhn-cert</term>
         <listitem>
             <para>satellite certificate to import(use only with -m option)</para>

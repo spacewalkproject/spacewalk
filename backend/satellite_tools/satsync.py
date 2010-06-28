@@ -2170,6 +2170,8 @@ def processCommandline():
             help='alternative SSL CA Cert (fullpath to cert file)'),
         Option('-c','--channel',             action='append',
             help='process data for this channel only'),
+        Option(     '--consider-full',       action='store_true',
+            help='disk dump will be considered to be a full export; see "man satellite-sync" for more information.'),
         Option('-d','--db',                  action='store',
             help='alternative database connection string (username/password@sid)'),
         Option(     '--debug-level',         action='store',
