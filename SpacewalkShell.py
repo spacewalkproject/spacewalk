@@ -3374,63 +3374,6 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_kickstart_listsnippets(self):
-        print 'kickstart_listsnippets: List the available Kickstart snippets'
-        print 'usage: kickstart_listsnippets'
-
-    def do_kickstart_listsnippets(self, args, doreturn=False):
-        snippets = self.client.kickstart.snippet.listCustom(self.session)
-        snippets = [s.get('name') for s in snippets]
-
-        if doreturn:
-            return snippets
-        else:
-            if len(snippets):
-                print '\n'.join(sorted(snippets))
-
-####################
-
-    def help_kickstart_snippetdetails(self):
-        print 'kickstart_snippetdetails: Show the contents of a snippet'
-        print 'usage: kickstart_snippetdetails SNIPPET ...'
-
-    def complete_kickstart_snippetdetails(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_kickstart_listsnippets('', True),
-                                  text)
-
-    def do_kickstart_snippetdetails(self, args):
-        args = self.parse_arguments(args)
-
-        if not len(args):
-            self.help_kickstart_snippetdetails()
-            return
-
-        add_separator = False
-
-        snippets = self.client.kickstart.snippet.listCustom(self.session)
-
-        for name in args:
-            for s in snippets:
-                if s.get('name') == name:
-                    snippet = s
-                    break
-
-            if not snippet:
-                logging.warning('%s is not a valid snippet' % name)
-                continue
-
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            print 'Name:   %s' % snippet.get('name')
-            print 'Macro:  %s' % snippet.get('fragment')
-            print 'File:   %s' % snippet.get('file')
-
-            print
-            print snippet.get('contents')
-
-####################
-
     def help_login(self):
         print 'login: Connect to a Spacewalk server'
         print 'usage: login [USERNAME] [SERVER]'
@@ -4214,6 +4157,133 @@ For help for a specific command try 'help <cmd>'.
                 all_systems = completed + failed + pending
 
                 self.print_action_summary(actions[i], all_systems)
+
+####################
+
+    def help_snippet_list(self):
+        print 'snippet_list: List the available Kickstart snippets'
+        print 'usage: snippet_list'
+
+    def do_snippet_list(self, args, doreturn=False):
+        snippets = self.client.kickstart.snippet.listCustom(self.session)
+        snippets = [s.get('name') for s in snippets]
+
+        if doreturn:
+            return snippets
+        else:
+            if len(snippets):
+                print '\n'.join(sorted(snippets))
+
+####################
+
+    def help_snippet_details(self):
+        print 'snippet_details: Show the contents of a snippet'
+        print 'usage: snippet_details SNIPPET ...'
+
+    def complete_snippet_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_snippet_list('', True),
+                                  text)
+
+    def do_snippet_details(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_snippet_details()
+            return
+
+        add_separator = False
+
+        snippets = self.client.kickstart.snippet.listCustom(self.session)
+
+        snippet = ''
+        for name in args:
+            for s in snippets:
+                if s.get('name') == name:
+                    snippet = s
+                    break
+
+            if not snippet:
+                logging.warning('%s is not a valid snippet' % name)
+                continue
+
+            if add_separator: print self.SEPARATOR
+            add_separator = True
+
+            print 'Name:   %s' % snippet.get('name')
+            print 'Macro:  %s' % snippet.get('fragment')
+            print 'File:   %s' % snippet.get('file')
+
+            print
+            print snippet.get('contents')
+
+####################
+
+    def help_snippet_create(self):
+        print 'snippet_create: Create a Kickstart snippet'
+        print 'usage: snippet_create'
+
+    def do_snippet_create(self, args, name=''):
+        args = self.parse_arguments(args)
+
+        template = ''
+        if name:
+            snippets = self.client.kickstart.snippet.listCustom(self.session)
+            for s in snippets:
+                if s.get('name') == name:
+                    template = s.get('contents')
+                    break
+        else:
+            name = self.prompt_user('Name:', noblank = True)
+
+        (contents, ignore) = self.editor(template = template, delete = True)
+
+        print
+        print 'Contents:'
+        print contents
+
+        if self.user_confirm():
+            self.client.kickstart.snippet.createOrUpdate(self.session,
+                                                         name,
+                                                         contents)
+
+####################
+
+    def help_snippet_update(self):
+        print 'snippet_update: Update a Kickstart snippet'
+        print 'usage: snippet_update NAME'
+
+    def complete_snippet_update(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_snippet_list('', True), text)
+
+    def do_snippet_update(self, args):
+        args = self.parse_arguments(args)
+        
+        if not len(args):
+            self.help_snippet_update()
+            return
+
+        return self.do_snippet_create('', name=args[0])
+
+####################
+
+    def help_snippet_delete(self):
+        print 'snippet_removefile: Delete a Kickstart snippet'
+        print 'usage: snippet_removefile NAME'
+
+    def complete_snippet_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_snippet_list('', True), text)
+
+    def do_snippet_delete(self, args):
+        args = self.parse_arguments(args)
+        
+        if not len(args):
+            self.help_snippet_delete()
+            return
+
+        snippet = args[0]
+
+        if self.user_confirm('Remove this snippet [y/N]:'):
+            self.client.kickstart.snippet.delete(self.session, snippet)
 
 ####################
 
