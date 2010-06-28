@@ -1784,10 +1784,10 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         # check to make sure the orgs exported are valid
         _validate_package_org(uq_pkg_data)
         try:
-            if OPTIONS.mount_point:
-                importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=0)
+            if OPTIONS.mount_point: # if OPTIONS.consider_full is not set interpret dump as incremental
+                importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=OPTIONS.consider_full)
             else:
-                importer = sync_handlers.link_channel_packages(uq_pkg_data)                
+                importer = sync_handlers.link_channel_packages(uq_pkg_data)
         except (SQLError, SQLSchemaError, SQLConnectError), e:
             tbOut = cStringIO.StringIO()
             Traceback(mail=0, ostream=tbOut, with_locals=1)
