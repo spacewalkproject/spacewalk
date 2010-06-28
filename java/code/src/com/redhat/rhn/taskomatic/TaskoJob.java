@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2010 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.taskomatic;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import org.apache.log4j.Logger;
@@ -47,6 +48,10 @@ public class TaskoJob implements Job {
         return tasks.get(task.getName()) > 0;
     }
 
+    private boolean isTaskThreadAvailable(TaskoTask task) {
+        return tasks.get(task.getName()) < Config.get().getInt("taskomatic." + task.getTaskClass() + ".parallel_threads", 1);
+    }
+
     synchronized private static void markTaskRunning(TaskoTask task) {
         int count = tasks.get(task.getName());
         count++;
@@ -69,57 +74,52 @@ public class TaskoJob implements Job {
         TaskoSchedule schedule = TaskoFactory.lookupScheduleById(scheduleId);
         if (schedule == null) {
                 log.error("No such schedule with id  " + scheduleId);
+                return;
         }
 
         log.info(schedule.getJobLabel() + ":" + " bunch " + schedule.getBunch().getName() +
                 " started");
 
-        // wait until the same schedule finishes
-        //synchronized (schedule) {
-            for (TaskoTemplate template : schedule.getBunch().getTemplates()) {
-                if ((previousRun == null) ||
-                        (previousRun.getStatus() == template.getStartIf())) {
-                    TaskoTask task = template.getTask();
+        for (TaskoTemplate template : schedule.getBunch().getTemplates()) {
+            if ((previousRun == null) ||
+                    (previousRun.getStatus() == template.getStartIf())) {
+                TaskoTask task = template.getTask();
 
-                    Object lock = locks.get(task.getName());
-                    synchronized (lock) {
-                        if (!TaskoFactory.isTaskParalelizable(task)) {
-                            while (isTaskRunning(task)) {
-                                log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                                " currenty running ... WAITING");
-                                // TaskoFactory.sleep(10000);
-                                try {
-                                    lock.wait();
-                                    log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                                    " ... AWAKE");
-                                }
-                                catch (InterruptedException e) {
-                                    // ok
-                                }
-                            }
-                        }
-                        markTaskRunning(task);
+                Object lock = locks.get(task.getName());
+                synchronized (lock) {
+                    while (!isTaskThreadAvailable(task)) {
                         log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                                " STARTED");
-                        TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
-                        TaskoFactory.save(taskRun);
-                        taskRun.execute(context);
-                        TaskoFactory.commitTransaction();
-                        log.debug(task.getName() +
-                                " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
-                        previousRun = taskRun;
-                        unmarkTaskRunning(task);
-                        lock.notify();
+                        " all allowed threads running ... WAITING");
+                        try {
+                            lock.wait();
+                            log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
+                            " ... AWAKE");
+                        }
+                        catch (InterruptedException e) {
+                            // ok
+                        }
                     }
-                }
-                else {
-                    log.info("Interrupting " + schedule.getBunch().getName() +
-                            " (" + schedule.getJobLabel() + ")");
-                    break;
+                    markTaskRunning(task);
+                    log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
+                            " STARTED");
+                    TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
+                    TaskoFactory.save(taskRun);
+                    taskRun.execute(context);
+                    TaskoFactory.commitTransaction();
+                    log.debug(task.getName() +
+                            " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
+                    previousRun = taskRun;
+                    unmarkTaskRunning(task);
+                    lock.notify();
                 }
             }
-            HibernateFactory.closeSession();
-        //}
+            else {
+                log.info("Interrupting " + schedule.getBunch().getName() +
+                        " (" + schedule.getJobLabel() + ")");
+                break;
+            }
+        }
+        HibernateFactory.closeSession();
         log.info(schedule.getJobLabel() + ":" + " bunch " + schedule.getBunch().getName() +
                 " finished");
     }
