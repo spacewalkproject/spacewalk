@@ -766,6 +766,14 @@ class _ChannelsDumper(exportLib._ChannelDumper):
             exportLib._dbtime2timestamp(self._row['last_modified']))
         )
 
+        channel_product_details = self._get_channel_product_details()
+        arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-product-name',
+            channel_product_details[0]))
+        arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-product-version',
+            channel_product_details[1]))
+        arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-product-beta',
+            channel_product_details[2]))
+
         comp_last_modified = self._channel_comps_last_modified()
         if comp_last_modified != None:
             arr.append(exportLib.SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
