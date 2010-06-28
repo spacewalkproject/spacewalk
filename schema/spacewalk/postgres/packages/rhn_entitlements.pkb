@@ -775,41 +775,41 @@ as $$
         -- worse than the old code...
         if service_label_in = 'enterprise' or 
            service_label_in = 'management' then
-            ents_to_process := ents_to_process || 'sw_mgr_enterprise';
+            ents_to_process := array_append(ents_to_process, 'sw_mgr_enterprise');
 
-            roles_to_process := roles_to_process || 'org_admin';
+            roles_to_process := array_append(roles_to_process, 'org_admin');
 
-            roles_to_process := roles_to_process || 'system_group_admin';
+            roles_to_process := array_append(roles_to_process, 'system_group_admin');
 
-            roles_to_process := roles_to_process || 'activation_key_admin';
+            roles_to_process := array_append(roles_to_process, 'activation_key_admin');
 
-            roles_to_process := roles_to_process || 'org_applicant';
+            roles_to_process := array_append(roles_to_process, 'org_applicant');
         elsif service_label_in = 'provisioning' then
-            ents_to_process := ents_to_process || 'rhn_provisioning';
+            ents_to_process := array_append(ents_to_process, 'rhn_provisioning');
 
-            roles_to_process := roles_to_process || 'system_group_admin';
+            roles_to_process := array_append(roles_to_process, 'system_group_admin');
 
-            roles_to_process := roles_to_process || 'activation_key_admin';
+            roles_to_process := array_append(roles_to_process, 'activation_key_admin');
 
-            roles_to_process := roles_to_process || 'config_admin';
+            roles_to_process := array_append(roles_to_process, 'config_admin');
             -- another nasty special case...
             if enable_in = 'Y' then
-                ents_to_process := ents_to_process || 'sw_mgr_enterprise';
+                ents_to_process := array_append(ents_to_process, 'sw_mgr_enterprise');
             end if;
         elsif service_label_in = 'monitoring' then
-            ents_to_process := ents_to_process || 'rhn_monitor';
+            ents_to_process := array_append(ents_to_process, 'rhn_monitor');
 
-            roles_to_process := roles_to_process || 'monitoring_admin';
+            roles_to_process := array_append(roles_to_process, 'monitoring_admin');
         elsif service_label_in = 'virtualization' then
-            ents_to_process := ents_to_process || 'rhn_virtualization';
+            ents_to_process := array_append(ents_to_process, 'rhn_virtualization');
 
-            roles_to_process := roles_to_process || 'config_admin';
+            roles_to_process := array_append(roles_to_process, 'config_admin');
         elsif service_label_in = 'virtualization_platform' then
-            ents_to_process := ents_to_process || 'rhn_virtualization_platform'; 
-            roles_to_process := roles_to_process || 'config_admin';
+            ents_to_process := array_append(ents_to_process, 'rhn_virtualization_platform');
+            roles_to_process := array_append(roles_to_process, 'config_admin');
     elsif service_label_in = 'nonlinux' then
-            ents_to_process := ents_to_process || 'rhn_nonlinux';
-            roles_to_process := roles_to_process || 'config_admin';
+            ents_to_process := array_append(ents_to_process, 'rhn_nonlinux');
+            roles_to_process := array_append(roles_to_process, 'config_admin');
         end if;
 
         if enable_in = 'Y' then
@@ -850,7 +850,7 @@ as $$
                 end loop;
             end loop;
         else
-            for i in 1..array_upper(ents_to_process, 1) loop
+            for i in 1..coalesce(array_upper(ents_to_process, 1), 0) loop
                 for ent in ents(ents_to_process[i]) loop
                     delete from rhnOrgEntitlements
                      where org_id = org_id_in

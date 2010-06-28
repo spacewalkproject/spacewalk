@@ -16,8 +16,8 @@
 
 CREATE TABLE rhn_probe_param_value
 (
-    probe_id          NUMBER NOT NULL,
-    command_id        NUMBER NOT NULL,
+    probe_id          NUMBER(12) NOT NULL,
+    command_id        NUMBER(12) NOT NULL,
     param_name        VARCHAR2(40) NOT NULL,
     value             VARCHAR2(1024),
     last_update_user  VARCHAR2(40),

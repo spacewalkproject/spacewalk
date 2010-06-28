@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.3
+Version:        1.1.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Jun 28 2010 Jan Pazdziora 1.1.5-1
+- As the tables rhnChannelFamilyLicense and rhnChannelFamilyLicenseConsent were
+  removed, so should the triggers.
+- Replace nvl and nvl2 with coalesce, to make the rhnServerNeededView view
+  compatible with PostgreSQL.
+- Revert "Revert "Fix numeric/smallint incompatible types in PostgreSQL.""
+
+* Mon Jun 28 2010 Jan Pazdziora 1.1.4-1
+- The for does not like NULL which we get for empty ents_to_process.
+- Array concatenation seems to want array_append.
+- Fix cursors in PostgreSQL version of prune_group.
+- Use AS with column alias.
+- TOP declaration seems to be needed, for Makefile to be useful at all.
+
 * Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
 - updating rhnPackageRepodata table to not use a reserved word.
   (jsherril@redhat.com)

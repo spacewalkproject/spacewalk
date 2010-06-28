@@ -53,7 +53,7 @@ FROM
     where
            --- If the channel has more than 1 package with the same NVRE but different arches
            ---  Then we need to add an additional join condition (the server's package arch id) 
-           P.package_arch_id = NVL2(
+           P.package_arch_id = COALESCE(
                                    (select distinct 1
                                        from rhnPackage P2 inner join rhnChannelPackage CP2
                                             on P2.id = CP2.package_id
@@ -61,21 +61,21 @@ FROM
                                                P2.id = CP2.package_id and
                                                P2.name_id = P.name_id
                                           group by P2.evr_id having count(*) > 1),
-                                    NVL(SP.package_arch_id, P.package_arch_id),
+                                    COALESCE(SP.package_arch_id, P.package_arch_id),
                                     P.package_arch_id
                                )
            AND
            ---  If we can use arch to find the MAX EVR, use that 
            ---  Otherwise just use whatever they have 
            SP_EVR.evr =
-                  NVL(
+                  COALESCE(
                      (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE
                        WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND
                          SP2.name_id = SP.name_id
-                         AND NVL(SP2.package_arch_id, P.package_arch_id) = P.package_arch_id
+                         AND COALESCE(SP2.package_arch_id, P.package_arch_id) = P.package_arch_id
                      ),
                      (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE
                        WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND
                       SP2.name_id = SP.name_id)
                     )
-/
+;

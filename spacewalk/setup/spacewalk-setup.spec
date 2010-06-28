@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.3
+Version:        1.1.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,16 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Mon Jun 28 2010 Jan Pazdziora 1.1.4-1
+- The default_db has username and password in Oracle case, let's make it the
+  same for PostgreSQL.
+- Some values (db-sid) can be undef, do not pass them to rhn-config-
+  satellite.pl.
+- Some values (db-sid) can be undef, leading to warnings, there does not need
+  to be a host a port, and the default_db is different for PostgreSQL.
+- Let's do a slightly better formatting of our terminal output.
+- Fix postgresql_clear_db to clear the content of the PostgreSQL database.
+
 * Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
 - Minor fixes for PostgreSQL code paths.
 - Unused code cleanup.
