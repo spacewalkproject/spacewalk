@@ -998,7 +998,7 @@ sub populate_initial_configs {
     if ($answers->{'db-backend'} eq 'oracle') {
         $hibernate_dialect = "org.hibernate.dialect.Oracle9iDialect";
         $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
-        $hibernate_url = "jdbc:oracle:thin:@" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . ":" . $answers->{"db-sid"};
+        $hibernate_url = "jdbc:oracle:oci:@" . $answers->{"db-sid"};
         $default_db = sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
     } elsif ($answers->{'db-backend'} eq 'postgresql') {
         $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
