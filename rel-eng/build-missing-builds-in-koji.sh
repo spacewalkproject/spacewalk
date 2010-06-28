@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAGS=([0]="dist-5E-sw-1.1-candidate" [1]="dist-f11-sw-1.1-candidate" [2]="dist-f12-sw-1.1-candidate" [3]="dist-f13-sw-1.1-candidate")
+TAGS=([0]="dist-5E-sw-1.1-candidate" [1]="dist-f12-sw-1.1-candidate" [2]="dist-f13-sw-1.1-candidate")
 
 pushd `pwd`
 
@@ -9,7 +9,7 @@ cd `dirname $0`/..
 # say python to be nice to pipe
 export PYTHONUNBUFFERED=1
 
-for tag in 0 1 2 3; do
+for tag in 0 1 2; do
   rel-eng/koji-missing-builds.py --no-extra ${TAGS[$tag]} | \
     awk '!(/buildsys-macros/ || /oracle-server-admin/ || /oracle-server-scripts/ || /heirloom-pkgtools/) {
                  if (x==1) { print gensub(" *([a-zA-Z_-]+)-.*", "\\1", "g")}
