@@ -36,6 +36,7 @@ import com.redhat.rhn.domain.user.legacy.UserImpl;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -218,9 +219,9 @@ public class AccessTest extends RhnBaseTestCase {
         Server s = ServerFactoryTest.createTestServer(user, false,
                 ServerConstants.getServerGroupTypeMonitoringEntitled());
         context.put("sid", new String[] {s.getId().toString()});
-        boolean rc = acl.evalAcl(context, "system_feature(ftr_package_remove)");
+        boolean rc = acl.evalAcl(context, "system_feature(ftr_config)");
         assertFalse(rc);
-        rc = acl.evalAcl(context, "not system_feature(ftr_package_remove)");
+        rc = acl.evalAcl(context, "not system_feature(ftr_config)");
         assertTrue(rc);
     }
 
@@ -235,7 +236,8 @@ public class AccessTest extends RhnBaseTestCase {
         context.put("user", user);
          assertTrue(acl.evalAcl(context, "system_has_management_entitlement()"));
          
-         s = ServerFactoryTest.createTestServer(user, true);
+         s = ServerFactoryTest.createUnentitledTestServer(user, true, 
+                         ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
          context.put("sid", new String[] {s.getId().toString()});
          assertFalse(acl.evalAcl(context, "system_has_management_entitlement()"));
         

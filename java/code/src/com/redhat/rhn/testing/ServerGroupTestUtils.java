@@ -74,5 +74,4 @@ public class ServerGroupTestUtils {
                                         create(user, NAME + TestUtils.randomString(), 
                                                     DESCRIPTION);
     }
-
 }

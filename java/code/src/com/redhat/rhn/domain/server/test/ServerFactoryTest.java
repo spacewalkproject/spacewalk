@@ -53,6 +53,7 @@ import com.redhat.rhn.domain.server.UndefinedCustomDataKeyException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
@@ -548,9 +549,26 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
         Server newS = createUnentitledTestServer(owner, ensureOwnerAccess, stype,
                 dateCreated);
-
+        
         if (!type.getAssociatedEntitlement().isBase()) {
-            SystemManager.entitleServer(newS, EntitlementManager.MANAGEMENT);
+            EntitlementServerGroup mgmt = ServerGroupFactory.lookupEntitled(
+                    EntitlementManager.MANAGEMENT, owner.getOrg());
+            if (mgmt == null) {
+                assertNull(new UpdateOrgSystemEntitlementsCommand(
+                        EntitlementManager.MANAGEMENT, owner.getOrg(), 10L).store());
+                newS = (Server)TestUtils.saveAndReload(newS);
+                mgmt = ServerGroupFactory.lookupEntitled(
+                        EntitlementManager.MANAGEMENT,
+                        owner.getOrg());
+                newS = ServerFactory.lookupById(newS.getId());
+            }
+            assertNotNull(mgmt);
+            assertNotNull(mgmt.getMaxMembers());
+            assertTrue(mgmt.getMaxMembers() > 0);
+            assertTrue(mgmt.getMaxMembers() - mgmt.getCurrentMembers() > 0);
+            assertNotNull(mgmt.getGroupType().getAssociatedEntitlement());
+            SystemManager.entitleServer(newS, 
+                    mgmt.getGroupType().getAssociatedEntitlement());
         }
 
 

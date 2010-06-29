@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.hibernate.Session;
@@ -173,14 +174,14 @@ public class HostBuilder {
             
             if (register) {
                 guest = ServerFactoryTest.createUnentitledTestServer(owner, true,
-                        ServerFactoryTest.TYPE_SERVER_NORMAL , new Date());
+                        ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
+                RhnBaseTestCase.assertNotNull(guest);
                 virtualInstance.setGuestSystem(guest);
             }
             if (host != null) {
                 host.addGuest(virtualInstance);
-                TestUtils.saveAndFlush(host);
+                HibernateFactory.getSession().save(host);
             }
-            TestUtils.saveAndFlush(guest);
             guests.add(virtualInstance);
         }
         return guests;
