@@ -292,6 +292,9 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="url">
+         <source>url</source>
+     </trans-unit>
       <trans-unit id="alphabet">
 <source>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</source>
         <context-group name="ctx">
