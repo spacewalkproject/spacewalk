@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.23
+Version: 1.1.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,24 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jun 29 2010 Jan Pazdziora 1.1.24-1
+- We want to pull the backend type from the config file as well.
+- Add initial support for anonymous PL/pgSQL blocks.
+- adding flex guest detection at registration time (jsherril@redhat.com)
+- few fixes for rhn cert activation, cert activation now works and populates
+  max_members correctly, but not populating fve_max_members yet
+  (jsherril@redhat.com)
+- a few fixse for sat cert handling (jsherril@redhat.com)
+- first attempt at adding flex guest to sat cert processing
+  (jsherril@redhat.com)
+- 608677 - export rhnChannelProduct information into a channel dump
+  (mzazrivec@redhat.com)
+- 608657 - if --consider-full is set, interpret disk dump as full export,
+  otherwise it is used as incremental dump (msuchy@redhat.com)
+- 608657 - add option --consider-full to man page of satellite-sync and to
+  output of --help (msuchy@redhat.com)
+- sort command line parameters alphabeticaly (msuchy@redhat.com)
+
 * Mon Jun 28 2010 Jan Pazdziora 1.1.23-1
 - Remove a debugging print.
 - do need to check date, we can get anything (msuchy@redhat.com)
