@@ -64,8 +64,7 @@ public class RepoDetailsAction extends RhnAction {
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         
         if (ctx.isSubmitted()) {
-            
-            
+                        
             ValidatorResult result = RhnValidationHelper.validate(this.getClass(), 
                             makeValidationMap(form), null, 
                                 VALIDATION_XSD);
