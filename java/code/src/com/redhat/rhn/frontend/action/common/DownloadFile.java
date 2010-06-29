@@ -410,7 +410,7 @@ public class DownloadFile extends DownloadAction {
         KickstartSession ksession = (KickstartSession) params.get(SESSION);
         KickstartSessionState newState = null;
         KickstartableTree tree = (KickstartableTree) params.get(TREE);
-        Package rpmPackage;
+        Package rpmPackage = null;
         Channel child = (Channel) params.get(CHILD);
 
         if (tree.getBasePath().indexOf(kickstartMount) == 0) {
@@ -505,7 +505,7 @@ public class DownloadFile extends DownloadAction {
         }
         if (request.getMethod().equals("HEAD")) {
             log.debug("Method is HEAD .. serving checksum");
-            return manualServeChecksum(response, diskPath);
+            return manualServeChecksum(response, rpmPackage, diskPath);
         }
         else if (request.getHeader("Range") != null) {
             log.debug("range detected.  serving chunk of file");
@@ -565,19 +565,24 @@ public class DownloadFile extends DownloadAction {
     
     // Ported from perl - needed for proxy support
     private StreamInfo manualServeChecksum(HttpServletResponse response, 
-            String diskPath) throws IOException {
+            Package rpmPackage, String diskPath) throws IOException {
 
         response.setContentType("application/octet-stream");
-
+        String checksum;
         // Obtain the checksum for the file in question and stick it in the 
         // outgoing HTTP headers under "X-RHN-Checksum".
-        File f = new File(diskPath);
-        if (!f.exists()) {
-            log.error("manualServeChecksum :: File not found: " + diskPath);
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return getStreamForText("".getBytes());
+        if (rpmPackage != null && rpmPackage.getChecksum() != null &&
+                    rpmPackage.getChecksum().getChecksum() != null) {
+            checksum = rpmPackage.getChecksum().getChecksum();
+        } else {
+            File f = new File(diskPath);
+            if (!f.exists()) {
+                log.error("manualServeChecksum :: File not found: " + diskPath);
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return getStreamForText("".getBytes());
+            }
+            checksum = MD5Sum.getFileMD5Sum(f);
         }
-        String checksum = MD5Sum.getFileMD5Sum(f);
         // Create some headers.
         response.setContentLength(0);
         response.addHeader("X-RHN-Checksum", checksum);
