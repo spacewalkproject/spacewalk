@@ -4487,6 +4487,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 <source>Regular Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Flex Counts">
@@ -4500,6 +4501,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 <source>Flex Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlements</context>
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>      
       
@@ -4602,23 +4604,9 @@ deducted from the default organization.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
       </trans-unit>
-      
-      <trans-unit id="Regular Usage">
-<source>Regular Usage</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="Regular Proposed Total">
 <source>Regular Proposed Total</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
-        </context-group>
-      </trans-unit>
-
-      <trans-unit id="Flex Usage">
-<source>Flex Usage</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions</context>
         </context-group>
