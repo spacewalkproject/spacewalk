@@ -890,6 +890,23 @@ For help for a specific command try 'help <cmd>'.
 
         return new_channels
 
+
+    def list_locales(self):
+        if not os.path.isdir('/usr/share/zoneinfo'): return []
+
+        zones = []
+
+        for item in os.listdir('/usr/share/zoneinfo'):
+            path = os.path.join('/usr/share/zoneinfo', item)
+
+            if os.path.isdir(path):
+                for subitem in os.listdir(path):
+                    zones.append(os.path.join(item, subitem))
+            else:
+                zones.append(item)
+
+        return zones
+
 ####################
 
     def help_activationkey_addpackages(self):
@@ -2804,6 +2821,113 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_filepreservation_list(self):
+        print 'filepreservation_list: List all file preservations'
+        print 'usage: filepreservation_list'
+
+    def do_filepreservation_list(self, args, doreturn=False):
+        lists = \
+            self.client.kickstart.filepreservation.listAllFilePreservations(\
+                self.session)
+        lists = [ l.get('name') for l in lists ]
+
+        if doreturn:
+            return lists
+        else:
+            if len(lists):
+                print '\n'.join(sorted(lists))
+
+####################
+
+    def help_filepreservation_create(self):
+        print 'filepreservation_create: Create a file preservation list'
+        print 'usage: filepreservation_create [NAME] [FILE ...]'
+
+    def do_filepreservation_create(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args):
+            name = args[0]
+        else:
+            name = self.prompt_user('Name:', noblank=True)
+
+        if len(args) > 1:
+            files = args[1:]
+        else:
+            files = []
+
+            while True:
+                print 'File List:'
+                print '\n'.join(sorted(files))
+                print
+
+                input = self.prompt_user('File [blank to finish]:')
+
+                if input == '':
+                    break
+                else:
+                    if input not in files:
+                        files.append(input)
+
+        print
+        print 'File List:'
+        print '\n'.join(sorted(files))
+        
+        if not self.user_confirm(): return
+
+        self.client.kickstart.filepreservation.create(self.session,
+                                                      name,
+                                                      files)
+
+####################
+
+    def help_filepreservation_delete(self):
+        print 'filepreservation_delete: Delete a file preservation list'
+        print 'usage: filepreservation_delete NAME'
+
+    def complete_filepreservation_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_filepreservation_list('', True), text)
+
+    def do_filepreservation_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_filepreservation_delete()
+            return
+
+        name = args[0]
+
+        if not self.user_confirm('Delete this list [y/N]:'): return
+
+        self.client.kickstart.filepreservation.delete(self.session, name)
+
+####################
+
+    def help_filepreservation_details(self):
+        print 'filepreservation_details: Show the details of a file ' + \
+              'preservation list'
+        print 'usage: filepreservation_details NAME'
+
+    def complete_filepreservation_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_filepreservation_list('', True), text)
+
+    def do_filepreservation_details(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_filepreservation_details()
+            return
+
+        name = args[0]
+
+        details = \
+            self.client.kickstart.filepreservation.getDetails(self.session, 
+                                                              name)
+
+        print '\n'.join(sorted(details.get('file_names')))        
+
+####################
+
     def help_get_apiversion(self):
         print 'get_apiversion: Display the API version of the server'
         print 'usage: get_apiversion'
@@ -3371,6 +3495,581 @@ For help for a specific command try 'help <cmd>'.
         newname = args[1]
 
         self.client.kickstart.renameProfile(self.session, oldname, newname)
+
+####################
+
+    def help_kickstart_listcryptokeys(self):
+        print 'kickstart_listcryptokeys: List the crypto keys associated ' + \
+              'with a Kickstart profile'
+        print 'usage: kickstart_listcryptokeys PROFILE'
+    
+    def complete_kickstart_listcryptokeys(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_listcryptokeys(self, args, doreturn=False):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_listcryptokeys()
+            return
+
+        profile = args[0]
+
+        keys = self.client.kickstart.profile.system.listKeys(self.session,
+                                                             profile)
+        keys = [ k.get('description') for k in keys ]
+
+        if doreturn:
+            return keys
+        else:
+            if len(keys):
+                print '\n'.join(sorted(keys))
+
+####################
+
+    def help_kickstart_addcryptokeys(self):
+        print 'kickstart_addcryptokeys: Add crypto keys to a Kickstart profile'
+        print 'usage: kickstart_addcryptokeys PROFILE <KEY ...>'
+
+    def complete_kickstart_addcryptokeys(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_cryptokey_list('', True), text)
+
+    def do_kickstart_addcryptokeys(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_kickstart_addcryptokeys()
+            return
+
+        profile = args[0]
+        keys = args[1:]
+
+        self.client.kickstart.profile.system.addKeys(self.session,
+                                                     profile,
+                                                     keys)
+
+####################
+
+    def help_kickstart_removecryptokeys(self):
+        print 'kickstart_removecryptokeys: Remove crypto keys from a ' + \
+              'Kickstart profile'
+        print 'usage: kickstart_removecryptokeys PROFILE <KEY ...>'
+
+    def complete_kickstart_removecryptokeys(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) > 2:
+            # only tab complete keys currently assigned to the profile
+            try:
+                keys = self.do_kickstart_listcryptokeys(parts[1], True)
+            except:
+                keys = []
+
+            return self.tab_completer(keys, text)
+
+    def do_kickstart_removecryptokeys(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_kickstart_removecryptokeys()
+            return
+
+        profile = args[0]
+        keys = args[1:]
+
+        self.client.kickstart.profile.system.removeKeys(self.session,
+                                                        profile,
+                                                        keys)
+
+####################
+
+    def help_kickstart_listactivationkeys(self):
+        print 'kickstart_listactivationkeys: List the activation keys ' + \
+              'associated with a Kickstart profile'
+        print 'usage: kickstart_listactivationkeys PROFILE'
+    
+    def complete_kickstart_listactivationkeys(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_listactivationkeys(self, args, doreturn=False):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_listactivationkeys()
+            return
+
+        profile = args[0]
+
+        keys = \
+            self.client.kickstart.profile.keys.getActivationKeys(self.session,
+                                                                 profile)
+
+        keys = [ k.get('key') for k in keys ]
+
+        if doreturn:
+            return keys
+        else:
+            if len(keys):
+                print '\n'.join(sorted(keys))
+
+####################
+
+    def help_kickstart_addactivationkeys(self):
+        print 'kickstart_addactivationkeys: Add activation keys to a ' + \
+              'Kickstart profile'
+        print 'usage: kickstart_addactivationkeys PROFILE <KEY ...>'
+
+    def complete_kickstart_addactivationkeys(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_activationkey_list('', True), 
+                                      text)
+
+    def do_kickstart_addactivationkeys(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_kickstart_addactivationkeys()
+            return
+
+        profile = args[0]
+        keys = args[1:]
+
+        for key in keys:
+            self.client.kickstart.profile.keys.addActivationKey(self.session,
+                                                                profile,
+                                                                key)
+
+####################
+
+    def help_kickstart_removeactivationkeys(self):
+        print 'kickstart_removeactivationkeys: Remove activation keys from ' + \
+              'a Kickstart profile'
+        print 'usage: kickstart_removeactivationkeys PROFILE <KEY ...>'
+
+    def complete_kickstart_removeactivationkeys(self, text, line, begidx, 
+                                                endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) > 2:
+            # only tab complete keys currently assigned to the profile
+            try:
+                keys = self.do_kickstart_listactivationkeys(parts[1], True)
+            except:
+                keys = []
+
+            return self.tab_completer(keys, text)
+
+    def do_kickstart_removeactivationkeys(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_kickstart_removeactivationkeys()
+            return
+
+        profile = args[0]
+        keys = args[1:]
+
+        if not self.user_confirm('Remove these keys [y/N]:'): return
+
+        for key in keys:
+            self.client.kickstart.profile.keys.removeActivationKey(self.session,
+                                                                   profile,
+                                                                   key)
+
+####################
+
+    def help_kickstart_enableconfigmanagement(self):
+        print 'kickstart_enableconfigmanagement: Enable configuration ' + \
+              'management on a Kickstart profile'
+        print 'usage: kickstart_enableconfigmanagement PROFILE'
+
+    def complete_kickstart_enableconfigmanagement(self, text, line, begidx, 
+                                                  endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_enableconfigmanagement(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_enableconfigmanagement()
+            return
+
+        profile = args[0]
+
+        self.client.kickstart.profile.system.enableConfigManagement(\
+            self.session, profile)
+
+####################
+
+    def help_kickstart_disableconfigmanagement(self):
+        print 'kickstart_disableconfigmanagement: Disable configuration ' + \
+              'management on a Kickstart profile'
+        print 'usage: kickstart_disableconfigmanagement PROFILE'
+
+    def complete_kickstart_disableconfigmanagement(self, text, line, begidx, 
+                                                   endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_disableconfigmanagement(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_disableconfigmanagement()
+            return
+
+        profile = args[0]
+
+        self.client.kickstart.profile.system.disableConfigManagement(\
+            self.session, profile)
+
+####################
+
+    def help_kickstart_enableremotecommands(self):
+        print 'kickstart_enableremotecommands: Enable remote commands ' + \
+              'on a Kickstart profile'
+        print 'usage: kickstart_enableremotecommands PROFILE'
+
+    def complete_kickstart_enableremotecommands(self, text, line, begidx, 
+                                                endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_enableremotecommands(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_enableremotecommands()
+            return
+
+        profile = args[0]
+
+        self.client.kickstart.profile.system.enableRemoteCommands(self.session,
+                                                                  profile)
+
+####################
+
+    def help_kickstart_disableremotecommands(self):
+        print 'kickstart_disableremotecommands: Disable remote commands ' + \
+              'on a Kickstart profile'
+        print 'usage: kickstart_disableremotecommands PROFILE'
+
+    def complete_kickstart_disableremotecommands(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_disableremotecommands(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_disableremotecommands()
+            return
+
+        profile = args[0]
+
+        self.client.kickstart.profile.system.disableRemoteCommands(self.session,
+                                                                   profile)
+
+####################
+        
+    def help_kickstart_setlocale(self):
+        print 'kickstart_setlocale: Set the locale for a Kickstart profile'
+        print 'usage: kickstart_setlocale PROFILE LOCALE'
+
+    def complete_kickstart_setlocale(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) == 3:
+            return self.tab_completer(self.list_locales(), text)
+
+    def do_kickstart_setlocale(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_kickstart_setlocale()
+            return
+
+        profile = args[0]
+        locale = args[1]
+
+        # always use UTC        
+        utc = True
+
+        self.client.kickstart.profile.system.setLocale(self.session,
+                                                       profile,
+                                                       locale,
+                                                       utc)
+
+####################
+
+    def help_kickstart_setselinux(self):
+        print 'kickstart_setselinux: Set the SELinux mode for a Kickstart ' + \
+              'profile'
+        print 'usage: kickstart_setselinux PROFILE MODE'
+
+    def complete_kickstart_setselinux(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) == 3:
+            modes = ['enforcing', 'permissive', 'disabled']
+            return self.tab_completer(modes, text)
+
+    def do_kickstart_setselinux(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 2:
+            self.help_kickstart_setselinux()
+            return
+
+        profile = args[0]
+        mode = args[1]
+
+        self.client.kickstart.profile.system.setSELinux(self.session,
+                                                        profile,
+                                                        mode)
+
+####################
+
+    def help_kickstart_setpartitions(self):
+        print 'kickstart_setpartitions: Set the partitioning scheme for a ' + \
+              'Kickstart profile'
+        print 'usage: kickstart_setpartitions PROFILE'
+
+    def complete_kickstart_setpartitions(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_setpartitions(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_setpartitions()
+            return
+
+        profile = args[0]
+
+        try:
+            # get the current scheme so the user can edit it
+            current = \
+                self.client.kickstart.profile.system.getPartitioningScheme(\
+                    self.session, profile)
+
+            template = '\n'.join(current)
+        except:
+            template = ''
+
+        (partitions, ignore) = self.editor(template=template, delete=True)
+
+        print partitions
+        if not self.user_confirm(): return
+
+        lines = partitions.split('\n')
+
+        self.client.kickstart.profile.system.setPartitioningScheme(self.session,
+                                                                   profile,
+                                                                   lines)
+
+####################
+
+    def help_kickstart_addfilepreservations(self):
+        print 'kickstart_addfilepreservations: Add file preservations to a ' + \
+              'Kickstart profile'
+        print 'usage: kickstart_addfilepreservations PROFILE <FILELIST ...>'
+
+    def complete_kickstart_addfilepreservations(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) == 3:
+            return self.tab_completer(self.do_filepreservation_list('', True), 
+                                      text)
+
+    def do_kickstart_addfilepreservations(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_addfilepreservations()
+            return
+
+        profile = args[0]
+        files = args[1:]
+
+        self.client.kickstart.profile.system.addFilePreservations(self.session,
+                                                                  profile,
+                                                                  files)
+
+####################
+
+    def help_kickstart_removefilepreservations(self):
+        print 'kickstart_removefilepreservations: Remove file ' + \
+              'preservations from a Kickstart profile'
+        print 'usage: kickstart_removefilepreservations PROFILE <FILE ...>'
+
+    def complete_kickstart_removefilepreservations(self, text, line, begidx, 
+                                                   endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text)
+        elif len(parts) > 2:
+            files = []
+
+            try:
+                # only tab complete files currently assigned to the profile
+                files = \
+                    self.client.kickstart.profile.system.listFilePreservations(\
+                        self.session, parts[1])
+                files = [ f.get('name') for f in files ]
+            except:
+                return []
+
+            return self.tab_completer(files, text)
+
+    def do_kickstart_removefilepreservations(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) < 2:
+            self.help_kickstart_removefilepreservations()
+            return
+
+        profile = args[0]
+        files = args[1:]
+
+        self.client.kickstart.profile.system.removeFilePreservations(\
+            self.session, profile, files)
+
+####################
+
+    def help_kickstart_listpackages(self):
+        print 'kickstart_listpackages: List the packages for a Kickstart ' + \
+              'profile'
+        print 'usage: kickstart_listpackages PROFILE'
+
+    def complete_kickstart_listpackages(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_kickstart_list('', True), text)
+
+    def do_kickstart_listpackages(self, args, doreturn = False):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_kickstart_listpackages()
+            return
+
+        profile = args[0]
+
+        packages = \
+            self.client.kickstart.profile.software.getSoftwareList(self.session,
+                                                                   profile)
+
+        if doreturn:
+            return packages
+        else:
+            if len(packages):
+                print '\n'.join(packages)
+
+####################
+
+    def help_kickstart_addpackages(self):
+        print 'kickstart_addpackages: Add packages to a Kickstart profile'
+        print 'usage: kickstart_addpackages PROFILE <PACKAGE ...>'
+
+    def complete_kickstart_addpackages(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), text) 
+        elif len(parts) > 2:
+            return self.tab_completer(self.get_package_names(), text)
+
+    def do_kickstart_addpackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_kickstart_addpackages()
+            return
+
+        profile = args[0]
+        packages = args[1:]
+
+        self.client.kickstart.profile.software.appendToSoftwareList(\
+            self.session, profile, packages)
+
+####################
+
+    def help_kickstart_removepackages(self):
+        print 'kickstart_removepackages: Remove packages from a Kickstart ' + \
+              'profile'
+        print 'usage: kickstart_removepackages PROFILE <PACKAGE ...>'
+
+    def complete_kickstart_removepackages(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_kickstart_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.do_kickstart_listpackages(\
+                                      parts[1], True), text)
+
+    def do_kickstart_removepackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args) >= 2:
+            self.help_kickstart_removepackages()
+            return
+
+        profile = args[0]
+        to_remove = args[1:]
+
+        # setSoftwareList requires a new list of packages, so grab
+        # the old list and remove the list of packages from the user
+        packages = self.do_kickstart_listpackages(profile, True)
+        for package in to_remove:
+            if package in packages:
+                packages.remove(package)
+
+        logging.debug(packages)
+
+        if not self.user_confirm('Remove these packages [y/N]:'): return
+
+        self.client.kickstart.profile.software.setSoftwareList(self.session,
+                                                               profile,
+                                                               packages)
 
 ####################
 
@@ -5413,6 +6112,7 @@ For help for a specific command try 'help <cmd>'.
         # use the systems listed in the SSM
         if re.match('ssm', args[0], re.I):
             systems = self.ssm.keys()
+            args.pop(0)
         else:
             systems = self.expand_systems(args.pop(0))
 
