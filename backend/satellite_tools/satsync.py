@@ -2178,6 +2178,8 @@ def processCommandline():
             help='override debug level set in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG),
         Option(     '--dump-version',        action='store',
             help="requested version of XML dump (default: %s)" % constants.PROTOCOL_VERSION),
+        Option(     '--email',               action='store_true',
+            help='e-mail a report of what was synced/imported'),
         Option(     '--force-all-errata',  action='store_true',
             help='forcibly process all (not a diff of) errata metadata'),
         Option(     '--force-all-packages',  action='store_true',
