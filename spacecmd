@@ -147,12 +147,14 @@ if __name__ == '__main__':
                     except:
                         # a few XML-RPC messages are different
                         logging.error(err.faultString)
-                except xml.parsers.expat.ExpatError:
-                    logging.error(sys.exc_info()[1])
-                    logging.debug(sys.exc_info())
                 except KeyboardInterrupt:
                     # just cancel the current command on Ctrl+C
                     print
+                except SystemExit:
+                    sys.exit(0)
+                except:
+                    logging.error(sys.exc_info()[1])
+                    logging.debug(sys.exc_info())
             finally:
                 shell.intro = ''
 
