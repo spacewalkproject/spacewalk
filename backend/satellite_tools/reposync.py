@@ -37,7 +37,6 @@ class RepoSync:
     channel_label = None
     channel = None
     fail = False
-    repo_label = None
     quiet = False
 
     def main(self):
@@ -95,7 +94,6 @@ class RepoSync:
         self.type = options.type
         self.channel_label = options.channel_label
         self.fail = options.fail
-        #self.repo_label = self.short_hash(self.url)
         self.quiet = options.quiet
         self.channel = self.load_channel()
 
@@ -104,8 +102,7 @@ class RepoSync:
             sys.exit(1)
 
         for url in self.urls:
-            self.repo_label = self.short_hash(url)
-            plugin = self.load_plugin()(url, self.channel_label + "-" + self.repo_label)
+            plugin = self.load_plugin()(url, self.channel_label)
             self.import_packages(plugin, url)
         self.print_msg("Sync complete")
 
