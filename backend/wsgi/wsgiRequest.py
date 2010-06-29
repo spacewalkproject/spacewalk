@@ -58,7 +58,7 @@ class WsgiRequest:
 
     def send_http_header(self, status=None):
         self.sent_header = 1
-
+        self.status = str(self.status)
         if status is not None:
             self.status = str(status)
         if len(self.status) == 0 or self.status == None:
