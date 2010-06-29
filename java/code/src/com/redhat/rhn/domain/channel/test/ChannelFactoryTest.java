@@ -38,7 +38,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -339,9 +338,8 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         // base channel NOT a user owned base channel.
         Channel base = createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
-        assertEquals(1, channels.size());
-
         assertNotNull(channels);
+        assertEquals(1, channels.size());
     }
     
     public void testLookupPackageByFileName() throws Exception {
