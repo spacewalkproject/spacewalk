@@ -5251,7 +5251,7 @@ For help for a specific command try 'help <cmd>'.
             # double-check for existance in case of duplicate names
             if system in self.ssm:
                 logging.info('Removed %s' % system)
-                self.ssm.remove(system)
+                del self.ssm[system]
 
         print 'Systems Selected: %s' % str(len(self.ssm))
 
