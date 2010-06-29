@@ -574,7 +574,8 @@ public class DownloadFile extends DownloadAction {
         if (rpmPackage != null && rpmPackage.getChecksum() != null &&
                     rpmPackage.getChecksum().getChecksum() != null) {
             checksum = rpmPackage.getChecksum().getChecksum();
-        } else {
+        }
+        else {
             File f = new File(diskPath);
             if (!f.exists()) {
                 log.error("manualServeChecksum :: File not found: " + diskPath);
