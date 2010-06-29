@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 1.1.1
+Version: 1.1.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -318,6 +318,9 @@ fi
 
 
 %changelog
+* Tue Jun 29 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
+- 609040 - if we request checksum of file, do not sent Range http header
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
 - merge 2 duplicate byterange module to common.byterange
 - bumping spec files to 1.1 packages
