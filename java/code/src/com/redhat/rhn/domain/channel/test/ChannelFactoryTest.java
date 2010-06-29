@@ -339,20 +339,9 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         // base channel NOT a user owned base channel.
         Channel base = createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
-        List<Channel> rhbases = ChannelFactory.listRedHatBaseChannels();
-        int rbsize = 0;
-        for (Iterator itr = rhbases.iterator(); itr.hasNext();) {
-            Channel c = (Channel)itr.next();
-            if (ChannelManager.verifyChannelSubscribe(user, c.getId())) {
-                rbsize++;
-            }
-        }
+        assertEquals(1, channels.size());
+
         assertNotNull(channels);
-        int size = 1; // include the one we created
-        if (rhbases != null) {
-            size = size + rbsize;
-        }
-        assertEquals(channels.size(), size);
     }
     
     public void testLookupPackageByFileName() throws Exception {
