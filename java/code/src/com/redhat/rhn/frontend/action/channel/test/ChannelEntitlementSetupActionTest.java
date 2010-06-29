@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.channel.ChannelEntitlementSetupAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -45,7 +46,7 @@ public class ChannelEntitlementSetupActionTest extends RhnBaseTestCase {
         sah.setupProcessPagination();
         sah.setupClampListBounds();
         sah.executeAction();
-        DataResult dr = (DataResult) sah.getRequest().getAttribute("pageList");
+        DataResult dr = (DataResult) sah.getRequest().getAttribute(ListHelper.DATA_SET);
         assertNotEmpty(dr);
    }
 }

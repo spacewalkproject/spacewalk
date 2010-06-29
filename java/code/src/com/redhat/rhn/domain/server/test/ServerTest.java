@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Capability;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
@@ -60,6 +61,8 @@ public class ServerTest extends BaseTestCaseWithUser {
         Server s = ServerTestUtils.createTestSystem(user);
         SystemManager.removeAllServerEntitlements(s.getId());
         UserTestUtils.addManagement(s.getCreator().getOrg());
+        HibernateFactory.getSession().clear();
+        s = ServerFactory.lookupById(s.getId());
         s.setBaseEntitlement(EntitlementManager.MANAGEMENT);
         TestUtils.saveAndFlush(s);
         s = (Server) reload(s);

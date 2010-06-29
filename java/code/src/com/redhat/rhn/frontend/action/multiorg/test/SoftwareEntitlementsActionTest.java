@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.action.multiorg.test;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.SoftwareEntitlementDto;
-import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -38,7 +38,7 @@ public class SoftwareEntitlementsActionTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/admin/multiorg/SoftwareEntitlements");
         actionPerform();
         List<SoftwareEntitlementDto> entitlements = (List<SoftwareEntitlementDto>)
-            request.getAttribute(RequestContext.PAGE_LIST);
+            request.getAttribute(ListHelper.DATA_SET);
         assertNotNull(entitlements);        
     }
 }

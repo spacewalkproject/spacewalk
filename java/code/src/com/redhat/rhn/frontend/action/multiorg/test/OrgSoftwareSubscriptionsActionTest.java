@@ -14,17 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.multiorg.test;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * OrgSoftwareSubscriptionsActionTest
@@ -38,8 +42,10 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.ORG_ID, user.getOrg().getId().toString());
         setRequestPathInfo("/admin/multiorg/OrgSoftwareSubscriptions");
         actionPerform();
-        assertTrue(getActualForward().contains("oid=" + user.getOrg().getId()));
         assertNotNull(request.getAttribute("org"));
+        assertNotNull(request.getAttribute(ListHelper.DATA_SET));
+        List pl = (List) request.getAttribute(ListHelper.DATA_SET);
+        assertTrue(pl.size() > 0);        
     }
     
     public void testExecuteSubmit() throws Exception {
@@ -51,7 +57,14 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         System.out.println("CFM TEST ID is " + cfm.getId().toString());
         addRequestParameter(cfm.getId().toString(), "10");
         addRequestParameter("updateOrganizations", "1");
+        LocalizationService ls = LocalizationService.getInstance(); 
+        addRequestParameter("dispatch", ls.getMessage("orgdetails.jsp.submit"));
+        Map<String, String> subsMap = new HashMap<String, String>();
+        subsMap.put(cfm.getId().toString(), "10");
+        request.getSession().setAttribute("OrgSoftwareSubscriptions" + 
+                                user.getOrg().getId().toString(), subsMap);
         setRequestPathInfo("/admin/multiorg/OrgSoftwareSubscriptions");
+        
         addSubmitted();
         actionPerform();
         assertTrue(getActualForward().contains("oid=" + user.getOrg().getId()));
@@ -64,8 +77,8 @@ public class OrgSoftwareSubscriptionsActionTest extends RhnMockStrutsTestCase {
         assertEquals(10, cfm.getMaxMembers(user.getOrg()).longValue());
         
         // Check the setup request params
-        assertNotNull(request.getAttribute("pageList"));
-        List pl = (List) request.getAttribute("pageList");
+        assertNotNull(request.getAttribute(ListHelper.DATA_SET));
+        List pl = (List) request.getAttribute(ListHelper.DATA_SET);
         assertTrue(pl.size() > 0);
     }
 }

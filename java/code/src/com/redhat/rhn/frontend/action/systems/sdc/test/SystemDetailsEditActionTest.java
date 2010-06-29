@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.sdc.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.server.Server;
@@ -174,14 +175,19 @@ public class SystemDetailsEditActionTest extends RhnMockStrutsTestCase {
     
     public void testSetBaseEntitlement() throws Exception {
         UserTestUtils.addManagement(user.getOrg());
-        SystemManager.removeAllServerEntitlements(s.getId());
-        request.addParameter(SystemDetailsEditAction.NAME, s.getName());
+        Long id = s.getId();
+        String name = s.getName();
+        HibernateFactory.getSession().clear();
+        SystemManager.removeAllServerEntitlements(id);
+        s = ServerFactory.lookupById(id);
+        assertTrue(s.getBaseEntitlement() == null);
+                
+        request.addParameter(SystemDetailsEditAction.NAME, name);
         request.addParameter(SystemDetailsEditAction.BASE_ENTITLEMENT, 
                 EntitlementManager.MANAGEMENT.getLabel());
         addSubmitted();
         actionPerform();
-        s = (Server) TestUtils.reload(s);
-        
+        s = ServerFactory.lookupById(id);
         assertTrue(s.getBaseEntitlement().equals(EntitlementManager.MANAGEMENT));
     }
      

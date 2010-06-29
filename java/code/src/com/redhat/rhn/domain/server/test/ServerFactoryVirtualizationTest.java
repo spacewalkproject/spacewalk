@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.server.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
@@ -65,28 +66,26 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
     }
     
     public void testDeleteGuestFromHostAndSaveHost() throws Exception {
-        VirtualInstance virtualInstance = 
+        VirtualInstance guest = 
                 virtualInstanceFactory.newRegisteredGuestWithHost();
-        
-        Server host = virtualInstance.getHostSystem();
-        
+        Long guestId = guest.getGuestSystem().getId();
+        Server host = guest.getHostSystem();
         ServerFactory.save(host);
-        flushAndEvict(host);
-        flushAndEvict(virtualInstance);
+        Long hostId = host.getId();
         
-        Long guestId = virtualInstance.getGuestSystem().getId();
+        HibernateFactory.getSession().save(guest);
+        HibernateFactory.getSession().clear();
         
-        Server retrievedHost = ServerFactory.lookupById(host.getId());
-        retrievedHost.deleteGuest(virtualInstance);
+        Server retrievedHost = ServerFactory.lookupById(hostId);
+        assertFalse(retrievedHost.getGuests().isEmpty());
         
-        //ServerFactory.save(retrievedHost);
-        flushAndEvict(virtualInstance);
-        flushAndEvict(retrievedHost);
-        
-        Server serverWithoutGuest = ServerFactory.lookupById(host.getId());
+        assertTrue(retrievedHost.deleteGuest(guest));
+
+        HibernateFactory.getSession().clear();
+        Server serverWithoutGuest = ServerFactory.lookupById(hostId);
         Server deletedGuest = ServerFactory.lookupById(guestId);
         
-        assertFalse(serverWithoutGuest.getGuests().contains(virtualInstance));
+        assertFalse(serverWithoutGuest.getGuests().contains(deletedGuest));
         assertNull("guest system was not deleted", deletedGuest);
     }
     

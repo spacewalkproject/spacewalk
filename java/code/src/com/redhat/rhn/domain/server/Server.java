@@ -1404,7 +1404,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
     
     private boolean canDeleteGuest(VirtualInstance guest) {
-        for (VirtualInstance g : guests) {
+        for (VirtualInstance g : getGuests()) {
             if (g.getId().equals(guest.getId())) {
                 return true;
             }
