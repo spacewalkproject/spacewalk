@@ -106,7 +106,7 @@ public class RepoSyncTask implements Job {
         cmd.add(c.getLabel());
         cmd.add("--type");        
         cmd.add(ChannelFactory.CONTENT_SOURCE_TYPE_YUM.getLabel());
-        cmd.add("--quiet");
+        cmd.add("--quiet");        
         return cmd;
     }
     
