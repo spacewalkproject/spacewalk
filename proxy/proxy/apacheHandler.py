@@ -238,7 +238,8 @@ class apacheHandler(rhnApache):
 
         hdrs = UserDictCase()
         for k in req.headers_in.keys():
-            hdrs[k] = req.headers_in[k]
+            if k.lower() != 'range': # we want checksum of whole file
+                hdrs[k] = req.headers_in[k]
 
         log_debug(9, "Using existing headers_in", hdrs)
         connection.request("HEAD", pingURL, None, hdrs)
