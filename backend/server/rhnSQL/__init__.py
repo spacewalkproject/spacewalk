@@ -67,7 +67,7 @@ def __init__DB(backend, host, port, username, password, database):
     __DB.connect()
     return 0
 
-def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
+def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
         password=None, database=None):
     """
     Initialize the database.
@@ -75,6 +75,9 @@ def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
     For Oracle connections: provide just a string dsn argument, or a username,
     password, and database. (sid in this case)
     """
+
+    if backend == None:
+        backend=CFG.DB_BACKEND
 
     if not SUPPORTED_BACKENDS.has_key(backend):
         raise rhnException("Unsupported database backend", backend)
