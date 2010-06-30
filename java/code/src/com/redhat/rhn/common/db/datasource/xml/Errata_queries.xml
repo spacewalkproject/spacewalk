@@ -596,7 +596,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 </mode>
 
 <mode name="find_packages_for_errata_set_with_assoc" class="com.redhat.rhn.frontend.dto.PackageOverview">
-  <query params="src_cid, uid, set">
+  <query params="src_cid, uid, set, dest_cid">
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 		EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
@@ -609,9 +609,12 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         rhnPackage P on P.id = EP.package_id inner join
         rhnPackageArch PA on PA.id = P.package_arch_id inner join
         rhnPackageEvr EVR on Evr.id = P.evr_id inner join
+        rhnChannelPackageArchCompat COMPAT on P.package_arch_id = COMPAT.package_arch_id inner join
+        rhnChannel C on C.channel_arch_id = COMPAT.channel_arch_id inner join
 	rhnChannelPackage CP on CP.package_id = P.id inner join
 	rhnPackageName PN on  PN.id = P.name_id
     where S.label = :set
+         and C.id = :dest_cid
    		 and S.user_id = :uid
          and CP.channel_id = :src_cid
   </query>

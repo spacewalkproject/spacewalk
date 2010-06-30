@@ -1079,6 +1079,7 @@ public class ErrataManager extends BaseManager {
         if (srcChan != null) {
             mode = "find_packages_for_errata_set_with_assoc";
             params.put("src_cid", srcChan.getId());
+            params.put("dest_cid", destChan.getId());
         }
         else {
             mode = "find_packages_for_errata_set_no_chan";

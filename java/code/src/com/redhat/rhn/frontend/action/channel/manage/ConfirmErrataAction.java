@@ -142,14 +142,8 @@ public class ConfirmErrataAction extends RhnListAction {
                     getSetDecl(currentChan).getLabel());
         
         
-        
-        //if we are not using package association (and thus the queries aren't handling
-        //arch solving, then we need to validate the packages
         List<PackageOverview> validList = packageResult;
-        if (!packageAssoc) {
-            validList = validatePackages(packageResult, 
-                currentChan);
-        }
+
         
         storePackagesInSet(user, validList, currentChan);
         
@@ -181,54 +175,7 @@ public class ConfirmErrataAction extends RhnListAction {
         return RhnSetDecl.setForChannelErrata(chan);
     }
     
-    
-    private List validatePackages(DataResult<PackageOverview> dr, Channel chan) {
-        Map<String, PackageOverview> packMap = new HashMap();
-        
-        
-        Set<String> compatArchesLabels = new HashSet<String>();
-        for (PackageArch arch : (Set<PackageArch>) 
-                chan.getChannelArch().getCompatiblePackageArches()) {
-            compatArchesLabels.add(arch.getLabel());
-        }
-        
-        for (PackageOverview pack : dr) {
-            String label = pack.getPackageName() + "-" +  pack.getPackageNvre();
-            
-            //if the package isn't compatible with the current channel
-            if (!compatArchesLabels.contains(pack.getPackageArch())) {
-                continue;
-            }
-            
-            
-            if (!packMap.containsKey(label)) {
-                packMap.put(label, pack);
-            }
-            else {
-                //Here we narrow down the higher level arches
-                PackageOverview packIn = packMap.get(label);
-             
-                if (packIn.getPackageArch().equals("ia64")) {
-                    packMap.put(label, pack);
-                }
-                else if (packIn.getPackageArch().equals("x86_64")) {
-                    packMap.put(label, pack);
-                }
-                else if (packIn.getPackageArch().equals("ppc64")) {
-                    packMap.put(label, pack);
-                }
-                else if (packIn.getPackageArch().equals("i686") && 
-                        pack.getPackageArch().equals("i386")) {
-                    packMap.put(label, pack);
-                }                
-            }
-        }
-
-        
-        
-        return new ArrayList(packMap.values());
-    }
-    
+       
   
     
     
