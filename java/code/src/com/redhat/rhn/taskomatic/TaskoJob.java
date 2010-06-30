@@ -49,16 +49,17 @@ public class TaskoJob implements Job {
     }
 
     private boolean isTaskThreadAvailable(TaskoTask task) {
-        return tasks.get(task.getName()) < Config.get().getInt("taskomatic." + task.getTaskClass() + ".parallel_threads", 1);
+        return tasks.get(task.getName()) < Config.get().getInt("taskomatic." +
+                task.getTaskClass() + ".parallel_threads", 1);
     }
 
-    synchronized private static void markTaskRunning(TaskoTask task) {
+    private static synchronized void markTaskRunning(TaskoTask task) {
         int count = tasks.get(task.getName());
         count++;
         tasks.put(task.getName(), count);
     }
 
-    synchronized private static void unmarkTaskRunning(TaskoTask task) {
+    private static synchronized void unmarkTaskRunning(TaskoTask task) {
         int count = tasks.get(task.getName());
         count--;
         tasks.put(task.getName(), count);
@@ -73,8 +74,10 @@ public class TaskoJob implements Job {
 
         TaskoSchedule schedule = TaskoFactory.lookupScheduleById(scheduleId);
         if (schedule == null) {
-                log.error("No such schedule with id  " + scheduleId);
-                return;
+            // means, that schedule was deleted (in the DB), but quartz still schedules it
+            log.error("No such schedule with id  " + scheduleId);
+            TaskoFactory.unscheduleTrigger(context.getTrigger());
+            return;
         }
 
         log.info(schedule.getJobLabel() + ":" + " bunch " + schedule.getBunch().getName() +
@@ -88,27 +91,30 @@ public class TaskoJob implements Job {
                 Object lock = locks.get(task.getName());
                 synchronized (lock) {
                     while (!isTaskThreadAvailable(task)) {
-                        log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                        " all allowed threads running ... WAITING");
+                        log.debug(schedule.getJobLabel() + ":" + " task " +
+                                task.getName() +
+                                " all allowed threads running ... WAITING");
                         try {
                             lock.wait();
-                            log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                            " ... AWAKE");
+                            log.debug(schedule.getJobLabel() + ":" + " task " +
+                                    task.getName() + " ... AWAKE");
                         }
                         catch (InterruptedException e) {
                             // ok
                         }
                     }
                     markTaskRunning(task);
-                    log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
-                            " STARTED");
-                    TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
-                    TaskoFactory.save(taskRun);
-                    taskRun.execute(context);
-                    TaskoFactory.commitTransaction();
-                    log.debug(task.getName() +
-                            " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
-                    previousRun = taskRun;
+                }
+                log.debug(schedule.getJobLabel() + ":" + " task " + task.getName() +
+                        " STARTED");
+                TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
+                TaskoFactory.save(taskRun);
+                taskRun.execute(context);
+                TaskoFactory.commitTransaction();
+                log.debug(task.getName() +
+                        " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
+                previousRun = taskRun;
+                synchronized (lock) {
                     unmarkTaskRunning(task);
                     lock.notify();
                 }
@@ -125,7 +131,7 @@ public class TaskoJob implements Job {
     }
 
     /**
-     * @param scheduleId The scheduleId to set.
+     * @param scheduleIdIn The scheduleId to set.
      */
     public void setScheduleId(Long scheduleIdIn) {
         this.scheduleId = scheduleIdIn;
