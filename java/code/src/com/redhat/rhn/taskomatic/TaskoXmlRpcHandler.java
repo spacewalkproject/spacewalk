@@ -88,10 +88,12 @@ public class TaskoXmlRpcHandler {
     private TaskoBunch doBasicCheck(Integer orgId, String bunchName,
             String jobLabel)
         throws NoSuchBunchTaskException, InvalidParamException, SchedulerException {
-        TaskoBunch bunch = checkBunchName(bunchName);
+        TaskoBunch bunch = checkBunchName(orgId, bunchName);
         if (!TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel).isEmpty() ||
-                (SchedulerKernel.getScheduler().getTrigger(jobLabel, orgId.toString()) !=
+                (SchedulerKernel.getScheduler().getTrigger(jobLabel, getGroupName(orgId)) !=
                 null)) {
+            String[] triggerNames =
+                SchedulerKernel.getScheduler().getTriggerNames(getGroupName(orgId));
             throw new InvalidParamException("jobLabel already in use");
         }
         return bunch;
@@ -103,7 +105,8 @@ public class TaskoXmlRpcHandler {
             TaskoFactory.listActiveSchedulesByOrgAndLabel(orgId, jobLabel);
         Trigger trigger;
         try {
-            trigger = SchedulerKernel.getScheduler().getTrigger(jobLabel, orgId.toString());
+            trigger = SchedulerKernel.getScheduler().getTrigger(jobLabel,
+                    getGroupName(orgId));
         }
         catch (SchedulerException e) {
             trigger = null;
@@ -165,7 +168,7 @@ public class TaskoXmlRpcHandler {
         while (!TaskoFactory.listSchedulesByOrgAndLabel(orgId,
                 jobLabel + count.toString()).isEmpty() ||
                 (SchedulerKernel.getScheduler().getTrigger(jobLabel + count.toString(),
-                        orgId.toString()) != null)) {
+                        getGroupName(orgId)) != null)) {
             count++;
         }
         return jobLabel + count.toString();
@@ -176,13 +179,13 @@ public class TaskoXmlRpcHandler {
         Trigger trigger = null;
         if (schedule.getCronExpr().isEmpty()) {
             trigger = new SimpleTrigger(schedule.getJobLabel(),
-                    schedule.getOrgId().toString(), 1, 1);
+                    getGroupName(schedule.getOrgId()), 1, 1);
             trigger.setEndTime(new Date());
         }
         else {
             try {
                 trigger = new CronTrigger(schedule.getJobLabel(),
-                        schedule.getOrgId().toString(), schedule.getCronExpr());
+                        getGroupName(schedule.getOrgId()), schedule.getCronExpr());
                 trigger.setStartTime(schedule.getActiveFrom());
                 trigger.setEndTime(schedule.getActiveTill());
             }
@@ -193,7 +196,7 @@ public class TaskoXmlRpcHandler {
         }
         // create job
         JobDetail jobDetail = new JobDetail(schedule.getJobLabel(),
-                schedule.getOrgId().toString(), TaskoJob.class);
+                getGroupName(schedule.getOrgId()), TaskoJob.class);
         // set job params
         jobDetail.getJobDataMap().putAll(schedule.getDataMap());
         jobDetail.getJobDataMap().put("schedule_id", schedule.getId());
@@ -209,7 +212,7 @@ public class TaskoXmlRpcHandler {
 
     private Integer destroyJob(Integer orgId, String jobLabel) {
         try {
-            SchedulerKernel.getScheduler().unscheduleJob(jobLabel, orgId.toString());
+            SchedulerKernel.getScheduler().unscheduleJob(jobLabel, getGroupName(orgId));
             return 1;
         }
         catch (SchedulerException e) {
@@ -217,9 +220,15 @@ public class TaskoXmlRpcHandler {
         }
     }
 
-    private TaskoBunch checkBunchName(String bunchName)
+    private TaskoBunch checkBunchName(Integer orgId, String bunchName)
         throws NoSuchBunchTaskException {
-        TaskoBunch bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
+        TaskoBunch bunch = null;
+        if (orgId == null) {
+            bunch = TaskoFactory.lookupSatBunchByName(bunchName);
+        }
+        else {
+            bunch = TaskoFactory.lookupOrgBunchByName(bunchName);
+        }
         if (bunch == null) {
             throw new NoSuchBunchTaskException(bunchName);
         }
@@ -280,5 +289,12 @@ public class TaskoXmlRpcHandler {
     public String getSatRunStdErrorLog(Long runId, Long nBytes)
     throws InvalidParamException {
         return getRunStdErrorLog(null, runId, nBytes);
+    }
+
+    private String getGroupName(Integer orgId) {
+        if (orgId == null) {
+            return null;
+        }
+        return orgId.toString();
     }
 }
