@@ -94,7 +94,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -579,9 +578,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         // create a new server
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = ServerFactoryTest.createTestServer(user);
-        ArrayList entitlements = SystemManager.getServerEntitlements(server.getId());
+        List entitlements = SystemManager.getServerEntitlements(server.getId());
         assertFalse(entitlements.isEmpty());
-        assertTrue(entitlements.contains(EntitlementManager.UPDATE));
+        assertTrue(entitlements.contains(EntitlementManager.MANAGEMENT));
     }
     
     public void testClientCapability() throws Exception {

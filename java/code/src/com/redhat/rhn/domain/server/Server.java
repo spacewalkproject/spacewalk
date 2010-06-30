@@ -1662,7 +1662,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return this list of history events for this server
      */
-    public Set getHistory() {
+    public Set<ServerHistoryEvent> getHistory() {
         return history;
     }
 

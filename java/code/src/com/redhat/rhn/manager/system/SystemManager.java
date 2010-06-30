@@ -969,7 +969,7 @@ public class SystemManager extends BaseManager {
      * @param sid Server id
      * @return entitlements - ArrayList of entitlements
      */
-    public static ArrayList getServerEntitlements(Long sid) {
+    public static List getServerEntitlements(Long sid) {
         ArrayList entitlements = new ArrayList();
         
         SelectMode m = ModeFactory.getMode("General_queries", "system_entitlements");

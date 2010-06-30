@@ -865,10 +865,19 @@ public class ServerFactoryTest extends RhnBaseTestCase {
 
         ServerFactory.save(serverTest);
         TestUtils.saveAndFlush(event1);
-        event1 = (ServerHistoryEvent) reload(event1);
-
-        assertEquals(((ServerHistoryEvent) serverTest.getHistory().toArray()[0]),
-                    event1);
+        Long eventId = event1.getId();
+        Long sid = serverTest.getId();
+        
+        HibernateFactory.getSession().clear();
+        serverTest = ServerFactory.lookupById(sid);
+        boolean hasEvent = false;
+        for (ServerHistoryEvent she : serverTest.getHistory()) {
+            if (eventId.equals(she.getId())) {
+                hasEvent = true;
+                break;
+            }
+        }
+        assertTrue(hasEvent);
     }
  
     
