@@ -48,7 +48,7 @@ BEGIN
              VALUES (content_rec.id, content_rec.channel_id);
 
       -- save org id
-      UPDATE rhnConentSource set org_id = content_rec.org_id
+      UPDATE rhnContentSource set org_id = content_rec.org_id
       WHERE 1=1
       AND channel_id = content_rec.channel_id;
 
