@@ -39,7 +39,7 @@ DECLARE
     select cs.id, cs.channel_id, cs.last_synced, c.org_id
     from rhnContentSource cs, rhnChannel c
     where 1=1
-    AND c.id = cs.channel_id
+    AND c.id = cs.channel_id;
 BEGIN
   FOR content_rec IN content
   LOOP
