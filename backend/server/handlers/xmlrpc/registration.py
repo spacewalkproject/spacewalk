@@ -84,6 +84,11 @@ def parse_smbios(smbios):
 
     if vendor == "QEMU" and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    elif manufacturer == 'Red Hat' and product == 'KVM' and uuid is not None:
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    elif (manufacturer == 'Red Hat' and product == 'RHEV Hypervisor' and uuid is
+        not None):
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif manufacturer == 'Microsoft Corporation' and \
             product == 'Virtual Machine':
         if uuid is None:
