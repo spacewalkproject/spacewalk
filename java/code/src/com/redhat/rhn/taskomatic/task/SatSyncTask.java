@@ -14,9 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.task;
 
-import com.redhat.rhn.manager.satellite.SystemCommandExecutor;
-
-import org.quartz.Job;
+import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -25,7 +23,9 @@ import org.quartz.JobExecutionException;
  * SatSyncTask
  * @version $Rev$
  */
-public class SatSyncTask implements Job {
+public class SatSyncTask extends RhnExtCmdJob {
+
+    private Logger log = getLogger(SatSyncTask.class);
 
     /**
      * {@inheritDoc}
@@ -36,10 +36,6 @@ public class SatSyncTask implements Job {
         args[1] = "satellite-sync";
         args[2] = "-l";
 
-        SystemCommandExecutor ce = new SystemCommandExecutor();
-        ce.execute(args);
-        
-        ctx.getJobDetail().getJobDataMap().put("stdOutput", ce.getLastCommandOutput());
-        ctx.getJobDetail().getJobDataMap().put("stdError", ce.getLastCommandErrorMessage());
+        executeExtCmd(args);
     }
 }
