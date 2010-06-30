@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic;
 
+import com.redhat.rhn.taskomatic.task.RhnJob;
+
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -75,9 +77,9 @@ public class TaskoRun implements Job {
         saveStatus(STATUS_RUNNING);
     }
 
-    public void finished(JobExecutionContext context) {
+    public void finished(RhnJob job) {
         setEndTime(new Date());
-        String out = (String) context.getJobDetail().getJobDataMap().get("stdOutput");
+        String out = job.getLogOutput();
         if (new File(getStdLogDirName(orgId)).isDirectory()) {
             if ((out != null) && (!out.isEmpty())) {
                 setStdOutputPath(getStdOutputLog(orgId, template, this));
@@ -86,7 +88,7 @@ public class TaskoRun implements Job {
             else {
                 setStdOutputPath("");
             }
-            String err = (String) context.getJobDetail().getJobDataMap().get("stdError");
+            String err = job.getLogError();
             if ((err != null) && (!err.isEmpty())) {
                 setStdErrorPath(getStdErrorLog(orgId, template, this));
                 saveLogToFile(getStdErrorPath(), err);
@@ -98,39 +100,24 @@ public class TaskoRun implements Job {
         else {
             log.warn("Logging disabled. No directory " + getStdLogDirName(orgId));
         }
-        saveStatus(STATUS_FINISHED);
     }
 
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
             start();
             Class jobClass = null;
-            Job job = null;
+            RhnJob job = null;
             try {
                 jobClass = Class.forName(template.getTask().getTaskClass());
-                job = (Job) jobClass.newInstance();
+                job = (RhnJob) jobClass.newInstance();
+                job.execute(context);
+                saveStatus(STATUS_FINISHED);
             }
-            catch (ClassNotFoundException cnfe) {
-                log.warn("Internal task error.");
-                saveToStdError(cnfe.toString());
+            catch (Exception e) {
+                job.appendExceptionToLogError(e);
                 saveStatus(STATUS_FAILED);
-                return;
             }
-            catch (InstantiationException ie) {
-                log.warn("Internal task error.");
-                saveToStdError(ie.toString());
-                saveStatus(STATUS_FAILED);
-                return;
-            }
-            catch (IllegalAccessException iae) {
-                log.warn("Internal task error.");
-                saveToStdError(iae.toString());
-                saveStatus(STATUS_FAILED);
-                return;
-            }
-
-            job.execute(context);
-            finished(context);
+            finished(job);
     }
 
     private void saveToStdError(String message) {
