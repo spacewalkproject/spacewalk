@@ -46,6 +46,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </query>
 
         <query name="TaskoRun.listOlderThan">
+            <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE endTime < :limit_time]]>
+        </query>
+
+        <query name="TaskoRun.listOrgRunsOlderThan">
             <![CDATA[FROM com.redhat.rhn.taskomatic.TaskoRun WHERE orgId = :org_id AND endTime < :limit_time]]>
         </query>
 
