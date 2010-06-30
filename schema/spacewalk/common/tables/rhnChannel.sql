@@ -48,6 +48,7 @@ CREATE TABLE rhnChannel
                                 CHECK (receiving_updates in ( 'Y' , 'N' )),
     last_modified       DATE
                             DEFAULT (sysdate) NOT NULL,
+    last_synced         DATE,
     channel_product_id  NUMBER
                             CONSTRAINT rhn_channel_cpid_fk
                                 REFERENCES rhnChannelProduct (id),

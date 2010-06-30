@@ -29,7 +29,6 @@ rhnContentSource
                                 references rhnContentSourceType(id),
         source_url      varchar2(512) NOT NULL,
         label           varchar2(64) NOT NULL,
-        last_synced     date,
         created         date default(sysdate) NOT NULL,
         modified        date default(sysdate) NOT NULL
 )
