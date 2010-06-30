@@ -15,21 +15,36 @@
 package com.redhat.rhn.taskomatic.task;
 
 import org.apache.log4j.Logger;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 
-public abstract interface RhnJob extends Job {
+/**
+ * RhnJavaJob
+ * @version $Rev$
+ */
+public abstract class RhnJavaJob implements RhnJob {
 
-    void execute(JobExecutionContext context)
-        throws JobExecutionException;
+    private Logger log = null;
+    private RhnJobAppender appender = null;
 
-    Logger getLogger(Class clazz);
+    public Logger getLogger(Class clazz) {
+        if (log == null) {
+            log = Logger.getLogger(clazz);
+            appender = new RhnJobAppender();
+            log.addAppender(appender);
+        }
+        return log;
+    }
 
-    String getLogOutput();
+    public String getLogOutput() {
+         return appender.getOutputContent();
+    }
 
-    String getLogError();
+    public String getLogError() {
+        return appender.getErrorContent();
+    }
 
-    void appendExceptionToLogError(Exception e);
+    public void appendExceptionToLogError(Exception e) {
+        log.error(e.getMessage());
+        log.error(e.getCause());
+    }
 }
