@@ -2503,6 +2503,34 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_distribution_details(self):
+        print 'distribution_details: Show the details of a Kickstart tree'
+        print 'usage: distribution_details LABEL'
+
+    def complete_distribution_details(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_distribution_list('', True), text)
+
+    def do_distribution_details(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 1:
+            self.help_distribution_details()
+            return
+
+        label = args[0]
+
+        details = self.client.kickstart.tree.getDetails(self.session, label)
+
+        channel = \
+            self.client.channel.software.getDetails(self.session,
+                                                    details.get('channel_id'))
+
+        print 'Name:    %s' % details.get('label')
+        print 'Path:    %s' % details.get('abs_path')
+        print 'Channel: %s' % channel.get('label')
+
+####################
+
     def help_distribution_rename(self):
         print 'distribution_rename: Rename a Kickstart tree'
         print 'usage: distribution_rename OLDNAME NEWNAME'
