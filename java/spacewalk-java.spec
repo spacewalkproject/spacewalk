@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.15
+Version: 1.1.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,52 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Wed Jun 30 2010 Tomas Lestach <tlestach@redhat.com> 1.1.16-1
+- 591291 - fix also mergeErrata with given start and end date
+  (tlestach@redhat.com)
+- remove exceptions from method definitions that aren't thrown
+  (tlestach@redhat.com)
+- More unit test fixes (paji@redhat.com)
+- Cleared more unit test (paji@redhat.com)
+- Fixed another checkstyle issue (paji@redhat.com)
+- Speeded up a unit test .... (paji@redhat.com)
+- Fixed a checkstyle issue (paji@redhat.com)
+- Fixed fve unit tests Hopefully... (paji@redhat.com)
+- Fixed a dupe key issue (paji@redhat.com)
+- if file is rpm package, use checksum from db, otherwise read whole file
+  (msuchy@redhat.com)
+- Fixed a compile error.... (paji@redhat.com)
+- Added more tests on Orphaned gets entitlements (paji@redhat.com)
+- Added unit tests for VirtEntitlementsManager (paji@redhat.com)
+- Fixed some typos (paji@redhat.com)
+- Added page sizes to flex multiorg pages (paji@redhat.com)
+- fixed a line typo where I forgot to clear the map create in session
+  (paji@redhat.com)
+- Added sorting to channel family-> orgs page (paji@redhat.com)
+- Added flex magic to ChannelFamily -> Orgs page (paji@redhat.com)
+- Added alphabar columns for the mutli org pages (paji@redhat.com)
+- More verbiage on software entitlements page (paji@redhat.com)
+- Updated the software entitlements page to deal with FVE (paji@redhat.com)
+- Added a couple of enhancements on the Org software subs pager
+  (paji@redhat.com)
+- Fixed checkstyle errors (paji@redhat.com)
+- Added code to get multiorgs org -> software channel ents page work with flex
+  entitlements (paji@redhat.com)
+- Forgot to commit EligibleFlexGuestAction (paji@redhat.com)
+- Added the convert to flex plsql operation (paji@redhat.com)
+- More updates to the UI (paji@redhat.com)
+- More UI updates on the Flex Guest Pages added Nav stuff (paji@redhat.com)
+- Made the Flexguest page show entitlements (paji@redhat.com)
+- Initial cut to list eligible flex guests page (paji@redhat.com)
+- Slight refactoring of Virtual Enttitlements (paji@redhat.com)
+- Initial cut of the Flex Guests Page (paji@redhat.com)
+- adding flex guest entitlement columns on the org entitlments page
+  (jsherril@redhat.com)
+- updating rhn_entitlement package for cert activation (jsherril@redhat.com)
+- having setters do the right thing (jsherril@redhat.com)
+- matching hosteds column names for flex guests (jsherril@redhat.com)
+- adding hibernate mapping for flex guests (jsherril@redhat.com)
+
 * Wed Jun 23 2010 Jan Pazdziora 1.1.15-1
 - Fixed a couple of checkstyle errors (paji@redhat.com)
 
