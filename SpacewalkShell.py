@@ -155,14 +155,8 @@ For help for a specific command try 'help <cmd>'.
                                     self.history_file)
                 except:
                     logging.error('Could not read history file')
-                    logging.debug(sys.exc_info())
         except:
-            logging.debug(sys.exc_info())
-
-
-    def preloop(self):
-        if not self.session:
-            self.do_login('')
+            pass
 
 
     def parse_arguments(self, args):
@@ -184,10 +178,15 @@ For help for a specific command try 'help <cmd>'.
             print
             sys.exit(0)
 
-        if not re.match('help|login', line) and not self.session:
-            logging.warning('You are not logged in')
-            return ''
+        # don't attempt to login for some commands
+        if re.match('help|login|logout|whoami|history|clear', line, re.I):
+            return line
 
+        # login before attempting to run a command
+        if not self.session:
+            self.do_login('')
+            if self.session == '': return ''
+        
         parts = line.split()
 
         if len(parts):
@@ -270,7 +269,6 @@ For help for a specific command try 'help <cmd>'.
                 data = pickle.load(input)
                 input.close()
             except:
-                logging.debug(sys.exc_info())
                 logging.error("Couldn't load cache from %s" % file)
 
             if isinstance(data, list) or isinstance(data, dict):
@@ -292,7 +290,6 @@ For help for a specific command try 'help <cmd>'.
             pickle.dump(data, output, pickle.HIGHEST_PROTOCOL)
             output.close()
         except:
-            logging.debug(sys.exc_info())
             logging.error("Couldn't write to %s" % file)
 
         if 'expire' in data:
@@ -374,8 +371,7 @@ For help for a specific command try 'help <cmd>'.
                 else:
                     logging.error('Editor exited with code %s' % str(exit_code))
             except:
-                logging.error(sys.exc_info()[1])
-                logging.debug(sys.exc_info())
+                pass
 
         if not success:
             logging.error('No editors found')
@@ -398,7 +394,6 @@ For help for a specific command try 'help <cmd>'.
                 return (contents, file_name)
             except:
                 logging.error('Could not read %s' % file_name)
-                logging.debug(sys.exc_info())
                 return ''
 
 
@@ -1560,7 +1555,6 @@ For help for a specific command try 'help <cmd>'.
                                                                key)
         except:
             logging.warning('%s is not a valid activation key' % key)
-            logging.debug(sys.exc_info())
             return
 
         systems = sorted([s.get('hostname') for s in systems])
@@ -1612,7 +1606,6 @@ For help for a specific command try 'help <cmd>'.
                     config_channel_deploy = False
             except:
                 logging.warning('%s is not a valid activation key' % key)
-                logging.debug(sys.exc_info())
                 return
 
             groups = []
@@ -2076,7 +2069,6 @@ For help for a specific command try 'help <cmd>'.
                         handle.close()
                     except:
                         contents = ''
-                        logging.debug(sys.exc_info())
                         logging.warning('Could not read %s' % file)
             else:
                 binary = False
@@ -2279,7 +2271,6 @@ For help for a specific command try 'help <cmd>'.
                                                                 key)
             except:
                 logging.warning('%s is not a valid crypto key' % key)
-                logging.debug(sys.exc_info())
                 return
 
             if add_separator: print self.SEPARATOR
@@ -2749,7 +2740,6 @@ For help for a specific command try 'help <cmd>'.
                     self.client.errata.applicableToChannels(self.session, name)
             except:
                 logging.warning('%s is not a valid errata' % name)
-                logging.debug(sys.exc_info())
                 continue
 
             if add_separator: print self.SEPARATOR
@@ -3177,7 +3167,6 @@ For help for a specific command try 'help <cmd>'.
             systems = [s.get('profile_name') for s in systems]
         except:
             logging.warning('%s is not a valid group' % group)
-            logging.debug(sys.exc_info())
             return []
 
         if doreturn:
@@ -3215,7 +3204,6 @@ For help for a specific command try 'help <cmd>'.
                 systems = [s.get('profile_name') for s in systems]
             except:
                 logging.warning('%s is not a valid group' % key)
-                logging.debug(sys.exc_info())
                 return
 
             if add_separator: print self.SEPARATOR
@@ -3384,7 +3372,6 @@ For help for a specific command try 'help <cmd>'.
             contents = ksfile.read()
             ksfile.close()
         except:
-            logging.debug(sys.exc_info())
             logging.error("Couldn't read %s" % file)
             return 
 
@@ -3595,7 +3582,6 @@ For help for a specific command try 'help <cmd>'.
             response = urllib2.urlopen(url)
             kickstart = response.read()
         except urllib2.HTTPError:
-            logging.error(sys.exc_info()[1])
             logging.error('Could not retrieve the Kickstart file')
             return
 
@@ -4859,17 +4845,27 @@ For help for a specific command try 'help <cmd>'.
         print 'login: Connect to a Spacewalk server'
         print 'usage: login [USERNAME] [SERVER]'
 
-    def do_login(self, args):
+    def do_login(self, args, cacheonly = False):
         args = self.parse_arguments(args)
 
-        self.session = ''
+        # logout before logging in again
+        if len(self.session):
+            logging.warning('You are already logged in')
+            return
 
         if self.options.nossl:
             proto = 'http'
         else:
             proto = 'https'
 
-        if len(args) == 2 and args[1]:
+        # read the username from the arguments passed
+        if len(args):
+            username = args[0]
+        else:
+            username = ''
+
+        # read the server from the arguments passed
+        if len(args) == 2:
             server = args[1]
         elif self.options.server:
             server = self.options.server
@@ -4883,11 +4879,11 @@ For help for a specific command try 'help <cmd>'.
         logging.debug('Connecting to %s' % (serverurl))
         self.client = xmlrpclib.Server(serverurl)
 
+        # check the API to verify connectivity
         try:
+            logging.debug('Checking the API version')
             api_version = self.client.api.getVersion()
         except:
-            logging.error(sys.exc_info()[1])
-            logging.debug(sys.exc_info())
             logging.error('API version check failed')
             self.client = None
             return
@@ -4904,70 +4900,102 @@ For help for a specific command try 'help <cmd>'.
         if not self.options.nocache:
             if os.path.isfile(self.session_file):
                 try:
-                    # read the session (format = username:session)
                     sessionfile = open(self.session_file, 'r')
-                    parts = sessionfile.read().split(':')
-                    sessionfile.close()
+                   
+                    # read the session (format = server:username:session)
+                    for line in sessionfile:
+                        parts = line.split(':')
 
-                    username = parts[0]
-                    self.session = parts[1]
+                        # only use cached credentials for this server
+                        if parts[0] == server:
+                            # if a username was passed, make sure it matches
+                            if len(username):
+                                if parts[1] == username:
+                                    self.session = parts[2]
+                            else:
+                                username = parts[1]
+                                self.session = parts[2]
+
+                    sessionfile.close()
                 except:
                     logging.error('Could not read %s' % self.session_file)
-                    logging.debug(sys.exc_info())
 
+            # check the cached credentials by doing an API call
+            if self.session:
                 try:
                     logging.info('Using cached credentials from %s' %
                                  self.session_file)
 
                     self.client.user.listUsers(self.session)
                 except:
-                    logging.info('Cached credentials are invalid')
+                    logging.debug('Cached credentials are invalid')
+                    username = ''
                     self.session = ''
 
-                    try:
-                        os.remove(self.session_file)
-                    except:
-                        logging.debug(sys.exc_info())
-                        pass
+        if cacheonly: return self.session
 
         # attempt to login if we don't have a valid session yet
-        if not self.session:
-            if self.options.username:
-                username = self.options.username
-                self.options.username = None
-            elif len(args) and args[0]:
-                username = args[0]
+        if not len(self.session):
+            if len(username):
+                print 'Username: %s' % username
             else:
-                username = self.prompt_user('Username:')
+                if self.options.username:
+                    username = self.options.username
 
-                # don't store the username in the command history
-                self.remove_last_history_item()
+                    # remove this from the options so that if 'login' is called
+                    # again, the user is prompted for the information
+                    self.options.username = None
+                else:
+                    username = self.prompt_user('Username:', noblank = True)
 
             if self.options.password:
                 password = self.options.password
+
+                # remove this from the options so that if 'login' is called
+                # again, the user is prompted for the information
                 self.options.password = None
             else:
                 password = getpass('Password: ')
 
+            # login to the server
             try:
-                self.session = self.client.auth.login(username,
-                                                      password)
+                self.session = self.client.auth.login(username, password)
             except:
-                logging.warning('Invalid credentials')
-                logging.debug(sys.exc_info())
+                logging.error('Invalid credentials')
                 return
 
-            # write the session to a cache
+            # write the session string to a file
             if not self.options.nocache:
+                lines = []
+
                 try:
-                    logging.debug('Writing session cache to %s' %
-                                  self.session_file)
+                    # read the cached sessions
+                    if os.path.isfile(self.session_file):
+                        try:
+                            sessionfile = open(self.session_file, 'r')
+                            lines = sessionfile.readlines()
+                            sessionfile.close()
+                        except:
+                            pass
+
+                    # find and remove an existing cache for this server
+                    for line in lines:
+                        parts = line.split(':')
+
+                        if re.match('%s:' % server, parts[0], re.I):
+                            lines.remove(line)
+
+                    # add the new cache to the file
+                    lines.append('%s:%s:%s\n' % (server, 
+                                                 username, 
+                                                 self.session))
+
+                    # write the new cache file out
                     sessionfile = open(self.session_file, 'w')
-                    sessionfile.write('%s:%s' % (username, self.session))
+                    sessionfile.writelines(lines)
                     sessionfile.close()
                 except:
                     logging.error('Could not write cache file')
-                    logging.debug(sys.exc_info())
 
         # disable caching of subsequent logins
         self.options.nocache = True
@@ -4981,25 +5009,19 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_logout(self):
-        print 'logout: Disconnect from a Spacewalk server'
+        print 'logout: Disconnect from the server'
         print 'usage: logout'
 
     def do_logout(self, args):
         if self.session:
             self.client.auth.logout(self.session)
-            self.session = ''
-            self.username = ''
-            self.server = ''
-            self.clear_system_cache()
-            self.clear_package_cache()
 
-            if os.path.isfile(self.session_file):
-                try:
-                    os.remove(self.session_file)
-                except:
-                    logging.debug(sys.exc_info())
-        else:
-            logging.warning("You're not logged in")
+        self.session = ''
+        self.username = ''
+        self.server = ''
+        self.clear_system_cache()
+        self.clear_package_cache()
+        self.clear_errata_cache()
 
 ####################
 
@@ -6262,8 +6284,6 @@ For help for a specific command try 'help <cmd>'.
                 file.close()
             except:
                 logging.error('Could not read %s' % script_file)
-                logging.error(sys.exc_info()[1])
-                logging.debug(sys.exc_info())
                 return
         else:
             keep_script_file = False
@@ -6317,8 +6337,6 @@ For help for a specific command try 'help <cmd>'.
                 os.remove(script_file)
             except:
                 logging.error('Could not remove %s' % script_file)
-                logging.error(sys.exc_info()[1])
-                logging.debug(sys.exc_info())
 
 ####################
 
@@ -8263,7 +8281,6 @@ For help for a specific command try 'help <cmd>'.
                                                              user)
             except:
                 logging.warning('%s is not a valid user' % user)
-                logging.debug(sys.exc_info())
                 continue
 
             org_details = self.client.org.getDetails(self.session, 
@@ -8426,7 +8443,7 @@ For help for a specific command try 'help <cmd>'.
         if len(self.username):
             print self.username
         else:
-            logging.warning("You're not logged in")
+            logging.warning("You are not logged in")
 
 ####################
 
