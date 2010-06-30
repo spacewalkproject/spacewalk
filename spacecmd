@@ -21,14 +21,14 @@
 
 """ spacecmd - a command line interface to Spacewalk """
 
-import logging, os, sys, xml, xmlrpclib
+import logging, os, re, sys, xml, xmlrpclib
 from ConfigParser import SafeConfigParser
 from optparse import Option, OptionParser
 from pwd import getpwuid
 
 sys.path.append('/usr/share/rhn')
 from spacecmd.SpacewalkShell import SpacewalkShell
-
+    
 if __name__ == '__main__':
     optionsTable = [
         Option('-u', '--username', action='store',
@@ -54,6 +54,7 @@ if __name__ == '__main__':
     ]
 
     usage = 'usage: %prog [options] [command]'
+
     parser = OptionParser(option_list=optionsTable, usage=usage)
     (options, args) = parser.parse_args()
     
@@ -61,6 +62,7 @@ if __name__ == '__main__':
     if options.debug:
         level = logging.DEBUG
 
+    # files are loaded from ~/.spacecmd/
     userinfo = getpwuid(os.getuid())
     conf_dir = os.path.join(userinfo[5], '.spacecmd')
     conf_file = os.path.join(conf_dir, 'config')
@@ -88,10 +90,12 @@ if __name__ == '__main__':
                     pass
     else:
         try:
+            # create ~/.spacecmd
             if not os.path.isdir(conf_dir):
                 logging.debug('Creating %s' % conf_dir)
                 os.mkdir(conf_dir, 0700)
-            
+           
+            # create a template configuration file 
             file = open(conf_file, 'w')
             file.write('[spacecmd]\n')
             file.close()
@@ -114,48 +118,55 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=level, format='%(levelname)s: %(message)s')
 
+    # create an instance of the shell
     shell = SpacewalkShell(options)
 
     if len(args):
+        # run a single command from the command line
         try:
-            # don't try to login when printing the help message
-            if not 'help' in args: shell.preloop()
-
-            # run a single command given on the command line
+            # run the command
             shell.onecmd(shell.precmd(' '.join(args), True))
-        except xmlrpclib.Fault, err:
-            logging.debug(sys.exc_info())
-            message = ' '.join(err.faultString.split(':')[1:])
-            logging.error(message)
         except KeyboardInterrupt:
             print
+        except Exception, detail:
+            # get the relevant part of a XML-RPC fault
+            if isinstance(detail, xmlrpclib.Fault):
+                detail = detail.faultString
+
+            if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+                # print the traceback when debugging
+                logging.exception(detail)
+            else:
+                logging.error(detail)
+
+            sys.exit(1)
     else:
         # stay in the interactive shell forever
         while True:
-            # Python 2.4 doesn't have a try..except..finally, so
-            # nest a try..except inside a try..finally
+            # use try..finally to overcome 2.4's lack of try..except..finally
             try:
                 try:
-                    # our interactive shell
                     shell.cmdloop()
-                except xmlrpclib.Fault, err:
-                    try:
-                        # try to format XML-RPC errors to look a bit nicer
-                        logging.debug(sys.exc_info())
-                        message = ' '.join(err.faultString.split(':')[1:])
-                        logging.error(message)
-                    except:
-                        # a few XML-RPC messages are different
-                        logging.error(err.faultString)
                 except KeyboardInterrupt:
-                    # just cancel the current command on Ctrl+C
                     print
                 except SystemExit:
                     sys.exit(0)
-                except:
-                    logging.error(sys.exc_info()[1])
-                    logging.debug(sys.exc_info())
+                except Exception, detail:
+                    # get the relevant part of a XML-RPC fault
+                    if isinstance(detail, xmlrpclib.Fault):
+                        detail = detail.faultString
+
+                        # the session expired
+                        if re.search('Could not find session', detail, re.I):
+                            shell.session = ''
+
+                    if logging.getLogger().getEffectiveLevel() == logging.DEBUG:
+                        # print the traceback when debugging
+                        logging.exception(detail)
+                    else:
+                        logging.error(detail)
             finally:
+                # don't print the intro again
                 shell.intro = ''
 
 # vim:ts=4:expandtab:
