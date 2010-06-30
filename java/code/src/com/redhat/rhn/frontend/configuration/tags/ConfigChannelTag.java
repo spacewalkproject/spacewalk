@@ -120,7 +120,7 @@ public class ConfigChannelTag extends TagSupport {
     /**
      * Checks to see if no invalid values are specified
      */
-    private boolean checkType() throws JspException {
+    private boolean checkType() {
         try {
             ConfigChannelType.lookup(type);
             return true;

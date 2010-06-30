@@ -20,8 +20,6 @@ import com.redhat.rhn.taskomatic.task.DailySummary;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.quartz.JobExecutionException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,7 +74,7 @@ public class DailySummaryTest extends RhnBaseTestCase {
         return;
     }
     
-    public void aTestExcecute() throws JobExecutionException {
+    public void aTestExcecute() {
         // using jesusr_redhat orgid for this test.  Run only on hosted.
         // TODO: how do we create good test data for something like this?
         return;

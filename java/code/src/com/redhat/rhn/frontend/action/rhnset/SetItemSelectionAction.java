@@ -26,7 +26,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.io.IOException;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -107,8 +106,7 @@ public class SetItemSelectionAction extends RhnAction {
     
     
     // Write an responseText with the current count from the set
-    private void writeResponse(HttpServletResponse resp, int setSize, String setLabel)
-        throws IOException {
+    private void writeResponse(HttpServletResponse resp, int setSize, String setLabel) {
         StringBuffer responseText = new StringBuffer();
         LocalizationService ls = LocalizationService.getInstance(); 
         if (RhnSetDecl.SYSTEMS.getLabel().equals(setLabel)) {

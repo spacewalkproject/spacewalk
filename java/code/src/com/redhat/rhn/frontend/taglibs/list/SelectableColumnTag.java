@@ -380,7 +380,7 @@ public class SelectableColumnTag extends TagSupport {
         ListTagUtil.write(pageContext, "\" />\n");        
     }
     
-    private boolean isSelected() throws JspException {
+    private boolean isSelected() {
         if (!StringUtils.isBlank(selectExpr)) {
             return selectExpr.equalsIgnoreCase("true");
         }     
@@ -394,7 +394,7 @@ public class SelectableColumnTag extends TagSupport {
         return selections != null && selections.containsKey(valueExpr);
     }
     
-    private boolean isDisabled() throws JspException {
+    private boolean isDisabled() {
         if (disabledExpr != null && disabledExpr.equalsIgnoreCase("true")) {
             return true;
         }

@@ -889,7 +889,7 @@ public class ListDisplayTag extends BodyTagSupport {
         buf.append(input.render() + "\n");
     }
 
-    private void renderViewAllLink(JspWriter out) throws IOException {
+    private void renderViewAllLink(JspWriter out) {
         
         
         /*
