@@ -22,7 +22,7 @@ __author__  = 'Aron Parsons <aron@redhat.com>'
 __license__ = 'GPL'
 
 import atexit, base64, logging, os, pickle, re, readline
-import sys, urllib2, xml, xmlrpclib
+import sys, time, urllib2, xml, xmlrpclib
 
 from cmd import Cmd
 from datetime import datetime, timedelta
@@ -49,6 +49,9 @@ class SpacewalkShell(Cmd):
                     'monitoring_entitled',
                     'virtualization_host',
                     'virtualization_host_platform']
+
+    ARCH_LABELS = ['ia32', 'ia64', 'x86_64', 'ppc',
+                   'i386-sun-solaris', 'sparc-sun-solaris']
 
     VIRT_TYPES = ['none', 'para_host', 'qemu', 'xenfv', 'xenpv']
 
@@ -446,12 +449,28 @@ For help for a specific command try 'help <cmd>'.
 
 
     # parse time input from the userand return xmlrpclib.DateTime
-    def parse_time_input(self, time):
-        if time == '' or re.match('now', time, re.I):
-            time = datetime.now()
-        else:
-            # parse the time provided
-            match = re.search('^\+?(\d+)(s|m|h|d)$', time, re.I)
+    def parse_time_input(self, input = ''):
+        timestamp = None
+
+        if re.match('now', input, re.I):
+            timestamp = datetime.now()
+
+        # handle YYYMMDD times
+        if not timestamp:
+            match = re.match('^(\d{4})(\d{2})(\d{2})$', input)
+
+            if match:
+                timestamp = time.strptime('%s%s%s' % (match.group(1),
+                                                      match.group(2),
+                                                      match.group(3)),
+                                          '%Y%m%d')
+
+                # 2.5 has a nice little datetime.strptime() function...
+                timestamp = datetime(*(timestamp)[0:7])
+ 
+        # handle time differences (e.g., +1m, +2h) 
+        if not timestamp:
+            match = re.search('^\+?(\d+)(s|m|h|d)$', input, re.I)
 
             if not match or len(match.groups()) != 2:
                 logging.error('Invalid time provided')
@@ -469,12 +488,10 @@ For help for a specific command try 'help <cmd>'.
             elif re.match('d', unit, re.I):
                 delta = timedelta(days=number)
 
-            time = datetime.now() + delta
+            timestamp = datetime.now() + delta
 
-        time = xmlrpclib.DateTime(time.timetuple())
-
-        if time:
-            return time
+        if timestamp:
+            return xmlrpclib.DateTime(timestamp.timetuple())
         else:
             logging.error('Invalid time provided')
             return
@@ -593,6 +610,11 @@ For help for a specific command try 'help <cmd>'.
             return self.all_package_longnames.keys()
         else:
             return self.all_package_shortnames
+
+
+    def get_package_id(self, name):
+        if name in self.all_package_longnames:
+            return self.all_package_longnames[name]
 
 
     def clear_system_cache(self):
@@ -5154,6 +5176,24 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
+    def help_package_listorphans(self):
+        print 'package_listorphans: List packages that are not in a channel'
+        print 'usage: package_listorphans'
+
+    def do_package_listorphans(self, args, doreturn=False):
+        packages = self.client.channel.software.listPackagesWithoutChannel(\
+                                                self.session)
+
+        packages = self.build_package_names(packages)
+
+        if doreturn:
+            return packages
+        else:
+            if len(packages):
+                print '\n'.join(sorted(packages))
+
+####################
+
     def help_report_inactivesystems(self):
         print 'report_inactivesystems: List all inactive systems'
         print 'usage: report_inactivesystems [DAYS]'
@@ -5926,6 +5966,10 @@ For help for a specific command try 'help <cmd>'.
 
             trees = self.client.kickstart.tree.list(self.session, channel)
 
+            packages = \
+                self.client.channel.software.listAllPackages(self.session,
+                                                             channel)
+
             if add_separator: print self.SEPARATOR
             add_separator = True
 
@@ -5933,7 +5977,8 @@ For help for a specific command try 'help <cmd>'.
             print 'Name:               %s' % details.get('name')
             print 'Architecture:       %s' % details.get('arch_name')
             print 'Parent:             %s' % details.get('parent_channel_label')
-            print 'Systems Subscribed: %s' % str(len(systems))
+            print 'Systems Subscribed: %s' % len(systems)
+            print 'Number of Packages: %i' % len(packages)
 
             if details.get('summary'):
                 print
@@ -5989,6 +6034,289 @@ For help for a specific command try 'help <cmd>'.
 
             if add_separator: print self.SEPARATOR
             add_separator = True
+
+####################
+
+    def help_softwarechannel_delete(self):
+        print 'softwarechannel_delete: Delete a software channel'
+        print 'usage: softwarechannel_delete CHANNEL'
+
+    def complete_softwarechannel_delete(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+
+    def do_softwarechannel_delete(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_softwarechannel_delete()
+            return
+
+        channel = args[0]
+
+        if not self.user_confirm('Delete this channel [y/N]:'): return
+
+        self.client.channel.software.delete(self.session, channel)
+
+####################
+
+    def help_softwarechannel_create(self):
+        print 'softwarechannel_create: Create a software channel'
+        print 'usage: softwarechannel_create'
+
+    def do_softwarechannel_create(self, args):
+        name = self.prompt_user('Channel Name:', noblank = True)
+        label = self.prompt_user('Channel Label:', noblank = True)
+        summary = self.prompt_user('Summary:', noblank = True)
+
+        print 'Base Channels:'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
+
+        parent = \
+            self.prompt_user('Select Parent [blank to create a base channel]:')
+
+        print
+        print 'Architecture:'
+        print '\n'.join(sorted(self.ARCH_LABELS))
+        print
+        arch = self.prompt_user('Select:')
+
+        self.client.channel.software.create(self.session,
+                                            label,
+                                            name,
+                                            summary,
+                                            'channel-%s' % arch,
+                                            parent)
+
+####################
+
+    def help_softwarechannel_clone(self):
+        print 'softwarechannel_clone: Clone a software channel'
+        print 'usage: softwarechannel_clone SOURCE'
+
+    def complete_softwarechannel_clone(self, text, line, begidx, endidx):
+        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+
+    def do_softwarechannel_clone(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_softwarechannel_clone()
+            return
+
+        source = args[0]
+
+        details = {}
+
+        details['name'] = self.prompt_user('Channel Name:', noblank = True)
+        details['label'] = self.prompt_user('Channel Label:', noblank = True)
+        details['summary'] = self.prompt_user('Summary:', noblank = True)
+        details['description'] = self.prompt_user('Description:')
+
+        print 'Base Channels:'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
+
+        details['parent_label'] = \
+            self.prompt_user('Select Parent [blank to create a base channel]:')
+
+        details['gpg_url'] = self.prompt_user('GPG URL:')
+        details['gpg_id'] = self.prompt_user('GPG ID:')
+        details['gpg_fingerprint'] = self.prompt_user('GPG Fingerprint:')
+
+        orig_state = self.user_confirm('Original State [y/N]:')
+
+        # remove empty strings from the structure
+        to_remove = []
+        for key in details:
+            if details[key] == '':
+                to_remove.append(key)
+
+        for key in to_remove:
+            del details[key]
+
+        self.client.channel.software.clone(self.session,
+                                           source,
+                                           details,
+                                           orig_state) 
+
+####################
+
+    def help_softwarechannel_addpackages(self):
+        print 'softwarechannel_addpackages: Add packages to a software channel'
+        print 'usage: softwarechannel_addpackages CHANNEL <PACKAGE ...>'
+
+    def complete_softwarechannel_addpackages(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_softwarechannel_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            return self.tab_completer(self.get_package_names(True), text)
+
+    def do_softwarechannel_addpackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_softwarechannel_addpackages()
+            return
+
+        channel = args.pop(0)
+
+        # expand the arguments to search for packages
+        package_names = []
+        for item in args:
+            package_names.extend(self.do_package_search(item, True))
+
+        # get the package IDs from the names
+        package_ids = []
+        for package in package_names:
+            package_ids.append(self.get_package_id(package))
+
+        print 'Packages:'
+        print '\n'.join(sorted(package_names))
+
+        if not self.user_confirm('Add these packages [y/N]:'): return
+
+        self.client.channel.software.addPackages(self.session, 
+                                                 channel, 
+                                                 package_ids)
+
+####################
+
+    def help_softwarechannel_removepackages(self):
+        print 'softwarechannel_removepackages: Remove packages from a ' + \
+              'software channel'
+        print 'usage: softwarechannel_removepackages CHANNEL <PACKAGE ...>'
+
+    def complete_softwarechannel_removepackages(self, text, line, begidx, 
+                                                endidx):
+        parts = line.split(' ')
+
+        if len(parts) == 2:
+            return self.tab_completer(self.do_softwarechannel_list('', True), 
+                                      text)
+        elif len(parts) > 2:
+            # only tab complete packages in the channel
+            package_names = []
+            try:
+                packages = \
+                    self.client.channel.software.listAllPackages(self.session,
+                                                                 parts[1])
+
+                package_names = self.build_package_names(packages)
+            except:
+                package_names = []
+
+            return self.tab_completer(package_names, text)
+
+    def do_softwarechannel_removepackages(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_softwarechannel_removepackages()
+            return
+
+        channel = args.pop(0)
+        package_list = args
+
+        # get all the packages in the channel
+        packages = \
+            self.client.channel.software.listAllPackages(self.session,
+                                                         channel)
+
+        # build full names for those packages
+        installed_packages = self.build_package_names(packages)
+
+        # find matching packages that are in the channel
+        package_names = self.filter_results(installed_packages, package_list)
+
+        # get the package IDs from the names
+        package_ids = []
+        for package in package_names:
+            package_ids.append(self.get_package_id(package))
+
+        print 'Packages:'
+        print '\n'.join(sorted(package_names))
+
+        if not self.user_confirm('Remove these packages [y/N]:'): return
+
+        self.client.channel.software.removePackages(self.session, 
+                                                    channel, 
+                                                    package_ids)
+
+####################
+
+    #XXX: Bugzilla 609684
+    # this is currently the only way to add errata
+    def help_softwarechannel_mergeerrata(self):
+        print 'softwarechannel_mergeerrata: Merge errata from one channel ' + \
+              'into another channel'
+        print 'usage: softwarechannel_mergeerrata SOURCE DEST BEGINDATE ENDDATE'
+
+    def complete_softwarechannel_mergeerrata(self, text, line, begidx, endidx):
+        parts = line.split(' ')
+
+        if len(parts) <= 3:
+            return self.tab_completer(self.do_softwarechannel_list('', True), 
+                                      text)
+
+    def do_softwarechannel_mergeerrata(self, args):
+        args = self.parse_arguments(args)
+
+        if len(args) != 4:
+            self.help_softwarechannel_mergeerrata()
+            return
+
+        source_channel = args[0]
+        dest_channel = args[1]
+        begin_date = args[2]
+        end_date = args[3]
+
+        if not re.match('\d{8}', begin_date):
+            logging.error('%s is an invalid date' % begin_date)
+            return
+
+        if not re.match('\d{8}', end_date):
+            logging.error('%s is an invalid date' % end_date)
+            return
+ 
+        errata = \
+            self.client.channel.software.listErrata(self.session,
+                               source_channel,
+                               self.parse_time_input(begin_date),
+                               self.parse_time_input(end_date))
+
+        # get the packages that resolve these errata so we can add them
+        # to the channel afterwards
+        package_ids = []
+        for e in errata:
+            logging.debug('Getting packages for errata %s' % \
+                          e.get('advisory_name'))
+
+            packages = self.client.errata.listPackages(self.session,
+                                                       e.get('advisory_name'))
+
+            package_ids.extend( [p.get('id') for p in packages] ) 
+
+        print 'Errata:'
+        for e in sorted(errata, key=itemgetter('advisory_name')):
+            self.print_errata_summary(e)
+
+        if not self.user_confirm('Add these errata [y/N]:'): return
+
+        # add the errata to the destination channel
+        self.client.channel.software.mergeErrata(self.session, 
+                                                 source_channel, 
+                                                 dest_channel,
+                                                 begin_date,
+                                                 end_date)
+
+        # add the affected packages to the channel
+        self.client.channel.software.addPackages(self.session,
+                                                 dest_channel,
+                                                 package_ids)
 
 ####################
 
