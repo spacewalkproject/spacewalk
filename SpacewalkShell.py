@@ -300,6 +300,13 @@ For help for a specific command try 'help <cmd>'.
         return [o for o in options if re.match(text, o)]
 
 
+    def tab_complete_errata(self, text):
+        options = self.do_errata_list('', True)
+        options.append('search:')
+
+        return self.tab_completer(options, text)
+
+
     def tab_complete_systems(self, text):
         if re.match('group:', text):
             # prepend 'group' to each item for tab completion
@@ -647,6 +654,24 @@ For help for a specific command try 'help <cmd>'.
                 logging.warning('%s = %s' % (name, str(id)))
 
             return 0
+
+
+    def expand_errata(self, args):
+        if not isinstance(args, list):
+            args = args.split()
+
+        errata = []
+        for item in args:
+            if re.match('search:', item):
+                item = re.sub('search:', '', item)
+                errata.extend(self.do_errata_search(item, True))
+            else:
+                errata.append(item)
+
+        self.generate_errata_cache()
+        matches = self.filter_results(self.all_errata, errata)
+
+        return matches
 
 
     def expand_systems(self, args):
@@ -2580,7 +2605,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: errata_apply ERRATA|search:XXX ...'
 
     def complete_errata_apply(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_errata_list('', True), text)
+        return self.tab_complete_errata(text)
 
     def do_errata_apply(self, args):
         args = self.parse_arguments(args)
@@ -2589,25 +2614,12 @@ For help for a specific command try 'help <cmd>'.
             self.help_errata_apply()
             return
 
-        errata_list = []
-        for a in args:
-            if re.match('search:', a):
-                a = re.sub('search:', '', a)
-                errata_list.extend(self.do_errata_search(a, True))
-            else:
-                errata_list.append(a)
-
-        self.generate_errata_cache()
-        errata_list = self.filter_results(self.all_errata, errata_list)
-
-        if not len(errata_list):
-            logging.warning('No errata found')
-            return
-
-        errata_to_remove = []    
+        # allow globbing and searching via arguments
+        errata_list = self.expand_errata(args)
 
         add_separator = False
 
+        errata_to_remove = []    
         for errata in sorted(errata_list, reverse = True):
             try:
                 systems = self.client.errata.listAffectedSystems(self.session, 
@@ -2619,6 +2631,7 @@ For help for a specific command try 'help <cmd>'.
                 if add_separator: print self.SEPARATOR
                 add_separator = True
 
+                # print the list of systems
                 print '%s:' % errata
                 for system in sorted([s.get('name') for s in systems]):
                     print system
@@ -2667,12 +2680,12 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_errata_listaffectedsystems(self):
-        print 'errata_listaffectedsystems: List of systems affected by this' + \
-              ' errata'
-        print 'usage: errata_listaffectedsystems ERRATA'
+        print 'errata_listaffectedsystems: List of systems affected by an ' + \
+              'errata'
+        print 'usage: errata_listaffectedsystems ERRATA|search:XXX ...'
 
     def complete_errata_listaffectedsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_errata_list('', True), text)
+        return self.tab_complete_errata(text)
 
     def do_errata_listaffectedsystems(self, args):
         args = self.parse_arguments(args)
@@ -2681,43 +2694,30 @@ For help for a specific command try 'help <cmd>'.
             self.help_errata_listaffectedsystems()
             return
 
+        # allow globbing and searching via arguments
+        errata_list = self.expand_errata(args)
+
         add_separator = False
 
-        query = args[0]
+        for errata in errata_list:
+            systems = self.client.errata.listAffectedSystems(self.session, 
+                                                             errata)
 
-        if add_separator: print self.SEPARATOR
-        add_separator = True
+            if len(systems):
+                if add_separator: print self.SEPARATOR
+                add_separator = True
 
-        errata_names = []
-        try:
-            results = self.client.errata.getDetails(self.session, query)
-        except:
-            logging.warning('No errata found')
-            return
-
-        errata_names.append(query)
-
-        systems = []
-        for name in sorted(errata_names):
-            results = self.client.errata.listAffectedSystems(self.session, 
-                                                             name)
-
-            for r in results:
-                if r.get('name') not in systems:
-                    systems.append(r.get('name'))
-
-        if len(systems):
-            for system in sorted(systems):
-                print '  %s' % system
+                print '%s:' % errata
+                print '\n'.join(sorted([ s.get('name') for s in systems ]))
         
 ####################
 
     def help_errata_details(self):
         print 'errata_details: Show the details of an errata'
-        print 'usage: errata_details NAME ...'
+        print 'usage: errata_details ERRATA|search:XXX ...'
     
     def complete_errata_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_errata_list('', True), text)
+        return self.tab_complete_errata(text)
 
     def do_errata_details(self, args):
         args = self.parse_arguments(args)
@@ -2726,26 +2726,28 @@ For help for a specific command try 'help <cmd>'.
             self.help_errata_details()
             return
 
-        name = args[0]
+        # allow globbing and searching via arguments
+        errata_list = self.expand_errata(args)
 
         add_separator = False
 
-        for errata in args:
+        for errata in errata_list:
             try:
-                details = self.client.errata.getDetails(self.session, name)
+                details = self.client.errata.getDetails(self.session, errata)
 
-                packages = self.client.errata.listPackages(self.session, name)
+                packages = self.client.errata.listPackages(self.session, errata)
 
                 channels = \
-                    self.client.errata.applicableToChannels(self.session, name)
+                    self.client.errata.applicableToChannels(self.session, 
+                                                            errata)
             except:
-                logging.warning('%s is not a valid errata' % name)
+                logging.warning('%s is not a valid errata' % errata)
                 continue
 
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print 'Name:       %s' % name
+            print 'Name:       %s' % errata
             print
             print 'Product:    %s' % details.get('product')
             print 'Type:       %s' % details.get('type')
@@ -7699,8 +7701,7 @@ For help for a specific command try 'help <cmd>'.
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            self.generate_errata_cache()
-            return self.tab_completer(self.all_errata.keys(), text)
+            return self.tab_complete_errata(text)
 
     def do_system_applyerrata(self, args):
         args = self.parse_arguments(args)
@@ -7716,16 +7717,8 @@ For help for a specific command try 'help <cmd>'.
         else:
             systems = self.expand_systems(args.pop(0))
 
-        errata_list = []
-        for a in args:
-            if re.match('search:', a):
-                a = re.sub('search:', '', a)
-                errata_list.extend(self.do_errata_search(a, True))
-            else:
-                errata_list.append(a)
-
-        self.generate_errata_cache()
-        errata_list = self.filter_results(self.all_errata, errata_list)
+        # allow globbing and searching of errata
+        errata_list = self.expand_errata(args)
 
         errata_ids = []
         errata_found = []
