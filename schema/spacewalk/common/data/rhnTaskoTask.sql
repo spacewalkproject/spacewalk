@@ -68,4 +68,7 @@ INSERT INTO rhnTaskoTask (id, name, class)
 INSERT INTO rhnTaskoTask (id, name, class)
          VALUES (rhn_tasko_task_id_seq.nextval, 'sat-cert-check', 'com.redhat.rhn.taskomatic.task.SatelliteCertificateCheck');
 
+INSERT INTO rhnTaskoTask (id, name, class)
+         VALUES (rhn_tasko_task_id_seq.nextval, 'clear-log-history', 'com.redhat.rhn.taskomatic.task.ClearLogHistory');
+
 commit;
