@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.24
+Version: 1.1.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jun 30 2010 Jan Pazdziora 1.1.25-1
+- We now call prepare with params for PostgreSQL, for Oracle we will take the
+  parameter and ignore it.
+- fixing small issue with wsgi handler where status was not a string
+  (jsherril@redhat.com)
+- adding removed option during alphabetization of command line arguments
+  (jsherril@redhat.com)
+
 * Tue Jun 29 2010 Jan Pazdziora 1.1.24-1
 - We want to pull the backend type from the config file as well.
 - Add initial support for anonymous PL/pgSQL blocks.
