@@ -431,7 +431,7 @@ class Database(sql_base.Database):
         return self._cursor_class(dbh=self.dbh)
 
     # pass-through functions for when you want to do SQL yourself
-    def prepare(self, sql, force=0):
+    def prepare(self, sql, force=0, params=None):
         # Abuse the map calls to get rid of SQL comments and extra spaces
         sql = string.join(filter(lambda a: len(a),
             map(string.strip,
