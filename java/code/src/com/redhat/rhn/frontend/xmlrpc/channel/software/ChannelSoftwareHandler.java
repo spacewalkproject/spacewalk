@@ -1806,12 +1806,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> toErrata = mergeTo.getErratas();
         List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
                 loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
         Set<Errata> mergedErrata =
-            mergeErrataToChannel(loggedInUser, mergeFrom.getErratas(), mergeTo);
+            mergeErrataToChannel(loggedInUser, new HashSet<Errata>(fromErrata), mergeTo);
 
         return mergedErrata.toArray();
     }
