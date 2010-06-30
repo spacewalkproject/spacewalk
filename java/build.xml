@@ -170,7 +170,7 @@
 
   <target name="dotest"
           description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-          depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
+          depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all,cleanup-tests" >
 
     <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
@@ -585,6 +585,25 @@
                exclude="**/AuthenticationServiceTest.class"
                classpathid="tests.runpath"
                reportdir="${testresults.dir}"/>
+  </target>
+
+  <target name="cleanup-tests">
+      <property file="${rhn.config.dir}/rhn.conf" prefix="rhn.db"/>
+      <property file="${rhn.config.dir}/default/rhn_hibernate.conf" prefix="rhn.db"/>
+      <sql
+        driver="${rhn.db.hibernate.connection.driver_class}"
+        url="${rhn.db.hibernate.connection.url}"
+        userid="${rhn.db.hibernate.connection.username}"
+        password="${rhn.db.hibernate.connection.password}"
+        classpathref="tests.runpath"
+        ><![CDATA[
+delete from rhnKickstartDefaults where KICKSTART_ID in (select id from rhnKsData where label like 'KS Data: %');
+delete from rhnKsData where label like 'KS Data: %';
+delete from rhnKickstartableTree where label like 'ks-ChannelLabel%';
+delete from rhnServerProfile sc where exists (select 1 from rhnChannel where id = sc.base_channel and label like 'ChannelLabel%');
+delete from rhnServerChannel sc where exists (select 1 from rhnChannel where id = sc.channel_id and label like 'ChannelLabel%');
+delete from rhnChannel where label like 'ChannelLabel%';
+]]></sql>
   </target>
 
   <target name="unwar-webapp" depends="pack" >
