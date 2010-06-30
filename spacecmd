@@ -141,11 +141,18 @@ if __name__ == '__main__':
 
             sys.exit(1)
     else:
+        need_login = True
+
         # stay in the interactive shell forever
         while True:
             # use try..finally to overcome 2.4's lack of try..except..finally
             try:
                 try:
+                    # we need to be logged in for tab completion to work
+                    if need_login and not shell.session:
+                        shell.do_login('')
+                        need_login = False
+
                     shell.cmdloop()
                 except KeyboardInterrupt:
                     print

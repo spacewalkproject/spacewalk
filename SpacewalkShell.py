@@ -176,6 +176,13 @@ For help for a specific command try 'help <cmd>'.
 
     # handle commands that exit the shell
     def precmd(self, line, nohistory=False):
+        # remove leading/trailing whitespace
+        line = re.sub('^\s+|\s+$', '', line)
+
+        # don't do anything on empty lines
+        if line == '':
+            return ''
+
         # terminate the shell
         if re.match('quit|exit|eof', line, re.I):
             print
@@ -4897,7 +4904,7 @@ For help for a specific command try 'help <cmd>'.
         print 'login: Connect to a Spacewalk server'
         print 'usage: login [USERNAME] [SERVER]'
 
-    def do_login(self, args, cacheonly = False):
+    def do_login(self, args):
         args = self.parse_arguments(args)
 
         # logout before logging in again
@@ -4983,8 +4990,6 @@ For help for a specific command try 'help <cmd>'.
                     logging.debug('Cached credentials are invalid')
                     username = ''
                     self.session = ''
-
-        if cacheonly: return self.session
 
         # attempt to login if we don't have a valid session yet
         if not len(self.session):
