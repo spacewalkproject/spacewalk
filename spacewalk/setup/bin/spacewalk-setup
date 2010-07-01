@@ -955,17 +955,18 @@ sub populate_initial_configs {
     } elsif ($answers->{'db-backend'} eq 'postgresql') {
         $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
         $hibernate_driver = "org.postgresql.Driver";
-        $hibernate_url = "jdbc:postgresql://";
+        $hibernate_url = "jdbc:postgresql:";
         $default_db = "$answers->{'db-user'}/$answers->{'db-password'}\@dbname=$answers->{'db-name'}";
         if (defined $answers->{"db-host"} and $answers->{"db-host"} ne '') {
-            $hibernate_url .= $answers->{"db-host"};
+            $hibernate_url .= '//' . $answers->{"db-host"};
             $default_db .= ";host=$answers->{'db-host'}";
             if (defined $answers->{"db-port"} and $answers->{"db-port"} ne '') {
                 $hibernate_url .= ':' . $answers->{"db-port"};
                 $default_db .= ";port=$answers->{'db-port'}";
             }
+            $hibernate_url .= "/";
         }
-        $hibernate_url .= "/" . $answers->{"db-name"};
+        $hibernate_url .= $answers->{"db-name"};
     }
 
   my %config_opts =
