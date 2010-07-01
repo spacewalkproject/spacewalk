@@ -17,8 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.test;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -27,16 +26,18 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartableTreeDto;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestCaseHelper;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import junit.framework.TestCase;
 
 /**
  * SatScrubberTest - this test actually cleans up old junit created test data.
@@ -44,10 +45,12 @@ import java.util.Map;
  * test.  Didn't want to check it into our release branch.
  * @version $Rev$
  */
-public class SatScrubberTest extends RhnBaseTestCase {
+public class SatScrubberTest extends TestCase {
     
     private User orgAdmin;
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
+    
+
     
     public void testNothing() throws Exception {
         cleanupKickstarts();
@@ -55,7 +58,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
         cleanupServers();
         cleanupUsers();
         cleanupOrgs();
-        
+        commitAndCloseSession();
     }
     
     public void cleanupKickstarts() throws Exception {
@@ -86,20 +89,32 @@ public class SatScrubberTest extends RhnBaseTestCase {
     
 
     public void cleanupChannels() throws Exception {
-        orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
-        List channels = ChannelManager.allChannelsTree(orgAdmin);
-        for (int i = 0; i < channels.size(); i++) {
-            Map row = (Map) channels.get(i);
+        // testOrg
+        DataResult dr = TestUtils.runTestQuery("get_test_channels", new HashMap());
+        for (int i = 0; i < dr.size(); i++) {
+            Map row = (Map) dr.get(i);
             Long id = (Long) row.get("id");
-            String name = (String) row.get("name");
-            if (name.startsWith("ChannelName")) {
-                Channel c = ChannelFactory.lookupById(id.longValue());
-                ChannelFactory.remove(c);
+            log.debug("Deleting channel: " + id);
+            try {
+                deleteChannel(id);
+            }
+            catch (Exception e) {
+                log.warn("Error deleting channel: " + id, e);
+            }
+            if (i % 10 == 0) {
+                log.debug("Deleted [" + i + "] orgs");
+                commitAndCloseSession();
             }
         }
-        commitAndCloseSession();
+        commitAndCloseSession();        
     }
-    
+    private void deleteChannel(long cid) throws Exception {
+        CallableMode m = ModeFactory.getCallableMode(
+                "Channel_queries", "delete_channel");
+        Map inParams = new HashMap();
+        inParams.put("cid", cid);
+        m.execute(inParams, new HashMap());
+    }
 
     public void cleanupUsers() throws Exception {
         DataResult dr = TestUtils.runTestQuery("get_test_users", new HashMap());
@@ -170,5 +185,27 @@ public class SatScrubberTest extends RhnBaseTestCase {
                 commitAndCloseSession();
             }
         }
+        commitAndCloseSession();
     }
+    
+    /**
+     * Tears down the fixture, and closes the HibernateSession.
+     * @see TestCase#tearDown()
+     * @see HibernateFactory#closeSession()
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        TestCaseHelper.tearDownHelper();
+    }
+    
+    /**
+     * PLEASE Refrain from using this unless you really have to.
+     * 
+     * Try clearSession() instead
+     * @throws HibernateException
+     */
+    protected void commitAndCloseSession() throws HibernateException {
+        HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
+    }    
 }

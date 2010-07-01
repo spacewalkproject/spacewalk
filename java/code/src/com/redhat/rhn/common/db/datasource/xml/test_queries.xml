@@ -458,14 +458,20 @@ SELECT * FROM time_series order by entry_time
 
 <mode name="get_test_users">
     <query params="">
-SELECT id from web_customer where UPPER(name) like 'TEST%'
+SELECT id from web_contact where UPPER(login) like 'TEST%'
+    </query>
+</mode>
+
+<mode name="get_test_channels">
+    <query params="">
+SELECT id from rhnChannel where UPPER(name) like 'CHANNELNAME%' or UPPER(label) like 'CHANNELLABEL%' 
     </query>
 </mode>
 
 
 <mode name="get_test_orgs">
     <query params="">
-SELECT id from web_customer where UPPER(name) like 'TESTORG%'
+SELECT id from web_customer where UPPER(name) like 'TEST%'
     </query>
 </mode>
 
