@@ -63,7 +63,7 @@ public class TaskoRun implements Job {
         setOrgId(orgIdIn);
         setTemplate(templateIn);
         setScheduleId(scheduleIdIn);
-        File logDir = new File(getStdLogDirName(orgId));
+        File logDir = new File(getStdLogDirName());
         if (!logDir.isDirectory()) {
             if (!logDir.exists()) {
                 logDir.mkdirs();
@@ -80,25 +80,23 @@ public class TaskoRun implements Job {
     public void finished(RhnJob job) {
         setEndTime(new Date());
         String out = job.getLogOutput();
-        if (new File(getStdLogDirName(orgId)).isDirectory()) {
+        if (new File(getStdLogDirName()).isDirectory()) {
             if ((out != null) && (!out.isEmpty())) {
-                setStdOutputPath(getStdOutputLog(orgId, template, this));
-                saveLogToFile(getStdOutputPath(), out);
+                saveStdOutputLog(out);
             }
             else {
                 setStdOutputPath("");
             }
             String err = job.getLogError();
             if ((err != null) && (!err.isEmpty())) {
-                setStdErrorPath(getStdErrorLog(orgId, template, this));
-                saveLogToFile(getStdErrorPath(), err);
+                saveErrorLog(err);
             }
             else {
                 setStdErrorPath("");
             }
         }
         else {
-            log.warn("Logging disabled. No directory " + getStdLogDirName(orgId));
+            log.warn("Logging disabled. No directory " + getStdLogDirName());
         }
     }
 
@@ -110,6 +108,15 @@ public class TaskoRun implements Job {
             try {
                 jobClass = Class.forName(template.getTask().getTaskClass());
                 job = (RhnJob) jobClass.newInstance();
+            }
+            catch (Exception e) {
+                String errorLog = e.getMessage() + '\n' + e.getCause() + '\n';
+                saveErrorLog(errorLog);
+                saveStatus(STATUS_FAILED);
+                return;
+            }
+
+            try {
                 job.execute(context);
                 saveStatus(STATUS_FINISHED);
             }
@@ -120,17 +127,14 @@ public class TaskoRun implements Job {
             finished(job);
     }
 
-    private void saveToStdError(String message) {
-        if (stdErrorPath != null) {
-            try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(stdErrorPath));
-                out.write(message);
-                out.close();
-            }
-            catch (IOException io) {
-                log.error("Cannot save traceback to " + stdErrorPath);
-            }
-        }
+    private void saveStdOutputLog(String out) {
+        setStdOutputPath(buildStdOutputLogPath());
+        saveLogToFile(getStdOutputPath(), out);
+    }
+
+    private void saveErrorLog(String errorLog) {
+        setStdErrorPath(buildStdErrorLogPath());
+        saveLogToFile(getStdErrorPath(), errorLog);
     }
 
     private void saveStatus(String statusIn) {
@@ -163,15 +167,15 @@ public class TaskoRun implements Job {
         }
     }
 
-    public static String getStdOutputLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {
-        return getStdLogDirName(orgId) + getStdLogFileName(templ, run) + "_out";
+    private String buildStdOutputLogPath() {
+        return getStdLogDirName() + getStdLogFileName() + "_out";
     }
 
-    public static String getStdErrorLog(Integer orgId, TaskoTemplate templ, TaskoRun run) {
-        return getStdLogDirName(orgId) + getStdLogFileName(templ, run) + "_err";
+    private String buildStdErrorLogPath() {
+        return getStdLogDirName() + getStdLogFileName() + "_err";
     }
 
-    private static String getStdLogDirName(Integer orgId) {
+    private String getStdLogDirName() {
         String dirName = STD_LOG_PREFIX;
         if (orgId == null) {
             dirName += "sat";
@@ -183,9 +187,9 @@ public class TaskoRun implements Job {
         return dirName;
     }
 
-    private static String getStdLogFileName(TaskoTemplate templ, TaskoRun run) {
-        return templ.getBunch().getName() + "_" + templ.getTask().getName() +
-            "_" + run.getId();
+    private String getStdLogFileName() {
+        return template.getBunch().getName() + "_" + template.getTask().getName() +
+            "_" + getId();
     }
 
     private void saveLogToFile(String fileName, String logContent) {
