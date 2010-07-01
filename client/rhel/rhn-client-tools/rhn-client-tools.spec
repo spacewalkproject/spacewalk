@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.8
+Version: 1.1.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.9-1
+- Clean up a few remaining references to kbase 6227
+  (joshua.roys@gtri.gatech.edu)
+- 604101 - kbase article 6227 changed name & location (mzazrivec@redhat.com)
+
 * Fri Jun 18 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.8-1
 - fix syntax error (msuchy@redhat.com)
 
