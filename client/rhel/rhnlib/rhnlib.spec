@@ -4,7 +4,7 @@ Summary: Python libraries for the RHN project
 Name: rhnlib
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.5.24
+Version: 2.5.25
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -54,6 +54,19 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 2.5.25-1
+- 595837 - write nice error in case of "connection reset by peer" and xmlrpc
+  protocol error (msuchy@redhat.com)
+- 583980 - replace fcntl.O_NDELAY with os.O_NDELAY, for newer Pythons.
+  (jpazdziora@redhat.com)
+- 583020 - need to initialize self.send_handler for the class Server as well.
+  (jpazdziora@redhat.com)
+- Removing server from cmd-line (slukasik@redhat.com)
+- Adding port number to command line args (slukasik@redhat.com)
+- Adding shebang (slukasik@redhat.com)
+- Fixing return value (slukasik@redhat.com)
+- Fixing typo. (slukasik@redhat.com)
+
 * Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 2.5.24-1
 - Cleaning up, preparing for automatization
 - 575259 - properly set protocol type
