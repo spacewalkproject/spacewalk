@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.5
+Version:        1.1.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,52 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.6-1
+- syntax error on rhnContentSource table sql (shughes@redhat.com)
+- modify last_synced column for repo sync (shughes@redhat.com)
+- missing semicolon on sql declare block (shughes@redhat.com)
+- making links between repo objects and taskomatic (shughes@redhat.com)
+- migrate sync date from repo content source to the channel table
+  (shughes@redhat.com)
+- modified repo schema to handle org_id for content source objects. migrate
+  script updated too. (shughes@redhat.com)
+- adding extra column to the rhnTaskQueue to allow tracking of many2many
+  objects IDs (shughes@redhat.com)
+- upgrade script for migrating channels from repo table to the new mapping
+  table, rhnChannelContentSource (shughes@redhat.com)
+- initial table for mapping channel ids to content sources (yum repos)
+  (shughes@redhat.com)
+- renaming to contentsource since we are moving channel out to a new mapping
+  table named rhnChannelContentSource (shughes@redhat.com)
+- Fixed a goofed up merge for rhn_channel.pkb (paji@redhat.com)
+- Updated the position of rhnPackageRepodata.sql to avoid conflict in naming
+  (paji@redhat.com)
+- added rhn channels and rhn_entitlements schema upgrade items
+  (paji@redhat.com)
+- Consolidate virtual instance type changes to 1 file (paji@redhat.com)
+- Added code to get multiorgs org -> software channel ents page work with flex
+  entitlements (paji@redhat.com)
+- Added the convert to flex plsql operation (paji@redhat.com)
+- Wiped out unused bulk procs (paji@redhat.com)
+- Removed unused stored procedures (paji@redhat.com)
+- Added an rhnException data (paji@redhat.com)
+- Added channel family permissions to upgrade (paji@redhat.com)
+- adding flex guest detection at registration time (jsherril@redhat.com)
+- Commiting the initial compilable merge of rhn_channel (paji@redhat.com)
+- Added rhnChannelFamilyServerFve in the hopes that it'll get used
+  (paji@redhat.com)
+- updating rhn_entitlement package for cert activation (jsherril@redhat.com)
+- convertin rhn_entitlements.pkb to use four spaces instead of tabs
+  (jsherril@redhat.com)
+- Updated some views using hosted changes (paji@redhat.com)
+- few fixes for rhn cert activation, cert activation now works and populates
+  max_members correctly, but not populating fve_max_members yet
+  (jsherril@redhat.com)
+- matching hosteds column names for flex guests (jsherril@redhat.com)
+- first attempt at adding flex guest to sat cert processing
+  (jsherril@redhat.com)
+- adding flex guest table changes (jsherril@redhat.com)
+
 * Mon Jun 28 2010 Jan Pazdziora 1.1.5-1
 - As the tables rhnChannelFamilyLicense and rhnChannelFamilyLicenseConsent were
   removed, so should the triggers.
