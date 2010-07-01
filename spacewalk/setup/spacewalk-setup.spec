@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        1.1.4
+Version:        1.1.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -99,6 +99,10 @@ rm -rf %{buildroot}
 %attr(755, apache, root) %{_var}/spacewalk
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.5-1
+- For local database, we shall use the syntax without slashes. Even if the jdbc
+  driver goes via TCP anyway. (jpazdziora@redhat.com)
+
 * Mon Jun 28 2010 Jan Pazdziora 1.1.4-1
 - The default_db has username and password in Oracle case, let's make it the
   same for PostgreSQL.
