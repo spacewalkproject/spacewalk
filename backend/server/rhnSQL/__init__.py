@@ -108,7 +108,7 @@ def initDB(dsn=None, backend=None, host="localhost", port=None, username=None,
             elif k == 'host':
                 host = v
             elif k == 'port':
-                port = v
+                port = int(v)
             else:
                 raise rhnException("Unknown piece in default_db string", i)
 
