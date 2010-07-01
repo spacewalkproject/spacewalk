@@ -19,7 +19,7 @@ import com.redhat.rhn.common.db.WrappedSQLException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateHelper;
 import com.redhat.rhn.common.translation.ExceptionConstants;
-import com.redhat.rhn.common.translation.ExceptionTranslator;
+import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -61,7 +61,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         catch (SQLException e) {
             try {
-                throw ExceptionTranslator.convert(e);
+                throw SqlExceptionTranslator.sqlException(e);
             }
             catch (ConstraintViolationException c) {
                 assertNull(c.getConstraint());
@@ -88,7 +88,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         catch (SQLException e) {
             try {
-                throw ExceptionTranslator.convert(e);
+                throw SqlExceptionTranslator.sqlException(e);
             }
             catch (ConstraintViolationException c) {
                 assertTrue(c.getConstraint().indexOf("EXCEPTIONS_TEST_PK") >= 0);
@@ -115,7 +115,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         catch (SQLException e) {
             try {
-                throw ExceptionTranslator.convert(e);
+                throw SqlExceptionTranslator.sqlException(e);
             }
             catch (WrappedSQLException c) {
                 // Expected WrappedSQLException
@@ -142,7 +142,7 @@ public class ExceptionsWrapperTest extends TestCase {
         }
         catch (SQLException e) {
             try {
-                throw ExceptionTranslator.convert(e);
+                throw SqlExceptionTranslator.sqlException(e);
             }
             catch (WrappedSQLException c) {
                 StackTraceElement[] elements = c.getStackTrace();

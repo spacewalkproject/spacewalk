@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.common.hibernate;
 
-import com.redhat.rhn.common.translation.ExceptionTranslator;
+import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,8 +51,9 @@ public class HibernateHelper {
      * Helper function for cleaning up all DB objects
      * @param rs The resultSet to close
      * @param stmt The preparedStatement to close
+     * @throws RuntimeException in case of SQLException
      */
-    public static void cleanupDB(ResultSet rs, Statement stmt) {
+    public static void cleanupDB(ResultSet rs, Statement stmt) throws RuntimeException {
         SQLException caught = null;
         try {
             if (rs != null) {
@@ -73,7 +74,7 @@ public class HibernateHelper {
         }
 
         if (caught != null) {
-            throw ExceptionTranslator.convert(caught);
+            throw SqlExceptionTranslator.sqlException(caught);
         }
     }
 }

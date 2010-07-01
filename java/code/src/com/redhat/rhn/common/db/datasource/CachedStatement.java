@@ -19,7 +19,7 @@ import com.redhat.rhn.common.db.NamedPreparedStatement;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateHelper;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.common.translation.ExceptionTranslator;
+import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.util.StringUtil;
 
@@ -463,7 +463,7 @@ public class CachedStatement {
             return new Integer(ps.getUpdateCount());
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
         catch (HibernateException he) {
             throw new 
@@ -509,7 +509,7 @@ public class CachedStatement {
             return processOutputParams(cs, outParams);
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
         catch (HibernateException he) {
             throw new 
@@ -618,7 +618,7 @@ public class CachedStatement {
             return dr;
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
         catch (ClassNotFoundException e) {
             throw new ObjectCreateWrapperException("Could not create " +
@@ -788,7 +788,7 @@ public class CachedStatement {
             return columns;
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
     }
 

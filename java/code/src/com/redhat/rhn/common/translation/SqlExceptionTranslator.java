@@ -27,31 +27,9 @@ import java.sql.SQLException;
  * @version $Rev$
  */
 
-public class ExceptionTranslator extends Translations {
+public class SqlExceptionTranslator extends Translations {
 
-    private ExceptionTranslator() {
-    }
-
-    /**
-     * Translate from from one object type to another.
-     * @param have The object to convert
-     * @return The translated RuntimeException, which includes a reference to
-     *         the passed in exception.
-     */
-    public static RuntimeException convert(Object have) {
-        RuntimeException e = (RuntimeException)convert(ExceptionTranslator.class,
-                                              have, RuntimeException.class);
-        postProcess(e);
-        return e;
-    }
-
-    // Remove any translation stackElements from the exception that is created.
-    private static void postProcess(RuntimeException e) {
-        Throwable cause = e.getCause();
-        if (cause == null) {
-            return;
-        }
-        e.setStackTrace(cause.getStackTrace());
+    private SqlExceptionTranslator() {
     }
 
     /**
@@ -70,21 +48,21 @@ public class ExceptionTranslator extends Translations {
 
     /**
      * Convert from PSQLException to some RuntimeException sub-class.
-     * 
+     *
      * @param e Exception to translate.
      * @return Translated RuntimeException with reference to the original.
      */
     private static RuntimeException postgreSqlException(SQLException e) {
         return new WrappedSQLException(e.getMessage(), e);
     }
-    
+
     // This will currently only work for SQLException's that come from
     // Oracle.  To add more Databases, make this a private method, add a
     // public method with a different name, but the same signature, in the
     // new method, determine DB type, and call the correct translator.
-    
-    /** 
-     * Convert from SQLException to some other Exception type 
+
+    /**
+     * Convert from SQLException to some other Exception type
      * @param e The SQLException to translate
      * @return The translated RuntimeException, which includes a reference
      *         to the SQLException that was passed in.

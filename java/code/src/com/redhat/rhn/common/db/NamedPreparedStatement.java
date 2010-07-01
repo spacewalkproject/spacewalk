@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.common.db;
 
-import com.redhat.rhn.common.translation.ExceptionTranslator;
+import com.redhat.rhn.common.translation.SqlExceptionTranslator;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -106,16 +106,17 @@ public final class NamedPreparedStatement {
      * @param outParams A map of parameter name to Integer object of
      *                  SQL Types representing the type of data to be returned.
      * @return true if CallableStatement executed without error, false otherwise.
+     * @throws RuntimeException in case of SQLException
      */
     public static boolean execute(CallableStatement cs, Map parameterMap,
-                                  Map inParams, Map outParams) {
+                                  Map inParams, Map outParams) throws RuntimeException {
         try {
             setVars(cs, parameterMap, inParams);
             setOutputVars(cs, parameterMap, outParams);
             return cs.execute();
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
     }
 
@@ -128,6 +129,7 @@ public final class NamedPreparedStatement {
      * @see java.sql.PreparedStatement#execute()
      * @return true if PreparedStatement received a result set
      *         false if PreparedStatement received an update count
+     * @throws RuntimeException in case of SQLException
      */
     public static boolean execute(PreparedStatement ps, 
                                     Map parameterMap, 
@@ -137,7 +139,7 @@ public final class NamedPreparedStatement {
             return ps.execute();
         }
         catch (SQLException e) {
-            throw ExceptionTranslator.convert(e);
+            throw SqlExceptionTranslator.sqlException(e);
         }
     }
 
@@ -193,7 +195,7 @@ public final class NamedPreparedStatement {
                     }
                 }
                 catch (SQLException e) {
-                    throw ExceptionTranslator.convert(e);
+                    throw SqlExceptionTranslator.sqlException(e);
                 }                
             }
         }
@@ -217,7 +219,7 @@ public final class NamedPreparedStatement {
                     cs.registerOutParameter(pos.intValue(), type.intValue());
                 }
                 catch (SQLException e) {
-                    throw ExceptionTranslator.convert(e);
+                    throw SqlExceptionTranslator.sqlException(e);
                 }                
             }
         }
