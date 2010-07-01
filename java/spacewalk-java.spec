@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.16
+Version: 1.1.17
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,97 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 01 2010 Tomas Lestach <tlestach@redhat.com> 1.1.17-1
+- replacing ExceptionTranslator for SqlExceptionTranslator and its convert()
+  method for sqlException() (tlestach@redhat.com)
+- Added a sat scrubber test that wipes out old test artifactsw
+  (paji@redhat.com)
+- Added an automatic db test cleanup script as a part of tests
+  (paji@redhat.com)
+- fix bug Validation i18n key (shughes@redhat.com)
+- bug fixing for reposync (shughes@redhat.com)
+- junit modification for repo sync (shughes@redhat.com)
+- checkstyle fix, extra java import (shughes@redhat.com)
+- hook to call create repo sync task in taskomatic (shughes@redhat.com)
+- remove call to repo task from the channel edit/update cmds
+  (shughes@redhat.com)
+- add last log repo sync to edit channel (shughes@redhat.com)
+- remove old repo fields from channel edit page, clean up i18n strings
+  (shughes@redhat.com)
+- making links between repo objects and taskomatic (shughes@redhat.com)
+- lots of checkstyle fixes (shughes@redhat.com)
+- add channel count access for repo objects (shughes@redhat.com)
+- general repo cleanup, bugfixing (shughes@redhat.com)
+- new page: list of repos to sync (session sets) (shughes@redhat.com)
+- struts support for repo sync action (shughes@redhat.com)
+- adding new sync nav, moving add/remove to new tab (shughes@redhat.com)
+- remove debug messages, add extra i18n update string (shughes@redhat.com)
+- db mapping logic for channel repos (shughes@redhat.com)
+- preselect set channel repo logic (shughes@redhat.com)
+- initial jsp support for channel to repo mapping (shughes@redhat.com)
+- change from rhnset to sessionset for repo maps (shughes@redhat.com)
+- intial strut action for channel repository mapping (shughes@redhat.com)
+- strut support for channel repository mapping (shughes@redhat.com)
+- channel nav support for repository mapping (shughes@redhat.com)
+- modify verbage for repo list summary (shughes@redhat.com)
+- logic to delete content sources from db (shughes@redhat.com)
+- minor syntax issue with i18n repo delete strings (shughes@redhat.com)
+- initial files to support Repo delete (shughes@redhat.com)
+- bug fixes for EditRepo, strut path fixes (shughes@redhat.com)
+- RepoEdit page cleanup, jsp fixes (shughes@redhat.com)
+- fix hibernate content obj named queries for Edit Repo (shughes@redhat.com)
+- starting checking content objects off id and org for security; also fix query
+  for taskomatic (shughes@redhat.com)
+- commit before master merge (shughes@redhat.com)
+- adding repo edit commands (shughes@redhat.com)
+- refactoring repo commands to use base class (shughes@redhat.com)
+- more repo content obj clean up (shughes@redhat.com)
+- fix link for repo edit (shughes@redhat.com)
+- quick fix to remove sync query from content source obj (shughes@redhat.com)
+- update channel to handle sync date; remove from content source
+  (shughes@redhat.com)
+- fix incorrect reference to sync column of content source (shughes@redhat.com)
+- adding org id mapping to content source objects (shughes@redhat.com)
+- ise fixes for repo create (shughes@redhat.com)
+- adding url field to repo details form/jsp (shughes@redhat.com)
+- pushing changes to prepare for master merge (shughes@redhat.com)
+- fixed incorrect url syntax for repocreate (shughes@redhat.com)
+- adding repo domain creation logic to manager/action layer
+  (shughes@redhat.com)
+- pushing minor changes before master merge (shughes@redhat.com)
+- repo struts action fnd jsp or creating repo objects. (shughes@redhat.com)
+- support classes for adding a Repo object (shughes@redhat.com)
+- repo validation xsd schema (shughes@redhat.com)
+- adding nav entries for repo create and edit (shughes@redhat.com)
+- struts entries for repo create and edit pages (shughes@redhat.com)
+- adding dynaform for content source creation (shughes@redhat.com)
+- fixing toolbar syntax for repo (shughes@redhat.com)
+- minor tweaks to struts url path and hibernate fix (shughes@redhat.com)
+- adding repolist page to struts (shughes@redhat.com)
+- datasource queries for repolist listtag page (shughes@redhat.com)
+- adding ContentSource DTO object for repo listtags (shughes@redhat.com)
+- setting up ContentSource queries (shughes@redhat.com)
+- fixing compile errors on RepoLister (shughes@redhat.com)
+- initial classes for Repolisting (shughes@redhat.com)
+- adding repo list jsp page (shughes@redhat.com)
+- Revert "fixing accidental branch creation, removing cobbler stubs"
+  (shughes@redhat.com)
+- fixing accidental branch creation, removing cobbler stubs
+  (shughes@redhat.com)
+- new jsp for the repo list (shughes@redhat.com)
+- adding nav menu for external repo management (shughes@redhat.com)
+- minor changes to tests (shughes@redhat.com)
+- more compiliation fixes to support many2many (shughes@redhat.com)
+- fixing breakage after adding many2many objects for yum repo sync
+  (shughes@redhat.com)
+- minor updates to Channel object to add repos (shughes@redhat.com)
+- initial hibernate changes to support many2many relationships of channel to
+  repos (shughes@redhat.com)
+- hibernate changes for existing content source objects (shughes@redhat.com)
+- Fixed some checkstyle errors (paji@redhat.com)
+- 605383 - fixing issue where adding errata to a channel with 'package
+  association' unchecked wouldn't handle arches correctly (jsherril@redhat.com)
+
 * Wed Jun 30 2010 Tomas Lestach <tlestach@redhat.com> 1.1.16-1
 - 591291 - fix also mergeErrata with given start and end date
   (tlestach@redhat.com)
