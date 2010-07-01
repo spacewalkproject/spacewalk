@@ -711,4 +711,16 @@ public  class UserFactory extends HibernateFactory {
         return (List<User>)listObjectsByNamedQuery("User.findAllOrgAdmins", params);
     }
 
+    /**
+     * @param userId the user id
+     */
+    public static void deleteUser(Long userId) {
+        CallableMode m = ModeFactory.getCallableMode("User_queries",
+                "delete_user");
+        Map inParams = new HashMap();
+        Map outParams = new HashMap();
+        inParams.put("user_id", userId);
+        m.execute(inParams, outParams);
+    }
+
 }

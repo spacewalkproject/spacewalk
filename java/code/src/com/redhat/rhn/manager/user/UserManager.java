@@ -37,6 +37,7 @@ import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
+import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
@@ -461,12 +462,7 @@ public class UserManager extends BaseManager {
             }
         }
 
-        CallableMode m = ModeFactory.getCallableMode("User_queries",
-                "delete_user");
-        Map inParams = new HashMap();
-        Map outParams = new HashMap();
-        inParams.put("user_id", targetUid);
-        m.execute(inParams, outParams);
+        UserFactory.deleteUser(targetUid);
     }
 
     /**
@@ -563,7 +559,7 @@ public class UserManager extends BaseManager {
      * @param pc The details of which results to return.
      * @return A DataResult containing the specified number of users.
      */
-    public static DataResult usersInOrg(User user, PageControl pc) {
+    public static DataResult <UserOverview> usersInOrg(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
         return getUsersInOrg(user, pc, m);
     }
@@ -576,7 +572,8 @@ public class UserManager extends BaseManager {
      * @param clazz The class you want the returned DataResult to contain.
      * @return A DataResult containing the specified number of users.
      */
-    public static DataResult usersInOrg(User user, PageControl pc, Class clazz) {
+    public static DataResult usersInOrg(User user, 
+                                            PageControl pc, Class clazz) {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org", clazz);
         return getUsersInOrg(user, pc, m);
     }
@@ -588,7 +585,8 @@ public class UserManager extends BaseManager {
      * @param m The select mode.
      * @return A list containing the specified number of users.
      */
-    private static DataResult getUsersInOrg(User user, PageControl pc, SelectMode m) {
+    private static DataResult getUsersInOrg(User user, 
+                                                PageControl pc, SelectMode m) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.

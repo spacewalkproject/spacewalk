@@ -456,11 +456,25 @@ SELECT * FROM time_series order by entry_time
     </query>
 </mode>
 
+<mode name="get_test_users">
+    <query params="">
+SELECT id from web_customer where UPPER(name) like 'TEST%'
+    </query>
+</mode>
+
+
 <mode name="get_test_orgs">
     <query params="">
 SELECT id from web_customer where UPPER(name) like 'TESTORG%'
     </query>
 </mode>
+
+<mode name="get_test_servers">
+    <query params="">
+SELECT id from rhnServer where name like 'serverfactorytest%'
+    </query>
+</mode>
+
 
 <mode name="select_in">
 	<query params="">
@@ -492,6 +506,4 @@ SELECT name FROM web_customer WHERE id IN (%s) AND name = :name
 SELECT data FROM time_series WHERE data = :data
     </query>
 </mode>
-
-    	
 </datasource_modes>

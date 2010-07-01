@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -30,7 +29,6 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartableTreeDto;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
-import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -52,7 +50,12 @@ public class SatScrubberTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
     
     public void testNothing() throws Exception {
-        // Test nothing.
+        cleanupKickstarts();
+        cleanupChannels();
+        cleanupServers();
+        cleanupUsers();
+        cleanupOrgs();
+        
     }
     
     public void cleanupKickstarts() throws Exception {
@@ -99,48 +102,35 @@ public class SatScrubberTest extends RhnBaseTestCase {
     
 
     public void cleanupUsers() throws Exception {
-        orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
-        List users = UserManager.usersInOrg(orgAdmin, null, Map.class);
-        for (int i = 0; i < users.size(); i++) {
-            Map row = (Map) users.get(i);
-            String login = (String) row.get("login");
-            if (login.indexOf("test") > -1) {
-                User lookedup = UserFactory.lookupByLogin(login);
-                UserManager.deleteUser(orgAdmin, lookedup.getId());
+        DataResult dr = TestUtils.runTestQuery("get_test_users", new HashMap());
+        for (int i = 0; i < dr.size(); i++) {
+            Long uid = (Long) ((Map) dr.get(i)).get("id");
+            try {
+                UserFactory.deleteUser(uid);
+            }
+            catch (Exception e) {
+                log.warn("Error deleting  user: " + uid, e);
             }
             if (i % 100 == 0) {
                 log.debug("Deleted [" + i + "] users");
                 commitAndCloseSession();
             }
+
+            
         }
         commitAndCloseSession();
     }
     
     public void cleanupServers() throws Exception {
-
-        List orgs = OrgFactory.lookupAllOrgs();
+        DataResult dr = TestUtils.runTestQuery("get_test_servers", new HashMap());
         int numdeleted = 0;
-        for (int x = 0; x < orgs.size(); x++) {
-            Org org = (Org) orgs.get(x);
-            orgAdmin = UserFactory.findRandomOrgAdmin(org);
-            if (orgAdmin != null) {
-                List systems = UserManager.visibleSystemsAsMaps(orgAdmin);
-                for (int i = 0; i < systems.size(); i++) {
-                    Long sid = (Long) ((Map) systems.get(i)).get("id");
-                    String name = (String) ((Map) systems.get(i)).get("name");
-                    if (name.startsWith("serverfactorytest")) {
-                        CallableMode m = ModeFactory.
-                            getCallableMode("System_queries", "delete_server");
-                        Map in = new HashMap();
-                        in.put("server_id", sid);
-                        m.execute(in, new HashMap());
-                        numdeleted++;
-                    }
-                    if (i % 100 == 0) {
-                        log.debug("Deleted [" + numdeleted + "] systems");
-                        commitAndCloseSession();
-                    }
-                }
+        for (int i = 0; i < dr.size(); i++) {
+            Long sid = (Long) ((Map) dr.get(i)).get("id");
+            deleteServer(sid);
+            numdeleted++;
+            if (i % 100 == 0) {
+                log.debug("Deleted [" + numdeleted + "] systems");
+                commitAndCloseSession();
             }
         }
         
@@ -148,6 +138,20 @@ public class SatScrubberTest extends RhnBaseTestCase {
         log.debug("Done deleting [" + numdeleted + "] systems");
     }
 
+    /**
+     * @param sid
+     */
+    private void deleteServer(Long sid) {
+        CallableMode m = ModeFactory.
+            getCallableMode("System_queries", "delete_server");
+        Map in = new HashMap();
+        in.put("server_id", sid);
+        m.execute(in, new HashMap());
+    }
+
+    
+    
+    
     public void cleanupOrgs() throws Exception {
         // testOrg
         DataResult dr = TestUtils.runTestQuery("get_test_orgs", new HashMap());
@@ -159,7 +163,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
                 OrgFactory.deleteOrg(new Long(id.longValue()));
             }
             catch (Exception e) {
-                log.debug("Error deleting org: " + id);
+                log.warn("Error deleting org: " + id, e);
             }
             if (i % 10 == 0) {
                 log.debug("Deleted [" + i + "] orgs");
