@@ -372,7 +372,7 @@ public class DownloadFile extends DownloadAction {
                         (int) patch.getReadme().length()));
             }
             else if (type.equals(DownloadManager.DOWNLOAD_TYPE_REPO_LOG)) {
-                Channel c = ChannelFactory.lookupById((Long)params.get(fileId));
+                Channel c = ChannelFactory.lookupById(fileId);
                 ChannelManager.verifyChannelAdmin(user, fileId);
                 File file = new File(ChannelManager.getLatestSyncLogFile(c));
 
