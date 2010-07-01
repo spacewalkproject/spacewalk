@@ -23,4 +23,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'clear-tasko-log-history', 'Clears taskomatic run log history', '', sysdate);
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'cobbler-sync-bunch', 'Applies any cobbler configuration changes,', '', sysdate);
+
 commit;

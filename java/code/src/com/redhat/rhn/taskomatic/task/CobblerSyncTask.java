@@ -33,14 +33,11 @@ import java.util.concurrent.atomic.AtomicLong;
 import redstone.xmlrpc.XmlRpcFault;
 
 /**
- * DailySummary task.
- * sends daily report of stats. reaps org suggestions
- * from rhnDailySummaryQueue. Not very "daily" since it runs every
- * 30 seconds.  Need to look at RHN::DailySummaryEngine.  This task
- * queues org emails, mails queued emails, then dequeues the emails.
+ * CobblerSyncTask
+ * synces cobbler
  * @version $Rev$
  */
-public class CobblerSyncTask extends SingleThreadedTestableTask {
+public class CobblerSyncTask extends RhnJavaJob {
     
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
     private long errorCount;
@@ -51,7 +48,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
      */
     public static final String DISPLAY_NAME = "sync_from_cobbler";
 
-    private static Logger log = Logger.getLogger(CobblerSyncTask.class);
+    private Logger log = getLogger(CobblerSyncTask.class);
     
     /**
      * Default constructor
@@ -64,7 +61,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctxIn, boolean testContextIn)
+    public void execute(JobExecutionContext ctxIn)
         throws JobExecutionException {
         
         try {
