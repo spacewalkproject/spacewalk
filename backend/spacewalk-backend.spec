@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.25
+Version: 1.1.26
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.26-1
+- We need to force port into integer. (jpazdziora@redhat.com)
+- adding new virtualization strings for RHEL 6 (jsherril@redhat.com)
+- bug fixing for reposync (shughes@redhat.com)
+- modified reposync script to handle 1:many channel content source objects
+  (shughes@redhat.com)
+
 * Wed Jun 30 2010 Jan Pazdziora 1.1.25-1
 - We now call prepare with params for PostgreSQL, for Oracle we will take the
   parameter and ignore it.
