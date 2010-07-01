@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2008--2010 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,7 +21,7 @@ create_new_user
     org_id_in           in numeric,
     login_in            in varchar,
     password_in         in varchar,
-    oracle_contact_id_in in numeric,
+    oracle_contact_id_in in varchar,
     prefix_in           in varchar,
     first_names_in      in varchar,
     last_name_in        in varchar,
@@ -32,7 +32,7 @@ create_new_user
     phone_in            in varchar,
     fax_in              in varchar,
     email_in            in varchar,
-    pin_in              in varchar,
+    pin_in              in numeric,
     first_names_ol_in   in varchar,
     last_name_ol_in     in varchar,
     address1_in         in varchar,
@@ -67,7 +67,7 @@ begin
     insert into web_contact
         (id, org_id, login, login_uc, password, old_password, oracle_contact_id)
     values
-        (user_id_tmp, org_id_in, login_in, upper(login_in), password_in, null, oracle_contact_id_in);
+        (user_id_tmp, org_id_in, login_in, upper(login_in), password_in, null, oracle_contact_id_in::numeric);
 
     insert into web_user_contact_permission
         (web_user_id, call, mail, email, fax)
