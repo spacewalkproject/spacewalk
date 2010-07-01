@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhnsd
-Version: 4.9.3
+Version: 4.9.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -63,6 +63,14 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 4.9.4-1
+- l10n: Updates to Czech (cs) translation (msuchy@fedoraproject.org)
+- cleanup - removing translation file, which does not match any language code
+  (msuchy@redhat.com)
+- update po files for rhnsd (msuchy@redhat.com)
+- generate new pot file for rhnsd (msuchy@redhat.com)
+- l10n: Updates to Polish (pl) translation (raven@fedoraproject.org)
+
 * Fri Mar 19 2010 Jan Pazdziora 4.9.3-1
 - Check return value of regcomp, fix a memory leak (Joshua Roys)
 
