@@ -1,30 +1,27 @@
 %define rhnroot %{_datadir}/rhn
 
-Name:		spacecmd
-Version:	0.3
-Release:	1%{?dist}
-Summary:	CLI to Spacewalk and Satellite Server
+Name:        spacecmd
+Version:     0.4
+Release:     1%{?dist}
+Summary:     Command-line interface to Spacewalk and Satellite servers
 
-Group:		Applications/System
-License:	GPL
-URL:		http://github.com/aparsons/spacecmd
-Source0:	%{name}-%{version}.tar.gz
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildArch:	noarch
+Group:       Applications/System
+License:     GPL
+URL:         http://github.com/aparsons/spacecmd
+Source:      %{name}-%{version}.tar.gz
+BuildRoot:   %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildArch:   noarch
 
-Requires:	python >= 2.4
-
+Requires:    python >= 2.4
 
 %description
 spacecmd is a command-line interface to Spacewalk and Satellite servers
 
-
 %prep
 %setup -q
 
-
 %build
-
+# nothing to build
 
 %install
 rm -rf %{buildroot}
@@ -38,13 +35,14 @@ install -m0644 spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_complet
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
 install -m0644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
 
+mkdir -p %{buildroot}/%{_mandir}/man1
+gzip -c spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
+
 touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 chmod 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 
-
 %clean
 rm -rf %{buildroot}
-
 
 %files
 %defattr(-,root,root,-)
@@ -53,9 +51,13 @@ rm -rf %{buildroot}
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
 %{_sysconfdir}/bash_completion.d/spacecmd
-
+%{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Thu Jul 01 2010 Aron Parsons <aparsons@redhat.com> - 0.4-1
+- version bump
+- added a man page
+
 * Fri Jun 25 2010 Aron Parsons <aparsons@redhat.com> - 0.3-1
 - version bump
 - added bash-completion support
