@@ -38,14 +38,14 @@ import java.util.Set;
  *
  * @version $Rev$
  */
-public class CompareConfigFilesTask extends SingleThreadedTask {
+public class CompareConfigFilesTask extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "compare_config_files";
 
-    private static Logger log = Logger.getLogger(CompareConfigFilesTask.class);
+    private Logger log = getLogger(CompareConfigFilesTask.class);
 
     /**
      * Default constructor
@@ -56,7 +56,7 @@ public class CompareConfigFilesTask extends SingleThreadedTask {
     /**
      * {@inheritDoc}
      */
-    public void run(JobExecutionContext context)
+    public void execute(JobExecutionContext context)
             throws JobExecutionException {
 
         log.info("running config compare");
