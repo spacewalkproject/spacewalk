@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       5.5.1
+Version:       5.5.2
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -50,6 +50,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.2-1
+- Also fixed 'Info' -> 'info' as suggested by Milan Zazrivec.
+  (jhutar@redhat.com)
+- And one more space in 'sometime' as suggested by Jan Pazdziora
+  (jhutar@redhat.com)
+- Just put space to the correct side (jhutar@redhat.com)
+
 * Tue May 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.5.1-1
 - 470154 - arch can be optional, do not freak out if it is not present
 - 514805 - recognize X86 arch as i386
