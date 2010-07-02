@@ -171,9 +171,7 @@ update rhnServerGroup set group_type = :type_id where id = :sgid
 
 <callable-mode name="stored_procedure_oracle_format">
   <query params="label, arch">
-      begin 
-      :arch := lookup_package_arch( :label ); 
-      end;
+      { :arch = call lookup_package_arch( :label ) }
   </query>
 </callable-mode>
 

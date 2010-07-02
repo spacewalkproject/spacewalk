@@ -1430,9 +1430,7 @@ SELECT  1
 
 <callable-mode name="update_perms_for_server">
   <query params="sid">
-    begin
-    rhn_cache.update_perms_for_server(:sid);
-    end;
+    { call rhn_cache.update_perms_for_server(:sid) }
   </query>
 </callable-mode>
 

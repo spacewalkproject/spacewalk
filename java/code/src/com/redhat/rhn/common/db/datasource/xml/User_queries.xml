@@ -264,42 +264,32 @@ SELECT system_group_id
 
 <callable-mode name="oai_contact_sync">
   <query params="user_id">
-    begin
-    XXRH_OAI_WRAPPER.sync_contact(:user_id);
-    end;
+    { call XXRH_OAI_WRAPPER.sync_contact(:user_id) }
   </query>
 </callable-mode>
 
 <callable-mode name="update_perms_for_user">
   <query params="user_id">
-    begin
-    rhn_cache.update_perms_for_user(:user_id);
-    end;
+    { call rhn_cache.update_perms_for_user(:user_id) }
   </query>
 </callable-mode>
 
 <callable-mode name="delete_user">
   <query params="user_id">
-    begin
-    rhn_org.delete_user(:user_id);
-    end;
+    { call rhn_org.delete_user(:user_id) }
   </query>
 </callable-mode>
 
 <!-- The Following two procedures are managed by the web team, we simply call them -->
 <callable-mode name="disable_user">
   <query params="victim_id, admin_id">
-    begin
-    web_disable_user_pkg.disable_user(:victim_id, :admin_id);
-    end;
+    { call web_disable_user_pkg.disable_user(:victim_id, :admin_id) }
   </query>
 </callable-mode>
 
 <callable-mode name="enable_user">
   <query params="victim_id, admin_id">
-    begin
-    web_disable_user_pkg.reenable_user(:victim_id, :admin_id);
-    end;
+    { call web_disable_user_pkg.reenable_user(:victim_id, :admin_id) }
   </query>
 </callable-mode>
 

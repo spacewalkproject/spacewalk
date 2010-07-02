@@ -157,9 +157,7 @@ AND      sg.org_id != 1
 
 <callable-mode name="oai_customer_sync">
   <query params="org_id">
-    begin
-    XXRH_OAI_WRAPPER.sync_customer(:org_id);
-    end;
+    { call XXRH_OAI_WRAPPER.sync_customer(:org_id) }
   </query>
 </callable-mode>
 
