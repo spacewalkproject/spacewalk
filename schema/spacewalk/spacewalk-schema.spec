@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.8
+Version:        1.1.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jul 02 2010 Jan Pazdziora 1.1.9-1
+- bug fixes to repo sync schema upgrades and sql (shughes@redhat.com)
+- 526864 - don't allow duplicated rows in rhnServerPackage
+  (michael.mraka@redhat.com)
+- Triggers that call something in rhn_email package (schema) are not useful
+  because we do not have rhn_email.
+
 * Fri Jul 02 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.8-1
 - fix index creation and duplicite name of index (msuchy@redhat.com)
 - would be much better if it fails with error when something bad happens
