@@ -20,12 +20,12 @@ create table
 rhnContentSource
 (
         id		number NOT NULL
-			constraint rhn_ccs_id_pk primary key,
+			constraint rhn_cs_id_pk primary key,
         org_id		number
 			constraint rhn_cs_org_fk
                                 references web_customer (id),
         type_id         number NOT NULL
-                        constraint rhn_ccs_type_fk
+                        constraint rhn_cs_type_fk
                                 references rhnContentSourceType(id),
         source_url      varchar2(512) NOT NULL,
         label           varchar2(64) NOT NULL,

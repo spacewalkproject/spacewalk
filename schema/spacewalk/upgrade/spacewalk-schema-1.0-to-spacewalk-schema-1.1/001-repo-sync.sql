@@ -1,6 +1,18 @@
 
 ALTER table rhnChannelContentSource rename to rhnContentSource;
 
+-- remove constraint; prepare for rhnChannelContentSource uq
+ALTER TABLE rhnContentSource
+    DROP CONSTRAINT rhn_ccs_uq;
+ALTER TABLE rhnContentSource
+    ADD CONSTRAINT rhn_cs_uq UNIQUE (id, type_id, source_url)
+    USING INDEX TABLESPACE [[4m_tbs]];
+-- rename constraints
+ALTER TABLE rhnContentSource
+    RENAME CONSTRAINT rhn_ccs_type_fk to rhn_cs_type_fk;
+ALTER TABLE rhnContentSource
+    RENAME CONSTRAINT rhn_ccs_id_pk to rhn_cs_id_pk;
+
 -- create new table for mapping channels and repos
 CREATE TABLE rhnChannelContentSource
 (
@@ -63,4 +75,5 @@ END;
 
 -- we don't need the channel_id column anymore since mapping table will handle it
 ALTER TABLE rhnContentSource DROP (channel_id);
+-- remove last_synced since rhnChannel will now take care of this data
 ALTER TABLE rhnContentSource DROP (last_synced);
