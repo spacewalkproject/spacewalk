@@ -29,7 +29,7 @@ CREATE TABLE rhnTaskoRun
     end_time        DATE,
     std_output_path VARCHAR2(100),
     std_error_path  VARCHAR2(100),
-    status          CHAR(10),
+    status          VARCHAR2(10),
     created         DATE
                         DEFAULT (sysdate) NOT NULL,
     modified        DATE

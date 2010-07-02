@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class RhnExtCmdJob implements RhnJob {
 
-    protected Logger log = null;
+    private Logger log = null;
     private String stdOutput;
     private String stdError;
 
