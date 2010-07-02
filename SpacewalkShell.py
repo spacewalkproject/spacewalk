@@ -6373,6 +6373,10 @@ For help for a specific command try 'help <cmd>'.
         print '> ssm_add search:device:vmware'
         print '> ssm_add host.example.com'
         print
+        print 'Intersections:'
+        print '> ssm_add group:rhel5-x86_64'
+        print '> ssm_intersect group:web-servers'
+        print
         print 'Using the SSM:'
         print '> system_installpackage ssm zsh'
         print '> system_runscript ssm'
@@ -6381,9 +6385,11 @@ For help for a specific command try 'help <cmd>'.
 
     def help_ssm_add(self):
         print 'ssm_add: Add systems to the SSM'
-        print 'usage: ssm_add SYSTEM|group:GROUP|channel:CHANNEL|search:QUERY'
+        print 'usage: ssm_add <SYSTEMS>'
         print
         print "see 'help ssm' for more details"
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_ssm_add(self, text, line, begidx, endidx):
         return self.tab_complete_systems(text)
@@ -6417,12 +6423,55 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def help_ssm_remove(self):
-        print 'ssm_remove: Remove systems from the SSM'
-        print 'usage: ssm_remove SYSTEM|group:GROUP|channel:CHANNEL|' + \
-              'search:QUERY'
+    def help_ssm_intersect(self):
+        print 'ssm_intersect: Replace the current SSM with the intersection'
+        print '               of the current list of systems and the list of'
+        print '               systems passed as arguments'
+        print 'usage: ssm_intersect <SYSTEMS>'
         print
         print "see 'help ssm' for more details"
+        print
+        print self.HELP_SYSTEM_OPTS
+
+    def complete_ssm_intersect(self, text, line, begidx, endidx):
+       return self.tab_complete_systems(text)
+
+    def do_ssm_intersect(self, args):
+        args = self.parse_arguments(args)
+
+        if not len(args):
+            self.help_ssm_intersect()
+            return
+
+        systems = self.expand_systems(args)
+
+        if not len(systems):
+            logging.warning('No systems found')
+            return
+
+        # tmp_ssm placeholder to gather systems that are both in original ssm
+        # selection and newly selected group
+        tmp_ssm = []
+        for system in systems:
+            if system in self.ssm:
+                logging.info('%s is in both groups: leaving in SSM' % system)
+                tmp_ssm.append(system)
+
+        # set self.ssm to tmp_ssm, which now holds the intersection
+        self.ssm = tmp_ssm
+
+        if len(self.ssm):
+            print 'Systems Selected: %i' % len(self.ssm)
+
+####################
+
+    def help_ssm_remove(self):
+        print 'ssm_remove: Remove systems from the SSM'
+        print 'usage: ssm_remove <SYSTEMS>'
+        print
+        print "see 'help ssm' for more details"
+        print
+        print self.HELP_SYSTEM_OPTS
 
     def complete_ssm_remove(self, text, line, begidx, endidx):
         return self.tab_complete_systems(text)
