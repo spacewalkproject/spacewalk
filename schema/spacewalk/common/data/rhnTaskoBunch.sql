@@ -15,7 +15,7 @@
 
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
-             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status', 'daily-status description', '', sysdate);
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'daily-status-bunch', 'Sends daily report', '', sysdate);
 
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'sat-sync', 'sat-sync description', 'Y', sysdate);

@@ -32,7 +32,6 @@ import com.redhat.rhn.frontend.dto.ReportingUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -52,7 +51,7 @@ import java.util.TreeMap;
  * queues org emails, mails queued emails, then dequeues the emails.
  * @version $Rev$
  */
-public class DailySummary implements Job {
+public class DailySummary extends RhnJavaJob {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -65,7 +64,7 @@ public class DailySummary implements Job {
 
 
     private Mail mail;
-    private static Logger log = Logger.getLogger(DailySummary.class);
+    private Logger log = getLogger(DailySummary.class);
     
     /**
      * Default constructor

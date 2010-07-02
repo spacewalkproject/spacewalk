@@ -23,7 +23,6 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.frontend.dto.OrgIdWrapper;
 
 import org.apache.log4j.Logger;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -39,14 +38,14 @@ import java.util.Set;
  * daily summary email
  * @version $Rev$
  */
-public class SummaryPopulation implements Job {
+public class SummaryPopulation extends RhnJavaJob {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */    
     public static final String DISPLAY_NAME = "summary_populator";
     
-    private static Logger log = Logger.getLogger(SummaryPopulation.class);
+    private Logger log = getLogger(SummaryPopulation.class);
     
     /**
      * {@inheritDoc}
