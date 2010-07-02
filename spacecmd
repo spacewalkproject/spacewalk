@@ -27,7 +27,7 @@ from optparse import Option, OptionParser
 from pwd import getpwuid
 
 sys.path.append('/usr/share/rhn')
-from spacecmd.SpacewalkShell import SpacewalkShell
+from spacecmd.shell import SpacewalkShell
     
 if __name__ == '__main__':
     optionsTable = [
