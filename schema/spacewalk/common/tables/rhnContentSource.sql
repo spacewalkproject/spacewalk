@@ -39,8 +39,8 @@ rhnContentSource
 create sequence rhn_chan_content_src_id_seq start with 500;
 
 
-create unique index rhn_ccs_uq
-	on rhnContentSource(channel_id, type_id, source_url)
+create unique index rhn_cs_uq
+	on rhnContentSource(id, type_id, source_url)
 	tablespace [[64k_tbs]]
   ;
 
