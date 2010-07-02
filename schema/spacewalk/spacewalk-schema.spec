@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.6
+Version:        1.1.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jul 02 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.7-1
+- table rhnChannelContentSource depends on rhnContentSource (msuchy@redhat.com)
+- Match the types of parameters of create_new_user to those given to us by the
+  Java code. (jpazdziora@redhat.com)
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.6-1
 - syntax error on rhnContentSource table sql (shughes@redhat.com)
 - modify last_synced column for repo sync (shughes@redhat.com)
