@@ -85,7 +85,7 @@ public class TaskoJob implements Job {
 
         for (TaskoTemplate template : schedule.getBunch().getTemplates()) {
             if ((previousRun == null) ||
-                    (previousRun.getStatus() == template.getStartIf())) {
+                    (previousRun.getStatus().equals(template.getStartIf()))) {
                 TaskoTask task = template.getTask();
 
                 Object lock = locks.get(task.getName());
