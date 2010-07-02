@@ -21,8 +21,8 @@
 
 """ spacecmd - a command line interface to Spacewalk """
 
-import logging, os, re, sys, xml, xmlrpclib
-from ConfigParser import SafeConfigParser
+import logging, os, re, sys, xmlrpclib
+from ConfigParser import SafeConfigParser, NoOptionError
 from optparse import Option, OptionParser
 from pwd import getpwuid
 
@@ -79,14 +79,14 @@ if __name__ == '__main__':
             if not options.__dict__[key]:
                 try:
                     options.__dict__[key] = config.getboolean('spacecmd', key)
-                except:
+                except NoOptionError:
                     pass
 
         for key in string_opts:
             if not options.__dict__[key]:
                 try:
                     options.__dict__[key] = config.get('spacecmd', key)
-                except:
+                except NoOptionError:
                     pass
     else:
         try:
@@ -96,10 +96,10 @@ if __name__ == '__main__':
                 os.mkdir(conf_dir, 0700)
            
             # create a template configuration file 
-            file = open(conf_file, 'w')
-            file.write('[spacecmd]\n')
-            file.close()
-        except:
+            handle = open(conf_file, 'w')
+            handle.write('[spacecmd]\n')
+            handle.close()
+        except IOError:
             logging.error('Could not create %s' % conf_file)
 
     # set the default server to localhost
