@@ -33,7 +33,7 @@ mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
 install -m0644 spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
-install -m0644 SpacewalkShell.py %{buildroot}/%{rhnroot}/spacecmd/
+install -m0644 SpacewalkShell.py utils.py %{buildroot}/%{rhnroot}/spacecmd/
 
 mkdir -p %{buildroot}/%{_mandir}/man1
 gzip -c spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
