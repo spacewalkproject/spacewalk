@@ -27,16 +27,16 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/%{_bindir}
-install -m0755 spacecmd %{buildroot}/%{_bindir}/
+install -m0755 bin/spacecmd %{buildroot}/%{_bindir}/
 
 mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
-install -m0644 spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
+install -m0644 misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
-install -m0644 SpacewalkShell.py utils.py %{buildroot}/%{rhnroot}/spacecmd/
+install -m0644 lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
 
 mkdir -p %{buildroot}/%{_mandir}/man1
-gzip -c spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
+gzip -c doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
 
 touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 chmod 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
@@ -46,7 +46,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc README COPYING
+%doc doc/README doc/COPYING
 %{_bindir}/spacecmd
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
