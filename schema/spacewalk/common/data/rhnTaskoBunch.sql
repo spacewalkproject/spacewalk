@@ -29,4 +29,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'compare-configs-bunch', 'Schedules a comparison of config files on all systems', '', sysdate);
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'clean-alerts-bunch', 'Clears current monitoring alerts', '', sysdate);
+
 commit;

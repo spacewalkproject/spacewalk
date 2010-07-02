@@ -28,19 +28,19 @@ import java.util.HashMap;
  * Cleans the RHN_CURRENT_ALERTS table
  * @version $Rev$
  */
-public class CleanCurrentAlerts extends SingleThreadedTask {
+public class CleanCurrentAlerts extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "clean_current_alerts";
 
-    private static Logger log = Logger.getLogger(CleanCurrentAlerts.class);
+    private Logger log = getLogger(CleanCurrentAlerts.class);
 
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext contextIn)
+    public void execute(JobExecutionContext contextIn)
         throws JobExecutionException {
 
         if (log.isDebugEnabled()) {
