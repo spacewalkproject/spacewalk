@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.17
+Version: 1.1.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,11 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Fri Jul 02 2010 Jan Pazdziora 1.1.18-1
+- Use the { call ... } syntax instead of the direct PL/SQL.
+- fix broken repo sync download log file logic (shughes@redhat.com)
+- fixed a couple of issues with the sat scrubber test (paji@redhat.com)
+
 * Thu Jul 01 2010 Tomas Lestach <tlestach@redhat.com> 1.1.17-1
 - replacing ExceptionTranslator for SqlExceptionTranslator and its convert()
   method for sqlException() (tlestach@redhat.com)
