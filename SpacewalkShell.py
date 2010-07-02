@@ -21,15 +21,17 @@
 __author__  = 'Aron Parsons <aron@redhat.com>'
 __license__ = 'GPL'
 
-import atexit, base64, logging, os, pickle, re, readline
-import sys, time, urllib2, xml, xmlrpclib
+# spacecmd.utils
+from utils import *
+
+import atexit, logging, os, re, readline
+import sys, urllib2, xml, xmlrpclib
 
 from cmd import Cmd
 from datetime import datetime, timedelta
 from getpass import getpass
 from operator import itemgetter
 from pwd import getpwuid
-from tempfile import mkstemp
 from textwrap import wrap
 
 class SpacewalkShell(Cmd):
@@ -65,8 +67,6 @@ class SpacewalkShell(Cmd):
                          'graphical', 'iscsi', 'iscsiname', 'logging', 
                          'monitor', 'multipath', 'poweroff', 'halt', 'service',
                          'shutdown', 'user', 'vnc', 'zfcp']
-
-    EDITORS = ['vim', 'vi', 'nano', 'emacs']
     
     SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname', 
                             'device', 'vendor', 'driver']
@@ -107,8 +107,8 @@ For help for a specific command try 'help <cmd>'.
 
         try:
             if not os.path.isdir(conf_dir):
-               os.mkdir(conf_dir, 0700)
-        except:
+                os.mkdir(conf_dir, 0700)
+        except OSError:
             logging.error('Could not create directory %s' % conf_dir) 
 
         self.ssm_cache_file = os.path.join(conf_dir, 'ssm')
@@ -119,23 +119,23 @@ For help for a specific command try 'help <cmd>'.
             os.path.join(conf_dir, 'packages_short')
 
         # load self.ssm from disk
-        (self.ssm, ignore) = self.load_cache(self.ssm_cache_file)
+        (self.ssm, ignore) = load_cache(self.ssm_cache_file)
         
         # load self.all_systems from disk
         (self.all_systems, self.system_cache_expire) = \
-            self.load_cache(self.system_cache_file)
+            load_cache(self.system_cache_file)
 
         # load self.all_errata from disk
         (self.all_errata, self.errata_cache_expire) = \
-            self.load_cache(self.errata_cache_file)
+            load_cache(self.errata_cache_file)
       
         # load self.all_package_shortnames from disk 
         (self.all_package_shortnames, self.package_cache_expire) = \
-            self.load_cache(self.packages_short_cache_file)
+            load_cache(self.packages_short_cache_file)
         
         # load self.all_package_longnames from disk 
         (self.all_package_longnames, self.package_cache_expire) = \
-            self.load_cache(self.packages_long_cache_file)
+            load_cache(self.packages_long_cache_file)
         
         self.session_file = os.path.join(conf_dir, 'session')
         self.history_file = os.path.join(conf_dir, 'history')
@@ -156,26 +156,14 @@ For help for a specific command try 'help <cmd>'.
                     # always write the history file on exit
                     atexit.register(readline.write_history_file,
                                     self.history_file)
-                except:
+                except IOError:
                     logging.error('Could not read history file')
         except:
             pass
 
 
-    def parse_arguments(self, args):
-        try:
-            parts = args.split()
-
-            # allow simple globbing
-            parts = [re.sub('\*', '.*', a) for a in parts]
-
-            return parts
-        except IndexError:
-            return []
-
-
     # handle commands that exit the shell
-    def precmd(self, line, nohistory=False):
+    def precmd(self, line):
         # remove leading/trailing whitespace
         line = re.sub('^\s+|\s+$', '', line)
 
@@ -238,7 +226,7 @@ For help for a specific command try 'help <cmd>'.
                     history_match = True
                 else:
                     raise Exception
-            except:
+            except IndexError:
                 pass
 
         # attempt to match the beginning of the string with a history item
@@ -256,7 +244,7 @@ For help for a specific command try 'help <cmd>'.
         # append the arguments to the substituted command
         if history_match:
             line += ' %s' % args
-            self.parse_arguments(line)
+            parse_arguments(line)
 
             readline.add_history(line)
             print line
@@ -267,54 +255,11 @@ For help for a specific command try 'help <cmd>'.
 
 ####################
 
-    def load_cache(self, file):
-        data = {}
-        expire = datetime.now()
-
-        logging.debug('Loading cache from %s' % file)
-
-        if os.path.isfile(file):
-            try:
-                input = open(file, 'r')
-                data = pickle.load(input)
-                input.close()
-            except:
-                logging.error("Couldn't load cache from %s" % file)
-
-            if isinstance(data, list) or isinstance(data, dict):
-                if 'expire' in data:
-                    expire = data['expire']
-                    del data['expire']
-        else:
-            logging.debug('%s does not exist' % file)
-
-        return data, expire
-
-
-    def save_cache(self, file, data, expire = None):
-        if expire:
-            data['expire'] = expire
-
-        try:
-            output = open(file, 'wb')
-            pickle.dump(data, output, pickle.HIGHEST_PROTOCOL)
-            output.close()
-        except:
-            logging.error("Couldn't write to %s" % file)
-
-        if 'expire' in data:
-            del data['expire']
-
-
-    def tab_completer(self, options, text):
-        return [o for o in options if re.match(text, o)]
-
-
     def tab_complete_errata(self, text):
         options = self.do_errata_list('', True)
         options.append('search:')
 
-        return self.tab_completer(options, text)
+        return tab_completer(options, text)
 
 
     def tab_complete_systems(self, text):
@@ -322,96 +267,24 @@ For help for a specific command try 'help <cmd>'.
             # prepend 'group' to each item for tab completion
             groups = ['group:%s' % g for g in self.do_group_list('', True)]
 
-            return self.tab_completer(groups, text)
+            return tab_completer(groups, text)
         elif re.match('channel:', text):
             # prepend 'channel' to each item for tab completion
             channels = ['channel:%s' % s \
                 for s in self.do_softwarechannel_list('', True)]
 
-            return self.tab_completer(channels, text)
+            return tab_completer(channels, text)
         elif re.match('search:', text):
             # prepend 'search' to each item for tab completion
             fields = ['search:%s:' % f for f in self.SYSTEM_SEARCH_FIELDS]
-            return self.tab_completer(fields, text)
+            return tab_completer(fields, text)
         else:
             options = self.get_system_names()
 
             # add our special search options
             options.extend([ 'group:', 'channel:', 'search:' ])
 
-            return self.tab_completer(options, text)
-
-
-    def filter_results(self, list, patterns, search = False):
-        matches = []
-        for item in list:
-            for pattern in patterns:
-                if search:
-                    result = re.search(pattern, item, re.I)
-                else:
-                    result = re.match(pattern, item, re.I)
-
-                if result:
-                    matches.append(item)
-                    break
-
-        return matches
-
-
-    def editor(self, template = '', delete = False):
-        # create a temporary file
-        (descriptor, file_name) = mkstemp(prefix='spacecmd.')
-
-        if template and descriptor:
-            try:
-                file = os.fdopen(descriptor, 'w')
-                file.write(template)
-                file.close()
-            except:
-                logging.warning('Could not open the temporary file')
-                pass
-
-        # use the user's specified editor
-        if 'EDITOR' in os.environ:
-            if self.EDITORS[0] != os.environ['EDITOR']:
-                self.EDITORS.insert(0, os.environ['EDITOR'])
-
-        success = False
-        for editor_cmd in self.EDITORS:
-            try:
-                exit_code = os.spawnlp(os.P_WAIT, editor_cmd,
-                                       editor_cmd, file_name)
-
-                if exit_code == 0:
-                    success = True
-                    break
-                else:
-                    logging.error('Editor exited with code %s' % str(exit_code))
-            except:
-                pass
-
-        if not success:
-            logging.error('No editors found')
-            return ''
-
-        if os.path.isfile(file_name) and exit_code == 0:
-            try:
-                # read the session (format = username:session)
-                file = open(file_name, 'r')
-                contents = file.read()
-                file.close()
-
-                if delete:
-                    try:
-                        os.remove(file_name)
-                        file_name = ''
-                    except:
-                        logging.error('Could not remove %s' % file_name)
-
-                return (contents, file_name)
-            except:
-                logging.error('Could not read %s' % file_name)
-                return ''
+            return tab_completer(options, text)
 
 
     def remove_last_history_item(self):
@@ -419,122 +292,6 @@ For help for a specific command try 'help <cmd>'.
 
         if last >= 0:
             readline.remove_history_item(last)
-
-
-    def prompt_user(self, prompt, noblank = False):
-        try:
-            while True:
-                input = raw_input('%s ' % prompt)
-                if noblank:
-                    if input != '':
-                        break
-                else:
-                    break
-        except EOFError:
-            print
-            return ''
-
-        if input != '':
-            self.remove_last_history_item()
-
-        return input
-
-
-    def user_confirm(self, prompt='Is this ok [y/N]:'):
-        if self.options.yes: return True
-
-        answer = self.prompt_user('\n%s' % prompt)
-
-        if re.match('y', answer, re.I):
-            return True
-        else:
-            return False
-
-
-    def format_time(self, time):
-        return re.sub('T', ' ', time)
-
-
-    # parse time input from the userand return xmlrpclib.DateTime
-    def parse_time_input(self, input = ''):
-        timestamp = None
-
-        if re.match('now', input, re.I):
-            timestamp = datetime.now()
-
-        # handle YYYMMDD times
-        if not timestamp:
-            match = re.match('^(\d{4})(\d{2})(\d{2})$', input)
-
-            if match:
-                timestamp = time.strptime('%s%s%s' % (match.group(1),
-                                                      match.group(2),
-                                                      match.group(3)),
-                                          '%Y%m%d')
-
-                # 2.5 has a nice little datetime.strptime() function...
-                timestamp = datetime(*(timestamp)[0:7])
- 
-        # handle time differences (e.g., +1m, +2h) 
-        if not timestamp:
-            match = re.search('^\+?(\d+)(s|m|h|d)$', input, re.I)
-
-            if not match or len(match.groups()) != 2:
-                logging.error('Invalid time provided')
-                return
-
-            number = int(match.group(1))
-            unit = match.group(2)
-
-            if re.match('s', unit, re.I):
-                delta = timedelta(seconds=number)
-            elif re.match('m', unit, re.I):
-                delta = timedelta(minutes=number)
-            elif re.match('h', unit, re.I):
-                delta = timedelta(hours=number)
-            elif re.match('d', unit, re.I):
-                delta = timedelta(days=number)
-
-            timestamp = datetime.now() + delta
-
-        if timestamp:
-            return xmlrpclib.DateTime(timestamp.timetuple())
-        else:
-            logging.error('Invalid time provided')
-            return
-
-
-    # build a proper RPM name from the various parts
-    def build_package_names(self, packages):
-        single = False
-
-        if not isinstance(packages, list):
-            packages = [packages]
-            single = True
-
-        package_names = []
-        for p in packages:
-            package = '%s-%s-%s' % (
-                      p.get('name'), p.get('version'), p.get('release'))
-
-            if p.get('epoch') != ' ' and p.get('epoch') != '':
-                package += ':%s' % p.get('epoch')
-
-            if p.get('arch'):
-                # system.listPackages uses AMD64 instead of x86_64
-                arch = re.sub('AMD64', 'x86_64', p.get('arch'))
-
-                package += '.%s' % arch
-            elif p.get('arch_label'):
-                package += '.%s' % p.get('arch_label')
-
-            package_names.append(package)
-
-        if single:
-            return package_names[0]
-        else:
-            package_names.sort()
-            return package_names
 
 
     def clear_errata_cache(self):
@@ -565,7 +322,7 @@ For help for a specific command try 'help <cmd>'.
             datetime.now() + timedelta(self.ERRATA_CACHE_TTL)
 
         # store the cache to disk to speed things up
-        self.save_cache(self.errata_cache_file, self.all_errata, 
+        save_cache(self.errata_cache_file, self.all_errata, 
                         self.errata_cache_expire)
 
 
@@ -591,7 +348,7 @@ For help for a specific command try 'help <cmd>'.
                 if not p.get('name') in self.all_package_shortnames:
                     self.all_package_shortnames[p.get('name')] = ''
 
-                longname = self.build_package_names(p)
+                longname = build_package_names(p)
 
                 if not longname in self.all_package_longnames:
                     self.all_package_longnames[longname] = p.get('id')
@@ -600,11 +357,11 @@ For help for a specific command try 'help <cmd>'.
             datetime.now() + timedelta(seconds=self.PACKAGE_CACHE_TTL)
 
         # store the cache to disk to speed things up
-        self.save_cache(self.packages_short_cache_file,
+        save_cache(self.packages_short_cache_file,
                         self.all_package_shortnames, 
                         self.package_cache_expire)
         
-        self.save_cache(self.packages_long_cache_file, 
+        save_cache(self.packages_long_cache_file, 
                         self.all_package_longnames, 
                         self.package_cache_expire)
 
@@ -645,7 +402,7 @@ For help for a specific command try 'help <cmd>'.
             datetime.now() + timedelta(seconds=self.SYSTEM_CACHE_TTL)
 
         # store the cache to disk to speed things up
-        self.save_cache(self.system_cache_file, self.all_systems, 
+        save_cache(self.system_cache_file, self.all_systems, 
                         self.system_cache_expire)
 
 
@@ -662,7 +419,7 @@ For help for a specific command try 'help <cmd>'.
             # check if we were passed a system instead of a name
             id = int(name)
             if id in self.all_systems: return id
-        except:
+        except ValueError:
             pass
 
         # get a set of matching systems to check for duplicate names
@@ -698,7 +455,7 @@ For help for a specific command try 'help <cmd>'.
                 errata.append(item)
 
         self.generate_errata_cache()
-        matches = self.filter_results(self.all_errata, errata)
+        matches = filter_results(self.all_errata, errata)
 
         return matches
 
@@ -737,12 +494,12 @@ For help for a specific command try 'help <cmd>'.
                     id = int(item)
                     name = self.client.system.getName(self.session, id)
                     item = name.get('name')
-                except:
+                except ValueError:
                     pass
 
                 systems.append(item)
         
-        matches = self.filter_results(self.get_system_names(), systems)
+        matches = filter_results(self.get_system_names(), systems)
 
         return matches
 
@@ -787,20 +544,8 @@ For help for a specific command try 'help <cmd>'.
         return [ c.get('label') for c in channels ]   
 
 
-    def print_errata_summary(self, errata):
-        date_parts = errata.get('date').split()
-
-        if len(date_parts) > 1:
-            errata['date'] = date_parts[0]
-
-        print '%s  %s  %s'  % (
-              errata.get('advisory_name').ljust(14),
-              wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50),
-              errata.get('date').rjust(8))
-
-
     def manipulate_child_channels(self, args, remove=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             if remove:
@@ -853,130 +598,15 @@ For help for a specific command try 'help <cmd>'.
                                                 system_id,
                                                 child_channels)
 
+    def user_confirm(self, prompt='Is this ok [y/N]:'):
+        if self.options.yes: return True
 
-    def print_errata_list(self, errata):
-            rhsa = []
-            rhea = []
-            rhba = []
+        answer = prompt_user('\n%s' % prompt)
 
-            for e in errata:
-                if re.match('security', e.get('advisory_type'), re.I):
-                    rhsa.append(e)
-                elif re.match('bug fix', e.get('advisory_type'), re.I):
-                    rhba.append(e)
-                elif re.match('enhancement', e.get('advisory_type'), re.I):
-                    rhea.append(e)
-                else:
-                    logging.warning('%s is an unknown errata type' % (
-                                    e.get('advisory_name')))
-                    continue
-
-            if not len(errata): return
-
-            if len(rhsa):
-                print 'Security Errata:'
-                map(self.print_errata_summary, rhsa)
-
-            if len(rhba):
-                if len(rhsa):
-                    print
-
-                print 'Bug Fix Errata:'
-                map(self.print_errata_summary, rhba)
-
-            if len(rhea):
-                if len(rhsa) or len(rhba):
-                    print
-
-                print 'Enhancement Errata:'
-                map(self.print_errata_summary, rhea)
-
-
-    def print_action_summary(self, action, systems=[]):
-        print 'ID:         %i' % action.get('id')
-        print 'Type:       %s' % action.get('type')
-        print 'Scheduler:  %s' % action.get('scheduler')
-        print 'Start Time: %s' % self.format_time(action.get('earliest').value)
-        print 'Systems:    %i' % len(systems)
-
-
-    #XXX: Bugzilla 608868
-    def print_action_output(self, action):
-        print 'System:    %s' % action.get('server_name')
-        print 'Completed: %s' % self.format_time(action.get('timestamp').value)
-        print 'Output:'
-        print action.get('message')
-        
-
-    def config_channel_order(self, new_channels=[]):
-        all_channels = self.do_configchannel_list('', True)
-
-        while True:
-            print 'Current Selections:'
-            for i in range(len(new_channels)):
-                print '%i. %s' % (i + 1, new_channels[i])
-  
-            print 
-            action = self.prompt_user('a[dd], r[emove], c[lear], d[one]:')
-
-            if re.match('a', action, re.I):
-                print 
-                print 'Available Configuration Channels:'
-                for c in sorted(all_channels):
-                    print c
-
-                print
-                channel = self.prompt_user('Channel:')
-                
-                if channel not in all_channels:
-                    logging.warning('Invalid channel')
-                    continue
-            
-                try:
-                    rank = int(self.prompt_user('New Rank:'))
-
-                    if channel in new_channels:
-                        new_channels.remove(channel)
-
-                    new_channels.insert(rank - 1, channel)
-                except IndexError, ValueError:
-                    logging.warning('Invalid rank')
-                    continue
-            elif re.match('r', action, re.I):
-                channel = self.prompt_user('Channel:')
-
-                if channel not in all_channels:
-                    logging.warning('Invalid channel')
-                    continue
-
-                new_channels.remove(channel)
-            elif re.match('c', action, re.I):
-                print 'Clearing current selections'
-                new_channels = []
-                continue
-            elif re.match('d', action, re.I):
-                break
-
-            print
-
-        return new_channels
-
-
-    def list_locales(self):
-        if not os.path.isdir('/usr/share/zoneinfo'): return []
-
-        zones = []
-
-        for item in os.listdir('/usr/share/zoneinfo'):
-            path = os.path.join('/usr/share/zoneinfo', item)
-
-            if os.path.isdir(path):
-                for subitem in os.listdir(path):
-                    zones.append(os.path.join(item, subitem))
-            else:
-                zones.append(item)
-
-        return zones
+        if re.match('y', answer, re.I):
+            return True
+        else:
+            return False
 
 ####################
 
@@ -984,17 +614,17 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_addpackages: Add packages to an activation key'
         print 'usage: activationkey_addpackages KEY <PACKAGE ...>'
 
-    def complete_activationkey_addpackages(self, text, line, begidx, endidx):
+    def complete_activationkey_addpackages(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return tab_completer(self.do_activationkey_list('', True), 
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(), text)
+            return tab_completer(self.get_package_names(), text)
 
     def do_activationkey_addpackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_addpackages()
@@ -1012,20 +642,20 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_removepackages KEY <PACKAGE ...>'
 
-    def complete_activationkey_removepackages(self, text, line, begidx, endidx):
+    def complete_activationkey_removepackages(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return tab_completer(self.do_activationkey_list('', True), 
                                       text)
         elif len(parts) > 2:
             details = self.client.activationkey.getDetails(self.session, 
                                                            parts[1])
             packages = [ p['name'] for p in details.get('packages') ]
-            return self.tab_completer(packages, text)
+            return tab_completer(packages, text)
 
     def do_activationkey_removepackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_removepackages()
@@ -1042,17 +672,17 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_addgroups: Add groups to an activation key'
         print 'usage: activationkey_addgroups KEY <GROUP ...>'
 
-    def complete_activationkey_addgroups(self, text, line, begidx, endidx):
+    def complete_activationkey_addgroups(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return tab_completer(self.do_activationkey_list('', True), 
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_group_list('', True), text)
+            return tab_completer(self.do_group_list('', True), text)
 
     def do_activationkey_addgroups(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_addgroups()
@@ -1073,11 +703,11 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_removegroups: Remove groups from an activation key'
         print 'usage: activationkey_removegroups KEY <GROUP ...>'
 
-    def complete_activationkey_removegroups(self, text, line, begidx, endidx):
+    def complete_activationkey_removegroups(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return tab_completer(self.do_activationkey_list('', True), 
                                       text)
         elif len(parts) > 2:
             key_details = self.client.activationkey.getDetails(self.session, 
@@ -1089,10 +719,10 @@ For help for a specific command try 'help <cmd>'.
                                                              group)
                 groups.append(details.get('name'))                
 
-            return self.tab_completer(groups, text)
+            return tab_completer(groups, text)
 
     def do_activationkey_removegroups(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_removegroups()
@@ -1114,17 +744,17 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_addentitlements KEY <ENTITLEMENT ...>'
 
-    def complete_activationkey_addentitlements(self, text, line, begidx, endidx):
+    def complete_activationkey_addentitlements(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True),
+            return tab_completer(self.do_activationkey_list('', True),
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(self.ENTITLEMENTS, text)
+            return tab_completer(self.ENTITLEMENTS, text)
 
     def do_activationkey_addentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_addentitlements()
@@ -1144,20 +774,20 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_removeentitlements KEY <ENTITLEMENT ...>'
 
-    def complete_activationkey_removeentitlements(self, text, line, begidx, endidx):
+    def complete_activationkey_removeentitlements(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return tab_completer(self.do_activationkey_list('', True), text)
         elif len(parts) > 2:
             details = \
                 self.client.activationkey.getDetails(self.session, parts[1])
 
             entitlements = details.get('entitlements')
-            return self.tab_completer(entitlements, text)
+            return tab_completer(entitlements, text)
 
     def do_activationkey_removeentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_removeentitlements()
@@ -1177,11 +807,11 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_addchildchannels KEY <CHANNEL ...>'
 
-    def complete_activationkey_addchildchannels(self, text, line, begidx, endidx):
+    def complete_activationkey_addchildchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True),
+            return tab_completer(self.do_activationkey_list('', True),
                                       text)
         elif len(parts) > 2:
             key_details = \
@@ -1201,10 +831,10 @@ For help for a specific command try 'help <cmd>'.
                     if c.get('parent_label') == base_channel:
                         child_channels.append(c.get('label'))
 
-            return self.tab_completer(child_channels, text)
+            return tab_completer(child_channels, text)
 
     def do_activationkey_addchildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_addchildchannels()
@@ -1222,19 +852,19 @@ For help for a specific command try 'help <cmd>'.
               'an activation key'
         print 'usage: activationkey_removechildchannels KEY <CHANNEL ...>'
 
-    def complete_activationkey_removechildchannels(self, text, line, begidx, endidx):
+    def complete_activationkey_removechildchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return tab_completer(self.do_activationkey_list('', True), text)
         elif len(parts) > 2:
             key_details = \
                 self.client.activationkey.getDetails(self.session, parts[1])
 
-            return self.tab_completer(key_details.get('child_channel_labels'), text)
+            return tab_completer(key_details.get('child_channel_labels'), text)
 
     def do_activationkey_removechildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_removechildchannels()
@@ -1254,11 +884,11 @@ For help for a specific command try 'help <cmd>'.
               'for an activation key'
         print 'usage: activationkey_listchildchannels KEY'
 
-    def complete_activationkey_listchildchannels(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listchildchannels(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listchildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listchildchannels()
@@ -1278,11 +908,11 @@ For help for a specific command try 'help <cmd>'.
               'for an activation key'
         print 'usage: activationkey_listbasechannel KEY'
 
-    def complete_activationkey_listbasechannel(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listbasechannel(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listbasechannel(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listbasechannel()
@@ -1301,11 +931,11 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_listgroups KEY'
 
-    def complete_activationkey_listgroups(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listgroups(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listgroups(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listgroups()
@@ -1327,11 +957,11 @@ For help for a specific command try 'help <cmd>'.
               'for an activation key'
         print 'usage: activationkey_listentitlements KEY'
 
-    def complete_activationkey_listentitlements(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listentitlements(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listentitlements()
@@ -1351,11 +981,11 @@ For help for a specific command try 'help <cmd>'.
               'activation key'
         print 'usage: activationkey_listpackages KEY'
 
-    def complete_activationkey_listpackages(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listpackages(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listpackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listpackages()
@@ -1378,11 +1008,11 @@ For help for a specific command try 'help <cmd>'.
               'channels for an activation key'
         print 'usage: activationkey_listconfigchannels KEY'
 
-    def complete_activationkey_listconfigchannels(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listconfigchannels(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listconfigchannels()
@@ -1406,16 +1036,16 @@ For help for a specific command try 'help <cmd>'.
               'to an activation key'
         print 'usage: activationkey_addconfigchannels KEY <CHANNEL ...>'
 
-    def complete_activationkey_addconfigchannels(self, text, line, begidx, endidx):
+    def complete_activationkey_addconfigchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return tab_completer(self.do_activationkey_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_configchannel_list('', True), text)
+            return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_activationkey_addconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_addconfigchannels()
@@ -1424,7 +1054,7 @@ For help for a specific command try 'help <cmd>'.
         key = [ args.pop(0) ]
         channels = args
 
-        answer = self.prompt_user('Add to top or bottom? [T/b]:')
+        answer = prompt_user('Add to top or bottom? [T/b]:')
         if re.match('b', answer, re.I):
             location = False
         else:
@@ -1442,21 +1072,21 @@ For help for a specific command try 'help <cmd>'.
               'from an activation key'
         print 'usage: activationkey_removeconfigchannels KEY <CHANNEL ...>'
 
-    def complete_activationkey_removeconfigchannels(self, text, line, begidx, endidx):
+    def complete_activationkey_removeconfigchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return tab_completer(self.do_activationkey_list('', True), text)
         elif len(parts) > 2:
             key_channels = \
                 self.client.activationkey.listConfigChannels(self.session, 
                                                              parts[1])
 
             config_channels = [c.get('label') for c in key_channels]
-            return self.tab_completer(config_channels, text)
+            return tab_completer(config_channels, text)
 
     def do_activationkey_removeconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_removeconfigchannels()
@@ -1465,7 +1095,9 @@ For help for a specific command try 'help <cmd>'.
         key = [ args.pop(0) ]
         channels = args
 
-        self.client.activationkey.removeConfigChannels(self.session, key, channels)
+        self.client.activationkey.removeConfigChannels(self.session, 
+                                                       key, 
+                                                       channels)
 
 ####################
 
@@ -1474,11 +1106,12 @@ For help for a specific command try 'help <cmd>'.
               'configuration channels'
         print 'usage: activationkey_setconfigchannelorder KEY'
 
-    def complete_activationkey_setconfigchannelorder(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_setconfigchannelorder(self, text, line, beg, 
+                                                     end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_setconfigchannelorder(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_activationkey_setconfigchannelorder()
@@ -1493,7 +1126,8 @@ For help for a specific command try 'help <cmd>'.
         new_channels = [ c.get('label') for c in new_channels ]
 
         # call an interface for the user to make selections
-        new_channels = self.config_channel_order(new_channels)
+        all_channels = self.do_configchannel_list('', True)
+        new_channels = config_channel_order(all_channels, new_channels)
 
         print
         print 'New Configuration Channels:'
@@ -1513,15 +1147,15 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: activationkey_create'
 
     def do_activationkey_create(self, args):
-        name = self.prompt_user('Name (blank to autogenerate):')
-        description = self.prompt_user('Description [None]:')
+        name = prompt_user('Name (blank to autogenerate):')
+        description = prompt_user('Description [None]:')
 
         print
         print 'Base Channels:'
         for c in self.list_base_channels():
             print '  %s' % c
 
-        base_channel = self.prompt_user('Base Channel (blank for default):')
+        base_channel = prompt_user('Base Channel (blank for default):')
 
         entitlements = []
         for e in self.ENTITLEMENTS:
@@ -1548,11 +1182,11 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_delete: Delete an activation key'
         print 'usage: activationkey_delete KEY'
 
-    def complete_activationkey_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_delete(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_delete()
@@ -1591,11 +1225,11 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_listsystems: List systems registered with a key'
         print 'usage: activationkey_listsystems KEY'
 
-    def complete_activationkey_listsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_listsystems(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_listsystems(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_listsystems()
@@ -1622,11 +1256,11 @@ For help for a specific command try 'help <cmd>'.
         print 'activationkey_details: Show the details of an activation key'
         print 'usage: activationkey_details KEY ...'
 
-    def complete_activationkey_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_details(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_details()
@@ -1643,12 +1277,12 @@ For help for a specific command try 'help <cmd>'.
                 # attempt to get configuration channel information
                 try:
                     config_channels = \
-                        self.client.activationkey.listConfigChannels(self.session,
-                                                                     key)
+                        self.client.activationkey.listConfigChannels(\
+                                                   self.session, key)
 
                     config_channel_deploy = \
-                        self.client.activationkey.checkConfigDeployment(self.session,
-                                                                        key)
+                        self.client.activationkey.checkConfigDeployment(\
+                                                      self.session, key)
                 except:
                     config_channels = []
                     config_channel_deploy = 0
@@ -1716,14 +1350,16 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_enableconfigdeployment(self):
-        print 'activationkey_enableconfigdeployment: Enable config channel deployment'
+        print 'activationkey_enableconfigdeployment: Enable config ' + \
+              'channel deployment'
         print 'usage: activationkey_enableconfigdeployment KEY'
 
-    def complete_activationkey_enableconfigdeployment(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_enableconfigdeployment(self, text, line, beg, 
+                                                      end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_enableconfigdeployment(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_enableconfigdeployment()
@@ -1736,14 +1372,16 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_disableconfigdeployment(self):
-        print 'activationkey_disableconfigdeployment: Disable config channel deployment'
+        print 'activationkey_disableconfigdeployment: Disable config ' + \
+              'channel deployment'
         print 'usage: activationkey_disableconfigdeployment KEY'
     
-    def complete_activationkey_disableconfigdeployment(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_disableconfigdeployment(self, text, line, beg, 
+                                                       end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_disableconfigdeployment(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_disableconfigdeployment()
@@ -1756,19 +1394,20 @@ For help for a specific command try 'help <cmd>'.
 ####################
 
     def help_activationkey_setbasechannel(self):
-        print 'activationkey_setbasechannel: Set the base channel of an activation key'
+        print 'activationkey_setbasechannel: Set the base channel of an ' + \
+              'activation key'
         print 'usage: activationkey_setbasechannel KEY CHANNEL'
 
-    def complete_activationkey_setbasechannel(self, text, line, begidx, endidx):
+    def complete_activationkey_setbasechannel(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_activationkey_list('', True), text)
+            return tab_completer(self.do_activationkey_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.list_base_channels(), text)
+            return tab_completer(self.list_base_channels(), text)
 
     def do_activationkey_setbasechannel(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_activationkey_setbasechannel()
@@ -1783,7 +1422,8 @@ For help for a specific command try 'help <cmd>'.
         details = { 'description' : current_details.get('description'),
                     'base_channel_label' : channel,
                     'usage_limit' : current_details.get('usage_limit'),
-                    'universal_default' : current_details.get('universal_default') }
+                    'universal_default' : \
+                    current_details.get('universal_default') }
 
         self.client.activationkey.setDetails(self.session, key, details)
 
@@ -1794,11 +1434,11 @@ For help for a specific command try 'help <cmd>'.
               'universal default'
         print 'usage: activationkey_setuniversaldefault KEY'
 
-    def complete_activationkey_setuniversaldefault(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_activationkey_list('', True), text)
+    def complete_activationkey_setuniversaldefault(self, text, line, beg, end):
+        return tab_completer(self.do_activationkey_list('', True), text)
 
     def do_activationkey_setuniversaldefault(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_activationkey_setuniversaldefault()
@@ -1810,7 +1450,8 @@ For help for a specific command try 'help <cmd>'.
                                                                key)
 
         details = { 'description' : current_details.get('description'),
-                    'base_channel_label' : current_details.get('base_channel_label'),
+                    'base_channel_label' : \
+                                      current_details.get('base_channel_label'),
                     'usage_limit' : current_details.get('usage_limit'),
                     'universal_default' : True }
 
@@ -1860,15 +1501,15 @@ For help for a specific command try 'help <cmd>'.
         print '                           configuration channel'
         print 'usage: configchannel_listsystems CHANNEL'
 
-    def complete_configchannel_listsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_configchannel_list('', True), text)
+    def complete_configchannel_listsystems(self, text, line, beg, end):
+        return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_configchannel_listsystems(self, args):
         #XXX: Bugzilla 584852
         print 'configchannel.listSubscribedSystems is not implemented'
         return
 
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_configchannel_listsystems()
@@ -1889,11 +1530,11 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_listfiles: List the files in a config channel'
         print 'usage: configchannel_listfiles CHANNEL ...'
 
-    def complete_configchannel_listfiles(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_configchannel_list('', True), text)
+    def complete_configchannel_listfiles(self, text, line, beg, end):
+        return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_configchannel_listfiles(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_configchannel_listfiles()
@@ -1917,20 +1558,20 @@ For help for a specific command try 'help <cmd>'.
         print '                                in a configuration channel'
         print 'usage: configchannel_filedetails CHANNEL <FILE ...>'
 
-    def complete_configchannel_filedetails(self, text, line, begidx, endidx):
+    def complete_configchannel_filedetails(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_configchannel_list('', True),
+            return tab_completer(self.do_configchannel_list('', True),
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(\
+            return tab_completer(\
                 self.do_configchannel_listfiles(parts[1], True), text)
         else:
             return []
 
     def do_configchannel_filedetails(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_configchannel_filedetails()
@@ -1960,8 +1601,8 @@ For help for a specific command try 'help <cmd>'.
             print 'File:     %s' % file.get('path')
             print 'Type:     %s' % file.get('type')
             print 'Revision: %s' % str(file.get('revision'))
-            print 'Created:  %s' % self.format_time(file.get('creation').value)
-            print 'Modified: %s' % self.format_time(file.get('modified').value)
+            print 'Created:  %s' % format_time(file.get('creation').value)
+            print 'Modified: %s' % format_time(file.get('modified').value)
 
             print
             print 'Owner:    %s' % file.get('owner')
@@ -1983,11 +1624,11 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_details: Show the details of a config channel'
         print 'usage: configchannel_details CHANNEL ...'
 
-    def complete_configchannel_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_configchannel_list('', True), text)
+    def complete_configchannel_details(self, text, line, beg, end):
+        return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_configchannel_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_configchannel_details()
@@ -2021,7 +1662,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: configchannel_create [NAME] [DESCRIPTION]'
 
     def do_configchannel_create(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) > 0:
             name = args[0]
@@ -2029,12 +1670,12 @@ For help for a specific command try 'help <cmd>'.
             name = ''
 
         while name == '':
-            name = self.prompt_user('Name:')
+            name = prompt_user('Name:')
 
         if len(args) > 1:
             description = ' '.join(args[1:])
         else:
-            description = self.prompt_user('Description:')
+            description = prompt_user('Description:')
 
         if description == '':
             description = name
@@ -2050,11 +1691,11 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_delete: Delete a configuration channel'
         print 'usage: configchannel_delete CHANNEL ...'
 
-    def complete_configchannel_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_configchannel_list('', True), text)
+    def complete_configchannel_delete(self, text, line, beg, end):
+        return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_configchannel_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_configchannel_delete()
@@ -2071,11 +1712,11 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_addfile: Create a configuration file'
         print 'usage: configchannel_addfile CHANNEL'
 
-    def complete_configchannel_addfile(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_configchannel_list('', True), text)
+    def complete_configchannel_addfile(self, text, line, beg, end):
+        return tab_completer(self.do_configchannel_list('', True), text)
 
     def do_configchannel_addfile(self, args, path=''):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_configchannel_addfile()
@@ -2084,17 +1725,17 @@ For help for a specific command try 'help <cmd>'.
         channel = args[0]
        
         while path == '':
-            path = self.prompt_user('Path:')
+            path = prompt_user('Path:')
         
-        input = self.prompt_user('Directory [y/N]:')
+        input = prompt_user('Directory [y/N]:')
         if re.match('y', input, re.I):
             directory = True
         else:
             directory = False
 
-        owner = self.prompt_user('Owner [root]:')
-        group = self.prompt_user('Group [root]:')
-        mode  = self.prompt_user('Permissions [644]:')
+        owner = prompt_user('Owner [root]:')
+        group = prompt_user('Group [root]:')
+        mode  = prompt_user('Permissions [644]:')
         
         # defaults
         if not owner: owner = 'root'
@@ -2108,20 +1749,20 @@ For help for a specific command try 'help <cmd>'.
 
             #XXX: Bugzilla 606982
             # Satellite doesn't pick up on the base64 encoded string
-            #type = self.prompt_user('Text or binary [T/b]:')
+            #type = prompt_user('Text or binary [T/b]:')
             
             if re.match('b', type, re.I):
                 binary = True
 
                 contents = ''
                 while contents == '':
-                    file = self.prompt_user('File:')
+                    file = prompt_user('File:')
 
                     try:
                         handle = open(file, 'rb')
                         contents = handle.read().encode('base64')
                         handle.close()
-                    except:
+                    except IOError:
                         contents = ''
                         logging.warning('Could not read %s' % file)
             else:
@@ -2146,7 +1787,7 @@ For help for a specific command try 'help <cmd>'.
                 except:
                     logging.warning('Could not retrieve existing contents')
 
-                contents = self.editor(template = template, delete = True)
+                contents = editor(template = template, delete = True)
 
         file_info = { 'contents'    : ''.join(contents),
                       'owner'       : owner,
@@ -2180,20 +1821,20 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_updatefile: Update a configuration file'
         print 'usage: configchannel_updatefile CHANNEL FILE'
 
-    def complete_configchannel_updatefile(self, text, line, begidx, endidx):
+    def complete_configchannel_updatefile(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_configchannel_list('', True), 
+            return tab_completer(self.do_configchannel_list('', True), 
                                       text)
         elif len(parts) > 2:
             channel = parts[1]
-            return self.tab_completer(self.do_configchannel_listfiles(channel,
+            return tab_completer(self.do_configchannel_listfiles(channel,
                                                                       True), 
                                       text)
 
     def do_configchannel_updatefile(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
         
         if len(args) != 2:
             self.help_configchannel_updatefile()
@@ -2207,20 +1848,20 @@ For help for a specific command try 'help <cmd>'.
         print 'configchannel_removefile: Remove configuration files'
         print 'usage: configchannel_removefile CHANNEL <FILE ...>'
 
-    def complete_configchannel_removefiles(self, text, line, begidx, endidx):
+    def complete_configchannel_removefiles(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_configchannel_list('', True), 
+            return tab_completer(self.do_configchannel_list('', True), 
                                       text)
         elif len(parts) > 2:
             channel = parts[1]
-            return self.tab_completer(self.do_configchannel_listfiles(channel,
+            return tab_completer(self.do_configchannel_listfiles(channel,
                                                                       True), 
                                       text)
 
     def do_configchannel_removefiles(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
         
         if len(args) < 2:
             self.help_configchannel_removefiles()
@@ -2241,7 +1882,7 @@ For help for a specific command try 'help <cmd>'.
     def do_cryptokey_create(self, args):
         key_type = ''
         while not re.match('GPG|SSL', key_type):
-            key_type = self.prompt_user('GPG or SSL [G/S]:')
+            key_type = prompt_user('GPG or SSL [G/S]:')
            
             if re.match('G', key_type, re.I):
                 key_type = 'GPG'
@@ -2253,9 +1894,9 @@ For help for a specific command try 'help <cmd>'.
 
         description = ''
         while description == '':
-            description = self.prompt_user('Description:')
+            description = prompt_user('Description:')
 
-        content = self.editor(delete=True)
+        content = editor(delete=True)
 
         self.client.kickstart.keys.create(self.session,
                                           description,
@@ -2268,13 +1909,13 @@ For help for a specific command try 'help <cmd>'.
         print 'cryptokey_delete: Delete a cryptographic key'
         print 'usage: cryptokey_delete NAME'
 
-    def complete_cryptokey_delete(self, text, line, begidx, endidx):
+    def complete_cryptokey_delete(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_cryptokey_list('', True), 
+            return tab_completer(self.do_cryptokey_list('', True), 
                                       text)
 
     def do_cryptokey_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_cryptokey_delete()
@@ -2307,11 +1948,11 @@ For help for a specific command try 'help <cmd>'.
         print 'cryptokey_details: Show the contents of a cryptographic key'
         print 'usage: cryptokey_details KEY ...'
 
-    def complete_cryptokey_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_cryptokey_list('', True), text)
+    def complete_cryptokey_details(self, text, line, beg, end):
+        return tab_completer(self.do_cryptokey_list('', True), text)
 
     def do_cryptokey_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_cryptokey_details()
@@ -2343,7 +1984,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
 
     def do_custominfo_createkey(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) > 0:
             key = args[0]
@@ -2351,12 +1992,12 @@ For help for a specific command try 'help <cmd>'.
             key = ''
 
         while key == '':
-            key = self.prompt_user('Name:')
+            key = prompt_user('Name:')
 
         if len(args) > 1:
             description = ' '.join(args[1:])
         else:
-            description = self.prompt_user('Description:')
+            description = prompt_user('Description:')
             if description == '':
                 description = key
 
@@ -2370,11 +2011,11 @@ For help for a specific command try 'help <cmd>'.
         print 'custominfo_deletekey: Delete a custom key'
         print 'usage: custominfo_deletekey KEY ...'
 
-    def complete_custominfo_deletekey(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_custominfo_listkeys('', True), text)
+    def complete_custominfo_deletekey(self, text, line, beg, end):
+        return tab_completer(self.do_custominfo_listkeys('', True), text)
 
     def do_custominfo_deletekey(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_custominfo_deletekey()
@@ -2407,11 +2048,11 @@ For help for a specific command try 'help <cmd>'.
         print 'custominfo_details: Show the details of a custom key'
         print 'usage: custominfo_details KEY ...'
 
-    def complete_custominfo_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_custominfo_listkeys('', True), text)
+    def complete_custominfo_details(self, text, line, beg, end):
+        return tab_completer(self.do_custominfo_listkeys('', True), text)
 
     def do_custominfo_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_custominfo_details()
@@ -2431,7 +2072,8 @@ For help for a specific command try 'help <cmd>'.
 
             print 'Label:        %s' % details.get('label')
             print 'Description:  %s' % details.get('description')
-            print 'Modified:     %s' % self.format_time(details.get('last_modified').value)
+            print 'Modified:     %s' % \
+                                 format_time(details.get('last_modified').value)
             print 'System Count: %i' % details.get('system_count')
 
 ####################
@@ -2441,9 +2083,9 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: distribution_create'
 
     def do_distribution_create(self, args):
-        name = self.prompt_user('Label:')
+        name = prompt_user('Label:')
 
-        base_path = self.prompt_user('Path to Kickstart Tree:')
+        base_path = prompt_user('Path to Kickstart Tree:')
 
         base_channel = ''
         while base_channel == '':
@@ -2452,7 +2094,7 @@ For help for a specific command try 'help <cmd>'.
             for c in self.list_base_channels():
                 print '  %s' % c
 
-            base_channel = self.prompt_user('Base Channel:')
+            base_channel = prompt_user('Base Channel:')
 
             if base_channel not in self.list_base_channels():
                 logging.warning('Invalid channel label')
@@ -2470,7 +2112,7 @@ For help for a specific command try 'help <cmd>'.
             for t in install_types:
                 print '  %s' % t
 
-            install_type = self.prompt_user('Install Type:')
+            install_type = prompt_user('Install Type:')
     
             if install_type not in install_types:
                 logging.warning('Invalid install type')
@@ -2513,13 +2155,13 @@ For help for a specific command try 'help <cmd>'.
         print 'distribution_delete: Delete a Kickstart tree'
         print 'usage: distribution_delete LABEL'
 
-    def complete_distribution_delete(self, text, line, begidx, endidx):
+    def complete_distribution_delete(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_distribution_list('', True), 
+            return tab_completer(self.do_distribution_list('', True), 
                                       text)
 
     def do_distribution_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_distribution_delete()
@@ -2536,11 +2178,11 @@ For help for a specific command try 'help <cmd>'.
         print 'distribution_details: Show the details of a Kickstart tree'
         print 'usage: distribution_details LABEL'
 
-    def complete_distribution_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_distribution_list('', True), text)
+    def complete_distribution_details(self, text, line, beg, end):
+        return tab_completer(self.do_distribution_list('', True), text)
 
     def do_distribution_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_distribution_details()
@@ -2564,13 +2206,13 @@ For help for a specific command try 'help <cmd>'.
         print 'distribution_rename: Rename a Kickstart tree'
         print 'usage: distribution_rename OLDNAME NEWNAME'
 
-    def complete_distribution_rename(self, text, line, begidx, endidx):
+    def complete_distribution_rename(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_distribution_list('', True), 
+            return tab_completer(self.do_distribution_list('', True), 
                                       text)
 
     def do_distribution_rename(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_distribution_rename()
@@ -2587,13 +2229,13 @@ For help for a specific command try 'help <cmd>'.
         print 'distribution_update: Update the path of a Kickstart tree'
         print 'usage: distribution_update LABEL'
     
-    def complete_distribution_update(self, text, line, begidx, endidx):
+    def complete_distribution_update(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_distribution_list('', True), 
+            return tab_completer(self.do_distribution_list('', True), 
                                       text)
 
     def do_distribution_update(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_distribution_update()
@@ -2601,7 +2243,7 @@ For help for a specific command try 'help <cmd>'.
 
         label = args[0]
 
-        base_path = self.prompt_user('Path to Kickstart Tree:')
+        base_path = prompt_user('Path to Kickstart Tree:')
 
         base_channel = ''
         while base_channel == '':
@@ -2610,7 +2252,7 @@ For help for a specific command try 'help <cmd>'.
             for c in self.list_base_channels():
                 print '  %s' % c
 
-            base_channel = self.prompt_user('Base Channel:')
+            base_channel = prompt_user('Base Channel:')
 
             if base_channel not in self.list_base_channels():
                 logging.warning('Invalid channel label')
@@ -2628,7 +2270,7 @@ For help for a specific command try 'help <cmd>'.
             for t in install_types:
                 print '  %s' % t
 
-            install_type = self.prompt_user('Install Type:')
+            install_type = prompt_user('Install Type:')
     
             if install_type not in install_types:
                 logging.warning('Invalid install type')
@@ -2661,11 +2303,11 @@ For help for a specific command try 'help <cmd>'.
         print 'errata_apply: Apply an errata to all affected systems' 
         print 'usage: errata_apply ERRATA|search:XXX ...'
 
-    def complete_errata_apply(self, text, line, begidx, endidx):
+    def complete_errata_apply(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
     def do_errata_apply(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_errata_apply()
@@ -2741,11 +2383,11 @@ For help for a specific command try 'help <cmd>'.
               'errata'
         print 'usage: errata_listaffectedsystems ERRATA|search:XXX ...'
 
-    def complete_errata_listaffectedsystems(self, text, line, begidx, endidx):
+    def complete_errata_listaffectedsystems(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
     def do_errata_listaffectedsystems(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_errata_listaffectedsystems()
@@ -2773,11 +2415,11 @@ For help for a specific command try 'help <cmd>'.
         print 'errata_details: Show the details of an errata'
         print 'usage: errata_details ERRATA|search:XXX ...'
     
-    def complete_errata_details(self, text, line, begidx, endidx):
+    def complete_errata_details(self, text, line, beg, end):
         return self.tab_complete_errata(text)
 
     def do_errata_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_errata_details()
@@ -2832,7 +2474,7 @@ For help for a specific command try 'help <cmd>'.
             print '\n'.join(sorted([c.get('label') for c in channels]))
             print
             print 'Affected Packages:'
-            print '\n'.join(sorted(self.build_package_names(packages)))
+            print '\n'.join(sorted(build_package_names(packages)))
 
 
 ####################
@@ -2845,11 +2487,11 @@ For help for a specific command try 'help <cmd>'.
         print '> errata_search CVE-2009:1674'
         print '> errata_search RHSA-2009:1674'
 
-    def complete_errata_search(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_errata_list('', True), text)
+    def complete_errata_search(self, text, line, beg, end):
+        return tab_completer(self.do_errata_list('', True), text)
 
     def do_errata_search(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_errata_search()
@@ -2886,7 +2528,7 @@ For help for a specific command try 'help <cmd>'.
                 if doreturn:
                     return [ e['advisory_name'] for e in errata ]
                 else:
-                    map(self.print_errata_summary, sorted(errata, reverse=True))
+                    map(print_errata_summary, sorted(errata, reverse=True))
             else:
                 return []
 
@@ -2915,12 +2557,12 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: filepreservation_create [NAME] [FILE ...]'
 
     def do_filepreservation_create(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args):
             name = args[0]
         else:
-            name = self.prompt_user('Name:', noblank=True)
+            name = prompt_user('Name:', noblank=True)
 
         if len(args) > 1:
             files = args[1:]
@@ -2932,7 +2574,7 @@ For help for a specific command try 'help <cmd>'.
                 print '\n'.join(sorted(files))
                 print
 
-                input = self.prompt_user('File [blank to finish]:')
+                input = prompt_user('File [blank to finish]:')
 
                 if input == '':
                     break
@@ -2956,11 +2598,11 @@ For help for a specific command try 'help <cmd>'.
         print 'filepreservation_delete: Delete a file preservation list'
         print 'usage: filepreservation_delete NAME'
 
-    def complete_filepreservation_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_filepreservation_list('', True), text)
+    def complete_filepreservation_delete(self, text, line, beg, end):
+        return tab_completer(self.do_filepreservation_list('', True), text)
 
     def do_filepreservation_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_filepreservation_delete()
@@ -2979,11 +2621,11 @@ For help for a specific command try 'help <cmd>'.
               'preservation list'
         print 'usage: filepreservation_details NAME'
 
-    def complete_filepreservation_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_filepreservation_list('', True), text)
+    def complete_filepreservation_details(self, text, line, beg, end):
+        return tab_completer(self.do_filepreservation_list('', True), text)
 
     def do_filepreservation_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_filepreservation_details()
@@ -3059,16 +2701,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_group_addsystems(self, text, line, begidx, endidx):
+    def complete_group_addsystems(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_group_list('', True), text)
+            return tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
             return self.tab_complete_systems(parts[1])
 
     def do_group_addsystems(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_group_addsystems()
@@ -3101,16 +2743,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_group_removesystems(self, text, line, begidx, endidx):
+    def complete_group_removesystems(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_group_list('', True), text)
+            return tab_completer(self.do_group_list('', True), text)
         elif len(parts) > 2:
             return self.tab_complete_systems(parts[1])
 
     def do_group_removesystems(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_group_removesystems()
@@ -3147,17 +2789,17 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: group_create [NAME] [DESCRIPTION]'
 
     def do_group_create(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) > 0:
             name = args[0]
         else:
-            name = self.prompt_user('Name:')
+            name = prompt_user('Name:')
 
         if len(args) > 1:
             description = ' '.join(args[1:])
         else:
-            description = self.prompt_user('Description:')
+            description = prompt_user('Description:')
 
         group = self.client.systemgroup.create(self.session, name, description)
 
@@ -3167,11 +2809,11 @@ For help for a specific command try 'help <cmd>'.
         print 'group_delete: Delete a system group'
         print 'usage: group_delete NAME ...'
 
-    def complete_group_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_group_list('', True), text)
+    def complete_group_delete(self, text, line, beg, end):
+        return tab_completer(self.do_group_list('', True), text)
 
     def do_group_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_group_delete()
@@ -3207,11 +2849,11 @@ For help for a specific command try 'help <cmd>'.
         print 'group_listsystems: List the members of a group'
         print 'usage: group_listsystems GROUP'
 
-    def complete_group_listsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_group_list('', True), text)
+    def complete_group_listsystems(self, text, line, beg, end):
+        return tab_completer(self.do_group_list('', True), text)
 
     def do_group_listsystems(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_group_listsystems()
@@ -3240,11 +2882,11 @@ For help for a specific command try 'help <cmd>'.
         print 'group_details: Show the details of a system group'
         print 'usage: group_details GROUP ...'
 
-    def complete_group_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_group_list('', True), text)
+    def complete_group_details(self, text, line, beg, end):
+        return tab_completer(self.do_group_list('', True), text)
 
     def do_group_details(self, args, short=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_group_details()
@@ -3317,18 +2959,18 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: kickstart_create [PROFILE]'
 
     def do_kickstart_create(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args):
             name = args[0]
         else:
-            name = self.prompt_user('Name:', noblank = True)
+            name = prompt_user('Name:', noblank = True)
 
         print 'Virtualization Types:'
         print '\n'.join(sorted(self.VIRT_TYPES))
         print
 
-        virt = self.prompt_user('Virtualization Type [none]:')
+        virt = prompt_user('Virtualization Type [none]:')
         if virt == '' or virt not in self.VIRT_TYPES:
             virt = 'none'
 
@@ -3340,7 +2982,7 @@ For help for a specific command try 'help <cmd>'.
             print '\n'.join(sorted(trees))
             print
 
-            tree = self.prompt_user('Select:')
+            tree = prompt_user('Select:')
 
         password = ''
         while password == '':
@@ -3371,12 +3013,12 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_delete: Delete a Kickstart profile'
         print 'usage: kickstart_delete PROFILE'
 
-    def complete_kickstart_delete(self, text, line, begidx, endidx):
+    def complete_kickstart_delete(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_kickstart_delete()
@@ -3394,7 +3036,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: kickstart_import PROFILE FILE'
 
     def do_kickstart_import(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_import()
@@ -3407,7 +3049,7 @@ For help for a specific command try 'help <cmd>'.
         print '\n'.join(sorted(self.VIRT_TYPES))
         print
 
-        virt = self.prompt_user('Virtualization Type [none]:')
+        virt = prompt_user('Virtualization Type [none]:')
         if virt == '' or virt not in self.VIRT_TYPES:
             virt = 'none'
 
@@ -3419,7 +3061,7 @@ For help for a specific command try 'help <cmd>'.
             print '\n'.join(sorted(trees))
             print
 
-            tree = self.prompt_user('Select:')
+            tree = prompt_user('Select:')
 
         if not os.path.isfile(file):
             logging.error("Couldn't read %s" % file)
@@ -3430,7 +3072,7 @@ For help for a specific command try 'help <cmd>'.
             ksfile = open(file, 'r')
             contents = ksfile.read()
             ksfile.close()
-        except:
+        except IOError:
             logging.error("Couldn't read %s" % file)
             return 
 
@@ -3450,12 +3092,12 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_details: Show the details of a Kickstart profile'
         print 'usage: kickstart_details PROFILE'
 
-    def complete_kickstart_details(self, text, line, begidx, endidx):
+    def complete_kickstart_details(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_kickstart_details()
@@ -3622,11 +3264,11 @@ For help for a specific command try 'help <cmd>'.
         print '                   as they would be presented to a client'
         print 'usage: kickstart_getfile LABEL'
 
-    def complete_kickstart_getfile(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_kickstart_list('', True), text)
+    def complete_kickstart_getfile(self, text, line, beg, end):
+        return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_getfile(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         url = 'http://%s/ks/cfg/label/%s' %(self.server, args[0])
 
@@ -3660,12 +3302,12 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_rename: Rename a Kickstart profile'
         print 'usage: kickstart_rename OLDNAME NEWNAME'
 
-    def complete_kickstart_rename(self, text, line, begidx, endidx):
+    def complete_kickstart_rename(self, text, line, beg, end):
         if len(line.split(' ')) <= 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_rename(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_kickstart_rename()
@@ -3683,14 +3325,14 @@ For help for a specific command try 'help <cmd>'.
               'with a Kickstart profile'
         print 'usage: kickstart_listcryptokeys PROFILE'
     
-    def complete_kickstart_listcryptokeys(self, text, line, begidx, endidx):
+    def complete_kickstart_listcryptokeys(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listcryptokeys(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listcryptokeys()
@@ -3714,16 +3356,16 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_addcryptokeys: Add crypto keys to a Kickstart profile'
         print 'usage: kickstart_addcryptokeys PROFILE <KEY ...>'
 
-    def complete_kickstart_addcryptokeys(self, text, line, begidx, endidx):
+    def complete_kickstart_addcryptokeys(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_cryptokey_list('', True), text)
+            return tab_completer(self.do_cryptokey_list('', True), text)
 
     def do_kickstart_addcryptokeys(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_addcryptokeys()
@@ -3743,11 +3385,11 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_removecryptokeys PROFILE <KEY ...>'
 
-    def complete_kickstart_removecryptokeys(self, text, line, begidx, endidx):
+    def complete_kickstart_removecryptokeys(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             # only tab complete keys currently assigned to the profile
             try:
@@ -3755,10 +3397,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 keys = []
 
-            return self.tab_completer(keys, text)
+            return tab_completer(keys, text)
 
     def do_kickstart_removecryptokeys(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removecryptokeys()
@@ -3778,14 +3420,14 @@ For help for a specific command try 'help <cmd>'.
               'associated with a Kickstart profile'
         print 'usage: kickstart_listactivationkeys PROFILE'
     
-    def complete_kickstart_listactivationkeys(self, text, line, begidx, endidx):
+    def complete_kickstart_listactivationkeys(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listactivationkeys(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listactivationkeys()
@@ -3812,17 +3454,17 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_addactivationkeys PROFILE <KEY ...>'
 
-    def complete_kickstart_addactivationkeys(self, text, line, begidx, endidx):
+    def complete_kickstart_addactivationkeys(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_activationkey_list('', True), 
+            return tab_completer(self.do_activationkey_list('', True), 
                                       text)
 
     def do_kickstart_addactivationkeys(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_addactivationkeys()
@@ -3843,12 +3485,12 @@ For help for a specific command try 'help <cmd>'.
               'a Kickstart profile'
         print 'usage: kickstart_removeactivationkeys PROFILE <KEY ...>'
 
-    def complete_kickstart_removeactivationkeys(self, text, line, begidx, 
-                                                endidx):
+    def complete_kickstart_removeactivationkeys(self, text, line, beg, 
+                                                end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             # only tab complete keys currently assigned to the profile
             try:
@@ -3856,10 +3498,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 keys = []
 
-            return self.tab_completer(keys, text)
+            return tab_completer(keys, text)
 
     def do_kickstart_removeactivationkeys(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removeactivationkeys()
@@ -3882,15 +3524,15 @@ For help for a specific command try 'help <cmd>'.
               'management on a Kickstart profile'
         print 'usage: kickstart_enableconfigmanagement PROFILE'
 
-    def complete_kickstart_enableconfigmanagement(self, text, line, begidx, 
-                                                  endidx):
+    def complete_kickstart_enableconfigmanagement(self, text, line, beg, 
+                                                  end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_enableconfigmanagement(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_enableconfigmanagement()
@@ -3908,15 +3550,15 @@ For help for a specific command try 'help <cmd>'.
               'management on a Kickstart profile'
         print 'usage: kickstart_disableconfigmanagement PROFILE'
 
-    def complete_kickstart_disableconfigmanagement(self, text, line, begidx, 
-                                                   endidx):
+    def complete_kickstart_disableconfigmanagement(self, text, line, beg, 
+                                                   end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_disableconfigmanagement(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_disableconfigmanagement()
@@ -3934,15 +3576,15 @@ For help for a specific command try 'help <cmd>'.
               'on a Kickstart profile'
         print 'usage: kickstart_enableremotecommands PROFILE'
 
-    def complete_kickstart_enableremotecommands(self, text, line, begidx, 
-                                                endidx):
+    def complete_kickstart_enableremotecommands(self, text, line, beg, 
+                                                end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_enableremotecommands(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_enableremotecommands()
@@ -3960,14 +3602,14 @@ For help for a specific command try 'help <cmd>'.
               'on a Kickstart profile'
         print 'usage: kickstart_disableremotecommands PROFILE'
 
-    def complete_kickstart_disableremotecommands(self, text, line, begidx, endidx):
+    def complete_kickstart_disableremotecommands(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_disableremotecommands(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_disableremotecommands()
@@ -3984,16 +3626,16 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_setlocale: Set the locale for a Kickstart profile'
         print 'usage: kickstart_setlocale PROFILE LOCALE'
 
-    def complete_kickstart_setlocale(self, text, line, begidx, endidx):
+    def complete_kickstart_setlocale(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) == 3:
-            return self.tab_completer(self.list_locales(), text)
+            return tab_completer(list_locales(), text)
 
     def do_kickstart_setlocale(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_kickstart_setlocale()
@@ -4017,17 +3659,17 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_setselinux PROFILE MODE'
 
-    def complete_kickstart_setselinux(self, text, line, begidx, endidx):
+    def complete_kickstart_setselinux(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) == 3:
             modes = ['enforcing', 'permissive', 'disabled']
-            return self.tab_completer(modes, text)
+            return tab_completer(modes, text)
 
     def do_kickstart_setselinux(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_kickstart_setselinux()
@@ -4047,14 +3689,14 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_setpartitions PROFILE'
 
-    def complete_kickstart_setpartitions(self, text, line, begidx, endidx):
+    def complete_kickstart_setpartitions(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_setpartitions(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_setpartitions()
@@ -4072,7 +3714,7 @@ For help for a specific command try 'help <cmd>'.
         except:
             template = ''
 
-        (partitions, ignore) = self.editor(template=template, delete=True)
+        (partitions, ignore) = editor(template=template, delete=True)
 
         print partitions
         if not self.user_confirm(): return
@@ -4090,16 +3732,16 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_setdistribution PROFILE DISTRIBUTION'
 
-    def complete_kickstart_setdistribution(self, text, line, begidx, endidx):
+    def complete_kickstart_setdistribution(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) == 3:
-            return self.tab_completer(self.do_distribution_list('', True), text)
+            return tab_completer(self.do_distribution_list('', True), text)
 
     def do_kickstart_setdistribution(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_kickstart_setdistribution()
@@ -4118,14 +3760,14 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_enablelogging: Enable logging for a Kickstart profile'
         print 'usage: kickstart_enablelogging PROFILE'
 
-    def complete_kickstart_enablelogging(self, text, line, begidx, endidx):
+    def complete_kickstart_enablelogging(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_enablelogging(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_enablelogging()
@@ -4144,14 +3786,14 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_addvariable: Add a variable to a Kickstart profile'
         print 'usage: kickstart_addvariable PROFILE KEY VALUE'
 
-    def complete_kickstart_addvariable(self, text, line, begidx, endidx):
+    def complete_kickstart_addvariable(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_addvariable(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 3:
             self.help_kickstart_addvariable()
@@ -4177,11 +3819,11 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_updatevariable PROFILE KEY VALUE'
 
-    def complete_kickstart_updatevariable(self, text, line, begidx, endidx):
+    def complete_kickstart_updatevariable(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             variables = []
             try:
@@ -4191,10 +3833,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 pass
 
-            return self.tab_completer(variables.keys(), text)
+            return tab_completer(variables.keys(), text)
 
     def do_kickstart_updatevariable(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 3:
             self.help_kickstart_updatevariable()
@@ -4209,11 +3851,11 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_removevariables PROFILE <KEY ...>'
 
-    def complete_kickstart_removevariables(self, text, line, begidx, endidx):
+    def complete_kickstart_removevariables(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             variables = []
             try:
@@ -4223,10 +3865,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 pass
 
-            return self.tab_completer(variables.keys(), text)
+            return tab_completer(variables.keys(), text)
 
     def do_kickstart_removevariables(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removevariables()
@@ -4253,14 +3895,14 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_listvariables PROFILE'
 
-    def complete_kickstart_listvariables(self, text, line, begidx, endidx):
+    def complete_kickstart_listvariables(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listvariables(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listvariables()
@@ -4280,16 +3922,16 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_addoption: Set an option for a Kickstart profile'
         print 'usage: kickstart_addoption PROFILE KEY [VALUE]'
 
-    def complete_kickstart_addoption(self, text, line, begidx, endidx):
+    def complete_kickstart_addoption(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) == 3:
-            return self.tab_completer(sorted(self.KICKSTART_OPTIONS), text)
+            return tab_completer(sorted(self.KICKSTART_OPTIONS), text)
 
     def do_kickstart_addoption(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_addoption()
@@ -4330,11 +3972,11 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_removeoptions: Remove options from a Kickstart profile'
         print 'usage: kickstart_removeoptions PROFILE <OPTION ...>'
 
-    def complete_kickstart_removeoptions(self, text, line, begidx, endidx):
+    def complete_kickstart_removeoptions(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             try:
                 options = self.client.kickstart.profile.getAdvancedOptions(\
@@ -4344,10 +3986,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 options = self.KICKSTART_OPTIONS
 
-            return self.tab_completer(sorted(options), text)
+            return tab_completer(sorted(options), text)
 
     def do_kickstart_removeoptions(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removeoptions()
@@ -4377,14 +4019,14 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_listoptions PROFILE'
 
-    def complete_kickstart_listoptions(self, text, line, begidx, endidx):
+    def complete_kickstart_listoptions(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listoptions(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listoptions()
@@ -4406,14 +4048,14 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_listcustomoptions PROFILE'
 
-    def complete_kickstart_listcustomoptions(self, text, line, begidx, endidx):
+    def complete_kickstart_listcustomoptions(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listcustomoptions(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listcustomoptions()
@@ -4435,14 +4077,14 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_setcustomoptions PROFILE'
 
-    def complete_kickstart_setcustomoptions(self, text, line, begidx, endidx):
+    def complete_kickstart_setcustomoptions(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_setcustomoptions(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_setcustomoptions()
@@ -4462,7 +4104,7 @@ For help for a specific command try 'help <cmd>'.
         old_options = '\n'.join(old_options)
 
         # let the user edit the custom options
-        (new_options, ignore) = self.editor(template = old_options, 
+        (new_options, ignore) = editor(template = old_options, 
                                             delete = True)
 
         new_options = new_options.split('\n')
@@ -4478,11 +4120,11 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_addchildchannels PROFILE <CHANNEL ...>'
 
-    def complete_kickstart_addchildchannels(self, text, line, begidx, endidx):
+    def complete_kickstart_addchildchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             profile = parts[1]
 
@@ -4502,11 +4144,11 @@ For help for a specific command try 'help <cmd>'.
             except:
                 return []
             
-            return self.tab_completer(self.list_child_channels(\
+            return tab_completer(self.list_child_channels(\
                                       parent=parent_channel), text)
 
     def do_kickstart_addchildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_addchildchannels()
@@ -4531,18 +4173,18 @@ For help for a specific command try 'help <cmd>'.
               'a Kickstart profile'
         print 'usage: kickstart_removechildchannels PROFILE <CHANNEL ...>'
 
-    def complete_kickstart_removechildchannels(self, text, line, begidx, 
-                                               endidx):
+    def complete_kickstart_removechildchannels(self, text, line, beg, 
+                                               end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_kickstart_listchildchannels(\
+            return tab_completer(self.do_kickstart_listchildchannels(\
                                       parts[1], True), text)
 
     def do_kickstart_removechildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removechildchannels()
@@ -4569,14 +4211,14 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_listchildchannels PROFILE'
 
-    def complete_kickstart_listchildchannels(self, text, line, begidx, endidx):
+    def complete_kickstart_listchildchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listchildchannels(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listchildchannels()
@@ -4600,17 +4242,17 @@ For help for a specific command try 'help <cmd>'.
               'Kickstart profile'
         print 'usage: kickstart_addfilepreservations PROFILE <FILELIST ...>'
 
-    def complete_kickstart_addfilepreservations(self, text, line, begidx, endidx):
+    def complete_kickstart_addfilepreservations(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) == 3:
-            return self.tab_completer(self.do_filepreservation_list('', True), 
+            return tab_completer(self.do_filepreservation_list('', True), 
                                       text)
 
     def do_kickstart_addfilepreservations(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_addfilepreservations()
@@ -4630,12 +4272,12 @@ For help for a specific command try 'help <cmd>'.
               'preservations from a Kickstart profile'
         print 'usage: kickstart_removefilepreservations PROFILE <FILE ...>'
 
-    def complete_kickstart_removefilepreservations(self, text, line, begidx, 
-                                                   endidx):
+    def complete_kickstart_removefilepreservations(self, text, line, beg, 
+                                                   end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
         elif len(parts) > 2:
             files = []
 
@@ -4648,10 +4290,10 @@ For help for a specific command try 'help <cmd>'.
             except:
                 return []
 
-            return self.tab_completer(files, text)
+            return tab_completer(files, text)
 
     def do_kickstart_removefilepreservations(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removefilepreservations()
@@ -4670,11 +4312,11 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_listpackages PROFILE'
 
-    def complete_kickstart_listpackages(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_kickstart_list('', True), text)
+    def complete_kickstart_listpackages(self, text, line, beg, end):
+        return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listpackages(self, args, doreturn = False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listpackages()
@@ -4698,16 +4340,16 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_addpackages: Add packages to a Kickstart profile'
         print 'usage: kickstart_addpackages PROFILE <PACKAGE ...>'
 
-    def complete_kickstart_addpackages(self, text, line, begidx, endidx):
+    def complete_kickstart_addpackages(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text) 
+            return tab_completer(self.do_kickstart_list('', True), text) 
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(), text)
+            return tab_completer(self.get_package_names(), text)
 
     def do_kickstart_addpackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args) >= 2:
             self.help_kickstart_addpackages()
@@ -4726,18 +4368,18 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_removepackages PROFILE <PACKAGE ...>'
 
-    def complete_kickstart_removepackages(self, text, line, begidx, endidx):
+    def complete_kickstart_removepackages(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), 
+            return tab_completer(self.do_kickstart_list('', True), 
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_kickstart_listpackages(\
+            return tab_completer(self.do_kickstart_listpackages(\
                                       parts[1], True), text)
 
     def do_kickstart_removepackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_kickstart_removepackages()
@@ -4764,11 +4406,11 @@ For help for a specific command try 'help <cmd>'.
               'profile'
         print 'usage: kickstart_listscripts PROFILE'
 
-    def complete_kickstart_listscripts(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_kickstart_list('', True), text)
+    def complete_kickstart_listscripts(self, text, line, beg, end):
+        return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_listscripts(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_listscripts()
@@ -4798,14 +4440,14 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_addscript: Add a script to a Kickstart profile'
         print 'usage: kickstart_addscript PROFILE'
 
-    def complete_kickstart_addscript(self, text, line, begidx, endidx):
+    def complete_kickstart_addscript(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_addscript(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_addscript()
@@ -4813,12 +4455,12 @@ For help for a specific command try 'help <cmd>'.
 
         profile = args[0]
 
-        type = self.prompt_user('Pre/Post Script [post]:')
-        chroot = self.prompt_user('Chrooted [Y/n]:')
-        interpreter = self.prompt_user('Interpreter [/bin/bash]:')
+        type = prompt_user('Pre/Post Script [post]:')
+        chroot = prompt_user('Chrooted [Y/n]:')
+        interpreter = prompt_user('Interpreter [/bin/bash]:')
         
         # get the contents of the script
-        (contents, ignore) = self.editor(delete = True)
+        (contents, ignore) = editor(delete = True)
         
         # check user input
         if interpreter == '': interpreter = '/bin/bash'
@@ -4855,14 +4497,14 @@ For help for a specific command try 'help <cmd>'.
         print 'kickstart_removescript: Add a script to a Kickstart profile'
         print 'usage: kickstart_removescript PROFILE [ID]'
 
-    def complete_kickstart_removescript(self, text, line, begidx, endidx):
+    def complete_kickstart_removescript(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_kickstart_list('', True), text)
+            return tab_completer(self.do_kickstart_list('', True), text)
 
     def do_kickstart_removescript(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_kickstart_removescript()
@@ -4885,11 +4527,11 @@ For help for a specific command try 'help <cmd>'.
         if not script_id:
             while script_id == 0:
                 print
-                input = self.prompt_user('Script ID:', noblank = True)
+                input = prompt_user('Script ID:', noblank = True)
         
                 try:
                     script_id = int(input)
-                except:
+                except ValueError:
                     logging.error('Invalid script ID')
 
         if not self.user_confirm('Remove this script [y/N]:'): return
@@ -4905,7 +4547,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: login [USERNAME] [SERVER]'
 
     def do_login(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         # logout before logging in again
         if len(self.session):
@@ -4976,7 +4618,7 @@ For help for a specific command try 'help <cmd>'.
                                 self.session = parts[2]
 
                     sessionfile.close()
-                except:
+                except IOError:
                     logging.error('Could not read %s' % self.session_file)
 
             # check the cached credentials by doing an API call
@@ -5003,7 +4645,7 @@ For help for a specific command try 'help <cmd>'.
                     # again, the user is prompted for the information
                     self.options.username = None
                 else:
-                    username = self.prompt_user('Username:', noblank = True)
+                    username = prompt_user('Username:', noblank = True)
 
             if self.options.password:
                 password = self.options.password
@@ -5032,7 +4674,7 @@ For help for a specific command try 'help <cmd>'.
                             sessionfile = open(self.session_file, 'r')
                             lines = sessionfile.readlines()
                             sessionfile.close()
-                        except:
+                        except IOError:
                             pass
 
                     # find and remove an existing cache for this server
@@ -5051,7 +4693,7 @@ For help for a specific command try 'help <cmd>'.
                     sessionfile = open(self.session_file, 'w')
                     sessionfile.writelines(lines)
                     sessionfile.close()
-                except:
+                except IOError:
                     logging.error('Could not write cache file')
 
         # disable caching of subsequent logins
@@ -5086,11 +4728,11 @@ For help for a specific command try 'help <cmd>'.
         print 'package_details: Show the details of a software package'
         print 'usage: package_details PACKAGE ...'
 
-    def complete_package_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_package_names(True), text)
+    def complete_package_details(self, text, line, beg, end):
+        return tab_completer(self.get_package_names(True), text)
 
     def do_package_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_package_details()
@@ -5164,13 +4806,13 @@ For help for a specific command try 'help <cmd>'.
 
         if advanced:
             packages = self.client.packages.search.advanced(self.session, args)
-            packages = self.build_package_names(packages)
+            packages = build_package_names(packages)
         else:
             # for non-advanced searches, use local regex instead of
             # the APIs for searching; this is done because the fuzzy
             # search on the server gives a lot of garbage back
             self.generate_package_cache()
-            packages = self.filter_results(self.all_package_longnames.keys(),
+            packages = filter_results(self.all_package_longnames.keys(),
                                            [ args ], search = True)
 
         if len(packages):
@@ -5189,7 +4831,7 @@ For help for a specific command try 'help <cmd>'.
         packages = self.client.channel.software.listPackagesWithoutChannel(\
                                                 self.session)
 
-        packages = self.build_package_names(packages)
+        packages = build_package_names(packages)
 
         if doreturn:
             return packages
@@ -5204,12 +4846,12 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: report_inactivesystems [DAYS]'
 
     def do_report_inactivesystems(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
     
         if len(args) == 1:
             try:
                 days = int(args[0])
-            except:
+            except ValueError:
                 days = 365
 
             systems = self.client.system.listInactiveSystems(self.session, days)
@@ -5320,7 +4962,7 @@ For help for a specific command try 'help <cmd>'.
         print self.HELP_SYSTEM_OPTS
 
     def do_report_ipaddresses(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args):
             # use the systems listed in the SSM
@@ -5372,7 +5014,7 @@ For help for a specific command try 'help <cmd>'.
         print self.HELP_SYSTEM_OPTS
 
     def do_report_kernels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args):
             # use the systems listed in the SSM
@@ -5409,12 +5051,12 @@ For help for a specific command try 'help <cmd>'.
         print 'schedule_cancel: Cancel a scheduled action'
         print 'usage: schedule_cancel ID|* ...'
 
-    def complete_schedule_cancel(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_schedule_listpending('', True),
+    def complete_schedule_cancel(self, text, line, beg, end):
+        return tab_completer(self.do_schedule_listpending('', True),
                                   text)
 
     def do_schedule_cancel(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_schedule_cancel()
@@ -5454,7 +5096,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: schedule_details ID'
 
     def do_schedule_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_schedule_details()
@@ -5462,7 +5104,7 @@ For help for a specific command try 'help <cmd>'.
 
         try:
             id = int(args[0])
-        except:
+        except ValueError:
             logging.warning('%s is not a valid ID' % str(a))
             return
 
@@ -5485,7 +5127,7 @@ For help for a specific command try 'help <cmd>'.
                 del all_actions
                 break
 
-        self.print_action_summary(action, systems = all_systems)
+        print_action_summary(action, systems = all_systems)
         
         print
         print 'Completed: %s' % str(len(completed))
@@ -5517,7 +5159,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: schedule_getoutput ID'
 
     def do_schedule_getoutput(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_schedule_getoutput()
@@ -5529,7 +5171,7 @@ For help for a specific command try 'help <cmd>'.
 
         try:
             action_id = int(args[0])
-        except:
+        except ValueError:
             logging.error('%s is not a valid action ID' % str(a))
             return
 
@@ -5549,23 +5191,26 @@ For help for a specific command try 'help <cmd>'.
                 add_separator = True
 
                 print 'System:      %s' % 'UNKNOWN'
-                print 'Start Time:  %s' % self.format_time(r.get('startDate').value)
-                print 'Stop Time:   %s' % self.format_time(r.get('stopDate').value)
+                print 'Start Time:  %s' % format_time(r.get('startDate').value)
+                print 'Stop Time:   %s' % format_time(r.get('stopDate').value)
                 print 'Return Code: %s' % str(r.get('returnCode'))
                 print 'Output:'
                 print r.get('output')
         else:
             add_separator = False
 
-            completed = self.client.schedule.listCompletedSystems(self.session, action_id)
-            failed = self.client.schedule.listFailedSystems(self.session, action_id)
+            completed = self.client.schedule.listCompletedSystems(self.session,
+                                                                  action_id)
+
+            failed = self.client.schedule.listFailedSystems(self.session,
+                                                            action_id)
 
             #XXX: Bugzilla 608868
             for action in completed + failed:
                 if add_separator: print self.SEPARATOR
                 add_separator = True
 
-                self.print_action_output(action)
+                print_action_output(action)
 
 #        completed = self.client.schedule.listCompletedSystems(self.session, id)
 #
@@ -5623,7 +5268,7 @@ For help for a specific command try 'help <cmd>'.
         else:
             try:
                 limit = int(args[0])
-            except:
+            except ValueError:
                 limit = len(actions)
 
             add_separator = False
@@ -5635,7 +5280,7 @@ For help for a specific command try 'help <cmd>'.
                 systems = self.client.schedule.listInProgressSystems(\
                               self.session, actions[i].get('id'))
 
-                self.print_action_summary(actions[i], systems)
+                print_action_summary(actions[i], systems)
 
 ####################
 
@@ -5653,7 +5298,7 @@ For help for a specific command try 'help <cmd>'.
         else:
             try:
                 limit = int(args[0])
-            except:
+            except ValueError:
                 limit = len(actions)
 
             add_separator = False
@@ -5665,7 +5310,7 @@ For help for a specific command try 'help <cmd>'.
                 systems = self.client.schedule.listCompletedSystems(\
                               self.session, actions[i].get('id'))
 
-                self.print_action_summary(actions[i], systems)
+                print_action_summary(actions[i], systems)
 
 ####################
 
@@ -5683,7 +5328,7 @@ For help for a specific command try 'help <cmd>'.
         else:
             try:
                 limit = int(args[0])
-            except:
+            except ValueError:
                 limit = len(actions)
 
             add_separator = False
@@ -5695,7 +5340,7 @@ For help for a specific command try 'help <cmd>'.
                 systems = self.client.schedule.listFailedSystems(\
                               self.session, actions[i].get('id'))
 
-                self.print_action_summary(actions[i], systems)
+                print_action_summary(actions[i], systems)
 
 ####################
 
@@ -5713,7 +5358,7 @@ For help for a specific command try 'help <cmd>'.
         else:
             try:
                 limit = int(args[0])
-            except:
+            except ValueError:
                 limit = len(actions)
 
             add_separator = False
@@ -5734,7 +5379,7 @@ For help for a specific command try 'help <cmd>'.
 
                 all_systems = completed + failed + pending
 
-                self.print_action_summary(actions[i], all_systems)
+                print_action_summary(actions[i], all_systems)
 
 ####################
 
@@ -5758,12 +5403,12 @@ For help for a specific command try 'help <cmd>'.
         print 'snippet_details: Show the contents of a snippet'
         print 'usage: snippet_details SNIPPET ...'
 
-    def complete_snippet_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_snippet_list('', True),
+    def complete_snippet_details(self, text, line, beg, end):
+        return tab_completer(self.do_snippet_list('', True),
                                   text)
 
     def do_snippet_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_snippet_details()
@@ -5801,7 +5446,7 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: snippet_create'
 
     def do_snippet_create(self, args, name=''):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         template = ''
         if name:
@@ -5811,9 +5456,9 @@ For help for a specific command try 'help <cmd>'.
                     template = s.get('contents')
                     break
         else:
-            name = self.prompt_user('Name:', noblank = True)
+            name = prompt_user('Name:', noblank = True)
 
-        (contents, ignore) = self.editor(template = template, delete = True)
+        (contents, ignore) = editor(template = template, delete = True)
 
         print
         print 'Contents:'
@@ -5830,11 +5475,11 @@ For help for a specific command try 'help <cmd>'.
         print 'snippet_update: Update a Kickstart snippet'
         print 'usage: snippet_update NAME'
 
-    def complete_snippet_update(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_snippet_list('', True), text)
+    def complete_snippet_update(self, text, line, beg, end):
+        return tab_completer(self.do_snippet_list('', True), text)
 
     def do_snippet_update(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
         
         if not len(args):
             self.help_snippet_update()
@@ -5848,11 +5493,11 @@ For help for a specific command try 'help <cmd>'.
         print 'snippet_removefile: Delete a Kickstart snippet'
         print 'usage: snippet_removefile NAME'
 
-    def complete_snippet_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_snippet_list('', True), text)
+    def complete_snippet_delete(self, text, line, beg, end):
+        return tab_completer(self.do_snippet_list('', True), text)
 
     def do_snippet_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
         
         if not len(args):
             self.help_snippet_delete()
@@ -5870,12 +5515,12 @@ For help for a specific command try 'help <cmd>'.
               'entitlements for a software channel'
         print 'usage: softwarechannel_getentitlements CHANNEL'
 
-    def complete_softwarechannel_getentitlements(self, text, line, begidx, 
-                                                 endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_getentitlements(self, text, line, beg, 
+                                                 end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_getentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_getentitlements()
@@ -5912,11 +5557,11 @@ For help for a specific command try 'help <cmd>'.
         print '                             a software channel'
         print 'usage: softwarechannel_listsystems CHANNEL'
 
-    def complete_softwarechannel_listsystems(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_listsystems(self, text, line, beg, end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_listsystems(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_listsystems()
@@ -5943,15 +5588,15 @@ For help for a specific command try 'help <cmd>'.
         print '                              available from a software channel'
         print 'usage: softwarechannel_listpackages CHANNEL'
 
-    def complete_softwarechannel_listpackages(self, text, line, begidx, endidx):
+    def complete_softwarechannel_listpackages(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.do_softwarechannel_list('', True), 
+            return tab_completer(self.do_softwarechannel_list('', True), 
                                       text)
         else:
             return []
 
     def do_softwarechannel_listpackages(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_listpackages()
@@ -5962,7 +5607,7 @@ For help for a specific command try 'help <cmd>'.
         packages = self.client.channel.software.listLatestPackages(self.session,
                                                                    channel)
 
-        packages = self.build_package_names(packages)
+        packages = build_package_names(packages)
 
         if doreturn:
             return packages
@@ -5976,11 +5621,11 @@ For help for a specific command try 'help <cmd>'.
         print 'softwarechannel_details: Show the details of a software channel'
         print 'usage: softwarechannel_details CHANNEL ...'
 
-    def complete_softwarechannel_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_details(self, text, line, beg, end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_details()
@@ -5989,17 +5634,19 @@ For help for a specific command try 'help <cmd>'.
         add_separator = False
 
         for channel in args:
-            details = self.client.channel.software.getDetails(self.session,
-                                                              channel)
+            details = self.client.channel.software.getDetails(\
+                                        self.session, channel)
 
             systems = \
-                self.client.channel.software.listSubscribedSystems(self.session,                                                                   channel)
+                self.client.channel.software.listSubscribedSystems(\
+                                              self.session, channel)
 
-            trees = self.client.kickstart.tree.list(self.session, channel)
+            trees = self.client.kickstart.tree.list(self.session, 
+                                                    channel)
 
             packages = \
-                self.client.channel.software.listAllPackages(self.session,
-                                                             channel)
+                self.client.channel.software.listAllPackages(\
+                                       self.session, channel)
 
             if add_separator: print self.SEPARATOR
             add_separator = True
@@ -6039,11 +5686,11 @@ For help for a specific command try 'help <cmd>'.
         print '                            software channel'
         print 'usage: softwarechannel_listerrata CHANNEL ...'
 
-    def complete_softwarechannel_listerrata(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_listerrata(self, text, line, beg, end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_listerrata(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.do_help_softwarechannel_listerrata()
@@ -6061,7 +5708,7 @@ For help for a specific command try 'help <cmd>'.
             errata = self.client.channel.software.listErrata(self.session,
                                                              channel)
 
-            self.print_errata_list(errata)
+            print_errata_list(errata)
 
             if add_separator: print self.SEPARATOR
             add_separator = True
@@ -6072,11 +5719,11 @@ For help for a specific command try 'help <cmd>'.
         print 'softwarechannel_delete: Delete a software channel'
         print 'usage: softwarechannel_delete CHANNEL'
 
-    def complete_softwarechannel_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_delete(self, text, line, beg, end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_delete()
@@ -6095,22 +5742,22 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: softwarechannel_create'
 
     def do_softwarechannel_create(self, args):
-        name = self.prompt_user('Channel Name:', noblank = True)
-        label = self.prompt_user('Channel Label:', noblank = True)
-        summary = self.prompt_user('Summary:', noblank = True)
+        name = prompt_user('Channel Name:', noblank = True)
+        label = prompt_user('Channel Label:', noblank = True)
+        summary = prompt_user('Summary:', noblank = True)
 
         print 'Base Channels:'
         print '\n'.join(sorted(self.list_base_channels()))
         print
 
         parent = \
-            self.prompt_user('Select Parent [blank to create a base channel]:')
+            prompt_user('Select Parent [blank to create a base channel]:')
 
         print
         print 'Architecture:'
         print '\n'.join(sorted(self.ARCH_LABELS))
         print
-        arch = self.prompt_user('Select:')
+        arch = prompt_user('Select:')
 
         self.client.channel.software.create(self.session,
                                             label,
@@ -6125,11 +5772,11 @@ For help for a specific command try 'help <cmd>'.
         print 'softwarechannel_clone: Clone a software channel'
         print 'usage: softwarechannel_clone SOURCE'
 
-    def complete_softwarechannel_clone(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_softwarechannel_list('', True), text)
+    def complete_softwarechannel_clone(self, text, line, beg, end):
+        return tab_completer(self.do_softwarechannel_list('', True), text)
 
     def do_softwarechannel_clone(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_clone()
@@ -6139,21 +5786,21 @@ For help for a specific command try 'help <cmd>'.
 
         details = {}
 
-        details['name'] = self.prompt_user('Channel Name:', noblank = True)
-        details['label'] = self.prompt_user('Channel Label:', noblank = True)
-        details['summary'] = self.prompt_user('Summary:', noblank = True)
-        details['description'] = self.prompt_user('Description:')
+        details['name'] = prompt_user('Channel Name:', noblank = True)
+        details['label'] = prompt_user('Channel Label:', noblank = True)
+        details['summary'] = prompt_user('Summary:', noblank = True)
+        details['description'] = prompt_user('Description:')
 
         print 'Base Channels:'
         print '\n'.join(sorted(self.list_base_channels()))
         print
 
         details['parent_label'] = \
-            self.prompt_user('Select Parent [blank to create a base channel]:')
+            prompt_user('Select Parent [blank to create a base channel]:')
 
-        details['gpg_url'] = self.prompt_user('GPG URL:')
-        details['gpg_id'] = self.prompt_user('GPG ID:')
-        details['gpg_fingerprint'] = self.prompt_user('GPG Fingerprint:')
+        details['gpg_url'] = prompt_user('GPG URL:')
+        details['gpg_id'] = prompt_user('GPG ID:')
+        details['gpg_fingerprint'] = prompt_user('GPG Fingerprint:')
 
         orig_state = self.user_confirm('Original State [y/N]:')
 
@@ -6177,17 +5824,17 @@ For help for a specific command try 'help <cmd>'.
         print 'softwarechannel_addpackages: Add packages to a software channel'
         print 'usage: softwarechannel_addpackages CHANNEL <PACKAGE ...>'
 
-    def complete_softwarechannel_addpackages(self, text, line, begidx, endidx):
+    def complete_softwarechannel_addpackages(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_softwarechannel_list('', True), 
+            return tab_completer(self.do_softwarechannel_list('', True), 
                                       text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(True), text)
+            return tab_completer(self.get_package_names(True), text)
 
     def do_softwarechannel_addpackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_addpackages()
@@ -6221,12 +5868,12 @@ For help for a specific command try 'help <cmd>'.
               'software channel'
         print 'usage: softwarechannel_removepackages CHANNEL <PACKAGE ...>'
 
-    def complete_softwarechannel_removepackages(self, text, line, begidx, 
-                                                endidx):
+    def complete_softwarechannel_removepackages(self, text, line, beg, 
+                                                end):
         parts = line.split(' ')
 
         if len(parts) == 2:
-            return self.tab_completer(self.do_softwarechannel_list('', True), 
+            return tab_completer(self.do_softwarechannel_list('', True), 
                                       text)
         elif len(parts) > 2:
             # only tab complete packages in the channel
@@ -6236,14 +5883,14 @@ For help for a specific command try 'help <cmd>'.
                     self.client.channel.software.listAllPackages(self.session,
                                                                  parts[1])
 
-                package_names = self.build_package_names(packages)
+                package_names = build_package_names(packages)
             except:
                 package_names = []
 
-            return self.tab_completer(package_names, text)
+            return tab_completer(package_names, text)
 
     def do_softwarechannel_removepackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_softwarechannel_removepackages()
@@ -6258,10 +5905,10 @@ For help for a specific command try 'help <cmd>'.
                                                          channel)
 
         # build full names for those packages
-        installed_packages = self.build_package_names(packages)
+        installed_packages = build_package_names(packages)
 
         # find matching packages that are in the channel
-        package_names = self.filter_results(installed_packages, package_list)
+        package_names = filter_results(installed_packages, package_list)
 
         # get the package IDs from the names
         package_ids = []
@@ -6286,15 +5933,15 @@ For help for a specific command try 'help <cmd>'.
               'into another channel'
         print 'usage: softwarechannel_mergeerrata SOURCE DEST BEGINDATE ENDDATE'
 
-    def complete_softwarechannel_mergeerrata(self, text, line, begidx, endidx):
+    def complete_softwarechannel_mergeerrata(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) <= 3:
-            return self.tab_completer(self.do_softwarechannel_list('', True), 
+            return tab_completer(self.do_softwarechannel_list('', True), 
                                       text)
 
     def do_softwarechannel_mergeerrata(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 4:
             self.help_softwarechannel_mergeerrata()
@@ -6316,8 +5963,8 @@ For help for a specific command try 'help <cmd>'.
         errata = \
             self.client.channel.software.listErrata(self.session,
                                source_channel,
-                               self.parse_time_input(begin_date),
-                               self.parse_time_input(end_date))
+                               parse_time_input(begin_date),
+                               parse_time_input(end_date))
 
         # get the packages that resolve these errata so we can add them
         # to the channel afterwards
@@ -6333,7 +5980,7 @@ For help for a specific command try 'help <cmd>'.
 
         print 'Errata:'
         for e in sorted(errata, key=itemgetter('advisory_name')):
-            self.print_errata_summary(e)
+            print_errata_summary(e)
 
         if not self.user_confirm('Add these errata [y/N]:'): return
 
@@ -6391,11 +6038,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_ssm_add(self, text, line, begidx, endidx):
+    def complete_ssm_add(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_ssm_add(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_ssm_add()
@@ -6419,7 +6066,7 @@ For help for a specific command try 'help <cmd>'.
             print 'Systems Selected: %s' % str(len(self.ssm))
         
         # save the SSM for use between sessions
-        self.save_cache(self.ssm_cache_file, self.ssm)
+        save_cache(self.ssm_cache_file, self.ssm)
 
 ####################
 
@@ -6433,11 +6080,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_ssm_intersect(self, text, line, begidx, endidx):
-       return self.tab_complete_systems(text)
+    def complete_ssm_intersect(self, text, line, beg, end):
+        return self.tab_complete_systems(text)
 
     def do_ssm_intersect(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_ssm_intersect()
@@ -6473,11 +6120,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_ssm_remove(self, text, line, begidx, endidx):
+    def complete_ssm_remove(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_ssm_remove(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_ssm_remove()
@@ -6498,7 +6145,7 @@ For help for a specific command try 'help <cmd>'.
         print 'Systems Selected: %s' % str(len(self.ssm))
 
         # save the SSM for use between sessions
-        self.save_cache(self.ssm_cache_file, self.ssm)
+        save_cache(self.ssm_cache_file, self.ssm)
 
 ####################
 
@@ -6525,7 +6172,7 @@ For help for a specific command try 'help <cmd>'.
         self.ssm = {}
 
         # save the SSM for use between sessions
-        self.save_cache(self.ssm_cache_file, self.ssm)
+        save_cache(self.ssm_cache_file, self.ssm)
 
 ####################
 
@@ -6548,11 +6195,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
     
-    def complete_system_reboot(self, text, line, begidx, endidx):
+    def complete_system_reboot(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_reboot(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_reboot()
@@ -6566,7 +6213,7 @@ For help for a specific command try 'help <cmd>'.
 
         if not self.user_confirm('Reboot these systems [y/N]:'): return
 
-        time = self.parse_time_input('now')
+        time = parse_time_input('now')
 
         for system in systems:
             id = self.get_system_id(system)
@@ -6588,7 +6235,7 @@ For help for a specific command try 'help <cmd>'.
         print '> system_search ip:192.168.82'
 
     def do_system_search(self, args, doreturn=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_system_search()
@@ -6661,7 +6308,8 @@ For help for a specific command try 'help <cmd>'.
                     if key == 'name':
                         print s[0]
                     else:
-                        print '%s  %s' % (s[0].ljust(max_size), str(s[1]).strip())
+                        print '%s  %s' % (s[0].ljust(max_size), 
+                                          str(s[1]).strip())
 
 ####################
 
@@ -6677,11 +6325,11 @@ For help for a specific command try 'help <cmd>'.
         print '15m  -> 15 minutes from now'
         print '1d   -> 1 day from now'
 
-    def complete_system_runscript(self, text, line, begidx, endidx):
+    def complete_system_runscript(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_runscript(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_runscript()
@@ -6697,11 +6345,11 @@ For help for a specific command try 'help <cmd>'.
             logging.warning('No systems selected')
             return
 
-        user    = self.prompt_user('User [root]:')
-        group   = self.prompt_user('Group [root]:')
-        timeout = self.prompt_user('Timeout (in seconds) [600]:')
-        time    = self.prompt_user('Start Time [now]:')
-        script_file  = self.prompt_user('Script File [create]:')
+        user    = prompt_user('User [root]:')
+        group   = prompt_user('Group [root]:')
+        timeout = prompt_user('Timeout (in seconds) [600]:')
+        timestamp    = prompt_user('Start Time [now]:')
+        script_file  = prompt_user('Script File [create]:')
 
         # defaults
         if not user:        user        = 'root'
@@ -6709,7 +6357,7 @@ For help for a specific command try 'help <cmd>'.
         if not timeout:     timeout     = 600
 
         # convert the time input to xmlrpclib.DateTime
-        time = self.parse_time_input(time)
+        timestamp = parse_time_input(timestamp)
 
         if script_file:
             keep_script_file = True
@@ -6720,7 +6368,7 @@ For help for a specific command try 'help <cmd>'.
                 file = open(script_file, 'r')
                 script = file.read()
                 file.close()
-            except:
+            except IOError:
                 logging.error('Could not read %s' % script_file)
                 return
         else:
@@ -6728,7 +6376,7 @@ For help for a specific command try 'help <cmd>'.
 
             # have the user put the script into that file
             # put 'hostname' in automatically until the API is fixed
-            (script, script_file) = self.editor('#!/bin/bash\n\nhostname\n')
+            (script, script_file) = editor('#!/bin/bash\n\nhostname\n')
 
         if not script:
             logging.error('No script provided')
@@ -6739,7 +6387,7 @@ For help for a specific command try 'help <cmd>'.
         print 'User:       %s' % user
         print 'Group:      %s' % group
         print 'Timeout:    %s seconds' % str(timeout)
-        print 'Start Time: %s' % self.format_time(time.value)
+        print 'Start Time: %s' % format_time(timestamp.value)
         print
         print script
         print
@@ -6761,11 +6409,12 @@ For help for a specific command try 'help <cmd>'.
                                                           group,
                                                           timeout,
                                                           script,
-                                                          time)
+                                                          timestamp)
             
                 logging.info('Action ID: %s' % str(id))
                 scheduled += 1
-            except:
+            except Exception, detail:
+                logging.debug(detail)
                 logging.error('Failed to schedule %s' % system)
 
         print 'Scheduled: %i system(s)' % scheduled
@@ -6773,7 +6422,7 @@ For help for a specific command try 'help <cmd>'.
         if not keep_script_file:
             try:
                 os.remove(script_file)
-            except:
+            except OSError:
                 logging.error('Could not remove %s' % script_file)
 
 ####################
@@ -6784,11 +6433,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listhardware(self, text, line, begidx, endidx):
+    def complete_system_listhardware(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listhardware(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_details()
@@ -6900,16 +6549,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_installpackage(self, text, line, begidx, endidx):
+    def complete_system_installpackage(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(), text)
+            return tab_completer(self.get_package_names(), text)
 
     def do_system_installpackage(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_installpackage()
@@ -6977,7 +6626,7 @@ For help for a specific command try 'help <cmd>'.
             print 'Install Packages:'
             for id in package_ids:
                 package = self.client.packages.getDetails(self.session, id)
-                print self.build_package_names(package)
+                print build_package_names(package)
 
         if not self.user_confirm(): return
 
@@ -6985,7 +6634,7 @@ For help for a specific command try 'help <cmd>'.
         for job in jobs:
             (system, system_id, package_ids) = job
 
-            time = self.parse_time_input('now')
+            time = parse_time_input('now')
 
             try:
                 id = self.client.system.schedulePackageInstall(self.session,
@@ -7008,16 +6657,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_removepackage(self, text, line, begidx, endidx):
+    def complete_system_removepackage(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(), text)
+            return tab_completer(self.get_package_names(), text)
 
     def do_system_removepackage(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_removepackage()
@@ -7040,7 +6689,7 @@ For help for a specific command try 'help <cmd>'.
 
         # get all matching package names
         matching_packages = \
-            self.filter_results(self.all_package_longnames, package_list)
+            filter_results(self.all_package_longnames, package_list)
 
         jobs = {}
         packages_by_id = {}
@@ -7080,7 +6729,7 @@ For help for a specific command try 'help <cmd>'.
         if not len(jobs): return 
         if not self.user_confirm('Remove these packages [y/N]:'): return
 
-        time = self.parse_time_input('now')
+        time = parse_time_input('now')
 
         scheduled = 0
         for system in jobs:
@@ -7108,16 +6757,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_upgradepackage(self, text, line, begidx, endidx):
+    def complete_system_upgradepackage(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            return self.tab_completer(self.get_package_names(), text)
+            return tab_completer(self.get_package_names(), text)
 
     def do_system_upgradepackage(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_upgradepackage()
@@ -7158,7 +6807,7 @@ For help for a specific command try 'help <cmd>'.
             return
 
         scheduled = 0
-        time = self.parse_time_input('now')
+        time = parse_time_input('now')
         for job in jobs:
             (system, system_id, package_ids) = job
 
@@ -7183,11 +6832,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listupgrades(self, text, line, begidx, endidx):
+    def complete_system_listupgrades(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listupgrades(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listupgrades()
@@ -7231,8 +6880,8 @@ For help for a specific command try 'help <cmd>'.
                        'release' : package.get('to_release'),
                        'epoch'   : package.get('to_epoch')}
 
-                print 'From: %s' % self.build_package_names(old)
-                print 'To:   %s' % self.build_package_names(new)
+                print 'From: %s' % build_package_names(old)
+                print 'To:   %s' % build_package_names(new)
 
 ####################
 
@@ -7243,11 +6892,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listinstalledpackages(self, text, line, begidx, endidx):
+    def complete_system_listinstalledpackages(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listinstalledpackages(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listinstalledpackages()
@@ -7275,7 +6924,7 @@ For help for a specific command try 'help <cmd>'.
                 print 'System: %s' % system
                 print
 
-            print '\n'.join(self.build_package_names(packages))
+            print '\n'.join(build_package_names(packages))
 
 ####################
 
@@ -7285,11 +6934,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listconfigchannels(self, text, line, begidx, endidx):
+    def complete_system_listconfigchannels(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listconfigchannels()
@@ -7331,17 +6980,17 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_addconfigchannels(self, text, line, begidx, endidx):
+    def complete_system_addconfigchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_configchannel_list('', True), 
+            return tab_completer(self.do_configchannel_list('', True), 
                                       text)
 
     def do_system_addconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_addconfigchannels()
@@ -7356,7 +7005,7 @@ For help for a specific command try 'help <cmd>'.
 
         channels = args
 
-        answer = self.prompt_user('Add to top or bottom? [T/b]:')
+        answer = prompt_user('Add to top or bottom? [T/b]:')
         if re.match('b', answer, re.I):
             location = False
         else:
@@ -7378,17 +7027,17 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_removeconfigchannels(self, text, line, begidx, endidx):
+    def complete_system_removeconfigchannels(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_configchannel_list('', True), 
+            return tab_completer(self.do_configchannel_list('', True), 
                                       text)
 
     def do_system_removeconfigchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_removeconfigchannels()
@@ -7417,11 +7066,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_setconfigchannelorder(self, text, line, begidx, endidx):
+    def complete_system_setconfigchannelorder(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_setconfigchannelorder(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_setconfigchannelorder()
@@ -7440,7 +7089,8 @@ For help for a specific command try 'help <cmd>'.
         new_channels = [ c.get('label') for c in new_channels ]
 
         # call an interface for the user to make selections
-        new_channels = self.config_channel_order(new_channels)
+        all_channels = self.do_configchannel_list('', True)
+        new_channels = config_channel_order(all_channels, new_channels)
 
         print
         print 'New Configuration Channels:'
@@ -7464,11 +7114,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_deployconfigfiles(self, text, line, begidx, endidx):
+    def complete_system_deployconfigfiles(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_deployconfigfiles(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_deployconfigfiles()
@@ -7482,7 +7132,7 @@ For help for a specific command try 'help <cmd>'.
         
         system_ids = [ self.get_system_id(s) for s in systems ] 
             
-        time = self.parse_time_input('now')
+        time = parse_time_input('now')
 
         self.client.system.config.deployAll(self.session, 
                                             system_ids, 
@@ -7496,11 +7146,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_delete(self, text, line, begidx, endidx):
+    def complete_system_delete(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_delete()
@@ -7545,11 +7195,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_lock(self, text, line, begidx, endidx):
+    def complete_system_lock(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_lock(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_lock()
@@ -7575,11 +7225,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_unlock(self, text, line, begidx, endidx):
+    def complete_system_unlock(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_unlock(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_unlock()
@@ -7603,12 +7253,12 @@ For help for a specific command try 'help <cmd>'.
         print 'system_rename: Rename a system profile'
         print 'usage: system_rename OLDNAME NEWNAME'
 
-    def complete_system_rename(self, text, line, begidx, endidx):
+    def complete_system_rename(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
-            return self.tab_completer(self.get_system_names(), text)
+            return tab_completer(self.get_system_names(), text)
 
     def do_system_rename(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_system_rename()
@@ -7642,11 +7292,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listcustomvalues(self, text, line, begidx, endidx):
+    def complete_system_listcustomvalues(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listcustomvalues(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listcustomvalues()
@@ -7685,15 +7335,15 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_addcustomvalue(self, text, line, begidx, endidx):
+    def complete_system_addcustomvalue(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
             return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
-            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+            return tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
 
     def do_system_addcustomvalue(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 3:
             self.help_system_addcustomvalue()
@@ -7724,17 +7374,17 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_updatecustomvalue(self, text, line, begidx, endidx):
+    def complete_system_updatecustomvalue(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) == 3:
-            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+            return tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
 
     def do_system_updatecustomvalue(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 3:
             self.help_system_updatecustomvalue()
@@ -7750,17 +7400,17 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_removecustomvalues(self, text, line, begidx, endidx):
+    def complete_system_removecustomvalues(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         elif len(parts) == 3:
-            return self.tab_completer(self.do_custominfo_listkeys('', True), 
+            return tab_completer(self.do_custominfo_listkeys('', True), 
                                       text)
 
     def do_system_removecustomvalues(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_removecustomvalues()
@@ -7792,15 +7442,15 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_setbasechannel(self, text, line, begidx, endidx):
+    def complete_system_setbasechannel(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
             return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
-            return self.tab_completer(self.list_base_channels(), text)
+            return tab_completer(self.list_base_channels(), text)
 
     def do_system_setbasechannel(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_system_setbasechannel()
@@ -7848,11 +7498,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listbasechannel(self, text, line, begidx, endidx):
+    def complete_system_listbasechannel(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listbasechannel(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listbasechannel()
@@ -7890,11 +7540,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listchildchannels(self, text, line, begidx, endidx):
+    def complete_system_listchildchannels(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listchildchannels(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listchildchannels()
@@ -7932,12 +7582,12 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_addchildchannel(self, text, line, begidx, endidx):
+    def complete_system_addchildchannel(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
             return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
-            return self.tab_completer(self.list_child_channels(system=system), 
+            return tab_completer(self.list_child_channels(system=system), 
                                       text)
 
     def do_system_addchildchannel(self, args):
@@ -7951,12 +7601,12 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_removechildchannel(self, text, line, begidx, endidx):
+    def complete_system_removechildchannel(self, text, line, beg, end):
         if len(line.split(' ')) == 2:
             return self.tab_complete_systems(text)
         elif len(line.split(' ')) == 3:
             system = line.split(' ')[1]
-            return self.tab_completer(self.list_child_channels(system=system), 
+            return tab_completer(self.list_child_channels(system=system), 
                                       text)
 
     def do_system_removechildchannel(self, args):
@@ -7970,11 +7620,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_details(self, text, line, begidx, endidx):
+    def complete_system_details(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_details(self, args, short=False):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_details()
@@ -8007,8 +7657,8 @@ For help for a specific command try 'help <cmd>'.
             print 'Name:          %s' % system
             print 'System ID:     %s' % str(system_id)
             print 'Locked:        %s' % str(details.get('lock_status'))
-            print 'Registered:    %s' % self.format_time(registered.value)
-            print 'Last Checkin:  %s' % self.format_time(last_checkin.value)
+            print 'Registered:    %s' % format_time(registered.value)
+            print 'Last Checkin:  %s' % format_time(last_checkin.value)
             print 'OSA Status:    %s' % details.get('osa_status')
 
             # only print basic information if requested
@@ -8089,11 +7739,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listerrata(self, text, line, begidx, endidx):
+    def complete_system_listerrata(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listerrata(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listerrata()
@@ -8121,7 +7771,7 @@ For help for a specific command try 'help <cmd>'.
             errata = self.client.system.getRelevantErrata(self.session,
                                                           system_id)
 
-            self.print_errata_list(errata)
+            print_errata_list(errata)
 
 ####################
 
@@ -8131,7 +7781,7 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_applyerrata(self, text, line, begidx, endidx):
+    def complete_system_applyerrata(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
@@ -8140,7 +7790,7 @@ For help for a specific command try 'help <cmd>'.
             return self.tab_complete_errata(text)
 
     def do_system_applyerrata(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_applyerrata()
@@ -8208,7 +7858,7 @@ For help for a specific command try 'help <cmd>'.
             system_id = self.get_system_id(system)
             if not system_id: return
             
-            time = self.parse_time_input('now')
+            time = parse_time_input('now')
 
             for errata in errata_ids:
                 try:
@@ -8226,11 +7876,11 @@ For help for a specific command try 'help <cmd>'.
               'the packages installed on this system'
         print 'usage: system_createpackageprofile SYSTEM PROFILENAME'
 
-    def complete_system_createpackageprofile(self, text, line, begidx, endidx):
-        return self.tab_completer(self.get_system_names(), text)
+    def complete_system_createpackageprofile(self, text, line, beg, end):
+        return tab_completer(self.get_system_names(), text)
 
     def do_system_createpackageprofile(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_createpackageprofile()
@@ -8239,7 +7889,7 @@ For help for a specific command try 'help <cmd>'.
         system = args[0]
         label = ' '.join(args[1:])
         
-        description = self.prompt_user('Description:')
+        description = prompt_user('Description:')
 
         system_id = self.get_system_id(system)
         if not system_id: return
@@ -8257,11 +7907,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listevents(self, text, line, begidx, endidx):
+    def complete_system_listevents(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listevents(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listevents()
@@ -8301,7 +7951,7 @@ For help for a specific command try 'help <cmd>'.
             for e in events:
                 print
                 print 'Summary:   %s' % e.get('summary')
-                print 'Completed: %s' % self.format_time(e.get('completed').value)
+                print 'Completed: %s' % format_time(e.get('completed').value)
 
                 if e.get('details'):
                     print 'Details:'
@@ -8319,11 +7969,11 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_listentitlements(self, text, line, begidx, endidx):
+    def complete_system_listentitlements(self, text, line, beg, end):
         return self.tab_complete_systems(text)
 
     def do_system_listentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_system_listentitlements()
@@ -8360,16 +8010,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_addentitlements(self, text, line, begidx, endidx):
+    def complete_system_addentitlements(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         else:
-            return self.tab_completer(self.ENTITLEMENTS, text)
+            return tab_completer(self.ENTITLEMENTS, text)
 
     def do_system_addentitlements(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_addentitlements()
@@ -8404,16 +8054,16 @@ For help for a specific command try 'help <cmd>'.
         print
         print self.HELP_SYSTEM_OPTS
 
-    def complete_system_removeentitlement(self, text, line, begidx, endidx):
+    def complete_system_removeentitlement(self, text, line, beg, end):
         parts = line.split(' ')
 
         if len(parts) == 2:
             return self.tab_complete_systems(text)
         else:
-            return self.tab_completer(self.ENTITLEMENTS, text)
+            return tab_completer(self.ENTITLEMENTS, text)
 
     def do_system_removeentitlement(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) < 2:
             self.help_system_removeentitlement()
@@ -8447,10 +8097,10 @@ For help for a specific command try 'help <cmd>'.
         print 'usage: user_create'
 
     def do_user_create(self, args):
-        username = self.prompt_user('Username:', noblank = True)
-        first_name = self.prompt_user('First Name:', noblank = True)
-        last_name = self.prompt_user('Last Name:', noblank = True)
-        email = self.prompt_user('Email Address:', noblank = True)
+        username = prompt_user('Username:', noblank = True)
+        first_name = prompt_user('First Name:', noblank = True)
+        last_name = prompt_user('Last Name:', noblank = True)
+        email = prompt_user('Email Address:', noblank = True)
 
         password = ''
         while password == '':
@@ -8475,11 +8125,11 @@ For help for a specific command try 'help <cmd>'.
         print "user_update: Update a user's details"
         print 'usage: user_update USER'
 
-    def complete_user_update(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_user_list('', True), text)
+    def complete_user_update(self, text, line, beg, end):
+        return tab_completer(self.do_user_list('', True), text)
 
     def do_user_update(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_user_update()
@@ -8492,19 +8142,19 @@ For help for a specific command try 'help <cmd>'.
         new_details = {}
 
         new_details['first_name'] = \
-            self.prompt_user('First Name [%s]:' % details.get('first_name'))
+            prompt_user('First Name [%s]:' % details.get('first_name'))
 
         if new_details['first_name'] == '':
             new_details['first_name'] = details.get('first_name')
 
         new_details['last_name'] = \
-            self.prompt_user('Last Name [%s]:' % details.get('last_name'))
+            prompt_user('Last Name [%s]:' % details.get('last_name'))
         
         if new_details['last_name'] == '':
             new_details['last_name'] = details.get('last_name')
 
         new_details['email'] = \
-            self.prompt_user('Email Address [%s]:' % details.get('email'))
+            prompt_user('Email Address [%s]:' % details.get('email'))
         
         if new_details['email'] == '':
             new_details['email'] = details.get('email')
@@ -8537,11 +8187,11 @@ For help for a specific command try 'help <cmd>'.
         print 'user_delete: Delete a user'
         print 'usage: user_delete NAME'
 
-    def complete_user_delete(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_user_list('', True), text)
+    def complete_user_delete(self, text, line, beg, end):
+        return tab_completer(self.do_user_list('', True), text)
 
     def do_user_delete(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_user_delete()
@@ -8558,11 +8208,11 @@ For help for a specific command try 'help <cmd>'.
         print 'user_disable: Disable an user account'
         print 'usage: user_disable NAME'
 
-    def complete_user_disable(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_user_list('', True), text)
+    def complete_user_disable(self, text, line, beg, end):
+        return tab_completer(self.do_user_list('', True), text)
 
     def do_user_disable(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_user_disable()
@@ -8578,11 +8228,11 @@ For help for a specific command try 'help <cmd>'.
         print 'user_enable: Enable an user account'
         print 'usage: user_enable NAME'
 
-    def complete_user_enable(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_user_list('', True), text)
+    def complete_user_enable(self, text, line, beg, end):
+        return tab_completer(self.do_user_list('', True), text)
 
     def do_user_enable(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 1:
             self.help_user_enable()
@@ -8629,17 +8279,17 @@ For help for a specific command try 'help <cmd>'.
         print 'user_addrole: Add a role to an user account'
         print 'usage: user_addrole USER ROLE'
 
-    def complete_user_addrole(self, text, line, begidx, endidx):
+    def complete_user_addrole(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) == 3:
-            return self.tab_completer(self.do_user_listavailableroles('', True), 
+            return tab_completer(self.do_user_listavailableroles('', True), 
                                       text)
 
     def do_user_addrole(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_addrole()
@@ -8656,18 +8306,18 @@ For help for a specific command try 'help <cmd>'.
         print 'user_removerole: Remove a role from an user account'
         print 'usage: user_removerole USER ROLE'
 
-    def complete_user_removerole(self, text, line, begidx, endidx):
+    def complete_user_removerole(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) == 3:
             # only list the roles currently assigned to this user
             roles = self.client.user.listRoles(self.session, parts[1])
-            return self.tab_completer(roles, text)
+            return tab_completer(roles, text)
 
     def do_user_removerole(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_removerole()
@@ -8684,11 +8334,11 @@ For help for a specific command try 'help <cmd>'.
         print 'user_details: Show the details of a user'
         print 'usage: user_details USER ...'
 
-    def complete_user_details(self, text, line, begidx, endidx):
-        return self.tab_completer(self.do_user_list('', True), text)
+    def complete_user_details(self, text, line, beg, end):
+        return tab_completer(self.do_user_list('', True), text)
 
     def do_user_details(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if not len(args):
             self.help_user_details()
@@ -8702,8 +8352,9 @@ For help for a specific command try 'help <cmd>'.
 
                 roles = self.client.user.listRoles(self.session, user)
 
-                groups = self.client.user.listAssignedSystemGroups(self.session, 
-                                                                   user)
+                groups = \
+                    self.client.user.listAssignedSystemGroups(self.session,
+                                                                    user)
 
                 default_groups = \
                     self.client.user.listDefaultSystemGroups(self.session,
@@ -8749,16 +8400,16 @@ For help for a specific command try 'help <cmd>'.
         print 'user_addgroup: Add a group to an user account'
         print 'usage: user_addgroup USER <GROUP ...>'
 
-    def complete_user_addgroup(self, text, line, begidx, endidx):
+    def complete_user_addgroup(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_group_list('', True), text)
+            return tab_completer(self.do_group_list('', True), text)
 
     def do_user_addgroup(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_addgroup()
@@ -8778,16 +8429,16 @@ For help for a specific command try 'help <cmd>'.
         print 'user_adddefaultgroup: Add a default group to an user account'
         print 'usage: user_adddefaultgroup USER <GROUP ...>'
 
-    def complete_user_adddefaultgroup(self, text, line, begidx, endidx):
+    def complete_user_adddefaultgroup(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) > 2:
-            return self.tab_completer(self.do_group_list('', True), text)
+            return tab_completer(self.do_group_list('', True), text)
 
     def do_user_adddefaultgroup(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_adddefaultgroup()
@@ -8806,18 +8457,19 @@ For help for a specific command try 'help <cmd>'.
         print 'user_removegroup: Remove a group to an user account'
         print 'usage: user_removegroup USER <GROUP ...>'
 
-    def complete_user_removegroup(self, text, line, begidx, endidx):
+    def complete_user_removegroup(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) > 2:
             # only list the groups currently assigned to this user
-            groups = self.client.user.listAssignedSystemGroups(self.session, parts[1])
-            return self.tab_completer([ g.get('name') for g in groups ], text)
+            groups = self.client.user.listAssignedSystemGroups(self.session, 
+                                                               parts[1])
+            return tab_completer([ g.get('name') for g in groups ], text)
 
     def do_user_removegroup(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_removegroup()
@@ -8838,18 +8490,19 @@ For help for a specific command try 'help <cmd>'.
               'user account'
         print 'usage: user_removedefaultgroup USER <GROUP ...>'
 
-    def complete_user_removedefaultgroup(self, text, line, begidx, endidx):
+    def complete_user_removedefaultgroup(self, text, line, beg, end):
         parts = line.split(' ')
         
         if len(parts) == 2:
-            return self.tab_completer(self.do_user_list('', True), text)
+            return tab_completer(self.do_user_list('', True), text)
         elif len(parts) > 2:
             # only list the groups currently assigned to this user
-            groups = self.client.user.listDefaultSystemGroups(self.session, parts[1])
-            return self.tab_completer([ g.get('name') for g in groups ], text)
+            groups = self.client.user.listDefaultSystemGroups(self.session, 
+                                                              parts[1])
+            return tab_completer([ g.get('name') for g in groups ], text)
 
     def do_user_removedefaultgroup(self, args):
-        args = self.parse_arguments(args)
+        args = parse_arguments(args)
 
         if len(args) != 2:
             self.help_user_removedefaultgroup()
@@ -8885,7 +8538,5 @@ For help for a specific command try 'help <cmd>'.
             print self.server
         else:
             logging.warning('Yourself')
-
-####################
 
 # vim:ts=4:expandtab:
