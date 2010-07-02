@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_system_list(self):
     print 'system_list: List all system profiles'
     print 'usage: system_list'
@@ -282,7 +284,7 @@ def do_system_listhardware(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        self.help_system_details()
+        self.help_system_listhardware()
         return
 
     add_separator = False

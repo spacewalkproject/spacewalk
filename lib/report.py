@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_report_inactivesystems(self):
     print 'report_inactivesystems: List all inactive systems'
     print 'usage: report_inactivesystems [DAYS]'

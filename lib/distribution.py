@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_distribution_create(self):
     print 'distribution_create: Create a Kickstart tree'
     print 'usage: distribution_create'

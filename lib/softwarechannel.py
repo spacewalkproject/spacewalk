@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_softwarechannel_getentitlements(self):
     print 'softwarechannel_getentitlements: List the available ' + \
           'entitlements for a software channel'

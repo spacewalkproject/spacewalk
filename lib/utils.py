@@ -18,10 +18,7 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
-__author__  = 'Aron Parsons <aron@redhat.com>'
-__license__ = 'GPL'
-
-import logging, os, pickle, re, readline, xmlrpclib
+import logging, os, pickle, re, readline, time, xmlrpclib
 from datetime import datetime, timedelta
 from tempfile import mkstemp
 from textwrap import wrap
@@ -152,7 +149,7 @@ def editor(template = '', delete = False):
             return (contents, file_name)
         except IOError:
             logging.error('Could not read %s' % file_name)
-            return ''
+            return ([], '')
 
 
 def prompt_user(prompt, noblank = False):

@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_ssm(self):
     print 'The System Set Manager (SSM) is a group of systems that you '
     print 'can perform tasks on as a group.'

@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_group_addsystems(self):
     print 'group_addsystems: Add systems to a group'
     print 'usage: group_addsystems GROUP <SYSTEMS>'

@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_package_details(self):
     print 'package_details: Show the details of a software package'
     print 'usage: package_details PACKAGE ...'

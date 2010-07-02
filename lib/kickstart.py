@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_kickstart_list(self):
     print 'kickstart_list: List the available Kickstart profiles'
     print 'usage: kickstart_list'

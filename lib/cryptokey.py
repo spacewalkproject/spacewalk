@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_cryptokey_create(self):
     print 'cryptokey_create: Create a cryptographic key'
     print 'usage: cryptokey_create'

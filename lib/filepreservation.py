@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_filepreservation_list(self):
     print 'filepreservation_list: List all file preservations'
     print 'usage: filepreservation_list'

@@ -38,7 +38,7 @@ def do_activationkey_addpackages(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_addpackages(self)
+        self.help_activationkey_addpackages()
         return
 
     key = args.pop(0)
@@ -69,7 +69,7 @@ def do_activationkey_removepackages(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_removepackages(self)
+        self.help_activationkey_removepackages()
         return
 
     key = args.pop(0)
@@ -96,7 +96,7 @@ def do_activationkey_addgroups(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_addgroups(self)
+        self.help_activationkey_addgroups()
         return
 
     key = args.pop(0)
@@ -136,7 +136,7 @@ def do_activationkey_removegroups(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_removegroups(self)
+        self.help_activationkey_removegroups()
         return
 
     key = args.pop(0)
@@ -168,7 +168,7 @@ def do_activationkey_addentitlements(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_addentitlements(self)
+        self.help_activationkey_addentitlements()
         return
 
     key = args.pop(0)
@@ -201,7 +201,7 @@ def do_activationkey_removeentitlements(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_removeentitlements(self)
+        self.help_activationkey_removeentitlements()
         return
 
     key = args.pop(0)
@@ -248,7 +248,7 @@ def do_activationkey_addchildchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_addchildchannels(self)
+        self.help_activationkey_addchildchannels()
         return
 
     key = args.pop(0)
@@ -278,7 +278,7 @@ def do_activationkey_removechildchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_removechildchannels(self)
+        self.help_activationkey_removechildchannels()
         return
 
     key = args.pop(0)
@@ -302,7 +302,7 @@ def do_activationkey_listchildchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listchildchannels(self)
+        self.help_activationkey_listchildchannels()
         return
 
     key = args[0]
@@ -326,7 +326,7 @@ def do_activationkey_listbasechannel(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listbasechannel(self)
+        self.help_activationkey_listbasechannel()
         return
 
     key = args[0]
@@ -349,7 +349,7 @@ def do_activationkey_listgroups(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listgroups(self)
+        self.help_activationkey_listgroups()
         return
 
     key = args[0]
@@ -375,7 +375,7 @@ def do_activationkey_listentitlements(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listentitlements(self)
+        self.help_activationkey_listentitlements()
         return
 
     key = args[0]
@@ -399,7 +399,7 @@ def do_activationkey_listpackages(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listpackages(self)
+        self.help_activationkey_listpackages()
         return
 
     key = args[0]
@@ -426,7 +426,7 @@ def do_activationkey_listconfigchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listconfigchannels(self)
+        self.help_activationkey_listconfigchannels()
         return
 
     key = args[0]
@@ -459,7 +459,7 @@ def do_activationkey_addconfigchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_addconfigchannels(self)
+        self.help_activationkey_addconfigchannels()
         return
 
     key = [ args.pop(0) ]
@@ -500,7 +500,7 @@ def do_activationkey_removeconfigchannels(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_removeconfigchannels(self)
+        self.help_activationkey_removeconfigchannels()
         return
 
     key = [ args.pop(0) ]
@@ -525,7 +525,7 @@ def do_activationkey_setconfigchannelorder(self, args):
     args = parse_arguments(args)
 
     if len(args) != 1:
-        help_activationkey_setconfigchannelorder(self)
+        self.help_activationkey_setconfigchannelorder()
         return
 
     key = args[0]
@@ -600,7 +600,7 @@ def do_activationkey_delete(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_delete(self)
+        self.help_activationkey_delete()
         return
 
     key = args[0]
@@ -643,7 +643,7 @@ def do_activationkey_listsystems(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_listsystems(self)
+        self.help_activationkey_listsystems()
         return
 
     key = args[0]
@@ -674,7 +674,7 @@ def do_activationkey_details(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_details(self)
+        self.help_activationkey_details()
         return
 
     add_separator = False
@@ -773,7 +773,7 @@ def do_activationkey_enableconfigdeployment(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_enableconfigdeployment(self)
+        self.help_activationkey_enableconfigdeployment()
         return
 
     for key in args:
@@ -795,7 +795,7 @@ def do_activationkey_disableconfigdeployment(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_disableconfigdeployment(self)
+        self.help_activationkey_disableconfigdeployment()
         return
 
     for key in args:
@@ -821,7 +821,7 @@ def do_activationkey_setbasechannel(self, args):
     args = parse_arguments(args)
 
     if not len(args) >= 2:
-        help_activationkey_setbasechannel(self)
+        self.help_activationkey_setbasechannel()
         return
 
     key = args.pop(0)
@@ -852,7 +852,7 @@ def do_activationkey_setuniversaldefault(self, args):
     args = parse_arguments(args)
 
     if not len(args):
-        help_activationkey_setuniversaldefault(self)
+        self.help_activationkey_setuniversaldefault()
         return
 
     key = args.pop(0)

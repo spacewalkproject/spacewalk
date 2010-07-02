@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_custominfo_createkey(self):
     print 'custominfo_createkey: Create a custom key'
     print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'

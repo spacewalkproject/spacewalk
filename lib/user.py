@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_user_delete(self):
     print 'user_delete: Delete a user'
     print 'usage: user_delete NAME'

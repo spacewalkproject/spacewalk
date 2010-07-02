@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_schedule_cancel(self):
     print 'schedule_cancel: Cancel a scheduled action'
     print 'usage: schedule_cancel ID|* ...'
@@ -269,7 +271,7 @@ def do_schedule_listcompleted(self, args, doreturn=False):
     else:
         try:
             limit = int(args[0])
-        except ValueError:
+        except:
             limit = len(actions)
 
         add_separator = False
@@ -299,7 +301,7 @@ def do_schedule_listfailed(self, args, doreturn=False):
     else:
         try:
             limit = int(args[0])
-        except ValueError:
+        except:
             limit = len(actions)
 
         add_separator = False
@@ -329,7 +331,7 @@ def do_schedule_listarchived(self, args, doreturn=False):
     else:
         try:
             limit = int(args[0])
-        except ValueError:
+        except:
             limit = len(actions)
 
         add_separator = False

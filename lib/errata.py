@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from spacecmd.utils import *
+
 def help_errata_list(self):
     print 'errata_list: List all errata' 
     print 'usage: errata_list'
