@@ -29,10 +29,10 @@ def complete_activationkey_addpackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), 
+        return tab_completer(self.do_activationkey_list('', True), 
                                   text)
     elif len(parts) > 2:
-        return tab_completer(get_package_names(), text)
+        return tab_completer(self.get_package_names(), text)
 
 def do_activationkey_addpackages(self, args):
     args = parse_arguments(args)
@@ -57,7 +57,7 @@ def complete_activationkey_removepackages(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), 
+        return tab_completer(self.do_activationkey_list('', True), 
                                   text)
     elif len(parts) > 2:
         details = self.client.activationkey.getDetails(self.session, 
@@ -87,10 +87,10 @@ def complete_activationkey_addgroups(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), 
+        return tab_completer(self.do_activationkey_list('', True), 
                                   text)
     elif len(parts) > 2:
-        return tab_completer(do_group_list('', True), text)
+        return tab_completer(self.do_group_list('', True), text)
 
 def do_activationkey_addgroups(self, args):
     args = parse_arguments(args)
@@ -118,7 +118,7 @@ def complete_activationkey_removegroups(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), 
+        return tab_completer(self.do_activationkey_list('', True), 
                                   text)
     elif len(parts) > 2:
         key_details = self.client.activationkey.getDetails(self.session, 
@@ -159,7 +159,7 @@ def complete_activationkey_addentitlements(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True),
+        return tab_completer(self.do_activationkey_list('', True),
                                   text)
     elif len(parts) > 2:
         return tab_completer(self.ENTITLEMENTS, text)
@@ -189,7 +189,7 @@ def complete_activationkey_removeentitlements(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         details = \
             self.client.activationkey.getDetails(self.session, parts[1])
@@ -222,7 +222,7 @@ def complete_activationkey_addchildchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True),
+        return tab_completer(self.do_activationkey_list('', True),
                                   text)
     elif len(parts) > 2:
         key_details = \
@@ -267,7 +267,7 @@ def complete_activationkey_removechildchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         key_details = \
             self.client.activationkey.getDetails(self.session, parts[1])
@@ -296,7 +296,7 @@ def help_activationkey_listchildchannels(self):
     print 'usage: activationkey_listchildchannels KEY'
 
 def complete_activationkey_listchildchannels(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listchildchannels(self, args):
     args = parse_arguments(args)
@@ -320,7 +320,7 @@ def help_activationkey_listbasechannel(self):
     print 'usage: activationkey_listbasechannel KEY'
 
 def complete_activationkey_listbasechannel(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listbasechannel(self, args):
     args = parse_arguments(args)
@@ -343,7 +343,7 @@ def help_activationkey_listgroups(self):
     print 'usage: activationkey_listgroups KEY'
 
 def complete_activationkey_listgroups(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listgroups(self, args):
     args = parse_arguments(args)
@@ -369,7 +369,7 @@ def help_activationkey_listentitlements(self):
     print 'usage: activationkey_listentitlements KEY'
 
 def complete_activationkey_listentitlements(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listentitlements(self, args):
     args = parse_arguments(args)
@@ -393,7 +393,7 @@ def help_activationkey_listpackages(self):
     print 'usage: activationkey_listpackages KEY'
 
 def complete_activationkey_listpackages(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listpackages(self, args):
     args = parse_arguments(args)
@@ -420,7 +420,7 @@ def help_activationkey_listconfigchannels(self):
     print 'usage: activationkey_listconfigchannels KEY'
 
 def complete_activationkey_listconfigchannels(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listconfigchannels(self, args):
     args = parse_arguments(args)
@@ -451,14 +451,14 @@ def complete_activationkey_addconfigchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
-        return tab_completer(do_configchannel_list('', True), text)
+        return tab_completer(self.do_configchannel_list('', True), text)
 
 def do_activationkey_addconfigchannels(self, args):
     args = parse_arguments(args)
 
-    if not len(args) >= 2:
+    if len(args) < 2:
         self.help_activationkey_addconfigchannels()
         return
 
@@ -487,7 +487,7 @@ def complete_activationkey_removeconfigchannels(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         key_channels = \
             self.client.activationkey.listConfigChannels(self.session, 
@@ -519,7 +519,7 @@ def help_activationkey_setconfigchannelorder(self):
 
 def complete_activationkey_setconfigchannelorder(self, text, line, beg, 
                                                  end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_setconfigchannelorder(self, args):
     args = parse_arguments(args)
@@ -537,7 +537,7 @@ def do_activationkey_setconfigchannelorder(self, args):
     new_channels = [ c.get('label') for c in new_channels ]
 
     # call an interface for the user to make selections
-    all_channels = do_configchannel_list('', True)
+    all_channels = self.do_configchannel_list('', True)
     new_channels = config_channel_order(all_channels, new_channels)
 
     print
@@ -572,10 +572,10 @@ def do_activationkey_create(self, args):
     for e in self.ENTITLEMENTS:
         if e == 'enterprise_entitled': continue
 
-        if user_confirm(self, '%s Entitlement [y/N]:' % e):
+        if self.user_confirm('%s Entitlement [y/N]:' % e):
             entitlements.append(e)
 
-    default = user_confirm(self, 'Universal Default [y/N]:')
+    default = self.user_confirm('Universal Default [y/N]:')
 
     new_key = self.client.activationkey.create(self.session,
                                                name,
@@ -594,7 +594,7 @@ def help_activationkey_delete(self):
     print 'usage: activationkey_delete KEY'
 
 def complete_activationkey_delete(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_delete(self, args):
     args = parse_arguments(args)
@@ -605,7 +605,7 @@ def do_activationkey_delete(self, args):
 
     key = args[0]
 
-    if not user_confirm(self, 'Delete this activation key [y/N]:'): return
+    if not self.user_confirm('Delete this activation key [y/N]:'): return
 
     self.client.activationkey.delete(self.session, key)
 
@@ -637,7 +637,7 @@ def help_activationkey_listsystems(self):
     print 'usage: activationkey_listsystems KEY'
 
 def complete_activationkey_listsystems(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_listsystems(self, args):
     args = parse_arguments(args)
@@ -668,7 +668,7 @@ def help_activationkey_details(self):
     print 'usage: activationkey_details KEY ...'
 
 def complete_activationkey_details(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_details(self, args):
     args = parse_arguments(args)
@@ -767,7 +767,7 @@ def help_activationkey_enableconfigdeployment(self):
 
 def complete_activationkey_enableconfigdeployment(self, text, line, beg, 
                                                   end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_enableconfigdeployment(self, args):
     args = parse_arguments(args)
@@ -789,7 +789,7 @@ def help_activationkey_disableconfigdeployment(self):
 
 def complete_activationkey_disableconfigdeployment(self, text, line, beg, 
                                                    end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_disableconfigdeployment(self, args):
     args = parse_arguments(args)
@@ -813,7 +813,7 @@ def complete_activationkey_setbasechannel(self, text, line, beg, end):
     parts = line.split(' ')
 
     if len(parts) == 2:
-        return tab_completer(do_activationkey_list(self, '', True), text)
+        return tab_completer(self.do_activationkey_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(list_base_channels(self), text)
 
@@ -846,7 +846,7 @@ def help_activationkey_setuniversaldefault(self):
     print 'usage: activationkey_setuniversaldefault KEY'
 
 def complete_activationkey_setuniversaldefault(self, text, line, beg, end):
-    return tab_completer(do_activationkey_list(self, '', True), text)
+    return tab_completer(self.do_activationkey_list('', True), text)
 
 def do_activationkey_setuniversaldefault(self, args):
     args = parse_arguments(args)
