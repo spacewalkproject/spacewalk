@@ -65,7 +65,7 @@ rhnChannelPackageArchCompat    :: rhnPackageArch rhnChannelArch
 rhnChannelPermission           :: rhnChannelPermissionRole rhnChannel web_contact
 rhnChannelRelationship         :: rhnRelationshipType rhnChannel
 rhnChannelTrust                :: rhnChannel
-rhnChannelContentSource        :: rhnChannel rhnContentSourceType
+rhnChannelContentSource        :: rhnChannel rhnContentSourceType rhnContentSource
 rhnChecksum                    :: rhnChecksumType
 rhnClientCapability            :: rhnClientCapabilityName
 rhnClientOptionVersionMap      :: rhnClientConfigOption rhnPackageEVR
