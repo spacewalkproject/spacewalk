@@ -40,6 +40,7 @@ class RepoSync:
     fail = False
     repo_label = None
     quiet = False
+    regen = False
 
     def main(self):
         initCFG('server')
@@ -103,6 +104,9 @@ class RepoSync:
 
         self.plugin = self.load_plugin()(self.url, self.channel_label + "-" + self.repo_label)
         self.import_packages(self.plugin.list_packages())
+        if self.regen:
+            taskomatic.add_to_repodata_queue_for_channel_package_subscription(
+                [self.channel_label], [], "server.app.yumreposync")
         self.print_msg("Sync complete")
 
     def process_args(self):
@@ -137,6 +141,9 @@ class RepoSync:
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
+        else:
+            self.regen=True
+        is_non_local_repo = (url.find("file://") < 0)
         for (index, pack) in enumerate(to_download):
             """download each package"""
             # try/except/finally doesn't work in python 2.4 (RHEL5), so here's a hack
@@ -208,7 +215,7 @@ class RepoSync:
     def _importer_run(self, package, caller, backend):
             importer = ChannelPackageSubscription(
                        [IncompletePackage().populate(package)],
-                       backend, caller=caller)
+                       backend, caller=caller, repogen=False)
             importer.run()
 
 

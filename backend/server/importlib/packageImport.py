@@ -26,7 +26,7 @@ from common import CFG
 from types import StringType
 
 class ChannelPackageSubscription(GenericPackageImport):
-    def __init__(self, batch, backend, caller=None, strict=0):
+    def __init__(self, batch, backend, caller=None, strict=0, repogen=True):
         # If strict, the set of packages that was passed in will be the only
         # one in the channels - everything else will be unlinked
         GenericPackageImport.__init__(self, batch, backend)
@@ -40,6 +40,7 @@ class ChannelPackageSubscription(GenericPackageImport):
         else:
             self.caller = caller
         self._strict_subscription = strict
+        self.repogen = repogen
 
     def preprocess(self):
         # Processes the package batch to a form more suitable for database
@@ -124,7 +125,8 @@ class ChannelPackageSubscription(GenericPackageImport):
         self.backend.update_newest_package_cache(caller=self.caller, 
             affected_channels=self.affected_channel_packages)
         # Now that channel is updated, schedule the repo generation
-        taskomatic.add_to_repodata_queue_for_channel_package_subscription(
+        if self.repogen:
+            taskomatic.add_to_repodata_queue_for_channel_package_subscription(
                 self.affected_channels, self.batch, self.caller)
         self.backend.commit()
 
