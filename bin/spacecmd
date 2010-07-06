@@ -125,7 +125,7 @@ if __name__ == '__main__':
         # run a single command from the command line
         try:
             # run the command
-            shell.onecmd(shell.precmd(' '.join(args), True))
+            shell.onecmd(shell.precmd(' '.join(args)))
         except KeyboardInterrupt:
             print
         except Exception, detail:
