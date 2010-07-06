@@ -38,6 +38,7 @@ class RepoSync:
     channel = None
     fail = False
     quiet = False
+    regen = False
 
     def main(self):
         initCFG('server')
@@ -104,6 +105,9 @@ class RepoSync:
         for url in self.urls:
             plugin = self.load_plugin()(url, self.channel_label)
             self.import_packages(plugin, url)
+        if self.regen:
+            taskomatic.add_to_repodata_queue_for_channel_package_subscription(
+                [self.channel_label], [], "server.app.yumreposync")
         self.print_msg("Sync complete")
 
     def process_args(self):
@@ -139,6 +143,8 @@ class RepoSync:
 
         if len(to_download) == 0:
             self.print_msg("No new packages to download.")
+        else:
+            self.regen=True
         is_non_local_repo = (url.find("file://") < 0)
         for (index, pack) in enumerate(to_download):
             """download each package"""
@@ -211,7 +217,7 @@ class RepoSync:
     def _importer_run(self, package, caller, backend):
             importer = ChannelPackageSubscription(
                        [IncompletePackage().populate(package)],
-                       backend, caller=caller)
+                       backend, caller=caller, repogen=False)
             importer.run()
 
 
