@@ -41,7 +41,7 @@ public class SystemRecord extends CobblerObject {
     private static final String VIRT_RAM = "virt_ram";
     private static final String NETBOOT_ENABLED = "netboot_enabled";
     public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
-    private static final String SET_INTERFACES = "modify-interface";
+    private static final String SET_INTERFACES = "modify_interface";
     private static final String GET_INTERFACES = "interface";
     
     private SystemRecord(CobblerConnection clientIn) {
