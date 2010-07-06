@@ -121,6 +121,45 @@ def do_package_search(self, args, doreturn = False):
 
 ####################
 
+def help_package_remove(self):
+    print 'package_remove: Remove a package from Satellite'
+    print 'usage: package_remove PACKAGE ...'
+
+def complete_package_remove(self, text, line, beg, end):
+    return tab_completer(self.get_package_names(True), text)
+
+def do_package_remove(self, args, prompt = True):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_package_remove()
+        return
+
+    packages = args
+
+    self.generate_package_cache()
+
+    to_remove = filter_results(self.get_package_names(True), packages)
+
+    if not len(to_remove): return
+
+    print 'Packages:'
+    print '\n'.join(sorted(to_remove))
+
+    if prompt:
+        if not self.user_confirm('Remove these packages [y/N]:'): return
+
+    for package in to_remove:
+        package_id = self.all_package_longnames[package]
+
+        try:
+            self.client.packages.removePackage(self.session, package_id)
+            self.generate_package_cache(True)
+        except:
+            logging.error('Failed to remove package ID %i' % package_id)
+
+####################
+
 def help_package_listorphans(self):
     print 'package_listorphans: List packages that are not in a channel'
     print 'usage: package_listorphans'
@@ -137,4 +176,22 @@ def do_package_listorphans(self, args, doreturn=False):
         if len(packages):
             print '\n'.join(sorted(packages))
 
+####################
+
+def help_package_removeorphans(self):
+    print 'package_removeorphans: Remove packages that are not in a channel'
+    print 'usage: package_removeorphans'
+
+def do_package_removeorphans(self, args, doreturn=False):
+    packages = self.do_package_listorphans('', True)
+
+    if not len(packages): return
+
+    print 'Packages:'
+    print '\n'.join(sorted(packages))
+
+    if not self.user_confirm('Remove these packages [y/N]:'): return
+
+    return self.do_package_remove(' '.join(packages), prompt = False)
+        
 # vim:ts=4:expandtab:
