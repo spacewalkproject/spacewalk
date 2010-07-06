@@ -230,7 +230,7 @@ def do_softwarechannel_listerrata(self, args):
 
 def help_softwarechannel_delete(self):
     print 'softwarechannel_delete: Delete a software channel'
-    print 'usage: softwarechannel_delete CHANNEL'
+    print 'usage: softwarechannel_delete CHANNEL ...'
 
 def complete_softwarechannel_delete(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
@@ -242,11 +242,23 @@ def do_softwarechannel_delete(self, args):
         self.help_softwarechannel_delete()
         return
 
-    channel = args[0]
+    channels = args
 
-    if not self.user_confirm('Delete this channel [y/N]:'): return
+    # list all software channels
+    all_channels = self.do_softwarechannel_list('', True)
 
-    self.client.channel.software.delete(self.session, channel)
+    # find all matching channels
+    to_delete = filter_results(all_channels, channels)
+
+    if not len(to_delete): return
+
+    print 'Channels:'
+    print '\n'.join(sorted(to_delete))
+
+    if not self.user_confirm('Delete these channels [y/N]:'): return
+
+    for channel in to_delete:
+        self.client.channel.software.delete(self.session, channel)
 
 ####################
 
