@@ -128,7 +128,7 @@ def help_package_remove(self):
 def complete_package_remove(self, text, line, beg, end):
     return tab_completer(self.get_package_names(True), text)
 
-def do_package_remove(self, args, prompt = True):
+def do_package_remove(self, args):
     args = parse_arguments(args)
 
     if not len(args):
@@ -137,8 +137,6 @@ def do_package_remove(self, args, prompt = True):
 
     packages = args
 
-    self.generate_package_cache()
-
     to_remove = filter_results(self.get_package_names(True), packages)
 
     if not len(to_remove): return
@@ -146,17 +144,18 @@ def do_package_remove(self, args, prompt = True):
     print 'Packages:'
     print '\n'.join(sorted(to_remove))
 
-    if prompt:
-        if not self.user_confirm('Remove these packages [y/N]:'): return
+    if not self.user_confirm('Remove these packages [y/N]:'): return
 
     for package in to_remove:
-        package_id = self.all_package_longnames[package]
+        package_id = self.get_package_id(package)
 
         try:
             self.client.packages.removePackage(self.session, package_id)
-            self.generate_package_cache(True)
         except:
             logging.error('Failed to remove package ID %i' % package_id)
+   
+    # regenerate the package cache after removing these packages         
+    self.generate_package_cache(True)
 
 ####################
 
@@ -182,16 +181,19 @@ def help_package_removeorphans(self):
     print 'package_removeorphans: Remove packages that are not in a channel'
     print 'usage: package_removeorphans'
 
-def do_package_removeorphans(self, args, doreturn=False):
-    packages = self.do_package_listorphans('', True)
-
-    if not len(packages): return
+def do_package_removeorphans(self, args):
+    packages = \
+        self.client.channel.software.listPackagesWithoutChannel(self.session)
 
     print 'Packages:'
-    print '\n'.join(sorted(packages))
+    print '\n'.join(sorted(build_package_names(packages)))
 
     if not self.user_confirm('Remove these packages [y/N]:'): return
 
-    return self.do_package_remove(' '.join(packages), prompt = False)
+    for package in packages:
+        try:
+            self.client.packages.removePackage(self.session, package.get('id'))
+        except:
+            logging.error('Failed to remove package ID %i' % package.get('id'))
         
 # vim:ts=4:expandtab:
