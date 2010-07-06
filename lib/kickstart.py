@@ -18,6 +18,7 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+from operator import itemgetter
 from spacecmd.utils import *
 
 def help_kickstart_list(self):
