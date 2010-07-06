@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+# NOTE: the 'self' variable is an instance of SpacewalkShell
+
 import logging, os, pickle, re, readline, time, xmlrpclib
 from datetime import datetime, timedelta
 from tempfile import mkstemp

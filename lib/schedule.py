@@ -18,6 +18,8 @@
 # Copyright 2010 Aron Parsons <aron@redhat.com>
 #
 
+# NOTE: the 'self' variable is an instance of SpacewalkShell
+
 from spacecmd.utils import *
 
 def help_schedule_cancel(self):
