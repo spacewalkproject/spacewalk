@@ -185,6 +185,10 @@ def do_package_removeorphans(self, args):
     packages = \
         self.client.channel.software.listPackagesWithoutChannel(self.session)
 
+    if not len(packages):
+        logging.warning('No orphaned packages')
+        return
+
     print 'Packages:'
     print '\n'.join(sorted(build_package_names(packages)))
 
