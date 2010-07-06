@@ -28,8 +28,7 @@ def help_softwarechannel_getentitlements(self):
           'entitlements for a software channel'
     print 'usage: softwarechannel_getentitlements CHANNEL'
 
-def complete_softwarechannel_getentitlements(self, text, line, beg, 
-                                             end):
+def complete_softwarechannel_getentitlements(self, text, line, beg, end):
     return tab_completer(self.do_softwarechannel_list('', True), text)
 
 def do_softwarechannel_getentitlements(self, args):
@@ -144,9 +143,12 @@ def do_softwarechannel_details(self, args):
         self.help_softwarechannel_details()
         return
 
+    # allow globbing of software channel names
+    channels = filter_results(self.do_softwarechannel_list('', True), args)
+
     add_separator = False
 
-    for channel in args:
+    for channel in channels:
         details = self.client.channel.software.getDetails(\
                                     self.session, channel)
 
@@ -244,11 +246,8 @@ def do_softwarechannel_delete(self, args):
 
     channels = args
 
-    # list all software channels
-    all_channels = self.do_softwarechannel_list('', True)
-
     # find all matching channels
-    to_delete = filter_results(all_channels, channels)
+    to_delete = filter_results(self.do_softwarechannel_list('', True), channels)
 
     if not len(to_delete): return
 
