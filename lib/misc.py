@@ -81,18 +81,18 @@ def do_get_entitlements(self, args):
 
     print 'System:'
     for e in entitlements.get('system'):
-        print '%s: %s/%s' % (
+        print '%s: %i/%i' % (
               e.get('label'),
-              str(e.get('used_slots')),
-              str(e.get('total_slots')))
+              e.get('used_slots'),
+              e.get('total_slots'))
 
     print
     print 'Channel:'
     for e in entitlements.get('channel'):
-        print '%s: %s/%s' % (
+        print '%s: %i/%i' % (
               e.get('label'),
-              str(e.get('used_slots')),
-              str(e.get('total_slots')))
+              e.get('used_slots'),
+              e.get('total_slots'))
 
 ####################
 
@@ -500,7 +500,7 @@ def get_system_id(self, name):
         logging.warning('Multiple systems found with the same name')
 
         for id in systems:
-            logging.warning('%s = %s' % (name, str(id)))
+            logging.warning('%s = %i' % (name, id))
 
         return 0
 

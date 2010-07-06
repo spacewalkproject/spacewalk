@@ -73,7 +73,7 @@ def do_ssm_add(self, args):
             logging.info('Added %s' % system)
 
     if len(self.ssm):
-        print 'Systems Selected: %s' % str(len(self.ssm))
+        print 'Systems Selected: %i' % len(self.ssm)
     
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -152,7 +152,7 @@ def do_ssm_remove(self, args):
             logging.info('Removed %s' % system)
             del self.ssm[system]
 
-    print 'Systems Selected: %s' % str(len(self.ssm))
+    print 'Systems Selected: %i' % len(self.ssm)
 
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
@@ -170,7 +170,7 @@ def do_ssm_list(self, args):
 
     if len(systems):
         print '\n'.join(systems)
-        print 'Systems Selected: %s' % str(len(systems))
+        print 'Systems Selected: %i' % len(systems)
 
 ####################
 

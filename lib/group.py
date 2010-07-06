@@ -237,7 +237,7 @@ def do_group_details(self, args, short=False):
 
         print 'Name               %s' % details.get('name')
         print 'Description:       %s' % details.get('description')
-        print 'Number of Systems: %s' % str(details.get('system_count'))
+        print 'Number of Systems: %i' % details.get('system_count')
 
         if not short:
             print

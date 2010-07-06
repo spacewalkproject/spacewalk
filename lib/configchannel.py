@@ -140,7 +140,7 @@ def do_configchannel_filedetails(self, args):
 
         print 'File:     %s' % file.get('path')
         print 'Type:     %s' % file.get('type')
-        print 'Revision: %s' % str(file.get('revision'))
+        print 'Revision: %i' % file.get('revision')
         print 'Created:  %s' % format_time(file.get('creation').value)
         print 'Modified: %s' % format_time(file.get('modified').value)
 
@@ -151,7 +151,7 @@ def do_configchannel_filedetails(self, args):
 
         if file.get('type') == 'file':
             print 'MD5:      %s' % file.get('md5')
-            print 'Binary:   %s' % str(file.get('binary'))
+            print 'Binary:   %s' % file.get('binary')
 
             if not file.get('binary'):
                 print

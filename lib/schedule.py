@@ -58,9 +58,9 @@ def do_schedule_cancel(self, args):
     self.client.schedule.cancelActions(self.session, actions)
 
     for a in actions:
-        logging.info('Canceled action %s' % str(a))
+        logging.info('Canceled action %i' % a)
 
-    print 'Canceled %s actions' % str(len(actions))
+    print 'Canceled %i actions' % len(actions)
 
 ####################
 
@@ -103,9 +103,9 @@ def do_schedule_details(self, args):
     print_action_summary(action, systems = all_systems)
     
     print
-    print 'Completed: %s' % str(len(completed))
-    print 'Failed:    %s' % str(len(failed))
-    print 'Pending:   %s' % str(len(pending))
+    print 'Completed: %i' % len(completed)
+    print 'Failed:    %i' % len(failed)
+    print 'Pending:   %i' % len(pending)
 
     if len(completed):
         print
@@ -166,7 +166,7 @@ def do_schedule_getoutput(self, args):
             print 'System:      %s' % 'UNKNOWN'
             print 'Start Time:  %s' % format_time(r.get('startDate').value)
             print 'Stop Time:   %s' % format_time(r.get('stopDate').value)
-            print 'Return Code: %s' % str(r.get('returnCode'))
+            print 'Return Code: %i' % r.get('returnCode')
             print 'Output:'
             print r.get('output')
     else:

@@ -256,13 +256,13 @@ def do_kickstart_details(self, args):
     print 'Name:        %s' % kickstart.get('name')
     print 'Label:       %s' % kickstart.get('label')
     print 'Tree:        %s' % kickstart.get('tree_label')
-    print 'Active:      %s' % str(kickstart.get('active'))
-    print 'Advanced:    %s' % str(kickstart.get('advanced_mode'))
-    print 'Org Default: %s' % str(kickstart.get('org_default'))
+    print 'Active:      %s' % kickstart.get('active')
+    print 'Advanced:    %s' % kickstart.get('advanced_mode')
+    print 'Org Default: %s' % kickstart.get('org_default')
 
     print
-    print 'Config Management: %s' % str(config_manage)
-    print 'Remote Commands:   %s' % str(remote_commands)
+    print 'Configuration Management: %s' % config_manage
+    print 'Remote Commands:          %s' % remote_commands
 
     print
     print 'Software Channels:'
@@ -332,7 +332,7 @@ def do_kickstart_details(self, args):
             add_separator = True
 
             print '  Type:        %s' % s.get('script_type')
-            print '  Chroot:      %s' % str(s.get('chroot'))
+            print '  Chroot:      %s' % s.get('chroot')
 
             if s.get('interpreter'):
                 print '  Interpreter: %s' % s.get('interpreter')

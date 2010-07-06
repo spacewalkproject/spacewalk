@@ -230,7 +230,7 @@ def do_system_runscript(self, args):
     print
     print 'User:       %s' % user
     print 'Group:      %s' % group
-    print 'Timeout:    %s seconds' % str(timeout)
+    print 'Timeout:    %i seconds' % timeout
     print 'Start Time: %s' % format_time(timestamp.value)
     print
     print script
@@ -255,7 +255,7 @@ def do_system_runscript(self, args):
                                                       script,
                                                       timestamp)
         
-            logging.info('Action ID: %s' % str(id))
+            logging.info('Action ID: %i' % id)
             scheduled += 1
         except Exception, detail:
             logging.debug(detail)
@@ -340,7 +340,7 @@ def do_system_listhardware(self, args):
             print
 
         print 'CPU:'
-        print '  Count:    %s' % str(cpu.get('count'))
+        print '  Count:    %i' % cpu.get('count')
         print '  Arch:     %s' % cpu.get('arch')
         print '  MHz:      %s' % cpu.get('mhz')
         print '  Cache:    %s' % cpu.get('cache')
@@ -349,8 +349,8 @@ def do_system_listhardware(self, args):
 
         print
         print 'Memory:'
-        print '  RAM:  %s' % str(memory.get('ram'))
-        print '  Swap: %s' % str(memory.get('swap'))
+        print '  RAM:  %i' % memory.get('ram')
+        print '  Swap: %i' % memory.get('swap')
 
         if dmi:
             print
@@ -1021,7 +1021,7 @@ def do_system_delete(self, args):
 
     self.client.system.deleteSystems(self.session, system_ids)
 
-    logging.info('Deleted %s system(s)', str(len(system_ids)))
+    logging.info('Deleted %i system(s)', len(system_ids))
 
     # regenerate the system name cache
     self.generate_system_cache(True)
@@ -1499,8 +1499,8 @@ def do_system_details(self, args, short=False):
         add_separator = True
 
         print 'Name:          %s' % system
-        print 'System ID:     %s' % str(system_id)
-        print 'Locked:        %s' % str(details.get('lock_status'))
+        print 'System ID:     %i' % system_id
+        print 'Locked:        %s' % details.get('lock_status')
         print 'Registered:    %s' % format_time(registered.value)
         print 'Last Checkin:  %s' % format_time(last_checkin.value)
         print 'OSA Status:    %s' % details.get('osa_status')

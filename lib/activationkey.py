@@ -718,8 +718,7 @@ def do_activationkey_details(self, args):
 
         print 'Key:               %s' % details.get('key')
         print 'Description:       %s' % details.get('description')
-        print 'Universal Default: %s' % \
-              str(details.get('universal_default'))
+        print 'Universal Default: %s' % details.get('universal_default')
 
         print
         print 'Software Channels:'
@@ -729,8 +728,7 @@ def do_activationkey_details(self, args):
             print '   |-- %s' % channel
 
         print
-        print 'Configuration Channel Deployment: %s' % \
-              str(config_channel_deploy)
+        print 'Configuration Channel Deployment: %s' % config_channel_deploy
 
         print
         print 'Configuration Channels:'
