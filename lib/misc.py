@@ -72,30 +72,6 @@ def do_get_certificateexpiration(self, args):
 
 ####################
 
-def help_get_entitlements(self):
-    print 'get_entitlements: Show the current entitlement usage'
-    print 'usage: get_entitlements'
-
-def do_get_entitlements(self, args):
-    entitlements = self.client.satellite.listEntitlements(self.session)
-
-    print 'System:'
-    for e in entitlements.get('system'):
-        print '%s: %i/%i' % (
-              e.get('label'),
-              e.get('used_slots'),
-              e.get('total_slots'))
-
-    print
-    print 'Channel:'
-    for e in entitlements.get('channel'):
-        print '%s: %i/%i' % (
-              e.get('label'),
-              e.get('used_slots'),
-              e.get('total_slots'))
-
-####################
-
 def help_help(self):
     print 'help: Show help for the given command'
     print 'usage: help COMMAND'

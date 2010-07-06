@@ -20,6 +20,30 @@
 
 from spacecmd.utils import *
 
+def help_report_entitlements(self):
+    print 'report_entitlements: Show the current entitlement usage'
+    print 'usage: report_entitlements'
+
+def do_report_entitlements(self, args):
+    entitlements = self.client.satellite.listEntitlements(self.session)
+
+    print 'System:'
+    for e in entitlements.get('system'):
+        print '%s: %i/%i' % (
+              e.get('label'),
+              e.get('used_slots'),
+              e.get('total_slots'))
+
+    print
+    print 'Channel:'
+    for e in entitlements.get('channel'):
+        print '%s: %i/%i' % (
+              e.get('label'),
+              e.get('used_slots'),
+              e.get('total_slots'))
+
+####################
+
 def help_report_inactivesystems(self):
     print 'report_inactivesystems: List all inactive systems'
     print 'usage: report_inactivesystems [DAYS]'
