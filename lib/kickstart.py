@@ -20,7 +20,9 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from getpass import getpass
 from operator import itemgetter
+from urllib2 import urlopen, HTTPError
 from spacecmd.utils import *
 
 def help_kickstart_list(self):
@@ -128,7 +130,7 @@ def do_kickstart_import(self, args):
         return
 
     name = args[0]
-    file = args[1]
+    filename = args[1]
 
     print 'Virtualization Types:'
     print '\n'.join(sorted(self.VIRT_TYPES))
@@ -148,17 +150,17 @@ def do_kickstart_import(self, args):
 
         tree = prompt_user('Select:')
 
-    if not os.path.isfile(file):
-        logging.error("Couldn't read %s" % file)
+    if not os.path.isfile(filename):
+        logging.error("Couldn't read %s" % filename)
         return
 
     contents = ''
     try:
-        ksfile = open(file, 'r')
+        ksfile = open(filename, 'r')
         contents = ksfile.read()
         ksfile.close()
     except IOError:
-        logging.error("Couldn't read %s" % file)
+        logging.error("Couldn't read %s" % filename)
         return 
 
     # use the default server
@@ -314,14 +316,14 @@ def do_kickstart_details(self, args):
         print 'File Preservations:'
         for fp in sorted(file_preservations, key=itemgetter('name')):
             print '  %s' % fp.get('name')
-            for file in sorted(fp.get('file_names')):
-                print '    |-- %s' % file
+            for profile_name in sorted(fp.get('file_names')):
+                print '    |-- %s' % profile_name
 
     if len(variables):
         print
         print 'Variables:'
         for k in sorted(variables.keys()):
-            print '  %s=%s' %(k, str(variables[k]))
+            print '  %s=%s' % (k, str(variables[k]))
 
     if len(scripts):
         print
@@ -355,7 +357,7 @@ def complete_kickstart_getfile(self, text, line, beg, end):
 def do_kickstart_getfile(self, args, doreturn=False):
     args = parse_arguments(args)
 
-    url = 'http://%s/ks/cfg/label/%s' %(self.server, args[0])
+    url = 'http://%s/ks/cfg/label/%s' % (self.server, args[0])
 
     try:
         if re.match('localhost', self.server, re.I):
@@ -365,9 +367,9 @@ def do_kickstart_getfile(self, args, doreturn=False):
                     os.environ[p] = ''
 
         logging.debug('Retrieving %s' % url)
-        response = urllib2.urlopen(url)
+        response = urlopen(url)
         kickstart = response.read()
-    except urllib2.HTTPError:
+    except HTTPError:
         logging.error('Could not retrieve the Kickstart file')
         return
 
@@ -1540,7 +1542,7 @@ def do_kickstart_addscript(self, args):
 
     profile = args[0]
 
-    type = prompt_user('Pre/Post Script [post]:')
+    script_type = prompt_user('Pre/Post Script [post]:')
     chroot = prompt_user('Chrooted [Y/n]:')
     interpreter = prompt_user('Interpreter [/bin/bash]:')
     
@@ -1550,10 +1552,10 @@ def do_kickstart_addscript(self, args):
     # check user input
     if interpreter == '': interpreter = '/bin/bash'
     
-    if re.match('pre', type, re.I):
-        type = 'pre'
+    if re.match('pre', script_type, re.I):
+        script_type = 'pre'
     else:
-        type = 'post'
+        script_type = 'post'
 
     if re.match('n', chroot, re.I):
         chroot = False
@@ -1561,7 +1563,7 @@ def do_kickstart_addscript(self, args):
         chroot = True
 
     print
-    print 'Type:        %s' % type
+    print 'Type:        %s' % script_type
     print 'Chroot:      %s' % chroot
     print 'Interpreter: %s' % interpreter
     print 'Contents:'
@@ -1573,7 +1575,7 @@ def do_kickstart_addscript(self, args):
                                             profile,
                                             contents,
                                             interpreter,
-                                            type,
+                                            script_type,
                                             chroot)
 
 ####################
@@ -1612,10 +1614,10 @@ def do_kickstart_removescript(self, args):
     if not script_id:
         while script_id == 0:
             print
-            input = prompt_user('Script ID:', noblank = True)
+            userinput = prompt_user('Script ID:', noblank = True)
     
             try:
-                script_id = int(input)
+                script_id = int(userinput)
             except ValueError:
                 logging.error('Invalid script ID')
 

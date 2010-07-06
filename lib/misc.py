@@ -532,8 +532,8 @@ def expand_systems(self, args):
         else:
             try:
                 # determine the system name if passed an ID
-                id = int(item)
-                name = self.client.system.getName(self.session, id)
+                system_id = int(item)
+                name = self.client.system.getName(self.session, system_id)
                 item = name.get('name')
             except ValueError:
                 pass

@@ -85,11 +85,11 @@ def do_report_outofdatesystems(self, args):
 
     report = {}
     for system in systems:
-        id = system.get('id')
+        system_id = system.get('id')
 
         packages = \
             self.client.system.listLatestUpgradablePackages(self.session,
-                                                            id)
+                                                            system_id)
 
         report[system.get('name')] = len(packages)
 
@@ -180,8 +180,8 @@ def do_report_ipaddresses(self, args):
 
     report = {}
     for system in systems:
-        id = self.get_system_id(system)
-        network = self.client.system.getNetwork(self.session, id)
+        system_id = self.get_system_id(system)
+        network = self.client.system.getNetwork(self.session, system_id)
         report[system] = {'hostname' : network.get('hostname'),
                           'ip'       : network.get('ip') }
 
@@ -232,8 +232,8 @@ def do_report_kernels(self, args):
 
     report = {}
     for system in systems:
-        id = self.get_system_id(system)
-        kernel = self.client.system.getRunningKernel(self.session, id)
+        system_id = self.get_system_id(system)
+        kernel = self.client.system.getRunningKernel(self.session, system_id)
         report[system] = kernel
 
     #XXX: max(list, key=len) in >2.5

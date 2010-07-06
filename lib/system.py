@@ -20,6 +20,8 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from operator import itemgetter
+from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
 
 def help_system_list(self):
@@ -59,13 +61,13 @@ def do_system_reboot(self, args):
 
     if not self.user_confirm('Reboot these systems [y/N]:'): return
 
-    time = parse_time_input('now')
+    action_time = parse_time_input('now')
 
     for system in systems:
-        id = self.get_system_id(system)
-        if not id: continue
+        system_id = self.get_system_id(system)
+        if not system_id: continue
 
-        self.client.system.scheduleReboot(self.session, id, time)
+        self.client.system.scheduleReboot(self.session, id, action_time)
 
 ####################
 
@@ -211,9 +213,9 @@ def do_system_runscript(self, args):
         script_file = os.path.abspath(script_file)
 
         try:
-            file = open(script_file, 'r')
-            script = file.read()
-            file.close()
+            handle = open(script_file, 'r')
+            script = handle.read()
+            handle.close()
         except IOError:
             logging.error('Could not read %s' % script_file)
             return
@@ -249,15 +251,15 @@ def do_system_runscript(self, args):
         # the current API forces us to schedule each system individually
         # XXX: Bugzilla 584867
         try:
-            id = self.client.system.scheduleScriptRun(self.session,
-                                                      system_id,
-                                                      user,
-                                                      group,
-                                                      timeout,
-                                                      script,
-                                                      timestamp)
+            action_id = self.client.system.scheduleScriptRun(self.session,
+                                                             system_id,
+                                                             user,
+                                                             group,
+                                                             timeout,
+                                                             script,
+                                                             timestamp)
         
-            logging.info('Action ID: %i' % id)
+            logging.info('Action ID: %i' % action_id)
             scheduled += 1
         except Exception, detail:
             logging.debug(detail)
@@ -314,7 +316,7 @@ def do_system_listhardware(self, args):
 
         try:
             dmi = self.client.system.getDmi(self.session, system_id)
-        except xml.parsers.expat.ExpatError:
+        except ExpatError:
             dmi = None
 
         if add_separator: print self.SEPARATOR
@@ -470,8 +472,8 @@ def do_system_installpackage(self, args):
 
         print 'System: %s' % system
         print 'Install Packages:'
-        for id in package_ids:
-            package = self.client.packages.getDetails(self.session, id)
+        for package_id in package_ids:
+            package = self.client.packages.getDetails(self.session, package_id)
             print build_package_names(package)
 
     if not self.user_confirm(): return
@@ -480,15 +482,15 @@ def do_system_installpackage(self, args):
     for job in jobs:
         (system, system_id, package_ids) = job
 
-        time = parse_time_input('now')
+        action_time = parse_time_input('now')
 
         try:
-            id = self.client.system.schedulePackageInstall(self.session,
-                                                           system_id,
-                                                           package_ids,
-                                                           time)
+            action_id = self.client.system.schedulePackageInstall(self.session,
+                                                                  system_id,
+                                                                  package_ids,
+                                                                  action_time)
 
-            logging.info('Action ID: %i' % id)
+            logging.info('Action ID: %i' % action_id)
             scheduled += 1
         except:
             logging.error('Failed to schedule %s' % system)
@@ -575,7 +577,7 @@ def do_system_removepackage(self, args):
     if not len(jobs): return 
     if not self.user_confirm('Remove these packages [y/N]:'): return
 
-    time = parse_time_input('now')
+    action_time = parse_time_input('now')
 
     scheduled = 0
     for system in jobs:
@@ -583,12 +585,12 @@ def do_system_removepackage(self, args):
         if not system_id: continue
 
         try:
-            id = self.client.system.schedulePackageRemove(self.session,
-                                                          system_id,
-                                                          jobs[system],
-                                                          time)
+            action_id = self.client.system.schedulePackageRemove(self.session,
+                                                                 system_id,
+                                                                 jobs[system],
+                                                                 action_time)
 
-            logging.info('Action ID: %i' % id)
+            logging.info('Action ID: %i' % action_id)
             scheduled += 1
         except:
             logging.error('Failed to schedule %s' % system)
@@ -653,17 +655,17 @@ def do_system_upgradepackage(self, args):
         return
 
     scheduled = 0
-    time = parse_time_input('now')
+    action_time = parse_time_input('now')
     for job in jobs:
         (system, system_id, package_ids) = job
 
         try:
-            id = self.client.system.schedulePackageInstall(self.session,
-                                                           system_id,
-                                                           package_ids,
-                                                           time)
+            action_id = self.client.system.schedulePackageInstall(self.session,
+                                                                  system_id,
+                                                                  package_ids,
+                                                                  action_time)
         
-            logging.info('Action ID: %i' % id)
+            logging.info('Action ID: %i' % action_id)
             scheduled += 1
         except:
             logging.error('Failed to schedule %s' % system)
@@ -930,8 +932,9 @@ def do_system_setconfigchannelorder(self, args):
 
     # get the current configuration channels from the first system
     # in the list
-    id = self.get_system_id(systems[0])
-    new_channels = self.client.system.config.listChannels(self.session, id)
+    system_id = self.get_system_id(systems[0])
+    new_channels = self.client.system.config.listChannels(self.session, 
+                                                          system_id)
     new_channels = [ c.get('label') for c in new_channels ]
 
     # call an interface for the user to make selections
@@ -978,11 +981,11 @@ def do_system_deployconfigfiles(self, args):
     
     system_ids = [ self.get_system_id(s) for s in systems ] 
         
-    time = parse_time_input('now')
+    action_time = parse_time_input('now')
 
     self.client.system.config.deployAll(self.session, 
                                         system_ids, 
-                                        time)
+                                        action_time)
 
 ####################
 
@@ -1704,14 +1707,14 @@ def do_system_applyerrata(self, args):
         system_id = self.get_system_id(system)
         if not system_id: return
         
-        time = parse_time_input('now')
+        action_time = parse_time_input('now')
 
         for errata in errata_ids:
             try:
                 self.client.system.scheduleApplyErrata(self.session,
                                                        system_id,
                                                        [errata],
-                                                       time)
+                                                       action_time)
             except:
                 logging.warning('Failed to schedule %s' % system)
 

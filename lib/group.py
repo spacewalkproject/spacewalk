@@ -231,7 +231,7 @@ def do_group_details(self, args, short=False):
 
             systems = [s.get('profile_name') for s in systems]
         except:
-            logging.warning('%s is not a valid group' % key)
+            logging.warning('%s is not a valid group' % group)
             return
 
         if add_separator: print self.SEPARATOR

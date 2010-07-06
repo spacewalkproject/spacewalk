@@ -82,9 +82,9 @@ def tab_completer(options, text):
     return [ o for o in options if re.match(text, o) ]
 
 
-def filter_results(list, patterns, search = False):
+def filter_results(items, patterns, search = False):
     matches = []
-    for item in list:
+    for item in items:
         for pattern in patterns:
             if search:
                 result = re.search(pattern, item, re.I)
@@ -109,7 +109,6 @@ def editor(template = '', delete = False):
             handle.close()
         except IOError:
             logging.warning('Could not open the temporary file')
-            pass
 
     # use the user's specified editor
     if 'EDITOR' in os.environ:
@@ -187,8 +186,8 @@ def user_confirm(self, prompt='Is this ok [y/N]:'):
         return False
 
 
-def format_time(time):
-    return re.sub('T', ' ', time)
+def format_time(timestamp):
+    return re.sub('T', ' ', timestamp)
 
 
 # parse time input from the userand return xmlrpclib.DateTime
@@ -306,21 +305,24 @@ def print_errata_list(errata):
 
     if len(rhsa):
         print 'Security Errata:'
-        map(print_errata_summary, rhsa)
+        for e in rhsa:
+            print_errata_summary(e)
 
     if len(rhba):
         if len(rhsa):
             print
 
         print 'Bug Fix Errata:'
-        map(print_errata_summary, rhba)
+        for e in rhba:
+            print_errata_summary(e)
 
     if len(rhea):
         if len(rhsa) or len(rhba):
             print
 
         print 'Enhancement Errata:'
-        map(print_errata_summary, rhea)
+        for e in rhea:
+            print_errata_summary(e)
 
 
 def print_action_summary(action, systems=[]):

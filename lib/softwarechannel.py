@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+from operator import itemgetter
 from spacecmd.utils import *
 
 def help_softwarechannel_getentitlements(self):

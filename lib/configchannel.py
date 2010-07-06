@@ -136,29 +136,29 @@ def do_configchannel_filedetails(self, args):
                                                      channel,
                                                      filenames)
 
-    for file in files:
+    for f in files:
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print 'File:     %s' % file.get('path')
-        print 'Type:     %s' % file.get('type')
-        print 'Revision: %i' % file.get('revision')
-        print 'Created:  %s' % format_time(file.get('creation').value)
-        print 'Modified: %s' % format_time(file.get('modified').value)
+        print 'File:     %s' % f.get('path')
+        print 'Type:     %s' % f.get('type')
+        print 'Revision: %i' % f.get('revision')
+        print 'Created:  %s' % format_time(f.get('creation').value)
+        print 'Modified: %s' % format_time(f.get('modified').value)
 
         print
-        print 'Owner:    %s' % file.get('owner')
-        print 'Group:    %s' % file.get('group')
-        print 'Mode:     %s' % file.get('permissions_mode')
+        print 'Owner:    %s' % f.get('owner')
+        print 'Group:    %s' % f.get('group')
+        print 'Mode:     %s' % f.get('permissions_mode')
 
-        if file.get('type') == 'file':
-            print 'MD5:      %s' % file.get('md5')
-            print 'Binary:   %s' % file.get('binary')
+        if f.get('type') == 'f':
+            print 'MD5:      %s' % f.get('md5')
+            print 'Binary:   %s' % f.get('binary')
 
-            if not file.get('binary'):
+            if not f.get('binary'):
                 print
                 print 'Contents:'
-                print file.get('contents')
+                print f.get('contents')
 
 ####################
 
@@ -194,8 +194,8 @@ def do_configchannel_details(self, args):
 
         print
         print 'Files:'
-        for file in files:
-            print '  %s' % file.get('path')
+        for f in files:
+            print '  %s' % f.get('path')
 
 ####################
 
@@ -269,8 +269,8 @@ def do_configchannel_addfile(self, args, path=''):
     while path == '':
         path = prompt_user('Path:')
     
-    input = prompt_user('Directory [y/N]:')
-    if re.match('y', input, re.I):
+    userinput = prompt_user('Directory [y/N]:')
+    if re.match('y', userinput, re.I):
         directory = True
     else:
         directory = False
@@ -287,26 +287,26 @@ def do_configchannel_addfile(self, args, path=''):
     binary = False
 
     if not directory:
-        type = 'text'
+        objecttype = 'text'
 
         #XXX: Bugzilla 606982
         # Satellite doesn't pick up on the base64 encoded string
         #type = prompt_user('Text or binary [T/b]:')
         
-        if re.match('b', type, re.I):
+        if re.match('b', objecttype, re.I):
             binary = True
 
             contents = ''
             while contents == '':
-                file = prompt_user('File:')
+                filename = prompt_user('File:')
 
                 try:
-                    handle = open(file, 'rb')
+                    handle = open(filename, 'rb')
                     contents = handle.read().encode('base64')
                     handle.close()
                 except IOError:
                     contents = ''
-                    logging.warning('Could not read %s' % file)
+                    logging.warning('Could not read %s' % filename)
         else:
             binary = False
 

@@ -78,14 +78,18 @@ def do_schedule_details(self, args):
         return
 
     try:
-        id = int(args[0])
+        action_id = int(args[0])
     except ValueError:
         logging.warning('%s is not a valid ID' % str(a))
         return
 
-    completed = self.client.schedule.listCompletedSystems(self.session, id)
-    failed = self.client.schedule.listFailedSystems(self.session, id)
-    pending = self.client.schedule.listInProgressSystems(self.session, id)
+    completed = self.client.schedule.listCompletedSystems(self.session, 
+                                                          action_id)
+
+    failed = self.client.schedule.listFailedSystems(self.session, action_id)
+
+    pending = self.client.schedule.listInProgressSystems(self.session, 
+                                                         action_id)
 
     # put all the system arrays together for the summary
     all_systems = []
@@ -97,7 +101,7 @@ def do_schedule_details(self, args):
     all_actions = self.client.schedule.listAllActions(self.session)
     action = 0
     for a in all_actions:
-        if a.get('id') == id:
+        if a.get('id') == action_id:
             action = a
             del all_actions
             break
@@ -147,7 +151,7 @@ def do_schedule_getoutput(self, args):
     try:
         action_id = int(args[0])
     except ValueError:
-        logging.error('%s is not a valid action ID' % str(a))
+        logging.error('%s is not a valid action ID' % str(args[0]))
         return
 
     script_results = None

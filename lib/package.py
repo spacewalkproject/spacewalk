@@ -45,15 +45,15 @@ def do_package_details(self, args):
         add_separator = True
 
         if package in self.all_package_longnames:
-            id = self.all_package_longnames[package]
+            package_id = self.all_package_longnames[package]
         else:
             logging.warning('%s is not a valid package' % package)
             continue
 
-        details = self.client.packages.getDetails(self.session, id)
+        details = self.client.packages.getDetails(self.session, package_id)
 
         channels = \
-            self.client.packages.listProvidingChannels(self.session, id)
+            self.client.packages.listProvidingChannels(self.session, package_id)
 
         print 'Name:    %s' % details.get('name')
         print 'Version: %s' % details.get('version')

@@ -715,7 +715,7 @@ def do_activationkey_details(self, args):
                                                                group)
             groups.append(group_details.get('name'))
 
-        if add_separator: print SEPARATOR
+        if add_separator: print self.SEPARATOR
         add_separator = True
 
         print 'Key:               %s' % details.get('key')

@@ -62,13 +62,13 @@ def do_filepreservation_create(self, args):
             print '\n'.join(sorted(files))
             print
 
-            input = prompt_user('File [blank to finish]:')
+            userinput = prompt_user('File [blank to finish]:')
 
-            if input == '':
+            if userinput == '':
                 break
             else:
-                if input not in files:
-                    files.append(input)
+                if userinput not in files:
+                    files.append(userinput)
 
     print
     print 'File List:'
