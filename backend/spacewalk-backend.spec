@@ -83,7 +83,7 @@ Requires: mod_wsgi
 %description server
 This package contains the basic code that provides server/backend
 functionality for a variety of XML-RPC receivers. The architecture is
-modular so that you can plug/install additional mdoules for XML-RPC
+modular so that you can plug/install additional modules for XML-RPC
 receivers and get them enabled automatically.
 
 %package xmlrpc
