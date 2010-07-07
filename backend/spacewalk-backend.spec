@@ -40,13 +40,30 @@ This package includes the common code required by all servers/proxies.
 Summary: Core functions providing SQL connectivity for the RHN backend modules
 Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
-Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
+Requires: %{name}-sql-oracle = %{version}-%{release}
+Requires: %{name}-sql-postgresql = %{version}-%{release}
 
 %description sql
 This package contains the basic code that provides SQL connectivity for the Spacewalk
 backend modules.
+
+%package sql-oracle
+Summary: Oracle backend for Spacewalk
+Group: Applications/Internet
+Requires: python(:DBAPI:oracle)
+
+%description sql-oracle
+This package contains provides Oracle connectivity for the Spacewalk backend modules.
+
+%package sql-postgresql
+Summary: Postgresql backend for Spacewalk
+Group: Applications/Internet
+Requires: python-pgsql
+
+%description sql-postgresql
+This package contains provides PostgreSQL connectivity for the Spacewalk backend modules.
 
 %package server
 Summary: Basic code that provides RHN Server functionality
@@ -346,7 +363,18 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/server
 %{rhnroot}/server/__init__.py*
 %dir %{rhnroot}/server/rhnSQL
-%{rhnroot}/server/rhnSQL/*
+%{rhnroot}/server/rhnSQL/const.py*
+%{rhnroot}/server/rhnSQL/dbi.py*
+%{rhnroot}/server/rhnSQL/__init__.py*
+%{rhnroot}/server/rhnSQL/sql_*.py*
+
+%files sql-oracle
+%defattr(-,root,root,-)
+%{rhnroot}/server/rhnSQL/driver_cx_Oracle.py*
+
+%files sql-postgresql
+%defattr(-,root,root,-)
+%{rhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server
 %defattr(-,root,root)
