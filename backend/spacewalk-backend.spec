@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.26
+Version: 1.1.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -632,6 +632,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jul 07 2010 Justin Sherrill <jsherril@redhat.com> 1.1.27-1
+- 612163 - fixing issue with satellite sync where rh-public channel family
+  information is not set properly (jsherril@redhat.com)
+- create repogen after set of packages pushed instead of individually
+  (shughes@redhat.com)
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.26-1
 - We need to force port into integer. (jpazdziora@redhat.com)
 - adding new virtualization strings for RHEL 6 (jsherril@redhat.com)
