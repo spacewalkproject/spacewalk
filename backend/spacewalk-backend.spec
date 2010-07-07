@@ -603,7 +603,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_satellite.conf
-%config %{_sysconfdir}/logrotate.d/rhn_server_satellite
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
 %attr(755,root,root) %{_bindir}/rhn-satellite-activate
 %attr(755,root,root) %{_bindir}/rhn-schema-version
