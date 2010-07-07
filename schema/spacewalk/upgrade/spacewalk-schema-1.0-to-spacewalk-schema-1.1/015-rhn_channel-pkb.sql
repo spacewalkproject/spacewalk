@@ -180,33 +180,16 @@ IS
     IS
         CURSOR fve_convertible_entries IS
         select 1  from
-                  RhnVirtualInstance vi
-                  inner join rhnServer s on vi.virtual_system_id = s.id
-                  inner join rhnServerChannel sc on sc.server_id = s.id
-                  inner join rhnChannelFamilyMembers cfm on cfm.channel_id = sc.channel_id
-                  inner join rhnChannelFamily cf on cf.id = cfm.channel_family_id
-                  inner join rhnPrivateChannelFamily pcf on pcf.channel_family_id  = cf.id and pcf.org_id = s.org_id
-          where sc.is_fve = 'N'
-  		        AND sc.server_id = server_id_in
-                AND cf.id = channel_family_id_val
-  		        AND (vi.host_system_id is null OR
-                    exists (
-  		                select sg.id from rhnServerGroupMembers sgm 
-  		                    inner join rhnServerGroup sg on sgm.server_group_id = sg.id
-                            inner join rhnServerGroupType sgt on sgt.id = sg.group_type
-  		                    inner join rhnServer s2 on s2.id = sgm.server_id
-                        where 
-                            s2.org_id = s.org_id
-                            and s2.id = vi.host_system_id
-                            and sgt.label not in ('virtualization_host' ,'virtualization_host_platform') )
-  		        );
-
+            rhnServerFveCapable cap
+          where cap.server_id = server_id_in
+                AND cap.channel_family_id = channel_family_id_val;
     BEGIN
         FOR entry IN fve_convertible_entries LOOP
             return 1;
         END LOOP;
         RETURN 0;
     END can_convert_to_fve;
+
 
 
     -- Converts server channel_family to use a flex entitlement

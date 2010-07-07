@@ -1350,12 +1350,34 @@ is
         channel_family_label_in in varchar2,
         quantity_in in number,
         flex_in in number
+
     )
     is
         prev_ent_count number; 
         prev_flex_count number;
         prev_ent_count_sum number; 
         cfam_id number;
+        reduce_quantity number;
+        total_flex_capable number;
+        cursor to_convert_reg (channel_family_id_val in number, org_id_in in number, quantity in number) 
+                is
+                     select SC.server_id
+                     from rhnServerChannel SC inner join
+                          rhnServer S on S.id = SC.server_id
+                     where
+                         is_fve = 'Y'
+                         and S.org_id = org_id_in 
+                         and SC.channel_id in
+                         (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                             where cfm.CHANNEL_FAMILY_ID = channel_family_id_val)
+                          and rownum <= quantity;
+         cursor to_convert_flex (channel_family_id_val in number, org_id_in in number, quantity in number)
+                 is
+                   select server_id
+                   from rhnServerFveCapable
+                       where SERVER_ORG_ID = org_id_in and
+                             channel_family_id = cfam_id;
+
     begin
 
         -- Fetch the current entitlement count for the org
@@ -1398,10 +1420,51 @@ is
                               'invalid_channel_family');
         end;                              
 
+        -- if there are too few flex entitlements
         if flex_in < prev_flex_count then
-            rhn_exception.raise_exception(
+            -- and if the extra we need is less than or equal to our extra regular entitlements
+            if prev_flex_count - flex_in <= quantity_in - prev_ent_count then
+                   reduce_quantity := prev_flex_count - flex_in;
+                   -- We need to convert some systems from flex guest to regular
+                   for system in to_convert_reg(cfam_id, org_id_in, reduce_quantity) loop
+                      --rhn_channel.convert_to_regular(system.server_id, cfam_id);
+                      UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                           where sc.server_id = system.server_id;
+                   end loop;
+
+                   --reset previous counts 
+                   prev_ent_count := prev_ent_count + reduce_quantity;
+                   prev_flex_count := prev_flex_count - reduce_quantity; 
+            else
+                rhn_exception.raise_exception(
                           'not_enough_flex_entitlements_in_base_org');
+            end if;
         end if;
+
+        -- if there are too few regular entitlements, and extra flex entitlements
+        if quantity_in < prev_ent_count and prev_flex_count < flex_in then
+                -- how many flex-capable systems (that aren't using flex) do we have
+                select count(*)
+                   into total_flex_capable 
+                   from rhnServerFveCapable
+                       where SERVER_ORG_ID = org_id_in and
+                             channel_family_id = cfam_id;
+                -- if we have enough flex capable machines that is at least 
+                --   as many as what we are over on 
+                if total_flex_capable >= prev_ent_count - quantity_in then
+                    reduce_quantity := prev_ent_count - quantity_in;
+                    for system in to_convert_flex(cfam_id, org_id_in, reduce_quantity) loop 
+--                          rhn_channel.convert_to_fve(system.server_id, cfam_id);
+                        UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                           where sc.server_id = system.server_id;
+                    end loop;
+                    prev_ent_count := prev_ent_count - reduce_quantity;
+                    prev_flex_count := prev_flex_count + reduce_quantity;
+                end if; 
+        end if;
+
+
+
 
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the count in that one org,
@@ -1410,6 +1473,9 @@ is
             rhn_exception.raise_exception(
                           'not_enough_entitlements_in_base_org');
         else
+            -- even if we've manually converted systems to/from flex above
+            -- set_family_count should call update_family_counts, to reset
+            -- current used slots
             rhn_entitlements.set_family_count(org_id_in, cfam_id,
                                               quantity_in, flex_in);
         end if;
