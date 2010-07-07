@@ -483,30 +483,47 @@ def do_softwarechannel_mergeerrata(self, args):
     if not re.match('\d{8}', end_date):
         logging.error('%s is an invalid date' % end_date)
         return
- 
-    errata = \
-        self.client.channel.software.listErrata(self.session,
-                           source_channel,
-                           parse_time_input(begin_date),
-                           parse_time_input(end_date))
+
+    # get the list of errata so we can display it to the user
+    logging.debug('Retrieving list of errata from source channel') 
+    errata = self.client.channel.software.listErrata(self.session,
+                                                     source_channel,
+                                                   parse_time_input(begin_date),
+                                                   parse_time_input(end_date))
+
+    # get all the packages from the source channel
+    logging.debug('Retrieving packages from source channel')
+    source_packages = \
+        self.client.channel.software.listAllPackages(self.session, 
+                                                     source_channel)
+    source_package_ids = [ p.get('id') for p in source_packages ]
 
     # get the packages that resolve these errata so we can add them
     # to the channel afterwards
     package_ids = []
     for e in errata:
-        logging.debug('Getting packages for errata %s' % \
+        logging.debug('Retrieving packages for errata %s' % \
                       e.get('advisory_name'))
 
+        # get the packages affected by this errata
         packages = self.client.errata.listPackages(self.session,
                                                    e.get('advisory_name'))
 
-        package_ids.extend( [p.get('id') for p in packages] ) 
+        # only add packages that exist in the source channel
+        for package in packages:
+            if package.get('id') in source_package_ids:
+                package_ids.append(package.get('id'))
 
     print 'Errata:'
     for e in sorted(errata, key=itemgetter('advisory_name')):
         print_errata_summary(e)
 
-    if not self.user_confirm('Add these errata [y/N]:'): return
+    print
+    print 'Packages:'
+    for package in package_ids:
+        print self.get_package_name(package) 
+
+    if not self.user_confirm('Add these errata and packages [y/N]:'): return
 
     # add the errata to the destination channel
     self.client.channel.software.mergeErrata(self.session, 

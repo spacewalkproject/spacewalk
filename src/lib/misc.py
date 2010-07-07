@@ -422,6 +422,11 @@ def get_package_id(self, name):
         return self.all_package_longnames[name]
 
 
+def get_package_name(self, package_id):
+    revdic = dict( (v, k) for k, v in self.all_package_longnames.iteritems() )
+    return revdic[package_id]
+
+
 def clear_system_cache(self):
     self.all_systems = {}
     self.system_cache_expire = datetime.now()
