@@ -54,9 +54,6 @@ rm -rf %{buildroot}
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
-* Wed Jul 07 2010 aparsons <aron@redhat.com> 0.4.1-1
-- new package built with tito
-
 * Tue Jul 06 2010 Paul Morgan <pmorgan@redhat.com> - 0.4.1-1
 - ADD: support for builds via tito
 - CHANGE: x.y.z versioning (better for tito)
