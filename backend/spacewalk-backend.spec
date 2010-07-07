@@ -522,7 +522,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
-%config %{_sysconfdir}/logrotate.d/rhn_server_sat
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-iss
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat.conf
 
 %files iss-export
