@@ -178,6 +178,9 @@ def do_errata_details(self, args):
 
             packages = self.client.errata.listPackages(self.session, errata)
 
+            systems = self.client.errata.listAffectedSystems(self.session, 
+                                                             errata)
+
             channels = \
                 self.client.errata.applicableToChannels(self.session, 
                                                         errata)
@@ -214,6 +217,9 @@ def do_errata_details(self, args):
         print
         print 'Affected Channels:'
         print '\n'.join(sorted([c.get('label') for c in channels]))
+        print
+        print 'Affected Systems:'
+        print '%i' % len(systems)
         print
         print 'Affected Packages:'
         print '\n'.join(sorted(build_package_names(packages)))
