@@ -495,7 +495,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_applet.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-applet.conf
-%config %{_sysconfdir}/logrotate.d/rhn_server_applet
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
 
 %files app
 %defattr(-,root,root)
