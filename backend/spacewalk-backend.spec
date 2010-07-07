@@ -351,7 +351,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/RPC_Base.py*
 %dir %{_var}/log/rhn
 # config files
-%attr(750,root,apache) %dir %{rhnconf}/default
+%attr(755,root,apache) %dir %{rhnconf}/default
 %attr(644,root,apache) %{rhnconf}/default/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
 %{_mandir}/man8/spacewalk-cfg-get.8.gz
@@ -445,7 +445,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/repomd/view.py*
 
 # the cache
-%attr(750,apache,apache) %dir %{_var}/cache/rhn
+%attr(755,apache,apache) %dir %{_var}/cache/rhn
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
@@ -644,7 +644,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
 %dir %{rhnroot}/satellite_tools/repo_plugins
-%attr(770,root,apache) %dir %{_var}/log/rhn/reposync
+%attr(755,root,apache) %dir %{_var}/log/rhn/reposync
 %{rhnroot}/satellite_tools/repo_plugins/__init__.py*
 %{rhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
