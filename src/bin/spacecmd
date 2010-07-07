@@ -128,6 +128,7 @@ if __name__ == '__main__':
             shell.onecmd(shell.precmd(' '.join(args)))
         except KeyboardInterrupt:
             print
+            print 'User Interrupt'
         except Exception, detail:
             # get the relevant part of a XML-RPC fault
             if isinstance(detail, xmlrpclib.Fault):
