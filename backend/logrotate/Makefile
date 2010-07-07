@@ -5,7 +5,7 @@
 # what is the backend top dir
 TOP	= ..
 
-INSTALL_FILES	= $(wildcard rhn_*)
+INSTALL_FILES	= $(wildcard spacewalk-backend-*)
 INSTALL_DEST	= /etc/logrotate.d
 
 include $(TOP)/Makefile.defs
