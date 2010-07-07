@@ -1,7 +1,7 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:        spacecmd
-Version:     0.4.1
+Version:     0.4.0
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -50,13 +50,10 @@ rm -rf %{buildroot}
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
 %{_sysconfdir}/bash_completion.d/spacecmd
-%doc doc/README doc/COPYING
+%doc src/doc/README src/doc/COPYING
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
-* Wed Jul 07 2010 aparsons <aron@redhat.com> 0.4.1-1
-- new package built with tito
-
 * Tue Jul 06 2010 Paul Morgan <pmorgan@redhat.com> - 0.4.1-1
 - ADD: support for builds via tito
 - CHANGE: x.y.z versioning (better for tito)
