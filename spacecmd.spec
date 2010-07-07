@@ -1,7 +1,7 @@
 %define rhnroot %{_datadir}/rhn
 
 Name:        spacecmd
-Version:     0.4
+Version:     0.4.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Satellite servers
 
@@ -27,16 +27,16 @@ spacecmd is a command-line interface to Spacewalk and Satellite servers
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/%{_bindir}
-install -m0755 bin/spacecmd %{buildroot}/%{_bindir}/
+install -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
 mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
-install -m0644 misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
+install -m0644 src/misc/spacecmd-bash-completion %{buildroot}/%{_sysconfdir}/bash_completion.d/spacecmd
 
 mkdir -p %{buildroot}/%{rhnroot}/spacecmd
-install -m0644 lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
+install -m0644 src/lib/*.py %{buildroot}/%{rhnroot}/spacecmd/
 
 mkdir -p %{buildroot}/%{_mandir}/man1
-gzip -c doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
+gzip -c src/doc/spacecmd.1 > %{buildroot}/%{_mandir}/man1/spacecmd.1.gz
 
 touch %{buildroot}/%{rhnroot}/spacecmd/__init__.py
 chmod 0644 %{buildroot}/%{rhnroot}/spacecmd/__init__.py
@@ -51,9 +51,14 @@ rm -rf %{buildroot}
 %dir %{rhnroot}/spacecmd
 %{rhnroot}/spacecmd/*
 %{_sysconfdir}/bash_completion.d/spacecmd
-%{_mandir}/man1/spacecmd.1.gz
+%doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Jul 06 2010 Paul Morgan <pmorgan@redhat.com> - 0.4.1-1
+- ADD: support for builds via tito
+- CHANGE: x.y.z versioning (better for tito)
+- tagged man page as doc 
+
 * Thu Jul 01 2010 Aron Parsons <aparsons@redhat.com> - 0.4-1
 - version bump
 - added a man page
