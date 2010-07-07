@@ -469,7 +469,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 # logs and other stuff
-%config %{_sysconfdir}/logrotate.d/rhn_server
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-server
 # translations
 %{rhnroot}/locale
 
