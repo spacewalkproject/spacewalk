@@ -152,7 +152,7 @@ Provides: rhns-sat = 1:%{version}-%{release}
 %description iss
 %{name} contains the basic code that provides server/backend
 functionality for a variety of XML-RPC receivers. The architecture is
-modular so that you can plug/install additional mdoules for XML-RPC
+modular so that you can plug/install additional modules for XML-RPC
 receivers and get them enabled automatically.
 
 This package contains /SAT handler, which provide Inter Spacewalk Sync 
@@ -167,7 +167,7 @@ Requires: %{name}-xml-export-libs = %{version}-%{release}
 %description iss-export
 %{name} contains the basic code that provides server/backend
 functionality for a variety of XML-RPC receivers. The architecture is
-modular so that you can plug/install additional mdoules for XML-RPC
+modular so that you can plug/install additional modules for XML-RPC
 receivers and get them enabled automatically.
 
 This package contains listener for the Server XML dumper.
