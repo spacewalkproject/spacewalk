@@ -505,7 +505,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_app.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-app.conf
-%config %{_sysconfdir}/logrotate.d/rhn_server_app
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-app
 
 %files xp
 %defattr(-,root,root)
