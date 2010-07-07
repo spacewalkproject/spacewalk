@@ -632,6 +632,7 @@ def populate_channel_family_permissions(cert):
     for cf_name, max_tuple in cert_chfam_hash.items():
         # Make the channel families with null max_members public
         if max_tuple is None:
+            max_tuple = [0,0]
             org_id = None
         else:
             max_members, max_flex = max_tuple
