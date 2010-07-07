@@ -582,7 +582,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/package
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
-%config %{_sysconfdir}/logrotate.d/rhn_package_upload
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-upload-server
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
 
 %files package-push-server
