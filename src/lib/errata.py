@@ -20,6 +20,7 @@
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
 
+import xmlrpclib
 from spacecmd.utils import *
 
 def help_errata_list(self):
@@ -73,7 +74,7 @@ def do_errata_apply(self, args):
             for system in sorted([s.get('name') for s in systems]):
                 print system
         else:
-            logging.debug('%s does not affect any systems' % errata)
+            logging.warning('%s does not affect any systems' % errata)
             errata_to_remove.append(errata)
 
     # remove errata that didn't have any affected systems
@@ -83,7 +84,7 @@ def do_errata_apply(self, args):
     if len(errata_list): 
         if not self.user_confirm('Apply these errata [y/N]:'): return
     else:
-        logging.warning('No errata found')
+        logging.warning('No errata to apply')
         return
 
     for errata in errata_list: 
@@ -93,16 +94,20 @@ def do_errata_apply(self, args):
         # XXX: bugzilla 600691
         # there is not an API call to get the ID of an errata
         # based on the name, so we do it in a round-about way
-        avail = self.client.system.getRelevantErrata(self.session,
-                                                     systems[0].get('id'))
+        for system in systems:
+            system_id = system.get('id')
+            avail = self.client.system.getRelevantErrata(self.session, 
+                                                         system_id)
 
-        for e in avail:
-            if re.match(errata, e.get('advisory_name'), re.I):
-                errata_id = e.get('id')
-                break
+            for e in avail:
+                if re.match(errata, e.get('advisory_name'), re.I):
+                    errata_id = e.get('id')
+                    break
+
+            if errata_id: break
 
         if not errata_id:
-            logging.critical("Couldn't find ID for %s" % errata)
+            logging.error("Couldn't find ID for %s" % errata)
             return
 
         for system in systems:
@@ -110,9 +115,8 @@ def do_errata_apply(self, args):
                 self.client.system.scheduleApplyErrata(self.session,
                                                        system.get('id'),
                                                        [errata_id])
-            except:
-                logging.warning('Failed to schedule %s' % \
-                                system.get('name'))
+            except xmlrpclib.Fault:
+                logging.warning('Failed to schedule %s' % system.get('name'))
  
 ####################
 
