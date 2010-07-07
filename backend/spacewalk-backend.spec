@@ -485,7 +485,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xmlrpc.conf
-%config %{_sysconfdir}/logrotate.d/rhn_server_xmlrpc
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
 
 %files applet
 %defattr(-,root,root)
