@@ -537,7 +537,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-export-internal.conf
-%config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
+%config %{_sysconfdir}/logrotate.d/spacewalk-backend-iss-export
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
 
 
