@@ -560,10 +560,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %dir %{rhnroot}/upload_server/handlers
 %{rhnroot}/upload_server/handlers/__init__.py*
 %{rhnroot}/upload_server/handlers/package
-%attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
-%attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
+%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
+%attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
 %config %{_sysconfdir}/logrotate.d/rhn_package_upload
-%attr(640,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
+%attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
 
 %files package-push-server
 %defattr(-,root,root)
