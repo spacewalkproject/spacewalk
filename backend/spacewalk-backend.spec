@@ -323,6 +323,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}
 %dir %{rhnroot}/common
 %{rhnroot}/common/__init__.py*
@@ -359,6 +360,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files sql
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 # Need __init__ = share it with rhns-server
 %dir %{rhnroot}/server
 %{rhnroot}/server/__init__.py*
@@ -370,14 +372,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files sql-oracle
 %defattr(-,root,root,-)
+%doc PYTHON-LICENSES.txt LICENSE
 %{rhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 
 %files sql-postgresql
+%doc PYTHON-LICENSES.txt LICENSE
 %defattr(-,root,root,-)
 %{rhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 # modules
 %{rhnroot}/server/apacheAuth.py*
 %{rhnroot}/server/apacheHandler.py*
@@ -465,6 +470,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files xmlrpc
 %defattr(-,root,root) 
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/xmlrpc
 %{rhnroot}/server/handlers/xmlrpc/*
 %dir %{rhnroot}/server/action
@@ -477,7 +483,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_server_xmlrpc
 
 %files applet
-%defattr(-,root,root) 
+%defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/applet
 %{rhnroot}/server/handlers/applet/*
 # config files
@@ -486,7 +493,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_server_applet
 
 %files app
-%defattr(-,root,root) 
+%defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/app
 %{rhnroot}/server/handlers/app/*
 # config files
@@ -495,7 +503,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_server_app
 
 %files xp
-%defattr(-,root,root) 
+%defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/xp
 %{rhnroot}/server/handlers/xp/*
 # config files
@@ -505,6 +514,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files iss
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
@@ -512,7 +522,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files iss-export
 %defattr(-,root,root)
-
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/satellite_exporter
 %{rhnroot}/satellite_exporter/__init__.py*
 %{rhnroot}/satellite_exporter/satexport.py*
@@ -528,16 +538,19 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files libs
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %{python_sitelib}/spacewalk*
 
 %files config-files-common
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %{rhnroot}/server/configFilesHandler.py*
 %dir %{rhnroot}/server/config_common
 %{rhnroot}/server/config_common/*
 
 %files config-files
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/config
 %{rhnroot}/server/handlers/config/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
@@ -546,6 +559,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files config-files-tool
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/config_mgmt
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
@@ -554,6 +568,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files upload-server
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 # Some directories and files are shared with rhns-package-push-server
 %dir %{rhnroot}/upload_server
 %{rhnroot}/upload_server/__init__.py*
@@ -567,6 +582,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files package-push-server
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 # Some directories and files are shared with rhns-upload-server
 %dir %{rhnroot}/upload_server
 %{rhnroot}/upload_server/__init__.py*
@@ -580,6 +596,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files tools
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satellite.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_satellite
 %attr(755,root,root) %{_bindir}/rhn-charsets
@@ -641,6 +658,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %files xml-export-libs
 %defattr(-,root,root)
+%doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/satellite_tools
 %{rhnroot}/satellite_tools/__init__.py*
 %{rhnroot}/satellite_tools/geniso.py*
