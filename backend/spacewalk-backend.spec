@@ -378,8 +378,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnSQL/driver_cx_Oracle.py*
 
 %files sql-postgresql
-%doc PYTHON-LICENSES.txt LICENSE
 %defattr(-,root,root,-)
+%doc PYTHON-LICENSES.txt LICENSE
 %{rhnroot}/server/rhnSQL/driver_postgresql.py*
 
 %files server
