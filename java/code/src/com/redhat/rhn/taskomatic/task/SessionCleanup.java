@@ -32,19 +32,19 @@ import java.util.Map;
  * growing too large.
  * @version $Rev$
  */
-public class SessionCleanup extends SingleThreadedTask {
+public class SessionCleanup extends RhnJavaJob {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */    
     public static final String DISPLAY_NAME = "session_cleanup";
     
-    private static Logger log = Logger.getLogger(SessionCleanup.class);
+    private Logger log = getLogger(SessionCleanup.class);
     
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext context)
+    public void execute(JobExecutionContext context)
             throws JobExecutionException {
         Config c = Config.get();
         Map inParams = new HashMap();

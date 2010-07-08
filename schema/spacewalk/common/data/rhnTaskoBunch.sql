@@ -35,4 +35,7 @@ INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
 INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
              VALUES (rhn_tasko_bunch_id_seq.nextval, 'sync-probe-bunch', 'Calls the synch probe state proc', '', sysdate);
 
+INSERT INTO rhnTaskoBunch (id, name, description, org_bunch, active_from)
+             VALUES (rhn_tasko_bunch_id_seq.nextval, 'session-cleanup-bunch', 'Deletes expired rows from the PXTSessions table to keep it from growing too large', '', sysdate);
+
 commit;
