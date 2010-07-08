@@ -474,6 +474,10 @@ def do_softwarechannel_removepackages(self, args):
     for package in package_names:
         package_ids.append(self.get_package_id(package))
 
+    if not len(package_ids):
+        logging.warning('No packages to remove')
+        return
+
     print 'Packages'
     print '--------'
     print '\n'.join(sorted(package_names))
