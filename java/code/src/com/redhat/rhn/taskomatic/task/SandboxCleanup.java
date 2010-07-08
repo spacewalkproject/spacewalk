@@ -32,19 +32,19 @@ import java.util.Map;
  * SandboxCleanup
  * @version $Rev$
  */
-public class SandboxCleanup extends SingleThreadedTask {
+public class SandboxCleanup extends RhnJavaJob {
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */    
     public static final String DISPLAY_NAME = "sandbox_cleanup";
 
-    private static Logger log = Logger.getLogger(SandboxCleanup.class);
+    private Logger log = getLogger(SandboxCleanup.class);
     
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext arg0In)
+    public void execute(JobExecutionContext arg0In)
         throws JobExecutionException {
 
         int sandboxLifetime = Config.get().getInt("sandbox_lifetime"); //in days
