@@ -55,68 +55,64 @@ def do_errata_apply(self, args):
     # allow globbing and searching via arguments
     errata_list = self.expand_errata(args)
 
-    add_separator = False
-
-    errata_to_remove = []    
+    summary = []
+    errata_to_apply = {}
     for errata in sorted(errata_list, reverse = True):
         try:
-            systems = self.client.errata.listAffectedSystems(self.session, 
-                                                             errata)
+            errata_to_apply[errata] = \
+                self.client.errata.listAffectedSystems(self.session, errata)
         except:
-            systems = []
-        
-        if len(systems):
-            if add_separator: print self.SEPARATOR
-            add_separator = True
-
-            # print the list of systems
-            print '%s:' % errata
-            for system in sorted([s.get('name') for s in systems]):
-                print system
-        else:
-            logging.warning('%s does not affect any systems' % errata)
-            errata_to_remove.append(errata)
-
-    # remove errata that didn't have any affected systems
-    for errata in errata_to_remove:
-        errata_list.remove(errata)
+            logging.debug('%s does not affect any systems' % errata)
+            continue
        
-    if len(errata_list): 
-        if not self.user_confirm('Apply these errata [y/N]:'): return
-    else:
+        if len(errata_to_apply[errata]):
+            summary.append('%s        %s' % (errata.ljust(15), 
+                           str(len(errata_to_apply[errata])).rjust(3)))
+        else:
+            logging.debug('%s does not affect any systems' % errata)
+            del errata_to_apply[errata]
+       
+    if not len(errata_to_apply): 
         logging.warning('No errata to apply')
         return
+    
+    # a summary of which errata we're going to apply
+    print 'Errata             Systems'
+    print '--------------     -------'
+    print '\n'.join(sorted(summary))
 
-    for errata in errata_list: 
-        systems = self.client.errata.listAffectedSystems(self.session, 
-                                                         errata)
-        
+    if not self.user_confirm('Apply these errata [y/N]:'): return
+
+    for errata in errata_to_apply.keys(): 
         # XXX: bugzilla 600691
         # there is not an API call to get the ID of an errata
         # based on the name, so we do it in a round-about way
-        for system in systems:
-            system_id = system.get('id')
-            avail = self.client.system.getRelevantErrata(self.session, 
-                                                         system_id)
+        system_id = errata_to_apply[errata][0].get('id')
+        system_errata = self.client.system.getRelevantErrata(self.session, 
+                                                             system_id)
 
-            for e in avail:
-                if re.match(errata, e.get('advisory_name'), re.I):
-                    errata_id = e.get('id')
-                    break
-
-            if errata_id: break
+        pattern = re.compile(errata, re.I)
+        for e in system_errata:
+            if pattern.match(e.get('advisory_name')):
+                errata_id = e.get('id')
+                break
 
         if not errata_id:
             logging.error("Couldn't find ID for %s" % errata)
             return
 
-        for system in systems:
+        # schedule each errata individually for a system so that if 
+        # one fails, they all don't fail
+        for system in errata_to_apply[errata]:
+            logging.debug('Applying %s to %s' % (errata, system.get('name')))
+
             try:
                 self.client.system.scheduleApplyErrata(self.session,
                                                        system.get('id'),
-                                                       [errata_id])
+                                                       [ errata_id ])
             except xmlrpclib.Fault:
-                logging.warning('Failed to schedule %s' % system.get('name'))
+                logging.warning('Failed to schedule %s for %s' % \
+                                (errata, system.get('name')))
  
 ####################
 
