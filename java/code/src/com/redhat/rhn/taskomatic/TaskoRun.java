@@ -117,7 +117,12 @@ public class TaskoRun implements Job {
             }
 
             try {
+                TaskoFactory.commitTransaction();
                 job.execute(context);
+                // rollback everything, what the application changed and didn't committed
+                if (TaskoFactory.getSession().getTransaction().isActive()) {
+                    TaskoFactory.rollbackTransaction();
+                }
                 saveStatus(STATUS_FINISHED);
             }
             catch (Exception e) {
@@ -125,6 +130,7 @@ public class TaskoRun implements Job {
                 saveStatus(STATUS_FAILED);
             }
             finished(job);
+            TaskoFactory.commitTransaction();
     }
 
     private void saveStdOutputLog(String out) {
