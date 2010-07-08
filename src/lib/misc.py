@@ -90,6 +90,20 @@ def do_history(self, args):
 
 ####################
 
+def help_toggle_confirmations(self):
+    print 'toggle_confirmations: Toggle confirmation messages on/off'
+    print 'usage: toggle_confirmations'
+
+def do_toggle_confirmations(self, args):
+    if self.options.yes:
+        self.options.yes = False
+        print 'Confirmation messages are enabled'
+    else:
+        self.options.yes = True
+        logging.warning('Confirmation messages are DISABLED!')
+
+####################
+
 def help_login(self):
     print 'login: Connect to a Spacewalk server'
     print 'usage: login [USERNAME] [SERVER]'
