@@ -249,6 +249,7 @@ Requires: rhnlib  >= 2.5.22
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
+Provides: spacewalk-backend-satellite-tools = %{version}-%{release}
 Provides: rhns-satellite-tools = 1:%{version}-%{release}
 
 %description tools
