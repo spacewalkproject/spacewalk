@@ -259,8 +259,8 @@ def do_errata_search(self, args, doreturn=False):
 
             for name in self.all_errata.keys():
                 if re.search(query, name, re.I) or \
-                   re.search(query, 
-                             self.all_errata[name]['synopsis'], re.I):
+                   re.search(query, self.all_errata[name]['synopsis'], re.I):
+
                     match = self.all_errata[name]
 
                     # build a structure to pass to print_errata_summary()
