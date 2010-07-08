@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.28
+Version: 1.1.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -681,6 +681,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.29-1
+- remove shebang from handlers/xmlrpc/get_handler.py (msuchy@redhat.com)
+- provide Provides: (msuchy@redhat.com)
+- macros should not be used in changelog (msuchy@redhat.com)
+
 * Thu Jul 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.28-1
 - move %%defattr before %%doc (msuchy@redhat.com)
 - rename /usr/share/rhn/satellite_tools/updateSignatures.py to /usr/bin
