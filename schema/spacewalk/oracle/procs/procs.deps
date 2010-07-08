@@ -67,6 +67,7 @@ is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch
+lookup_checksum                 :: view/rhnChecksumView
 lookup_client_capability        :: rhnClientCapabilityName
 lookup_config_file_info         :: rhnConfigFileInfo
 lookup_cf_state                 :: rhnConfigFileState
