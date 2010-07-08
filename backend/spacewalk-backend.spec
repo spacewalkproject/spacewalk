@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.27
+Version: 1.1.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -680,6 +680,52 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jul 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.28-1
+- move %defattr before %doc (msuchy@redhat.com)
+- rename /usr/share/rhn/satellite_tools/updateSignatures.py to /usr/bin
+  /spacewalk-update-signatures (msuchy@redhat.com)
+- add epoch to Provides (msuchy@redhat.com)
+- logrotate scripts should have noreplace flag (msuchy@redhat.com)
+- forgot to save file after resolving conflict during rebase of
+  7d48d4d7ab096551c7a53c7670c76ec83c441303 (msuchy@redhat.com)
+- wrap long lines (msuchy@redhat.com)
+- remove shebang from modules (msuchy@redhat.com)
+- fix spelling error (msuchy@redhat.com)
+- add logrotate entry for reposync.log (msuchy@redhat.com)
+- fix not standard dir permisions (msuchy@redhat.com)
+- fix Makefile - pack new renamed logrotate files (msuchy@redhat.com)
+- rename logrotate/rhn_server_satellite to logrotate/spacewalk-backend-tools
+  (msuchy@redhat.com)
+- rename logrotate/rhn_package_push to logrotate/spacewalk-backend-package-
+  push-server (msuchy@redhat.com)
+- rename logrotate/rhn_package_upload to logrotate/spacewalk-backend-upload-
+  server (msuchy@redhat.com)
+- rename logrotate/rhn_server to logrotate/spacewalk-backend-server
+  (msuchy@redhat.com)
+- rename logrotate/rhn_sat_export_internal to logrotate/spacewalk-backend-iss-
+  export (msuchy@redhat.com)
+- rename logrotate/rhn_server_sat to logrotate/spacewalk-backend-iss
+  (msuchy@redhat.com)
+- rename logrotate/rhn_config_management_tool to logrotate/spacewalk-backend-
+  config-files-tool (msuchy@redhat.com)
+- rename logrotate/rhn_config_management to logrotate/spacewalk-backend-config-
+  files (msuchy@redhat.com)
+- rename logrotate/rhn_server_applet to logrotate/spacewalk-backend-applet
+  (msuchy@redhat.com)
+- rename logrotate/rhn_server_app to logrotate/spacewalk-backend-app
+  (msuchy@redhat.com)
+- rename logrotate/rhn_server_xmlrpc to logrotate/spacewalk-backend-xmlrpc
+  (msuchy@redhat.com)
+- rename ./logrotate/rhn_server_xp to logrotate/spacewalk-backend-xp
+  (msuchy@redhat.com)
+- set default config files readable by all users (msuchy@redhat.com)
+- add to license PYTHON since we use compile.py (msuchy@redhat.com)
+- add licensing files to %doc (msuchy@redhat.com)
+- spelling error (msuchy@redhat.com)
+- make config files readable (msuchy@redhat.com)
+- 453457 - extract from package spacewalk-backend-sql new packages spacewalk-
+  backend-sql-oracle and spacewalk-backend-sql-postgresql (msuchy@redhat.com)
+
 * Wed Jul 07 2010 Justin Sherrill <jsherril@redhat.com> 1.1.27-1
 - 612163 - fixing issue with satellite sync where rh-public channel family
   information is not set properly (jsherril@redhat.com)
