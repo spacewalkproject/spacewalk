@@ -1819,6 +1819,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
                                                                 Channel toChannel) {
         Set<Errata> toErrata = toChannel.getErratas();
         Set<Errata> diffErrata = new HashSet(fromErrata);
+        List<Long> cids = new ArrayList<Long>();
+        cids.add(toChannel.getId());
 
         for (Iterator iter = fromErrata.iterator(); iter.hasNext();) {
             Errata errata = (Errata) iter.next();
@@ -1842,7 +1844,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
             }
         }
 
-        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);
+        ErrataManager.publishErrataToChannel(toChannel, getErrataIds(diffErrata), user);       
+
         for (Errata errata : diffErrata) {
             for (Iterator iter = errata.getPackages().iterator(); iter.hasNext();) {
                 Package pkg = (Package) iter.next();
@@ -1851,7 +1854,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         ChannelFactory.save(toChannel);
         ChannelManager.refreshWithNewestPackages(toChannel, "api");
-
+        
+        for (Errata e : diffErrata) {
+            ErrataCacheManager.insertCacheForChannelErrataAsync(cids, e);
+        }
+        
         return diffErrata;
     }
 
@@ -1918,9 +1925,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         Set<Package> toPacks = mergeTo.getPackages();
         Set<Package> fromPacks = mergeFrom.getPackages();
-
+        List<Long> pids = new ArrayList<Long>();
         for (Package pack : fromPacks) {
             if (!toPacks.contains(pack)) {
+                pids.add(pack.getId());
                 differentPackages.add(pack);
             }
         }
@@ -1932,7 +1940,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
         // (RHEL5+, mostly)
         ChannelManager.queueChannelChange(mergeTo.getLabel(), "java::mergePackages",
             loggedInUser.getLogin());
-
+        
+        
+        List<Long> cids = new ArrayList<Long>();
+        cids.add(mergeTo.getId());
+        ErrataCacheManager.insertCacheForChannelPackagesAsync(cids, pids);        
         return differentPackages.toArray();
     }
 
