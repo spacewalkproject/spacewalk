@@ -30,19 +30,19 @@ import java.util.HashMap;
  * @version $Rev $
  */
 
-public class SynchProbeState extends SingleThreadedTask {
+public class SynchProbeState extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "synch_probe_state";
 
-    private static Logger logger = Logger.getLogger(SynchProbeState.class);
+    private Logger logger = getLogger(SynchProbeState.class);
 
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext context)  throws JobExecutionException {
+    public void execute(JobExecutionContext context)  throws JobExecutionException {
         try {
             if (logger.isDebugEnabled()) {
                 logger.debug("Starting probe state sync");
