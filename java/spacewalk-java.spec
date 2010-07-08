@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.19
+Version: 1.1.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,10 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 08 2010 Justin Sherrill <jsherril@redhat.com> 1.1.20-1
+- 603258 - fixing issue where channel.software.mergeErrata and mergePackages
+  would not populate the errata/package cache corerctly (jsherril@redhat.com)
+
 * Thu Jul 08 2010 Tomas Lestach <tlestach@redhat.com> 1.1.19-1
 - CobblerSyncTask fix (tlestach@redhat.com)
 - Made entitlement logic handle flex guests when the host is virt (un)entitled
