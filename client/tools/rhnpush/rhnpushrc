@@ -53,7 +53,7 @@ count			=
 dir				=	
 
 #Push to this server (http[s]://<hostname>/APP)
-server 			=	https://rhn.redhat.com/APP
+server 			=	https://localhost/APP
 
 #Manage this channel(s)										
 channel			=	
