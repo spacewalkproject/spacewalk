@@ -681,7 +681,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # $Id$
 %changelog
 * Thu Jul 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.28-1
-- move %defattr before %doc (msuchy@redhat.com)
+- move %%defattr before %%doc (msuchy@redhat.com)
 - rename /usr/share/rhn/satellite_tools/updateSignatures.py to /usr/bin
   /spacewalk-update-signatures (msuchy@redhat.com)
 - add epoch to Provides (msuchy@redhat.com)
@@ -720,7 +720,7 @@ rm -f %{rhnconf}/rhnSecret.py*
   (msuchy@redhat.com)
 - set default config files readable by all users (msuchy@redhat.com)
 - add to license PYTHON since we use compile.py (msuchy@redhat.com)
-- add licensing files to %doc (msuchy@redhat.com)
+- add licensing files to %%doc (msuchy@redhat.com)
 - spelling error (msuchy@redhat.com)
 - make config files readable (msuchy@redhat.com)
 - 453457 - extract from package spacewalk-backend-sql new packages spacewalk-
