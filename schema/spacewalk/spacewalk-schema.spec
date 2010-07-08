@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.11
+Version:        1.1.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jul 08 2010 Justin Sherrill <jsherril@redhat.com> 1.1.12-1
+- adding upgrade script for rhnAvailableChannels performance issue
+  (jsherril@redhat.com)
+- 603240 - fixing performance issue with rhnAvailableChannels, since one half
+  of the query looks for channels the org owns, and the other half looks for
+  channels shared to the org, changing to union all should be no problem
+  (jsherril@redhat.com)
+- Fixed a stored proc to only look at flex stuff (paji@redhat.com)
+
 * Thu Jul 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.11-1
 - fixed dependencies on rhnServerFveCapable and rhnChecksumView
 - let schema population fail if there are invalid objects
