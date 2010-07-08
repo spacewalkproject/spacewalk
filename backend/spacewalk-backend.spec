@@ -466,7 +466,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 # logs and other stuff
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-server
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-server
 # translations
 %{rhnroot}/locale
 
@@ -482,7 +482,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xmlrpc.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xmlrpc
 
 %files applet
 %defattr(-,root,root)
@@ -492,7 +492,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_applet.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-applet.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-applet
 
 %files app
 %defattr(-,root,root)
@@ -502,7 +502,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_app.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-app.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-app
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-app
 
 %files xp
 %defattr(-,root,root)
@@ -512,14 +512,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_xp.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-xp.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-xp
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-xp
 
 %files iss
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 %dir %{rhnroot}/server/handlers/sat
 %{rhnroot}/server/handlers/sat/*
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-iss
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-iss
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat.conf
 
 %files iss-export
@@ -534,7 +534,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-sat-export-internal.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-iss-export
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-iss-export
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
 
 
@@ -557,7 +557,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/config/*
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files
 
 %files config-files-tool
 %defattr(-,root,root)
@@ -566,7 +566,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-config-management-tool.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-config-files-tool
 
 %files upload-server
 %defattr(-,root,root)
@@ -579,7 +579,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/package
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-upload-server
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-upload-server
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-pkg-upload.conf
 
 %files package-push-server
@@ -593,14 +593,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/package_push
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_upload_package-push.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-package-push-server
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-package-push-server
 %attr(644,root,apache) %config %{httpdconf}/rhn/spacewalk-backend-package-push.conf
 
 %files tools
 %defattr(-,root,root)
 %doc PYTHON-LICENSES.txt LICENSE
 %attr(644,root,apache) %{rhnconf}/default/rhn_server_satellite.conf
-%config %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
+%config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-tools
 %attr(755,root,root) %{_bindir}/rhn-charsets
 %attr(755,root,root) %{_bindir}/rhn-satellite-activate
 %attr(755,root,root) %{_bindir}/rhn-schema-version
