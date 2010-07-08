@@ -110,7 +110,6 @@ public class TaskoJob implements Job {
                 TaskoRun taskRun = new TaskoRun(schedule.getOrgId(), template, scheduleId);
                 TaskoFactory.save(taskRun);
                 taskRun.execute(context);
-                TaskoFactory.commitTransaction();
                 log.debug(task.getName() +
                         " (" + schedule.getJobLabel() + ") ... " + taskRun.getStatus());
                 previousRun = taskRun;
