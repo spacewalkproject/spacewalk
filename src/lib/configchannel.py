@@ -151,7 +151,7 @@ def do_configchannel_filedetails(self, args):
         print 'Group:    %s' % f.get('group')
         print 'Mode:     %s' % f.get('permissions_mode')
 
-        if f.get('type') == 'f':
+        if f.get('type') == 'file':
             print 'MD5:      %s' % f.get('md5')
             print 'Binary:   %s' % f.get('binary')
 
