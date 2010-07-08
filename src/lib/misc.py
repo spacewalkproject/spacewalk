@@ -357,6 +357,7 @@ def generate_errata_cache(self, force=False):
     if not force and datetime.now() < self.errata_cache_expire:
         return
 
+    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
     logging.debug('Regenerating internal errata cache')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
@@ -390,6 +391,7 @@ def generate_package_cache(self, force=False):
     if not force and datetime.now() < self.package_cache_expire:
         return
 
+    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
     logging.debug('Regenerating internal package cache')
 
     channels = self.client.channel.listSoftwareChannels(self.session)
@@ -450,6 +452,7 @@ def generate_system_cache(self, force=False):
     if not force and datetime.now() < self.system_cache_expire:
         return
 
+    if logging.getLogger().getEffectiveLevel() == logging.DEBUG: print
     logging.debug('Regenerating internal system cache')
 
     systems = self.client.system.listSystems(self.session)
