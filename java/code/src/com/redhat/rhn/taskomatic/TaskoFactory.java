@@ -277,7 +277,7 @@ public class TaskoFactory extends HibernateFactory {
         List<TaskoRun> runs = listRunsBySchedule(scheduleId.longValue());
         // verify it belongs to the right org
         for (Iterator<TaskoRun> iter = runs.iterator(); iter.hasNext();) {
-            if (!iter.next().getOrgId().equals(orgId)) {
+            if (iter.next().getOrgId() != orgId) {
                 iter.remove();
             }
         }
