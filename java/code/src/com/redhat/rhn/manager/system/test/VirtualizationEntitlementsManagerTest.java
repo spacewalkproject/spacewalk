@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.HostBuilder;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.ChannelFamilySystem;
 import com.redhat.rhn.frontend.dto.ChannelFamilySystemGroup;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
@@ -58,7 +59,50 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
                 org.getId());
         user.addRole(RoleFactory.ORG_ADMIN);
+        UserFactory.save(user); 
+        setupFlexGuestTest(user, false);
+    }
+
+    
+    public void testListFlexGuestsOnVirtAddToHost() throws Exception {
+        Org org = UserTestUtils.createNewOrgFull(RandomStringUtils.randomAlphabetic(10));
+        User user = UserTestUtils.createUser(RandomStringUtils.randomAlphabetic(10),
+                org.getId());
+        user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
+        
+        setupFlexGuestTest(user, true);
+         List<ChannelFamilySystemGroup> l = VirtualizationEntitlementsManager.getInstance().
+                                                             listFlexGuests(user);
+         //NOW give Virt Entitlement to the Host 
+         // And make sure flex is not being consumed
+         ChannelFamilySystemGroup g = l.get(0);
+         ChannelFamilySystem cfs = g.expand().get(0);
+         Server s = ServerFactory.lookupById(cfs.getId());
+         assertNotNull(s);
+         Server host = s.getVirtualInstance().getHostSystem();
+         Long hostId = host.getId();
+         assertNotNull(host);
+         SystemManager.entitleServer(host, EntitlementManager.VIRTUALIZATION);
+         HibernateFactory.getSession().clear();
+         
+         l = VirtualizationEntitlementsManager.getInstance().
+                                                     listFlexGuests(user);
+         assertTrue(l.isEmpty());
+         
+         
+         //NOW do the opposite remove the  virt ent 
+         //and ensure the guests are consuming flex 
+         SystemManager.removeServerEntitlement(hostId, EntitlementManager.VIRTUALIZATION);
+         HibernateFactory.getSession().clear();
+         l = VirtualizationEntitlementsManager.getInstance().
+                                                     listFlexGuests(user);
+         assertTrue(!l.isEmpty());         
+         
+    }
+    
+    public void setupFlexGuestTest(User user, boolean giveVirt) throws Exception {
+        Org org = user.getOrg(); 
         long ents = 3;
         int guestsToCreate = 6;
         long flexEnts = guestsToCreate;
@@ -67,6 +111,13 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
         UpdateOrgSystemEntitlementsCommand cmd1 = new UpdateOrgSystemEntitlementsCommand(
                 EntitlementManager.MANAGEMENT, org, sysEnts);
         assertNull(cmd1.store());
+        if (giveVirt) {
+            UpdateOrgSystemEntitlementsCommand cmdVirt = new 
+                                        UpdateOrgSystemEntitlementsCommand(
+                                        EntitlementManager.VIRTUALIZATION, org, sysEnts);
+            assertNull(cmdVirt.store());
+        }
+
         
         ChannelFamily rhelFamily = ChannelFamilyFactoryTest.createTestChannelFamily(
                 UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg()),
@@ -97,7 +148,8 @@ public class VirtualizationEntitlementsManagerTest extends RhnBaseTestCase {
          assertEquals(1, l.size());
          assertEquals(guestsToCreate, l.get(0).expand().size());
     }
-
+    
+    
     
     public void testNonVirtHostEligibleFlexGuests() throws Exception {
         executeEligibleGuestTests(false);

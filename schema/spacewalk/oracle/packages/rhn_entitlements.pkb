@@ -579,14 +579,23 @@ is
                 order by sgm.modified desc
                 )
             where rownum <= quantity_in;                
-        
+
         org_id_val number;
         max_members_val number;
         max_flex_val number;
         current_members_calc number;
         sg_id number;
-
+        is_virt number := 0;
     begin
+        begin
+          select 1 into is_virt
+                from rhnServerEntitlementView
+           where server_id = server_id_in
+                 and label in ('virtualization_host', 'virtualization_host_platform');
+           exception
+                when no_data_found then
+                  is_virt := 0;
+        end;
 
         select org_id
         into org_id_val
@@ -595,6 +604,35 @@ is
 
         -- deal w/ channel entitlements first ...
         for family in families loop
+            if is_virt = 0 then
+            -- if the host_server does not have virt
+            --- find all possible flex slots
+            -- and set each of the flex eligible guests to Y
+                UPDATE rhnServerChannel sc set sc.is_fve = 'Y'
+                where sc.server_id in (
+                       select virtual_system_id from (
+                            select rownum, vi.virtual_system_id,  max_members
+                            from rhnServerFveCapable sfc
+                                inner join rhnVirtualInstance vi on vi.virtual_system_id = sfc.server_id
+                            where vi.host_system_id = server_id_in
+                                  and sfc.channel_family_id = family.channel_family_id
+                              order by vi.modified desc
+                          )
+                        where rownum <=  max_members
+                );
+            else
+            -- if the host_server has virt
+            -- set all its flex guests to N
+                UPDATE rhnServerChannel sc set sc.is_fve = 'N'
+                where 
+                    sc.channel_id in (select cfm.channel_id from rhnChannelFamilyMembers cfm
+                                      where cfm.CHANNEL_FAMILY_ID = family.channel_family_id)
+                    and sc.is_fve = 'Y'
+                    and sc.server_id in  
+                            (select vi.virtual_system_id  from rhnVirtualInstance vi 
+                                    where vi.host_system_id = server_id_in);
+            end if;
+        
             -- get the current (physical) members of the family
             current_members_calc := 
                 rhn_channel.channel_family_current_members(family.channel_family_id,
