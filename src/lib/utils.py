@@ -84,12 +84,17 @@ def tab_completer(options, text):
 
 def filter_results(items, patterns, search = False):
     matches = []
+    
+    compiled_patterns = []
+    for pattern in patterns:
+        compiled_patterns.append(re.compile(pattern, re.I))
+
     for item in items:
-        for pattern in patterns:
+        for pattern in compiled_patterns:
             if search:
-                result = re.search(pattern, item, re.I)
+                result = pattern.search(item)
             else:
-                result = re.match(pattern, item, re.I)
+                result = pattern.match(item)
 
             if result:
                 matches.append(item)
