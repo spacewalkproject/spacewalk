@@ -96,7 +96,9 @@ def do_package_search(self, args, doreturn = False):
     fields = ('name', 'epoch', 'version', 'release',
               'arch', 'description', 'summary')
 
+    packages = []
     advanced = False
+
     for f in fields:
         if re.match('%s:' % f, args):
             logging.debug('Using advanced search')
@@ -112,13 +114,12 @@ def do_package_search(self, args, doreturn = False):
         # search on the server gives a lot of garbage back
         self.generate_package_cache()
         packages = filter_results(self.all_package_longnames.keys(),
-                                       [ args ], search = True)
+                                  [ args ], search = True)
 
-    if len(packages):
-        if doreturn:
-            return packages
-        else:
-            print '\n'.join(sorted(packages))
+    if doreturn:
+        return packages
+    else:
+        print '\n'.join(sorted(packages))
 
 ####################
 

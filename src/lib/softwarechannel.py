@@ -390,7 +390,7 @@ def complete_softwarechannel_addpackages(self, text, line, beg, end):
 def do_softwarechannel_addpackages(self, args):
     args = parse_arguments(args)
 
-    if not len(args):
+    if len(args) < 2:
         self.help_softwarechannel_addpackages()
         return
 
@@ -405,6 +405,10 @@ def do_softwarechannel_addpackages(self, args):
     package_ids = []
     for package in package_names:
         package_ids.append(self.get_package_id(package))
+
+    if not len(package_ids):
+        logging.warning('No packages to add')
+        return
 
     print 'Packages'
     print '--------'
