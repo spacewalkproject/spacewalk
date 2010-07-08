@@ -54,7 +54,7 @@ select
      CT.parent_or_self_id
 from
      rhnOrgChannelTreeView CT
-UNION
+UNION ALL
 select
      ct.org_id,
      ct.id,
