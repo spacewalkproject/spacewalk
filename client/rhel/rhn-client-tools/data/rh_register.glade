@@ -562,6 +562,7 @@ To keep your system updated, secure, and supported, please register this system 
 		      <property name="yalign">0</property>
 		      <property name="xpad">0</property>
 		      <property name="ypad">0</property>
+		      <property name="no_show_all">True</property>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -588,6 +589,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 		      <property name="width_chars">-1</property>
 		      <property name="single_line_mode">False</property>
 		      <property name="angle">0</property>
+		      <property name="no_show_all">True</property>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
@@ -755,6 +757,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="yalign">0.5</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
+	      <property name="no_show_all">True</property>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
@@ -779,6 +782,7 @@ https://www.redhat.com/wapps/sso/rhn/lostPassword.html&lt;/small&gt;</property>
 	      <property name="width_chars">-1</property>
 	      <property name="single_line_mode">False</property>
 	      <property name="angle">0</property>
+	      <property name="no_show_all">True</property>
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
