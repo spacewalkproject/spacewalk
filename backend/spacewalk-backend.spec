@@ -51,8 +51,8 @@ Requires: %{name}-sql-oracle = %{version}-%{release}
 Requires: %{name}-sql-postgresql = %{version}-%{release}
 
 %description sql
-This package contains the basic code that provides SQL connectivity for the Spacewalk
-backend modules.
+This package contains the basic code that provides SQL connectivity for
+the Spacewalk backend modules.
 
 %package sql-oracle
 Summary: Oracle backend for Spacewalk
@@ -60,7 +60,8 @@ Group: Applications/Internet
 Requires: python(:DBAPI:oracle)
 
 %description sql-oracle
-This package contains provides Oracle connectivity for the Spacewalk backend modules.
+This package contains provides Oracle connectivity for the Spacewalk backend
+modules.
 
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
@@ -68,7 +69,8 @@ Group: Applications/Internet
 Requires: python-pgsql
 
 %description sql-postgresql
-This package contains provides PostgreSQL connectivity for the Spacewalk backend modules.
+This package contains provides PostgreSQL connectivity for the Spacewalk
+backend modules.
 
 %package server
 Summary: Basic code that provides RHN Server functionality
