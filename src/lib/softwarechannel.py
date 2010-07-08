@@ -581,8 +581,7 @@ def do_softwarechannel_adderrata(self, args):
     print
     print 'Packages'
     print '--------'
-    for package in package_ids:
-        print self.get_package_name(package) 
+    print '\n'.join(sorted([ self.get_package_name(p) for p in package_ids ]))
 
     print
     print 'Total Errata:   %s' % str(len(errata)).rjust(3)
@@ -592,9 +591,11 @@ def do_softwarechannel_adderrata(self, args):
 
     # add the errata to the destination channel
     for e in errata:
+        logging.debug('Publishing %s to %s' % (e, dest_channel))
         self.client.errata.publish(self.session, e, [ dest_channel ])
 
     # add the affected packages to the channel
+    logging.debug('Adding required packages to %s' % dest_channel)
     self.client.channel.software.addPackages(self.session,
                                              dest_channel,
                                              package_ids)
