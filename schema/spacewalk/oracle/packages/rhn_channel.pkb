@@ -66,7 +66,6 @@ IS
         consenting_user         NUMBER;
         allowed                 number := 0;
         is_fve                  CHAR(1) := 'N';
-
     BEGIN
         if user_id_in is not null then
             allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
@@ -281,9 +280,12 @@ IS
     RETURN NUMBER
     IS
         CURSOR vi_entries IS
-            SELECT *
-              FROM rhnVirtualInstance
-             WHERE virtual_system_id = server_id_in;
+            SELECT 1
+              FROM rhnVirtualInstance vi
+             WHERE vi.virtual_system_id = server_id_in
+             and not exists(select server_id from rhnServerChannel sc where 
+                            sc.server_id = vi.virtual_system_id 
+                            and  sc.is_fve='Y');
         vi_count NUMBER;
 
     BEGIN
