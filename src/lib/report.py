@@ -102,19 +102,6 @@ def do_report_outofdatesystems(self, args):
 
 ####################
 
-def help_report_activesystems(self):
-    print 'report_activesystems: List all active systems'
-    print 'usage: report_activesystems'
-
-def do_report_activesystems(self, args):
-    systems = self.client.system.listActiveSystems(self.session)
-    systems = [ s.get('name') for s in systems ]
-
-    if len(systems):
-        print '\n'.join(sorted(systems))
-
-####################
-
 def help_report_ungroupedsystems(self):
     print 'report_ungroupedsystems: List all ungrouped systems'
     print 'usage: report_ungroupedsystems'
