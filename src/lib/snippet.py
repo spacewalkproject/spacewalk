@@ -100,7 +100,8 @@ def do_snippet_create(self, args, name=''):
     (contents, ignore) = editor(template = template, delete = True)
 
     print
-    print 'Contents:'
+    print 'Contents'
+    print '--------'
     print contents
 
     if self.user_confirm():

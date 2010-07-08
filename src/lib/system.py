@@ -43,16 +43,17 @@ def manipulate_child_channels(self, args, remove=False):
 
     new_channels = args
 
-    print 'Systems:'
-    for s in sorted(systems):
-        print '  %s' % s
-
+    print 'Systems'
+    print '-------'
+    print '\n'.join(sorted(systems))
     print
 
     if remove:
-        print 'Removing Channels:'
+        print 'Removing Channels'
+        print '-----------------'
     else:
-        print 'Adding Channels:'
+        print 'Adding Channels'
+        print '---------------'
 
     print '\n'.join(sorted(new_channels))
 
@@ -386,67 +387,72 @@ def do_system_listhardware(self, args):
             print
 
         if len(network):
-            print 'Network:'
+            print 'Network'
+            print '-------'
 
             count = 0
             for device in network:
                 if count: print
                 count += 1
 
-                print '  Interface:   %s' % device.get('interface')
-                print '  MAC Address: %s' % (
-                             device.get('hardware_address').upper())
-                print '  IP Address:  %s' % device.get('ip')
-                print '  Netmask:     %s' % device.get('netmask')
-                print '  Broadcast:   %s' % device.get('broadcast')
-                print '  Module:      %s' % device.get('module')
+                print 'Interface:   %s' % device.get('interface')
+                print 'MAC Address: %s' % device.get('hardware_address').upper()
+                print 'IP Address:  %s' % device.get('ip')
+                print 'Netmask:     %s' % device.get('netmask')
+                print 'Broadcast:   %s' % device.get('broadcast')
+                print 'Module:      %s' % device.get('module')
+
             print
 
-        print 'CPU:'
-        print '  Count:    %i' % cpu.get('count')
-        print '  Arch:     %s' % cpu.get('arch')
-        print '  MHz:      %s' % cpu.get('mhz')
-        print '  Cache:    %s' % cpu.get('cache')
-        print '  Vendor:   %s' % cpu.get('vendor')
-        print '  Model:    %s' % re.sub('\s+', ' ', cpu.get('model'))
+        print 'CPU'
+        print '---'
+        print 'Count:    %i' % cpu.get('count')
+        print 'Arch:     %s' % cpu.get('arch')
+        print 'MHz:      %s' % cpu.get('mhz')
+        print 'Cache:    %s' % cpu.get('cache')
+        print 'Vendor:   %s' % cpu.get('vendor')
+        print 'Model:    %s' % re.sub('\s+', ' ', cpu.get('model'))
 
         print
-        print 'Memory:'
-        print '  RAM:  %i' % memory.get('ram')
-        print '  Swap: %i' % memory.get('swap')
+        print 'Memory'
+        print '------'
+        print 'RAM:  %i' % memory.get('ram')
+        print 'Swap: %i' % memory.get('swap')
 
         if dmi:
             print
-            print 'DMI:'
-            print '  Vendor:       %s' % dmi.get('vendor')
-            print '  System:       %s' % dmi.get('system')
-            print '  Product:      %s' % dmi.get('product')
-            print '  Board:        %s' % dmi.get('board')
+            print 'DMI'
+            print 'Vendor:       %s' % dmi.get('vendor')
+            print 'System:       %s' % dmi.get('system')
+            print 'Product:      %s' % dmi.get('product')
+            print 'Board:        %s' % dmi.get('board')
 
             print
-            print '  Asset:'
+            print 'Asset'
+            print '-----'
             for asset in dmi.get('asset').split(') ('):
-                print '    %s' % re.sub('\)|\(', '', asset)
+                print re.sub('\)|\(', '', asset)
 
             print
-            print '  BIOS Release: %s' % dmi.get('bios_release')
-            print '  BIOS Vendor:  %s' % dmi.get('bios_vendor')
-            print '  BIOS Version: %s' % dmi.get('bios_version')
+            print 'BIOS Release: %s' % dmi.get('bios_release')
+            print 'BIOS Vendor:  %s' % dmi.get('bios_vendor')
+            print 'BIOS Version: %s' % dmi.get('bios_version')
 
         if len(devices):
             print
-            print 'Devices:'
+            print 'Devices'
+            print '-------'
 
             count = 0
             for device in devices:
                 if count: print
                 count += 1
 
-                print '  Description: %s' % (
+                print 'Description: %s' % (
                          wrap(device.get('description'), 60)[0])
-                print '  Driver:      %s' % device.get('driver')
-                print '  Class:       %s' % device.get('device_class')
-                print '  Bus:         %s' % device.get('bus')
+                print 'Driver:      %s' % device.get('driver')
+                print 'Class:       %s' % device.get('device_class')
+                print 'Bus:         %s' % device.get('bus')
 
 ####################
 
@@ -530,7 +536,8 @@ def do_system_installpackage(self, args):
         count += 1
 
         print 'System: %s' % system
-        print 'Install Packages:'
+        print 'Install Packages'
+        print '----------------'
         for package_id in package_ids:
             package = self.client.packages.getDetails(self.session, package_id)
             print build_package_names(package)
@@ -1001,7 +1008,8 @@ def do_system_setconfigchannelorder(self, args):
     new_channels = config_channel_order(all_channels, new_channels)
 
     print
-    print 'New Configuration Channels:'
+    print 'New Configuration Channels'
+    print '--------------------------'
     for i in range(len(new_channels)):
         print '[%i] %s' % (i + 1, new_channels[i])
 
@@ -1040,7 +1048,8 @@ def do_system_deployconfigfiles(self, args):
 
     if not len(systems): return
     
-    print 'Systems:'
+    print 'Systems'
+    print '-------'
     print '\n'.join(sorted(systems))
 
     message = 'Deploy ALL configuration files to these systems [y/N]:'
@@ -1620,34 +1629,36 @@ def do_system_details(self, args, short=False):
 
         if len(keys):
             print
-            print 'Activation Keys:'
-            for key in keys:
-                print '  %s' % key
+            print 'Activation Keys'
+            print '---------------'
+            print '\n'.join(sorted(keys))
 
         print
-        print 'Software Channels:'
-        print '  %s' % base_channel.get('label')
+        print 'Software Channels'
+        print '-----------------'
+        print base_channel.get('label')
 
         for channel in child_channels:
-            print '    |-- %s' % channel.get('label')
+            print '  |-- %s' % channel.get('label')
 
         if len(ranked_config_channels):
             print
-            print 'Configuration Channels:'
-            for channel in ranked_config_channels:
-                print '  %s' % channel
+            print 'Configuration Channels'
+            print '----------------------'
+            print '\n'.join(ranked_config_channels)
 
         print
-        print 'Entitlements:'
-        for entitlement in sorted(entitlements):
-            print '  %s' % entitlement
+        print 'Entitlements'
+        print '------------'
+        print '\n'.join(sorted(entitlements))
 
         if len(groups):
             print
-            print 'System Groups:'
+            print 'System Groups'
+            print '-------------'
             for group in groups:
                 if group.get('subscribed') == 1:
-                    print '  %s' % group.get('system_group_name')
+                    print group.get('system_group_name')
 
 ####################
 
@@ -1758,14 +1769,14 @@ def do_system_applyerrata(self, args):
             errata_list.remove(errata)
 
     if len(errata_list): 
-        print 'Systems:'
-        for s in sorted(systems):
-            print '  %s' % s
+        print 'Systems'
+        print '-------'
+        print '\n'.join(sorted(systems))
 
         print
-        print 'Errata:'
-        for e in sorted(errata_list, reverse = True):
-            print '  %s' % e
+        print 'Errata'
+        print '------'
+        print '\n'.join(sorted(errata_list, reverse = True))
     else:
         logging.warning('No errata to apply')
         return
@@ -1872,7 +1883,8 @@ def do_system_listevents(self, args):
             print 'Completed: %s' % format_time(e.get('completed').value)
 
             if e.get('details'):
-                print 'Details:'
+                print 'Details'
+                print '-------'
                 print e.get('details')
 
             if limit:

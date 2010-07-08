@@ -34,9 +34,10 @@ def do_distribution_create(self, args):
     base_channel = ''
     while base_channel == '':
         print
-        print 'Base Channels:'
-        for c in self.list_base_channels():
-            print '  %s' % c
+        print 'Base Channels'
+        print '-------------'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
 
         base_channel = prompt_user('Base Channel:')
 
@@ -52,9 +53,10 @@ def do_distribution_create(self, args):
     install_type = ''
     while install_type == '':
         print
-        print 'Install Types:'
-        for t in install_types:
-            print '  %s' % t
+        print 'Install Types'
+        print '-------------'
+        print '\n'.join(sorted(install_types))
+        print
 
         install_type = prompt_user('Install Type:')
 
@@ -192,9 +194,10 @@ def do_distribution_update(self, args):
     base_channel = ''
     while base_channel == '':
         print
-        print 'Base Channels:'
-        for c in self.list_base_channels():
-            print '  %s' % c
+        print 'Base Channels'
+        print '-------------'
+        print '\n'.join(sorted(self.list_base_channels()))
+        print
 
         base_channel = prompt_user('Base Channel:')
 
@@ -210,9 +213,10 @@ def do_distribution_update(self, args):
     install_type = ''
     while install_type == '':
         print
-        print 'Install Types:'
-        for t in install_types:
-            print '  %s' % t
+        print 'Install Types'
+        print '-------------'
+        print '\n'.join(sorted(install_types))
+        print
 
         install_type = prompt_user('Install Type:')
 

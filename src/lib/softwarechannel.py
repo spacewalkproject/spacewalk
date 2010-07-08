@@ -199,12 +199,14 @@ def do_softwarechannel_details(self, args):
 
         if details.get('summary'):
             print
-            print 'Summary:'
+            print 'Summary'
+            print '-------'
             print '\n'.join(wrap(details.get('summary')))
 
         if details.get('description'):
             print
-            print 'Description:'
+            print 'Description'
+            print '-----------'
             print '\n'.join(wrap(details.get('description')))
 
         print
@@ -214,9 +216,10 @@ def do_softwarechannel_details(self, args):
 
         if len(trees):
             print
-            print 'Kickstart Trees:'
+            print 'Kickstart Trees'
+            print '---------------'
             for tree in trees:
-                print '  %s' % tree.get('label')
+                print tree.get('label')
 
 ####################
 
@@ -275,7 +278,8 @@ def do_softwarechannel_delete(self, args):
 
     if not len(to_delete): return
 
-    print 'Channels:'
+    print 'Channels'
+    print '--------'
     print '\n'.join(sorted(to_delete))
 
     if not self.user_confirm('Delete these channels [y/N]:'): return
@@ -294,7 +298,8 @@ def do_softwarechannel_create(self, args):
     label = prompt_user('Channel Label:', noblank = True)
     summary = prompt_user('Summary:', noblank = True)
 
-    print 'Base Channels:'
+    print 'Base Channels'
+    print '-------------'
     print '\n'.join(sorted(self.list_base_channels()))
     print
 
@@ -302,7 +307,8 @@ def do_softwarechannel_create(self, args):
         prompt_user('Select Parent [blank to create a base channel]:')
 
     print
-    print 'Architecture:'
+    print 'Architecture'
+    print '------------'
     print '\n'.join(sorted(self.ARCH_LABELS))
     print
     arch = prompt_user('Select:')
@@ -400,7 +406,8 @@ def do_softwarechannel_addpackages(self, args):
     for package in package_names:
         package_ids.append(self.get_package_id(package))
 
-    print 'Packages:'
+    print 'Packages'
+    print '--------'
     print '\n'.join(sorted(package_names))
 
     if not self.user_confirm('Add these packages [y/N]:'): return
@@ -463,7 +470,8 @@ def do_softwarechannel_removepackages(self, args):
     for package in package_names:
         package_ids.append(self.get_package_id(package))
 
-    print 'Packages:'
+    print 'Packages'
+    print '--------'
     print '\n'.join(sorted(package_names))
 
     if not self.user_confirm('Remove these packages [y/N]:'): return

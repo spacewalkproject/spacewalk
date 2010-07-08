@@ -115,21 +115,24 @@ def do_schedule_details(self, args):
 
     if len(completed):
         print
-        print 'Completed Systems:'
+        print 'Completed Systems'
+        print '-----------------'
         for s in completed:
-            print '  %s' % s.get('server_name')
+            print s.get('server_name')
 
     if len(failed):
         print
-        print 'Failed Systems:'
+        print 'Failed Systems'
+        print '--------------'
         for s in failed:
-            print '  %s' % s.get('server_name')
+            print s.get('server_name')
 
     if len(pending):
         print
-        print 'Pending Systems:'
+        print 'Pending Systems'
+        print '---------------'
         for s in pending:
-            print '  %s' % s.get('server_name')
+            print s.get('server_name')
 
 ####################
 
@@ -173,7 +176,9 @@ def do_schedule_getoutput(self, args):
             print 'Start Time:  %s' % format_time(r.get('startDate').value)
             print 'Stop Time:   %s' % format_time(r.get('stopDate').value)
             print 'Return Code: %i' % r.get('returnCode')
-            print 'Output:'
+            print
+            print 'Output'
+            print '------'
             print r.get('output')
     else:
         add_separator = False

@@ -99,7 +99,8 @@ def do_group_removesystems(self, args):
         if not system_id: return
         system_ids.append(system_id)
 
-    print 'Systems:'
+    print 'Systems'
+    print '-------'
     print '\n'.join(sorted(systems))
 
     if not self.user_confirm('Remove these systems [y/N]:'): return
@@ -243,8 +244,8 @@ def do_group_details(self, args, short=False):
 
         if not short:
             print
-            print 'Members:'
-            for s in sorted(systems):
-                print '  %s' % s
+            print 'Members'
+            print '-------'
+            print '\n'.join(sorted(systems))
 
 # vim:ts=4:expandtab:

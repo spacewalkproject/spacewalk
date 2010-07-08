@@ -29,7 +29,8 @@ def help_report_entitlements(self):
 def do_report_entitlements(self, args):
     entitlements = self.client.satellite.listEntitlements(self.session)
 
-    print 'System:'
+    print 'System'
+    print '------'
     for e in entitlements.get('system'):
         print '%s: %i/%i' % (
               e.get('label'),
@@ -37,7 +38,8 @@ def do_report_entitlements(self, args):
               e.get('total_slots'))
 
     print
-    print 'Channel:'
+    print 'Channel'
+    print '-------'
     for e in entitlements.get('channel'):
         print '%s: %i/%i' % (
               e.get('label'),

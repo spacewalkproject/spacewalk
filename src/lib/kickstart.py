@@ -53,7 +53,8 @@ def do_kickstart_create(self, args):
     else:
         name = prompt_user('Name:', noblank = True)
 
-    print 'Virtualization Types:'
+    print 'Virtualization Types'
+    print '--------------------'
     print '\n'.join(sorted(self.VIRT_TYPES))
     print
 
@@ -65,7 +66,8 @@ def do_kickstart_create(self, args):
     while tree == '':
         trees = self.do_distribution_list('', True)
         print
-        print 'Distributions:'
+        print 'Distributions'
+        print '-------------'
         print '\n'.join(sorted(trees))
         print
 
@@ -132,7 +134,8 @@ def do_kickstart_import(self, args):
     name = args[0]
     filename = args[1]
 
-    print 'Virtualization Types:'
+    print 'Virtualization Types'
+    print '--------------------'
     print '\n'.join(sorted(self.VIRT_TYPES))
     print
 
@@ -144,7 +147,8 @@ def do_kickstart_import(self, args):
     while tree == '':
         trees = self.do_distribution_list('', True)
         print
-        print 'Distributions:'
+        print 'Distributions'
+        print '-------------'
         print '\n'.join(sorted(trees))
         print
 
@@ -269,65 +273,73 @@ def do_kickstart_details(self, args):
     print 'Remote Commands:          %s' % remote_commands
 
     print
-    print 'Software Channels:'
-    print '  %s' % base_channel.get('label')
+    print 'Software Channels'
+    print '-----------------'
+    print base_channel.get('label')
 
     for channel in sorted(child_channels):
-        print '    |-- %s' % channel
+        print '  |-- %s' % channel
 
     if len(advanced_options):
         print
-        print 'Advanced Options:'
+        print 'Advanced Options'
+        print '----------------'
         for o in sorted(advanced_options, key=itemgetter('name')):
             if o.get('arguments'):
-                print '  %s %s' % (o.get('name'), o.get('arguments'))
+                print '%s %s' % (o.get('name'), o.get('arguments'))
 
     if len(custom_options):
         print
-        print 'Custom Options:'
+        print 'Custom Options'
+        print '--------------'
         for o in sorted(custom_options, key=itemgetter('arguments')):
-            print '  %s' % re.sub('\n', '', o.get('arguments'))
+            print re.sub('\n', '', o.get('arguments'))
 
     if len(partitions):
         print
-        print 'Partitioning:'
-        for line in partitions:
-            print '  %s' % line
+        print 'Partitioning'
+        print '------------'
+        print '\n'.join(partitions)
 
     print
-    print 'Software:'
-    for s in software:
-        print '  %s' % s
+    print 'Software'
+    print '--------'
+    print '\n'.join(software)
 
     if len(act_keys):
         print
-        print 'Activation Keys:'
+        print 'Activation Keys'
+        print '---------------'
         for k in sorted(act_keys, key=itemgetter('key')):
-            print '  %s' % k.get('key')
+            print k.get('key')
 
     if len(crypto_keys):
         print
-        print 'Crypto Keys:'
+        print 'Crypto Keys'
+        print '-----------'
         for k in sorted(crypto_keys, key=itemgetter('description')):
-            print '  %s' % k.get('description')
+            print k.get('description')
 
     if len(file_preservations):
         print
-        print 'File Preservations:'
+        print 'File Preservations'
+        print '------------------'
         for fp in sorted(file_preservations, key=itemgetter('name')):
-            print '  %s' % fp.get('name')
+            print fp.get('name')
             for profile_name in sorted(fp.get('file_names')):
                 print '    |-- %s' % profile_name
 
     if len(variables):
         print
-        print 'Variables:'
+        print 'Variables'
+        print '---------'
         for k in sorted(variables.keys()):
-            print '  %s=%s' % (k, str(variables[k]))
+            print '%s = %s' % (k, str(variables[k]))
 
     if len(scripts):
         print
-        print 'Scripts:'
+        print 'Scripts'
+        print '-------'
 
         add_separator = False
 
@@ -335,11 +347,11 @@ def do_kickstart_details(self, args):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print '  Type:        %s' % s.get('script_type')
-            print '  Chroot:      %s' % s.get('chroot')
+            print 'Type:        %s' % s.get('script_type')
+            print 'Chroot:      %s' % s.get('chroot')
 
             if s.get('interpreter'):
-                print '  Interpreter: %s' % s.get('interpreter')
+                print 'Interpreter: %s' % s.get('interpreter')
 
             print
             print s.get('contents')
@@ -1518,7 +1530,9 @@ def do_kickstart_listscripts(self, args):
         print 'Type:        %s' % script.get('script_type')
         print 'Chroot:      %s' % script.get('chroot')
         print 'Interpreter: %s' % script.get('interpreter')
-        print 'Contents:'
+        print
+        print 'Contents'
+        print '--------'
         print script.get('contents')
 
 ####################

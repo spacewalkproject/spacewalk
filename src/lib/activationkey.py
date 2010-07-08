@@ -564,9 +564,10 @@ def do_activationkey_create(self, args):
     description = prompt_user('Description [None]:')
 
     print
-    print 'Base Channels:'
-    for c in list_base_channels(self):
-        print '  %s' % c
+    print 'Base Channels'
+    print '-------------'
+    print '\n'.join(sorted(self.list_base_channels()))
+    print
 
     base_channel = prompt_user('Base Channel (blank for default):')
 
@@ -718,45 +719,45 @@ def do_activationkey_details(self, args):
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print 'Key:               %s' % details.get('key')
-        print 'Description:       %s' % details.get('description')
-        print 'Universal Default: %s' % details.get('universal_default')
+        print 'Key:                    %s' % details.get('key')
+        print 'Description:            %s' % details.get('description')
+        print 'Universal Default:      %s' % details.get('universal_default')
+        print 'Deploy Config Channels: %s' % config_channel_deploy
 
         print
-        print 'Software Channels:'
-        print '  %s' % details.get('base_channel_label')
+        print 'Software Channels'
+        print '-----------------'
+        print details.get('base_channel_label')
 
         for channel in details.get('child_channel_labels'):
-            print '   |-- %s' % channel
+            print ' |-- %s' % channel
 
         print
-        print 'Configuration Channel Deployment: %s' % config_channel_deploy
-
-        print
-        print 'Configuration Channels:'
-
+        print 'Configuration Channels'
+        print '----------------------'
         for channel in config_channels:
-            print '  %s' % channel.get('label')
+            print channel.get('label')
 
         print
-        print 'Entitlements:'
-        for entitlement in sorted(details.get('entitlements')):
-            print '  %s' % entitlement
+        print 'Entitlements'
+        print '------------'
+        print '\n'.join(sorted(details.get('entitlements')))
 
         print
-        print 'System Groups:'
-        for group in groups:
-            print '  %s' % group
+        print 'System Groups'
+        print '-------------'
+        print '\n'.join(sorted(groups))
 
         print
-        print 'Packages:'
+        print 'Packages'
+        print '--------'
         for package in details.get('packages'):
             name = package.get('name')
 
             if package.get('arch'):
                 name += '.%s' % package.get('arch')
 
-            print '  %s' % name
+            print name
 
 ####################
 

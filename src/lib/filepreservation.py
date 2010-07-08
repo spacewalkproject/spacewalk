@@ -58,7 +58,8 @@ def do_filepreservation_create(self, args):
         files = []
 
         while True:
-            print 'File List:'
+            print 'File List'
+            print '---------'
             print '\n'.join(sorted(files))
             print
 
@@ -71,7 +72,8 @@ def do_filepreservation_create(self, args):
                     files.append(userinput)
 
     print
-    print 'File List:'
+    print 'File List'
+    print '---------'
     print '\n'.join(sorted(files))
     
     if not self.user_confirm(): return

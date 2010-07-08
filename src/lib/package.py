@@ -71,7 +71,8 @@ def do_package_details(self, args):
         print 'MD5:     %s' % details.get('md5sum')
 
         print
-        print 'Available From:'
+        print 'Available From'
+        print '--------------'
         print '\n'.join(sorted([c.get('label') for c in channels]))
 
 ####################
@@ -141,7 +142,8 @@ def do_package_remove(self, args):
 
     if not len(to_remove): return
 
-    print 'Packages:'
+    print 'Packages'
+    print '--------'
     print '\n'.join(sorted(to_remove))
 
     if not self.user_confirm('Remove these packages [y/N]:'): return
@@ -189,7 +191,8 @@ def do_package_removeorphans(self, args):
         logging.warning('No orphaned packages')
         return
 
-    print 'Packages:'
+    print 'Packages'
+    print '--------'
     print '\n'.join(sorted(build_package_names(packages)))
 
     if not self.user_confirm('Remove these packages [y/N]:'): return

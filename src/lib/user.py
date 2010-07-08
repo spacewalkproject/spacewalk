@@ -220,17 +220,20 @@ def do_user_details(self, args):
 
         if len(roles):
             print
-            print 'Roles:'
+            print 'Roles'
+            print '-----'
             print '\n'.join(sorted(roles))
 
         if len(groups):
             print
-            print 'Assigned Groups:'
+            print 'Assigned Groups'
+            print '---------------'
             print '\n'.join(sorted([g.get('name') for g in groups]))
         
         if len(default_groups):
             print
-            print 'Default Groups:'
+            print 'Default Groups'
+            print '--------------'
             print '\n'.join(sorted([g.get('name') for g in default_groups]))
 
 ####################

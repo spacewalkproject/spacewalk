@@ -157,7 +157,8 @@ def do_configchannel_filedetails(self, args):
 
             if not f.get('binary'):
                 print
-                print 'Contents:'
+                print 'Contents'
+                print '--------'
                 print f.get('contents')
 
 ####################
@@ -193,9 +194,10 @@ def do_configchannel_details(self, args):
         print 'Description: %s' % details.get('description')
 
         print
-        print 'Files:'
+        print 'Files'
+        print '-----'
         for f in files:
-            print '  %s' % f.get('path')
+            print f.get('path')
 
 ####################
 
@@ -347,7 +349,8 @@ def do_configchannel_addfile(self, args, path=''):
             print 'Binary File: %s' % binary
         else:
             print
-            print 'Contents:'
+            print 'Contents'
+            print '--------'
             print file_info['contents']
 
     if self.user_confirm():

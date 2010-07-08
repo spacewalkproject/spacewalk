@@ -298,7 +298,8 @@ def print_errata_list(errata):
     if not len(errata): return
 
     if len(rhsa):
-        print 'Security Errata:'
+        print 'Security Errata'
+        print '---------------'
         for e in rhsa:
             print_errata_summary(e)
 
@@ -306,7 +307,8 @@ def print_errata_list(errata):
         if len(rhsa):
             print
 
-        print 'Bug Fix Errata:'
+        print 'Bug Fix Errata'
+        print '--------------'
         for e in rhba:
             print_errata_summary(e)
 
@@ -314,7 +316,8 @@ def print_errata_list(errata):
         if len(rhsa) or len(rhba):
             print
 
-        print 'Enhancement Errata:'
+        print 'Enhancement Errata'
+        print '------------------'
         for e in rhea:
             print_errata_summary(e)
 
@@ -331,13 +334,16 @@ def print_action_summary(action, systems=[]):
 def print_action_output(action):
     print 'System:    %s' % action.get('server_name')
     print 'Completed: %s' % format_time(action.get('timestamp').value)
-    print 'Output:'
+    print
+    print 'Output'
+    print '------'
     print action.get('message')
     
 
 def config_channel_order(all_channels=[], new_channels=[]):
     while True:
-        print 'Current Selections:'
+        print 'Current Selections'
+        print '------------------'
         for i in range(len(new_channels)):
             print '%i. %s' % (i + 1, new_channels[i])
   
@@ -346,7 +352,8 @@ def config_channel_order(all_channels=[], new_channels=[]):
 
         if re.match('a', action, re.I):
             print 
-            print 'Available Configuration Channels:'
+            print 'Available Configuration Channels'
+            print '--------------------------------'
             for c in sorted(all_channels):
                 print c
 

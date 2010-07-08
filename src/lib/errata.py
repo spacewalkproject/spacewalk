@@ -197,31 +197,39 @@ def do_errata_details(self, args):
         print 'Type:       %s' % details.get('type')
         print 'Issue Date: %s' % details.get('issue_date')
         print
-        print 'Topic: '
+        print 'Topic'
+        print '-----'
         print '\n'.join(wrap(details.get('topic')))
         print
-        print 'Description: '
+        print 'Description'
+        print '-----------'
         print '\n'.join(wrap(details.get('description')))
 
         if details.get('notes'):
             print
-            print 'Notes:'
+            print 'Notes'
+            print '-----'
             print '\n'.join(wrap(details.get('notes')))
 
         print
-        print 'Solution:'
+        print 'Solution'
+        print '--------'
         print '\n'.join(wrap(details.get('solution')))
         print
-        print 'References:'
+        print 'References'
+        print '----------'
         print '\n'.join(wrap(details.get('references')))
         print
-        print 'Affected Channels:'
+        print 'Affected Channels'
+        print '-----------------'
         print '\n'.join(sorted([c.get('label') for c in channels]))
         print
-        print 'Affected Systems:'
-        print '%i' % len(systems)
+        print 'Affected Systems'
+        print '----------------'
+        print str(len(systems))
         print
-        print 'Affected Packages:'
+        print 'Affected Packages'
+        print '-----------------'
         print '\n'.join(sorted(build_package_names(packages)))
 
 
