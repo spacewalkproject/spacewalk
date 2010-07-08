@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        1.1.10
+Version:        1.1.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Jul 08 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.11-1
+- fixed dependencies on rhnServerFveCapable and rhnChecksumView
+- let schema population fail if there are invalid objects
+- Made entitlement logic handle flex guests when the host is virt (un)entitled
+
 * Wed Jul 07 2010 Justin Sherrill <jsherril@redhat.com> 1.1.10-1
 - allowing satellite-sync to juggle entitlements between flex guest and regular
   entitlement slots if it can (jsherril@redhat.com)
