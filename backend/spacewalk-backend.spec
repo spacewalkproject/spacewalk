@@ -94,7 +94,7 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
-Provides: rhns-server-xmlrpc = %{version}-%{release}
+Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
 Provides: rhns-xmlrpc = 1:%{version}-%{release}
 
 %description xmlrpc
