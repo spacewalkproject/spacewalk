@@ -31,16 +31,16 @@ import org.quartz.JobExecutionException;
  * SatelliteCertificateCheck
  * @version $Rev$
  */
-public class SatelliteCertificateCheck extends SingleThreadedTask {
+public class SatelliteCertificateCheck extends RhnJavaJob {
 
-    private static Logger log = Logger.getLogger(SatelliteCertificateCheck.class);
+    private Logger log = getLogger(SatelliteCertificateCheck.class);
     
     public static final String DISPLAY_NAME = "satcert_check";
     
     /**
      * {@inheritDoc}
      */
-    protected void run(JobExecutionContext ctx) throws JobExecutionException {
+    public void execute(JobExecutionContext ctx) throws JobExecutionException {
         LocalizationService ls = LocalizationService.getInstance();
         
         CertificateManager man = CertificateManager.getInstance();
