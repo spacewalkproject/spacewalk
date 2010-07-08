@@ -86,10 +86,11 @@ channel:CHANNEL
 '''
 
     intro = '''
-Welcome to spacecmd, a command line interface to Spacewalk.
+Welcome to spacecmd, a command-line interface to Spacewalk.
 
-For a full set of commands, type 'help' on the prompt.
-For help for a specific command try 'help <cmd>'.
+Type: 'help' for a list of commands
+      'help <cmd>' for command-specific help
+      'quit' to quit
 '''
     cmdqueue = []
     completekey = 'tab'
