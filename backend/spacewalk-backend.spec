@@ -616,6 +616,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/satwho
 %attr(755,root,root) %{_bindir}/spacewalk-remove-channel*
 %attr(755,root,root) %{_bindir}/rhn-entitlement-report
+%attr(755,root,root) %{_bindir}/spacewalk-update-signatures
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
@@ -629,7 +630,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
-%{rhnroot}/satellite_tools/updateSignatures.py*
 %{rhnroot}/satellite_tools/reposync.py*
 %{rhnroot}/satellite_tools/constants.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper

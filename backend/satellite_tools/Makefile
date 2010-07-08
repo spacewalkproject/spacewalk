@@ -12,12 +12,13 @@ FILES	= __init__ connection constants diskImportLib messages \
             sync_handlers \
             syncLib SequenceServer xmlDiskDumper xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages reposync updateSignatures
+            satComputePkgHeaders updatePackages reposync
 
 SCRIPTS = satellite-sync spacewalk-debug rhn-entitlement-report \
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore update-packages rhn-db-stats rhn-schema-stats \
-          spacewalk-repo-sync spacewalk-remove-channel
+          spacewalk-repo-sync spacewalk-remove-channel \
+	  spacewalk-update-signatures
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
