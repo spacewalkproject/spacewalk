@@ -24,6 +24,65 @@ from operator import itemgetter
 from xml.parsers.expat import ExpatError
 from spacecmd.utils import *
 
+def manipulate_child_channels(self, args, remove=False):
+    args = parse_arguments(args)
+
+    if len(args) < 2:
+        if remove:
+            self.help_system_removechildchannel()
+        else:
+            self.help_system_addchildchannel()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+        args.pop(0)
+    else:
+        systems = self.expand_systems(args.pop(0))
+
+    new_channels = args
+
+    print 'Systems:'
+    for s in sorted(systems):
+        print '  %s' % s
+
+    print
+
+    if remove:
+        print 'Removing Channels:'
+    else:
+        print 'Adding Channels:'
+
+    print '\n'.join(sorted(new_channels))
+
+    if not self.user_confirm(): return
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id: continue
+
+        child_channels = \
+            self.client.system.listSubscribedChildChannels(self.session, 
+                                                           system_id)
+
+        child_channels = [c.get('label') for c in child_channels]
+
+        if remove:
+            for channel in new_channels:
+                if channel in child_channels:
+                   child_channels.remove(channel)
+        else:
+            for channel in new_channels:
+                if channel not in child_channels:
+                    child_channels.append(channel)
+
+        self.client.system.setChildChannels(self.session,
+                                            system_id,
+                                            child_channels)
+
+####################
+
 def help_system_list(self):
     print 'system_list: List all system profiles'
     print 'usage: system_list'
@@ -1436,18 +1495,18 @@ def do_system_listchildchannels(self, args):
 ####################
 
 def help_system_addchildchannel(self):
-    print "system_addchildchannel: Add a child channel to a system"
-    print 'usage: system_addchildchannel <SYSTEMS> CHANNEL'
+    print "system_addchildchannel: Add child channels to a system"
+    print 'usage: system_addchildchannel <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
 
 def complete_system_addchildchannel(self, text, line, beg, end):
-    if len(line.split(' ')) == 2:
+    parts = line.split(' ')
+
+    if len(parts) == 2:
         return self.tab_complete_systems(text)
-    elif len(line.split(' ')) == 3:
-        system = line.split(' ')[1]
-        return tab_completer(self.list_child_channels(system=system), 
-                                  text)
+    elif len(parts) > 2:
+        return tab_completer(self.list_child_channels(), text)
 
 def do_system_addchildchannel(self, args):
     self.manipulate_child_channels(args)
@@ -1455,18 +1514,18 @@ def do_system_addchildchannel(self, args):
 ####################
 
 def help_system_removechildchannel(self):
-    print "system_removechildchannel: Remove a child channel from a system"
-    print 'usage: system_removechildchannel <SYSTEMS> CHANNEL'
+    print "system_removechildchannel: Remove child channels from a system"
+    print 'usage: system_removechildchannel <SYSTEMS> <CHANNEL ...>'
     print
     print self.HELP_SYSTEM_OPTS
 
 def complete_system_removechildchannel(self, text, line, beg, end):
-    if len(line.split(' ')) == 2:
+    parts = line.split(' ')
+
+    if len(parts) == 2:
         return self.tab_complete_systems(text)
-    elif len(line.split(' ')) == 3:
-        system = line.split(' ')[1]
-        return tab_completer(self.list_child_channels(system=system), 
-                                  text)
+    elif len(parts) > 2:
+        return tab_completer(self.list_child_channels(), text)
 
 def do_system_removechildchannel(self, args):
     self.manipulate_child_channels(args, True)

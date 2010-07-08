@@ -512,7 +512,9 @@ def expand_systems(self, args):
 
     systems = []
     for item in args:
-        if re.match('group:', item):
+        if re.match('ssm', item, re.I):
+            systems.extend(self.ssm)
+        elif re.match('group:', item):
             item = re.sub('group:', '', item)
             members = self.do_group_listsystems(item, True)
 
@@ -550,58 +552,59 @@ def expand_systems(self, args):
     return matches
 
 
-def manipulate_child_channels(self, args, remove=False):
-    args = parse_arguments(args)
+def list_base_channels(self):
+    all_channels = self.client.channel.listSoftwareChannels(self.session)
 
-    if len(args) != 2:
-        if remove:
-            self.help_system_removechildchannel()
-        else:
-            self.help_system_addchildchannel()
-        return
+    base_channels = []
+    for c in all_channels:
+        if not c.get('parent_label'):
+            base_channels.append(c.get('label'))
 
-    new_channel = args.pop()
+    return base_channels
 
-    # use the systems listed in the SSM
-    if re.match('ssm', args[0], re.I):
-        systems = self.ssm.keys()
-    else:
-        systems = self.expand_systems(args)
 
-    print 'Systems:'
-    for s in sorted(systems):
-        print '  %s' % s
+def list_child_channels(self, system=None, parent=None, subscribed=False):
+    channels = []
 
-    print
-
-    if remove:
-        print 'Removing Channel:'
-    else:
-        print 'Adding Channel:'
-
-    print '  %s' % new_channel
-
-    if not self.user_confirm(): return
-
-    for system in systems:
+    if system:
         system_id = self.get_system_id(system)
-        if not system_id: continue
+        if not system_id: return
 
-        child_channels = \
-            self.client.system.listSubscribedChildChannels(self.session, 
-                                                           system_id)
-
-        child_channels = [c.get('label') for c in child_channels]
-
-        if remove:
-            if new_channel in child_channels:
-                child_channels.remove(new_channel)
+        if subscribed:
+            channels = \
+                self.client.system.listSubscribedChildChannels(self.session,
+                                                               system_id)
         else:
-            if new_channel not in child_channels:
-                child_channels.append(new_channel)
+            channels = self.client.system.listSubscribableChildChannels(\
+                                          self.session, system_id)
+    elif parent:
+        all_channels = \
+            self.client.channel.listSoftwareChannels(self.session)
 
-        self.client.system.setChildChannels(self.session,
-                                            system_id,
-                                            child_channels)
+        for c in all_channels:
+            if parent == c.get('parent_label'):
+                channels.append(c)
+    else:
+        # get all channels that have a parent
+        all_channels = \
+            self.client.channel.listSoftwareChannels(self.session)
+
+        for c in all_channels:
+            if c.get('parent_label'):
+                channels.append(c)
+
+    return [ c.get('label') for c in channels ]
+
+
+def user_confirm(self, prompt='Is this ok [y/N]:'):
+    if self.options.yes: return True
+
+    answer = prompt_user('\n%s' % prompt)
+
+    if re.match('y', answer, re.I):
+        return True
+    else:
+        return False
+
 
 # vim:ts=4:expandtab:

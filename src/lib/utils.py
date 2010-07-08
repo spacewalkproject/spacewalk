@@ -175,17 +175,6 @@ def prompt_user(prompt, noblank = False):
     return userinput
 
 
-def user_confirm(self, prompt='Is this ok [y/N]:'):
-    if self.options.yes: return True
-
-    answer = prompt_user('\n%s' % prompt)
-
-    if re.match('y', answer, re.I):
-        return True
-    else:
-        return False
-
-
 def format_time(timestamp):
     return re.sub('T', ' ', timestamp)
 
@@ -414,46 +403,5 @@ def list_locales():
             zones.append(item)
 
     return zones
-
-
-def list_base_channels(self):
-    all_channels = self.client.channel.listSoftwareChannels(self.session)
-
-    base_channels = []
-    for c in all_channels:
-        if not c.get('parent_label'):
-            base_channels.append(c.get('label'))
-
-    return base_channels
-
-
-def list_child_channels(self, system=None, parent=None, subscribed=False):
-    channels = []
-
-    if system:
-        if re.match('ssm', system, re.I):
-            if len(self.ssm):
-                system = self.ssm.keys()[0]
-
-        system_id = self.get_system_id(system)
-        if not system_id: return
-
-        if subscribed:
-            channels = \
-                self.client.system.listSubscribedChildChannels(self.session,
-                                                               system_id)
-        else:
-            channels = self.client.system.listSubscribableChildChannels(\
-                                          self.session, system_id)
-    elif parent:
-        all_channels = \
-            self.client.channel.listSoftwareChannels(self.session)
-
-        for c in all_channels:
-            if parent == c.get('parent_label'):
-                channels.append(c)
-
-    return [ c.get('label') for c in channels ]
-
 
 # vim:ts=4:expandtab:
