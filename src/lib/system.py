@@ -978,6 +978,14 @@ def do_system_deployconfigfiles(self, args):
         systems = self.ssm.keys()
     else:
         systems = self.expand_systems(args)
+
+    if not len(systems): return
+    
+    print 'Systems:'
+    print '\n'.join(sorted(systems))
+
+    message = 'Deploy ALL configuration files to these systems [y/N]:'
+    if not self.user_confirm(message): return
     
     system_ids = [ self.get_system_id(s) for s in systems ] 
         
@@ -986,6 +994,8 @@ def do_system_deployconfigfiles(self, args):
     self.client.system.config.deployAll(self.session, 
                                         system_ids, 
                                         action_time)
+
+    print 'Scheduled deployment for %i system(s)' % len(system_ids)
 
 ####################
 
