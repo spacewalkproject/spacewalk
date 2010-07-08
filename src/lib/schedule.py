@@ -79,7 +79,7 @@ def do_schedule_details(self, args):
 
     try:
         action_id = int(args[0])
-    except ValueError:
+    except:
         logging.warning('%s is not a valid ID' % str(a))
         return
 
@@ -150,7 +150,7 @@ def do_schedule_getoutput(self, args):
 
     try:
         action_id = int(args[0])
-    except ValueError:
+    except:
         logging.error('%s is not a valid action ID' % str(args[0]))
         return
 
@@ -247,7 +247,7 @@ def do_schedule_listpending(self, args, doreturn=False):
     else:
         try:
             limit = int(args[0])
-        except ValueError:
+        except:
             limit = len(actions)
 
         add_separator = False
