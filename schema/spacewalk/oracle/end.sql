@@ -14,5 +14,20 @@
 --
 
 COMMIT;
+
+-- check whether all objects are valid
+declare
+  invalid_objects number;
+begin
+  select count(*)
+    into invalid_objects
+    from user_objects
+   where status <> 'VALID';
+ if invalid_objects > 0 then
+    RAISE_APPLICATION_ERROR(-20001, 'SCHEMA POPULATION ENDS WITH INVALD OBJECTS');
+ end if;
+end;
+/
+
 EXIT
 
