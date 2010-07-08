@@ -492,6 +492,8 @@ def expand_errata(self, args):
     if not isinstance(args, list):
         args = args.split()
 
+    self.generate_errata_cache()
+
     errata = []
     for item in args:
         if re.match('search:', item):
@@ -500,7 +502,6 @@ def expand_errata(self, args):
         else:
             errata.append(item)
 
-    self.generate_errata_cache()
     matches = filter_results(self.all_errata, errata)
 
     return matches
