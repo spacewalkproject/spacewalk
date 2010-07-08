@@ -1582,7 +1582,7 @@ public class KickstartData {
      * @return the registration type
      */
     public RegistrationType getRegistrationType(User user) {
-        Profile prof = getCobblerObject(user);
+        Profile prof = getCobblerObject(null);
         if (prof == null) {
             return RegistrationType.getDefault();
         }
