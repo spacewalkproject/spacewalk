@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Retrieve action method name given queued action information.
 #
 # Client code for Update Agent

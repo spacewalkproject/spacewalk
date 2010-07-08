@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Module that provides the client-side functionality for an XML importer
 #

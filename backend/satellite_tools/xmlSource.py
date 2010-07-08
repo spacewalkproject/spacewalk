@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Decoding data from XML streams
 #

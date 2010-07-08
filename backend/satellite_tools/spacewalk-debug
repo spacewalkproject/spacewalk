@@ -125,8 +125,8 @@ for tomcat in tomcat5 tomcat6 ; do
 done
 
 #entitlement report
-if [ -e /usr/share/rhn/satellite_tools/rhn-entitlement-report.py ]; then
-   python /usr/share/rhn/satellite_tools/rhn-entitlement-report.py &> $DIR/entitlement-report
+if [ -x /usr/bin/rhn-entitlement-report ]; then
+   /usr/bin/rhn-entitlement-report &> $DIR/entitlement-report
 fi
 
 #cobbler stuff

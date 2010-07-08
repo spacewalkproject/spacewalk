@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -136,5 +135,3 @@ class ServerGroupServerArchCompatImport(BaseArchCompatImport):
     submit_method_name = 'processServerGroupServerArchCompatMap'
     virt_sub_level     = 'virt_sub_level' 
     
-if __name__ == '__main__':
-    pass

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Abstraction for an XML importer with a disk base
 #

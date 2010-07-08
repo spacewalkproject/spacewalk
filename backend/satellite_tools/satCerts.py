@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Cert-related functions
 #   - RHN certificate

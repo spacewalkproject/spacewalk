@@ -618,11 +618,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/satpasswd
 %attr(755,root,root) %{_bindir}/satwho
 %attr(755,root,root) %{_bindir}/spacewalk-remove-channel*
+%attr(755,root,root) %{_bindir}/rhn-entitlement-report
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
 %{rhnroot}/satellite_tools/req_channels.py*
-%{rhnroot}/satellite_tools/rhn-entitlement-report.py*
 %{rhnroot}/satellite_tools/satsync.py*
 %{rhnroot}/satellite_tools/satCerts.py*
 %{rhnroot}/satellite_tools/satComputePkgHeaders.py*

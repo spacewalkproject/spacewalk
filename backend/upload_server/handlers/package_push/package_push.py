@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Code that drops files on the filesystem (/PKG-UPLOAD)
 #

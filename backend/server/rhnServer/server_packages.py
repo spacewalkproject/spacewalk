@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008--2010 Red Hat, Inc.
 #
@@ -529,6 +528,3 @@ def _add_to_hash(hash, key, value):
         hash[key] = { value : None }
     else:
         hash[key][value] = None
-    
-if __name__ == '__main__':
-    raise Exception("Not intended for standalone use")

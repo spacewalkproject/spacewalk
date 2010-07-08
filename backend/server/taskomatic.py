@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 """
 Module for taskomatic related functions (inserting into queues, etc)

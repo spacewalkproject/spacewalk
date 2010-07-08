@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -36,6 +35,3 @@ class ProductNamesImport(Import):
 	    raise
         self.backend.commit()
 
-
-if __name__ == '__main__':
-    pass

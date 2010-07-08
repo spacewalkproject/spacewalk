@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Common dumper stuff
 #

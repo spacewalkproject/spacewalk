@@ -1,4 +1,3 @@
-#!/usr/bin/python -v
 #
 # Copyright (c) 2008--2010 Red Hat, Inc.
 #
