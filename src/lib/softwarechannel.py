@@ -64,6 +64,30 @@ def do_softwarechannel_list(self, args, doreturn=False):
 
 ####################
 
+def help_softwarechannel_listbasechannels(self):
+    print 'softwarechannel_listbasechannels: List all base software channels'
+    print 'usage: softwarechannel_listbasechannels'
+
+def do_softwarechannel_listbasechannels(self, args):
+    channels = self.list_base_channels()
+
+    if len(channels):
+        print '\n'.join(sorted(channels))
+
+####################
+
+def help_softwarechannel_listchildchannels(self):
+    print 'softwarechannel_listchildchannels: List all child software channels'
+    print 'usage: softwarechannel_listchildchannels'
+
+def do_softwarechannel_listchildchannels(self, args):
+    channels = self.list_child_channels()
+
+    if len(channels):
+        print '\n'.join(sorted(channels))
+
+####################
+
 def help_softwarechannel_listsystems(self):
     print 'softwarechannel_listsystems: List all systems subscribed to'
     print '                             a software channel'
