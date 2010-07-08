@@ -19,7 +19,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 1.1.18
+Version: 1.1.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -321,6 +321,13 @@ fi
 %{jardir}/postgresql-jdbc.jar
 
 %changelog
+* Thu Jul 08 2010 Tomas Lestach <tlestach@redhat.com> 1.1.19-1
+- CobblerSyncTask fix (tlestach@redhat.com)
+- Made entitlement logic handle flex guests when the host is virt (un)entitled
+  (paji@redhat.com)
+- 608811 - fixing issue where virt guest creation would not create the guests
+  to use a virtual bridge. (jsherril@redhat.com)
+
 * Fri Jul 02 2010 Jan Pazdziora 1.1.18-1
 - Use the { call ... } syntax instead of the direct PL/SQL.
 - fix broken repo sync download log file logic (shughes@redhat.com)
