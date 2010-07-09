@@ -198,14 +198,14 @@ def parse_time_input(userinput = ''):
         if match:
             format = '%Y%m%d'
     
-            if len(match.groups()) == 3:
-                # YYYYMMDD
+            # YYYYMMDD
+            if not match.group(4) and not match.group(5):
                 timestamp = time.strptime('%s%s%s' % (match.group(1),
                                                       match.group(2),
                                                       match.group(3)),
                                           format)
-            if len(match.groups()) == 4:
-                # YYYYMMDDHH
+            # YYYYMMDDHH
+            elif not match.group(5):
                 format += '%H'
     
                 timestamp = time.strptime('%s%s%s%s' % (match.group(1),
@@ -213,8 +213,8 @@ def parse_time_input(userinput = ''):
                                                         match.group(3),
                                                         match.group(4)),
                                           format)
-            elif len(match.groups()) == 5:
-                # YYYYMMDDHHMM
+            # YYYYMMDDHHMM
+            else:
                 format += '%H%M'
     
                 timestamp = time.strptime('%s%s%s%s%s' % (match.group(1),
@@ -230,11 +230,15 @@ def parse_time_input(userinput = ''):
      
     # handle time differences (e.g., +1m, +2h) 
     if not timestamp:
-        match = re.search('^\+?(\d+)(s|m|h|d)$', userinput, re.I)
+        match = re.search('^(\+|-)?(\d+)(s|m|h|d)$', userinput, re.I)
 
-        if match and len(match.groups()) == 2:
-            number = int(match.group(1))
-            unit = match.group(2)
+        if match and len(match.groups()) >= 2:
+            sign = match.group(1)
+            number = int(match.group(2))
+            unit = match.group(3)
+
+            if sign == '-':
+                number = -number
 
             if re.match('s', unit, re.I):
                 delta = timedelta(seconds=number)
@@ -341,14 +345,6 @@ def print_errata_list(errata):
         print '------------------'
         for e in rhea:
             print_errata_summary(e)
-
-
-def print_action_summary(action, systems=[]):
-    print 'ID:         %i' % action.get('id')
-    print 'Type:       %s' % action.get('type')
-    print 'Scheduler:  %s' % action.get('scheduler')
-    print 'Start Time: %s' % format_time(action.get('earliest').value)
-    print 'Systems:    %i' % len(systems)
 
 
 #XXX: Bugzilla 608868
