@@ -607,39 +607,6 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                            channel_family_id_val, org_id_in);
     END$$ language plpgsql;
 
-    -- *******************************************************************
-    -- PROCEDURE: set_family_maxmembers
-    -- Prunes an existing channel family bucket by unsubscribing the
-    --   necessary servers and sets max_members.
-    -- Called by: rhn_channel.entitle_customer
-    -- Calls: unsubscribe_server_from_family
-    -- *******************************************************************
-    create or replace function set_family_maxmembers(customer_id_in in numeric, 
-                                    channel_family_id_in in numeric, 
-                                    quantity_in in numeric) returns void
-    as $$
-    declare
-        servers cursor for
-                select  rcfsp.server_id,
-                        rcfsp.modified
-                from    rhnChannelFamilyServerPhysical rcfsp
-                where   rcfsp.customer_id = customer_id_in
-                    and rcfsp.channel_family_id = channel_family_id_in
-                order by modified
-                offset quantity_in;
-    begin
-            -- prune subscribed servers
-        for server in servers loop
-            perform rhn_channel.unsubscribe_server_from_family(server.server_id, 
-                                                       channel_family_id_in);
-        end loop;
-
-        update  rhnPrivateChannelFamily
-        set     max_members = quantity_in
-        where   org_id = customer_id_in
-            and channel_family_id = channel_family_id_in;
-    end$$ language plpgsql;
-
     create or replace function unsubscribe_server_from_family(server_id_in in numeric, 
                                              channel_family_id_in in numeric)
     returns void

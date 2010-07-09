@@ -750,60 +750,6 @@ IS
         RETURN rhn_channel.available_fve_family_subs( channel_family_id_val, org_id_in);
     END available_fve_chan_subs;
 
-    -- *******************************************************************
-    -- PROCEDURE: set_family_maxmembers
-    -- Prunes an existing channel family bucket by unsubscribing the
-    --   necessary servers and sets max_members.
-    -- Called by: rhn_channel.entitle_customer
-    -- Calls: unsubscribe_server_from_family
-    -- *******************************************************************
-    procedure set_family_maxmembers(customer_id_in in number, 
-                                    channel_family_id_in in number, 
-                                    quantity_in in number,
-                                    fve_quantity_in in number)
-    is
-        cursor phy_servers is
-            select server_id from (
-                select rownum row_number, server_id, modified from (
-                    select rcfsp.server_id,
-                           rcfsp.modified
-                      from rhnChannelFamilyServerPhysical rcfsp
-                     where rcfsp.customer_id = customer_id_in
-                       and rcfsp.channel_family_id = channel_family_id_in
-                     order by modified
-                 )
-                 where rownum > quantity_in
-            );
-        cursor fve_servers is
-            select server_id from (
-                select rownum row_number, server_id, modified from (
-                    select rcfsp.server_id,
-                           rcfsp.modified
-                      from rhnChannelFamilyServerFve rcfsp
-                     where rcfsp.customer_id = customer_id_in
-                       and rcfsp.channel_family_id = channel_family_id_in
-                     order by modified
-                 )
-                 where rownum > fve_quantity_in
-            );
-    begin
-        for phy_server in phy_servers loop
-            rhn_channel.unsubscribe_server_from_family(phy_server.server_id,
-                                                       channel_family_id_in);
-        end loop;
-
-        for fve_server in fve_servers loop
-            rhn_channel.unsubscribe_server_from_family(fve_server.server_id,
-                                                       channel_family_id_in);
-        end loop;
-
-        update rhnPrivateChannelFamily pcf
-           set pcf.max_members = quantity_in,
-               pcf.fve_max_members = fve_quantity_in
-         where pcf.org_id = customer_id_in
-           and pcf.channel_family_id = channel_family_id_in;
-    end;
-
     procedure unsubscribe_server_from_family(server_id_in in number, 
                                              channel_family_id_in in number)
     is
