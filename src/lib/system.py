@@ -229,9 +229,10 @@ def help_system_runscript(self):
     print self.HELP_SYSTEM_OPTS
     print
     print 'Start Time Examples:'
-    print 'now  -> right now!'
-    print '15m  -> 15 minutes from now'
-    print '1d   -> 1 day from now'
+    print 'now          -> right now!'
+    print '15m          -> 15 minutes from now'
+    print '1d           -> 1 day from now'
+    print '201007041000 -> July 4, 2010 10:00am'
 
 def complete_system_runscript(self, text, line, beg, end):
     return self.tab_complete_systems(text)
@@ -297,8 +298,9 @@ def do_system_runscript(self, args):
     print 'Timeout:    %i seconds' % timeout
     print 'Start Time: %s' % format_time(timestamp.value)
     print
+    print 'Script Contents'
+    print '---------------'
     print script
-    print
 
     # have the user confirm
     if not self.user_confirm(): return
