@@ -90,8 +90,11 @@ def help_schedule_cancel(self):
     print 'usage: schedule_cancel ID|* ...'
 
 def complete_schedule_cancel(self, text, line, beg, end):
-    return tab_completer(self.do_schedule_listpending('', True),
-                              text)
+    try:
+        actions = self.client.schedule.listInProgressActions(self.session)
+        return tab_completer([ a.get('id') for a in actions ], text)
+    except:
+        return []
 
 def do_schedule_cancel(self, args):
     args = parse_arguments(args)
@@ -102,12 +105,10 @@ def do_schedule_cancel(self, args):
 
     # cancel all actions
     if '.*' in args:
-        prompt = 'Do you really want to cancel all pending actions?'
+        if not self.user_confirm('Cancel all pending actions [y/N]:'): return
 
-        if self.user_confirm(prompt):
-            strings = self.do_schedule_listpending('', True)
-        else:
-            return
+        actions = self.client.schedule.listInProgressActions(self.session)
+        strings = [ a.get('id') for a in actions ]
     else:
         strings = args
 
@@ -125,7 +126,7 @@ def do_schedule_cancel(self, args):
     for a in actions:
         logging.info('Canceled action %i' % a)
 
-    print 'Canceled %i actions' % len(actions)
+    print 'Canceled %i action(s)' % len(actions)
 
 ####################
 
