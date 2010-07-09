@@ -387,18 +387,6 @@ INSERT INTO rhnDailySummaryQueue (org_id) VALUES (:org_id)
   </query>
 </callable-mode>
 
-<mode name="fetch_entitlement_org">
-  <query>
-select org_id from rhnEntitlementQueue where process = 'Y'
-  </query>
-</mode>
-
-<write-mode name="dequeue_entitlement_org">
-  <query params="org_id">
-delete rhnEntitlementQueue where org_id = :org_id
-  </query>
-</write-mode>
-
 <callable-mode name="remove_sandbox_file">
   <query params="id">
   {call rhn_config.delete_file(:id)}

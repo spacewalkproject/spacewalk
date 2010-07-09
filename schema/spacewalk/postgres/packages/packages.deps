@@ -57,8 +57,7 @@ rhn_ep.pkb              :: rhn_bel.pks rhn_channel.pks rhn_entitlements.pks rhn_
                            rhnUserGroup \
                            rhnServerGroup \
                            rhnPrivateChannelFamily \
-                           rhnDaemonState rhnChannelFamilyMembers \
-                           rhnEntitlementQueue
+                           rhnDaemonState rhnChannelFamilyMembers
 rhn_org.pkb             :: rhn_entitlements.pks \
                            rhn_exception.pks rhn_server.pks delete_server \
                            rhnServer rhnServerGroupType rhnServerGroup \
