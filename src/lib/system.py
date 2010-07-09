@@ -497,10 +497,10 @@ def do_system_installpackage(self, args):
         system_id = self.get_system_id(system)
         if not system_id: continue
 
+        # find the correct package IDs for each system
         avail_packages = self.client.system.listLatestInstallablePackages(\
                              self.session, system_id)
 
-        # find the corresponding package IDs
         package_ids = []
         for package in packages_to_install:
             found_package = False
@@ -518,24 +518,24 @@ def do_system_installpackage(self, args):
         if len(package_ids):
             jobs.append((system, system_id, package_ids))
 
-    if not len(jobs): return
+    if not len(jobs):
+        logging.warning('No packages to install')
+        return
 
-    count = 0
+    add_separator = False
+
     for job in jobs:
         (system, system_id, package_ids) = job
 
-        if count: print
-        count += 1
+        if add_separator: print self.SEPARATOR
+        add_separator = True
 
-        print 'System: %s' % system
-        print 'Packages'
-        print '--------'
+        print '%s:' % system
         for package_id in package_ids:
-            package = self.client.packages.getDetails(self.session, package_id)
-            print build_package_names(package)
+            print self.get_package_name(package_id)
 
     print
-    print 'Total Systems: %i' % len(jobs)
+    print 'Systems: %i' % len(jobs)
 
     if not self.user_confirm(): return
 
@@ -619,9 +619,11 @@ def do_system_removepackage(self, args):
 
                 jobs[system].append(package_id)
 
-    spacer = False
+    add_separator = False
+
     for system in jobs:
-        if spacer: print
+        if add_separator: print self.SEPARATOR
+        add_separator = True
 
         print '%s:' % system
         for package in jobs[system]:
