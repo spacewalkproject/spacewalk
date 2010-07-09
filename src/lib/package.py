@@ -121,7 +121,6 @@ def do_package_search(self, args, doreturn = False):
         # for non-advanced searches, use local regex instead of
         # the APIs for searching; this is done because the fuzzy
         # search on the server gives a lot of garbage back
-        self.generate_package_cache()
         packages = filter_results(self.get_package_names(True),
                                   [ args ], search = True)
 
