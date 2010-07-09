@@ -8,7 +8,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2 and Python
-Version: 1.1.29
+Version: 1.1.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -683,6 +683,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.30-1
+- create virtual package spacewalk-backend-sql-virtual (msuchy@redhat.com)
+- removed code which called rhn_ep package because rhn_ep had vanished long
+  time ago (michael.mraka@redhat.com)
+
 * Thu Jul 08 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.29-1
 - remove shebang from handlers/xmlrpc/get_handler.py (msuchy@redhat.com)
 - provide Provides: (msuchy@redhat.com)
