@@ -56,8 +56,8 @@ def print_schedule_summary(self, type, args):
 
     if not len(actions): return
 
-    print 'ID      Date                 C    F    P     Type'
-    print '--      ----                ---  ---  ---    ----'
+    print 'ID      Date                 C    F    P     Action'
+    print '--      ----                ---  ---  ---    ------'
 
     for action in sorted(actions, key=itemgetter('id'), reverse = True):
         if begin_date:
@@ -81,7 +81,7 @@ def print_schedule_summary(self, type, args):
                str(len(completed)).rjust(3),
                str(len(failed)).rjust(3),
                str(len(pending)).rjust(3),
-               wrap(action.get('type'), 30)[0])
+               action.get('name'))
 
 ####################
 
@@ -168,13 +168,15 @@ def do_schedule_details(self, args):
             action = a
             del all_actions
             break
-
-    print_action_summary(action, systems = all_systems)
-    
+   
+    print 'ID:        %i' % action.get('id')
+    print 'Action:    %s' % action.get('name')
+    print 'User:      %s' % action.get('scheduler')
+    print 'Date:      %s' % action.get('earliest') 
     print
-    print 'Completed: %i' % len(completed)
-    print 'Failed:    %i' % len(failed)
-    print 'Pending:   %i' % len(pending)
+    print 'Completed: %s' % str(len(completed)).rjust(3)
+    print 'Failed:    %s' % str(len(failed)).rjust(3)
+    print 'Pending:   %s' % str(len(pending)).rjust(3)
 
     if len(completed):
         print
