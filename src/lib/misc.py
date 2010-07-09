@@ -367,12 +367,12 @@ def generate_errata_cache(self, force=False):
         errata = \
             self.client.channel.software.listErrata(self.session, c)
 
-        for e in errata:
-            if e.get('advisory_name') not in self.all_errata: 
-                self.all_errata[e.get('advisory_name')] = \
-                    { 'type' : e.get('advisory_type'),
-                      'date' : e.get('date'),
-                      'synopsis' : e.get('advisory_synopsis') }
+        for erratum in errata:
+            if erratum.get('advisory_name') not in self.all_errata: 
+                self.all_errata[erratum.get('advisory_name')] = \
+                    { 'type' : erratum.get('advisory_type'),
+                      'date' : erratum.get('date'),
+                      'synopsis' : erratum.get('advisory_synopsis') }
 
     self.errata_cache_expire = \
         datetime.now() + timedelta(self.ERRATA_CACHE_TTL)

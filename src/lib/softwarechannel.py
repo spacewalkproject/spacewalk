@@ -543,7 +543,7 @@ def do_softwarechannel_adderratabydate(self, args):
 
 ####################
 
-#XXX: there is no API call to remove an errata, so this is a permanent change
+#XXX: there is no API call to remove an erratum, so this is a permanent change
 def help_softwarechannel_adderrata(self):
     print 'softwarechannel_adderrata: Add errata from one channel ' + \
           'into another channel'
@@ -579,16 +579,20 @@ def do_softwarechannel_adderrata(self, args):
     # get the packages that resolve these errata so we can add them
     # to the channel afterwards
     package_ids = []
-    for e in errata:
-        logging.debug('Retrieving packages for errata %s' % e)
+    for erratum in errata:
+        logging.debug('Retrieving packages for errata %s' % erratum)
 
         # get the packages affected by this errata
-        packages = self.client.errata.listPackages(self.session, e)
+        packages = self.client.errata.listPackages(self.session, erratum)
 
         # only add packages that exist in the source channel
         for package in packages:
             if source_channel in package.get('providing_channels'):
                 package_ids.append(package.get('id'))
+
+    if not len(errata):
+        logging.warning('No errata to add')
+        return
 
     print 'Errata'
     print '------'
@@ -606,9 +610,9 @@ def do_softwarechannel_adderrata(self, args):
     if not self.user_confirm('Add these errata and packages [y/N]:'): return
 
     # add the errata to the destination channel
-    for e in errata:
-        logging.debug('Publishing %s to %s' % (e, dest_channel))
-        self.client.errata.publish(self.session, e, [ dest_channel ])
+    for erratum in errata:
+        logging.debug('Publishing %s to %s' % (erratum, dest_channel))
+        self.client.errata.publish(self.session, erratum, [ dest_channel ])
 
     # add the affected packages to the channel
     logging.debug('Adding required packages to %s' % dest_channel)

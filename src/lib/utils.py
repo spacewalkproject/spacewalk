@@ -287,16 +287,16 @@ def build_package_names(packages):
         return package_names
 
 
-def print_errata_summary(errata):
-    date_parts = errata.get('date').split()
+def print_errata_summary(erratum):
+    date_parts = erratum.get('date').split()
 
     if len(date_parts) > 1:
-        errata['date'] = date_parts[0]
+        erratum['date'] = date_parts[0]
 
     print '%s  %s  %s'  % (
-          errata.get('advisory_name').ljust(14),
-          wrap(errata.get('advisory_synopsis'), 50)[0].ljust(50),
-          errata.get('date').rjust(8))
+          erratum.get('advisory_name').ljust(14),
+          wrap(erratum.get('advisory_synopsis'), 50)[0].ljust(50),
+          erratum.get('date').rjust(8))
 
 
 def print_errata_list(errata):
@@ -304,16 +304,16 @@ def print_errata_list(errata):
     rhea = []
     rhba = []
 
-    for e in errata:
-        if re.match('security', e.get('advisory_type'), re.I):
-            rhsa.append(e)
-        elif re.match('bug fix', e.get('advisory_type'), re.I):
-            rhba.append(e)
-        elif re.match('enhancement', e.get('advisory_type'), re.I):
-            rhea.append(e)
+    for erratum in errata:
+        if re.match('security', erratum.get('advisory_type'), re.I):
+            rhsa.append(erratum)
+        elif re.match('bug fix', erratum.get('advisory_type'), re.I):
+            rhba.append(erratum)
+        elif re.match('enhancement', erratum.get('advisory_type'), re.I):
+            rhea.append(erratum)
         else:
             logging.warning('%s is an unknown errata type' % (
-                            e.get('advisory_name')))
+                            erratum.get('advisory_name')))
             continue
 
     if not len(errata): return
@@ -321,8 +321,8 @@ def print_errata_list(errata):
     if len(rhsa):
         print 'Security Errata'
         print '---------------'
-        for e in rhsa:
-            print_errata_summary(e)
+        for erratum in rhsa:
+            print_errata_summary(erratum)
 
     if len(rhba):
         if len(rhsa):
@@ -330,8 +330,8 @@ def print_errata_list(errata):
 
         print 'Bug Fix Errata'
         print '--------------'
-        for e in rhba:
-            print_errata_summary(e)
+        for erratum in rhba:
+            print_errata_summary(erratum)
 
     if len(rhea):
         if len(rhsa) or len(rhba):
@@ -339,8 +339,8 @@ def print_errata_list(errata):
 
         print 'Enhancement Errata'
         print '------------------'
-        for e in rhea:
-            print_errata_summary(e)
+        for erratum in rhea:
+            print_errata_summary(erratum)
 
 
 def config_channel_order(all_channels=[], new_channels=[]):

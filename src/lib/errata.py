@@ -39,7 +39,7 @@ def do_errata_list(self, args, doreturn=False):
 ####################
 
 def help_errata_apply(self):
-    print 'errata_apply: Apply an errata to all affected systems' 
+    print 'errata_apply: Apply an erratum to all affected systems' 
     print 'usage: errata_apply ERRATA|search:XXX ...'
 
 def complete_errata_apply(self, text, line, beg, end):
@@ -57,13 +57,13 @@ def do_errata_apply(self, args, only_systems=[]):
 
     systems = []
     summary = []
-    for errata in errata_list:
+    for erratum in errata_list:
         count = 0
 
         try:
             # get the systems affected by each errata
             affected_systems = \
-                self.client.errata.listAffectedSystems(self.session, errata)
+                self.client.errata.listAffectedSystems(self.session, erratum)
            
             # build a list of systems that we will schedule errata for 
             for system in affected_systems:
@@ -77,15 +77,15 @@ def do_errata_apply(self, args, only_systems=[]):
                         systems.append(system.get('name'))
                         count += 1
         except:
-            logging.debug('%s does not affect any systems' % errata)
+            logging.debug('%s does not affect any systems' % erratum)
             continue
       
         # make a summary list to show the user 
         if count > 0:
-            summary.append('%s        %s' % (errata.ljust(15), 
+            summary.append('%s        %s' % (erratum.ljust(15), 
                                              str(count).rjust(3)))
         else:
-            logging.debug('%s does not affect any systems' % errata)
+            logging.debug('%s does not affect any systems' % erratum)
    
     if not len(systems): 
         logging.warning('No errata to apply')
@@ -127,8 +127,7 @@ def do_errata_apply(self, args, only_systems=[]):
 ####################
 
 def help_errata_listaffectedsystems(self):
-    print 'errata_listaffectedsystems: List of systems affected by an ' + \
-          'errata'
+    print 'errata_listaffectedsystems: List of systems affected by an erratum'
     print 'usage: errata_listaffectedsystems ERRATA|search:XXX ...'
 
 def complete_errata_listaffectedsystems(self, text, line, beg, end):
@@ -146,21 +145,20 @@ def do_errata_listaffectedsystems(self, args):
 
     add_separator = False
 
-    for errata in errata_list:
-        systems = self.client.errata.listAffectedSystems(self.session, 
-                                                         errata)
+    for erratum in errata_list:
+        systems = self.client.errata.listAffectedSystems(self.session, erratum)
 
         if len(systems):
             if add_separator: print self.SEPARATOR
             add_separator = True
 
-            print '%s:' % errata
+            print '%s:' % erratum
             print '\n'.join(sorted([ s.get('name') for s in systems ]))
     
 ####################
 
 def help_errata_details(self):
-    print 'errata_details: Show the details of an errata'
+    print 'errata_details: Show the details of an erratum'
     print 'usage: errata_details ERRATA|search:XXX ...'
 
 def complete_errata_details(self, text, line, beg, end):
@@ -178,26 +176,25 @@ def do_errata_details(self, args):
 
     add_separator = False
 
-    for errata in errata_list:
+    for erratum in errata_list:
         try:
-            details = self.client.errata.getDetails(self.session, errata)
+            details = self.client.errata.getDetails(self.session, erratum)
 
-            packages = self.client.errata.listPackages(self.session, errata)
+            packages = self.client.errata.listPackages(self.session, erratum)
 
             systems = self.client.errata.listAffectedSystems(self.session, 
-                                                             errata)
+                                                             erratum)
 
             channels = \
-                self.client.errata.applicableToChannels(self.session, 
-                                                        errata)
+                self.client.errata.applicableToChannels(self.session, erratum) 
         except:
-            logging.warning('%s is not a valid errata' % errata)
+            logging.warning('%s is not a valid erratum' % erratum)
             continue
 
         if add_separator: print self.SEPARATOR
         add_separator = True
 
-        print 'Name:       %s' % errata
+        print 'Name:       %s' % erratum
         print 'Product:    %s' % details.get('product')
         print 'Type:       %s' % details.get('type')
         print 'Issue Date: %s' % details.get('issue_date')
@@ -287,7 +284,7 @@ def do_errata_search(self, args, doreturn=False):
 
         if len(errata):
             if doreturn:
-                return [ e['advisory_name'] for e in errata ]
+                return [ erratum['advisory_name'] for erratum in errata ]
             else:
                 map(print_errata_summary, sorted(errata, reverse=True))
         else:
