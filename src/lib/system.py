@@ -1722,68 +1722,10 @@ def do_system_applyerrata(self, args):
     # allow globbing and searching of errata
     errata_list = self.expand_errata(args)
 
-    errata_ids = []
-    errata_found = []
-    errata_to_remove = []
-    for system in systems:
-        if len(errata_found) == len(errata_list): break
-
-        system_id = self.get_system_id(system)
-        if not system_id: continue
-
-        avail = self.client.system.getRelevantErrata(self.session,
-                                                     system_id)
-
-        # XXX: bugzilla 600691
-        # there is not an API call to get the ID of an errata
-        # based on the name, so we do it in a round-about way
-        for errata in errata_list:
-            if errata in errata_found: continue
-
-            logging.debug('Checking %s for %s' % (system, errata))
-            errata_id = ''
-
-            for e in avail:
-                if re.match(errata, e.get('advisory_name'), re.I):
-                    errata_id = e.get('id')
-                    errata_found.append(errata)
-                    errata_ids.append(errata_id)
-                    break
-       
-    for errata in errata_list:
-        if errata not in errata_found:
-            logging.warning('Could not find ID for %s' % errata)
-            errata_list.remove(errata)
-
-    if len(errata_list): 
-        print 'Systems'
-        print '-------'
-        print '\n'.join(sorted(systems))
-
-        print
-        print 'Errata'
-        print '------'
-        print '\n'.join(sorted(errata_list, reverse = True))
-    else:
-        logging.warning('No errata to apply')
+    if not len(errata_list) or not len(systems):
         return
 
-    if not self.user_confirm('Apply these errata [y/N]:'): return
-
-    for system in sorted(systems):
-        system_id = self.get_system_id(system)
-        if not system_id: return
-        
-        action_time = parse_time_input('now')
-
-        for errata in errata_ids:
-            try:
-                self.client.system.scheduleApplyErrata(self.session,
-                                                       system_id,
-                                                       [errata],
-                                                       action_time)
-            except:
-                logging.warning('Failed to schedule %s' % system)
+    return self.do_errata_apply(' '.join(errata_list), systems)
 
 ####################
 

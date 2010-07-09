@@ -45,7 +45,7 @@ def help_errata_apply(self):
 def complete_errata_apply(self, text, line, beg, end):
     return self.tab_complete_errata(text)
 
-def do_errata_apply(self, args):
+def do_errata_apply(self, args, only_systems=[]):
     args = parse_arguments(args)
 
     if not len(args):
@@ -55,29 +55,38 @@ def do_errata_apply(self, args):
     # allow globbing and searching via arguments
     errata_list = self.expand_errata(args)
 
-    summary = []
     systems = []
+    summary = []
     for errata in errata_list:
-        # get the systems affected by each errata
+        count = 0
+
         try:
+            # get the systems affected by each errata
             affected_systems = \
                 self.client.errata.listAffectedSystems(self.session, errata)
            
             # build a list of systems that we will schedule errata for 
             for system in affected_systems:
+                # prevent duplicates in the system list
                 if system.get('name') not in systems:
-                    systems.append(system.get('name'))
+
+                    # filter if we were passed a list of systems
+                    if not len(only_systems) or \
+                       system.get('name') in only_systems:
+
+                        systems.append(system.get('name'))
+                        count += 1
         except:
             logging.debug('%s does not affect any systems' % errata)
             continue
       
         # make a summary list to show the user 
-        if len(affected_systems):
+        if count > 0:
             summary.append('%s        %s' % (errata.ljust(15), 
-                           str(len(affected_systems)).rjust(3)))
+                                             str(count).rjust(3)))
         else:
             logging.debug('%s does not affect any systems' % errata)
-       
+   
     if not len(systems): 
         logging.warning('No errata to apply')
         return
