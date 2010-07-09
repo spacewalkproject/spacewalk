@@ -203,5 +203,47 @@ def do_package_removeorphans(self, args):
             self.client.packages.removePackage(self.session, package.get('id'))
         except:
             logging.error('Failed to remove package ID %i' % package.get('id'))
+
+####################
         
+def help_package_listinstalledsystems(self):
+    print 'package_listinstalledsystems: List the systems with a package ' + \
+          'installed'
+    print 'usage: package_listinstalledsystems PACKAGE ...'
+
+def complete_package_listinstalledsystems(self, text, line, beg, end):
+    return tab_completer(self.get_package_names(True), text)
+
+def do_package_listinstalledsystems(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_package_listinstalledsystems()
+        return
+
+    packages = []
+    for package in args:
+        packages.extend(self.do_package_search(' '.join(args), True))
+
+    if not len(packages):
+        logging.warning('No packages found')
+        return
+
+    add_separator = False
+
+    for package in packages:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        package_id = self.get_package_id(package)
+
+        systems = self.client.system.listSystemsWithPackage(self.session,
+                                                            package_id)
+
+        print package
+        print '-' * len(package)
+
+        if len(systems):
+            print '\n'.join(sorted([ s.get('name') for s in systems ]))
+
 # vim:ts=4:expandtab:
