@@ -445,14 +445,14 @@ def get_package_names(self, longnames=False):
 def get_package_id(self, name):
     try:
         return self.all_packages[name]
-    except IndexError:
+    except KeyError:
         return
 
 
 def get_package_name(self, package_id):
     try:
         return self.all_packages_by_id[package_id]
-    except IndexError:
+    except KeyError:
         return
 
 
