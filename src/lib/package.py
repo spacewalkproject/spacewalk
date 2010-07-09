@@ -254,4 +254,45 @@ def do_package_listinstalledsystems(self, args):
         if len(systems):
             print '\n'.join(sorted([ s.get('name') for s in systems ]))
 
+####################
+        
+def help_package_listerrata(self):
+    print 'package_listerrata: List the errata that provide this package'
+    print 'usage: package_listerrata PACKAGE ...'
+
+def complete_package_listerrata(self, text, line, beg, end):
+    return tab_completer(self.get_package_names(True), text)
+
+def do_package_listerrata(self, args):
+    args = parse_arguments(args)
+
+    if not len(args):
+        self.help_package_listerrata()
+        return
+
+    packages = []
+    for package in args:
+        packages.extend(self.do_package_search(' '.join(args), True))
+
+    if not len(packages):
+        logging.warning('No packages found')
+        return
+
+    add_separator = False
+
+    for package in packages:
+        if add_separator: print self.SEPARATOR
+        add_separator = True
+
+        package_id = self.get_package_id(package)
+
+        errata = self.client.packages.listProvidingErrata(self.session,
+                                                          package_id)
+
+        print package
+        print '-' * len(package)
+
+        if len(errata):
+            print '\n'.join(sorted([ e.get('advisory') for e in errata ]))
+
 # vim:ts=4:expandtab:
