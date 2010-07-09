@@ -49,19 +49,19 @@ import java.util.Map;
  * @version $Rev.$
  */
 
-public class ErrataMailer extends SingleThreadedTestableTask {
+public class ErrataMailer extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "errata_engine";
 
-    private static Logger logger = Logger.getLogger(ErrataMailer.class);
+    private Logger logger = getLogger(ErrataMailer.class);
 
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext context, boolean testContext)
+    public void execute(JobExecutionContext context)
         throws JobExecutionException {
 
         try {

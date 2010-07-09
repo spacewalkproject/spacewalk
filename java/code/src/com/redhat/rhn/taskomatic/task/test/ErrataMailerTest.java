@@ -55,7 +55,7 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
                 return retval;
             }
         };
-        em.execute(null, true);
+        em.execute(null);
     }
 
     public void testErrataQueries() throws Exception {
