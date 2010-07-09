@@ -36,34 +36,24 @@ import java.util.Map;
  * @version $Rev $
  */
 
-public class PackageCleanup extends SingleThreadedTestableTask {
+public class PackageCleanup extends RhnJavaJob {
 
     /**
      * Used to log stats in the RHNDAEMONSTATE table
      */
     public static final String DISPLAY_NAME = "package_cleanup";
 
-    private static Logger logger = Logger.getLogger(PackageCleanup.class);
+    private Logger logger = getLogger(PackageCleanup.class);
 
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctx, boolean testContext)
-            throws JobExecutionException {
+    public void execute(JobExecutionContext ctx) throws JobExecutionException {
         try {
-            String pkgDir = null;
-            if (testContext) {
-                pkgDir = "/tmp";
-            }
-            else {
-                pkgDir = Config.get().getString("web.mount_point");
-            }
+            String pkgDir = Config.get().getString("web.mount_point");
 
             // Retrieve list of orpahned packages
             List candidates = findCandidates();
-            if (testContext) {
-                assert (candidates.size() == 1);
-            }
 
             // Bail if no work to do
             if (candidates == null || candidates.size() == 0) {
@@ -82,13 +72,10 @@ public class PackageCleanup extends SingleThreadedTestableTask {
                 if (logger.isDebugEnabled()) {
                     logger.debug("Deleting package " + path);
                 }
-                if (testContext) {
-                    assert (path != null);
-                }
                 if (path == null) {
                     continue;
                 }
-                deletePackage(pkgDir, path, testContext);
+                deletePackage(pkgDir, path);
             }
 
             // Reset the queue (table)
@@ -106,11 +93,8 @@ public class PackageCleanup extends SingleThreadedTestableTask {
         update.executeUpdate(Collections.EMPTY_MAP);
     }
 
-    private void deletePackage(String pkgDir, String path, boolean testContext) {
+    private void deletePackage(String pkgDir, String path) {
         File f = new File(pkgDir, path);
-        if (testContext) {
-            assert (f.exists());
-        }
         if (f.exists() && f.canWrite() && !f.isDirectory()) {
             f.delete();
             if (logger.isDebugEnabled()) {

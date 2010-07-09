@@ -16,7 +16,7 @@ package com.redhat.rhn.taskomatic.task.test;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.taskomatic.task.PackageCleanup;
-import com.redhat.rhn.taskomatic.task.TestableTask;
+import com.redhat.rhn.taskomatic.task.RhnJob;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.hibernate.Session;
@@ -48,8 +48,7 @@ public class PackageCleanupTest extends RhnBaseTestCase {
     }
 
     public void testPackageCleanup() throws Exception {
-        TestableTask task = new PackageCleanup();
-        task.execute(null, true);
-
+        RhnJob task = new PackageCleanup();
+        task.execute(null);
     }
 }
