@@ -443,6 +443,8 @@ def get_package_names(self, longnames=False):
 
 
 def get_package_id(self, name):
+    self.generate_package_cache()
+
     try:
         return self.all_packages[name]
     except KeyError:
@@ -450,6 +452,8 @@ def get_package_id(self, name):
 
 
 def get_package_name(self, package_id):
+    self.generate_package_cache()
+
     try:
         return self.all_packages_by_id[package_id]
     except KeyError:
