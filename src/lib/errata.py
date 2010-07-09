@@ -56,23 +56,29 @@ def do_errata_apply(self, args):
     errata_list = self.expand_errata(args)
 
     summary = []
-    errata_to_apply = {}
+    systems = []
     for errata in errata_list:
+        # get the systems affected by each errata
         try:
-            errata_to_apply[errata] = \
+            affected_systems = \
                 self.client.errata.listAffectedSystems(self.session, errata)
+           
+            # build a list of systems that we will schedule errata for 
+            for system in affected_systems:
+                if system.get('name') not in systems:
+                    systems.append(system.get('name'))
         except:
             logging.debug('%s does not affect any systems' % errata)
             continue
-       
-        if len(errata_to_apply[errata]):
+      
+        # make a summary list to show the user 
+        if len(affected_systems):
             summary.append('%s        %s' % (errata.ljust(15), 
-                           str(len(errata_to_apply[errata])).rjust(3)))
+                           str(len(affected_systems)).rjust(3)))
         else:
             logging.debug('%s does not affect any systems' % errata)
-            del errata_to_apply[errata]
        
-    if not len(errata_to_apply): 
+    if not len(systems): 
         logging.warning('No errata to apply')
         return
     
@@ -83,36 +89,31 @@ def do_errata_apply(self, args):
 
     if not self.user_confirm('Apply these errata [y/N]:'): return
 
-    for errata in errata_to_apply.keys(): 
-        # XXX: bugzilla 600691
-        # there is not an API call to get the ID of an errata
-        # based on the name, so we do it in a round-about way
-        system_id = errata_to_apply[errata][0].get('id')
-        system_errata = self.client.system.getRelevantErrata(self.session, 
-                                                             system_id)
+    for system in systems:
+        system_id = self.get_system_id(system)
 
-        pattern = re.compile(errata, re.I)
-        for e in system_errata:
-            if pattern.match(e.get('advisory_name')):
-                errata_id = e.get('id')
-                break
+        # only schedule unscheduled errata
+        system_errata = self.client.system.getUnscheduledErrata(self.session, 
+                                                                system_id)
 
-        if not errata_id:
-            logging.error("Couldn't find ID for %s" % errata)
-            return
+        # if an errata specified for installation is unscheduled for
+        # this system, add it to the list to schedule
+        errata_to_apply = []
+        for erratum in errata_list:
+            for e in system_errata:
+                if erratum == e.get('advisory_name'):
+                    errata_to_apply.append(e.get('id'))
+                    break
+   
+        if not len(errata_to_apply):
+            logging.info('No errata to schedule for %s' % system)
+            continue
+ 
+        self.client.system.scheduleApplyErrata(self.session,
+                                               system_id,
+                                               errata_to_apply)
 
-        # schedule each errata individually for a system so that if 
-        # one fails, they all don't fail
-        for system in errata_to_apply[errata]:
-            logging.debug('Applying %s to %s' % (errata, system.get('name')))
-
-            try:
-                self.client.system.scheduleApplyErrata(self.session,
-                                                       system.get('id'),
-                                                       [ errata_id ])
-            except xmlrpclib.Fault:
-                logging.warning('Failed to schedule %s for %s' % \
-                                (errata, system.get('name')))
+        print 'Scheduled %i errata for %s' % (len(errata_to_apply), system)
  
 ####################
 
