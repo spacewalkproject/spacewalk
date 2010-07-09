@@ -292,7 +292,7 @@ def do_system_runscript(self, args):
     print 'User:       %s' % user
     print 'Group:      %s' % group
     print 'Timeout:    %i seconds' % timeout
-    print 'Start Time: %s' % format_time(timestamp.value)
+    print 'Start Time: %s' % timestamp
     print
     print 'Script Contents'
     print '---------------'
@@ -1571,8 +1571,8 @@ def do_system_details(self, args, short=False):
         print 'Name:          %s' % system
         print 'System ID:     %i' % system_id
         print 'Locked:        %s' % details.get('lock_status')
-        print 'Registered:    %s' % format_time(registered.value)
-        print 'Last Checkin:  %s' % format_time(last_checkin.value)
+        print 'Registered:    %s' % registered
+        print 'Last Checkin:  %s' % last_checkin
         print 'OSA Status:    %s' % details.get('osa_status')
 
         # only print basic information if requested
@@ -1856,7 +1856,7 @@ def do_system_listevents(self, args):
         for e in events:
             print
             print 'Summary:   %s' % e.get('summary')
-            print 'Completed: %s' % format_time(e.get('completed').value)
+            print 'Completed: %s' % e.get('completed')
             print 'Details:   %s' % e.get('details')
 
 ####################

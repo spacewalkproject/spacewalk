@@ -180,10 +180,6 @@ def prompt_user(prompt, noblank = False):
     return userinput
 
 
-def format_time(timestamp):
-    return re.sub('T', ' ', timestamp)
-
-
 # parse time input from the userand return xmlrpclib.DateTime
 def parse_time_input(userinput = ''):
     timestamp = None
@@ -350,7 +346,7 @@ def print_errata_list(errata):
 #XXX: Bugzilla 608868
 def print_action_output(action):
     print 'System:    %s' % action.get('server_name')
-    print 'Completed: %s' % format_time(action.get('timestamp').value)
+    print 'Completed: %s' % action.get('timestamp')
     print
     print 'Output'
     print '------'

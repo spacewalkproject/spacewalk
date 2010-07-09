@@ -115,8 +115,7 @@ def do_custominfo_details(self, args):
 
         print 'Label:        %s' % details.get('label')
         print 'Description:  %s' % details.get('description')
-        print 'Modified:     %s' % \
-                             format_time(details.get('last_modified').value)
+        print 'Modified:     %s' % details.get('last_modified')
         print 'System Count: %i' % details.get('system_count')
 
 # vim:ts=4:expandtab:

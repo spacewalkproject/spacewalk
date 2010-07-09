@@ -70,7 +70,7 @@ def help_get_certificateexpiration(self):
 
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
-    print format_time(date.value)
+    print date
 
 ####################
 

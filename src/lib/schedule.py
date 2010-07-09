@@ -77,7 +77,7 @@ def print_schedule_summary(self, type, args):
 
         print '%s  %s   %s  %s  %s    %s' % \
               (str(action.get('id')).ljust(6),
-               format_time(action.get('earliest').value),
+               action.get('earliest'),
                str(len(completed)).rjust(3),
                str(len(failed)).rjust(3),
                str(len(pending)).rjust(3),
@@ -238,8 +238,8 @@ def do_schedule_getoutput(self, args):
             add_separator = True
 
             print 'System:      %s' % 'UNKNOWN'
-            print 'Start Time:  %s' % format_time(r.get('startDate').value)
-            print 'Stop Time:   %s' % format_time(r.get('stopDate').value)
+            print 'Start Time:  %s' % r.get('startDate')
+            print 'Stop Time:   %s' % r.get('stopDate')
             print 'Return Code: %i' % r.get('returnCode')
             print
             print 'Output'

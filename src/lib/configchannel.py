@@ -143,8 +143,8 @@ def do_configchannel_filedetails(self, args):
         print 'File:     %s' % f.get('path')
         print 'Type:     %s' % f.get('type')
         print 'Revision: %i' % f.get('revision')
-        print 'Created:  %s' % format_time(f.get('creation').value)
-        print 'Modified: %s' % format_time(f.get('modified').value)
+        print 'Created:  %s' % f.get('creation')
+        print 'Modified: %s' % f.get('modified')
 
         print
         print 'Owner:    %s' % f.get('owner')
