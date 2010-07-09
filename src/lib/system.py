@@ -492,38 +492,28 @@ def do_system_installpackage(self, args):
 
     jobs = []
     for system in sorted(systems):
+        logging.debug('Getting installable packages for %s' % system)
+
         system_id = self.get_system_id(system)
-        if not system_id: return
+        if not system_id: continue
 
         avail_packages = self.client.system.listLatestInstallablePackages(\
                              self.session, system_id)
 
         # find the corresponding package IDs
         package_ids = []
-        for package_to_install in packages_to_install:
+        for package in packages_to_install:
             found_package = False
-            installed_packages = []
 
             for p in avail_packages:
-                if package_to_install == p.get('name'):
+                if package == p.get('name'):
                     found_package = True
                     package_ids.append(p.get('id'))
                     break
 
             if not found_package:
-                if not len(installed_packages):
-                    installed_packages = \
-                        self.client.system.listPackages(self.session,
-                                                        system_id)
-
-                for p in installed_packages:
-                    if package_to_install == p.get('name'):
-                        logging.warning('%s already has %s installed' %(
-                                        system, package_to_install))
-                        break
-                else:
-                    logging.warning("%s doesn't have access to %s" %(
-                                    system, package_to_install))
+                logging.info('%s is not installable on %s' % (package, system))
+                continue
 
         if len(package_ids):
             jobs.append((system, system_id, package_ids))
@@ -538,11 +528,14 @@ def do_system_installpackage(self, args):
         count += 1
 
         print 'System: %s' % system
-        print 'Install Packages'
-        print '----------------'
+        print 'Packages'
+        print '--------'
         for package_id in package_ids:
             package = self.client.packages.getDetails(self.session, package_id)
             print build_package_names(package)
+
+    print
+    print 'Total Systems: %i' % len(jobs)
 
     if not self.user_confirm(): return
 
