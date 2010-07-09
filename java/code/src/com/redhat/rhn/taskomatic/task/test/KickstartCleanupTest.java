@@ -42,13 +42,13 @@ import java.sql.Statement;
 import java.util.Date;
 
 public class KickstartCleanupTest extends RhnBaseTestCase {
-    
+
    protected void setUp() throws Exception {
         verifyDatasourceConfig();
     }
-    
+
     public void testHungKickstart() throws Exception {
-        
+
         Session session = HibernateFactory.getSession();
         KickstartSessionState failedState = lookupByLabel("failed");
         KickstartSessionState inProgressState = lookupByLabel("in_progress");
@@ -57,16 +57,16 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(ksession);
         backdateKickstartSession(session, ksession, 2);
         session.clear();
-        ksession = (KickstartSession) 
+        ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
         KickstartCleanup j = new KickstartCleanup();
-        j.execute(null, true);
+        j.execute(null);
         session.clear();
-        ksession = (KickstartSession) 
+        ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
         assertTrue(ksession.getState().getId().equals(failedState.getId()));
     }
-    
+
     public void testAbandonedKickstart() throws Exception {
         Session session = HibernateFactory.getSession();
         KickstartSessionState failedState = lookupByLabel("failed");
@@ -76,17 +76,17 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(ksession);
         backdateKickstartSession(session, ksession, 7);
         session.clear();
-        ksession = (KickstartSession) 
+        ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
         KickstartCleanup j = new KickstartCleanup();
-        j.execute(null, true);
+        j.execute(null);
         session.clear();
-        ksession = (KickstartSession) 
+        ksession = (KickstartSession)
             session.load(KickstartSession.class, ksession.getId());
-        assertTrue(ksession.getState().getId().equals(failedState.getId()));        
+        assertTrue(ksession.getState().getId().equals(failedState.getId()));
     }
-    
-    private static void backdateKickstartSession(Session session, 
+
+    private static void backdateKickstartSession(Session session,
             KickstartSession ksession, int days) throws Exception {
         Connection cn = session.connection();
         StringBuffer sql = new StringBuffer();
@@ -104,7 +104,7 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
             }
         }
     }
-    
+
     private static KickstartSession createSession() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
@@ -128,29 +128,29 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(ksession);
         return ksession;
     }
-    
+
     private void verifyDatasourceConfig() throws Exception {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_CANDIDATES);
         assertNotNull(select);
-        
+
         select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_PREREQ_ACTION);
         assertNotNull(select);
-        
-        select = ModeFactory.getMode(TaskConstants.MODE_NAME, 
+
+        select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_FIND_FAILED_STATE_ID);
         assertNotNull(select);
-        
+
         WriteMode update = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_KSCLEANUP_MARK_SESSION_FAILED);
         assertNotNull(update);
-        
-        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME, 
-                TaskConstants.TASK_QUERY_KSCLEANUP_REMOVE_ACTION); 
-        assertNotNull(proc);        
+
+        CallableMode proc = ModeFactory.getCallableMode(TaskConstants.MODE_NAME,
+                TaskConstants.TASK_QUERY_KSCLEANUP_REMOVE_ACTION);
+        assertNotNull(proc);
     }
-    
+
     /**
      * Helper method to lookup KickstartSessionState by label
      * @param label Label to lookup
@@ -163,8 +163,8 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
                           .getNamedQuery("KickstartSessionState.findByLabel")
                           .setString("label", label)
                           .uniqueResult();
-    }    
-    
+    }
+
     public static void main(String[] argv) throws Exception {
         KickstartCleanupTest kct = new KickstartCleanupTest();
         kct.setUp();
