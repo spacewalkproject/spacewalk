@@ -57,7 +57,7 @@ def do_errata_apply(self, args):
 
     summary = []
     errata_to_apply = {}
-    for errata in sorted(errata_list, reverse = True):
+    for errata in errata_list:
         try:
             errata_to_apply[errata] = \
                 self.client.errata.listAffectedSystems(self.session, errata)
