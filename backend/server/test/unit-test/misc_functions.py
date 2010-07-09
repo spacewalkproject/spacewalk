@@ -140,64 +140,11 @@ def lookup_org_id(org_id):
         raise rhnServerGroup.InvalidOrgError(org_id)
     return row['id']
 
-def grant_channel_family_entitlements(org_id, channel_family, quantity,
-        exp_days=None):
-    "Grant channel family entitlements to an org"
-    org_id = lookup_org_id(org_id)
-    args = [org_id, quantity, channel_family]
-    if exp_days:
-        args.append(exp_days)
-    p = rhnSQL.Procedure("rhn_ep.entitle_customer_family")
-    apply(p, args)
-    rhnSQL.commit()
-
 class InvalidEntitlementError(Exception):
     pass
 
 class InvalidRoleError(Exception):
     pass
-
-_query_grant_entitlements = rhnSQL.Statement("""
-    begin
-        select to_char(sysdate, 'YYYYMMDDHH24MISS') into :t0 from dual;
-        rhn_ep.entitle_customer(:org_id, :quantity, :enterprise, :provisioning,
-            :days, :pout_return_flag, :pout_return_errmsg);
-        select to_char(sysdate, 'YYYYMMDDHH24MISS') into :t1 from dual;
-    end;
-""")
-_query_poll_entitlements = rhnSQL.Statement("""
-    begin
-        rhn_ep.poll_entitlements(
-            to_date(:t0, 'YYYYMMDDHH24MISS'),
-            to_date(:t1, 'YYYYMMDDHH24MISS')
-        );
-    end;
-""")
-def grant_entitlements(org_id, entitlement_level, quantity, exp_days=None):
-    args = {
-        'org_id'        : lookup_org_id(org_id),
-        'quantity'      : quantity,
-        'enterprise'    : 'N',
-        'provisioning'  : 'N',
-        'days'          : exp_days,
-        'pout_return_flag'  : rhnSQL.types.STRING(),
-        'pout_return_errmsg': rhnSQL.types.STRING(),
-        't0'            : rhnSQL.types.STRING(),
-        't1'            : rhnSQL.types.STRING(),
-    }
-    if entitlement_level == 'enterprise_entitled':
-        args['enterprise'] = 'Y'
-    elif entitlement_level == 'provisioning_entitled':
-        args['provisioning'] = 'Y'
-    elif entitlement_level != 'sw_mgr_entitled':
-        raise InvalidEntitlementError(entitlement_level)
-    
-    h = rhnSQL.prepare(_query_grant_entitlements)
-    apply(h.execute, (), args)
-
-    h = rhnSQL.prepare(_query_poll_entitlements)
-    h.execute(t0=args['t0'].get_value(), t1=args['t1'].get_value())
-    rhnSQL.commit()
 
 
 def create_activation_key(org_id=None, user_id=None, groups=None, 

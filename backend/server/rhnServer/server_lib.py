@@ -37,37 +37,6 @@ class rhnSystemEntitlementException(rhnException):
 class rhnNoSystemEntitlementsException(rhnSystemEntitlementException):
     pass
 
-def use_registration_number(user, registration_number, commit=1):
-    log_debug(3, registration_number)
-    if registration_number is None:
-        # Nothing to do here
-        return
-
-    if not user:
-        # User not loaded, no way we can use the reg number
-        log_debug(4, "No user associated with this server; "
-            "reg number not used")
-        return
-
-    uid = user.getid()
-
-    #perform registration using web api
-    register_product = rhnSQL.Function("web.web_api.register_product",
-                                       rhnSQL.types.NUMBER())
-    gen_tmp_entitlement = rhnSQL.Procedure("rhn_ep.entitle_registration")
-
-    try:
-        #register product...
-        vrn_id = register_product(registration_number, uid)
-        #...and give tmp entitlement if successful registration
-        gen_tmp_entitlement(vrn_id)
-    except rhnSQL.SQLError, e:
-        if e.args[0] != 20277: #ignore ORA-20277: (product_no_service)
-            raise rhnFault(16, _("Attempt to register a system failed"))
-    if commit:
-        rhnSQL.commit()
-
-
 # Given a textual digitalid (old style or new style) or simply an ID
 # try to search in the database and return the numeric id (thus doing
 # validation in case you pass a numeric ID already)

@@ -373,24 +373,6 @@ INSERT INTO rhnDailySummaryQueue (org_id) VALUES (:org_id)
   </query>
 </write-mode>
 
-<callable-mode name="entitlement_queue_pending">
-  <query>
-{:total = call rhn_ep.entitlement_queue_pending}
-  </query>
-</callable-mode>
-
-<callable-mode name="process_queue_batch">
-  <query params="duration, batch">
-{:done = call rhn_ep.process_queue_batch(:duration, :batch)}
-  </query>
-</callable-mode>
-
-<callable-mode name="entitle_org_direct">
-  <query params="org_id">
-{call rhn_ep.poll_customer_internal(:org_id)}
-  </query>
-</callable-mode>
-
 <mode name="fetch_entitlement_org">
   <query>
 select org_id from rhnEntitlementQueue where process = 'Y'
