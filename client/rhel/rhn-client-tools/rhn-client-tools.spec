@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 1.1.9
+Version: 1.1.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -280,6 +280,13 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.10-1
+- 604106 - finish page should be loaded even without network
+  (msuchy@redhat.com)
+- 612547 - update copyright clauses up until 2010. (jpazdziora@redhat.com)
+- 607599 - prevent firstboot from show_all()-ing what we have hidden.
+  (jpazdziora@redhat.com)
+
 * Thu Jul 01 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.9-1
 - Clean up a few remaining references to kbase 6227
   (joshua.roys@gtri.gatech.edu)
