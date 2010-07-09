@@ -18,7 +18,6 @@ path = . class types
 PXTSessions                    :: web_contact
 rhnAction                      :: rhnActionType web_customer web_contact
 rhnActionScript                :: rhnAction
-rhnActionClientOptions         :: rhnAction rhnClientConfigOption
 rhnActionConfigChannel         :: rhnServerAction rhnConfigChannel
 rhnActionConfigDate            :: rhnAction
 rhnActionConfigDateFile        :: rhnAction
@@ -38,16 +37,12 @@ rhnActionPackageOrder          :: rhnActionPackage
 rhnActionPackageRemovalFailure :: rhnServer rhnAction rhnPackageName \
                                   rhnPackageEVR rhnPackageCapability
 rhnActionTransactions          :: rhnAction rhnTransaction
-rhnActionVerifyResult          :: rhnAction rhnPackageName rhnPackageEVR \
-                                  rhnPackageCapability
 rhnActivationKey               :: rhnRegToken rhnKickstartSession
 rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnAppInstallSession           :: rhnAppInstallInstance rhnChecksum
 rhnAppInstallSessionData       :: rhnAppInstallSession
 rhnBlacklistObsoletes          :: rhnChannel rhnPackageName rhnChannelPackage \
                                   rhnPackage
-rhnCache                       :: rhnCacheKey
-rhnCacheTimestamps             :: rhnCacheKey rhnCache
 rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
                                   rhnProductName rhnChecksum
 rhnChannelArch                 :: rhnArchType
@@ -63,12 +58,10 @@ rhnPublicChannelFamily         :: rhnChannelFamily
 rhnChannelPackage              :: rhnChannel rhnPackage
 rhnChannelPackageArchCompat    :: rhnPackageArch rhnChannelArch
 rhnChannelPermission           :: rhnChannelPermissionRole rhnChannel web_contact
-rhnChannelRelationship         :: rhnRelationshipType rhnChannel
 rhnChannelTrust                :: rhnChannel
 rhnChannelContentSource        :: rhnChannel rhnContentSourceType rhnContentSource
 rhnChecksum                    :: rhnChecksumType
 rhnClientCapability            :: rhnClientCapabilityName
-rhnClientOptionVersionMap      :: rhnClientConfigOption rhnPackageEVR
 rhnConfigContent               :: rhnChecksum
 rhnConfigFile                  :: rhnConfigChannel rhnConfigFileState rhnConfigFileName
 rhnConfigFile_foreignkeys      :: rhnConfigRevision
@@ -81,12 +74,10 @@ rhnDevice                      :: rhnServer
 rhnDistChannelMap              :: rhnChannel rhnChannelArch
 rhnDownloads                   :: rhnChannelFamily rhnFile rhnDownloadType
 rhnEmailAddress                :: rhnEmailAddressState web_contact
-rhnEntitlementQueue            :: web_customer
 rhnErrata                      :: rhnChecksum web_customer rhnErrataSeverity
 rhnErrataBuglist               :: rhnErrata
 rhnErrataBuglistTmp            :: rhnErrataTmp
 rhnErrataCVE                   :: rhnErrata rhnCVE
-rhnErrataCVETmp                :: rhnErrataTmp rhnCVE
 rhnErrataFile                  :: rhnChecksum rhnErrata rhnErrataFileType
 rhnErrataFileChannel           :: rhnChannel rhnErrataFile rhnChannelErrata
 rhnErrataFilePackage           :: rhnPackage rhnErrataFile rhnErrataPackage
@@ -98,8 +89,6 @@ rhnErrataKeyword               :: rhnErrata
 rhnErrataKeywordTmp            :: rhnErrataTmp
 rhnErrataPackage               :: rhnPackage rhnErrata
 rhnErrataPackageTmp            :: rhnPackage rhnErrataTmp
-rhnErrataRelationship          :: rhnRelationshipType rhnErrata
-rhnErrataRelationshipTmp       :: rhnRelationshipType rhnErrataTmp rhnErrata
 rhnErrataClonedTmp             :: rhnErrataTmp
 rhnErrataTmp                   :: web_customer
 rhnFile                        :: web_customer rhnChecksum
@@ -113,7 +102,6 @@ rhnKickstartCommand            :: rhnKSData rhnKickstartCommandName
 rhnKickstartDefaults           :: rhnKSData rhnKickstartableTree rhnServerProfile \
                                   rhnKickstartVirtualizationType
 rhnKickstartDefaultRegToken    :: rhnKSData rhnRegToken                           
-rhnKickstartPackages           :: rhnPackageName rhnKSData
 rhnKickstartPreserveFileList   :: rhnKSData rhnFileList
 rhnKickstartScript             :: rhnKSData
 rhnKickstartSession            :: rhnKSData web_customer rhnServer rhnAction \
@@ -122,7 +110,6 @@ rhnKickstartSession            :: rhnKSData web_customer rhnServer rhnAction \
 rhnKickstartSessionHistory     :: rhnKickstartSession rhnKickstartSessionState
 rhnKSTreeFile                  :: rhnKickstartableTree rhnChannelErrata rhnErrata \
                                   rhnChecksum
-rhnKSRawData                   :: rhnKSData
 rhnKickstartTimezone           :: rhnKSInstallType
 rhnMessage                     :: rhnMessageType rhnMessagePriority
 rhnMonitor                     :: rhnServer rhnMonitorGranularity
@@ -130,8 +117,6 @@ rhnOrgChannelSettings          :: web_customer rhnChannel rhnOrgChannelSettingsT
 rhnOrgEntitlements             :: rhnOrgEntitlementType
 rhnOrgErrataCacheQueue         :: web_customer
 rhnOrgInfo                     :: rhnServerGroupType
-rhnOrgState                    :: rhnOrgAvailableStates web_customer
-rhnOrgStateTransitions         :: rhnOrgAvailableStates
 rhnOrgQuota                    :: web_customer
 rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
                                   rhnPackageGroup rhnSourceRPM web_customer \
@@ -139,7 +124,7 @@ rhnPackage                     :: rhnPackageName rhnPackageEVR rhnPackageArch \
 rhnPackageArch                 :: rhnArchType                        
 rhnPackageDeltaElement         :: rhnPackageDelta rhnTransactionPackage
 rhnPackageEVR                  :: evr_t
-rhnPackageChangelog            :: rhnPackage
+rhnPackageChangeLog            :: rhnPackage
 rhnPackageConflicts            :: rhnPackage rhnPackageCapability
 rhnPackageFile                 :: rhnChecksum rhnPackage rhnPackageCapability
 rhnPackageKeyAssociation       :: rhnPackageKey rhnPackage
@@ -165,7 +150,6 @@ rhnRegTokenEntitlement         :: rhnRegToken rhnServerGroupType
 rhnRegTokenGroups              :: rhnRegToken rhnServerGroup
 rhnRegTokenPackages            :: rhnRegToken rhnPackageName
 rhnRepoRegenQueue              :: rhnSatelliteCert rhnSatelliteChannelFamily rhnSatelliteInfo
-rhnRevision                    :: rhnConfigFile rhnConfigContent rhnConfigInfo
 
 rhnSatelliteInfo               :: rhnServer
 rhnSatelliteServerGroup        :: rhnServer rhnServerGroup
@@ -196,7 +180,6 @@ rhnServerNotes                 :: rhnServer web_contact
 rhnServerPackage               :: rhnServer rhnPackageArch rhnPackageName rhnPackageEVR
 rhnServerPackageArchCompat     :: rhnPackageArch rhnServerArch
 rhnServerPath                  :: rhnServer
-rhnServerPrefs                 :: rhnServer
 rhnServerPreserveFileList      :: rhnServer rhnFileList
 rhnServerProfile               :: web_customer rhnChannel rhnServerProfileType
 rhnServerProfilePackage        :: rhnServerProfile rhnPackageName rhnPackageEVR
@@ -217,17 +200,13 @@ rhnSNPServerQueue              :: rhnServer
 rhnSolarisPackage              :: rhnPackage
 rhnSolarisPatch                :: rhnPackage rhnSolarisPatchType
 rhnSolarisPatchPackages        :: rhnPackage rhnPackageNEVRA 
-rhnSolarisPatchedPackages      :: rhnPackage rhnPackageNEVRA rhnServer 
 rhnSolarisPatchSetMembers      :: rhnPackage rhnSolarisPatchSet
 rhnSsmOperationServer          :: rhnSsmOperation
-rhnSurveyQuestionResponse      :: rhnSurveyQuestion
-rhnSurveyQuestion              :: rhnSurvey
 rhnTag                         :: rhnTagName web_customer
 rhnTransaction                 :: rhnServer
 rhnTransactionElement          :: rhnTransactionPackage rhnTransaction
 rhnTransactionPackage          :: rhnTransactionOperation rhnPackageArch \
                                   rhnPackageEVR rhnPackageName
-rhnUserFeedback                :: web_contact
 rhnUserGroupMembers            :: web_contact rhnUserGroup
 rhnUserGroup                   :: web_customer rhnUserGroupType
 rhnUserInfo                    :: web_contact rhnTimezone
@@ -236,7 +215,6 @@ rhnUserServerGroupPerms        :: web_contact rhnServerGroup
 rhnUserServerPerms             :: web_contact rhnServer
 rhnUserServerPrefs             :: web_contact rhnServer
 rhnUserMessage                 :: web_contact rhnMessage rhnUserMessageStatus
-rhnUserSurveyStatus            :: rhnUserSurveyStatusType
 rhnVersionInfo                 :: rhnPackageName rhnPackageEVR
 rhnVirtualInstance             :: rhnServer
 rhnVirtualInstanceInfo         :: rhnVirtualInstance rhnVirtualInstanceType \
@@ -266,7 +244,7 @@ rhn_contact_methods            :: web_contact rhn_method_types rhn_pager_types \
                                   rhn_sat_cluster rhn_schedules rhn_time_zone_names \
                                   rhn_notification_formats rhnTimezone rhnUserInfo
 rhn_host_check_suites          :: rhn_check_suites rhn_host_probe 
-rhn_host_monitoring            :: rhn_server_monitoring_info rhn_interface_monitoring
+views/rhn_host_monitoring      :: rhn_server_monitoring_info rhn_interface_monitoring
 rhn_host_probe                 :: rhnServer rhn_probe rhn_sat_cluster 
 rhn_interface_monitoring       :: rhnServerNetInterface
 rhn_ll_netsaint                :: rhn_sat_cluster 

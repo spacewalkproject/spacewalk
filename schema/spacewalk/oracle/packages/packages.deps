@@ -50,17 +50,6 @@ rhn_entitlements.pkb    :: rhnServerGroupType rhnServerGroup rhnServerGroupMembe
 rhn_entitlements.pks    :: rhnServerGroupType
 rhn_exception.pkb       :: rhnException
 rhn_exception.pks       :: rhnException
-rhn_ep.pkb              :: rhn_bel.pks rhn_channel.pks rhn_entitlements.pks rhn_exception.pks \
-                           rhn_quota web_contact web_customer \
-                           web_user_order web_user_order_line \
-                           rhnServerGroupType \
-                           rhnUserGroupType \
-                           rhnChannelFamily \
-                           rhnUserGroup \
-                           rhnServerGroup \
-                           rhnPrivateChannelFamily \
-                           rhnDaemonState rhnChannelFamilyMembers \
-                           rhnEntitlementQueue
 rhn_org.pkb             :: rhn_entitlements.pks \
                            rhn_exception.pks rhn_server.pks delete_server \
                            rhnServer rhnServerGroupType rhnServerGroup \
@@ -73,8 +62,6 @@ rhn_org.pkb             :: rhn_entitlements.pks \
 rhn_org.pks             :: rhnServerGroupType rhnServerGroup
 rhn_package.pkb         :: rhnChannel rhnChannelPackage
 rhn_package.pks         :: rhnChannel rhnChannelPackage
-rhn_qos.pkb             :: rhnChannelFamily rhnOrgChannelFamilyPermissions \
-                           rhnServerGroupType rhnServerGroup
 rhn_quota.pkb           :: rhnConfigContent rhnConfigRevision rhnConfigFile \
                            rhnConfigChannel rhnOrgQuota rhn_config.pks
 rhn_server.pkb          :: rhnServerChannel rhnConfigFileName \

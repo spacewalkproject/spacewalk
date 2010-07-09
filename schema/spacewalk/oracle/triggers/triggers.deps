@@ -26,7 +26,6 @@ rhnConfigRevision          :: rhnConfigRevision rhnSnapshotConfigRevision \
                               rhnOrgQuota rhn_exception.pks
 rhnErrata                  :: rhnChannel rhnChannelErrata
 rhnKickstartSession        :: rhnKickstartSession rhnKickstartSessionHistory
-rhnOrgState                :: rhn_bel.pks
 rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
                               lookup_functions rhnSnapshot rhnServerGroup \
                               rhnSnapshotServerGroup

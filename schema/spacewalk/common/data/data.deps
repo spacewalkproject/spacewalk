@@ -19,7 +19,6 @@ rhnChannelArch                   :: lookup_arch_type
 rhnChannelPackageArchCompat      :: data/rhnChannelArch \
                                     data/rhnPackageArch lookup_functions
 rhnServerServerGroupArchCompat   :: lookup_functions
-rhnDemoEntitlementStopDate       :: rhnDemoEntitlementStopDate
 rhnPackageArch                   :: lookup_arch_type
 rhnPackageKey                    :: rhnPackageKey \
                                     rhnPackageProvider \
@@ -54,7 +53,5 @@ rhn_metrics                      :: data/rhn_command_class data/rhn_units
 rhn_os_commands_xref             :: data/rhn_command data/rhn_os
 rhn_schedules                    :: data/rhn_schedule_types
 rhn_units                        :: data/rhn_quanta
-rhnErrataFile                    :: lookup_functions
-rhnErrataFileTmp                 :: lookup_functions
 rhnVersionInfo                   :: lookup_functions
 

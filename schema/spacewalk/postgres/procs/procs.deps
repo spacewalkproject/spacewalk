@@ -17,7 +17,6 @@
 
 path = . tables views packages class types
 
-buildPackageSenseMap            :: rhnPackageSenseMap
 create_first_org                :: rhnUserGroupType rhnUserGroup
 create_new_org                  :: web_customer rhnUserGroupType rhnUserGroup
 create_new_user                 :: web_contact web_user_contact_permission \
@@ -60,15 +59,12 @@ delete_server                   :: rhn_channel.pks rhn_config.pks \
                                    rhnServerEntitlementView
 delete_server_bulk              :: delete_server
 does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
-entitlement_run_me              :: rhn_ep rhnDaemonState
-entitle_order                   :: rhn_ep
 is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
                                    rhnUserGroupMembers
 lookup_arch_type                :: data/rhnArchType rhn_exception.pks
 lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
                                    data/rhnChannelArch
 lookup_client_capability        :: rhnClientCapabilityName
-lookup_config_file_info         :: rhnConfigFileInfo
 lookup_cf_state                 :: rhnConfigFileState
 lookup_cve                      :: rhnCVE
 lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
@@ -104,18 +100,13 @@ lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
                                    lookup_evr lookup_package_arch \
                                    rhnTransactionPackage rhn_exception.pks
 lookup_virt_sub_level           :: rhnVirtSubLevel                                
-name_join                       :: user_group_name_t
 new_user_postop                 :: web_contact rhnUserGroupType rhnUserGroup \
                                    rhnUserGroupMembers
-prune_user_group                :: rhnUserGroupMembers rhn_user
 pxt_session_cleanup             :: PXTSessions
 queue_errata                    :: rhnSNPErrataQueue
 queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
                                    rhnServerNeededPackageView rhnServer \
                                    rhnServerNeededErrataCache rhnServerNeededView
-rhn_cache_delete                :: rhnCacheTimestamps rhnCache
-rhn_cache_set                   :: rhnCacheKey rhnCache rhnCacheTimestamps
-rhn_cache_update_accessed       :: rhnCacheKey rhnCache rhnCacheTimestamps
 
 rhn_install_org_satellites      :: rhn_command_queue_instances rhn_ll_netsaint \
                                    rhn_sat_cluster web_customer \

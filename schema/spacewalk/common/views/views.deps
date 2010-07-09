@@ -60,16 +60,13 @@ rhnOrgPackageOverview            :: rhnPackageName rhnPackageEVR rhnPackageArch 
 rhnPaidOrgs                      :: rhnDemoOrgs rhnServerGroup
 rhnPrivateErrataMail             :: rhnServerPackage \
                                     rhnWebContactDisabled
-rhnServerEntitledView            :: rhnServerGroupType rhnServerGroup \
-                                    rhnServerGroupMembers
-rhnServerErrataTypeView          :: rhnErrata rhnServerNeededPackageCache
+rhnServerErrataTypeView          :: rhnErrata rhnServerNeededErrataCache
 rhnServerFeaturesView            :: rhnFeature rhnServerGroupTypeFeature \
                                     rhnServerGroupMembers rhnServerGroup 
 rhnServerGroupMembership         :: rhnServerGroupType rhnServerGroupMembers \
                                     rhnServerGroup
 rhnServerGroupOVLiteHelper       :: rhnServerNeededPackageCache rhnErrata \
                                     rhnServerGroupMembers
-rhnServerErrataTypeView          :: rhnServerNeededErrataCache
 rhnServerOutdatedPackages        :: rhnServerNeededPackageCache rhnErrata \
                                     rhnPackageName rhnPackageEVR rhnPackage
 rhnStorageDevice                 :: rhnDevice
